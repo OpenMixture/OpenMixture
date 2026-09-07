@@ -427,6 +427,8 @@ cargo xtask check
 
 ## PR-007 — `feat(nodes): execute the six-node graph MVP through wgpu`
 
+**仓库状态：** 已实现穷尽 kernel／WGSL 映射、固定／图共享执行器、渲染器持有的四管线缓存、图 CLI render、带编码及来源的请求通道 PNG、六组定向夹具和三个可读示例。着色器／节点／计划／工作区检查以及完整 Metal／SwiftShader 冒烟在本地通过，原像素基准未修改。远端 CI 仍待运行。见[图渲染与证据](./docs/graph-rendering.zh-CN.md)。
+
 ### 目标
 
 将每个初始 `KernelInvocation` 映射到唯一 WGSL 实现，渲染真实 `.mix` 图，从而完成 M2。

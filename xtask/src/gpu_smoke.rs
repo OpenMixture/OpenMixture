@@ -1,17 +1,11 @@
 //! Explicit real-GPU compute/readback checks; ordinary check/test never run them.
 
-use crate::{TaskResult, cargo};
+use crate::{TaskResult, cargo, run_cargo};
 use serde_json::{Value, json};
 use std::{env, fs, io::Cursor, path::Path};
 
 pub(super) fn run(root: &Path) -> TaskResult {
-    let backend = env::var("MIXTURE_GPU_BACKEND").unwrap_or_else(|_| "auto".into());
-    let software = env::var("MIXTURE_GPU_SOFTWARE").unwrap_or_else(|_| "0".into());
-    if !matches!(backend.as_str(), "auto" | "vulkan" | "metal" | "dx12")
-        || !matches!(software.as_str(), "0" | "1")
-    {
-        return Err("Invalid smoke policy: MIXTURE_GPU_BACKEND=auto|vulkan|metal|dx12, MIXTURE_GPU_SOFTWARE=0|1".into());
-    }
+    let (backend, software) = policy()?;
     let expected = env::var("MIXTURE_GPU_EXPECT_ADAPTER").ok();
     let directory = root.join("tmp/gpu-smoke");
     fs::create_dir_all(&directory)?;
@@ -105,6 +99,58 @@ pub(super) fn run(root: &Path) -> TaskResult {
                 .into(),
         );
     }
+    // Exercise the public .mix -> compile -> wgpu -> PNG path for each M2 example.
+    for (name, passes) in [("checker", 3), ("levels", 4), ("blend", 6)] {
+        let input = format!("examples/{name}.mix");
+        let output = format!("tmp/gpu-smoke/graph-{name}");
+        let report = command_report(
+            root,
+            &[
+                "render",
+                &input,
+                "--size",
+                "64",
+                "--output",
+                "baseColor,normal,roughness",
+                "--out",
+                &output,
+                "--json",
+            ],
+            &backend,
+            &software,
+            &directory,
+            &format!("graph-{name}"),
+        )?;
+        validate_adapter(
+            &report["context"],
+            &backend,
+            software == "1",
+            expected.as_deref(),
+        )?;
+        if report["ok"] != true
+            || report["execution"]["passCount"] != passes
+            || report["planHash"] != report["execution"]["planHash"]
+            || !report["planHash"]
+                .as_str()
+                .is_some_and(|s| s.starts_with("sha256:") && s.len() == 71)
+            || report["outputs"]
+                .as_array()
+                .is_none_or(|outputs| outputs.len() != 3)
+        {
+            return Err(format!("graph {name} did not report complete plan execution").into());
+        }
+        if name == "checker" {
+            let mut reader = png::Decoder::new(Cursor::new(fs::read(
+                root.join(&output).join("baseColor.png"),
+            )?))
+            .read_info()?;
+            let mut pixels = vec![0; reader.output_buffer_size().ok_or("invalid graph PNG")?];
+            reader.next_frame(&mut pixels)?;
+            if pixels != golden {
+                return Err("graph checker differs from the existing golden".into());
+            }
+        }
+    }
     let tests = cargo(root)
         .args([
             "test",
@@ -118,6 +164,7 @@ pub(super) fn run(root: &Path) -> TaskResult {
             "--ignored",
             "--nocapture",
         ])
+        .env("MIXTURE_NODE_EVIDENCE_DIR", directory.join("nodes"))
         .output()?;
     fs::write(directory.join("gpu-tests.stdout.log"), &tests.stdout)?;
     fs::write(directory.join("gpu-tests.stderr.log"), &tests.stderr)?;
@@ -125,11 +172,75 @@ pub(super) fn run(root: &Path) -> TaskResult {
         return Err(format!("GPU tests failed; inspect {}", directory.display()).into());
     }
     println!(
-        "GPU checker smoke passed: {} ({}, {}); doctor healthy; golden exact. Evidence: {}",
+        "GPU checker and graph smoke passed: {} ({}, {}); doctor healthy; golden exact. Evidence: {}",
         doctor["adapter"]["name"],
         doctor["adapter"]["deviceType"],
         doctor["adapter"]["backend"],
         directory.display()
+    );
+    Ok(())
+}
+
+fn policy() -> TaskResult<(String, String)> {
+    let backend = env::var("MIXTURE_GPU_BACKEND").unwrap_or_else(|_| "auto".into());
+    let software = env::var("MIXTURE_GPU_SOFTWARE").unwrap_or_else(|_| "0".into());
+    if !matches!(backend.as_str(), "auto" | "vulkan" | "metal" | "dx12")
+        || !matches!(software.as_str(), "0" | "1")
+    {
+        return Err("Invalid smoke policy: MIXTURE_GPU_BACKEND=auto|vulkan|metal|dx12, MIXTURE_GPU_SOFTWARE=0|1".into());
+    }
+    Ok((backend, software))
+}
+
+pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
+    if !matches!(
+        node,
+        "constant-scalar" | "constant-color" | "checker" | "levels" | "blend" | "material-output"
+    ) {
+        return Err(format!("unknown M2 node test: {node}").into());
+    }
+    let (backend, software) = policy()?;
+    run_cargo(
+        root,
+        &[
+            "test",
+            "--locked",
+            "--all-features",
+            "-p",
+            "mixture-wgpu",
+            "--test",
+            "nodes",
+            "node_fixtures_validate_defaults_boundaries_invalid_values_without_gpu",
+        ],
+        false,
+    )?;
+    let filter = format!("node_{}_gpu", node.replace('-', "_"));
+    let directory = root.join("tmp/node-tests").join(&backend);
+    let status = cargo(root)
+        .args([
+            "test",
+            "--locked",
+            "--all-features",
+            "-p",
+            "mixture-wgpu",
+            "--test",
+            "nodes",
+            &filter,
+            "--",
+            "--exact",
+            "--ignored",
+            "--nocapture",
+        ])
+        .env("MIXTURE_GPU_BACKEND", &backend)
+        .env("MIXTURE_GPU_SOFTWARE", &software)
+        .env("MIXTURE_NODE_EVIDENCE_DIR", &directory)
+        .status()?;
+    if !status.success() {
+        return Err(format!("{node} GPU test failed ({status})").into());
+    }
+    println!(
+        "Node {node} passed; evidence: {}",
+        directory.join(format!("{node}.json")).display()
     );
     Ok(())
 }

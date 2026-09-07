@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "checker",
+      "type": "checker",
+      "version": 1,
+      "parameters": {
+        "cellsX": 16,
+        "cellsY": 8
+      }
+    },
+    {
+      "id": "tint",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.2,
+          0.4,
+          0.8,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "mask",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "levels",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "gamma": 2.0
+      }
+    },
+    {
+      "id": "blend",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "multiply",
+        "opacity": 0.75
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "mask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "levels",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "levels",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "tint",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "blend",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "mask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "frequency",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
+    },
+    {
+      "id": "contrast",
+      "nodeId": "levels",
+      "parameterId": "gamma"
+    },
+    {
+      "id": "strength",
+      "nodeId": "blend",
+      "parameterId": "opacity"
+    }
+  ]
+}

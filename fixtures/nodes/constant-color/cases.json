@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "node": "constant-color",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "baseColor"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "baseColor",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "lower-bound",
+      "overrides": {
+        "value": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "baseColor"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "baseColor",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "linear-rgba",
+      "overrides": {
+        "value": [
+          0.25,
+          0.5,
+          0.75,
+          0.25
+        ]
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "baseColor"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "baseColor",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            137,
+            188,
+            225,
+            64
+          ],
+          "tolerance": 1
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "value": [
+          1,
+          0,
+          0
+        ]
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "value": [
+          1,
+          0,
+          0,
+          2
+        ]
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "value": "red"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

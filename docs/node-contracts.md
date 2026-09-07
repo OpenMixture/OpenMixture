@@ -2,13 +2,13 @@
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
-PR-005 registers six static contracts in [mixture-core](../crates/mixture-core/src/registry.rs). These define `.mix` source validation and defaults before PR-007 graph execution. Only the separate PR-004 fixed checker probe currently executes pixels. No new shader, CPU pixel implementation, `KernelId`, or renderer is introduced by these contracts.
+PR-005 registers six static contracts in [mixture-core](../crates/mixture-core/src/registry.rs). PR-006 lowers them into typed plans; PR-007 [executes all six](./graph-rendering.md) through the sole `wgpu` path. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader. No source node types or CPU pixel renderer were added.
 
 ## Common rules
 
 All six node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. No node requires a seed because none is randomized.
 
-Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; future execution must explicitly lower them to the GPU representation. Parameter validation does not execute pixels or convert color spaces.
+Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
 Coordinates use a top-left origin. Pointwise constant, levels, and blend operations introduce no coordinate transform. Their tiling depends on their inputs; constant outputs are seamless. Detailed GPU precision and golden evidence for graph execution belong to PR-007.
 
@@ -45,7 +45,7 @@ Defines the same linear RGBA color at every pixel.
 
 For output pixel `(x, y)`, cell indices are `floor(x * cellsX / width)` and `floor(y * cellsY / height)`. Even summed parity selects `colorA`; odd parity selects `colorB`. Uneven dimensions produce uneven cell widths, and small images can undersample cells. Even cell counts preserve alternating continuity when repeated across that axis; odd counts are permitted but repeat adjacent same-color boundary cells. No filtering or randomness is implied.
 
-Defaults match the [PR-004 fixed checker](./builtin-checker.md). The graph contract permits colors and frequencies that the fixed probe command does not expose. PR-007 must extend the single existing WGSL path when graph execution is implemented.
+Defaults match the [PR-004 fixed checker](./builtin-checker.md). The graph contract permits colors and frequencies that the fixed probe command does not expose. PR-007 extends the single existing WGSL path to execute both fixed and graph checker invocations.
 
 ## levels
 
@@ -59,7 +59,7 @@ Defaults match the [PR-004 fixed checker](./builtin-checker.md). The graph contr
 | `outputMin` | Float `[0, 1]` | `0.0` |
 | `outputMax` | Float `[0, 1]` | `1.0` |
 
-`inputMin < inputMax` is required after resolving defaults. The declared operation is `t = clamp((in - inputMin) / (inputMax - inputMin), 0, 1)`, followed by `outputMin + pow(t, 1 / gamma) * (outputMax - outputMin)`. Reversed output bounds are allowed for inversion. Positive gamma and distinct input bounds prevent undefined divisions. This formula documents future shader semantics; Rust validates the parameters only.
+`inputMin < inputMax` is required after resolving defaults. The declared operation is `t = clamp((in - inputMin) / (inputMax - inputMin), 0, 1)`, followed by `outputMin + pow(t, 1 / gamma) * (outputMax - outputMin)`. Reversed output bounds are allowed for inversion. Positive gamma and distinct input bounds prevent undefined divisions. PR-007 implements this formula in WGSL; Rust validates/lowers parameters and converts readback encoding only.
 
 ## blend
 
@@ -87,7 +87,7 @@ Define `t = opacity * clamp(mask, 0, 1)`. RGB is a linear interpolation from `a.
 | `opacity` | Scalar | `1.0` |
 | `emissive` | Color | Linear opaque black `[0, 0, 0, 1]` |
 
-The encoded normal corresponds to tangent-space +Z; its future RGBA storage filler is separate from this logical XYZ value. M2 contains no `Normal` producer, so valid M2 documents use this default. A color output cannot masquerade as a normal. `ValidatedDocument::material_channels()` exposes the connected/default status without generating textures.
+The encoded normal corresponds to tangent-space +Z; its RGBA storage filler (alpha 1) is separate from this logical XYZ value. M2 contains no `Normal` producer, so valid M2 documents use this default. A color output cannot masquerade as a normal. `ValidatedDocument::material_channels()` exposes the connected/default status without generating textures.
 
 ## Fixtures and checks
 
@@ -99,6 +99,6 @@ cargo test --locked -p mixture-core --test validation
 cargo xtask test-format
 ```
 
-These tests validate contracts without a GPU. The existing fixed checker golden is unchanged. A contract's presence is not evidence that its graph pixel executor or node-specific golden exists yet.
+These tests validate contracts without a GPU. The existing fixed checker golden is unchanged. PR-007 [node fixtures](../fixtures/nodes/README.md) and `test-node` now verify actual graph pixels; no additional pixel golden is claimed.
 
-PR-006 [typed lowering](./render-plan.md) maps these source contracts to Constant, Checker, Levels, and Blend invocations; material-output remains a mapping. Constants also materialize optional defaults. This adds no source node type or shader; exhaustive GPU mapping and pixel tests follow in PR-007.
+PR-006 [typed lowering](./render-plan.md) maps these source contracts to Constant, Checker, Levels, and Blend invocations; material-output remains a mapping. Constants also materialize optional defaults. This adds no source node type. PR-007 implements the exhaustive GPU mapping and pixel tests.

@@ -4,7 +4,7 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current milestone:** M0 — Clean Foundation.
 
-**Implementation status:** PR-001 through PR-006 are implemented. Strict `.mix` decoding/graph validation, six M2 contracts, and the CPU-only `validate` command pass local tests; see [format evidence](./docs/file-format.md). Prior Metal/SwiftShader checker evidence remains valid. M0/M1 stay open until clean-checkout non-GPU and Linux SwiftShader CI actually pass remotely. PR-006 [deterministic RenderPlan compilation and inspection](./docs/render-plan.md) passes local tests. PR-007 graph execution is next; M2 remains incomplete.
+**Implementation status:** PR-001 through PR-007 are implemented. The M2 six-node graph path, three readable examples, pipeline cache, and requested PNG outputs pass local Metal and pinned SwiftShader checks; see [graph execution evidence](./docs/graph-rendering.md). M0/M1 remote clean-checkout and Linux SwiftShader gates remain open until CI actually runs. Local M2 verification does not close those gates. PR-008 protected golden tooling and glazed ceramic acceptance is next.
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 

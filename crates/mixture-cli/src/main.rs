@@ -1,10 +1,13 @@
 //! Thin command dispatch and presentation for Mixture.
 
 mod commands {
+    mod compile_options;
     pub mod doctor;
     mod document_io;
     mod gpu_options;
     pub mod inspect;
+    mod png_output;
+    pub mod render;
     pub mod render_builtin;
     pub mod validate;
 }
@@ -19,13 +22,15 @@ Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
        mixture validate <file.mix> [--json]
        mixture inspect <file.mix> --plan [--json] [--size 64] [--output baseColor]
                        [--set publicId=<JSON>]
+       mixture render <file.mix> --out <directory> [--json] [--size 64]
+                      [--output baseColor,...] [--set publicId=<JSON>]
        mixture --help
        mixture --version
 
 Doctor verifies checker compute/readback; --skip-probe reports unverified.
 Use `mixture doctor --help` for options and exit codes.
 Strict .mix v1 validation and deterministic plan inspection need no GPU.
-Use `mixture inspect --help` for compile options. Graph pixel execution is future work.";
+Use `mixture inspect --help` for compile options. Use `mixture render --help` for graph rendering and adapter options.";
 
 fn main() -> ExitCode {
     let args: Vec<_> = env::args_os().skip(1).collect();
@@ -45,6 +50,7 @@ fn main() -> ExitCode {
         [command, rest @ ..] if command == OsStr::new("render-builtin") => {
             commands::render_builtin::run(rest)
         }
+        [command, rest @ ..] if command == OsStr::new("render") => commands::render::run(rest),
         [command, rest @ ..] if command == OsStr::new("inspect") => commands::inspect::run(rest),
         [command, rest @ ..] if command == OsStr::new("validate") => commands::validate::run(rest),
         _ => {

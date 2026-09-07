@@ -1,6 +1,6 @@
 [package]
 name = "mixture-wgpu"
-description = "Explicit headless GPU context and diagnostics for Mixture"
+description = "Typed RenderPlan execution and headless GPU diagnostics for Mixture"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

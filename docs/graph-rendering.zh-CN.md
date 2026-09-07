@@ -1,0 +1,117 @@
+# 六节点材质图渲染
+
+[English](./graph-rendering.md) | 简体中文
+
+PR-007 打通六个 M2 契约的本地 `.mix → validate → RenderPlan → wgpu → PNG` 路径。[Renderer](../crates/mixture-wgpu/src/executor.rs)只接受编译器生成的不可变计划，持有一个显式获取的上下文及小型管线缓存。GPU crate 不解析文档、不解析节点默认值、不解释参数覆盖。[CLI](../crates/mixture-cli/src/commands/render.rs)负责文件 I/O、参数、PNG 编码和报告。
+
+## 运行示例
+
+```bash
+cargo run --locked -p mixture-cli -- render examples/checker.mix --size 256 --out ./tmp/checker
+cargo run --locked -p mixture-cli -- render examples/levels.mix --size 256 \
+  --output baseColor,roughness --set 'gamma=2' --out ./tmp/levels --json
+cargo run --locked -p mixture-cli -- render examples/blend.mix --size 256 \
+  --output baseColor,roughness,normal --set 'frequency=16' --out ./tmp/blend --json
+cargo run --locked -p mixture-cli -- render examples/blend.mix \
+  --output roughness --out ./tmp/roughness --backend metal --json
+```
+
+[checker.mix](../examples/checker.mix)输出棋盘格底色。[levels.mix](../examples/levels.mix)将常量标量重映射为粗糙度，并提供白色底色。[blend.mix](../examples/blend.mix)连接全部六个契约：棋盘格与色调通过 levels 调整的蒙版相乘，标量同时输出粗糙度。这些示例用于展示执行能力，不是真实感黄金材质。
+
+`render <file.mix> --out <directory>` 默认使用 64×64 和仅 `baseColor`。`--size`、`--output` 及可重复的 `--set` 与 [inspect](./render-plan.zh-CN.md)共享语法和核心语义。覆盖必须使用暴露的公开 ID，在获取 GPU 前检查 JSON 类型及跨参数约束。`--backend`、`--power-preference` 和 `--software` 使用显式[上下文策略](./gpu-context.zh-CN.md)。省略 GPU 选项时不读取冒烟测试环境变量。适配器不可用／禁用时失败，不切换执行后端。
+
+请求文件按材质契约顺序精确命名为 `<channel>.png`。CLI 在渲染成功后创建目录，替换同名文件，保留其他文件。以 `-` 开头的路径可放在 `--` 后。源文件不被修改。输出按顺序写入，不是多文件事务：后续写入失败时，报告列出已完成的文件；失败写入可能留下部分文件。
+
+退出码 `0` 表示全部请求 PNG 写入完成。用法／源文档／编译请求无效返回 `2`；输入 I/O、GPU 获取、执行／回读、PNG 及输出／报告 I/O 失败返回 `1`。用法错误写入 stderr，语义和运行失败使用所选人类可读／JSON 报告模式。无效源文件／请求不初始化 GPU，也不创建输出目录。
+
+## 公共 Rust 使用方
+
+```rust
+use mixture_core::{CompileRequest, MaterialDocument, compile};
+use mixture_wgpu::{GpuContext, GpuContextOptions, Renderer};
+
+let request = CompileRequest::default();
+let source = MaterialDocument::decode(source_bytes, &request.limits)?
+    .into_validated(&request.limits)?;
+let plan = compile(&source, &request)?;
+let context = GpuContext::request(GpuContextOptions::default()).await?;
+let mut renderer = Renderer::new(context);
+let output = renderer.render(&plan).await?;
+assert_eq!(&output.report().plan_hash, plan.hash());
+for channel in output.channels() {
+    let rgba8: &[u8] = channel.pixels();
+}
+renderer.clear_pipeline_cache();
+```
+
+[crate 文档测试](../crates/mixture-wgpu/src/lib.rs)编译异步公共使用示例，[GPU 集成测试](../crates/mixture-wgpu/tests/nodes.rs)实际执行。`RenderOutput` 持有 CPU 缓冲区，渲染器／上下文释放后输出仍有效。每个 `RenderedChannel` 包含通道 ID、逻辑类型、尺寸、传递编码及从 `PlanOutput` 复制的连接端点或显式默认值。Alpha 为直通形式，不做预乘。
+
+## 唯一 kernel 路径
+
+[穷尽映射](../crates/mixture-wgpu/src/kernels.rs)将每个 `KernelId` 配对到唯一的 WGSL 入口。Uniform 上传使用显式小端值与填充，不需要 unsafe 转换或生成式着色器语言。
+
+| Kernel | WGSL 与绑定 | Uniform |
+| --- | --- | --- |
+| `constant` | [constant.wgsl](../crates/mixture-wgpu/shaders/nodes/constant.wgsl)；uniform 0，存储输出 1 | 打包 RGBA，16 字节 |
+| `checker` | [checker.wgsl](../crates/mixture-wgpu/shaders/nodes/checker.wgsl)；uniform 0，存储输出 1 | 单元数及两种颜色，48 字节 |
+| `levels` | [levels.wgsl](../crates/mixture-wgpu/shaders/nodes/levels.wgsl)；uniform 0，输出 1，标量输入 2 | 五个 f32 值及填充，32 字节 |
+| `blend` | [blend.wgsl](../crates/mixture-wgpu/shaders/nodes/blend.wgsl)；uniform 0，输出 1，a／b／mask 输入 2／3／4 | 模式码、不透明度及填充，16 字节 |
+
+常量同时服务标量／颜色节点及编译器生成的可选默认值。`material-output` 回读映射资源，不增加着色器。输入在相同像素坐标使用无过滤的 `textureLoad`，输出使用 `rgba16float` 存储。全部 kernel 使用 8×8 工作组，对不完整工作组进行边界检查。棋盘格尺寸来自输出纹理，频率／颜色来自类型化调用。不涉及随机值或种子。
+
+[节点契约公式](./node-contracts.zh-CN.md)保持不变。Levels 在除法／pow 前处理输入端点，保持钳制语义，并避免在上下限之间没有可表示半精度输入的极小区间中计算未定义结果。Blend 使用 `opacity × mask` 执行 normal／multiply／screen RGB 插值，并独立插值 alpha。没有 source-over 合成、隐式预乘或 CPU 图求值器。
+
+固定 `render-builtin checker` 和 `doctor` 探针现在调用与图渲染相同的分配／分发／回读引擎和棋盘格着色器。其 8×8 不透明黑白像素及基准不变。共享棋盘格 uniform 从 16 增至 48 字节，因此固定探针的逻辑分配估算与精确预算边界增加 32 字节（64×64 时为 65,584 字节）。PR-004 证据保留为历史记录。固定 API 使用调用内的临时管线缓存；持久缓存由 `Renderer` 持有。
+
+## 缓存、生命周期与失败
+
+一个渲染器最多保留四条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
+
+[每次调用的资源](../crates/mixture-wgpu/src/resources.rs)实现 [PR-006 生命周期模型](./render-plan.zh-CN.md)：全部 pass 纹理及含填充的 uniform 保留至执行和回读结束。每个请求通道使用一个 staging 缓冲区，在下一通道前完成映射、解包、解除映射与销毁。别名通道共享生产者纹理，但仍独立回读。成功或失败都会释放调用内的全部缓冲区／纹理。没有纹理池、最后使用者优化、pass 融合或磁盘缓存。
+
+分配前，执行器检查实际设备的纹理尺寸、最大缓冲区及工作组数量。图／请求安全上限已由编译器检查。GPU 着色器、管线、执行与回读使用配平的错误作用域和共享类型化诊断，保留原生错误来源。计划失败包含计划哈希，管线／分配失败在可用时标明 pass 和源节点。每次原生完成／映射等待限时 30 秒。耗时是 CPU 墙钟时间；峰值／累计字节是逻辑估算，不包含驱动／管线开销及 CPU／PNG 缓冲区。
+
+## 输出编码与精度
+
+源文档保留 f64，编译调用记录 f32，每个 pass 在 `rgba16float` 中存储 f16 分量。回读拒绝非有限或越界分量，去除 256 字节行填充。返回数据为紧密排列、左上角原点的 RGBA8。
+
+| 逻辑类型 | RGBA8 转换 | PNG 元数据 |
+| --- | --- | --- |
+| Color（`baseColor`、`emissive`） | 线性 RGB → sRGB；alpha 保持线性；乘 255 后舍入 | sRGB intent |
+| Scalar | 红分量复制到 RGB，alpha 不透明；乘 255 后舍入 | gAMA = 1.0，无 sRGB 块 |
+| Normal | 编码 XYZ 保留于 RGB，alpha 不透明；乘 255 后舍入 | gAMA = 1.0，无 sRGB 块 |
+
+回读传递函数在 `c ≤ 0.0031308` 时为 `12.92 × c`，否则为 `1.055 × c^(1/2.4) − 0.055`。这是输出编码，不是第二套材质执行器。仅 CLI 写入 PNG。法线 `[0.5, 0.5, 1]` 变为 `[128, 128, 255, 255]`；标量 `0.5` 变为 `[128, 128, 128, 255]`；线性颜色 `[0.25, 0.5, 0.75, 0.25]` 约为 `[137, 188, 225, 64]`。
+
+针对浮点像素的哨点在 f32／f16／传递函数舍入后最多允许一个 RGBA8 码值误差。端点／默认法线／别名用例按指定使用零容差。现有黑白棋盘格对全部 16,384 字节进行精确比较。这些检查不承诺不同 GPU 的浮点输出普遍逐字节相同。
+
+## 报告
+
+JSON schema 版本 1 包含 `input`、`outputDirectory`、`planHash`、`context`、`execution`、`outputs`、`ok` 和 `diagnostics`。Context 记录实际选择并保留仅获取状态的 `unverified`；成功的 `execution` 报告才是渲染证据。源／编译失败时上下文与执行为 null；GPU 失败保留已获取上下文，编码／写入失败保留完成的执行及输出条目。
+
+`execution` 包含实际适配器、计划哈希、尺寸、已执行 pass 数、管线缓存查找、分配估算、紧密原始回读字节、累计填充映射字节、返回 RGBA8 字节及分阶段耗时。`outputs` 只列出成功写入文件的通道／类型／来源／尺寸／编码／路径／字节数。相同语义请求的计划哈希与 `inspect` 一致，适配器名称、路径和耗时均不进入哈希。
+
+## 验证与证据
+
+```bash
+cargo xtask shader-check
+cargo xtask test-node constant-scalar
+cargo xtask test-node constant-color
+cargo xtask test-node checker
+cargo xtask test-node levels
+cargo xtask test-node blend
+cargo xtask test-node material-output
+cargo xtask gpu-smoke
+cargo xtask test-plan
+cargo xtask check
+```
+
+`shader-check` 无需 GPU 即可验证全部 WGSL 入口／工作组尺寸和 uniform 结构大小。`test-node` 先在无 GPU 环境验证[全部节点夹具](../fixtures/nodes/README.zh-CN.md)，包括无效覆盖／源文件，再精确运行指定节点的 GPU 用例。它使用与冒烟相同的 `MIXTURE_GPU_BACKEND`、`MIXTURE_GPU_SOFTWARE` 及可选预期适配器策略。报告位于 `tmp/node-tests/<backend>/<node>.json`。未知节点和无效策略在 Cargo／GPU 工作开始前失败。
+
+`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部六个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
+
+本地 [Apple M5／Metal](./evidence/pr-007-apple-m5.json) 和固定 [SwiftShader／Vulkan](./evidence/pr-007-swiftshader.json)通过验证。已查看三个 256×256 示例。固定棋盘格与受保护基准逐字节一致，未覆盖任何像素基准。没有变更依赖或锁文件版本。
+
+已查看的 256×256 预览：[棋盘格](./evidence/pr-007-checker.png)、[levels 粗糙度](./evidence/pr-007-levels.png)和 [blend 底色](./evidence/pr-007-blend.png)。它们是证据图，不是新增测试基准。
+
+[远端 GPU 任务](../.github/workflows/gpu-smoke.yml)现已覆盖图示例和全部节点，但远端 Linux／macOS／Windows 结果仍待运行。M2 已实现并经本地验证，不宣称关闭仍开放的远端里程碑验收。下一步 PR-008 为受保护基准工具与釉面陶瓷验收，不为这些测试示例添加真实感质量宣称。

@@ -20,6 +20,20 @@ impl GpuOperationError {
         self.1
     }
 
+    pub(crate) fn in_plan(mut self, plan: &mixture_core::RenderPlan) -> Self {
+        if let Some(mixture_core::EvidenceValue::Unsigned(index)) = self.0.evidence.get("passIndex")
+            && let Ok(index) = usize::try_from(*index)
+            && let Some(pass) = plan.passes().get(index)
+        {
+            let node = match &pass.origin {
+                mixture_core::plan::PassOrigin::Node { node }
+                | mixture_core::plan::PassOrigin::InputDefault { node, .. } => node,
+            };
+            self.0.node_id = Some(node.id.clone());
+        }
+        self.evidence("planHash", plan.hash().as_str())
+    }
+
     pub(crate) fn at(stage: Stage, message: &str) -> Self {
         let code = match stage {
             Stage::Validation => DiagnosticCode::ParameterInvalidValue,

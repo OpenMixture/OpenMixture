@@ -331,7 +331,7 @@ A built-in node contract defines:
 
 The initial implementation should use explicit Rust modules and static data. Avoid procedure macros until the first twelve nodes expose real, stable repetition.
 
-PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. PR-006 implements overrides and typed kernel lowering. Per the initial train, exhaustive graph WGSL execution mapping remains PR-007; the plan vocabulary alone does not claim complete pixel nodes.
+PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. PR-006 implements overrides and typed kernel lowering. PR-007 implements the exhaustive WGSL mapping and all six node pixel fixtures through the shared [graph executor](./docs/graph-rendering.md). The fixed checker and graph checker use one shader and dispatch path.
 
 ### 7.1 One pixel implementation
 
@@ -484,7 +484,7 @@ Do not implement a general allocator before a 2K golden-material trace establish
 
 Pipeline caching is keyed only by semantic GPU inputs such as kernel, shader version, texture format, and relevant device capabilities.
 
-Cache ownership belongs to `Renderer`, not global state. Caches must have explicit cleanup and bounded growth.
+Cache ownership belongs to `Renderer`, not global state. PR-007 retains at most four pipelines keyed by `KernelId`, with one fixed device/shader ABI/format/workgroup policy per renderer. Explicit cache clear and renderer drop release them; request dimensions and parameters do not expand the cache.
 
 ### 9.6 Adapter policy and fallback
 
@@ -507,6 +507,8 @@ A render result contains:
 - warnings that did not invalidate the result.
 
 PNG encoding initially belongs to the CLI or a small shared non-semantic helper. The core compiler does not know file names, ZIP layouts, Godot ORM packing, or browser download behavior.
+
+PR-007 execution follows the PR-006 naive allocation model without a resource pool. [Graph output encoding](./docs/graph-rendering.md) converts linear color RGB to sRGB, keeps alpha linear, exports scalar red as replicated grayscale, and keeps encoded normals linear. The CLI writes per-channel PNGs and reports provenance, actual adapter, plan hash, passes, estimates, and cache/timing evidence.
 
 ## 11. Determinism and numerical parity
 

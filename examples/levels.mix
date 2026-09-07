@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "scalar",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.25
+      }
+    },
+    {
+      "id": "levels",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "gamma": 2
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "scalar",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "levels",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "levels",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "input",
+      "nodeId": "scalar",
+      "parameterId": "value"
+    },
+    {
+      "id": "inputMin",
+      "nodeId": "levels",
+      "parameterId": "inputMin"
+    },
+    {
+      "id": "inputMax",
+      "nodeId": "levels",
+      "parameterId": "inputMax"
+    },
+    {
+      "id": "gamma",
+      "nodeId": "levels",
+      "parameterId": "gamma"
+    },
+    {
+      "id": "outputMin",
+      "nodeId": "levels",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "outputMax",
+      "nodeId": "levels",
+      "parameterId": "outputMax"
+    }
+  ]
+}

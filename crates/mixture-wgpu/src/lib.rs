@@ -1,4 +1,4 @@
-//! Explicit headless GPU ownership, checker compute, and readback diagnostics.
+//! Explicit headless GPU ownership, typed graph execution, and readback diagnostics.
 //!
 //! Acquiring a context does not verify compute or readback. There is no global
 //! context, implicit initialization, or alternate pixel executor.
@@ -27,17 +27,35 @@
 //! }
 //! ```
 
+//! Execute a compiler-produced plan without parsing source in the GPU library:
+//!
+//! ```no_run
+//! use mixture_wgpu::{GpuContext, GpuContextOptions, RenderOutput, Renderer};
+//! async fn render(plan: &mixture_core::RenderPlan) -> Result<RenderOutput, Box<dyn std::error::Error>> {
+//!     let context = GpuContext::request(GpuContextOptions::default()).await?;
+//!     let mut renderer = Renderer::new(context);
+//!     let output = renderer.render(plan).await?;
+//!     assert_eq!(&output.report().plan_hash, plan.hash());
+//!     Ok(output)
+//! }
+//! ```
+
 pub mod checker;
 pub mod context;
 pub mod diagnostics;
+pub mod executor;
+mod kernels;
 mod operation;
 mod readback;
+mod resources;
 
 pub use checker::{CheckerOutput, CheckerRequest, ExecutionReport, ExecutionTimings};
 pub use context::{
     BackendPreference, GpuContext, GpuContextError, GpuContextOptions, PowerPreference,
 };
 pub use diagnostics::{AdapterDiagnostics, ContextReport, DeviceDiagnostics, DoctorVerdict};
+pub use executor::{OutputEncoding, RenderOutput, RenderReport, RenderedChannel, Renderer};
+pub use kernels::PipelineCacheReport;
 pub use operation::GpuOperationError;
 
 #[cfg(test)]

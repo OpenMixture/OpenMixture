@@ -17,6 +17,7 @@ The root documents are the active project contract:
 [Strict .mix v1 format](./file-format.md) defines PR-005 decoding, validation, CLI behavior, and source fixtures.
 [Six M2 node contracts](./node-contracts.md) define typed ports, parameters, defaults, and declared semantics before graph execution.
 [Deterministic RenderPlan](./render-plan.md) defines PR-006 requests, normalization, slicing, typed resources, estimates, hashes, and CLI inspection.
+[Six-node graph rendering](./graph-rendering.md) defines PR-007 execution, caching, readback/PNG encoding, examples, tests, and adapter evidence.
 [Architecture decisions](./decisions/README.md) record the four foundation decisions.
 
 The original [review bundle](../mixture-greenfield-docs/README.md) is retained unchanged as source material. Its planned commands are not a claim that later milestones are implemented. Root documentation is maintained with the code from this point onward; the bundle manifest applies only to the original bundle.

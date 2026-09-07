@@ -2,8 +2,15 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-The [PR-004 checker fixture](./checker/README.md) contains a reviewed GPU-generated PNG, raw RGBA golden, and pinned SwiftShader provenance. It is a fixed built-in probe, before the M2 node registry.
+PR-007 provides defaults, boundaries, nontrivial pixels, and invalid inputs for every M2 node:
 
-Each node will include defaults, boundaries, invalid parameters, a non-trivial case, and seed/tiling cases where relevant. A node is delivered with its Rust contract, one WGSL implementation, documentation, and targeted tests.
+- [constant-scalar](./constant-scalar/README.md)
+- [constant-color](./constant-color/README.md)
+- [checker](./checker/README.md)
+- [levels](./levels/README.md)
+- [blend](./blend/README.md)
+- [material-output](./material-output/README.md)
 
-See [the node workflow](../../AGENTS.md) and [initial PR sequence](../../INITIAL_PRS.md). `cargo xtask test-node <id>` becomes available with its implementing PR; it is not a passing placeholder today.
+Each directory has readable `.mix` input and a `cases.json` manifest. Fixed RGBA8 sample coordinates/values include their tolerance; invalid cases specify a stable diagnostic code. Public-contract validation runs without a GPU; `cargo xtask test-node <id>` explicitly runs the selected node's GPU cases. Smoke runs all of them and records actual adapter/plan evidence. None is randomized.
+
+The existing [checker PNG/raw golden](./checker/README.md) and SwiftShader provenance are unchanged. No test command overwrites pixel baselines. See [graph execution and evidence](../../docs/graph-rendering.md), [node workflow](../../AGENTS.md), and [implementation train](../../INITIAL_PRS.md).

@@ -2,7 +2,7 @@
 
 English | [简体中文](./file-format.zh-CN.md)
 
-PR-005 introduces the first executable `.mix` source schema. It is UTF-8 JSON with document version `1` and independently required node version `1`. No earlier executable format or migration exists. This adds decoding, six node contracts, graph validation, and a CLI validator; PR-006 [graph compilation](./render-plan.md) is now implemented; graph execution remains PR-007 work.
+PR-005 introduces the first executable `.mix` source schema. It is UTF-8 JSON with document version `1` and independently required node version `1`. No earlier executable format or migration exists. This adds decoding, six node contracts, graph validation, and a CLI validator; PR-006 [graph compilation](./render-plan.md) is now implemented; PR-007 [graph execution](./graph-rendering.md) is implemented.
 
 ## Use the validator
 

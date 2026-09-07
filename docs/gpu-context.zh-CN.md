@@ -71,7 +71,7 @@ cargo xtask check
 cargo xtask gpu-smoke
 ```
 
-`gpu-smoke` 显式启用真实 GPU 工作，使用 `--all-features` 使 macOS 软件 Vulkan 特性可用。它运行完整及跳过探针的 doctor，渲染／解码 PNG，将解码 RGBA 与已审查的 SwiftShader 基准比较，再执行默认忽略的库／CLI GPU 测试。报告、PNG、比较 JSON、stderr 和测试日志保存在已忽略的 `tmp/gpu-smoke/`。`check` 和普通工作区测试不初始化 GPU。冒烟失败会使任务失败，绝不更新基准。
+`gpu-smoke` 显式启用真实 GPU 工作，使用 `--all-features` 使 macOS 软件 Vulkan 特性可用。它运行完整及跳过探针的 doctor，渲染／解码 PNG，将解码 RGBA 与已审查的 SwiftShader 基准比较，渲染带计划哈希的三个图示例，再执行全部默认忽略的库／CLI GPU 测试，包括六组节点夹具。报告、PNG、比较 JSON、stderr 和测试日志保存在已忽略的 `tmp/gpu-smoke/`。`check` 和普通工作区测试不初始化 GPU。冒烟失败会使任务失败，绝不更新基准。
 
 只有冒烟工具读取 `MIXTURE_GPU_BACKEND`（`auto`、`vulkan`、`metal`、`dx12`，默认 `auto`）、`MIXTURE_GPU_SOFTWARE`（`0`／`1`，默认 `0`）及可选 `MIXTURE_GPU_EXPECT_ADAPTER`（区分大小写的名称子串）。生产 API／直接 CLI 调用使用显式选项，不使用这些测试变量。
 
@@ -99,3 +99,5 @@ DYLD_LIBRARY_PATH="$PWD/tmp/swiftshader/build" \
 ```
 
 macOS 准备步骤将 `libvulkan.dylib` 指向 SwiftShader 的直接 Vulkan API 库，不安装系统驱动。[PR-003 仅获取上下文的报告](./evidence/pr-003-apple-m5.json)作为历史证据保留。当前 [Metal](./evidence/pr-004-apple-m5.json) 和 [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) 完整探针已在本地通过，棋盘格像素相同。远端 Linux SwiftShader 和 Linux／macOS／Windows 非 GPU 矩阵仍待运行；配置文件不代表远端 CI 已完成。
+
+PR-007 将棋盘格执行与图渲染器共享，并添加全部节点／图证据，见[图渲染](./graph-rendering.zh-CN.md)。固定驱动及显式适配器策略不变。PR-004 历史报告保留旧的 16 字节棋盘格 uniform 估算，当前共享 ABI 使用 48 字节。

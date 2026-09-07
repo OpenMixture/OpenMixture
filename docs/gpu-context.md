@@ -71,7 +71,7 @@ cargo xtask check
 cargo xtask gpu-smoke
 ```
 
-`gpu-smoke` opts into real GPU work and uses `--all-features` to make the macOS software Vulkan feature available. It runs full and skipped doctor, renders/decodes a PNG, compares decoded RGBA with the reviewed SwiftShader golden, and executes ignored library/CLI GPU tests. It saves reports, PNG, comparison JSON, stderr, and test logs in ignored `tmp/gpu-smoke/`. Neither `check` nor ordinary workspace tests initialize a GPU. A smoke failure fails the task and never updates the golden.
+`gpu-smoke` opts into real GPU work and uses `--all-features` to make the macOS software Vulkan feature available. It runs full and skipped doctor, renders/decodes a PNG, compares decoded RGBA with the reviewed SwiftShader golden, renders three graph examples with plan hashes, and executes all ignored library/CLI GPU tests, including six node fixture families. It saves reports, PNG, comparison JSON, stderr, and test logs in ignored `tmp/gpu-smoke/`. Neither `check` nor ordinary workspace tests initialize a GPU. A smoke failure fails the task and never updates the golden.
 
 Only the smoke harness reads `MIXTURE_GPU_BACKEND` (`auto`, `vulkan`, `metal`, `dx12`; default `auto`), `MIXTURE_GPU_SOFTWARE` (`0`/`1`; default `0`), and optional `MIXTURE_GPU_EXPECT_ADAPTER` (case-sensitive name substring). Production APIs/direct CLI calls use explicit options, not these test variables.
 
@@ -99,3 +99,5 @@ DYLD_LIBRARY_PATH="$PWD/tmp/swiftshader/build" \
 ```
 
 The macOS setup provides `libvulkan.dylib` as an alias to SwiftShader's direct Vulkan API library; no system driver is installed. The [PR-003 acquisition-only report](./evidence/pr-003-apple-m5.json) is retained as historical evidence. Current [Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) full probes passed locally, with matching checker pixels. Remote Linux SwiftShader and the Linux/macOS/Windows non-GPU matrix remain pending; their configuration is not a claim of remote CI completion.
+
+PR-007 shares checker execution with the graph renderer and adds all-node/graph evidence; see [graph rendering](./graph-rendering.md). The pinned driver and explicit adapter policy are unchanged. Historical PR-004 reports retain their old 16-byte checker uniform estimate; the current shared ABI uses 48 bytes.

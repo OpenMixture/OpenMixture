@@ -2,13 +2,13 @@
 
 [English](./node-contracts.md) | 简体中文
 
-PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs) 注册六个静态契约，在 PR-007 图执行之前定义 `.mix` 源文件验证和默认值。当前只有独立的 PR-004 固定棋盘格探针执行像素。本次契约不引入新着色器、CPU 像素实现、`KernelId` 或渲染器。
+PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs)注册六个静态契约，PR-006 将其降级为类型化计划，PR-007 通过唯一 `wgpu` 路径[执行全部六个节点](./graph-rendering.zh-CN.md)。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。未添加源节点类型或 CPU 像素渲染器。
 
 ## 通用规则
 
 六个节点类型都要求 `version: 1`。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。没有随机节点，因此无需种子。
 
-浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，后续执行必须显式转换为 GPU 表示。参数验证不计算像素，也不转换颜色空间。
+浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
 坐标以左上角为原点。常量、levels 和 blend 均为逐点操作，不引入坐标变换；其平铺性质取决于输入，常量输出无缝。图执行的 GPU 精度细节与基准证据属于 PR-007。
 
@@ -45,7 +45,7 @@ PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs) 注册六个�
 
 输出像素 `(x, y)` 的格子索引为 `floor(x * cellsX / width)` 和 `floor(y * cellsY / height)`；两者之和为偶数时选取 `colorA`，为奇数时选取 `colorB`。非整齐尺寸会产生不同格宽，小图可能欠采样。某轴格数为偶数时，沿该轴重复可保持交替连续；允许奇数格，但重复时边界会出现相邻同色格。不隐含滤波或随机性。
 
-默认值与 [PR-004 固定棋盘格](./builtin-checker.zh-CN.md)一致。图契约允许固定探针命令未暴露的颜色和频率；PR-007 实现图执行时必须扩展现有的唯一 WGSL 路径。
+默认值与 [PR-004 固定棋盘格](./builtin-checker.zh-CN.md)一致。图契约允许固定探针命令未暴露的颜色和频率；PR-007 扩展现有的唯一 WGSL 路径，同时执行固定及图棋盘格调用。
 
 ## levels
 
@@ -59,7 +59,7 @@ PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs) 注册六个�
 | `outputMin` | 浮点 `[0, 1]` | `0.0` |
 | `outputMax` | 浮点 `[0, 1]` | `1.0` |
 
-解析默认值后必须满足 `inputMin < inputMax`。声明的运算为 `t = clamp((in - inputMin) / (inputMax - inputMin), 0, 1)`，再计算 `outputMin + pow(t, 1 / gamma) * (outputMax - outputMin)`。允许反转输出上下界以实现反相。正 gamma 和不同输入边界可避免未定义的除法。这是后续着色器的语义公式，Rust 仅验证参数。
+解析默认值后必须满足 `inputMin < inputMax`。声明的运算为 `t = clamp((in - inputMin) / (inputMax - inputMin), 0, 1)`，再计算 `outputMin + pow(t, 1 / gamma) * (outputMax - outputMin)`。允许反转输出上下界以实现反相。正 gamma 和不同输入边界可避免未定义的除法。PR-007 在 WGSL 中实现此公式；Rust 仅验证／降级参数及转换回读编码。
 
 ## blend
 
@@ -87,7 +87,7 @@ PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs) 注册六个�
 | `opacity` | Scalar | `1.0` |
 | `emissive` | Color | 线性不透明黑色 `[0, 0, 0, 1]` |
 
-该编码法线对应切线空间 +Z；后续 RGBA 存储的填充分量与此逻辑 XYZ 值分开定义。M2 没有 `Normal` 生成节点，因此有效 M2 文档使用该默认值。颜色输出不能充当法线。`ValidatedDocument::material_channels()` 提供连接／默认状态，不生成纹理。
+该编码法线对应切线空间 +Z；RGBA 存储的填充分量（alpha 为 1）与此逻辑 XYZ 值分开定义。M2 没有 `Normal` 生成节点，因此有效 M2 文档使用该默认值。颜色输出不能充当法线。`ValidatedDocument::material_channels()` 提供连接／默认状态，不生成纹理。
 
 ## 夹具与检查
 
@@ -99,6 +99,6 @@ cargo test --locked -p mixture-core --test validation
 cargo xtask test-format
 ```
 
-这些测试无需 GPU，仅验证契约。现有固定棋盘格像素基准保持原样。契约存在不代表其图像素执行器或节点专属基准已经实现。
+这些测试无需 GPU，仅验证契约。现有固定棋盘格像素基准保持原样。PR-007 [节点夹具](../fixtures/nodes/README.zh-CN.md)和 `test-node` 现已验证实际图像素，不宣称新增像素基准。
 
-PR-006 [类型化降级](./render-plan.zh-CN.md)将上述源契约映射为 Constant、Checker、Levels 和 Blend 调用；material-output 仍是映射。常量也用于实例化可选默认值。不添加源节点类型或着色器，穷尽 GPU 映射与像素测试在 PR-007 引入。
+PR-006 [类型化降级](./render-plan.zh-CN.md)将上述源契约映射为 Constant、Checker、Levels 和 Blend 调用；material-output 仍是映射。常量也用于实例化可选默认值。不添加源节点类型。PR-007 已实现穷尽 GPU 映射与像素测试。

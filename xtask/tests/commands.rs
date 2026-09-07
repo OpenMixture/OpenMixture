@@ -40,3 +40,19 @@ fn gpu_smoke_rejects_invalid_policy_before_starting_cargo_or_gpu() {
     assert!(!output.status.success());
     assert!(String::from_utf8_lossy(&output.stderr).contains("Invalid smoke policy"));
 }
+
+#[test]
+fn node_test_rejects_unknown_ids_and_invalid_adapter_policy() {
+    for (node, expected) in [
+        ("unknown", "unknown M2 node test"),
+        ("checker", "Invalid smoke policy"),
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
+            .args(["test-node", node])
+            .env("MIXTURE_GPU_BACKEND", "none")
+            .output()
+            .unwrap();
+        assert!(!output.status.success());
+        assert!(String::from_utf8_lossy(&output.stderr).contains(expected));
+    }
+}

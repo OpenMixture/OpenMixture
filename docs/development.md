@@ -4,8 +4,8 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-006 from [the implementation train](../INITIAL_PRS.md).
-It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [six node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. Graph pixel execution remains planned. All packages have publication disabled.
+This repository implements PR-001 through PR-007 from [the implementation train](../INITIAL_PRS.md).
+It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [six node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Six-node graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
 
@@ -35,6 +35,8 @@ cargo run --locked -p mixture-cli -- doctor --json
 cargo test --locked -p mixture-wgpu checker
 cargo test --locked -p mixture-wgpu readback
 cargo xtask shader-check
+cargo xtask test-node checker
+cargo run --locked -p mixture-cli -- render examples/checker.mix --size 256 --out ./tmp/checker
 cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png
 cargo xtask gpu-smoke
 ```
@@ -56,7 +58,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-006 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
+At PR-007 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -71,9 +73,9 @@ Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promote
 
 ## CLI behavior and later work
 
-The executable is named `mixture`. Help/version return `0`. `doctor` verifies actual checker compute/readback and returns `0` with `healthy`; explicit `--skip-probe` returns `unverified`. Acquisition/probe failures return `1` with `unhealthy`. `render-builtin checker` returns `0` after writing PNG, `1` for operational failure, or `2` for invalid dimensions/budgets. JSON mode writes one report to stdout; human mode includes the same policy and capability evidence. `validate` returns `0` for valid source, `2` for invalid input, and `1` for file/report I/O failure; it never initializes a GPU. `inspect --plan` returns `0` for compilation, `2` for invalid source/request, or `1` for file/report I/O failure; it also needs no GPU. Invalid options, missing commands, and unimplemented `render` return `2` on stderr. Output I/O failures return `1`. See [doctor usage](./gpu-context.md) and the [shared exit policy](./diagnostics.md).
+The executable is named `mixture`. Help/version return `0`. `doctor` verifies actual checker compute/readback and returns `0` with `healthy`; explicit `--skip-probe` returns `unverified`. Acquisition/probe failures return `1` with `unhealthy`. `render-builtin checker` returns `0` after writing PNG, `1` for operational failure, or `2` for invalid dimensions/budgets. JSON mode writes one report to stdout; human mode includes the same policy and capability evidence. `validate` returns `0` for valid source, `2` for invalid input, and `1` for file/report I/O failure; it never initializes a GPU. `inspect --plan` returns `0` for compilation, `2` for invalid source/request, or `1` for file/report I/O failure; it also needs no GPU. `render` compiles before GPU acquisition and returns `0` after all requested PNGs, `2` for invalid source/request, and `1` for GPU/encoding/I/O failure. Invalid options and missing commands return `2` on stderr. Output I/O failures return `1`. See [doctor usage](./gpu-context.md) and the [shared exit policy](./diagnostics.md).
 
-`test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. Node-pixel, material, and golden xtask commands are not implemented yet and return an error. Follow [INITIAL_PRS.md](../INITIAL_PRS.md) for their introduction order.
+`test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. `test-node <id>` validates fixtures and explicitly runs the selected GPU node cases. Material and golden xtask commands are not implemented yet and return an error. Follow [INITIAL_PRS.md](../INITIAL_PRS.md) for their introduction order.
 
 `gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
 
@@ -83,8 +85,8 @@ The executable is named `mixture`. Help/version return `0`. `doctor` verifies ac
 
 [Dedicated GPU CI](../.github/workflows/gpu-smoke.yml) builds a pinned SwiftShader Vulkan adapter and runs compute/readback, PNG/golden checks, and GPU regressions; its remote result remains pending. Local Metal and pinned SwiftShader Vulkan evidence is recorded in [the checker guide](./builtin-checker.md).
 
-Unimplemented runtime modules in the agent guide remain a future ownership map. Current compilation roots are [core](../crates/mixture-core/src/lib.rs), [wgpu](../crates/mixture-wgpu/src/lib.rs), [CLI](../crates/mixture-cli/src/main.rs), and [xtask](../xtask/src/main.rs). The checker has a real GPU-generated fixture; [format fixtures](../fixtures/format/README.md) and [checker.mix](../examples/checker.mix) now exercise source validation. Material rendering examples remain future work.
+Unimplemented runtime modules in the agent guide remain a future ownership map. Current compilation roots are [core](../crates/mixture-core/src/lib.rs), [wgpu](../crates/mixture-wgpu/src/lib.rs), [CLI](../crates/mixture-cli/src/main.rs), and [xtask](../xtask/src/main.rs). The checker has a real GPU-generated fixture; [format fixtures](../fixtures/format/README.md) and [checker.mix](../examples/checker.mix) now exercise source validation. All three [M2 examples](../examples/README.md) now render requested channels.
 
 Implemented core modules are [document decoding](../crates/mixture-core/src/document.rs), [validation](../crates/mixture-core/src/validation.rs), [registry](../crates/mixture-core/src/registry.rs), [node contracts](../crates/mixture-core/src/nodes/), [diagnostics](../crates/mixture-core/src/error.rs), and [limits](../crates/mixture-core/src/limits.rs). The [Rust diagnostics example](../crates/mixture-core/examples/diagnostics.rs) and crate doctests exercise public APIs.
 
-PR-006 adds [the compiler](../crates/mixture-core/src/compiler.rs), [normalization and lowering](../crates/mixture-core/src/compiler/), [typed plan API](../crates/mixture-core/src/plan.rs), and [CLI inspect](../crates/mixture-cli/src/commands/inspect.rs). Plan snapshots live beside core tests; graph rendering remains PR-007.
+PR-006 adds [the compiler](../crates/mixture-core/src/compiler.rs), [normalization and lowering](../crates/mixture-core/src/compiler/), [typed plan API](../crates/mixture-core/src/plan.rs), and [CLI inspect](../crates/mixture-cli/src/commands/inspect.rs). Plan snapshots live beside core tests; PR-007 [graph rendering](./graph-rendering.md) adds the executor, resources, kernel mapping/cache, and CLI render without new dependencies.

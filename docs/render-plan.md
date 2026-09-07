@@ -2,7 +2,7 @@
 
 English | [简体中文](./render-plan.zh-CN.md)
 
-PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. Graph pixel execution and exhaustive WGSL dispatch mapping belong to PR-007. The existing fixed checker probe is unchanged.
+PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. PR-007 [graph execution](./graph-rendering.md) implements the exhaustive WGSL mapping. The fixed checker pixels remain unchanged; its shared 48-byte uniform is documented there.
 
 ## Run and inspect
 
@@ -100,4 +100,4 @@ Whitespace, source key/node/edge/public-binding order, requested-channel order, 
 
 The four new snapshots are checker/baseColor, checker/all defaults, all-M2/baseColor+roughness, and all-M2/roughness only. SHA-256 values were independently reproduced with Python hashlib from the compact bodies. For all-M2, baseColor+roughness has 5 passes; roughness only has one `mask` constant pass. Existing GPU pixel goldens were not changed.
 
-Local focused and workspace checks pass on the pinned toolchain. Remote cross-platform CI remains pending; this work does not close M0/M1/M2. Next is PR-007: execute these typed invocations through the sole `wgpu` graph renderer and add the six-node pixel verification path.
+Local focused and workspace checks pass on the pinned toolchain. Remote cross-platform CI remains pending; this work does not close M0/M1/M2. PR-007 now [executes these typed invocations](./graph-rendering.md) through the sole `wgpu` graph renderer, with all six node pixel fixtures. PR-008 material acceptance is next.

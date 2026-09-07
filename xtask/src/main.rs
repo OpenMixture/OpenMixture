@@ -23,13 +23,14 @@ Available repository commands:
   test-core   Run only mixture-core tests (no GPU)
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
-  gpu-smoke   Run real checker compute/readback, compare golden, and save evidence
-  shader-check Validate the checker WGSL without a GPU
+  test-node <id> Validate focused fixtures and run that node on an explicit GPU
+  gpu-smoke   Run checker golden, three graph examples, and all GPU regressions
+  shader-check Validate every M2 WGSL kernel and its uniform ABI without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
-Graph execution, material, and golden commands arrive in later milestones.";
+Material acceptance and golden commands arrive in later milestones.";
 
 fn main() -> ExitCode {
     match run() {
@@ -43,6 +44,14 @@ fn main() -> ExitCode {
 
 fn run() -> TaskResult {
     let args: Vec<_> = env::args_os().skip(1).collect();
+    if let [command, node] = args.as_slice()
+        && command == "test-node"
+    {
+        return gpu_smoke::run_node(
+            &workspace_root()?,
+            node.to_str().ok_or("node ID must be UTF-8")?,
+        );
+    }
     let command = match args.as_slice() {
         [] => "--help",
         [argument] => argument.to_str().ok_or("command must be valid UTF-8")?,
@@ -192,7 +201,7 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
                 "--locked",
                 "-p",
                 "mixture-wgpu",
-                "checker_shader_validates_without_a_gpu",
+                "shader_validates_without_a_gpu",
             ],
             false,
         ),

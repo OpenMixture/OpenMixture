@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-006: strict `.mix v1` decoding/graph validation, six node contracts, shared diagnostics, explicit GPU context, verified `doctor`, and fixed checker compute/readback with PNG output. Local checks pass; prior Metal/SwiftShader checker evidence is retained. Deterministic plan compilation and `inspect --plan` are implemented; graph pixel execution is next; remote CI evidence remains pending.
+**Implemented:** PR-001 through PR-007: strict `.mix v1`, deterministic RenderPlan compilation/inspection, six-node `wgpu` graph execution, explicit GPU diagnostics, and requested-channel PNG output. Three examples, focused node tests, and checker goldens pass locally on Metal and pinned SwiftShader. Remote CI evidence remains pending. Next is protected golden tooling and material acceptance (PR-008).
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -77,9 +77,9 @@ The following are intentionally outside the initial roadmap:
 
 These may be reconsidered only after a real consumer demonstrates that the simpler system is insufficient.
 
-## Planned command surface
+## Command surface
 
-`check`, `validate`, `inspect --plan`, `doctor`, and `render-builtin checker` are implemented. Graph rendering remains the target interface for PR-007. See [plan compilation and inspection](./docs/render-plan.md).
+`check`, `validate`, `inspect --plan`, `render`, `doctor`, and `render-builtin checker` are implemented. See [plan inspection](./docs/render-plan.md) and [graph rendering](./docs/graph-rendering.md) for options, channel encoding, and reports.
 
 ```bash
 # Repository verification
@@ -94,7 +94,7 @@ cargo run -p mixture-cli -- validate examples/checker.mix --json
 cargo run -p mixture-cli -- inspect examples/checker.mix --plan --json
 
 # Headless rendering
-cargo run -p mixture-cli -- render examples/wood.mix \
+cargo run -p mixture-cli -- render examples/blend.mix \
   --size 512 \
   --output baseColor,normal,roughness,height \
   --out ./out

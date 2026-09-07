@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "node": "constant-scalar",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "upper-bound",
+      "overrides": {
+        "value": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "half",
+      "overrides": {
+        "value": 0.5
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "value": -1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "value": 1.01
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "value": "0.5"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

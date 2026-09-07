@@ -1,0 +1,190 @@
+//! Exhaustive plan-kernel ABI and renderer-owned pipeline cache.
+use crate::operation::{GpuOperationError, checked};
+use mixture_core::{
+    Stage,
+    plan::{BlendMode, KernelId, KernelInvocation},
+};
+use serde::Serialize;
+
+pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
+    match id {
+        KernelId::Constant => (include_str!("../shaders/nodes/constant.wgsl"), "constant"),
+        KernelId::Checker => (include_str!("../shaders/nodes/checker.wgsl"), "checker"),
+        KernelId::Levels => (include_str!("../shaders/nodes/levels.wgsl"), "levels"),
+        KernelId::Blend => (include_str!("../shaders/nodes/blend.wgsl"), "blend"),
+    }
+}
+
+pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
+    let floats = |values: &[f32]| {
+        values
+            .iter()
+            .flat_map(|v| v.to_le_bytes())
+            .collect::<Vec<_>>()
+    };
+    match invocation {
+        KernelInvocation::Constant { value } => floats(value),
+        KernelInvocation::Checker {
+            cells,
+            color_a,
+            color_b,
+        } => {
+            let mut bytes: Vec<_> = [cells[0], cells[1], 0, 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(color_a));
+            bytes.extend(floats(color_b));
+            bytes
+        }
+        KernelInvocation::Levels {
+            input_min,
+            input_max,
+            gamma,
+            output_min,
+            output_max,
+            ..
+        } => floats(&[
+            *input_min,
+            *input_max,
+            *gamma,
+            *output_min,
+            *output_max,
+            0.,
+            0.,
+            0.,
+        ]),
+        KernelInvocation::Blend { mode, opacity, .. } => {
+            let mode: u32 = match mode {
+                BlendMode::Normal => 0,
+                BlendMode::Multiply => 1,
+                BlendMode::Screen => 2,
+            };
+            [mode.to_le_bytes(), opacity.to_le_bytes(), [0; 4], [0; 4]].concat()
+        }
+    }
+}
+
+/// Pipeline lookups for one render call. The cache has at most four entries.
+#[derive(Clone, Debug, Default, Serialize)]
+pub struct PipelineCacheReport {
+    /// Passes whose kernel was already cached, including earlier passes this call.
+    pub hits: u32,
+    /// Newly created kernel pipelines during this call.
+    pub misses: u32,
+    /// Resident pipelines after this call; fixed shader ABI/format/device per renderer.
+    pub entries: usize,
+}
+#[derive(Default)]
+pub(crate) struct PipelineCache(Vec<(KernelId, wgpu::ComputePipeline)>);
+impl PipelineCache {
+    pub fn clear(&mut self) {
+        self.0.clear();
+    }
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+    pub async fn get(
+        &mut self,
+        device: &wgpu::Device,
+        id: KernelId,
+        report: &mut PipelineCacheReport,
+    ) -> Result<wgpu::ComputePipeline, GpuOperationError> {
+        if let Some((_, pipeline)) = self.0.iter().find(|(key, _)| *key == id) {
+            report.hits += 1;
+            return Ok(pipeline.clone());
+        }
+        let (source, entry) = shader(id);
+        let pipeline = create_pipeline(device, source, entry).await?;
+        self.0.push((id, pipeline.clone()));
+        report.misses += 1;
+        report.entries = self.len();
+        Ok(pipeline)
+    }
+}
+pub(crate) async fn create_pipeline(
+    device: &wgpu::Device,
+    source: &str,
+    entry: &str,
+) -> Result<wgpu::ComputePipeline, GpuOperationError> {
+    let module = checked(
+        device,
+        Stage::GpuShader,
+        "Compute shader validation failed.",
+        || {
+            device.create_shader_module(wgpu::ShaderModuleDescriptor {
+                label: Some(entry),
+                source: wgpu::ShaderSource::Wgsl(source.into()),
+            })
+        },
+    )
+    .await?;
+    checked(
+        device,
+        Stage::GpuPipeline,
+        "Compute pipeline creation failed.",
+        || {
+            device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
+                label: Some(entry),
+                layout: None,
+                module: &module,
+                entry_point: Some(entry),
+                compilation_options: Default::default(),
+                cache: None,
+            })
+        },
+    )
+    .await
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn graph_shader_validates_without_a_gpu_and_matches_uniform_abi() {
+        for (id, size) in [
+            (KernelId::Constant, 16),
+            (KernelId::Checker, 48),
+            (KernelId::Levels, 32),
+            (KernelId::Blend, 16),
+        ] {
+            let (source, entry) = shader(id);
+            let module = naga::front::wgsl::parse_str(source).unwrap();
+            naga::valid::Validator::new(
+                naga::valid::ValidationFlags::all(),
+                naga::valid::Capabilities::empty(),
+            )
+            .validate(&module)
+            .unwrap();
+            assert_eq!(module.entry_points.len(), 1);
+            assert_eq!(module.entry_points[0].name, entry);
+            assert_eq!(module.entry_points[0].workgroup_size, [8, 8, 1]);
+            let uniform = module
+                .global_variables
+                .iter()
+                .find(|(_, v)| v.space == naga::AddressSpace::Uniform)
+                .unwrap()
+                .1;
+            assert!(
+                matches!(module.types[uniform.ty].inner,naga::TypeInner::Struct {span,..} if span==size)
+            );
+        }
+    }
+    #[test]
+    fn typed_parameter_uploads_match_shader_offsets_and_plan_estimates() {
+        let kernel = KernelInvocation::Checker {
+            cells: [3, 17],
+            color_a: [0., 0.25, 0.5, 1.],
+            color_b: [1., 0.5, 0.25, 0.],
+        };
+        let bytes = parameters(&kernel);
+        assert_eq!(bytes.len() as u64, kernel.uniform_bytes());
+        assert_eq!(
+            &bytes[..8],
+            &[3u32.to_le_bytes(), 17u32.to_le_bytes()].concat()
+        );
+        assert_eq!(&bytes[8..16], &[0; 8]);
+        assert_eq!(&bytes[20..24], &0.25f32.to_le_bytes());
+        assert_eq!(&bytes[32..36], &1f32.to_le_bytes());
+    }
+}

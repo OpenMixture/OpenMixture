@@ -1,8 +1,7 @@
 //! Thin CPU-only plan compilation and presentation using the public core API.
-use mixture_core::{CompileRequest, DiagnosticReport, RenderPlan, compile, plan::PassOrigin};
+use mixture_core::{DiagnosticReport, RenderPlan, compile, plan::PassOrigin};
 use serde::Serialize;
 use std::{
-    collections::BTreeMap,
     ffi::OsString,
     io::{self, Write},
     path::PathBuf,
@@ -25,9 +24,7 @@ Use -- before a path starting with '-'. --plan is required.";
 struct Options {
     path: PathBuf,
     json: bool,
-    size: [u32; 2],
-    outputs: Option<String>,
-    overrides: BTreeMap<String, serde_json::Value>,
+    compile: super::compile_options::CompileOptions,
 }
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -49,28 +46,16 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
             return ExitCode::from(2);
         }
     };
-    let mut request = CompileRequest {
-        size: options.size,
-        overrides: options.overrides,
-        ..Default::default()
-    };
-    let channels = options.outputs.map(|s| {
-        s.split(',')
-            .map(str::parse::<mixture_core::OutputChannel>)
-            .collect::<Result<Vec<_>, _>>()
-    });
-    let result = match channels.transpose() {
-        Err(error) => Err((error.report().diagnostics().to_vec(), 2)),
-        Ok(channels) => {
-            if let Some(channels) = channels {
-                request.outputs = channels;
-            }
+    let result = options
+        .compile
+        .request()
+        .map_err(|error| (error.report().diagnostics().to_vec(), 2))
+        .and_then(|request| {
             super::document_io::load(&options.path, &request.limits).and_then(|document| {
                 compile(&document, &request)
                     .map_err(|error| (error.report().diagnostics().to_vec(), 2))
             })
-        }
-    };
+        });
     let (plan, diagnostics, exit) = match result {
         Ok(plan) => (Some(plan), Vec::new(), 0),
         Err((diagnostics, exit)) => (None, diagnostics, exit),
@@ -98,8 +83,8 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
     ExitCode::from(exit)
 }
 fn parse(arguments: &[OsString]) -> Result<Options, String> {
-    let (mut path, mut plan, mut json, mut size, mut outputs) = (None, false, false, None, None);
-    let mut overrides = BTreeMap::new();
+    let (mut path, mut plan, mut json) = (None, false, false);
+    let mut compile = super::compile_options::CompileOptions::default();
     let mut options = true;
     let mut args = arguments.iter();
     while let Some(arg) = args.next() {
@@ -107,29 +92,7 @@ fn parse(arguments: &[OsString]) -> Result<Options, String> {
             Some("--") => options = false,
             Some("--plan") if !plan => plan = true,
             Some("--json") if !json => json = true,
-            Some("--size" | "--output" | "--set") => {
-                let name = arg.to_string_lossy();
-                let value = args
-                    .next()
-                    .and_then(|v| v.to_str())
-                    .ok_or_else(|| format!("Missing UTF-8 value for {name}."))?;
-                match name.as_ref() {
-                    "--size" if size.is_none() => size = Some(parse_size(value)?),
-                    "--output" if outputs.is_none() => outputs = Some(value.to_owned()),
-                    "--set" => {
-                        let (id, json) = value
-                            .split_once('=')
-                            .filter(|(id, _)| !id.is_empty())
-                            .ok_or("Expected --set publicId=JSON.")?;
-                        let parsed = serde_json::from_str(json)
-                            .map_err(|e| format!("Invalid JSON override for {id}: {e}"))?;
-                        if overrides.insert(id.to_owned(), parsed).is_some() {
-                            return Err(format!("Duplicate override ID: {id}."));
-                        }
-                    }
-                    _ => return Err(format!("Duplicate {name} option.")),
-                }
-            }
+            Some(option) if compile.parse_option(option, &mut args)? => {}
             Some(option) if option.starts_with('-') => {
                 return Err(format!("Unknown or duplicate inspect option: {option}"));
             }
@@ -143,19 +106,8 @@ fn parse(arguments: &[OsString]) -> Result<Options, String> {
     Ok(Options {
         path: path.ok_or("Missing input path.")?,
         json,
-        size: size.unwrap_or([64, 64]),
-        outputs,
-        overrides,
+        compile,
     })
-}
-fn parse_size(value: &str) -> Result<[u32; 2], String> {
-    let (w, h) = value.split_once('x').unwrap_or((value, value));
-    let number = |s: &str| {
-        s.parse::<u32>().map_err(|_| {
-            "Expected --size pixels or widthxheight using unsigned 32-bit integers.".to_owned()
-        })
-    };
-    Ok([number(w)?, number(h)?])
 }
 fn human(out: &mut impl Write, report: &Report) -> io::Result<()> {
     if let Some(plan) = &report.plan {

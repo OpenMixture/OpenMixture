@@ -1,7 +1,10 @@
 //! Built-in checker orchestration, PNG encoding, file I/O, and presentation.
 
-use mixture_core::{Diagnostic, DiagnosticCode, DiagnosticReport, SafetyLimits, Stage};
-use mixture_wgpu::{CheckerRequest, ContextReport, ExecutionReport, GpuContext, GpuContextOptions};
+use super::png_output::{encode_png, encoding_error};
+use mixture_core::{Diagnostic, DiagnosticReport, SafetyLimits, Stage};
+use mixture_wgpu::{
+    CheckerRequest, ContextReport, ExecutionReport, GpuContext, GpuContextOptions, OutputEncoding,
+};
 use serde::Serialize;
 use std::{
     collections::BTreeSet,
@@ -103,7 +106,12 @@ fn execute(args: &Arguments, report: &mut Report) -> Result<(), Box<Diagnostic>>
     let output = pollster::block_on(context.render_checker(args.request, &limits))
         .map_err(|error| error.diagnostic().clone())?;
     report.execution = Some(output.report().clone());
-    let png = encode_png(args.request.width, args.request.height, output.pixels())?;
+    let png = encode_png(
+        args.request.width,
+        args.request.height,
+        output.pixels(),
+        OutputEncoding::Srgb,
+    )?;
     std::fs::write(&args.output, &png)
         .map_err(|error| encoding_error("Could not write the PNG output file.", error))?;
     report.written_bytes = Some(png.len() as u64);
@@ -162,36 +170,6 @@ fn parse(arguments: &[OsString]) -> Result<Arguments, String> {
     })
 }
 
-fn encoding_error(
-    message: &str,
-    error: impl std::error::Error + Send + Sync + 'static,
-) -> Diagnostic {
-    Diagnostic::error(DiagnosticCode::EncodingFailed, Stage::Encoding, message)
-        .with_evidence("sourceMessage", error.to_string())
-        .with_source(error)
-        .with_suggestion(
-            "Check the output path, parent directory, permissions, and available disk space.",
-        )
-}
-
-fn encode_png(width: u32, height: u32, pixels: &[u8]) -> Result<Vec<u8>, Box<Diagnostic>> {
-    let mut bytes = Vec::new();
-    let mut encoder = png::Encoder::new(&mut bytes, width, height);
-    encoder.set_color(png::ColorType::Rgba);
-    encoder.set_depth(png::BitDepth::Eight);
-    encoder.set_source_srgb(png::SrgbRenderingIntent::Perceptual);
-    let mut writer = encoder
-        .write_header()
-        .map_err(|error| encoding_error("Could not encode PNG header.", error))?;
-    writer
-        .write_image_data(pixels)
-        .map_err(|error| encoding_error("Could not encode PNG pixels.", error))?;
-    writer
-        .finish()
-        .map_err(|error| encoding_error("Could not finish PNG encoding.", error))?;
-    Ok(bytes)
-}
-
 fn write_human(out: &mut impl Write, report: &Report) -> io::Result<()> {
     if let Some(bytes) = report.written_bytes {
         writeln!(
@@ -242,7 +220,7 @@ mod tests {
     #[test]
     fn checker_png_encoding_preserves_dimensions_channels_and_srgb() {
         let pixels = [0, 0, 0, 255, 255, 255, 255, 255];
-        let encoded = encode_png(2, 1, &pixels).unwrap();
+        let encoded = encode_png(2, 1, &pixels, OutputEncoding::Srgb).unwrap();
         let mut decoder = png::Decoder::new(std::io::Cursor::new(encoded))
             .read_info()
             .unwrap();
@@ -252,8 +230,8 @@ mod tests {
         assert_eq!((info.width, info.height), (2, 1));
         assert_eq!(info.color_type, png::ColorType::Rgba);
         assert_eq!(decoded, pixels);
-        let failure = encode_png(2, 1, &pixels[..4]).unwrap_err();
-        assert_eq!(failure.code, DiagnosticCode::EncodingFailed);
+        let failure = encode_png(2, 1, &pixels[..4], OutputEncoding::Srgb).unwrap_err();
+        assert_eq!(failure.code, mixture_core::DiagnosticCode::EncodingFailed);
         assert!(std::error::Error::source(&failure).is_some());
     }
 }

@@ -1,7 +1,7 @@
 //! Checked rgba16float row layout, mapping, and conversion to tight RGBA8.
 
 use crate::operation::{GpuOperationError, checked};
-use mixture_core::Stage;
+use mixture_core::{Stage, registry::PortKind};
 use std::{sync::mpsc, time::Duration};
 
 #[derive(Clone, Copy, Debug)]
@@ -49,16 +49,17 @@ impl ReadbackLayout {
     }
 }
 
-pub(crate) async fn read_rgba8(
+pub(crate) async fn read_pixels(
     device: &wgpu::Device,
     buffer: &wgpu::Buffer,
     layout: ReadbackLayout,
+    kind: PortKind,
 ) -> Result<Vec<u8>, GpuOperationError> {
     let (sender, receiver) = mpsc::channel();
     checked(
         device,
         Stage::Readback,
-        "Could not map the checker readback buffer.",
+        "Could not map the texture readback buffer.",
         || {
             buffer
                 .slice(..)
@@ -76,7 +77,7 @@ pub(crate) async fn read_rgba8(
         buffer.unmap();
         return Err(GpuOperationError::source_error(
             Stage::Readback,
-            "Timed out while mapping checker pixels.",
+            "Timed out while mapping texture pixels.",
             source,
         ));
     }
@@ -100,10 +101,10 @@ pub(crate) async fn read_rgba8(
     }
     // Drop the view before unmapping, including on invalid samples or layout.
     let result = match buffer.slice(..).get_mapped_range() {
-        Ok(view) => rgba16float_to_rgba8(&view, layout),
+        Ok(view) => rgba16float_to_rgba8(&view, layout, kind),
         Err(source) => Err(GpuOperationError::source_error(
             Stage::Readback,
-            "Could not access mapped checker pixels.",
+            "Could not access mapped texture pixels.",
             source,
         )),
     };
@@ -114,6 +115,7 @@ pub(crate) async fn read_rgba8(
 fn rgba16float_to_rgba8(
     bytes: &[u8],
     layout: ReadbackLayout,
+    kind: PortKind,
 ) -> Result<Vec<u8>, GpuOperationError> {
     if bytes.len() as u64 != layout.buffer_bytes {
         return Err(GpuOperationError::at(
@@ -134,21 +136,42 @@ fn rgba16float_to_rgba8(
             )
         })?;
     for row in bytes.chunks_exact(layout.padded_row_bytes as usize) {
-        for pair in row[..layout.row_bytes as usize].as_chunks::<2>().0 {
-            let value = half::f16::from_bits(u16::from_le_bytes([pair[0], pair[1]])).to_f32();
-            if !value.is_finite() || !(0.0..=1.0).contains(&value) {
-                return Err(GpuOperationError::at(
-                    Stage::Readback,
-                    "Checker readback contains a non-finite or out-of-range component.",
-                )
-                .evidence("component", output.len() as u64)
-                .evidence("value", value.to_string()));
+        for pixel in row[..layout.row_bytes as usize].as_chunks::<8>().0 {
+            let mut values = [0.0; 4];
+            for (component, pair) in pixel.as_chunks::<2>().0.iter().enumerate() {
+                let value = half::f16::from_bits(u16::from_le_bytes(*pair)).to_f32();
+                if !value.is_finite() || !(0.0..=1.0).contains(&value) {
+                    return Err(GpuOperationError::at(
+                        Stage::Readback,
+                        "Texture readback contains a non-finite or out-of-range component.",
+                    )
+                    .evidence("component", (output.len() + component) as u64)
+                    .evidence("value", value.to_string()));
+                }
+                values[component] = value;
             }
-            // Checker RGB endpoints are identical in linear and sRGB encoding.
-            output.push((value * 255.0).round() as u8);
+            match kind {
+                PortKind::Color => {
+                    for value in &mut values[..3] {
+                        *value = linear_to_srgb(*value);
+                    }
+                }
+                PortKind::Scalar => values = [values[0], values[0], values[0], 1.0],
+                PortKind::Normal => {}
+            }
+            output.extend(values.map(|v| (v * 255.0).round() as u8));
         }
     }
     Ok(output)
+}
+
+// Transfer encoding at the readback boundary, never material computation.
+fn linear_to_srgb(value: f32) -> f32 {
+    if value <= 0.0031308 {
+        value * 12.92
+    } else {
+        1.055 * value.powf(1.0 / 2.4) - 0.055
+    }
 }
 
 #[cfg(test)]
@@ -184,13 +207,13 @@ mod tests {
             }
         }
         assert_eq!(
-            rgba16float_to_rgba8(&bytes, layout).unwrap(),
+            rgba16float_to_rgba8(&bytes, layout, PortKind::Normal).unwrap(),
             [0, 128, 255, 255, 255, 64, 0, 255]
         );
-        assert!(rgba16float_to_rgba8(&bytes[..511], layout).is_err());
+        assert!(rgba16float_to_rgba8(&bytes[..511], layout, PortKind::Normal).is_err());
         for invalid in [f32::NAN, f32::INFINITY, -0.5, 2.0] {
             bytes[..2].copy_from_slice(&half::f16::from_f32(invalid).to_bits().to_le_bytes());
-            let error = rgba16float_to_rgba8(&bytes, layout).unwrap_err();
+            let error = rgba16float_to_rgba8(&bytes, layout, PortKind::Normal).unwrap_err();
             assert_eq!(
                 error.diagnostic().code,
                 mixture_core::DiagnosticCode::ReadbackFailed
@@ -214,10 +237,11 @@ mod gpu_tests {
             usage: wgpu::BufferUsages::COPY_DST,
             mapped_at_creation: false,
         });
-        let error = pollster::block_on(read_rgba8(
+        let error = pollster::block_on(read_pixels(
             context.device(),
             &buffer,
             ReadbackLayout::new(1, 1).unwrap(),
+            PortKind::Color,
         ))
         .unwrap_err();
         assert_eq!(error.diagnostic().stage, Stage::Readback);

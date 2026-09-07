@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "checker",
+      "type": "checker",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "cellsX",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
+    },
+    {
+      "id": "cellsY",
+      "nodeId": "checker",
+      "parameterId": "cellsY"
+    },
+    {
+      "id": "colorA",
+      "nodeId": "checker",
+      "parameterId": "colorA"
+    },
+    {
+      "id": "colorB",
+      "nodeId": "checker",
+      "parameterId": "colorB"
+    }
+  ]
+}

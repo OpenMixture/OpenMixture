@@ -427,6 +427,8 @@ cargo xtask check
 
 ## PR-007 — `feat(nodes): execute the six-node graph MVP through wgpu`
 
+**Repository status:** Implemented: exhaustive kernel/WGSL mapping, shared fixed/graph executor, renderer-owned four-pipeline cache, graph CLI render, encoded requested-channel PNGs and provenance, six focused fixture families, and three readable examples. Shader/node/plan/workspace checks and full Metal/SwiftShader smoke pass locally; original pixel goldens are unchanged. Remote CI remains pending. See [graph rendering and evidence](./docs/graph-rendering.md).
+
 ### Goal
 
 Complete M2 by mapping every initial `KernelInvocation` to one WGSL implementation and rendering real `.mix` graphs.

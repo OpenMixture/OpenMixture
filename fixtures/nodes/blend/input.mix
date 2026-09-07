@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.25,
+          0.5,
+          0.75,
+          0.25
+        ]
+      }
+    },
+    {
+      "id": "b",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.5,
+          0.25,
+          0,
+          0.75
+        ]
+      }
+    },
+    {
+      "id": "mask",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 1
+      }
+    },
+    {
+      "id": "blend",
+      "type": "blend",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "a",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "b",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "mask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "blend",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "blend",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "mode",
+      "nodeId": "blend",
+      "parameterId": "mode"
+    },
+    {
+      "id": "opacity",
+      "nodeId": "blend",
+      "parameterId": "opacity"
+    },
+    {
+      "id": "mask",
+      "nodeId": "mask",
+      "parameterId": "value"
+    }
+  ]
+}
