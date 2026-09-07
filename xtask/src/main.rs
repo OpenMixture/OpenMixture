@@ -14,14 +14,14 @@ type TaskResult<T = ()> = Result<T, Box<dyn Error>>;
 
 const HELP: &str = "Usage: cargo xtask <command>
 
-Commands available in M0:
+Available repository commands:
   check       Format, dependency policy, Clippy, tests, rustdoc, and local doc links
   fmt         Check Rust formatting
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
   doc         Build workspace rustdoc, denying warnings
-  deps        Check the M0 dependency and publication policy
+  deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
 Shader, graph, material, golden, and GPU commands arrive in later milestones.";
@@ -50,7 +50,7 @@ fn run() -> TaskResult {
             for task in ["fmt", "deps", "clippy", "test", "doc", "links"] {
                 run_task(&root, task)?;
             }
-            println!("All M0 repository checks passed.");
+            println!("All repository checks passed.");
         }
         "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" => {
             run_task(&root, command)?;

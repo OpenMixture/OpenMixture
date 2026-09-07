@@ -4,7 +4,7 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current milestone:** M0 — Clean Foundation.
 
-**Implementation status:** PR-001 foundation is present. Run `cargo xtask check` for local evidence; keep M0 open until the Linux, macOS, and Windows non-GPU CI matrix has passed from a clean checkout. M1 runtime work has not started.
+**Implementation status:** PR-001 foundation and the PR-002 shared diagnostics/safety-limit prerequisite are present. Run `cargo xtask check` for local evidence; keep M0 open until the Linux, macOS, and Windows non-GPU CI matrix has passed from a clean checkout. GPU context and execution work have not started. PR-003 is the next implementation step.
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 

@@ -1,0 +1,9 @@
+{
+  "decodedBytes": 2097152,
+  "nodes": 128,
+  "edges": 512,
+  "exposedParameters": 64,
+  "outputDimension": 2048,
+  "requestedOutputs": 8,
+  "transientBytes": 536870912
+}

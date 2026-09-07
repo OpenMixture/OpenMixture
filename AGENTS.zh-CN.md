@@ -50,7 +50,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 速查
 
-M0 当前已实现的命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`doc`、`deps` 和 `links` 目前可用。下面其余命令是目标接口，不得声称已经实现。
+当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`doc`、`deps` 和 `links` 目前可用。下面其余命令是目标接口，不得声称已经实现。
 
 仓库计划提供以下命令：
 
@@ -79,7 +79,7 @@ cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
 
 ## 仓库职责地图
 
-以下是计划中的运行时模块职责地图。M0 仅包含 crate 根模块与仓库工具；各模块由对应实施 PR 引入，不创建空的运行时桩。现有根模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
+以下是计划中的运行时模块职责地图。PR-002 已在基础工程上添加 `mixture-core/src/error.rs` 和 `mixture-core/src/limits.rs`。其余模块由对应实施 PR 引入，不创建空的运行时桩。现有模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
 
 ```text
 crates/mixture-core/
@@ -89,6 +89,7 @@ crates/mixture-core/
   src/compiler.rs       document -> RenderPlan
   src/plan.rs           backend-neutral execution plan
   src/error.rs          stable diagnostic codes and structured errors
+  src/limits.rs         explicit safety limits and measured limit failures
   src/nodes/            one small module per built-in node contract
 
 crates/mixture-wgpu/

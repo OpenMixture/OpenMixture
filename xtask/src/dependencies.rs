@@ -7,7 +7,7 @@ use serde_json::Value;
 use crate::{TaskResult, cargo};
 
 const POLICY: &[(&str, &[&str])] = &[
-    ("mixture-core", &[]),
+    ("mixture-core", &["serde", "serde_json"]),
     ("mixture-wgpu", &["mixture-core"]),
     ("mixture-cli", &["mixture-core", "mixture-wgpu"]),
     ("xtask", &["pulldown-cmark", "serde_json"]),
@@ -25,7 +25,7 @@ pub(super) fn check(root: &Path) -> TaskResult {
         .into());
     }
     validate(&serde_json::from_slice(&output.stdout)?)?;
-    println!("M0 dependency policy passed (four private crates, no GPU dependencies).");
+    println!("Dependency policy passed (four private crates, no GPU dependencies).");
     Ok(())
 }
 
@@ -48,7 +48,7 @@ fn validate(metadata: &Value) -> TaskResult {
     }
     if actual.len() != POLICY.len() || members.len() != POLICY.len() {
         return Err(
-            "M0 requires exactly mixture-core, mixture-wgpu, mixture-cli, and xtask".into(),
+            "The initial workspace requires exactly mixture-core, mixture-wgpu, mixture-cli, and xtask".into(),
         );
     }
     for (name, allowed) in POLICY {
@@ -56,7 +56,10 @@ fn validate(metadata: &Value) -> TaskResult {
             .get(name)
             .ok_or_else(|| format!("missing workspace crate: {name}"))?;
         if !package["publish"].as_array().is_some_and(Vec::is_empty) {
-            return Err(format!("{name}: publication must remain disabled during M0").into());
+            return Err(format!(
+                "{name}: publication must remain disabled during the initial implementation train"
+            )
+            .into());
         }
         if package["license"].as_str() != Some("MIT OR Apache-2.0") {
             return Err(format!("{name}: expected MIT OR Apache-2.0 license").into());
@@ -71,7 +74,16 @@ fn validate(metadata: &Value) -> TaskResult {
                 .as_str()
                 .ok_or("dependency has no name")?;
             if !allowed.contains(&dependency_name) {
-                return Err(format!("{name} -> {dependency_name} violates the M0 dependency policy; see docs/development.md").into());
+                return Err(format!("{name} -> {dependency_name} violates the dependency policy; see docs/development.md").into());
+            }
+            if *name == "mixture-core"
+                && dependency_name == "serde_json"
+                && dependency["kind"].as_str() != Some("dev")
+            {
+                return Err(
+                    "mixture-core -> serde_json is restricted to tests and examples in PR-002"
+                        .into(),
+                );
             }
             if dependency_name.starts_with("mixture-")
                 && (dependency["path"].as_str().is_none() || !dependency["source"].is_null())
@@ -100,6 +112,7 @@ mod tests {
             "license": "MIT OR Apache-2.0",
             "dependencies": allowed.iter().map(|dependency| json!({
                 "name": dependency,
+                "kind": if *name == "mixture-core" && *dependency == "serde_json" { Some("dev") } else { None },
                 "path": if dependency.starts_with("mixture-") { Some("../local") } else { None },
                 "source": if dependency.starts_with("mixture-") { None } else { Some("registry") },
             })).collect::<Vec<_>>()
@@ -149,6 +162,13 @@ mod tests {
         assert!(validate(&metadata).is_err());
         let mut metadata = baseline();
         metadata["packages"][1]["dependencies"][0]["source"] = json!("registry");
+        assert!(validate(&metadata).is_err());
+    }
+
+    #[test]
+    fn rejects_runtime_json_dependency_in_core() {
+        let mut metadata = baseline();
+        metadata["packages"][0]["dependencies"] = json!([{"name": "serde_json", "kind": null}]);
         assert!(validate(&metadata).is_err());
     }
 }

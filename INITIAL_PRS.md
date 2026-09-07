@@ -111,6 +111,8 @@ cargo xtask check
 
 ## PR-002 — `feat(core): define stable diagnostics and safety limits`
 
+**Repository status:** Implemented with public Rust APIs, JSON snapshots, deterministic reports, native source chains, and seven explicit upper bounds. See [the diagnostic contract](./docs/diagnostics.md). The M0 remote CI gate remains pending; no GPU or runtime CLI implementation is claimed.
+
 ### Goal
 
 Establish the structured error and limit vocabulary before parsing or GPU code begins returning ad hoc strings.

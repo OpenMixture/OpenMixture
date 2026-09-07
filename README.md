@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** M0 / PR-001 repository foundation. The CLI exposes help and version only; material parsing, GPU acquisition, and rendering are not implemented yet. The cross-platform milestone gate awaits CI evidence.
+**Implemented:** PR-001 repository foundation and PR-002 core diagnostics/safety limits. The CLI exposes help and version only; material parsing, GPU acquisition, and rendering are not implemented yet. The M0 cross-platform milestone gate awaits CI evidence.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -22,6 +22,8 @@ cargo run --locked -p mixture-cli -- --help
 ```
 
 The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
+
+The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
 
 ## Mission
 

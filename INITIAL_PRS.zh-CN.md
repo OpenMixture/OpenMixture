@@ -111,6 +111,8 @@ cargo xtask check
 
 ## PR-002 — `feat(core): define stable diagnostics and safety limits`
 
+**仓库状态：** 已实现公共 Rust API、JSON 快照、确定性报告、原生源错误链和七类显式上限。见[诊断契约](./docs/diagnostics.zh-CN.md)。M0 远端 CI 验收仍待完成；不宣称已经实现 GPU 或运行时 CLI 功能。
+
 ### 目标
 
 在解析或 GPU 代码开始返回临时拼凑的错误字符串之前，建立结构化错误和限制术语。

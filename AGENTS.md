@@ -50,7 +50,7 @@ Do not preserve accidental behavior solely because it exists in an old Mixture r
 
 ## Quick reference
 
-The commands currently implemented in M0 are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `doc`, `deps`, and `links` work today. Other commands below are the target interface and must not be presented as already implemented.
+The implemented repository commands are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `doc`, `deps`, and `links` work today. Other commands below are the target interface and must not be presented as already implemented.
 
 The intended repository commands are:
 
@@ -79,7 +79,7 @@ During the first implementation train, a command may not exist until the pull re
 
 ## Repository map
 
-The following is the planned runtime-module ownership map. M0 contains only crate roots and repository tooling; modules are introduced by their owning implementation PR, without empty runtime stubs. Existing roots and commands are linked from [the development guide](./docs/development.md).
+The following is the planned runtime-module ownership map. PR-002 has added `mixture-core/src/error.rs` and `mixture-core/src/limits.rs` to the foundation. Remaining modules are introduced by their owning implementation PR, without empty runtime stubs. Existing modules and commands are linked from [the development guide](./docs/development.md).
 
 ```text
 crates/mixture-core/
@@ -89,6 +89,7 @@ crates/mixture-core/
   src/compiler.rs       document -> RenderPlan
   src/plan.rs           backend-neutral execution plan
   src/error.rs          stable diagnostic codes and structured errors
+  src/limits.rs         explicit safety limits and measured limit failures
   src/nodes/            one small module per built-in node contract
 
 crates/mixture-wgpu/

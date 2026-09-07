@@ -260,7 +260,7 @@ v1 的 `material-output` 契约如下：
 | 请求材质输出数 | 8 |
 | 估算的临时 GPU 字节数 | 512 MiB |
 
-未来可以向调用方提供显式限制对象，但不得隐式提高限制。每次因超限而拒绝请求，都必须报告配置上限和实际观测值。
+PR-002 提供显式 `SafetyLimits` 对象，包含上述默认值和上限检查。不得隐式提高限制。每次因超限而拒绝请求，都报告配置上限和实际观测值。请求下限与文档验证仍由对应 PR 实现；见[安全限制契约](./docs/diagnostics.zh-CN.md)。
 
 v1 不支持内嵌资源，因此其预算为零。
 
@@ -545,21 +545,28 @@ Mixture 区分语义确定性和逐字节一致的浮点输出。
 
 对外可见的失败使用稳定的 Mixture 错误码。
 
+PR-002 在 `mixture-core` 中实现 `Diagnostic`、`DiagnosticReport` 和原生源错误链。报告对诊断进行确定性排序，并根据严重程度推导 `ok`。源错误对象仍可通过 `std::error::Error::source` 访问，不自动序列化。准确的 JSON 字段、排序、预留错误码和计划中的 CLI 退出码策略见[诊断契约](./docs/diagnostics.zh-CN.md)。
+
 示例：
 
 ```json
 {
   "ok": false,
-  "code": "MIX_PORT_TYPE_MISMATCH",
-  "stage": "validation",
-  "message": "Cannot connect a color output to a scalar input used as height.",
-  "nodeId": "normal",
-  "portId": "height",
-  "evidence": {
-    "sourceKind": "color",
-    "targetKind": "scalar"
-  },
-  "suggestion": "Connect a scalar output or add an explicit supported conversion node."
+  "diagnostics": [
+    {
+      "code": "MIX_PORT_TYPE_MISMATCH",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Cannot connect a color output to a scalar input used as height.",
+      "nodeId": "normal",
+      "portId": "height",
+      "evidence": {
+        "sourceKind": "color",
+        "targetKind": "scalar"
+      },
+      "suggestion": "Connect a scalar output or add an explicit supported conversion node."
+    }
+  ]
 }
 ```
 

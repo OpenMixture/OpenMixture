@@ -260,7 +260,7 @@ The initial implementation should enforce conservative defaults:
 | requested material outputs | 8 |
 | estimated transient GPU bytes | 512 MiB |
 
-Callers may receive a future explicit limits object, but limits must never be raised implicitly. Every rejected limit must report the configured limit and observed value.
+PR-002 provides an explicit `SafetyLimits` object with these defaults and upper-bound checks. Limits must never be raised implicitly. Every rejected limit reports the configured limit and observed value. Request lower bounds and document validation remain for their owning PRs; see [the safety-limit contract](./docs/diagnostics.md).
 
 Embedded resources are unsupported in v1, so their budget is zero.
 
@@ -545,21 +545,28 @@ Do not claim universal byte-identical GPU output.
 
 Externally visible failures use stable Mixture codes.
 
+PR-002 implements `Diagnostic`, `DiagnosticReport`, and native source chains in `mixture-core`. Reports sort diagnostics deterministically and derive `ok` from severity. Source objects remain available through `std::error::Error::source` and are not serialized automatically. The exact JSON fields, ordering, reserved codes, and planned CLI exit-code policy are documented in [the diagnostic contract](./docs/diagnostics.md).
+
 Example:
 
 ```json
 {
   "ok": false,
-  "code": "MIX_PORT_TYPE_MISMATCH",
-  "stage": "validation",
-  "message": "Cannot connect a color output to a scalar input used as height.",
-  "nodeId": "normal",
-  "portId": "height",
-  "evidence": {
-    "sourceKind": "color",
-    "targetKind": "scalar"
-  },
-  "suggestion": "Connect a scalar output or add an explicit supported conversion node."
+  "diagnostics": [
+    {
+      "code": "MIX_PORT_TYPE_MISMATCH",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Cannot connect a color output to a scalar input used as height.",
+      "nodeId": "normal",
+      "portId": "height",
+      "evidence": {
+        "sourceKind": "color",
+        "targetKind": "scalar"
+      },
+      "suggestion": "Connect a scalar output or add an explicit supported conversion node."
+    }
+  ]
 }
 ```
 

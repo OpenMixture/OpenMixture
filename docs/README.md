@@ -10,7 +10,8 @@ The root documents are the active project contract:
 - [Roadmap](../ROADMAP.md)
 - [Initial PR sequence](../INITIAL_PRS.md)
 
-[Development](./development.md) describes implemented M0 commands and verification limits.
+[Development](./development.md) describes implemented commands and verification limits.
+[Diagnostics and safety limits](./diagnostics.md) defines the PR-002 public API, JSON contract, and planned CLI exit-code policy.
 [Architecture decisions](./decisions/README.md) record the four foundation decisions.
 
 The original [review bundle](../mixture-greenfield-docs/README.md) is retained unchanged as source material. Its planned commands are not a claim that later milestones are implemented. Root documentation is maintained with the code from this point onward; the bundle manifest applies only to the original bundle.

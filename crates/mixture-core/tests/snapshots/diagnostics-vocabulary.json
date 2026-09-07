@@ -1,0 +1,44 @@
+{
+  "codes": [
+    "MIX_PARSE_INVALID_UTF8",
+    "MIX_PARSE_INVALID_JSON",
+    "MIX_FORMAT_UNSUPPORTED_VERSION",
+    "MIX_LIMIT_DECODED_BYTES_EXCEEDED",
+    "MIX_LIMIT_NODES_EXCEEDED",
+    "MIX_LIMIT_EDGES_EXCEEDED",
+    "MIX_LIMIT_EXPOSED_PARAMETERS_EXCEEDED",
+    "MIX_LIMIT_OUTPUT_DIMENSION_EXCEEDED",
+    "MIX_LIMIT_REQUESTED_OUTPUTS_EXCEEDED",
+    "MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED",
+    "MIX_NODE_UNKNOWN_TYPE",
+    "MIX_NODE_UNSUPPORTED_VERSION",
+    "MIX_PORT_UNKNOWN",
+    "MIX_PORT_TYPE_MISMATCH",
+    "MIX_GRAPH_CYCLE",
+    "MIX_PARAMETER_INVALID_VALUE",
+    "MIX_COMPILE_INVALID_REQUEST",
+    "MIX_GPU_ADAPTER_UNAVAILABLE",
+    "MIX_GPU_DEVICE_REQUEST_FAILED",
+    "MIX_GPU_SHADER_VALIDATION_FAILED",
+    "MIX_GPU_EXECUTION_FAILED",
+    "MIX_READBACK_FAILED",
+    "MIX_ENCODING_FAILED"
+  ],
+  "severities": [
+    "error",
+    "warning",
+    "info"
+  ],
+  "stages": [
+    "parse",
+    "validation",
+    "compile",
+    "gpuAdapter",
+    "gpuDevice",
+    "gpuShader",
+    "gpuPipeline",
+    "gpuExecution",
+    "readback",
+    "encoding"
+  ]
+}

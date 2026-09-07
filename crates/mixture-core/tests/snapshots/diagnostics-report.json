@@ -1,0 +1,30 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_PARSE_INVALID_JSON",
+      "stage": "parse",
+      "severity": "error",
+      "message": "Expected a JSON object.",
+      "evidence": {
+        "offset": 7,
+        "recoverable": false
+      }
+    },
+    {
+      "code": "MIX_PORT_TYPE_MISMATCH",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Cannot connect a color output to a scalar input used as height.",
+      "documentPath": "examples/sample.mix",
+      "nodeId": "normal",
+      "portId": "height",
+      "parameterId": "strength",
+      "evidence": {
+        "sourceKind": "color",
+        "targetKind": "scalar"
+      },
+      "suggestion": "Connect a scalar output or add an explicit supported conversion node."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "code": "MIX_LIMIT_NODES_EXCEEDED",
+  "stage": "validation",
+  "severity": "error",
+  "message": "nodes limit exceeded: configured 128, observed 129",
+  "evidence": {
+    "configured": 128,
+    "limit": "nodes",
+    "observed": 129
+  },
+  "suggestion": "Reduce the request to the configured limit; raise limits only through an explicit caller policy."
+}
