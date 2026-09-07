@@ -1,0 +1,25 @@
+## Goal
+
+Describe the concrete problem and resulting behavior.
+
+## Why now
+
+Identify the current milestone exit criterion or blocking defect.
+
+## Design
+
+Explain ownership, data flow, and relevant tradeoffs.
+
+## Evidence
+
+- Targeted verification:
+- `cargo xtask check`:
+- GPU adapter/backend and visual evidence, if applicable:
+
+## Risks
+
+Describe possible regressions and the checks covering them.
+
+## Out of scope
+
+List adjacent work intentionally left for later PRs.

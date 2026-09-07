@@ -1,0 +1,35 @@
+{
+  "bundle": "mixture-greenfield-docs",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 15087,
+      "sha256": "8462b615a573aee4adf98ff01c31d1c14883ab160add8da5b08fe310e20f89ff",
+      "lines": 368
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "bytes": 22043,
+      "sha256": "86647532f19219e34dd6f60c861f1d6a10939688f1413e570d00e3cd8b332b80",
+      "lines": 700
+    },
+    {
+      "path": "INITIAL_PRS.md",
+      "bytes": 19208,
+      "sha256": "9a7f433fddad97221132a74fce0736bfd3471d9bc1f77c7782506ea0e82c2b2f",
+      "lines": 697
+    },
+    {
+      "path": "README.md",
+      "bytes": 9143,
+      "sha256": "06af8e2571fd6b370e022ff89970bf70d37c2cd9a335550b2b47ae2066532ba6",
+      "lines": 229
+    },
+    {
+      "path": "ROADMAP.md",
+      "bytes": 11356,
+      "sha256": "924ca5ab5ba77954321e66b10ab9309929d9f5396ee1ee7ef18186bf0f19901f",
+      "lines": 371
+    }
+  ]
+}
