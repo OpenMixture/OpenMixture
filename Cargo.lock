@@ -1269,7 +1269,9 @@ version = "0.1.0"
 dependencies = [
  "png",
  "pulldown-cmark",
+ "serde",
  "serde_json",
+ "sha2",
 ]
 
 [[package]]

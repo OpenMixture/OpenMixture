@@ -114,4 +114,4 @@ cargo xtask check
 
 已查看的 256×256 预览：[棋盘格](./evidence/pr-007-checker.png)、[levels 粗糙度](./evidence/pr-007-levels.png)和 [blend 底色](./evidence/pr-007-blend.png)。它们是证据图，不是新增测试基准。
 
-[远端 GPU 任务](../.github/workflows/gpu-smoke.yml)现已覆盖图示例和全部节点，但远端 Linux／macOS／Windows 结果仍待运行。M2 已实现并经本地验证，不宣称关闭仍开放的远端里程碑验收。下一步 PR-008 为受保护基准工具与釉面陶瓷验收，不为这些测试示例添加真实感质量宣称。
+[远端 GPU 任务](../.github/workflows/gpu-smoke.yml)现已覆盖图示例和全部节点，但远端 Linux／macOS／Windows 结果仍待运行。M2 已实现并经本地验证，不宣称关闭仍开放的远端里程碑验收。PR-008 现已添加[受保护基准工具与釉面陶瓷机器验收](./material-goldens.zh-CN.md)，人工批准保持开放，不为这些 M2 示例添加真实感质量宣称。

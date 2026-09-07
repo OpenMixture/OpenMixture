@@ -487,6 +487,8 @@ cargo xtask gpu-smoke
 
 ## PR-008 — `test(materials): add protected golden tooling and glazed ceramic acceptance`
 
+**仓库状态：** 已实现受保护 `golden check`／独立受保护 `golden update`、`test-material`、验收 schema，以及 1K 釉面陶瓷默认／细格／哑光用例，没有新增节点。已保留机器证据与对照图。针对用户关于平面棋盘展示的反馈，现已补充受控 PBR 证据，将真实导出通道展示在球体和平面样板上。用户明确接受了观感对照，PR-008 本地实现及验收已完成。用户明确暂缓远端 CI，本项工作不关闭里程碑。见[材质基准](./docs/material-goldens.zh-CN.md)。
+
 ### 目标
 
 添加更复杂节点前，使视觉正确性可以被审查。

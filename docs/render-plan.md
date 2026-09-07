@@ -100,4 +100,4 @@ Whitespace, source key/node/edge/public-binding order, requested-channel order, 
 
 The four new snapshots are checker/baseColor, checker/all defaults, all-M2/baseColor+roughness, and all-M2/roughness only. SHA-256 values were independently reproduced with Python hashlib from the compact bodies. For all-M2, baseColor+roughness has 5 passes; roughness only has one `mask` constant pass. Existing GPU pixel goldens were not changed.
 
-Local focused and workspace checks pass on the pinned toolchain. Remote cross-platform CI remains pending; this work does not close M0/M1/M2. PR-007 now [executes these typed invocations](./graph-rendering.md) through the sole `wgpu` graph renderer, with all six node pixel fixtures. PR-008 material acceptance is next.
+Local focused and workspace checks pass on the pinned toolchain. Remote cross-platform CI remains pending; this work does not close M0/M1/M2. PR-007 now [executes these typed invocations](./graph-rendering.md) through the sole `wgpu` graph renderer, with all six node pixel fixtures. PR-008 [material golden tooling](./material-goldens.md) is now implemented; human visual acceptance remains open.

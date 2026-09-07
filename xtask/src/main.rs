@@ -1,6 +1,7 @@
 //! Private repository automation. No material or rendering semantics belong here.
 
 mod dependencies;
+mod golden;
 mod gpu_smoke;
 mod links;
 
@@ -24,13 +25,16 @@ Available repository commands:
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
+  test-material <id> Render material cases and check pixels, structure, and causality
+  golden check Render and compare all material goldens (never updates baselines)
+  golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   gpu-smoke   Run checker golden, three graph examples, and all GPU regressions
   shader-check Validate every M2 WGSL kernel and its uniform ABI without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
-Material acceptance and golden commands arrive in later milestones.";
+GPU and material checks are explicit; ordinary check/test do not acquire a GPU.";
 
 fn main() -> ExitCode {
     match run() {
@@ -44,6 +48,12 @@ fn main() -> ExitCode {
 
 fn run() -> TaskResult {
     let args: Vec<_> = env::args_os().skip(1).collect();
+    if args
+        .first()
+        .is_some_and(|arg| arg == "golden" || arg == "test-material")
+    {
+        return golden::dispatch(&workspace_root()?, &args);
+    }
     if let [command, node] = args.as_slice()
         && command == "test-node"
     {

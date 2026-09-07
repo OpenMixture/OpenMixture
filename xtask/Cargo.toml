@@ -12,6 +12,8 @@ publish = false
 pulldown-cmark.workspace = true
 serde_json.workspace = true
 png.workspace = true
+serde.workspace = true
+sha2.workspace = true
 
 [lints]
 workspace = true

@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-007: strict `.mix v1`, deterministic RenderPlan compilation/inspection, six-node `wgpu` graph execution, explicit GPU diagnostics, and requested-channel PNG output. Three examples, focused node tests, and checker goldens pass locally on Metal and pinned SwiftShader. Remote CI evidence remains pending. Next is protected golden tooling and material acceptance (PR-008).
+**Implemented:** PR-001 through PR-007: strict `.mix v1`, deterministic RenderPlan compilation/inspection, six-node `wgpu` graph execution, explicit GPU diagnostics, and requested-channel PNG output. Three examples, focused node tests, and checker goldens pass locally on Metal and pinned SwiftShader. Remote CI evidence remains pending. PR-008 now adds [protected material goldens](./docs/material-goldens.md) and 1K checker cases for the ceramic target; machine gates pass, and a controlled PBR review now shows the actual exported channels under light. The user accepted the controlled appearance review; PR-008 local acceptance is complete.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 

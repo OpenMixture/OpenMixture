@@ -22,6 +22,8 @@
 
 原始[审查文档包](../mixture-greenfield-docs/README.md)作为来源材料原样保留。其计划中的命令不代表后续里程碑已经实现。此后根目录文档与代码一起维护；文档包清单仅适用于原始包。
 
+[材质基准](./material-goldens.zh-CN.md)定义 PR-008 受保护更新、夹具 schema、度量与陶瓷审查工作流。
+
 ## 配套文档
 
 - [示例说明](../examples/README.zh-CN.md)

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "material": "glazed-ceramic",
+  "size": 1024,
+  "softwareRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "hardwareTolerance": {
+    "maxAbsolute": 1,
+    "meanAbsolute": 0.25,
+    "pixelThreshold": 1,
+    "maxChangedPixelRatio": 0.0
+  },
+  "channels": {
+    "baseColor": {
+      "encoding": "rgba8-srgb",
+      "source": "connected"
+    },
+    "normal": {
+      "encoding": "rgba8-linear",
+      "source": "default"
+    },
+    "roughness": {
+      "encoding": "rgba8-linear",
+      "source": "connected"
+    },
+    "height": {
+      "encoding": "rgba8-linear",
+      "source": "default"
+    }
+  },
+  "cases": [
+    {
+      "id": "default",
+      "variant": null,
+      "checks": {
+        "baseColor": {
+          "kind": "alternating",
+          "cells": [
+            8,
+            8
+          ],
+          "minContrast": 80,
+          "maxBalanceError": 0.0
+        },
+        "normal": {
+          "kind": "uniform",
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        "roughness": {
+          "kind": "uniform",
+          "rgba": [
+            43,
+            43,
+            43,
+            255
+          ],
+          "tolerance": 1
+        },
+        "height": {
+          "kind": "uniform",
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      },
+      "changes": {}
+    },
+    {
+      "id": "fine-tiles",
+      "variant": "fine-tiles",
+      "checks": {
+        "baseColor": {
+          "kind": "alternating",
+          "cells": [
+            16,
+            16
+          ],
+          "minContrast": 80,
+          "maxBalanceError": 0.0
+        },
+        "normal": {
+          "kind": "uniform",
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        "roughness": {
+          "kind": "uniform",
+          "rgba": [
+            43,
+            43,
+            43,
+            255
+          ],
+          "tolerance": 1
+        },
+        "height": {
+          "kind": "uniform",
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      },
+      "changes": {
+        "baseColor": {
+          "kind": "changed",
+          "minPixelRatio": 0.45
+        },
+        "normal": {
+          "kind": "unchanged"
+        },
+        "roughness": {
+          "kind": "unchanged"
+        },
+        "height": {
+          "kind": "unchanged"
+        }
+      }
+    },
+    {
+      "id": "matte",
+      "variant": "matte",
+      "checks": {
+        "baseColor": {
+          "kind": "alternating",
+          "cells": [
+            8,
+            8
+          ],
+          "minContrast": 80,
+          "maxBalanceError": 0.0
+        },
+        "normal": {
+          "kind": "uniform",
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        "roughness": {
+          "kind": "uniform",
+          "rgba": [
+            112,
+            112,
+            112,
+            255
+          ],
+          "tolerance": 1
+        },
+        "height": {
+          "kind": "uniform",
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      },
+      "changes": {
+        "baseColor": {
+          "kind": "unchanged"
+        },
+        "normal": {
+          "kind": "unchanged"
+        },
+        "roughness": {
+          "kind": "meanIncreases",
+          "minDelta": 0.25
+        },
+        "height": {
+          "kind": "unchanged"
+        }
+      }
+    }
+  ]
+}

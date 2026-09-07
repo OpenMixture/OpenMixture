@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "external-pbr-appearance-review",
+  "material": "glazed-ceramic",
+  "baselineManifestSha256": "sha256:c05d0beedd6c41553d18f91e3839d3a4f292486381d05acd6552e472f890b953",
+  "inputs": {
+    "default/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "default/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "default/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "default/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "fine-tiles/baseColor.png": "sha256:a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+    "fine-tiles/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "fine-tiles/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "fine-tiles/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "matte/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "matte/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "matte/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "matte/roughness.png": "sha256:adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53"
+  },
+  "sceneScriptSha256": "sha256:e81abb09e861bdc88ce07bba00a7b3c9e411b2443f67466332dbca21619f0ad2",
+  "blenderVersion": "4.5.13 LTS",
+  "blenderBuildHash": "daeeeca98fb0",
+  "engine": "CYCLES",
+  "requestedDevice": "METAL",
+  "selectedDevices": [
+    {
+      "name": "Apple M5 (GPU - 10 cores)",
+      "type": "METAL",
+      "id": "METAL_Apple M5 (GPU - 10 cores)"
+    }
+  ],
+  "samples": 512,
+  "seed": 8,
+  "denoising": false,
+  "adaptiveSampling": false,
+  "size": [
+    1000,
+    1000
+  ],
+  "view": {
+    "transform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0
+  },
+  "brdf": {
+    "model": "Principled BSDF",
+    "ior": 1.5,
+    "metallic": 0,
+    "coat": 0
+  },
+  "channelUse": {
+    "baseColor": "sRGB -> Base Color",
+    "roughness": "Non-Color -> Roughness, no remap",
+    "normal": "Non-Color -> tangent Normal Map -> Bump Normal",
+    "height": "Non-Color -> Bump Height, distance 0.02; constant zero has no gradient"
+  },
+  "geometry": "UV sphere and one-repeat planar swatch on neutral rounded backing; all consumer geometry, no generated relief",
+  "controlledComparison": "Same camera, lights, geometry, BRDF, exposure and sampling for every case; only verified PNG inputs change",
+  "scope": "Supplementary appearance evidence, not a Mixture texture executor, material golden, runtime dependency, or M4 acceptance",
+  "humanAcceptanceClaimed": false,
+  "results": {
+    "default": {
+      "file": "default.png",
+      "sha256": "sha256:3a3cf142a66319cdd68622dd9ec5b8a70f0e4a3d2b9c6ef93c3ee41259d0ee96",
+      "renderWallSeconds": 16.76023745800194
+    },
+    "fine-tiles": {
+      "file": "fine-tiles.png",
+      "sha256": "sha256:1e9e0cdd261979cc3cfa20fa46b090092bb9681634a4ae3a4ded26a23d7eca33",
+      "renderWallSeconds": 16.72235862499656
+    },
+    "matte": {
+      "file": "matte.png",
+      "sha256": "sha256:07bb3753ea6c817774ea543000d9c4ae837aea3738664b7f9014c70536ed0a00",
+      "renderWallSeconds": 16.699374499999976
+    }
+  }
+}

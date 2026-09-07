@@ -20,13 +20,47 @@ fn supported_repository_checks_work_outside_the_workspace_directory() {
 
 #[test]
 fn unknown_and_not_yet_implemented_commands_fail() {
-    for command in ["unknown", "golden"] {
+    for command in ["unknown", "test-unknown"] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
             .arg(command)
             .output()
             .expect("xtask should start");
         assert!(!output.status.success());
         assert!(String::from_utf8_lossy(&output.stderr).contains("unimplemented command"));
+    }
+}
+
+#[test]
+fn golden_updates_require_explicit_acceptance_and_refuse_ci_before_any_work() {
+    for (args, ci, message) in [
+        (
+            vec!["golden", "update", "glazed-ceramic"],
+            false,
+            "--accept",
+        ),
+        (
+            vec!["golden", "update", "glazed-ceramic", "--accept"],
+            true,
+            "refuses CI",
+        ),
+        (vec!["test-material", "../escape"], false, "material ID"),
+        (vec!["golden", "check", "--accept"], false, "Usage:"),
+    ] {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_xtask"));
+        command
+            .args(args)
+            .env_remove("CI")
+            .env_remove("GITHUB_ACTIONS");
+        if ci {
+            command.env("CI", "false");
+        }
+        let output = command.output().unwrap();
+        assert!(!output.status.success());
+        assert!(
+            String::from_utf8_lossy(&output.stderr).contains(message),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
     }
 }
 

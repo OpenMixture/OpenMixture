@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "scope": "PR-008 local verification; no remote CI execution or milestone closure",
+  "toolchain": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "checks": [
+    {
+      "command": "cargo test --locked -p xtask golden",
+      "status": "passed",
+      "unitTests": 8,
+      "commandTests": 1
+    },
+    {
+      "command": "cargo test --locked -p mixture-wgpu readback",
+      "status": "passed",
+      "cpuTests": 2,
+      "gpuMappingTest": "ignored; unchanged GPU test outside this targeted command"
+    },
+    {
+      "command": "cargo xtask golden check",
+      "policy": "Vulkan / software / pinned SwiftShader",
+      "status": "passed",
+      "evidence": "software.json"
+    },
+    {
+      "command": "cargo xtask test-material glazed-ceramic",
+      "policy": "Metal / Apple M5",
+      "status": "passed",
+      "evidence": "metal.json"
+    },
+    {
+      "command": "cargo xtask check",
+      "status": "passed",
+      "checks": [
+        "format",
+        "dependency policy",
+        "Clippy workspace all targets/features",
+        "workspace tests and doctests",
+        "rustdoc",
+        "local documentation links"
+      ],
+      "evidence": "repository-check.log"
+    },
+    {
+      "command": "Blender 4.5.13 --background --factory-startup --python-exit-code 1 --python review/render.py -- --expected expected --out <new directory> --device METAL --samples 512",
+      "status": "passed",
+      "scope": "Supplementary appearance evidence only; same scene and verified inputs for default/fine-tiles/matte",
+      "evidence": "pbr/review.json"
+    },
+    {
+      "command": "python3 fixtures/materials/glazed-ceramic/review/test_inputs.py --blender <Blender 4.5.13 executable>",
+      "status": "passed",
+      "tests": 3,
+      "evidence": "pbr/input-tests.log"
+    },
+    {
+      "command": "cargo xtask check",
+      "status": "passed",
+      "scope": "After the controlled PBR review tooling, evidence, and paired documentation update",
+      "evidence": "pbr/repository-check.log"
+    }
+  ],
+  "baselineUpdates": "Only the initial new material baseline was installed; subsequent software/hardware checks preserved every expected file. Existing checker golden and node fixtures are unchanged.",
+  "runtimeChanges": false,
+  "humanAcceptance": "accepted by explicit user message after reviewing the controlled PBR comparison; see human-review.json",
+  "localBuildNote": "Initial workspace Clippy used stale product build artifacts (Renderer import failure). Cleaning only mixture-core, mixture-wgpu, and mixture-cli artifacts resolved it without changing runtime source."
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "material": "glazed-ceramic",
+  "softwareRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "planHashes": {
+    "default": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+    "fine-tiles": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+    "matte": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887"
+  },
+  "files": {
+    "default/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "default/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "default/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "default/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "fine-tiles/baseColor.png": "sha256:a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+    "fine-tiles/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "fine-tiles/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "fine-tiles/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "matte/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "matte/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "matte/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "matte/roughness.png": "sha256:adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53"
+  }
+}

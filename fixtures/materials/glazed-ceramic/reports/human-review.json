@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "material": "glazed-ceramic",
+  "status": "accepted",
+  "reviewer": "user (explicit acceptance in the Codex conversation)",
+  "reviewedAt": "2026-09-07T09:42:37.750016+00:00",
+  "baselineManifestSha256": "sha256:c05d0beedd6c41553d18f91e3839d3a4f292486381d05acd6552e472f890b953",
+  "criteria": [
+    "The intended glazed ceramic appearance must be demonstrated using the actual exported channels under controlled PBR lighting; flat channel swatches alone are insufficient.",
+    "Palette and alternating tiles are acceptable for this flat ceramic/checker scope.",
+    "Repeat boundaries preserve the tile rhythm.",
+    "Neutral tangent-space normal and zero plane height are intentional.",
+    "Fine tiles change density while matte changes roughness only."
+  ],
+  "agentInspection": {
+    "reviewer": "Codex",
+    "kind": "agent",
+    "status": "inspected",
+    "evidence": [
+      "overview.png",
+      "tiling.png",
+      "initial-contact-default.png",
+      "initial-contact-fine-tiles.png",
+      "initial-contact-matte.png",
+      "pbr/comparison.png",
+      "pbr/default.png",
+      "pbr/matte.png",
+      "pbr/fine-tiles.png",
+      "pbr/review.json"
+    ],
+    "observations": [
+      "Two opaque balanced colors; eight tiles per axis in default, sixteen in fine-tiles.",
+      "No extra repeated-edge band visible in 2x2 previews.",
+      "Normal remains [128,128,255,255], height remains [0,0,0,255].",
+      "Roughness swatch rises from 43 to 112 in matte; baseColor is unchanged.",
+      "Actual exported PNGs drive the same Blender Principled BRDF in all three controlled scenes; input hashes match the unchanged baseline.",
+      "Default and fine-tiles show narrow softbox highlights and a clearer reflected sample pattern; matte has broader, softer reflections with identical baseColor, normal and height inputs.",
+      "Sphere curvature and rounded sample backing are consumer geometry. No grout, bevel, noise, coat layer or surface microstructure was generated in Mixture.",
+      "The 512-sample Cycles frames retain slight sampling grain; this is scene-render noise, not a generated texture feature."
+    ],
+    "humanAcceptanceClaimed": false
+  },
+  "remoteCi": "deferred by user; not a milestone closure",
+  "humanFeedback": {
+    "source": "user",
+    "text": "这是陶瓷吗？我只看到棋盘",
+    "acceptanceGranted": false
+  },
+  "assessment": {
+    "by": "Codex",
+    "remainingEvidence": "Human appearance acceptance received for this exact baseline and PBR evidence. Remote CI remains deferred and the other M3 materials are future work.",
+    "previousFinding": "The current evidence demonstrates a checker and channel behavior, not the intended glazed ceramic appearance. Requesting ceramic visual acceptance from these flat channel previews was premature.",
+    "finding": "The missing controlled-light evidence is now supplied using all four actual exported channels. It supports reviewing the smooth glazed checker target and roughness response. It does not by itself establish a unique physical substance or photoreal ceramic microstructure."
+  },
+  "appearanceReportSha256": "sha256:868be1161739ed0506815878140617c38ff239d1ec50de5eb608e3ce7428888d",
+  "appearanceComparisonSha256": "sha256:d15900c9bd638d89859c22ca24d27538634a683a9781ca228225e439c6ba1803",
+  "appearanceRevision": {
+    "kind": "supplementary external consumer review",
+    "evidence": "pbr/review.json",
+    "reproduce": "../review/README.md",
+    "textureBaselineChanged": false,
+    "newMixtureNodes": 0,
+    "humanAcceptanceClaimed": false
+  },
+  "humanDecision": {
+    "source": "user",
+    "text": "接受，开始下一步任务",
+    "decision": "accepted",
+    "scope": "Glazed ceramic/checker appearance shown in the controlled PBR comparison, bound to the recorded baseline and appearance digests",
+    "recordedBy": "Codex",
+    "remoteCi": "still deferred; no full M3 closure"
+  }
+}

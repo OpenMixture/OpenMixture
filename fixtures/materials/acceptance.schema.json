@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mixture material acceptance v1",
+  "description": "Repository evidence schema; additional cross-field requirements are enforced by xtask and documented in docs/material-goldens.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "material": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "size": {
+      "const": 1024
+    },
+    "softwareRevision": {
+      "const": "694585a05946e1ed49b6bd577ca6537cbb57f025"
+    },
+    "hardwareTolerance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maxAbsolute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "meanAbsolute": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "pixelThreshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "maxChangedPixelRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "maxAbsolute",
+        "meanAbsolute",
+        "pixelThreshold",
+        "maxChangedPixelRatio"
+      ]
+    },
+    "channels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "baseColor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "encoding": {
+              "const": "rgba8-srgb"
+            },
+            "source": {
+              "enum": [
+                "connected",
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "encoding",
+            "source"
+          ]
+        },
+        "normal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "encoding": {
+              "const": "rgba8-linear"
+            },
+            "source": {
+              "enum": [
+                "connected",
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "encoding",
+            "source"
+          ]
+        },
+        "roughness": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "encoding": {
+              "const": "rgba8-linear"
+            },
+            "source": {
+              "enum": [
+                "connected",
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "encoding",
+            "source"
+          ]
+        },
+        "height": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "encoding": {
+              "const": "rgba8-linear"
+            },
+            "source": {
+              "enum": [
+                "connected",
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "encoding",
+            "source"
+          ]
+        }
+      },
+      "required": [
+        "baseColor",
+        "normal",
+        "roughness",
+        "height"
+      ]
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "variant": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              }
+            ]
+          },
+          "checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "baseColor": {
+                "$ref": "#/$defs/structure"
+              },
+              "normal": {
+                "$ref": "#/$defs/structure"
+              },
+              "roughness": {
+                "$ref": "#/$defs/structure"
+              },
+              "height": {
+                "$ref": "#/$defs/structure"
+              }
+            },
+            "required": [
+              "baseColor",
+              "normal",
+              "roughness",
+              "height"
+            ]
+          },
+          "changes": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "baseColor": {
+                "$ref": "#/$defs/change"
+              },
+              "normal": {
+                "$ref": "#/$defs/change"
+              },
+              "roughness": {
+                "$ref": "#/$defs/change"
+              },
+              "height": {
+                "$ref": "#/$defs/change"
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "id",
+          "checks",
+          "changes"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "material",
+    "size",
+    "softwareRevision",
+    "hardwareTolerance",
+    "channels",
+    "cases"
+  ],
+  "$defs": {
+    "structure": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "uniform"
+            },
+            "rgba": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "tolerance": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "required": [
+            "kind",
+            "rgba",
+            "tolerance"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "alternating"
+            },
+            "cells": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 512,
+                "multipleOf": 2
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minContrast": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 255
+            },
+            "maxBalanceError": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "kind",
+            "cells",
+            "minContrast",
+            "maxBalanceError"
+          ]
+        }
+      ]
+    },
+    "change": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unchanged"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "changed"
+            },
+            "minPixelRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "kind",
+            "minPixelRatio"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "meanIncreases"
+            },
+            "minDelta": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "kind",
+            "minDelta"
+          ]
+        }
+      ]
+    }
+  }
+}

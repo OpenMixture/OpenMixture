@@ -181,7 +181,7 @@ pub(super) fn run(root: &Path) -> TaskResult {
     Ok(())
 }
 
-fn policy() -> TaskResult<(String, String)> {
+pub(super) fn policy() -> TaskResult<(String, String)> {
     let backend = env::var("MIXTURE_GPU_BACKEND").unwrap_or_else(|_| "auto".into());
     let software = env::var("MIXTURE_GPU_SOFTWARE").unwrap_or_else(|_| "0".into());
     if !matches!(backend.as_str(), "auto" | "vulkan" | "metal" | "dx12")
@@ -245,7 +245,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
     Ok(())
 }
 
-fn command_report(
+pub(super) fn command_report(
     root: &Path,
     arguments: &[&str],
     backend: &str,
@@ -294,7 +294,7 @@ fn valid_execution(report: &Value) -> bool {
         && report["dispatch"] == json!([8, 8, 1])
 }
 
-fn validate_report(
+pub(super) fn validate_report(
     report: &Value,
     backend: &str,
     software: bool,
@@ -313,7 +313,7 @@ fn validate_report(
     validate_adapter(report, backend, software, expected_adapter)
 }
 
-fn validate_adapter(
+pub(super) fn validate_adapter(
     report: &Value,
     backend: &str,
     software: bool,

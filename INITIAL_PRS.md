@@ -487,6 +487,8 @@ cargo xtask gpu-smoke
 
 ## PR-008 — `test(materials): add protected golden tooling and glazed ceramic acceptance`
 
+**Repository status:** Protected `golden check` / separate guarded `golden update`, `test-material`, the acceptance schema, and 1K glazed ceramic default/fine-tiles/matte cases are implemented without new nodes. Machine evidence and contact sheets are retained. Following user feedback on the flat checker display, controlled PBR evidence now shows actual exported channels on a sphere and planar sample. The user explicitly accepted the appearance comparison; PR-008 local implementation and acceptance are complete. Remote CI is explicitly deferred by the user and no milestone is closed. See [material goldens](./docs/material-goldens.md).
+
 ### Goal
 
 Make visual correctness reviewable before more sophisticated nodes are added.

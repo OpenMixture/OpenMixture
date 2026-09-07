@@ -31,7 +31,10 @@ const POLICY: &[(&str, &[&str])] = &[
             "png",
         ],
     ),
-    ("xtask", &["pulldown-cmark", "serde_json", "png"]),
+    (
+        "xtask",
+        &["pulldown-cmark", "serde_json", "png", "serde", "sha2"],
+    ),
 ];
 
 pub(super) fn check(root: &Path) -> TaskResult {

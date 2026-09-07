@@ -4,7 +4,7 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-007 from [the implementation train](../INITIAL_PRS.md).
+This repository implements PR-001 through PR-007 and PR-008 tooling/material machine gates from [the implementation train](../INITIAL_PRS.md). PR-008 human visual acceptance remains open; see [material goldens](./material-goldens.md).
 It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [six node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Six-node graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
@@ -36,6 +36,8 @@ cargo test --locked -p mixture-wgpu checker
 cargo test --locked -p mixture-wgpu readback
 cargo xtask shader-check
 cargo xtask test-node checker
+cargo xtask test-material glazed-ceramic
+cargo xtask golden check
 cargo run --locked -p mixture-cli -- render examples/checker.mix --size 256 --out ./tmp/checker
 cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png
 cargo xtask gpu-smoke
@@ -58,16 +60,16 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-007 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
+At PR-008 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
 | `mixture-core` | Runtime `serde`, `serde_json` with `float_roundtrip`, and `sha2` |
 | `mixture-wgpu` | Workspace `mixture-core`, `wgpu`, `serde`, `half`; dev-only `pollster`, `serde_json`, `naga` |
 | `mixture-cli` | Workspace `mixture-core`, `mixture-wgpu`, `pollster`, `serde`, `serde_json`, `png` |
-| `xtask` | `pulldown-cmark`, `serde_json`, `png` |
+| `xtask` | `pulldown-cmark`, `serde_json`, `png`, `serde`, `sha2` |
 
-Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promotes the already-locked `serde_json` to a runtime dependency for strict bounded decoding and deterministic serialization. Its `float_roundtrip` feature fixes a reproduced one-bit numeric drift across source round trips; no new package or dependency version is needed. PR-006 adds `sha2` for stable SHA-256 plan hashing; its dependency closure is added to the lockfile without upgrading existing packages. The tooling uses `pulldown-cmark` to parse Markdown and `serde_json` to read Cargo metadata. Only `mixture-wgpu` directly depends on `wgpu`; `serde` encodes capability reports. `pollster` drives async acquisition at the CLI/test boundary, while `serde_json` formats CLI reports and test assertions. `half` decodes GPU half-float readback; dev-only `naga` validates WGSL without a GPU. CLI `png` encodes images, and tooling `png` decodes them for golden comparison. Core remains GPU-free. The native backend feature policy is documented in [the GPU guide](./gpu-context.md). All resolved dependency versions are recorded in [Cargo.lock](../Cargo.lock).
+Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promotes the already-locked `serde_json` to a runtime dependency for strict bounded decoding and deterministic serialization. Its `float_roundtrip` feature fixes a reproduced one-bit numeric drift across source round trips; no new package or dependency version is needed. PR-006 adds `sha2` for stable SHA-256 plan hashing; its dependency closure is added to the lockfile without upgrading existing packages. The tooling uses `pulldown-cmark` to parse Markdown and `serde_json` to read Cargo metadata. Only `mixture-wgpu` directly depends on `wgpu`; `serde` encodes capability reports. `pollster` drives async acquisition at the CLI/test boundary, while `serde_json` formats CLI reports and test assertions. `half` decodes GPU half-float readback; dev-only `naga` validates WGSL without a GPU. CLI `png` encodes images, and tooling `png` decodes them for golden comparison. Core remains GPU-free. The native backend feature policy is documented in [the GPU guide](./gpu-context.md). PR-008 adds only existing workspace `serde` and `sha2` as direct tooling dependencies for strict acceptance records and candidate integrity, with no package/version additions or upgrades. All resolved dependency versions are recorded in [Cargo.lock](../Cargo.lock).
 
 [The dependency check](../xtask/src/dependencies.rs) enforces the four-crate boundary, dual license metadata, disabled publication, and this direct-dependency allowlist. It is an architecture/scope check, not a vulnerability database or transitive license audit. Expand the policy with a dependency's owning implementation PR and explain why the new dependency is necessary; retain the direction required by [ARCHITECTURE.md](../ARCHITECTURE.md).
 
@@ -75,7 +77,7 @@ Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promote
 
 The executable is named `mixture`. Help/version return `0`. `doctor` verifies actual checker compute/readback and returns `0` with `healthy`; explicit `--skip-probe` returns `unverified`. Acquisition/probe failures return `1` with `unhealthy`. `render-builtin checker` returns `0` after writing PNG, `1` for operational failure, or `2` for invalid dimensions/budgets. JSON mode writes one report to stdout; human mode includes the same policy and capability evidence. `validate` returns `0` for valid source, `2` for invalid input, and `1` for file/report I/O failure; it never initializes a GPU. `inspect --plan` returns `0` for compilation, `2` for invalid source/request, or `1` for file/report I/O failure; it also needs no GPU. `render` compiles before GPU acquisition and returns `0` after all requested PNGs, `2` for invalid source/request, and `1` for GPU/encoding/I/O failure. Invalid options and missing commands return `2` on stderr. Output I/O failures return `1`. See [doctor usage](./gpu-context.md) and the [shared exit policy](./diagnostics.md).
 
-`test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. `test-node <id>` validates fixtures and explicitly runs the selected GPU node cases. Material and golden xtask commands are not implemented yet and return an error. Follow [INITIAL_PRS.md](../INITIAL_PRS.md) for their introduction order.
+`test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. `test-node <id>` validates fixtures and explicitly runs the selected GPU node cases. `test-material <id>` and `golden check` now render explicit GPU cases and compare material gates without changing baselines. `golden update <id> --accept` separately consumes a reviewed software candidate and refuses CI; see [the complete workflow](./material-goldens.md).
 
 `gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
 
