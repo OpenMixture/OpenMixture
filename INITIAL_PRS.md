@@ -1,5 +1,7 @@
 # Initial Pull Request Train
 
+English | [简体中文](./INITIAL_PRS.zh-CN.md)
+
 This file defines the first implementation train for the greenfield Mixture repository. Each pull request should be independently reviewable, green, and narrow enough for a coding agent to execute without inventing adjacent scope.
 
 The sequence covers M0 through M3. M4 and later work should be scoped only after these pull requests produce real evidence.

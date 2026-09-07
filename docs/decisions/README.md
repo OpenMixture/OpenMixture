@@ -1,5 +1,7 @@
 # Architecture decisions
 
+English | [简体中文](./README.zh-CN.md)
+
 These decisions adopt the supplied greenfield architecture for M0 / PR-001. They record project design choices; they do not claim the runtime is implemented.
 
 | ADR | Decision | Status |

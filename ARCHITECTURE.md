@@ -1,5 +1,7 @@
 # Architecture
 
+English | [简体中文](./ARCHITECTURE.zh-CN.md)
+
 **Status:** architecture contract for the greenfield implementation.
 
 This document defines what Mixture owns, how data moves through the system, and which designs are intentionally excluded. It is normative for the initial roadmap.

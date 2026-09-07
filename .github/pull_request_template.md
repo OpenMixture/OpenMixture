@@ -1,3 +1,5 @@
+English | [简体中文](./pull_request_template.zh-CN.md)
+
 ## Goal
 
 Describe the concrete problem and resulting behavior.

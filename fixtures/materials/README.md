@@ -1,5 +1,7 @@
 # Material fixtures
 
+English | [简体中文](./README.zh-CN.md)
+
 Reserved for glazed ceramic, leather-like, and directional wood golden materials introduced by PR-008 through PR-010. M0 contains no synthetic baselines or acceptance claims.
 
 Each future material directory will contain `material.mix`, `README.md`, `acceptance.json`, `variants/`, `expected/`, and `reports/`. Machine checks and human visual acceptance must agree before M3 closes.

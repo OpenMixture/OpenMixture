@@ -1,5 +1,7 @@
 # Mixture
 
+English | [简体中文](./README.zh-CN.md)
+
 > A small material-graph compiler and headless texture renderer built in Rust on top of `wgpu`.
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
@@ -236,6 +238,7 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — system boundaries, invariants, data flow, and testing model.
 - [ROADMAP.md](./ROADMAP.md) — milestone outcomes, exit criteria, and stop rules.
 - [INITIAL_PRS.md](./INITIAL_PRS.md) — the first implementation train, ready to turn into issues and stacked pull requests.
+- [Documentation index](./docs/README.md) — development instructions, architecture decisions, and supporting guides.
 
 ## License
 

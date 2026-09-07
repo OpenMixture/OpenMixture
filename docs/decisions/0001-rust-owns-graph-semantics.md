@@ -1,5 +1,7 @@
 # ADR 0001: Rust owns graph semantics
 
+English | [简体中文](./0001-rust-owns-graph-semantics.zh-CN.md)
+
 Status: Accepted for M0 foundation. Source: [architecture sections 3–4](../../ARCHITECTURE.md).
 
 ## Context

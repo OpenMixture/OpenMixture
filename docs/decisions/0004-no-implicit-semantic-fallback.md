@@ -1,5 +1,7 @@
 # ADR 0004: No implicit semantic fallback
 
+English | [简体中文](./0004-no-implicit-semantic-fallback.zh-CN.md)
+
 Status: Accepted for M0 foundation. Source: [architecture sections 9 and 12](../../ARCHITECTURE.md).
 
 ## Context

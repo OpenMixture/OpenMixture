@@ -1,5 +1,7 @@
 # Agent Guide
 
+English | [简体中文](./AGENTS.zh-CN.md)
+
 This file is the operational contract for coding agents and contributors working on Mixture.
 
 Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries, [ROADMAP.md](./ROADMAP.md) before adding scope, and [INITIAL_PRS.md](./INITIAL_PRS.md) when implementing the initial repository.
@@ -179,6 +181,8 @@ For every task:
 6. Inspect generated artifacts or rendered images when behavior is visual.
 7. Run `cargo xtask check` before declaring the change ready.
 8. Update public docs in the same pull request when behavior or commands change.
+
+Keep English documentation and its paired `*.zh-CN.md` version synchronized in the same pull request. See [documentation maintenance](./docs/README.md) for language and source-bundle conventions.
 
 Do not begin by running the full GPU matrix for a local one-line parser change. Do not finish a GPU or format change after running only a narrow unit test.
 

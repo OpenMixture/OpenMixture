@@ -1,5 +1,7 @@
 # ADR 0002: wgpu is the only pixel backend
 
+English | [简体中文](./0002-wgpu-only-pixel-backend.zh-CN.md)
+
 Status: Accepted for M0 foundation. Source: [architecture sections 7 and 9](../../ARCHITECTURE.md).
 
 ## Context

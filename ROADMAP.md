@@ -1,5 +1,7 @@
 # Roadmap
 
+English | [简体中文](./ROADMAP.zh-CN.md)
+
 **Current milestone:** M0 — Clean Foundation.
 
 **Implementation status:** PR-001 foundation is present. Run `cargo xtask check` for local evidence; keep M0 open until the Linux, macOS, and Windows non-GPU CI matrix has passed from a clean checkout. M1 runtime work has not started.

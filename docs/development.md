@@ -1,5 +1,7 @@
 # Development
 
+English | [简体中文](./development.zh-CN.md)
+
 ## Foundation status
 
 This repository implements M0 / PR-001 from [the implementation train](../INITIAL_PRS.md).

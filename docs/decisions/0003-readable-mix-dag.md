@@ -1,5 +1,7 @@
 # ADR 0003: .mix v1 is one readable DAG
 
+English | [简体中文](./0003-readable-mix-dag.zh-CN.md)
+
 Status: Accepted for M0 foundation. Source: [architecture sections 5–8](../../ARCHITECTURE.md).
 
 ## Context
