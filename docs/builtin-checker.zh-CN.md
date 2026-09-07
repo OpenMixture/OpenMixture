@@ -81,4 +81,4 @@ cargo xtask gpu-smoke
 
 普通测试无需 GPU，验证请求、布局算术、去除填充、半精度转换、通过 Naga 验证可移植 WGSL、PNG 往返和 CLI 失败。显式冒烟测试运行带探针及跳过探针的 doctor，渲染并解码真实 PNG，逐字节比较已审查基准，再运行默认忽略的 GPU 测试，覆盖非整齐／部分尺寸、重复渲染、上下文销毁、错误着色器／管线、已销毁设备、映射失败和输出 I/O 失败。失败不会转成跳过覆盖或新的基准。
 
-[软件适配器准备与冒烟策略](./gpu-context.zh-CN.md)支持 Linux CI 和原生 macOS 复现。本地 [Apple M5／Metal](./evidence/pr-004-apple-m5.json) 与 [SwiftShader／Vulkan](./evidence/pr-004-swiftshader.json) 探针均通过，棋盘格 RGBA 字节完全一致。这只证明该夹具在已测试适配器上的结果，不代表浮点输出普遍一致。关闭里程碑前，仍需实际运行远端 Linux SwiftShader 和非 GPU 跨平台 CI 矩阵。PR-005 [严格 `.mix` 解码与验证](./file-format.zh-CN.md)已实现，下一步 PR-006 将实现图编译。
+[软件适配器准备与冒烟策略](./gpu-context.zh-CN.md)支持 Linux CI 和原生 macOS 复现。本地 [Apple M5／Metal](./evidence/pr-004-apple-m5.json) 与 [SwiftShader／Vulkan](./evidence/pr-004-swiftshader.json) 探针均通过，棋盘格 RGBA 字节完全一致。这只证明该夹具在已测试适配器上的结果，不代表浮点输出普遍一致。关闭里程碑前，仍需实际运行远端 Linux SwiftShader 和非 GPU 跨平台 CI 矩阵。PR-005 [严格 `.mix` 解码与验证](./file-format.zh-CN.md)已实现，PR-006 [计划编译](./render-plan.zh-CN.md)已实现，下一步 PR-007 实现图像素执行。

@@ -367,6 +367,8 @@ cargo run -p mixture-cli -- validate examples/checker.mix --json
 
 ## PR-006 — `feat(core): compile validated graphs into deterministic RenderPlan values`
 
+**Repository status:** Implemented: immutable override/default normalization, backward slicing, lexical topological ordering, typed plans/resources/output mappings, checked cumulative/peak estimates, SHA-256, CLI `inspect --plan`, and plan/hash snapshots. Local `test-plan`, `test-core`, and workspace checks pass. Graph pixel execution remains PR-007; remote CI remains pending. See [the plan contract and verification](./docs/render-plan.md).
+
 ### Goal
 
 Define the smallest backend-neutral plan required by the one `wgpu` executor.

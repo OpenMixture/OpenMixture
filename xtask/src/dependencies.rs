@@ -7,7 +7,7 @@ use serde_json::Value;
 use crate::{TaskResult, cargo};
 
 const POLICY: &[(&str, &[&str])] = &[
-    ("mixture-core", &["serde", "serde_json"]),
+    ("mixture-core", &["serde", "serde_json", "sha2"]),
     (
         "mixture-wgpu",
         &[

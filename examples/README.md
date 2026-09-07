@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-[checker.mix](./checker.mix) is the first executable `.mix v1` validation example: a default checker feeds required `baseColor`, and `frequency` exposes its defaulted `cellsX` parameter. Optional material channels use the versioned defaults. PR-005 validates this source; graph compilation/rendering arrive in PR-006/PR-007.
+[checker.mix](./checker.mix) is the first executable `.mix v1` validation example: a default checker feeds required `baseColor`, and `frequency` exposes its defaulted `cellsX` parameter. Optional material channels use the versioned defaults. PR-005 validates this source; PR-006 [compiles and inspects plans](../docs/render-plan.md). Graph pixel execution remains PR-007.
 
 ```bash
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json

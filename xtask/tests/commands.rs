@@ -20,7 +20,7 @@ fn supported_repository_checks_work_outside_the_workspace_directory() {
 
 #[test]
 fn unknown_and_not_yet_implemented_commands_fail() {
-    for command in ["unknown", "golden", "test-plan"] {
+    for command in ["unknown", "golden"] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
             .arg(command)
             .output()

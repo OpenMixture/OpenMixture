@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-005: strict `.mix v1` decoding/graph validation, six node contracts, shared diagnostics, explicit GPU context, verified `doctor`, and fixed checker compute/readback with PNG output. Local checks pass; prior Metal/SwiftShader checker evidence is retained. Graph compilation/rendering are next; remote CI evidence remains pending.
+**Implemented:** PR-001 through PR-006: strict `.mix v1` decoding/graph validation, six node contracts, shared diagnostics, explicit GPU context, verified `doctor`, and fixed checker compute/readback with PNG output. Local checks pass; prior Metal/SwiftShader checker evidence is retained. Deterministic plan compilation and `inspect --plan` are implemented; graph pixel execution is next; remote CI evidence remains pending.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -79,7 +79,7 @@ These may be reconsidered only after a real consumer demonstrates that the simpl
 
 ## Planned command surface
 
-`check`, `validate`, `doctor`, and `render-builtin checker` are implemented. Document inspection and rendering remain the stable target interface for later milestones.
+`check`, `validate`, `inspect --plan`, `doctor`, and `render-builtin checker` are implemented. Graph rendering remains the target interface for PR-007. See [plan compilation and inspection](./docs/render-plan.md).
 
 ```bash
 # Repository verification
@@ -91,7 +91,7 @@ cargo run -p mixture-cli -- doctor --json
 
 # Document and plan inspection
 cargo run -p mixture-cli -- validate examples/checker.mix --json
-cargo run -p mixture-cli -- inspect examples/wood.mix --plan --json
+cargo run -p mixture-cli -- inspect examples/checker.mix --plan --json
 
 # Headless rendering
 cargo run -p mixture-cli -- render examples/wood.mix \

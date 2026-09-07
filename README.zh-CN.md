@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-005：严格 `.mix v1` 解码／图验证、六个节点契约、共享诊断、显式 GPU 上下文、验证型 `doctor` 和固定棋盘格计算／回读及 PNG 输出。本地检查通过，保留已有 Metal／SwiftShader 棋盘格证据。图编译／渲染是后续工作，远端 CI 证据仍待获取。
+**已实现：** PR-001 至 PR-006：严格 `.mix v1` 解码／图验证、六个节点契约、共享诊断、显式 GPU 上下文、验证型 `doctor` 和固定棋盘格计算／回读及 PNG 输出。本地检查通过，保留已有 Metal／SwiftShader 棋盘格证据。确定性计划编译和 `inspect --plan` 已实现，下一步为图像素执行，远端 CI 证据仍待获取。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -79,7 +79,7 @@ Mixture 的设计遵循以下不可破坏的保证：
 
 ## 计划中的命令接口
 
-`check`、`validate`、`doctor` 和 `render-builtin checker` 已实现。文档检查和图渲染仍是后续里程碑的稳定目标接口。
+`check`、`validate`、`inspect --plan`、`doctor` 和 `render-builtin checker` 已实现。图渲染仍是 PR-007 的目标接口。见[计划编译与检查](./docs/render-plan.zh-CN.md)。
 
 ```bash
 # Repository verification
@@ -91,7 +91,7 @@ cargo run -p mixture-cli -- doctor --json
 
 # Document and plan inspection
 cargo run -p mixture-cli -- validate examples/checker.mix --json
-cargo run -p mixture-cli -- inspect examples/wood.mix --plan --json
+cargo run -p mixture-cli -- inspect examples/checker.mix --plan --json
 
 # Headless rendering
 cargo run -p mixture-cli -- render examples/wood.mix \

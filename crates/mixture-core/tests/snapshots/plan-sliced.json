@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "documentVersion": 1,
+  "size": [
+    64,
+    64
+  ],
+  "materialOutput": {
+    "id": "out",
+    "typeId": "material-output",
+    "version": 1
+  },
+  "passes": [
+    {
+      "id": 0,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "mask",
+          "typeId": "constant-scalar",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 0,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "channel": "roughness",
+      "kind": "scalar",
+      "input": {
+        "source": "connected",
+        "from": {
+          "nodeId": "mask",
+          "portId": "value"
+        }
+      },
+      "resource": 0
+    }
+  ],
+  "estimates": {
+    "textureBytes": 32768,
+    "uniformBytes": 16,
+    "paddedBytesPerRow": 512,
+    "readbackBufferBytes": 32768,
+    "readbackBytes": 32768,
+    "cumulativeReadbackBytes": 32768,
+    "cumulativeBytes": 65552,
+    "peakBytes": 65552
+  },
+  "hash": "sha256:2c6b0fcb8c6db738f4eeaf220d0e7232b58054b4a40c272ffdfd8fe3da367810"
+}

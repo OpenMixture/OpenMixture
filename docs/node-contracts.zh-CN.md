@@ -100,3 +100,5 @@ cargo xtask test-format
 ```
 
 这些测试无需 GPU，仅验证契约。现有固定棋盘格像素基准保持原样。契约存在不代表其图像素执行器或节点专属基准已经实现。
+
+PR-006 [类型化降级](./render-plan.zh-CN.md)将上述源契约映射为 Constant、Checker、Levels 和 Blend 调用；material-output 仍是映射。常量也用于实例化可选默认值。不添加源节点类型或着色器，穷尽 GPU 映射与像素测试在 PR-007 引入。

@@ -100,3 +100,5 @@ cargo xtask test-format
 ```
 
 These tests validate contracts without a GPU. The existing fixed checker golden is unchanged. A contract's presence is not evidence that its graph pixel executor or node-specific golden exists yet.
+
+PR-006 [typed lowering](./render-plan.md) maps these source contracts to Constant, Checker, Levels, and Blend invocations; material-output remains a mapping. Constants also materialize optional defaults. This adds no source node type or shader; exhaustive GPU mapping and pixel tests follow in PR-007.

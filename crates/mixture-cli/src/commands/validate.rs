@@ -1,12 +1,9 @@
 //! Bounded file I/O and presentation over the public core validation API.
 
-use mixture_core::{
-    Diagnostic, DiagnosticCode, DiagnosticReport, MaterialDocument, SafetyLimits, Stage,
-};
+use mixture_core::{DiagnosticReport, SafetyLimits};
 use std::{
     ffi::OsString,
-    fs::File,
-    io::{self, Read, Write},
+    io::{self, Write},
     path::{Path, PathBuf},
     process::ExitCode,
 };
@@ -32,26 +29,9 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         }
     };
     let limits = SafetyLimits::default();
-    let (diagnostics, exit) = match read_source(&path, limits.decoded_bytes) {
-        Err(source) => (
-            vec![
-                Diagnostic::error(
-                    DiagnosticCode::IoReadFailed,
-                    Stage::Parse,
-                    "Could not read the material file.",
-                )
-                .with_evidence("sourceMessage", source.to_string())
-                .with_source(source)
-                .with_suggestion("Check the input path, file type, and read permissions."),
-            ],
-            1,
-        ),
-        Ok(bytes) => match MaterialDocument::decode(&bytes, &limits)
-            .and_then(|document| document.into_validated(&limits))
-        {
-            Ok(_) => (Vec::new(), 0),
-            Err(error) => (error.report().diagnostics().to_vec(), 2),
-        },
+    let (diagnostics, exit) = match super::document_io::load(&path, &limits) {
+        Ok(_) => (Vec::new(), 0),
+        Err(failure) => failure,
     };
     let report = DiagnosticReport::new(diagnostics.into_iter().map(|mut diagnostic| {
         diagnostic.document_path = Some(path.to_string_lossy().into_owned());
@@ -70,13 +50,6 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         return ExitCode::FAILURE;
     }
     ExitCode::from(exit)
-}
-fn read_source(path: &Path, maximum: u64) -> io::Result<Vec<u8>> {
-    let mut bytes = Vec::new();
-    File::open(path)?
-        .take(maximum.saturating_add(1))
-        .read_to_end(&mut bytes)?;
-    Ok(bytes)
 }
 fn parse(arguments: &[OsString]) -> Result<(PathBuf, bool), String> {
     let (mut path, mut json, mut options) = (None, false, true);

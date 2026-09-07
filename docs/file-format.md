@@ -2,7 +2,7 @@
 
 English | [简体中文](./file-format.zh-CN.md)
 
-PR-005 introduces the first executable `.mix` source schema. It is UTF-8 JSON with document version `1` and independently required node version `1`. No earlier executable format or migration exists. This adds decoding, six node contracts, graph validation, and a CLI validator; graph compilation and execution remain PR-006/PR-007 work.
+PR-005 introduces the first executable `.mix` source schema. It is UTF-8 JSON with document version `1` and independently required node version `1`. No earlier executable format or migration exists. This adds decoding, six node contracts, graph validation, and a CLI validator; PR-006 [graph compilation](./render-plan.md) is now implemented; graph execution remains PR-007 work.
 
 ## Use the validator
 
@@ -70,7 +70,7 @@ After structural decoding, an unsupported document version fails with `MIX_FORMA
 
 Independent diagnostics are accumulated and sorted using the [shared ordering](./diagnostics.md). Invalid or ambiguous nodes suppress dependent port interpretation; valid independent checks still run. Validation never adds nodes/edges, repairs cycles, coerces or clamps values, inserts conversions, or edits explicit parameters.
 
-Output dimensions, requested channels, transient GPU estimates, exposed override application, dependency slicing, and RenderPlan generation belong to the future compiler request. They are not document fields or claims made by `validate`.
+Output dimensions, requested channels, transient GPU estimates, exposed override application, dependency slicing, and RenderPlan generation belong to the [PR-006 compiler request](./render-plan.md). They are not document fields or claims made by `validate`.
 
 ## Public Rust API
 
@@ -89,7 +89,7 @@ The executable [consumer test](../crates/mixture-core/tests/format.rs) and crate
 
 `parameter` resolves an explicit value or versioned default without inserting it into the source. `input_source` distinguishes a validated connection from an unconnected input default. `material_channels` reports all eight channels in contract order with their kinds and sources. These are semantic descriptions, not computed textures.
 
-`to_json` produces deterministic pretty JSON for valid source documents: nodes sorted lexically by ID, edges by the complete source/destination endpoint tuple, public bindings by ID, and object keys in lexical order within parameters. It emits explicit empty parameter objects and exposed arrays when omitted on input. It retains explicit values, meaningful array order, and source semantics; it does not insert parameter defaults. It is structural serialization, not the future normalized plan hash. JSON numeric parameters use the existing `serde_json` dependency with `float_roundtrip`, so finite f64 values survive serialization/decoding without bit drift. Original decimal spelling and whitespace are not retained.
+`to_json` produces deterministic pretty JSON for valid source documents: nodes sorted lexically by ID, edges by the complete source/destination endpoint tuple, public bindings by ID, and object keys in lexical order within parameters. It emits explicit empty parameter objects and exposed arrays when omitted on input. It retains explicit values, meaningful array order, and source semantics; it does not insert parameter defaults. It is structural serialization, not the normalized plan hash. JSON numeric parameters use the existing `serde_json` dependency with `float_roundtrip`, so finite f64 values survive serialization/decoding without bit drift. Original decimal spelling and whitespace are not retained.
 
 ## Diagnostic additions and evidence
 

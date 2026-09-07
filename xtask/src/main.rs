@@ -22,13 +22,14 @@ Available repository commands:
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
+  test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
   gpu-smoke   Run real checker compute/readback, compare golden, and save evidence
   shader-check Validate the checker WGSL without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
-Graph, material, and golden commands arrive in later milestones.";
+Graph execution, material, and golden commands arrive in later milestones.";
 
 fn main() -> ExitCode {
     match run() {
@@ -57,7 +58,7 @@ fn run() -> TaskResult {
             println!("All repository checks passed.");
         }
         "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
-        | "shader-check" | "test-format" => {
+        | "shader-check" | "test-format" | "test-plan" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -154,6 +155,18 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
                     "--test",
                     "validate",
                 ],
+                false,
+            )
+        }
+        "test-plan" => {
+            run_cargo(
+                root,
+                &["test", "--locked", "-p", "mixture-core", "--test", "plan"],
+                false,
+            )?;
+            run_cargo(
+                root,
+                &["test", "--locked", "-p", "mixture-cli", "--test", "inspect"],
                 false,
             )
         }

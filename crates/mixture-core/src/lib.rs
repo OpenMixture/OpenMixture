@@ -1,7 +1,7 @@
 //! Backend-neutral material graph semantics for Mixture.
 //!
 //! Strict .mix v1 decoding, six versioned node contracts, graph validation, and
-//! structured diagnostics with explicit safety limits. Compilation is future work.
+//! structured diagnostics with explicit safety limits, and deterministic RenderPlan compilation.
 //! This library has no GPU, CLI, browser, or image dependencies.
 //!
 //! ```
@@ -28,10 +28,29 @@
 //! # Ok::<(), mixture_core::DocumentError>(())
 //! ```
 
+//! Compile only the requested channels with validated exposed overrides:
+//!
+//! ```
+//! use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, compile};
+//! let bytes = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../examples/checker.mix"));
+//! let mut request = CompileRequest::default();
+//! request.size = [65, 3];
+//! request.outputs = vec![OutputChannel::BaseColor, OutputChannel::Roughness];
+//! request.overrides.insert("frequency".into(), serde_json::json!(16));
+//! let document = MaterialDocument::decode(bytes, &request.limits)?.into_validated(&request.limits)?;
+//! let plan = compile(&document, &request)?;
+//! assert_eq!(plan.passes().len(), 2); // checker and roughness default
+//! assert_eq!(plan.estimates().peak_bytes, 5488);
+//! assert_eq!(plan.hash(), compile(&document, &request)?.hash());
+//! # Ok::<(), Box<dyn std::error::Error>>(())
+//! ```
+
+pub mod compiler;
 pub mod document;
 pub mod error;
 pub mod limits;
 mod nodes;
+pub mod plan;
 pub mod registry;
 pub mod validation;
 
@@ -42,3 +61,6 @@ pub use document::{
     DocumentError, Edge, Endpoint, ExposedParameter, FORMAT_VERSION, MaterialDocument, Node,
 };
 pub use validation::{InputSource, MaterialChannel, ValidatedDocument};
+
+pub use compiler::{CompileError, CompileRequest, NormalizedDocument, compile, normalize};
+pub use plan::{OutputChannel, RenderPlan};

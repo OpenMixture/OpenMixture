@@ -262,7 +262,7 @@ The initial implementation should enforce conservative defaults:
 | requested material outputs | 8 |
 | estimated transient GPU bytes | 512 MiB |
 
-PR-002 provides an explicit `SafetyLimits` object with these defaults and upper-bound checks. Limits must never be raised implicitly. Every rejected limit reports the configured limit and observed value. PR-004 checks checker request lower bounds; PR-005 enforces byte/collection limits and validates source graphs. Compiler request budgets remain future work; see [the safety-limit contract](./docs/diagnostics.md).
+PR-002 provides an explicit `SafetyLimits` object with these defaults and upper-bound checks. Limits must never be raised implicitly. Every rejected limit reports the configured limit and observed value. PR-004 checks checker request lower bounds; PR-005 enforces byte/collection limits and validates source graphs. PR-006 checks compile requests and estimated peak allocation; see [the safety-limit contract](./docs/diagnostics.md).
 
 Embedded resources are unsupported in v1, so their budget is zero.
 
@@ -331,7 +331,7 @@ A built-in node contract defines:
 
 The initial implementation should use explicit Rust modules and static data. Avoid procedure macros until the first twelve nodes expose real, stable repetition.
 
-PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. Overrides and typed kernel lowering arrive with compilation.
+PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. PR-006 implements overrides and typed kernel lowering. Per the initial train, exhaustive graph WGSL execution mapping remains PR-007; the plan vocabulary alone does not claim complete pixel nodes.
 
 ### 7.1 One pixel implementation
 
@@ -388,31 +388,22 @@ The first compiler is intentionally simple. It does not perform general expressi
 
 ### 8.2 RenderPlan shape
 
-The exact Rust types may evolve during M2, but the contract should resemble:
+PR-006 implements immutable `RenderPlan` with shared-reference getters. Concrete types are defined in [plan.rs](./crates/mixture-core/src/plan.rs); a runnable consumer example is tested in [core rustdoc](./crates/mixture-core/src/lib.rs).
 
 ```rust
-pub struct RenderPlan {
-    pub version: u32,
-    pub size: [u32; 2],
-    pub passes: Vec<ComputePass>,
-    pub outputs: Vec<PlanOutput>,
-    pub estimates: PlanEstimates,
-    pub hash: PlanHash,
-}
-
-pub struct ComputePass {
-    pub id: PassId,
-    pub kernel: KernelInvocation,
-    pub inputs: Vec<ResourceId>,
-    pub output: ResourceId,
-    pub output_desc: TextureDesc,
-    pub dispatch: [u32; 3],
-}
+let request = CompileRequest::default();
+let plan = mixture_core::compile(&validated_document, &request)?;
+let passes: &[ComputePass] = plan.passes();
+let outputs: &[PlanOutput] = plan.outputs();
+let estimates: &PlanEstimates = plan.estimates();
+let hash: &PlanHash = plan.hash();
 ```
 
-`KernelInvocation` should be a typed enum or equivalent typed representation, not arbitrary JSON and not a generic shader language.
+`KernelInvocation` is a typed enum carrying its input resource bindings. Passes also retain source/default provenance; outputs map connected/default sources to real resources. Optional defaults lower to constant passes. Plan version 1 uses rgba16float textures, f32 arguments, 8×8 workgroups, and a conservative allocation model without pooling. See [the exact plan and hash contract](./docs/render-plan.md).
 
 ### 8.3 Plan hash
+
+PR-006 hashes the domain-separated compact plan body with SHA-256. Only the requested dependency slice and its effective parameters enter the hash: unused branches/exposure metadata and policy ceilings do not. Source order, explicit defaults, no-op overrides, and request order normalize identically; retained node IDs are significant.
 
 The plan hash includes semantic inputs such as:
 

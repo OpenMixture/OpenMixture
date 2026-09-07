@@ -22,7 +22,6 @@ fn help_and_version_report_the_current_command_surface() {
 fn missing_unknown_and_future_commands_never_claim_success() {
     for arguments in [
         vec![],
-        vec!["inspect", "missing.mix", "--plan"],
         vec!["render", "missing.mix"],
         vec!["render-builtin", "unknown"],
         vec!["unknown"],

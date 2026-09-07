@@ -367,6 +367,8 @@ cargo run -p mixture-cli -- validate examples/checker.mix --json
 
 ## PR-006 — `feat(core): compile validated graphs into deterministic RenderPlan values`
 
+**仓库状态：** 已实现不可变覆盖／默认值规范化、反向裁剪、字典序拓扑排序、类型化计划／资源／输出映射、经检查的累计／峰值估算、SHA-256、CLI `inspect --plan` 和计划／哈希快照。本地 `test-plan`、`test-core` 和工作区检查通过。图像素执行仍属于 PR-007，远端 CI 仍待运行。见[计划契约与验证](./docs/render-plan.zh-CN.md)。
+
 ### 目标
 
 定义唯一 `wgpu` 执行器所需的最小后端无关执行计划。

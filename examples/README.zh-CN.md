@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-[checker.mix](./checker.mix) 是首个可执行的 `.mix v1` 验证示例：默认棋盘格连接必填的 `baseColor`，`frequency` 暴露使用默认值的 `cellsX` 参数。可选材质通道使用版本化默认值。PR-005 验证此源文件；图编译／渲染将在 PR-006／PR-007 引入。
+[checker.mix](./checker.mix) 是首个可执行的 `.mix v1` 验证示例：默认棋盘格连接必填的 `baseColor`，`frequency` 暴露使用默认值的 `cellsX` 参数。可选材质通道使用版本化默认值。PR-005 验证此源文件；PR-006 [编译和检查计划](../docs/render-plan.zh-CN.md)。图像素执行仍属于 PR-007。
 
 ```bash
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json

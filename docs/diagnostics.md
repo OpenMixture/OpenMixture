@@ -72,7 +72,7 @@ Source objects and their messages are not serialized automatically, and deserial
 
 ## Reserved code families
 
-PR-002 initially produced only limit failures. PR-003/PR-004 now use GPU codes, and PR-005 uses parse/version/node/port/parameter/cycle codes. The table preserves the original vocabulary; [PR-005 additions](./file-format.md) add exact schema, identity, cardinality, binding, and input-I/O failures. Reserved compilation codes still do not imply an implemented compiler.
+PR-002 initially produced only limit failures. PR-003/PR-004 now use GPU codes, and PR-005 uses parse/version/node/port/parameter/cycle codes. The table preserves the original vocabulary; [PR-005 additions](./file-format.md) add exact schema, identity, cardinality, binding, and input-I/O failures. PR-006 now uses `MIX_COMPILE_INVALID_REQUEST`, parameter failures, and limit failures at compile stage; see [the plan contract](./render-plan.md).
 
 | Family | Initial codes |
 | --- | --- |
@@ -111,11 +111,11 @@ All fields use `u64`, with the same units on every target. `SafetyLimits::defaul
 
 Callers may explicitly construct a stricter or larger policy. Zero remains zero; it is never treated as missing or replaced by a default. JSON decoding requires all seven fields and rejects unknown, missing, negative, fractional, and overflowing values. See the [defaults snapshot](../crates/mixture-core/tests/snapshots/limits-defaults.json).
 
-These are upper-bound primitives, not document or request validation. A zero-sized image may satisfy a ceiling but must later fail request validation. Check width and height separately. Callers must safely compute actual counts and estimated bytes before checking them; the compiler's resource estimator is not implemented. Embedded resources remain unsupported in v1 with a zero budget; PR-002 adds no resource field or loading API.
+These are upper-bound primitives, not document or request validation. A zero-sized image may satisfy a ceiling but must later fail request validation. Check width and height separately. Callers must safely compute actual counts and estimated bytes before checking them; PR-006 implements the compiler resource estimator and checks its peak allocation. Embedded resources remain unsupported in v1 with a zero budget; PR-002 adds no resource field or loading API.
 
 ## CLI exit-code policy
 
-This policy applies to PR-005 validation, PR-004 doctor/built-in rendering, and future runtime commands; it does not imply that all commands exist:
+This policy applies to PR-006 inspection, PR-005 validation, PR-004 doctor/built-in rendering, and future runtime commands; it does not imply that all commands exist:
 
 | Exit code | Meaning |
 | --- | --- |
@@ -141,4 +141,6 @@ cargo xtask check
 
 Tests exercise public imports, JSON snapshots and rejection, ordering under input permutations, optional context, exact integer evidence, native source chains, every default boundary, explicit overrides, zero ceilings, and extreme counts. The public example and crate doctest provide consumer-level API evidence.
 
-Core now uses `serde` and `serde_json` at runtime: PR-005 promotes the existing locked JSON dependency for strict decoding and deterministic serialization. The [dependency policy](./development.md) keeps GPU and platform dependencies out of core. PR-002 introduced no `.mix` format field, graph implementation, GPU dependency, shader, CLI runtime command, or automatic remediation. GPU acquisition, checker execution, and doctor are documented separately. The M0 remote CI gate remains pending; PR-002 does not claim to close it.
+Core now uses `serde`, `serde_json`, and `sha2` at runtime. PR-006 adds SHA-256 plan hashing; PR-005 promotes the existing locked JSON dependency for strict decoding and deterministic serialization. The [dependency policy](./development.md) keeps GPU, CLI, and browser runtime boundaries out of core. PR-002 introduced no `.mix` format field, graph implementation, GPU dependency, shader, CLI runtime command, or automatic remediation. GPU acquisition, checker execution, and doctor are documented separately. The M0 remote CI gate remains pending; PR-002 does not claim to close it.
+
+PR-006 `inspect --plan` returns `0` after compilation, `2` for invalid source/request, and `1` for source/report I/O failure. Compile failures retain the existing structured diagnostic codes and use `stage: "compile"`; source decoding/validation stages stay distinct. JSON adds `schemaVersion: 1` and `plan` (null on failure) to the shared report fields. See [inspection](./render-plan.md).

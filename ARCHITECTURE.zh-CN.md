@@ -262,7 +262,7 @@ v1 的 `material-output` 契约如下：
 | 请求材质输出数 | 8 |
 | 估算的临时 GPU 字节数 | 512 MiB |
 
-PR-002 提供显式 `SafetyLimits` 对象，包含上述默认值和上限检查。不得隐式提高限制。每次因超限而拒绝请求，都报告配置上限和实际观测值。PR-004 检查棋盘格请求下限，PR-005 执行字节／集合限制并验证源图。编译请求预算仍是后续工作；见[安全限制契约](./docs/diagnostics.zh-CN.md)。
+PR-002 提供显式 `SafetyLimits` 对象，包含上述默认值和上限检查。不得隐式提高限制。每次因超限而拒绝请求，都报告配置上限和实际观测值。PR-004 检查棋盘格请求下限，PR-005 执行字节／集合限制并验证源图。PR-006 检查编译请求及估算的峰值分配；见[安全限制契约](./docs/diagnostics.zh-CN.md)。
 
 v1 不支持内嵌资源，因此其预算为零。
 
@@ -331,7 +331,7 @@ v1 不支持内嵌资源，因此其预算为零。
 
 初始实现应使用显式 Rust 模块和静态数据。在前十二个节点暴露出真实、稳定的重复模式前，避免过程宏。
 
-PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh-CN.md)，不添加像素执行器或推测性的 KernelId 桩。`ValidatedDocument` 解析版本化默认值，并提供连接／默认输入来源，不修改源文档。参数覆盖及类型化 kernel 降级随编译功能引入。
+PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh-CN.md)，不添加像素执行器或推测性的 KernelId 桩。`ValidatedDocument` 解析版本化默认值，并提供连接／默认输入来源，不修改源文档。PR-006 实现参数覆盖及类型化 kernel 降级。按初始实施计划，穷尽的图 WGSL 执行映射仍属于 PR-007；计划类型本身不表示像素节点已完整实现。
 
 ### 7.1 唯一的像素实现
 
@@ -388,31 +388,22 @@ PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh
 
 ### 8.2 RenderPlan 的结构
 
-具体 Rust 类型可以在 M2 中演进，但契约应接近以下形式：
+PR-006 实现不可变的 `RenderPlan`，通过共享引用访问内容。具体类型定义于 [plan.rs](./crates/mixture-core/src/plan.rs)，可运行的使用示例由[核心 rustdoc](./crates/mixture-core/src/lib.rs)测试。
 
 ```rust
-pub struct RenderPlan {
-    pub version: u32,
-    pub size: [u32; 2],
-    pub passes: Vec<ComputePass>,
-    pub outputs: Vec<PlanOutput>,
-    pub estimates: PlanEstimates,
-    pub hash: PlanHash,
-}
-
-pub struct ComputePass {
-    pub id: PassId,
-    pub kernel: KernelInvocation,
-    pub inputs: Vec<ResourceId>,
-    pub output: ResourceId,
-    pub output_desc: TextureDesc,
-    pub dispatch: [u32; 3],
-}
+let request = CompileRequest::default();
+let plan = mixture_core::compile(&validated_document, &request)?;
+let passes: &[ComputePass] = plan.passes();
+let outputs: &[PlanOutput] = plan.outputs();
+let estimates: &PlanEstimates = plan.estimates();
+let hash: &PlanHash = plan.hash();
 ```
 
-`KernelInvocation` 应是强类型枚举或等价的强类型表示，不应使用任意 JSON，也不是通用着色器语言。
+`KernelInvocation` 是携带输入资源绑定的强类型枚举。pass 同时保留源节点／默认值来源，输出将连接／默认来源映射到真实资源。可选默认值降级为常量 pass。计划版本 1 使用 rgba16float 纹理、f32 参数、8×8 工作组及不含资源池的保守分配模型。见[精确计划与哈希契约](./docs/render-plan.zh-CN.md)。
 
 ### 8.3 计划哈希
+
+PR-006 使用 SHA-256 对带域分隔的紧凑计划主体计算哈希。仅请求依赖切片及有效参数进入哈希，不包含未使用分支／暴露元数据或策略上限。源顺序、显式默认值、无效应覆盖和请求顺序规范后相同；保留的节点 ID 有意义。
 
 计划哈希包含以下语义输入：
 
