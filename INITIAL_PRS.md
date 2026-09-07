@@ -294,6 +294,8 @@ cargo xtask gpu-smoke
 
 ## PR-005 — `feat(format): implement strict .mix v1 decoding and graph validation`
 
+**Repository status:** Implemented: bounded strict decoding, six versioned contracts, deterministic graph/parameter/public-binding validation, read-only validated documents, CLI `validate`, and focused fixtures. Local format/core/workspace checks pass; remote CI remains pending. See [the source schema and verification](./docs/file-format.md).
+
 ### Goal
 
 Create the versioned source document and reject invalid inputs before any GPU work.

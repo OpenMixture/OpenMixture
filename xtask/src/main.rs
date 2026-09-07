@@ -21,6 +21,7 @@ Available repository commands:
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
+  test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   gpu-smoke   Run real checker compute/readback, compare golden, and save evidence
   shader-check Validate the checker WGSL without a GPU
   doc         Build workspace rustdoc, denying warnings
@@ -56,7 +57,7 @@ fn run() -> TaskResult {
             println!("All repository checks passed.");
         }
         "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
-        | "shader-check" => {
+        | "shader-check" | "test-format" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -126,6 +127,36 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
             &["test", "--workspace", "--all-features", "--locked"],
             false,
         ),
+        "test-format" => {
+            run_cargo(
+                root,
+                &[
+                    "test",
+                    "--locked",
+                    "-p",
+                    "mixture-core",
+                    "--test",
+                    "format",
+                    "--test",
+                    "validation",
+                    "--test",
+                    "registry",
+                ],
+                false,
+            )?;
+            run_cargo(
+                root,
+                &[
+                    "test",
+                    "--locked",
+                    "-p",
+                    "mixture-cli",
+                    "--test",
+                    "validate",
+                ],
+                false,
+            )
+        }
         "test-core" => run_cargo(root, &["test", "-p", "mixture-core", "--locked"], false),
         "doc" => run_cargo(
             root,

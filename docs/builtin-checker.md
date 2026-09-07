@@ -2,7 +2,7 @@
 
 English | [简体中文](./builtin-checker.zh-CN.md)
 
-PR-004 implements one real headless compute pass before graph work begins. It uses the caller's `GpuContext`, writes an offscreen `rgba16float` texture, copies it to a padded readback buffer, and returns CPU-owned RGBA8 pixels. PNG encoding and file I/O belong to the CLI. There is no graph model, node registry, general renderer, resource pool, or second pixel executor.
+PR-004 implements one real headless compute pass before graph work begins. It uses the caller's `GpuContext`, writes an offscreen `rgba16float` texture, copies it to a padded readback buffer, and returns CPU-owned RGBA8 pixels. PNG encoding and file I/O belong to the CLI. The fixed probe needs no graph model, node registry, general renderer, resource pool, or second pixel executor. PR-005 adds separate [source validation and node contracts](./file-format.md); it does not change this probe.
 
 ## Run and inspect
 
@@ -81,4 +81,4 @@ cargo xtask gpu-smoke
 
 Ordinary tests validate requests, layout arithmetic, padding removal, half conversion, portable WGSL through Naga, PNG round trips, and CLI failures without accessing a GPU. Explicit smoke runs doctor with and without its probe, renders and decodes a real PNG, compares every byte against the reviewed golden, and runs ignored GPU tests for odd/partial dimensions, repeated rendering, context drop, bad shader/pipeline, destroyed device, failed mapping, and output I/O failure. A failure is never converted into skipped coverage or a new baseline.
 
-The [software-adapter setup and smoke policy](./gpu-context.md) supports Linux CI and native macOS reproduction. Local [Apple M5 / Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader / Vulkan](./evidence/pr-004-swiftshader.json) probes passed and produced identical checker RGBA bytes. This establishes this fixture's result on those tested adapters, not universal floating-point identity. Remote Linux SwiftShader and the non-GPU cross-platform CI matrix still require real runs before milestone closure. PR-005 is next for strict `.mix` decoding and validation.
+The [software-adapter setup and smoke policy](./gpu-context.md) supports Linux CI and native macOS reproduction. Local [Apple M5 / Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader / Vulkan](./evidence/pr-004-swiftshader.json) probes passed and produced identical checker RGBA bytes. This establishes this fixture's result on those tested adapters, not universal floating-point identity. Remote Linux SwiftShader and the non-GPU cross-platform CI matrix still require real runs before milestone closure. PR-005 [strict `.mix` decoding and validation](./file-format.md) is implemented; graph compilation is next in PR-006.

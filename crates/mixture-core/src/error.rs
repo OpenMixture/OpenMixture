@@ -77,6 +77,39 @@ pub enum DiagnosticCode {
     /// Encoding an output failed (reserved).
     #[serde(rename = "MIX_ENCODING_FAILED")]
     EncodingFailed,
+    /// JSON field structure does not conform to the source schema.
+    #[serde(rename = "MIX_FORMAT_INVALID_DOCUMENT")]
+    FormatInvalidDocument,
+    /// A node ID violates the document identifier grammar.
+    #[serde(rename = "MIX_NODE_INVALID_ID")]
+    NodeInvalidId,
+    /// A document contains multiple nodes with the same ID.
+    #[serde(rename = "MIX_NODE_DUPLICATE_ID")]
+    NodeDuplicateId,
+    /// An edge refers to a node that does not exist.
+    #[serde(rename = "MIX_GRAPH_UNKNOWN_NODE")]
+    GraphUnknownNode,
+    /// An edge identity occurs more than once.
+    #[serde(rename = "MIX_GRAPH_DUPLICATE_EDGE")]
+    GraphDuplicateEdge,
+    /// A single-input port has multiple incoming edges.
+    #[serde(rename = "MIX_GRAPH_MULTIPLE_INPUTS")]
+    GraphMultipleInputs,
+    /// A material document must contain exactly one material-output node.
+    #[serde(rename = "MIX_GRAPH_MATERIAL_OUTPUT_COUNT")]
+    GraphMaterialOutputCount,
+    /// A required input has no valid connection.
+    #[serde(rename = "MIX_PORT_REQUIRED_CONNECTION")]
+    PortRequiredConnection,
+    /// A parameter is not defined by the node contract.
+    #[serde(rename = "MIX_PARAMETER_UNKNOWN")]
+    ParameterUnknown,
+    /// A public parameter ID or target binding is invalid or ambiguous.
+    #[serde(rename = "MIX_EXPOSED_PARAMETER_INVALID")]
+    ExposedParameterInvalid,
+    /// Reading source bytes failed at the caller I/O boundary.
+    #[serde(rename = "MIX_IO_READ_FAILED")]
+    IoReadFailed,
 }
 
 impl DiagnosticCode {
@@ -106,6 +139,17 @@ impl DiagnosticCode {
             Self::GpuExecutionFailed => "MIX_GPU_EXECUTION_FAILED",
             Self::ReadbackFailed => "MIX_READBACK_FAILED",
             Self::EncodingFailed => "MIX_ENCODING_FAILED",
+            Self::FormatInvalidDocument => "MIX_FORMAT_INVALID_DOCUMENT",
+            Self::NodeInvalidId => "MIX_NODE_INVALID_ID",
+            Self::NodeDuplicateId => "MIX_NODE_DUPLICATE_ID",
+            Self::GraphUnknownNode => "MIX_GRAPH_UNKNOWN_NODE",
+            Self::GraphDuplicateEdge => "MIX_GRAPH_DUPLICATE_EDGE",
+            Self::GraphMultipleInputs => "MIX_GRAPH_MULTIPLE_INPUTS",
+            Self::GraphMaterialOutputCount => "MIX_GRAPH_MATERIAL_OUTPUT_COUNT",
+            Self::PortRequiredConnection => "MIX_PORT_REQUIRED_CONNECTION",
+            Self::ParameterUnknown => "MIX_PARAMETER_UNKNOWN",
+            Self::ExposedParameterInvalid => "MIX_EXPOSED_PARAMETER_INVALID",
+            Self::IoReadFailed => "MIX_IO_READ_FAILED",
         }
     }
 }

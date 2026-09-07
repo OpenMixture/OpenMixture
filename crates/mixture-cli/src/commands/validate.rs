@@ -1,0 +1,128 @@
+//! Bounded file I/O and presentation over the public core validation API.
+
+use mixture_core::{
+    Diagnostic, DiagnosticCode, DiagnosticReport, MaterialDocument, SafetyLimits, Stage,
+};
+use std::{
+    ffi::OsString,
+    fs::File,
+    io::{self, Read, Write},
+    path::{Path, PathBuf},
+    process::ExitCode,
+};
+
+const HELP: &str = "Usage: mixture validate <file.mix> [--json]
+
+Validate strict .mix v1 JSON, node contracts, ports, graph structure, and budgets.
+No GPU is initialized. Input is read up to the 2 MiB limit plus one detection byte.
+--json writes one {ok, diagnostics} report to stdout.
+Exit 0: valid document; 1: file/report I/O failure; 2: invalid invocation or input.
+Use -- before a path starting with '-'. Files are never changed.";
+
+pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
+    if matches!(arguments, [arg] if arg == "--help" || arg == "-h") {
+        println!("{HELP}");
+        return ExitCode::SUCCESS;
+    }
+    let (path, json) = match parse(arguments) {
+        Ok(args) => args,
+        Err(message) => {
+            eprintln!("{message}\n\n{HELP}");
+            return ExitCode::from(2);
+        }
+    };
+    let limits = SafetyLimits::default();
+    let (diagnostics, exit) = match read_source(&path, limits.decoded_bytes) {
+        Err(source) => (
+            vec![
+                Diagnostic::error(
+                    DiagnosticCode::IoReadFailed,
+                    Stage::Parse,
+                    "Could not read the material file.",
+                )
+                .with_evidence("sourceMessage", source.to_string())
+                .with_source(source)
+                .with_suggestion("Check the input path, file type, and read permissions."),
+            ],
+            1,
+        ),
+        Ok(bytes) => match MaterialDocument::decode(&bytes, &limits)
+            .and_then(|document| document.into_validated(&limits))
+        {
+            Ok(_) => (Vec::new(), 0),
+            Err(error) => (error.report().diagnostics().to_vec(), 2),
+        },
+    };
+    let report = DiagnosticReport::new(diagnostics.into_iter().map(|mut diagnostic| {
+        diagnostic.document_path = Some(path.to_string_lossy().into_owned());
+        diagnostic
+    }));
+    let mut stdout = io::stdout().lock();
+    let written = if json {
+        serde_json::to_writer_pretty(&mut stdout, &report)
+            .map_err(io::Error::other)
+            .and_then(|()| writeln!(stdout))
+    } else {
+        write_human(&mut stdout, &path, &report)
+    };
+    if let Err(error) = written.and_then(|()| stdout.flush()) {
+        eprintln!("Could not write validation report: {error}");
+        return ExitCode::FAILURE;
+    }
+    ExitCode::from(exit)
+}
+fn read_source(path: &Path, maximum: u64) -> io::Result<Vec<u8>> {
+    let mut bytes = Vec::new();
+    File::open(path)?
+        .take(maximum.saturating_add(1))
+        .read_to_end(&mut bytes)?;
+    Ok(bytes)
+}
+fn parse(arguments: &[OsString]) -> Result<(PathBuf, bool), String> {
+    let (mut path, mut json, mut options) = (None, false, true);
+    for argument in arguments {
+        if options && argument == "--json" {
+            if json {
+                return Err("Duplicate --json option.".into());
+            }
+            json = true;
+        } else if options && argument == "--" {
+            options = false;
+        } else if options && argument.to_str().is_some_and(|arg| arg.starts_with('-')) {
+            return Err(format!(
+                "Unknown validate option: {}",
+                argument.to_string_lossy()
+            ));
+        } else if path.is_none() && !argument.is_empty() {
+            path = Some(PathBuf::from(argument));
+        } else {
+            return Err("Expected exactly one nonempty input path.".into());
+        }
+    }
+    Ok((path.ok_or("Missing input path.")?, json))
+}
+fn write_human(out: &mut impl Write, path: &Path, report: &DiagnosticReport) -> io::Result<()> {
+    if report.is_ok() {
+        return writeln!(out, "Valid .mix v1 material: {}", path.display());
+    }
+    writeln!(out, "Invalid material: {}", path.display())?;
+    for diagnostic in report.diagnostics() {
+        writeln!(out, "{diagnostic}")?;
+        if let Some(node) = &diagnostic.node_id {
+            writeln!(out, "  node: {node}")?;
+        }
+        if let Some(port) = &diagnostic.port_id {
+            writeln!(out, "  port: {port}")?;
+        }
+        if let Some(parameter) = &diagnostic.parameter_id {
+            writeln!(out, "  parameter: {parameter}")?;
+        }
+        for (key, value) in &diagnostic.evidence {
+            writeln!(out, "  {key}: {value:?}")?;
+        }
+        if let Some(suggestion) = &diagnostic.suggestion {
+            writeln!(out, "  Suggestion: {suggestion}")?;
+        }
+    }
+    Ok(())
+}

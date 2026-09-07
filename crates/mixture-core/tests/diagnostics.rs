@@ -257,6 +257,17 @@ fn diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary() {
         Code::GpuExecutionFailed,
         Code::ReadbackFailed,
         Code::EncodingFailed,
+        Code::FormatInvalidDocument,
+        Code::NodeInvalidId,
+        Code::NodeDuplicateId,
+        Code::GraphUnknownNode,
+        Code::GraphDuplicateEdge,
+        Code::GraphMultipleInputs,
+        Code::GraphMaterialOutputCount,
+        Code::PortRequiredConnection,
+        Code::ParameterUnknown,
+        Code::ExposedParameterInvalid,
+        Code::IoReadFailed,
     ];
     for code in codes {
         assert_eq!(
@@ -280,7 +291,7 @@ fn diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary() {
         Stage::Readback,
         Stage::Encoding,
     ];
-    let vocabulary = serde_json::json!({ "codes": codes, "stages": stages, "severities": [Severity::Error, Severity::Warning, Severity::Info] });
+    let vocabulary = serde_json::json!({ "codes": codes.as_slice(), "stages": stages, "severities": [Severity::Error, Severity::Warning, Severity::Info] });
     assert_eq!(
         serde_json::to_string_pretty(&vocabulary).expect("serialize vocabulary"),
         include_str!("snapshots/diagnostics-vocabulary.json").trim_end()

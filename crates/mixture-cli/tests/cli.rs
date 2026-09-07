@@ -10,7 +10,10 @@ fn help_and_version_report_the_current_command_surface() {
             .output()
             .expect("CLI should start");
         assert!(output.status.success());
-        assert!(String::from_utf8_lossy(&output.stdout).contains("GPU context diagnostics"));
+        assert!(
+            String::from_utf8_lossy(&output.stdout)
+                .contains("material validation and GPU diagnostics")
+        );
         assert!(output.stderr.is_empty());
     }
 }
@@ -19,7 +22,6 @@ fn help_and_version_report_the_current_command_surface() {
 fn missing_unknown_and_future_commands_never_claim_success() {
     for arguments in [
         vec![],
-        vec!["validate", "missing.mix"],
         vec!["inspect", "missing.mix", "--plan"],
         vec!["render", "missing.mix"],
         vec!["render-builtin", "unknown"],

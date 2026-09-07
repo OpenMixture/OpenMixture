@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "nodes": [
+    {
+      "id": "checker",
+      "type": "checker",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "frequency",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
+    }
+  ]
+}

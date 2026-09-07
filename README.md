@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-004: core diagnostics/safety limits, explicit GPU context, verified human/JSON `doctor`, and built-in checker compute/readback with CLI PNG output. Local Apple M5/Metal and pinned SwiftShader/Vulkan smoke pass against the same reviewed pixels. Material parsing and graph rendering remain planned; remote CI evidence is still pending.
+**Implemented:** PR-001 through PR-005: strict `.mix v1` decoding/graph validation, six node contracts, shared diagnostics, explicit GPU context, verified `doctor`, and fixed checker compute/readback with PNG output. Local checks pass; prior Metal/SwiftShader checker evidence is retained. Graph compilation/rendering are next; remote CI evidence remains pending.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -28,6 +28,8 @@ The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provide
 The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter selection, structured failures, exit codes, and the explicit `cargo xtask gpu-smoke` check. Run `cargo run --locked -p mixture-cli -- doctor --json` to inspect your environment.
 
 Try [the built-in checker](./docs/builtin-checker.md): `cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`. Doctor runs its compute/readback probe by default; use `--skip-probe` for acquisition only.
+
+Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [six node contracts](./docs/node-contracts.md).
 
 ## Mission
 
@@ -77,7 +79,7 @@ These may be reconsidered only after a real consumer demonstrates that the simpl
 
 ## Planned command surface
 
-`check`, `doctor`, and `render-builtin checker` are implemented. Document inspection and rendering remain the stable target interface for later milestones.
+`check`, `validate`, `doctor`, and `render-builtin checker` are implemented. Document inspection and rendering remain the stable target interface for later milestones.
 
 ```bash
 # Repository verification
@@ -88,7 +90,7 @@ cargo run -p mixture-cli -- doctor
 cargo run -p mixture-cli -- doctor --json
 
 # Document and plan inspection
-cargo run -p mixture-cli -- validate examples/wood.mix --json
+cargo run -p mixture-cli -- validate examples/checker.mix --json
 cargo run -p mixture-cli -- inspect examples/wood.mix --plan --json
 
 # Headless rendering
@@ -100,63 +102,48 @@ cargo run -p mixture-cli -- render examples/wood.mix \
 
 Targeted development commands are documented in [AGENTS.md](./AGENTS.md).
 
-## `.mix` v1 direction
+## `.mix` v1 source
 
-The first format is intentionally human-readable and editor-agnostic. This is a planned M2/M3 example, not an executable M0 fixture:
+The first executable schema is defined in [the file-format guide](./docs/file-format.md). This checker validates today:
 
 ```json
 {
   "version": 1,
   "nodes": [
     {
-      "id": "noise",
-      "type": "fractal-noise",
-      "nodeVersion": 1,
-      "parameters": {
-        "scaleX": 3.0,
-        "scaleY": 22.0,
-        "seed": 17
-      }
+      "id": "checker",
+      "type": "checker",
+      "version": 1
     },
     {
-      "id": "color",
-      "type": "gradient-map",
-      "nodeVersion": 1,
-      "parameters": {
-        "gradient": [
-          { "position": 0.0, "color": [0.08, 0.03, 0.01, 1.0] },
-          { "position": 1.0, "color": [0.62, 0.35, 0.12, 1.0] }
-        ]
-      }
-    },
-    {
-      "id": "output",
+      "id": "out",
       "type": "material-output",
-      "nodeVersion": 1,
-      "parameters": {}
+      "version": 1
     }
   ],
   "edges": [
     {
-      "from": { "node": "noise", "port": "value" },
-      "to": { "node": "color", "port": "input" }
-    },
-    {
-      "from": { "node": "color", "port": "color" },
-      "to": { "node": "output", "port": "baseColor" }
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
     }
   ],
   "exposedParameters": [
     {
-      "id": "grainScale",
-      "label": "Grain Scale",
-      "target": { "node": "noise", "parameter": "scaleY" }
+      "id": "frequency",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
     }
   ]
 }
 ```
 
-UI layout, thumbnails, presets, engine targets, and local editor state do not belong in `.mix` v1. The initial material output requires a connected `baseColor`; other PBR channels may use documented neutral defaults, and reports must identify connected versus default outputs.
+UI layout, metadata, thumbnails, presets, resources, and engine targets are rejected. `baseColor` requires a valid Color connection; optional channels use the [documented material defaults](./docs/node-contracts.md).
 
 ## Architecture at a glance
 

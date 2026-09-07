@@ -186,6 +186,8 @@ Cycles between product crates are forbidden.
 
 ## 5. `.mix` v1 document model
 
+PR-005 implements the first strict source schema in [the format guide](./docs/file-format.md). Document fields are `version`, `nodes`, `edges`, and optional `exposedParameters`; nodes require `id`, `type`, and `version`, with optional `parameters`. Endpoints use `nodeId`/`portId`; exposed bindings use `id`/`nodeId`/`parameterId`. IDs follow the documented ASCII grammar. Duplicate keys and undeclared fields are rejected; no metadata fields are currently allowed. This supersedes prospective README examples, not a previously shipped format.
+
 ### 5.1 Source-of-truth rules
 
 `.mix` v1 is UTF-8 JSON and contains only material semantics required to compile and render a graph.
@@ -260,7 +262,7 @@ The initial implementation should enforce conservative defaults:
 | requested material outputs | 8 |
 | estimated transient GPU bytes | 512 MiB |
 
-PR-002 provides an explicit `SafetyLimits` object with these defaults and upper-bound checks. Limits must never be raised implicitly. Every rejected limit reports the configured limit and observed value. Request lower bounds and document validation remain for their owning PRs; see [the safety-limit contract](./docs/diagnostics.md).
+PR-002 provides an explicit `SafetyLimits` object with these defaults and upper-bound checks. Limits must never be raised implicitly. Every rejected limit reports the configured limit and observed value. PR-004 checks checker request lower bounds; PR-005 enforces byte/collection limits and validates source graphs. Compiler request budgets remain future work; see [the safety-limit contract](./docs/diagnostics.md).
 
 Embedded resources are unsupported in v1, so their budget is zero.
 
@@ -328,6 +330,8 @@ A built-in node contract defines:
 - precision and range notes.
 
 The initial implementation should use explicit Rust modules and static data. Avoid procedure macros until the first twelve nodes expose real, stable repetition.
+
+PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. Overrides and typed kernel lowering arrive with compilation.
 
 ### 7.1 One pixel implementation
 

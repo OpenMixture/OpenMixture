@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "checker",
+      "type": "checker",
+      "version": 1,
+      "parameters": {
+        "cellsX": 0,
+        "colorA": [
+          1,
+          0,
+          0
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "frequency",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
+    }
+  ]
+}

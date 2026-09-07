@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "checker",
+      "type": "constant-scalar",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "checker",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": []
+}

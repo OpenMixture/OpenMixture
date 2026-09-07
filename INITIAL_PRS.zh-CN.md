@@ -294,6 +294,8 @@ cargo xtask gpu-smoke
 
 ## PR-005 — `feat(format): implement strict .mix v1 decoding and graph validation`
 
+**仓库状态：** 已实现：有界严格解码、六个版本化契约、确定性图／参数／公开绑定验证、只读已验证文档、CLI `validate` 和定向夹具。本地格式／核心／工作区检查通过，远端 CI 仍待运行。见[源文件结构与验证](./docs/file-format.zh-CN.md)。
+
 ### 目标
 
 建立带版本的源文档，并在任何 GPU 工作之前拒绝无效输入。

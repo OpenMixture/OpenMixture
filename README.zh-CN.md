@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-004：核心诊断／安全限制、显式 GPU 上下文、经过计算验证的人类可读／JSON `doctor`，以及内置棋盘格计算／回读和 CLI PNG 输出。本地 Apple M5／Metal 与固定 SwiftShader／Vulkan 冒烟测试均通过同一已审查像素基准。材质解析和图渲染仍待实现，远端 CI 证据仍待获取。
+**已实现：** PR-001 至 PR-005：严格 `.mix v1` 解码／图验证、六个节点契约、共享诊断、显式 GPU 上下文、验证型 `doctor` 和固定棋盘格计算／回读及 PNG 输出。本地检查通过，保留已有 Metal／SwiftShader 棋盘格证据。图编译／渲染是后续工作，远端 CI 证据仍待获取。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -28,6 +28,8 @@ cargo run --locked -p mixture-cli -- --help
 [GPU 上下文与 doctor 指南](./docs/gpu-context.zh-CN.md)说明适配器选择、结构化失败、退出码和显式 `cargo xtask gpu-smoke` 检查。运行 `cargo run --locked -p mixture-cli -- doctor --json` 检查本机环境。
 
 可运行[内置棋盘格](./docs/builtin-checker.zh-CN.md)：`cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`。Doctor 默认运行计算／回读探针；仅获取上下文时使用 `--skip-probe`。
+
+无需 GPU 即可验证[棋盘格文档](./examples/checker.mix)：`cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`。参阅[严格文件格式](./docs/file-format.zh-CN.md)和[六个节点契约](./docs/node-contracts.zh-CN.md)。
 
 ## 使命
 
@@ -77,7 +79,7 @@ Mixture 的设计遵循以下不可破坏的保证：
 
 ## 计划中的命令接口
 
-`check`、`doctor` 和 `render-builtin checker` 已实现。文档检查和渲染仍是后续里程碑的稳定目标接口。
+`check`、`validate`、`doctor` 和 `render-builtin checker` 已实现。文档检查和图渲染仍是后续里程碑的稳定目标接口。
 
 ```bash
 # Repository verification
@@ -88,7 +90,7 @@ cargo run -p mixture-cli -- doctor
 cargo run -p mixture-cli -- doctor --json
 
 # Document and plan inspection
-cargo run -p mixture-cli -- validate examples/wood.mix --json
+cargo run -p mixture-cli -- validate examples/checker.mix --json
 cargo run -p mixture-cli -- inspect examples/wood.mix --plan --json
 
 # Headless rendering
@@ -100,63 +102,48 @@ cargo run -p mixture-cli -- render examples/wood.mix \
 
 针对具体任务的开发命令见[贡献者与智能体指南](./AGENTS.zh-CN.md)。
 
-## `.mix` v1 的方向
+## `.mix` v1 源文件
 
-首版格式强调可读性，并与编辑器无关。以下是计划中的 M2/M3 示例，并非可在 M0 执行的测试夹具：
+首个可执行结构见[文件格式指南](./docs/file-format.zh-CN.md)。以下棋盘格当前可以通过验证：
 
 ```json
 {
   "version": 1,
   "nodes": [
     {
-      "id": "noise",
-      "type": "fractal-noise",
-      "nodeVersion": 1,
-      "parameters": {
-        "scaleX": 3.0,
-        "scaleY": 22.0,
-        "seed": 17
-      }
+      "id": "checker",
+      "type": "checker",
+      "version": 1
     },
     {
-      "id": "color",
-      "type": "gradient-map",
-      "nodeVersion": 1,
-      "parameters": {
-        "gradient": [
-          { "position": 0.0, "color": [0.08, 0.03, 0.01, 1.0] },
-          { "position": 1.0, "color": [0.62, 0.35, 0.12, 1.0] }
-        ]
-      }
-    },
-    {
-      "id": "output",
+      "id": "out",
       "type": "material-output",
-      "nodeVersion": 1,
-      "parameters": {}
+      "version": 1
     }
   ],
   "edges": [
     {
-      "from": { "node": "noise", "port": "value" },
-      "to": { "node": "color", "port": "input" }
-    },
-    {
-      "from": { "node": "color", "port": "color" },
-      "to": { "node": "output", "port": "baseColor" }
+      "from": {
+        "nodeId": "checker",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
     }
   ],
   "exposedParameters": [
     {
-      "id": "grainScale",
-      "label": "Grain Scale",
-      "target": { "node": "noise", "parameter": "scaleY" }
+      "id": "frequency",
+      "nodeId": "checker",
+      "parameterId": "cellsX"
     }
   ]
 }
 ```
 
-UI 布局、缩略图、预设、目标引擎配置和本地编辑器状态不属于 `.mix` v1。初始材质输出要求连接 `baseColor`；其他 PBR 通道可使用文档规定的中性默认值，报告必须区分已连接输出与默认输出。
+布局、元数据、缩略图、预设、资源和引擎目标均被拒绝。`baseColor` 必须有有效 Color 连接；可选通道使用[已记录的材质默认值](./docs/node-contracts.zh-CN.md)。
 
 ## 架构概览
 

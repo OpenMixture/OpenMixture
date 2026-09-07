@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_GRAPH_CYCLE",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Material graph contains a directed cycle.",
+      "nodeId": "a",
+      "evidence": {
+        "cycle": "a -> b -> a"
+      },
+      "suggestion": "Remove an edge in the reported cycle; feedback loops are unsupported."
+    }
+  ]
+}

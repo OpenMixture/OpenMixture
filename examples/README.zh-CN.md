@@ -2,8 +2,12 @@
 
 [English](./README.md) | 简体中文
 
-本目录预留给简短、可读的用户示例。M0 尚无 `.mix` 解析器或渲染器，因此当前不将任何示例宣称为可运行。
+[checker.mix](./checker.mix) 是首个可执行的 `.mix v1` 验证示例：默认棋盘格连接必填的 `baseColor`，`frequency` 暴露使用默认值的 `cellsX` 参数。可选材质通道使用版本化默认值。PR-005 验证此源文件；图编译／渲染将在 PR-006／PR-007 引入。
 
-PR-007 添加图 MVP 示例，后续材质 PR 添加基准示例。在此之前，使用 `cargo xtask check` 验证仓库，使用 `cargo run --locked -p mixture-cli -- --help` 查看 CLI。
+```bash
+cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
+```
 
-参阅[开发命令](../docs/development.zh-CN.md)和[实施计划](../INITIAL_PRS.zh-CN.md)。
+[全部 M2 夹具](../fixtures/format/valid/all-m2.mix)连接六个初始契约。独立的 `render-builtin checker` 命令渲染 PR-004 固定探针，不读取 `.mix` 文档。
+
+参阅[文件格式](../docs/file-format.zh-CN.md)、[节点契约](../docs/node-contracts.zh-CN.md)、[开发命令](../docs/development.zh-CN.md)和[实施计划](../INITIAL_PRS.zh-CN.md)。

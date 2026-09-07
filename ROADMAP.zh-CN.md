@@ -4,7 +4,7 @@
 
 **当前里程碑：** M0 — 清晰的基础工程。
 
-**实现状态：** PR-001 至 PR-004 已实现。核心诊断、显式上下文、棋盘格计算／回读、PNG 输出和经过验证的 doctor 均通过本地检查。Apple M5／Metal 与固定 SwiftShader／Vulkan 匹配已审查棋盘格基准，见[执行证据](./docs/builtin-checker.zh-CN.md)。在配置的干净检出非 GPU 矩阵和 Linux SwiftShader CI 实际于远端通过之前，M0／M1 保持开放。下一步为 PR-005 严格 `.mix` 解码／验证。
+**实现状态：** PR-001 至 PR-005 已实现。严格 `.mix` 解码／图验证、六个 M2 契约和纯 CPU `validate` 命令通过本地测试，见[格式验证说明](./docs/file-format.zh-CN.md)。已有 Metal／SwiftShader 棋盘格证据仍有效。在干净检出非 GPU 矩阵与 Linux SwiftShader CI 实际于远端通过前，M0／M1 保持开放。下一步为 PR-006 确定性 RenderPlan 编译与检查，M2 图执行尚未完成。
 
 本路线图按可验证的结果组织，而不是按日期、季度、节点数量或功能数量安排。只有全部退出标准在干净环境中通过，里程碑才算完成。
 

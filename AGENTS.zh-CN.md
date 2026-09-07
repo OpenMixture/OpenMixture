@@ -50,7 +50,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 速查
 
-当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`doc`、`deps`、`links`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现支持 `--skip-probe` 的验证型 `doctor` 及 `render-builtin checker`，均提供人类可读与 JSON 模式。下面其余命令是目标接口，不得声称已经实现。
+当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`test-format`、`doc`、`deps`、`links`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现纯 CPU `validate`、支持 `--skip-probe` 的验证型 `doctor` 和 `render-builtin checker`，均提供人类可读与 JSON 模式。下面其余命令是目标接口，不得声称已经实现。
 
 仓库计划提供以下命令：
 
@@ -79,7 +79,7 @@ cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
 
 ## 仓库职责地图
 
-以下是计划中的运行时模块职责地图。PR-002 添加了核心诊断与限制；PR-003 添加了 `mixture-wgpu/src/context.rs`、`mixture-wgpu/src/diagnostics.rs` 和 `mixture-cli/src/commands/doctor.rs`。PR-004 添加了固定棋盘格、回读、操作错误、一个 WGSL kernel 和 CLI PNG 编排。其余模块由对应实施 PR 引入，不创建空的运行时桩。现有模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
+以下是计划中的运行时模块职责地图。PR-002 添加了核心诊断与限制；PR-003 添加了 `mixture-wgpu/src/context.rs`、`mixture-wgpu/src/diagnostics.rs` 和 `mixture-cli/src/commands/doctor.rs`。PR-004 添加了固定棋盘格、回读、操作错误、一个 WGSL kernel 和 CLI PNG 编排。PR-005 添加有界文档解码、静态节点契约、图验证和 CLI validate。其余模块由对应实施 PR 引入，不创建空的运行时桩。现有模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
 
 ```text
 crates/mixture-core/
@@ -195,7 +195,8 @@ xtask/                   repository automation only
 | `.mix` 解码或版本管理 | `cargo xtask test-format` |
 | 图验证 | `cargo xtask test-core` 加专项验证测试 |
 | 编译器或计划哈希 | `cargo xtask test-plan` |
-| 仅节点契约 | `cargo xtask test-node <id>` |
+| 图像素执行前的 M2 契约（PR-005） | `cargo test --locked -p mixture-core --test registry` 和 `cargo xtask test-format` |
+| 已有图像素执行器的节点契约（PR-007 起） | `cargo xtask test-node <id>` |
 | WGSL 内核 | `cargo xtask shader-check` 与 `cargo xtask test-node <id>` |
 | 资源生命周期或回读 | 专项 `mixture-wgpu` 测试与 `cargo xtask gpu-smoke` |
 | CLI 命令 | 命令快照／集成测试 |

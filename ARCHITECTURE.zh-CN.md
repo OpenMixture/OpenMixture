@@ -186,6 +186,8 @@ future mixture-wasm -> mixture-core + mixture-wgpu
 
 ## 5. `.mix` v1 文档模型
 
+PR-005 在[格式指南](./docs/file-format.zh-CN.md)中实现首个严格源文件结构。文档字段为 `version`、`nodes`、`edges` 和可选 `exposedParameters`；节点要求 `id`、`type`、`version`，可选 `parameters`。端点使用 `nodeId`／`portId`，暴露绑定使用 `id`／`nodeId`／`parameterId`。ID 遵循文档中的 ASCII 语法。拒绝重复键及未声明字段，当前不允许元数据字段。这替代的是 README 的前瞻性示例，不是已发布格式。
+
 ### 5.1 唯一事实来源规则
 
 `.mix` v1 使用 UTF-8 JSON，仅包含编译和渲染图所需的材质语义。
@@ -260,7 +262,7 @@ v1 的 `material-output` 契约如下：
 | 请求材质输出数 | 8 |
 | 估算的临时 GPU 字节数 | 512 MiB |
 
-PR-002 提供显式 `SafetyLimits` 对象，包含上述默认值和上限检查。不得隐式提高限制。每次因超限而拒绝请求，都报告配置上限和实际观测值。请求下限与文档验证仍由对应 PR 实现；见[安全限制契约](./docs/diagnostics.zh-CN.md)。
+PR-002 提供显式 `SafetyLimits` 对象，包含上述默认值和上限检查。不得隐式提高限制。每次因超限而拒绝请求，都报告配置上限和实际观测值。PR-004 检查棋盘格请求下限，PR-005 执行字节／集合限制并验证源图。编译请求预算仍是后续工作；见[安全限制契约](./docs/diagnostics.zh-CN.md)。
 
 v1 不支持内嵌资源，因此其预算为零。
 
@@ -328,6 +330,8 @@ v1 不支持内嵌资源，因此其预算为零。
 - 精度和范围说明。
 
 初始实现应使用显式 Rust 模块和静态数据。在前十二个节点暴露出真实、稳定的重复模式前，避免过程宏。
+
+PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh-CN.md)，不添加像素执行器或推测性的 KernelId 桩。`ValidatedDocument` 解析版本化默认值，并提供连接／默认输入来源，不修改源文档。参数覆盖及类型化 kernel 降级随编译功能引入。
 
 ### 7.1 唯一的像素实现
 

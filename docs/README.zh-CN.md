@@ -14,6 +14,8 @@
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
 [GPU 上下文与 doctor](./gpu-context.zh-CN.md)说明 PR-003 获取流程、报告字段、退出码和固定软件适配器 CI。
 [内置棋盘格](./builtin-checker.zh-CN.md)定义 PR-004 像素、回读、PNG 输出、基准来源和执行证据。
+[严格 .mix v1 格式](./file-format.zh-CN.md)定义 PR-005 解码、验证、CLI 行为及源文件夹具。
+[六个 M2 节点契约](./node-contracts.zh-CN.md)定义图执行之前的类型化端口、参数、默认值及声明的语义。
 [架构决策](./decisions/README.zh-CN.md)记录四项基础设计决策。
 
 原始[审查文档包](../mixture-greenfield-docs/README.md)作为来源材料原样保留。其计划中的命令不代表后续里程碑已经实现。此后根目录文档与代码一起维护；文档包清单仅适用于原始包。

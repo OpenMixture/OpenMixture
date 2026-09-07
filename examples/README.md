@@ -2,8 +2,12 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-This directory is reserved for small, readable user examples. No `.mix` parser or renderer exists in M0, so no sample is presented as runnable yet.
+[checker.mix](./checker.mix) is the first executable `.mix v1` validation example: a default checker feeds required `baseColor`, and `frequency` exposes its defaulted `cellsX` parameter. Optional material channels use the versioned defaults. PR-005 validates this source; graph compilation/rendering arrive in PR-006/PR-007.
 
-PR-007 adds graph MVP examples; later material PRs add their golden examples. Until then, verify the repository with `cargo xtask check` and inspect the CLI with `cargo run --locked -p mixture-cli -- --help`.
+```bash
+cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
+```
 
-See [development commands](../docs/development.md) and [the implementation train](../INITIAL_PRS.md).
+The [all-M2 fixture](../fixtures/format/valid/all-m2.mix) connects all six initial contracts. The separate `render-builtin checker` command renders the fixed PR-004 probe, without reading a `.mix` document.
+
+See [the file format](../docs/file-format.md), [node contracts](../docs/node-contracts.md), [development commands](../docs/development.md), and [implementation train](../INITIAL_PRS.md).
