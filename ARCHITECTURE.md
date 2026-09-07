@@ -444,6 +444,8 @@ let result = renderer.render(&plan).await?;
 
 No public render API initializes a hidden global device.
 
+PR-003 implements context acquisition and human/JSON `doctor`. It reports requested policy, actual adapter capabilities, and enabled device features/limits. Success is `unverified`; acquisition failure is `unhealthy`. No compute or readback has run, and `Renderer` in the example remains planned for PR-004. See [the GPU context contract](./docs/gpu-context.md).
+
 ### 9.2 Headless compute only
 
 Initial rendering uses compute pipelines and offscreen textures only.
@@ -545,7 +547,7 @@ Do not claim universal byte-identical GPU output.
 
 Externally visible failures use stable Mixture codes.
 
-PR-002 implements `Diagnostic`, `DiagnosticReport`, and native source chains in `mixture-core`. Reports sort diagnostics deterministically and derive `ok` from severity. Source objects remain available through `std::error::Error::source` and are not serialized automatically. The exact JSON fields, ordering, reserved codes, and planned CLI exit-code policy are documented in [the diagnostic contract](./docs/diagnostics.md).
+PR-002 implements `Diagnostic`, `DiagnosticReport`, and native source chains in `mixture-core`. Reports sort diagnostics deterministically and derive `ok` from severity. Source objects remain available through `std::error::Error::source` and are not serialized automatically. The exact JSON fields, ordering, reserved codes, and shared CLI exit-code policy are documented in [the diagnostic contract](./docs/diagnostics.md).
 
 Example:
 

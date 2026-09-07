@@ -173,6 +173,8 @@ cargo xtask check
 
 ## PR-003 — `feat(gpu): add an explicit headless GpuContext and doctor command`
 
+**Repository status:** Implemented: explicit context ownership, stable acquisition failures, human/JSON doctor, and opt-in GPU smoke. Local Apple M5/Metal evidence passed; the pinned SwiftShader CI job awaits its remote run. See [GPU context documentation](./docs/gpu-context.md). Compute/readback and `healthy` remain PR-004 scope.
+
 ### Goal
 
 Acquire and report a `wgpu` adapter/device explicitly, without rendering or global state.

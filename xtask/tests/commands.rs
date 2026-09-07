@@ -20,13 +20,7 @@ fn supported_repository_checks_work_outside_the_workspace_directory() {
 
 #[test]
 fn unknown_and_not_yet_implemented_commands_fail() {
-    for command in [
-        "unknown",
-        "shader-check",
-        "gpu-smoke",
-        "golden",
-        "test-plan",
-    ] {
+    for command in ["unknown", "shader-check", "golden", "test-plan"] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
             .arg(command)
             .output()
@@ -34,4 +28,15 @@ fn unknown_and_not_yet_implemented_commands_fail() {
         assert!(!output.status.success());
         assert!(String::from_utf8_lossy(&output.stderr).contains("unimplemented command"));
     }
+}
+
+#[test]
+fn gpu_smoke_rejects_invalid_policy_before_starting_cargo_or_gpu() {
+    let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
+        .arg("gpu-smoke")
+        .env("MIXTURE_GPU_BACKEND", "none")
+        .output()
+        .expect("xtask should start");
+    assert!(!output.status.success());
+    assert!(String::from_utf8_lossy(&output.stderr).contains("Invalid smoke policy"));
 }

@@ -1,16 +1,16 @@
-//! Process-level checks for the foundation CLI's honest command surface.
+//! Process-level checks for the CLI's implemented command surface.
 
 use std::process::Command;
 
 #[test]
-fn help_and_version_report_the_foundation() {
+fn help_and_version_report_the_current_command_surface() {
     for argument in ["--help", "-h", "--version", "-V"] {
         let output = Command::new(env!("CARGO_BIN_EXE_mixture"))
             .arg(argument)
             .output()
             .expect("CLI should start");
         assert!(output.status.success());
-        assert!(String::from_utf8_lossy(&output.stdout).contains("M0 foundation"));
+        assert!(String::from_utf8_lossy(&output.stdout).contains("GPU context diagnostics"));
         assert!(output.stderr.is_empty());
     }
 }
@@ -19,7 +19,6 @@ fn help_and_version_report_the_foundation() {
 fn missing_unknown_and_future_commands_never_claim_success() {
     for arguments in [
         vec![],
-        vec!["doctor", "--json"],
         vec!["validate", "missing.mix"],
         vec!["inspect", "missing.mix", "--plan"],
         vec!["render", "missing.mix"],

@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 仓库基础工程和 PR-002 核心诊断／安全限制。CLI 目前仅提供帮助和版本信息；材质解析、GPU 获取与渲染尚未实现。M0 跨平台里程碑验收仍需 CI 运行证据。
+**已实现：** PR-001 基础工程、PR-002 核心诊断／安全限制，以及 PR-003 显式 GPU 上下文和人类可读／JSON `doctor`。获取成功报告 `unverified`；材质解析、计算／回读渲染仍由后续 PR 实现。远端跨平台与固定软件适配器 CI 证据仍待获取。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -24,6 +24,8 @@ cargo run --locked -p mixture-cli -- --help
 仓库固定使用 Rust 1.98.1 / edition 2024，并包含 `Cargo.lock`。检查覆盖格式、依赖边界、Clippy、测试、rustdoc 和本地文档链接，无需 GPU。所有已实现命令和平台前置条件见[开发指南](./docs/development.zh-CN.md)。
 
 核心现已提供[诊断与安全限制 API](./docs/diagnostics.zh-CN.md)，包含强类型错误、确定性 JSON 报告和七类显式资源上限。可通过 `cargo run --locked -p mixture-core --example diagnostics` 运行公共示例。
+
+[GPU 上下文与 doctor 指南](./docs/gpu-context.zh-CN.md)说明适配器选择、结构化失败、退出码和显式 `cargo xtask gpu-smoke` 检查。运行 `cargo run --locked -p mixture-cli -- doctor --json` 检查本机环境。
 
 ## 使命
 
@@ -73,7 +75,7 @@ Mixture 的设计遵循以下不可破坏的保证：
 
 ## 计划中的命令接口
 
-仓库从路线图的 M0 里程碑开始。以下命令是稳定的目标接口，会随对应里程碑逐步实现。
+以下 `check` 和 `doctor` 已实现。文档检查和渲染仍是后续里程碑的稳定目标接口。
 
 ```bash
 # Repository verification

@@ -1,6 +1,7 @@
 //! Private repository automation. No material or rendering semantics belong here.
 
 mod dependencies;
+mod gpu_smoke;
 mod links;
 
 use std::{
@@ -20,11 +21,12 @@ Available repository commands:
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
+  gpu-smoke   Acquire real GPU contexts and save doctor evidence (explicit opt-in)
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
-Shader, graph, material, golden, and GPU commands arrive in later milestones.";
+Shader, graph, material, and golden commands arrive in later milestones.";
 
 fn main() -> ExitCode {
     match run() {
@@ -52,7 +54,7 @@ fn run() -> TaskResult {
             }
             println!("All repository checks passed.");
         }
-        "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" => {
+        "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -136,6 +138,7 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
         ),
         "deps" => dependencies::check(root),
         "links" => links::check(root),
+        "gpu-smoke" => gpu_smoke::run(root),
         _ => Err(format!("unknown task: {task}").into()),
     }
 }

@@ -1,0 +1,48 @@
+name: GPU acquisition smoke
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gpu-smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swiftshader:
+    name: Pinned SwiftShader Vulkan context
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CARGO_TERM_COLOR: always
+      CC: clang-18
+      CXX: clang++-18
+      MIXTURE_GPU_BACKEND: vulkan
+      MIXTURE_GPU_SOFTWARE: '1'
+      MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Install build tools and Vulkan loader
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y cmake ninja-build clang-18 libvulkan1
+      - name: Build pinned software adapter
+        run: bash .github/scripts/setup-swiftshader.sh
+      - name: Install repository Rust toolchain
+        run: rustup show active-toolchain
+      - name: Acquire contexts and validate doctor evidence
+        run: cargo xtask gpu-smoke
+      - name: Retain acquisition and environment evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: swiftshader-context-evidence
+          path: tmp/gpu-smoke/
+          if-no-files-found: error

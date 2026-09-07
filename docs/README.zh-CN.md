@@ -11,7 +11,8 @@
 - [初始 PR 实施计划](../INITIAL_PRS.zh-CN.md)
 
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
-[诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和计划中的 CLI 退出码策略。
+[诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
+[GPU 上下文与 doctor](./gpu-context.zh-CN.md)说明 PR-003 获取流程、报告字段、退出码和固定软件适配器 CI。
 [架构决策](./decisions/README.zh-CN.md)记录四项基础设计决策。
 
 原始[审查文档包](../mixture-greenfield-docs/README.md)作为来源材料原样保留。其计划中的命令不代表后续里程碑已经实现。此后根目录文档与代码一起维护；文档包清单仅适用于原始包。

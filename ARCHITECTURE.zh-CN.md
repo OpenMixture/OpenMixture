@@ -444,6 +444,8 @@ let result = renderer.render(&plan).await?;
 
 任何公共渲染 API 都不得初始化隐藏的全局设备。
 
+PR-003 已实现上下文获取和人类可读／JSON `doctor`，报告请求策略、实际适配器能力及已启用设备特性／限制。成功为 `unverified`，获取失败为 `unhealthy`。尚未运行计算或回读；示例中的 `Renderer` 仍计划在 PR-004 实现。见 [GPU 上下文契约](./docs/gpu-context.zh-CN.md)。
+
 ### 9.2 仅使用无界面计算
 
 初始渲染只使用计算管线和离屏纹理。
@@ -545,7 +547,7 @@ Mixture 区分语义确定性和逐字节一致的浮点输出。
 
 对外可见的失败使用稳定的 Mixture 错误码。
 
-PR-002 在 `mixture-core` 中实现 `Diagnostic`、`DiagnosticReport` 和原生源错误链。报告对诊断进行确定性排序，并根据严重程度推导 `ok`。源错误对象仍可通过 `std::error::Error::source` 访问，不自动序列化。准确的 JSON 字段、排序、预留错误码和计划中的 CLI 退出码策略见[诊断契约](./docs/diagnostics.zh-CN.md)。
+PR-002 在 `mixture-core` 中实现 `Diagnostic`、`DiagnosticReport` 和原生源错误链。报告对诊断进行确定性排序，并根据严重程度推导 `ok`。源错误对象仍可通过 `std::error::Error::source` 访问，不自动序列化。准确的 JSON 字段、排序、预留错误码和共享 CLI 退出码策略见[诊断契约](./docs/diagnostics.zh-CN.md)。
 
 示例：
 

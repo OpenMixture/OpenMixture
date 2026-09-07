@@ -1,36 +1,39 @@
-//! Minimal, honest CLI entry point for the M0 foundation.
+//! Thin command dispatch and presentation for Mixture.
+
+mod commands {
+    pub mod doctor;
+}
 
 use std::{env, ffi::OsStr, process::ExitCode};
 
-const HELP: &str = "Mixture — M0 foundation
+const HELP: &str = "Mixture — GPU context diagnostics
 
-Usage: mixture --help
+Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
+                      [--power-preference high-performance|low-power] [--software]
+       mixture --help
        mixture --version
 
-Material parsing and rendering are not implemented yet.
-See ROADMAP.md and INITIAL_PRS.md for the implementation sequence.
-Run `cargo xtask check` from the repository to verify the foundation.";
+Doctor acquires a headless GPU context; compute and readback remain unverified.
+Use `mixture doctor --help` for options and exit codes.
+Material parsing and rendering are not implemented yet.";
 
 fn main() -> ExitCode {
-    let mut args = env::args_os().skip(1);
-    let first = args.next();
-    let single_argument = args.next().is_none();
-
-    match first.as_deref() {
-        Some(arg)
-            if single_argument && (arg == OsStr::new("--help") || arg == OsStr::new("-h")) =>
-        {
+    let args: Vec<_> = env::args_os().skip(1).collect();
+    match args.as_slice() {
+        [argument] if argument == "--help" || argument == "-h" => {
             println!("{HELP}");
             ExitCode::SUCCESS
         }
-        Some(arg)
-            if single_argument && (arg == OsStr::new("--version") || arg == OsStr::new("-V")) =>
-        {
-            println!("mixture {} (M0 foundation)", env!("CARGO_PKG_VERSION"));
+        [argument] if argument == "--version" || argument == "-V" => {
+            println!(
+                "mixture {} (GPU context diagnostics)",
+                env!("CARGO_PKG_VERSION")
+            );
             ExitCode::SUCCESS
         }
+        [command, rest @ ..] if command == OsStr::new("doctor") => commands::doctor::run(rest),
         _ => {
-            eprintln!("No runtime commands are available in the M0 foundation.\n\n{HELP}");
+            eprintln!("Invalid or unimplemented command.\n\n{HELP}");
             ExitCode::from(2)
         }
     }

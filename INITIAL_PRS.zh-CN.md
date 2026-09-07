@@ -173,6 +173,8 @@ cargo xtask check
 
 ## PR-003 — `feat(gpu): add an explicit headless GpuContext and doctor command`
 
+**仓库状态：** 已实现显式上下文所有权、稳定获取错误、人类可读／JSON doctor 和显式 GPU 冒烟检查。本地 Apple M5／Metal 证据已通过；固定 SwiftShader CI 任务仍待远端运行。见 [GPU 上下文文档](./docs/gpu-context.zh-CN.md)。计算／回读及 `healthy` 仍属于 PR-004。
+
 ### 目标
 
 显式获取并报告 `wgpu` 适配器／设备，不渲染，也不使用全局状态。

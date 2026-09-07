@@ -1,5 +1,23 @@
-//! The future, sole pixel executor for Mixture.
+//! Explicit headless GPU ownership and acquisition diagnostics.
 //!
-//! M0 reserves the dependency boundary over `mixture-core`. The `wgpu` dependency,
-//! explicit GPU context, shaders, and readback arrive in M1. No adapter is acquired
-//! and no rendering API is provided by this foundation crate.
+//! Acquiring a context does not verify compute or readback. There is no global
+//! context, implicit initialization, or alternate pixel executor.
+//!
+//! ```no_run
+//! use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions};
+//!
+//! async fn acquire() -> Result<GpuContext, mixture_wgpu::GpuContextError> {
+//!     GpuContext::request(GpuContextOptions {
+//!         backend: BackendPreference::Auto,
+//!         ..Default::default()
+//!     }).await
+//! }
+//! ```
+
+pub mod context;
+pub mod diagnostics;
+
+pub use context::{
+    BackendPreference, GpuContext, GpuContextError, GpuContextOptions, PowerPreference,
+};
+pub use diagnostics::{AdapterDiagnostics, ContextReport, DeviceDiagnostics, DoctorVerdict};

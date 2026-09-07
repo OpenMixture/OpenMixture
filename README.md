@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 repository foundation and PR-002 core diagnostics/safety limits. The CLI exposes help and version only; material parsing, GPU acquisition, and rendering are not implemented yet. The M0 cross-platform milestone gate awaits CI evidence.
+**Implemented:** PR-001 foundation, PR-002 core diagnostics/safety limits, and PR-003 explicit GPU context with human/JSON `doctor`. Acquisition reports `unverified`; material parsing and compute/readback rendering remain for later PRs. Remote cross-platform and pinned software-adapter CI evidence is still pending.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -24,6 +24,8 @@ cargo run --locked -p mixture-cli -- --help
 The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
 
 The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
+
+The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter selection, structured failures, exit codes, and the explicit `cargo xtask gpu-smoke` check. Run `cargo run --locked -p mixture-cli -- doctor --json` to inspect your environment.
 
 ## Mission
 
@@ -73,7 +75,7 @@ These may be reconsidered only after a real consumer demonstrates that the simpl
 
 ## Planned command surface
 
-The repository begins at roadmap milestone M0. Commands below are the stable target interface and become available as their milestones land.
+`check` and `doctor` below are implemented. Document inspection and rendering remain the stable target interface for later milestones.
 
 ```bash
 # Repository verification

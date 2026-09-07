@@ -1,6 +1,6 @@
 [package]
 name = "mixture-wgpu"
-description = "Foundation for Mixture's single, explicit wgpu pixel executor"
+description = "Explicit headless GPU context and diagnostics for Mixture"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -10,6 +10,12 @@ publish.workspace = true
 
 [dependencies]
 mixture-core.workspace = true
+wgpu.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+pollster.workspace = true
+serde_json.workspace = true
 
 [lints]
 workspace = true

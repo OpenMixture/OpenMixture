@@ -8,8 +8,14 @@ use crate::{TaskResult, cargo};
 
 const POLICY: &[(&str, &[&str])] = &[
     ("mixture-core", &["serde", "serde_json"]),
-    ("mixture-wgpu", &["mixture-core"]),
-    ("mixture-cli", &["mixture-core", "mixture-wgpu"]),
+    (
+        "mixture-wgpu",
+        &["mixture-core", "wgpu", "serde", "pollster", "serde_json"],
+    ),
+    (
+        "mixture-cli",
+        &["mixture-core", "mixture-wgpu", "pollster", "serde_json"],
+    ),
     ("xtask", &["pulldown-cmark", "serde_json"]),
 ];
 
@@ -25,7 +31,7 @@ pub(super) fn check(root: &Path) -> TaskResult {
         .into());
     }
     validate(&serde_json::from_slice(&output.stdout)?)?;
-    println!("Dependency policy passed (four private crates, no GPU dependencies).");
+    println!("Dependency policy passed (four private crates, wgpu confined to mixture-wgpu).");
     Ok(())
 }
 
@@ -76,14 +82,15 @@ fn validate(metadata: &Value) -> TaskResult {
             if !allowed.contains(&dependency_name) {
                 return Err(format!("{name} -> {dependency_name} violates the dependency policy; see docs/development.md").into());
             }
-            if *name == "mixture-core"
-                && dependency_name == "serde_json"
+            if ((*name == "mixture-core" && dependency_name == "serde_json")
+                || (*name == "mixture-wgpu"
+                    && matches!(dependency_name, "pollster" | "serde_json")))
                 && dependency["kind"].as_str() != Some("dev")
             {
-                return Err(
-                    "mixture-core -> serde_json is restricted to tests and examples in PR-002"
-                        .into(),
-                );
+                return Err(format!(
+                    "{name} -> {dependency_name} is restricted to tests and examples"
+                )
+                .into());
             }
             if dependency_name.starts_with("mixture-")
                 && (dependency["path"].as_str().is_none() || !dependency["source"].is_null())
@@ -112,7 +119,7 @@ mod tests {
             "license": "MIT OR Apache-2.0",
             "dependencies": allowed.iter().map(|dependency| json!({
                 "name": dependency,
-                "kind": if *name == "mixture-core" && *dependency == "serde_json" { Some("dev") } else { None },
+                "kind": if (*name == "mixture-core" && *dependency == "serde_json") || (*name == "mixture-wgpu" && matches!(*dependency, "pollster" | "serde_json")) { Some("dev") } else { None },
                 "path": if dependency.starts_with("mixture-") { Some("../local") } else { None },
                 "source": if dependency.starts_with("mixture-") { None } else { Some("registry") },
             })).collect::<Vec<_>>()
@@ -170,5 +177,19 @@ mod tests {
         let mut metadata = baseline();
         metadata["packages"][0]["dependencies"] = json!([{"name": "serde_json", "kind": null}]);
         assert!(validate(&metadata).is_err());
+    }
+
+    #[test]
+    fn rejects_gpu_dependency_outside_executor_and_blocking_executor_dependencies() {
+        for index in [0, 2, 3] {
+            let mut metadata = baseline();
+            metadata["packages"][index]["dependencies"] = json!([{"name": "wgpu", "kind": "dev"}]);
+            assert!(validate(&metadata).is_err());
+        }
+        for dependency in ["pollster", "serde_json"] {
+            let mut metadata = baseline();
+            metadata["packages"][1]["dependencies"] = json!([{"name": dependency, "kind": null}]);
+            assert!(validate(&metadata).is_err());
+        }
     }
 }

@@ -4,7 +4,7 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current milestone:** M0 — Clean Foundation.
 
-**Implementation status:** PR-001 foundation and the PR-002 shared diagnostics/safety-limit prerequisite are present. Run `cargo xtask check` for local evidence; keep M0 open until the Linux, macOS, and Windows non-GPU CI matrix has passed from a clean checkout. GPU context and execution work have not started. PR-003 is the next implementation step.
+**Implementation status:** PR-001 foundation, PR-002 shared diagnostics/safety limits, and PR-003 GPU context/`doctor` are implemented. Local checks and Apple M5/Metal acquisition smoke passed; see [GPU evidence and reproduction](./docs/gpu-context.md). Keep M0 open until the Linux/macOS/Windows non-GPU CI matrix passes from a clean checkout. The pinned SwiftShader job also awaits remote evidence. PR-004 checker compute/readback is next; M1 is not complete.
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 
