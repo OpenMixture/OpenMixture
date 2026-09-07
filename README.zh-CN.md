@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 基础工程、PR-002 核心诊断／安全限制，以及 PR-003 显式 GPU 上下文和人类可读／JSON `doctor`。获取成功报告 `unverified`；材质解析、计算／回读渲染仍由后续 PR 实现。远端跨平台与固定软件适配器 CI 证据仍待获取。
+**已实现：** PR-001 至 PR-004：核心诊断／安全限制、显式 GPU 上下文、经过计算验证的人类可读／JSON `doctor`，以及内置棋盘格计算／回读和 CLI PNG 输出。本地 Apple M5／Metal 与固定 SwiftShader／Vulkan 冒烟测试均通过同一已审查像素基准。材质解析和图渲染仍待实现，远端 CI 证据仍待获取。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -26,6 +26,8 @@ cargo run --locked -p mixture-cli -- --help
 核心现已提供[诊断与安全限制 API](./docs/diagnostics.zh-CN.md)，包含强类型错误、确定性 JSON 报告和七类显式资源上限。可通过 `cargo run --locked -p mixture-core --example diagnostics` 运行公共示例。
 
 [GPU 上下文与 doctor 指南](./docs/gpu-context.zh-CN.md)说明适配器选择、结构化失败、退出码和显式 `cargo xtask gpu-smoke` 检查。运行 `cargo run --locked -p mixture-cli -- doctor --json` 检查本机环境。
+
+可运行[内置棋盘格](./docs/builtin-checker.zh-CN.md)：`cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`。Doctor 默认运行计算／回读探针；仅获取上下文时使用 `--skip-probe`。
 
 ## 使命
 
@@ -75,7 +77,7 @@ Mixture 的设计遵循以下不可破坏的保证：
 
 ## 计划中的命令接口
 
-以下 `check` 和 `doctor` 已实现。文档检查和渲染仍是后续里程碑的稳定目标接口。
+`check`、`doctor` 和 `render-builtin checker` 已实现。文档检查和渲染仍是后续里程碑的稳定目标接口。
 
 ```bash
 # Repository verification

@@ -444,7 +444,7 @@ let result = renderer.render(&plan).await?;
 
 No public render API initializes a hidden global device.
 
-PR-003 implements context acquisition and human/JSON `doctor`. It reports requested policy, actual adapter capabilities, and enabled device features/limits. Success is `unverified`; acquisition failure is `unhealthy`. No compute or readback has run, and `Renderer` in the example remains planned for PR-004. See [the GPU context contract](./docs/gpu-context.md).
+PR-003 implements context acquisition; its immutable snapshot remains `unverified`. PR-004 adds `GpuContext::render_checker` and a verified doctor probe: actual compute/readback and pixel checks yield `healthy`, explicit skip yields `unverified`, and failures yield `unhealthy` with their exact stage. The general `Renderer` in the conceptual example is still future work; the fixed checker needs no renderer framework. See [GPU ownership](./docs/gpu-context.md) and [the checker contract](./docs/builtin-checker.md).
 
 ### 9.2 Headless compute only
 

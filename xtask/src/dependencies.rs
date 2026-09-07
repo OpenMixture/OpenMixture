@@ -10,13 +10,28 @@ const POLICY: &[(&str, &[&str])] = &[
     ("mixture-core", &["serde", "serde_json"]),
     (
         "mixture-wgpu",
-        &["mixture-core", "wgpu", "serde", "pollster", "serde_json"],
+        &[
+            "mixture-core",
+            "wgpu",
+            "serde",
+            "half",
+            "naga",
+            "pollster",
+            "serde_json",
+        ],
     ),
     (
         "mixture-cli",
-        &["mixture-core", "mixture-wgpu", "pollster", "serde_json"],
+        &[
+            "mixture-core",
+            "mixture-wgpu",
+            "pollster",
+            "serde_json",
+            "serde",
+            "png",
+        ],
     ),
-    ("xtask", &["pulldown-cmark", "serde_json"]),
+    ("xtask", &["pulldown-cmark", "serde_json", "png"]),
 ];
 
 pub(super) fn check(root: &Path) -> TaskResult {
@@ -84,7 +99,7 @@ fn validate(metadata: &Value) -> TaskResult {
             }
             if ((*name == "mixture-core" && dependency_name == "serde_json")
                 || (*name == "mixture-wgpu"
-                    && matches!(dependency_name, "pollster" | "serde_json")))
+                    && matches!(dependency_name, "pollster" | "serde_json" | "naga")))
                 && dependency["kind"].as_str() != Some("dev")
             {
                 return Err(format!(
@@ -119,7 +134,7 @@ mod tests {
             "license": "MIT OR Apache-2.0",
             "dependencies": allowed.iter().map(|dependency| json!({
                 "name": dependency,
-                "kind": if (*name == "mixture-core" && *dependency == "serde_json") || (*name == "mixture-wgpu" && matches!(*dependency, "pollster" | "serde_json")) { Some("dev") } else { None },
+                "kind": if (*name == "mixture-core" && *dependency == "serde_json") || (*name == "mixture-wgpu" && matches!(*dependency, "pollster" | "serde_json" | "naga")) { Some("dev") } else { None },
                 "path": if dependency.starts_with("mixture-") { Some("../local") } else { None },
                 "source": if dependency.starts_with("mixture-") { None } else { Some("registry") },
             })).collect::<Vec<_>>()
@@ -186,7 +201,7 @@ mod tests {
             metadata["packages"][index]["dependencies"] = json!([{"name": "wgpu", "kind": "dev"}]);
             assert!(validate(&metadata).is_err());
         }
-        for dependency in ["pollster", "serde_json"] {
+        for dependency in ["pollster", "serde_json", "naga"] {
             let mut metadata = baseline();
             metadata["packages"][1]["dependencies"] = json!([{"name": dependency, "kind": null}]);
             assert!(validate(&metadata).is_err());

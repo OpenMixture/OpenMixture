@@ -22,7 +22,7 @@ fn missing_unknown_and_future_commands_never_claim_success() {
         vec!["validate", "missing.mix"],
         vec!["inspect", "missing.mix", "--plan"],
         vec!["render", "missing.mix"],
-        vec!["render-builtin", "checker"],
+        vec!["render-builtin", "unknown"],
         vec!["unknown"],
         vec!["--help", "unexpected"],
         vec!["--version", "unexpected"],
@@ -33,6 +33,6 @@ fn missing_unknown_and_future_commands_never_claim_success() {
             .expect("CLI should start");
         assert_eq!(output.status.code(), Some(2));
         assert!(output.stdout.is_empty());
-        assert!(String::from_utf8_lossy(&output.stderr).contains("not implemented yet"));
+        assert!(!output.stderr.is_empty());
     }
 }

@@ -115,7 +115,7 @@ cargo run --locked -p mixture-core --example diagnostics
 
 ## CLI 退出码策略
 
-下表适用于 PR-003 doctor 及未来运行时命令，不代表全部命令已经实现：
+下表适用于 PR-004 doctor／内置渲染及未来运行时命令，不代表全部命令已经实现：
 
 | 退出码 | 含义 |
 | --- | --- |
@@ -125,7 +125,7 @@ cargo run --locked -p mixture-core --example diagnostics
 
 CLI 负责映射及 `ok` 一致性。聚合失败时，只要存在运行故障就选择退出码 `1`；否则存在输入错误时选择 `2`；其余情况选择 `0`。结果不依赖发现顺序。运行时命令实现必须为此策略添加集成测试。缺少必需适配器是失败，不能作为成功回退。未来显式跳过 doctor 执行探针时，应保持 `unverified`，不能报告 `healthy`。
 
-PR-003 实现 [doctor](./gpu-context.zh-CN.md)：上下文获取成功返回 `0`、`ok: true` 和 `unverified`；获取失败返回 `1`、`ok: false` 和 `unhealthy`。两个探针均保持 `notRun`。用法错误返回 `2`，即使在 JSON 模式也写入 stderr；输出 I/O 失败返回 `1`。帮助／版本返回 `0`，缺少／未知／未来命令返回 `2`。其余运行时映射将随对应命令实现。
+PR-004 扩展 [doctor](./gpu-context.zh-CN.md)：棋盘格探针验证通过返回 `0`、`ok: true` 和 `healthy`；显式跳过返回 `unverified`，探针为 `notRun`。获取／探针失败返回 `1`、`ok: false` 和 `unhealthy`。[内置棋盘格渲染](./builtin-checker.zh-CN.md)完成 PNG 输出后返回 `0`，GPU／回读／编码／I/O 失败返回 `1`，请求限制无效返回 `2`。用法错误即使在 JSON 模式也返回 `2` 并写入 stderr；输出 I/O 失败返回 `1`。帮助／版本保持 `0`，缺少／未知／未来命令保持 `2`。
 
 ## 验证与范围
 
@@ -139,4 +139,4 @@ cargo xtask check
 
 测试覆盖公共导入、JSON 快照与拒绝输入、输入排列变化时的排序、可选上下文、精确整数证据、原生源错误链、全部默认边界、显式覆盖、零上限和极端计数。公共示例与 crate 文档测试提供使用方层面的 API 验证。
 
-核心唯一的运行时依赖是 `serde`；`serde_json` 是用于快照和示例的开发依赖。[依赖策略](./development.zh-CN.md)强制区分两者。PR-002 未引入 `.mix` 格式字段、图实现、GPU 依赖、着色器、CLI 运行时命令或自动修复。PR-003 的获取流程与 doctor 另有专门文档。M0 远端 CI 验收仍待完成；PR-002 不宣称关闭该验收项。
+核心唯一的运行时依赖是 `serde`；`serde_json` 是用于快照和示例的开发依赖。[依赖策略](./development.zh-CN.md)强制区分两者。PR-002 未引入 `.mix` 格式字段、图实现、GPU 依赖、着色器、CLI 运行时命令或自动修复。GPU 获取、棋盘格执行与 doctor 另有专门文档。M0 远端 CI 验收仍待完成；PR-002 不宣称关闭该验收项。

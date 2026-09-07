@@ -12,11 +12,16 @@ publish.workspace = true
 name = "mixture"
 path = "src/main.rs"
 
+[features]
+software-vulkan = ["mixture-wgpu/software-vulkan"]
+
 [dependencies]
 mixture-core.workspace = true
 mixture-wgpu.workspace = true
 pollster.workspace = true
 serde_json.workspace = true
+serde.workspace = true
+png.workspace = true
 
 [lints]
 workspace = true

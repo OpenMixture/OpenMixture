@@ -233,6 +233,8 @@ cargo xtask gpu-smoke
 
 ## PR-004 — `feat(gpu): render and read back a built-in checker`
 
+**仓库状态：** 已实现单次 rgba16float 棋盘格计算、对齐回读、RGBA8 输出、CLI PNG 编码、支持显式跳过的验证型 doctor、已审查 SwiftShader 基准，以及阶段／清理回归测试。本地 Metal 与固定 SwiftShader Vulkan 冒烟测试通过，远端 CI 仍待运行。见[棋盘格契约与证据](./docs/builtin-checker.zh-CN.md)。
+
 ### 目标
 
 引入图的复杂性之前，证明完整的无界面计算路径可用。

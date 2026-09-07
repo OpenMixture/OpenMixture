@@ -115,7 +115,7 @@ These are upper-bound primitives, not document or request validation. A zero-siz
 
 ## CLI exit-code policy
 
-This policy applies to PR-003 doctor and future runtime commands; it does not imply that all commands exist:
+This policy applies to PR-004 doctor/built-in rendering and future runtime commands; it does not imply that all commands exist:
 
 | Exit code | Meaning |
 | --- | --- |
@@ -125,7 +125,7 @@ This policy applies to PR-003 doctor and future runtime commands; it does not im
 
 The CLI owns this mapping and `ok` consistency. Aggregate failures choose exit `1` if any operational error exists, otherwise `2` when any input error exists, otherwise `0`; this is independent of discovery order. Runtime command implementations must add integration tests for this policy. A missing required adapter is a failure, never a successful fallback. An explicitly skipped future doctor execution probe remains `unverified`, not `healthy`.
 
-PR-003 implements [doctor](./gpu-context.md): acquired contexts return `0`, `ok: true`, and `unverified`; acquisition failures return `1`, `ok: false`, and `unhealthy`. Both probes remain `notRun`. Usage errors return `2` on stderr even in JSON mode; output I/O failures return `1`. Help/version return `0`, and missing/unknown/future commands return `2`. Remaining runtime mappings will be implemented with their owning commands.
+PR-004 extends [doctor](./gpu-context.md): a verified checker probe returns `0`, `ok: true`, and `healthy`; explicit skip returns `unverified` with `notRun` probes. Acquisition/probe failures return `1`, `ok: false`, and `unhealthy`. [Built-in checker rendering](./builtin-checker.md) returns `0` after PNG output, `1` for GPU/readback/encoding/I/O failure, or `2` for invalid request limits. Usage errors return `2` on stderr even in JSON mode; output I/O errors return `1`. Help/version remain `0`; missing/unknown/future commands remain `2`.
 
 ## Verification and scope
 
@@ -139,4 +139,4 @@ cargo xtask check
 
 Tests exercise public imports, JSON snapshots and rejection, ordering under input permutations, optional context, exact integer evidence, native source chains, every default boundary, explicit overrides, zero ceilings, and extreme counts. The public example and crate doctest provide consumer-level API evidence.
 
-Core's only runtime dependency is `serde`; `serde_json` is a dev dependency for snapshots and the example. The [dependency policy](./development.md) enforces that distinction. PR-002 introduced no `.mix` format field, graph implementation, GPU dependency, shader, CLI runtime command, or automatic remediation. PR-003 acquisition and doctor are documented separately. The M0 remote CI gate remains pending; PR-002 does not claim to close it.
+Core's only runtime dependency is `serde`; `serde_json` is a dev dependency for snapshots and the example. The [dependency policy](./development.md) enforces that distinction. PR-002 introduced no `.mix` format field, graph implementation, GPU dependency, shader, CLI runtime command, or automatic remediation. GPU acquisition, checker execution, and doctor are documented separately. The M0 remote CI gate remains pending; PR-002 does not claim to close it.

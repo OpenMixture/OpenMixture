@@ -1,0 +1,21 @@
+{
+  "builtIn": "checker",
+  "version": 1,
+  "width": 64,
+  "height": 64,
+  "cells": [
+    8,
+    8
+  ],
+  "textureFormat": "rgba16float",
+  "outputEncoding": "rgba8-srgb",
+  "swiftshaderRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "adapter": "SwiftShader Device (LLVM 10.0.0)",
+  "backend": "Vulkan",
+  "deviceType": "Cpu",
+  "capturePlatform": "macOS-26.5.1-arm64-arm-64bit",
+  "wgpuVersion": "30.0.1",
+  "rawRgbaSha256": "831f1737716852a2d3437b82148e441f84528f1e87cda1cfc27c4a11c5806bbd",
+  "pngSha256": "72fe86ec430ab115af8df62aaebf40f795a77cd72d3b87a0979cb2e93258e9fa",
+  "review": "Initial GPU-generated baseline visually inspected: opaque 8x8 checker, black top-left, 2048 black and 2048 white pixels. Metal output matched all RGBA bytes."
+}

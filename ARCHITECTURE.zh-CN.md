@@ -444,7 +444,7 @@ let result = renderer.render(&plan).await?;
 
 任何公共渲染 API 都不得初始化隐藏的全局设备。
 
-PR-003 已实现上下文获取和人类可读／JSON `doctor`，报告请求策略、实际适配器能力及已启用设备特性／限制。成功为 `unverified`，获取失败为 `unhealthy`。尚未运行计算或回读；示例中的 `Renderer` 仍计划在 PR-004 实现。见 [GPU 上下文契约](./docs/gpu-context.zh-CN.md)。
+PR-003 实现上下文获取，其不可变快照保持 `unverified`。PR-004 添加 `GpuContext::render_checker` 和验证型 doctor 探针：实际计算／回读及像素检查通过后为 `healthy`，显式跳过为 `unverified`，失败为 `unhealthy` 并保留准确阶段。概念示例中的通用 `Renderer` 仍是未来工作；固定棋盘格不需要渲染器框架。见 [GPU 所有权](./docs/gpu-context.zh-CN.md)和[棋盘格契约](./docs/builtin-checker.zh-CN.md)。
 
 ### 9.2 仅使用无界面计算
 

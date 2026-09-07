@@ -50,7 +50,7 @@ Do not preserve accidental behavior solely because it exists in an old Mixture r
 
 ## Quick reference
 
-The implemented repository commands are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `doc`, `deps`, `links`, and the explicit `gpu-smoke` work today. The CLI implements `doctor` in human and JSON modes. Other commands below are the target interface and must not be presented as already implemented.
+The implemented repository commands are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `doc`, `deps`, `links`, `shader-check`, and the explicit `gpu-smoke` work today. The CLI implements verified `doctor` with `--skip-probe`, plus `render-builtin checker`, in human and JSON modes. Other commands below are the target interface and must not be presented as already implemented.
 
 The intended repository commands are:
 
@@ -79,7 +79,7 @@ During the first implementation train, a command may not exist until the pull re
 
 ## Repository map
 
-The following is the planned runtime-module ownership map. PR-002 added core diagnostics and limits; PR-003 added `mixture-wgpu/src/context.rs`, `mixture-wgpu/src/diagnostics.rs`, and `mixture-cli/src/commands/doctor.rs`. Remaining modules are introduced by their owning implementation PR, without empty runtime stubs. Existing modules and commands are linked from [the development guide](./docs/development.md).
+The following is the planned runtime-module ownership map. PR-002 added core diagnostics and limits; PR-003 added `mixture-wgpu/src/context.rs`, `mixture-wgpu/src/diagnostics.rs`, and `mixture-cli/src/commands/doctor.rs`. PR-004 added the fixed checker, readback, operation errors, one WGSL kernel, and CLI PNG orchestration. Remaining modules are introduced by their owning implementation PR, without empty runtime stubs. Existing modules and commands are linked from [the development guide](./docs/development.md).
 
 ```text
 crates/mixture-core/
@@ -191,6 +191,7 @@ Do not begin by running the full GPU matrix for a local one-line parser change. 
 
 | Changed area | Minimum targeted verification |
 |---|---|
+| fixed built-in checker before the node registry | `cargo xtask shader-check`, focused `checker`/`readback` tests, and `cargo xtask gpu-smoke` |
 | `.mix` decoding or versioning | `cargo xtask test-format` |
 | graph validation | `cargo xtask test-core` plus focused validation test |
 | compiler or plan hashing | `cargo xtask test-plan` |

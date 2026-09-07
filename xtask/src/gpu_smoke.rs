@@ -1,8 +1,8 @@
-//! Explicit GPU checks; never included in the ordinary `check` or `test` path.
+//! Explicit real-GPU compute/readback checks; ordinary check/test never run them.
 
-use crate::{TaskResult, cargo, run_cargo};
-use serde_json::Value;
-use std::{env, fs, path::Path};
+use crate::{TaskResult, cargo};
+use serde_json::{Value, json};
+use std::{env, fs, io::Cursor, path::Path};
 
 pub(super) fn run(root: &Path) -> TaskResult {
     let backend = env::var("MIXTURE_GPU_BACKEND").unwrap_or_else(|_| "auto".into());
@@ -12,67 +12,175 @@ pub(super) fn run(root: &Path) -> TaskResult {
     {
         return Err("Invalid smoke policy: MIXTURE_GPU_BACKEND=auto|vulkan|metal|dx12, MIXTURE_GPU_SOFTWARE=0|1".into());
     }
+    let expected = env::var("MIXTURE_GPU_EXPECT_ADAPTER").ok();
     let directory = root.join("tmp/gpu-smoke");
     fs::create_dir_all(&directory)?;
-    let mut command = cargo(root);
-    command.args([
-        "run",
-        "--locked",
-        "-p",
-        "mixture-cli",
-        "--",
-        "doctor",
-        "--json",
-        "--backend",
+    println!("Running checker GPU smoke (backend={backend}, software={software})");
+    let doctor = command_report(
+        root,
+        &["doctor", "--json"],
         &backend,
-    ]);
+        &software,
+        &directory,
+        "doctor",
+    )?;
+    validate_report(&doctor, &backend, software == "1", expected.as_deref())?;
+    let skipped = command_report(
+        root,
+        &["doctor", "--skip-probe", "--json"],
+        &backend,
+        &software,
+        &directory,
+        "doctor-skipped",
+    )?;
+    validate_adapter(&skipped, &backend, software == "1", expected.as_deref())?;
+    if skipped["ok"] != true
+        || skipped["verdict"] != "unverified"
+        || skipped["computeProbe"] != "notRun"
+        || skipped["readbackProbe"] != "notRun"
+        || !skipped["execution"].is_null()
+    {
+        return Err("skipped doctor probe claimed execution or health".into());
+    }
+    let rendered = command_report(
+        root,
+        &[
+            "render-builtin",
+            "checker",
+            "--size",
+            "64",
+            "--out",
+            "tmp/gpu-smoke/checker.png",
+            "--json",
+        ],
+        &backend,
+        &software,
+        &directory,
+        "checker",
+    )?;
+    validate_adapter(
+        &rendered["context"],
+        &backend,
+        software == "1",
+        expected.as_deref(),
+    )?;
+    let png = fs::read(directory.join("checker.png"))?;
+    if rendered["ok"] != true
+        || rendered["writtenBytes"].as_u64() != Some(png.len() as u64)
+        || !valid_execution(&rendered["execution"])
+    {
+        return Err("render-builtin did not report a completed checker PNG".into());
+    }
+    let mut reader = png::Decoder::new(Cursor::new(png)).read_info()?;
+    let mut decoded = vec![
+        0;
+        reader
+            .output_buffer_size()
+            .ok_or("invalid PNG output size")?
+    ];
+    let info = reader.next_frame(&mut decoded)?;
+    if info.width != 64
+        || info.height != 64
+        || info.color_type != png::ColorType::Rgba
+        || info.bit_depth != png::BitDepth::Eight
+    {
+        return Err("checker PNG dimensions or format differ from the golden contract".into());
+    }
+    let golden = fs::read(root.join("fixtures/nodes/checker/checker-64.rgba"))?;
+    let mismatches = decoded
+        .iter()
+        .zip(&golden)
+        .filter(|(actual, expected)| actual != expected)
+        .count();
+    let matches = decoded.len() == golden.len() && mismatches == 0;
+    fs::write(
+        directory.join("checker-comparison.json"),
+        serde_json::to_vec_pretty(&json!({
+            "ok": matches, "golden": "fixtures/nodes/checker/checker-64.rgba", "decodedBytes": decoded.len(), "goldenBytes": golden.len(), "differingBytes": mismatches,
+        }))?,
+    )?;
+    if !matches {
+        return Err(
+            "GPU checker differs from the reviewed SwiftShader golden; baseline was not modified"
+                .into(),
+        );
+    }
+    let tests = cargo(root)
+        .args([
+            "test",
+            "--locked",
+            "--all-features",
+            "-p",
+            "mixture-wgpu",
+            "-p",
+            "mixture-cli",
+            "--",
+            "--ignored",
+            "--nocapture",
+        ])
+        .output()?;
+    fs::write(directory.join("gpu-tests.stdout.log"), &tests.stdout)?;
+    fs::write(directory.join("gpu-tests.stderr.log"), &tests.stderr)?;
+    if !tests.status.success() {
+        return Err(format!("GPU tests failed; inspect {}", directory.display()).into());
+    }
+    println!(
+        "GPU checker smoke passed: {} ({}, {}); doctor healthy; golden exact. Evidence: {}",
+        doctor["adapter"]["name"],
+        doctor["adapter"]["deviceType"],
+        doctor["adapter"]["backend"],
+        directory.display()
+    );
+    Ok(())
+}
+
+fn command_report(
+    root: &Path,
+    arguments: &[&str],
+    backend: &str,
+    software: &str,
+    directory: &Path,
+    name: &str,
+) -> TaskResult<Value> {
+    let mut command = cargo(root);
+    command
+        .args([
+            "run",
+            "--locked",
+            "--all-features",
+            "-p",
+            "mixture-cli",
+            "--",
+        ])
+        .args(arguments)
+        .args(["--backend", backend]);
     if software == "1" {
         command.arg("--software");
     }
-    println!("Acquiring doctor context (backend={backend}, software={software})");
     let output = command.output()?;
-    fs::write(directory.join("doctor.json"), &output.stdout)?;
-    fs::write(directory.join("doctor.stderr.log"), &output.stderr)?;
+    fs::write(directory.join(format!("{name}.json")), &output.stdout)?;
+    fs::write(directory.join(format!("{name}.stderr.log")), &output.stderr)?;
     if !output.status.success() {
         return Err(format!(
-            "doctor failed ({}); inspect {}",
+            "{name} failed ({}); inspect {}",
             output.status,
             directory.display()
         )
         .into());
     }
-    let report: Value = serde_json::from_slice(&output.stdout)?;
-    validate_report(
-        &report,
-        &backend,
-        software == "1",
-        env::var("MIXTURE_GPU_EXPECT_ADAPTER").ok().as_deref(),
-    )?;
-    run_cargo(
-        root,
-        &[
-            "test",
-            "--locked",
-            "-p",
-            "mixture-wgpu",
-            "--test",
-            "context",
-            "context_gpu_smoke_owns_independent_contexts",
-            "--",
-            "--ignored",
-            "--exact",
-            "--nocapture",
-        ],
-        false,
-    )?;
-    println!(
-        "GPU acquisition smoke passed: {} ({}, {}); verdict unverified. Evidence: {}",
-        report["adapter"]["name"],
-        report["adapter"]["deviceType"],
-        report["adapter"]["backend"],
-        directory.display()
-    );
-    Ok(())
+    Ok(serde_json::from_slice(&output.stdout)?)
+}
+
+fn valid_execution(report: &Value) -> bool {
+    report["passCount"] == 1
+        && report["width"] == 64
+        && report["height"] == 64
+        && report["readbackBytes"] == 32768
+        && report["rgbaBytes"] == 16384
+        && report["mappedBytes"] == 32768
+        && report["paddedBytesPerRow"] == 512
+        && report["textureFormat"] == "rgba16float"
+        && report["dispatch"] == json!([8, 8, 1])
 }
 
 fn validate_report(
@@ -83,24 +191,37 @@ fn validate_report(
 ) -> TaskResult {
     if report["schemaVersion"] != 1
         || report["ok"] != true
-        || report["verdict"] != "unverified"
-        || report["computeProbe"] != "notRun"
-        || report["readbackProbe"] != "notRun"
-        || report["diagnostics"] != serde_json::json!([])
-        || !report["device"].is_object()
+        || report["verdict"] != "healthy"
+        || report["computeProbe"] != "passed"
+        || report["readbackProbe"] != "passed"
+        || report["diagnostics"] != json!([])
+        || !valid_execution(&report["execution"])
+    {
+        return Err("doctor returned no verified compute/readback evidence".into());
+    }
+    validate_adapter(report, backend, software, expected_adapter)
+}
+
+fn validate_adapter(
+    report: &Value,
+    backend: &str,
+    software: bool,
+    expected_adapter: Option<&str>,
+) -> TaskResult {
+    if !report["device"].is_object()
         || !report["adapter"]["supportedLimits"].is_object()
         || report["requested"]["backend"] != backend
         || report["requested"]["softwareAdapter"] != software
     {
-        return Err("doctor returned an invalid acquisition report".into());
+        return Err("requested and actual adapter evidence is incomplete".into());
     }
-    let actual_backend = report["adapter"]["backend"]
+    let actual = report["adapter"]["backend"]
         .as_str()
-        .ok_or("missing adapter backend")?;
-    if !matches!(actual_backend, "Vulkan" | "Metal" | "Dx12")
-        || (backend != "auto" && !actual_backend.eq_ignore_ascii_case(backend))
+        .ok_or("missing backend")?;
+    if !matches!(actual, "Metal" | "Vulkan" | "Dx12")
+        || (backend != "auto" && !actual.eq_ignore_ascii_case(backend))
     {
-        return Err(format!("unexpected adapter backend: {actual_backend}").into());
+        return Err(format!("unexpected adapter backend: {actual}").into());
     }
     if software && report["adapter"]["deviceType"] != "Cpu" {
         return Err("software policy did not select a CPU adapter".into());
@@ -112,7 +233,7 @@ fn validate_report(
     if let Some(expected) = expected_adapter
         && !name.contains(expected)
     {
-        return Err(format!("expected adapter containing {expected:?}, selected {name:?}").into());
+        return Err(format!("expected {expected:?}, selected {name:?}").into());
     }
     Ok(())
 }
@@ -121,27 +242,27 @@ fn validate_report(
 mod tests {
     use super::*;
     #[test]
-    fn gpu_smoke_rejects_false_health_and_wrong_adapter_evidence() {
-        let valid = serde_json::json!({
-            "schemaVersion": 1, "ok": true, "verdict": "unverified", "diagnostics": [],
-            "computeProbe": "notRun", "readbackProbe": "notRun",
-            "requested": { "backend": "vulkan", "softwareAdapter": true },
-            "adapter": { "name": "SwiftShader Device", "backend": "Vulkan", "deviceType": "Cpu", "supportedLimits": {} }, "device": {}
+    fn gpu_smoke_requires_actual_probe_evidence_and_the_requested_adapter() {
+        let valid = json!({
+            "schemaVersion": 1, "ok": true, "verdict": "healthy", "computeProbe": "passed", "readbackProbe": "passed", "diagnostics": [],
+            "requested": {"backend": "vulkan", "softwareAdapter": true},
+            "adapter": {"name": "SwiftShader Device", "backend": "Vulkan", "deviceType": "Cpu", "supportedLimits": {}}, "device": {},
+            "execution": {"passCount": 1, "width": 64, "height": 64, "readbackBytes": 32768, "rgbaBytes": 16384, "mappedBytes": 32768, "paddedBytesPerRow": 512, "textureFormat": "rgba16float", "dispatch": [8,8,1]}
         });
         assert!(validate_report(&valid, "vulkan", true, Some("SwiftShader")).is_ok());
         for (field, value) in [
-            ("verdict", serde_json::json!("healthy")),
-            ("ok", serde_json::json!(false)),
-            ("device", Value::Null),
+            ("verdict", json!("unverified")),
+            ("computeProbe", json!("notRun")),
+            ("execution", Value::Null),
         ] {
-            let mut invalid = valid.clone();
-            invalid[field] = value;
-            assert!(validate_report(&invalid, "vulkan", true, None).is_err());
+            let mut bad = valid.clone();
+            bad[field] = value;
+            assert!(validate_report(&bad, "vulkan", true, None).is_err());
         }
         assert!(validate_report(&valid, "metal", true, None).is_err());
-        assert!(validate_report(&valid, "vulkan", true, Some("different adapter")).is_err());
-        let mut invalid = valid.clone();
-        invalid["adapter"]["backend"] = serde_json::json!("Noop");
-        assert!(validate_report(&invalid, "vulkan", true, None).is_err());
+        assert!(validate_report(&valid, "vulkan", true, Some("another driver")).is_err());
+        let mut bad = valid.clone();
+        bad["adapter"]["deviceType"] = json!("IntegratedGpu");
+        assert!(validate_report(&bad, "vulkan", true, None).is_err());
     }
 }

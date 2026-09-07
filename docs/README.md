@@ -13,6 +13,7 @@ The root documents are the active project contract:
 [Development](./development.md) describes implemented commands and verification limits.
 [Diagnostics and safety limits](./diagnostics.md) defines the PR-002 public API, JSON contract, and shared CLI exit-code policy.
 [GPU context and doctor](./gpu-context.md) describes PR-003 acquisition, report fields, exit codes, and pinned software CI.
+[Built-in checker](./builtin-checker.md) defines PR-004 pixels, readback, PNG output, golden provenance, and execution evidence.
 [Architecture decisions](./decisions/README.md) record the four foundation decisions.
 
 The original [review bundle](../mixture-greenfield-docs/README.md) is retained unchanged as source material. Its planned commands are not a claim that later milestones are implemented. Root documentation is maintained with the code from this point onward; the bundle manifest applies only to the original bundle.

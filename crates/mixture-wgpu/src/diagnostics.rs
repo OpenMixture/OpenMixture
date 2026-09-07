@@ -5,10 +5,12 @@ use serde::Serialize;
 
 use crate::GpuContextOptions;
 
-/// `Healthy` is deliberately unavailable until a compute/readback probe exists.
+/// Health is based on an actual compute/readback probe, or acquisition alone.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum DoctorVerdict {
+    /// The fixed checker probe executed, mapped, and passed pixel checks.
+    Healthy,
     /// Context acquired; compute and readback have not been tested.
     Unverified,
     /// Adapter acquisition or device creation failed.
@@ -106,8 +108,8 @@ impl DeviceDiagnostics {
     }
 }
 
-/// Snapshot of acquisition. `ok` means no acquisition error, not render health.
-/// Fields are immutable to callers so a successful report cannot claim health.
+/// Snapshot of acquisition or a checker probe. Only the verified probe can
+/// construct a healthy report; callers cannot mutate its verdict or evidence.
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ContextReport {
@@ -118,6 +120,8 @@ pub struct ContextReport {
     device: Option<DeviceDiagnostics>,
     compute_probe: &'static str,
     readback_probe: &'static str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    execution: Option<crate::ExecutionReport>,
     #[serde(flatten)]
     diagnostics: DiagnosticReport,
 }
@@ -136,6 +140,7 @@ impl ContextReport {
             device: Some(device),
             compute_probe: "notRun",
             readback_probe: "notRun",
+            execution: None,
             diagnostics: DiagnosticReport::new([]),
         }
     }
@@ -152,10 +157,40 @@ impl ContextReport {
             device: None,
             compute_probe: "notRun",
             readback_probe: "notRun",
+            execution: None,
             diagnostics: DiagnosticReport::new([diagnostic]),
         }
     }
-    /// Acquisition verdict; never asserts rendering health.
+    /// Compute probe status: notRun, passed, or failed.
+    pub fn compute_probe(&self) -> &str {
+        self.compute_probe
+    }
+    /// Readback probe status: notRun, passed, or failed.
+    pub fn readback_probe(&self) -> &str {
+        self.readback_probe
+    }
+    /// Evidence from the completed checker execution, when available.
+    pub fn execution(&self) -> Option<&crate::ExecutionReport> {
+        self.execution.as_ref()
+    }
+    pub(crate) fn probe_passed(&mut self, execution: crate::ExecutionReport) {
+        self.verdict = DoctorVerdict::Healthy;
+        self.compute_probe = "passed";
+        self.readback_probe = "passed";
+        self.execution = Some(execution);
+    }
+    pub(crate) fn probe_failed(&mut self, diagnostic: Diagnostic, compute_passed: bool) {
+        self.verdict = DoctorVerdict::Unhealthy;
+        if diagnostic.stage == mixture_core::Stage::Readback {
+            self.compute_probe = if compute_passed { "passed" } else { "failed" };
+            self.readback_probe = "failed";
+        } else {
+            self.compute_probe = "failed";
+            self.readback_probe = "notRun";
+        }
+        self.diagnostics = DiagnosticReport::new([diagnostic]);
+    }
+    /// Acquisition-only or actual probe verdict, depending on the invoked API.
     pub fn verdict(&self) -> DoctorVerdict {
         self.verdict
     }

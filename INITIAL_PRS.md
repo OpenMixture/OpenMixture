@@ -233,6 +233,8 @@ cargo xtask gpu-smoke
 
 ## PR-004 — `feat(gpu): render and read back a built-in checker`
 
+**Repository status:** Implemented: one rgba16float checker compute pass, aligned readback, RGBA8 output, CLI PNG encoding, verified doctor with explicit skip, reviewed SwiftShader golden, and stage/cleanup regressions. Local Metal and pinned SwiftShader Vulkan smoke pass; remote CI remains pending. See [the checker contract and evidence](./docs/builtin-checker.md).
+
 ### Goal
 
 Prove the complete headless compute path before introducing graph complexity.

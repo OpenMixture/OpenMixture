@@ -1,4 +1,4 @@
-name: GPU acquisition smoke
+name: GPU checker smoke
 
 on:
   push:
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   swiftshader:
-    name: Pinned SwiftShader Vulkan context
+    name: Pinned SwiftShader Vulkan checker
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -37,12 +37,12 @@ jobs:
         run: bash .github/scripts/setup-swiftshader.sh
       - name: Install repository Rust toolchain
         run: rustup show active-toolchain
-      - name: Acquire contexts and validate doctor evidence
+      - name: Verify compute, readback, PNG, golden, and doctor
         run: cargo xtask gpu-smoke
-      - name: Retain acquisition and environment evidence
+      - name: Retain execution, comparison, and environment evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: swiftshader-context-evidence
+          name: swiftshader-checker-evidence
           path: tmp/gpu-smoke/
           if-no-files-found: error

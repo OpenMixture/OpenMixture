@@ -2,94 +2,84 @@
 
 English | [简体中文](./gpu-context.zh-CN.md)
 
-PR-003 implements headless adapter/device acquisition. `GpuContext` owns its instance, adapter, device, and queue; callers construct and retain it explicitly. Acquisition does not create a surface, shader, render/compute pass, texture, or readback operation. `healthy` remains reserved for PR-004's execution and readback probe.
+`GpuContext` explicitly owns its instance, adapter, device, and queue. `request(options)` acquires them without a window surface or computation and returns an immutable `unverified` acquisition snapshot. PR-004 adds [checker compute/readback](./builtin-checker.md): the CLI doctor runs this probe by default and reports `healthy` only after verifying its pixels. `--skip-probe` retains acquisition-only behavior.
 
-## Run doctor
+## Commands and selection policy
 
 ```bash
 cargo run --locked -p mixture-cli -- doctor
 cargo run --locked -p mixture-cli -- doctor --json
+cargo run --locked -p mixture-cli -- doctor --skip-probe --json
 cargo run --locked -p mixture-cli -- doctor --backend metal --power-preference low-power --json
 # Requires an installed software Vulkan adapter:
 cargo run --locked -p mixture-cli -- doctor --backend vulkan --software --json
-# Deterministic unavailable-adapter diagnostic without initializing a GPU; exits 1:
+# Deterministic failure without initializing GPU state; exits 1:
 cargo run --locked -p mixture-cli -- doctor --backend none --json
 ```
 
 | Option | Meaning |
 | --- | --- |
-| `--backend auto` | Default: allow the compiled native Vulkan, Metal, and DX12 backends; wgpu selects an adapter |
-| `--backend vulkan\|metal\|dx12` | Permit only that backend; an unavailable backend is an error |
-| `--backend none` | Disable acquisition explicitly; return `MIX_GPU_ADAPTER_UNAVAILABLE` before creating an instance |
-| `--power-preference high-performance\|low-power` | Adapter preference; default `high-performance`, not a guarantee about device type |
-| `--software` | Require wgpu's software/fallback adapter class; never retry with hardware if unavailable |
-| `--json` | Emit one complete JSON report to stdout |
-| `--help`, `-h` | Show usage without initializing GPU state |
+| `--backend auto` | Default: permit the compiled native Vulkan, Metal, and DX12 backends; wgpu selects the adapter |
+| `--backend vulkan\|metal\|dx12` | Permit only that backend; unavailable means failure |
+| `--backend none` | Disable acquisition before instance creation, returning `MIX_GPU_ADAPTER_UNAVAILABLE` |
+| `--power-preference high-performance\|low-power` | Preference, not a guaranteed device type; default `high-performance` |
+| `--software` | Require wgpu's software adapter class; never retry with hardware |
+| `--skip-probe` | Acquire context only, keeping `unverified` and both probes `notRun` |
+| `--json` | Write one complete structured report to stdout |
+| `--help`, `-h` | Show help without initializing GPU state |
 
-Values follow their option as a separate argument. Duplicate, unknown, or missing options are rejected. The library does not apply `WGPU_*` environment overrides. System driver configuration still matters, including Vulkan ICD selection via `VK_DRIVER_FILES` / `VK_ICD_FILENAMES`. Selection makes one adapter request and one device request, with no Mixture retry or alternate executor. Software Vulkan is a driver behind the same wgpu path.
+Values follow their option as a separate argument. Duplicate, unknown, and missing options are rejected. The library applies no `WGPU_*` environment overrides. System driver configuration still matters, including Vulkan loader/ICD selection. There is one adapter request and one device request, with no Mixture retry or alternate semantic executor. Software Vulkan is a driver behind the same wgpu compute path.
 
-The workspace enables wgpu 30.0.1 native `vulkan`, `metal`, and `dx12` features, plus `std`, `parking_lot`, and `serde`. Effective availability depends on the target: Metal on macOS, Vulkan on Linux, and Vulkan/DX12 on Windows. GL, browser WebGPU, noop, and WGSL input features are not enabled in this PR. The library reports the intersection of policy and compiled backends. It does not equate a compiled backend with an available adapter.
+wgpu 30.0.1 enables native `vulkan`, `metal`, `dx12`, `std`, `parking_lot`, `serde`, and WGSL input. Default targets support Metal on macOS, Vulkan on Linux, and Vulkan/DX12 on Windows. The optional `software-vulkan` feature on `mixture-wgpu` and `mixture-cli` also enables native Vulkan on macOS for SwiftShader testing. GL, browser WebGPU, and noop remain disabled. A compiled backend is not a guarantee that a driver/adapter exists.
 
-## Report and exit contract
+## Verdicts and report
 
 | Result | Verdict | `ok` | Exit |
 | --- | --- | --- | --- |
-| Adapter and device acquired | `unverified` | `true` | `0` |
-| No permitted/available adapter | `unhealthy` | `false` | `1` |
-| Device limits unsupported or device request failed | `unhealthy` | `false` | `1` |
-| Invalid invocation | No runtime report; usage on stderr even with `--json` | — | `2` |
-| Output I/O failed | Report may be incomplete; explanation on stderr | — | `1` |
+| Actual checker compute/readback and pixel checks pass | `healthy` | `true` | `0` |
+| Explicitly skipped probe; acquisition passes | `unverified` | `true` | `0` |
+| Adapter, device, shader, execution, or readback fails | `unhealthy` | `false` | `1` |
+| Invalid invocation | No runtime report; stderr, including with `--json` | — | `2` |
+| Output I/O fails | Report may be incomplete; stderr explains failure | — | `1` |
 
-`ok` describes acquisition success only. Both `computeProbe` and `readbackProbe` are `notRun`, including on failure. Successful acquisition does not prove that rendering works. Human reports also include requested policy, adapter identity/capabilities, selected device features/limits, and actionable diagnostics.
+A `healthy` doctor result proves this fixed probe on the selected context at that moment; it is not a device-loss monitor or proof of future material correctness. It checks the 64×64 output length, opaque black/white channel values, equal black/white counts, and fixed pixel sentinels. This is a probe validator, not another checker renderer.
 
-JSON schema version `1` has these fields:
+JSON schema version `1` retains PR-003 fields and adds optional `execution`:
 
-- `schemaVersion`, `verdict`, `computeProbe`, `readbackProbe`;
-- `requested`: `backend`, `powerPreference`, `softwareAdapter`, sorted `effectiveBackends`, sorted `requiredFeatures`, and complete `requiredLimits`;
-- `adapter`: actual `name`, `deviceType`, `backend`, numeric `vendor`/`device`, `driver`/`driverInfo`, complete `supportedLimits`, and sorted `supportedFeatures`; null before adapter acquisition;
-- `device`: complete enabled `limits` and sorted `features`; null when device acquisition fails;
-- `ok` and deterministic `diagnostics`, using the [shared diagnostic contract](./diagnostics.md).
+- `schemaVersion`, `verdict`, `computeProbe`, `readbackProbe`: probes are `notRun`, `passed`, or `failed`; acquisition-only snapshots never claim computation;
+- `requested`: `backend`, `powerPreference`, `softwareAdapter`, sorted `effectiveBackends`, sorted `requiredFeatures`, complete `requiredLimits`;
+- `adapter`: actual `name`, `deviceType`, `backend`, numeric `vendor`/`device`, `driver`/`driverInfo`, complete `supportedLimits`, sorted `supportedFeatures`; null before acquisition;
+- `device`: complete enabled `limits` and sorted `features`; null after acquisition failure;
+- `execution`: completed checker dimensions, pass count, row layout, byte counts, timings, and adapter evidence; present on a successful full probe;
+- `ok` and deterministic `diagnostics`, following [the shared diagnostic contract](./diagnostics.md).
 
-Backend identity is `Metal`, `Vulkan`, or `Dx12`; effective backend flags use wgpu names such as `METAL`. Device type uses wgpu names such as `IntegratedGpu`, `DiscreteGpu`, or `Cpu`. Limits serialize with wgpu's camelCase field names. Driver-provided values can vary between systems; these are evidence, not portable snapshots or semantic hashes.
+Actual backend names are `Metal`, `Vulkan`, or `Dx12`; compiled flags use names such as `METAL`. Device types use wgpu names such as `IntegratedGpu`, `DiscreteGpu`, and `Cpu`. Limit fields are camelCase. Driver values and timings vary between systems and are not semantic hashes or portable snapshots. Human reports include the same requested/actual capability evidence and probe outcomes.
 
-PR-003 requests no optional features and `wgpu::Limits::default()`. Supported limits are reported without limit bucketing, and requested limits are checked before device creation. Unsupported limits produce `MIX_GPU_DEVICE_REQUEST_FAILED` at `gpuDevice`, with the first failing limit's name and requested/supported values; requirements are never reduced implicitly. These GPU capability limits are distinct from core `SafetyLimits` resource ceilings. No material allocations exist yet.
+Device requests use no optional features and `wgpu::Limits::default()`. Adapter limits are reported without bucketing and checked before device creation; requirements are never reduced implicitly. Unsupported limits return `MIX_GPU_DEVICE_REQUEST_FAILED` at `gpuDevice` with the first failed limit name and requested/supported values. GPU capability limits are distinct from core `SafetyLimits` resource ceilings.
 
-Native adapter/device request errors retain their original `std::error::Error::source` chain and include `driverMessage` beneath a stable Mixture diagnostic. Device failures retain the selected adapter in the report. Preflight policy/limit failures have no fabricated driver source. Adapter failures use `MIX_GPU_ADAPTER_UNAVAILABLE` at `gpuAdapter`; both codes provide actionable suggestions.
+Adapter errors use `MIX_GPU_ADAPTER_UNAVAILABLE` / `gpuAdapter`; native device request errors use `MIX_GPU_DEVICE_REQUEST_FAILED` / `gpuDevice`. Device failures retain the selected adapter. Actual native sources stay available via `Error::source` and `driverMessage`; policy/limit preflight does not invent a driver source. Later errors retain [their exact execution/readback stage](./builtin-checker.md), and compute is not marked passed unless its submission completed.
 
-## Public Rust API
+## API and verification
 
-Use [context.rs](../crates/mixture-wgpu/src/context.rs) and [diagnostics.rs](../crates/mixture-wgpu/src/diagnostics.rs) directly; JSON and blocking orchestration belong to the CLI.
-
-```rust
-use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions};
-
-async fn acquire() -> Result<GpuContext, mixture_wgpu::GpuContextError> {
-    GpuContext::request(GpuContextOptions {
-        backend: BackendPreference::Auto,
-        ..Default::default()
-    }).await
-}
-```
-
-Context accessors borrow its instance, adapter, device, queue, and immutable acquisition report. There is no global context or cache. A report is a snapshot of acquisition, not a live device-loss monitor. Ordinary library unit tests and CLI tests require no GPU; explicit disabled-backend requests fail before wgpu initialization.
-
-## Verification and pinned software CI
+[context.rs](../crates/mixture-wgpu/src/context.rs) owns acquisition; [checker.rs](../crates/mixture-wgpu/src/checker.rs) owns the built-in and probe; [diagnostics.rs](../crates/mixture-wgpu/src/diagnostics.rs) owns reports. Context accessors borrow its handles and immutable acquisition report. `render_checker(&mut self, request, limits)` returns CPU-owned output. `probe_checker(&mut self)` produces a new verified report. There is no global context or cache, and all ordinary tests remain GPU-free.
 
 ```bash
 cargo test --locked -p mixture-wgpu context
 cargo test --locked -p mixture-cli doctor
+cargo xtask shader-check
 cargo xtask check
-# Explicit GPU access, outside ordinary check/test:
 cargo xtask gpu-smoke
 ```
 
-`gpu-smoke` runs the real CLI, verifies its success envelope and adapter policy, then runs the ignored context lifecycle test. That test acquires two contexts, destroys one device, verifies its destruction callback, and polls the other without receiving a device-loss callback. It creates no workload or readback probe. Reports are saved to ignored `tmp/gpu-smoke/doctor.json` and `doctor.stderr.log`; a failed CLI or adapter assertion fails the task rather than skipping GPU coverage.
+`gpu-smoke` opts into real GPU work and uses `--all-features` to make the macOS software Vulkan feature available. It runs full and skipped doctor, renders/decodes a PNG, compares decoded RGBA with the reviewed SwiftShader golden, and executes ignored library/CLI GPU tests. It saves reports, PNG, comparison JSON, stderr, and test logs in ignored `tmp/gpu-smoke/`. Neither `check` nor ordinary workspace tests initialize a GPU. A smoke failure fails the task and never updates the golden.
 
-Only the smoke harness reads `MIXTURE_GPU_BACKEND` (`auto`, `vulkan`, `metal`, `dx12`; default `auto`), `MIXTURE_GPU_SOFTWARE` (`0` or `1`; default `0`), and optional `MIXTURE_GPU_EXPECT_ADAPTER` (case-sensitive adapter-name substring). It passes selection options explicitly to the library/CLI. These variables do not configure production `GpuContext` or direct `doctor` calls.
+Only the smoke harness reads `MIXTURE_GPU_BACKEND` (`auto`, `vulkan`, `metal`, `dx12`; default `auto`), `MIXTURE_GPU_SOFTWARE` (`0`/`1`; default `0`), and optional `MIXTURE_GPU_EXPECT_ADAPTER` (case-sensitive name substring). Production APIs/direct CLI calls use explicit options, not these test variables.
 
-[GPU CI](../.github/workflows/gpu-smoke.yml) uses Ubuntu 24.04 and Clang 18, builds [SwiftShader revision `694585a05946e1ed49b6bd577ca6537cbb57f025`](https://swiftshader.googlesource.com/SwiftShader/+/694585a05946e1ed49b6bd577ca6537cbb57f025) with its bundled LLVM, restricts the Vulkan loader to that ICD, and requires a `Cpu` / `Vulkan` adapter whose name contains `SwiftShader`. The [setup script](../.github/scripts/setup-swiftshader.sh) pins driver source and disables display integrations and upstream tests. Runner packages are distribution-managed; the driver revision is pinned, not the entire OS image. CI uploads the full doctor report, stderr, and build-environment record even after failure when available. The source/output layout follows [SwiftShader's pinned CMake configuration](https://swiftshader.googlesource.com/SwiftShader/+/694585a05946e1ed49b6bd577ca6537cbb57f025/src/Vulkan/CMakeLists.txt).
+## Pinned software adapter
 
-To reproduce on Linux after installing the build tools and Vulkan loader listed in the workflow:
+[GPU CI](../.github/workflows/gpu-smoke.yml) uses Ubuntu 24.04/Clang 18, builds [SwiftShader revision `694585a05946e1ed49b6bd577ca6537cbb57f025`](https://swiftshader.googlesource.com/SwiftShader/+/694585a05946e1ed49b6bd577ca6537cbb57f025) with bundled LLVM, restricts the Vulkan loader to its ICD, and requires `Cpu`/`Vulkan` with `SwiftShader` in the name. [The setup script](../.github/scripts/setup-swiftshader.sh) pins driver source and disables upstream tests and display integrations. Runner packages remain distribution-managed; this pins the driver, not an entire OS image. CI uploads available evidence even after failure.
+
+On Linux, install the workflow's CMake, Ninja, Clang 18, and Vulkan loader packages, then:
 
 ```bash
 CC=clang-18 CXX=clang++-18 bash .github/scripts/setup-swiftshader.sh
@@ -99,4 +89,13 @@ MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 \
   MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
 ```
 
-The [Apple M5 / Metal acquisition report](./evidence/pr-003-apple-m5.json) records local hardware evidence. Local checks and acquisition smoke passed; the new remote SwiftShader job and cross-platform matrix still need a real CI run. M1 remains open because checker execution, readback, PNG output, and `healthy` verification belong to PR-004.
+On macOS, install CMake/Ninja and Xcode Command Line Tools, then:
+
+```bash
+bash .github/scripts/setup-swiftshader.sh
+DYLD_LIBRARY_PATH="$PWD/tmp/swiftshader/build" \
+  MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 \
+  MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
+```
+
+The macOS setup provides `libvulkan.dylib` as an alias to SwiftShader's direct Vulkan API library; no system driver is installed. The [PR-003 acquisition-only report](./evidence/pr-003-apple-m5.json) is retained as historical evidence. Current [Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) full probes passed locally, with matching checker pixels. Remote Linux SwiftShader and the Linux/macOS/Windows non-GPU matrix remain pending; their configuration is not a claim of remote CI completion.

@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 foundation, PR-002 core diagnostics/safety limits, and PR-003 explicit GPU context with human/JSON `doctor`. Acquisition reports `unverified`; material parsing and compute/readback rendering remain for later PRs. Remote cross-platform and pinned software-adapter CI evidence is still pending.
+**Implemented:** PR-001 through PR-004: core diagnostics/safety limits, explicit GPU context, verified human/JSON `doctor`, and built-in checker compute/readback with CLI PNG output. Local Apple M5/Metal and pinned SwiftShader/Vulkan smoke pass against the same reviewed pixels. Material parsing and graph rendering remain planned; remote CI evidence is still pending.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -26,6 +26,8 @@ The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The ch
 The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
 
 The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter selection, structured failures, exit codes, and the explicit `cargo xtask gpu-smoke` check. Run `cargo run --locked -p mixture-cli -- doctor --json` to inspect your environment.
+
+Try [the built-in checker](./docs/builtin-checker.md): `cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`. Doctor runs its compute/readback probe by default; use `--skip-probe` for acquisition only.
 
 ## Mission
 
@@ -75,7 +77,7 @@ These may be reconsidered only after a real consumer demonstrates that the simpl
 
 ## Planned command surface
 
-`check` and `doctor` below are implemented. Document inspection and rendering remain the stable target interface for later milestones.
+`check`, `doctor`, and `render-builtin checker` are implemented. Document inspection and rendering remain the stable target interface for later milestones.
 
 ```bash
 # Repository verification

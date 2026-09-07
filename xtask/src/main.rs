@@ -21,12 +21,13 @@ Available repository commands:
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
-  gpu-smoke   Acquire real GPU contexts and save doctor evidence (explicit opt-in)
+  gpu-smoke   Run real checker compute/readback, compare golden, and save evidence
+  shader-check Validate the checker WGSL without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
 
-Shader, graph, material, and golden commands arrive in later milestones.";
+Graph, material, and golden commands arrive in later milestones.";
 
 fn main() -> ExitCode {
     match run() {
@@ -54,7 +55,8 @@ fn run() -> TaskResult {
             }
             println!("All repository checks passed.");
         }
-        "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke" => {
+        "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
+        | "shader-check" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -139,6 +141,17 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
         "deps" => dependencies::check(root),
         "links" => links::check(root),
         "gpu-smoke" => gpu_smoke::run(root),
+        "shader-check" => run_cargo(
+            root,
+            &[
+                "test",
+                "--locked",
+                "-p",
+                "mixture-wgpu",
+                "checker_shader_validates_without_a_gpu",
+            ],
+            false,
+        ),
         _ => Err(format!("unknown task: {task}").into()),
     }
 }

@@ -53,8 +53,8 @@ fn doctor_human_failure_explains_policy_and_unverified_probes() {
     let text = String::from_utf8(output.stdout).unwrap();
     for expected in [
         "Mixture doctor: unhealthy",
-        "Compute probe: not run",
-        "Readback probe: not run",
+        "Compute probe: notRun",
+        "Readback probe: notRun",
         "MIX_GPU_ADAPTER_UNAVAILABLE",
         "Suggestion:",
     ] {
@@ -70,7 +70,7 @@ fn doctor_help_is_available_without_gpu_access() {
         assert!(output.stderr.is_empty());
         assert!(
             String::from_utf8_lossy(&output.stdout)
-                .contains("Exit 0: context acquired, verdict unverified")
+                .contains("Exit 0: verified compute/readback (healthy)")
         );
     }
 }
@@ -83,6 +83,7 @@ fn doctor_rejects_invalid_options_before_acquisition() {
         vec!["--power-preference"],
         vec!["--power-preference", "bogus"],
         vec!["--json", "--json"],
+        vec!["--skip-probe", "--skip-probe"],
         vec!["--software", "--software"],
         vec!["--backend", "none", "--backend", "auto"],
         vec!["--unknown"],
