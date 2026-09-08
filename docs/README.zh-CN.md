@@ -13,6 +13,7 @@
 - [M4 实施计划](../M4_PRS.zh-CN.md)
 
 [公开原生 Rust 消费](./native-sdk.zh-CN.md)定义 PR-011 API 所有权、依赖暴露、独立应用及 release 测量。
+[原生 CLI 报告与退出码](./cli-contract.zh-CN.md)定义 PR-012 JSON 字段存在规则／类型、完整人类可读上下文、独立进程测试及部分写入行为。
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
 [GPU 上下文与 doctor](./gpu-context.zh-CN.md)说明 PR-003 获取流程、报告字段、退出码和固定软件适配器 CI。

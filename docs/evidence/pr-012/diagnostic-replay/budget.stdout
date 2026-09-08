@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "plan": null,
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_LIMIT_OUTPUT_DIMENSION_EXCEEDED",
+      "stage": "compile",
+      "severity": "error",
+      "message": "outputDimension limit exceeded: configured 2048, observed 4096",
+      "documentPath": "examples/checker.mix",
+      "evidence": {
+        "axis": "height",
+        "configured": 2048,
+        "limit": "outputDimension",
+        "observed": 4096
+      },
+      "suggestion": "Reduce the request to the configured limit; raise limits only through an explicit caller policy."
+    },
+    {
+      "code": "MIX_LIMIT_OUTPUT_DIMENSION_EXCEEDED",
+      "stage": "compile",
+      "severity": "error",
+      "message": "outputDimension limit exceeded: configured 2048, observed 4096",
+      "documentPath": "examples/checker.mix",
+      "evidence": {
+        "axis": "width",
+        "configured": 2048,
+        "limit": "outputDimension",
+        "observed": 4096
+      },
+      "suggestion": "Reduce the request to the configured limit; raise limits only through an explicit caller policy."
+    }
+  ]
+}

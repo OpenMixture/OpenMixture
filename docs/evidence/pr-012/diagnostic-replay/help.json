@@ -1,0 +1,14 @@
+{
+  "name": "help",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "--help"
+  ],
+  "exitCode": 0,
+  "expectedExitCode": 0,
+  "expectedExitCodeMatched": true,
+  "stdout": "help.stdout",
+  "stderr": "help.stderr",
+  "stdoutSha256": "36dd5c6cf8e03ae3d0e27165fcd513f857ad5a61af12f5db25d9d95c315d7384",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

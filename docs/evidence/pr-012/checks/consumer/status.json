@@ -1,0 +1,8 @@
+{
+  "cliEvidence": "cli-78747-1788864274771719000/status.json",
+  "completed": true,
+  "gpuExecuted": false,
+  "ok": true,
+  "packagedCratesValidated": false,
+  "report": "cpu.stdout.log"
+}

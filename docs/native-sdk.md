@@ -2,7 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: CLI stabilization, device-loss/OOM classification, stale-result handling and packaged consumption are the remaining [M4 steps](../M4_PRS.md).
+PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), while device-loss/OOM classification, stale-result handling and packaged consumption remain [M4 steps](../M4_PRS.md).
 
 ## Reviewed API path
 

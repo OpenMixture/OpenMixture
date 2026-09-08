@@ -1,7 +1,12 @@
 //! Build and exercise the separate application through Cargo and its executable.
 use crate::{TaskResult, cargo, gpu_smoke};
 use serde_json::{Value, json};
-use std::{env, fs, path::Path, process::Command};
+use std::{
+    env, fs,
+    path::Path,
+    process::Command,
+    time::{SystemTime, UNIX_EPOCH},
+};
 
 const MANIFEST: &str = "examples/native-consumer/Cargo.toml";
 
@@ -76,15 +81,17 @@ pub(super) fn check(root: &Path) -> TaskResult {
     let report = captured(binary(root).arg("check"), &directory, "cpu")?;
     let report: Value = serde_json::from_slice(&report)?;
     validate_cpu(&report)?;
+    let cli_evidence = cli_contract(root, &directory, None)?;
     fs::write(
         directory.join("status.json"),
         serde_json::to_vec_pretty(&json!({
             "ok": true, "completed": true, "gpuExecuted": false,
             "report": "cpu.stdout.log", "packagedCratesValidated": false,
+            "cliEvidence": cli_evidence,
         }))?,
     )?;
     println!(
-        "Independent consumer CPU checks passed; evidence: {}",
+        "Independent Rust and CLI consumer CPU checks passed; evidence: {}",
         directory.display()
     );
     Ok(())
@@ -117,14 +124,131 @@ pub(super) fn gpu(
     let report: Value = serde_json::from_slice(&report)?;
     validate_gpu(&report)?;
     gpu_smoke::validate_adapter(&report["context"], backend, software, expected_adapter)?;
+    let cli_evidence = cli_contract(
+        root,
+        &directory,
+        Some((backend, software, expected_adapter)),
+    )?;
     fs::write(
         directory.join("status.json"),
-        br#"{"ok":true,"completed":true}"#,
+        serde_json::to_vec_pretty(&json!({"ok":true,"completed":true,"cliEvidence":cli_evidence}))?,
     )?;
     println!(
-        "Independent consumer GPU checks passed; evidence: {}",
+        "Independent Rust and CLI consumer GPU checks passed; evidence: {}",
         directory.display()
     );
+    Ok(())
+}
+
+fn cli_contract(
+    root: &Path,
+    directory: &Path,
+    gpu: Option<(&str, bool, Option<&str>)>,
+) -> TaskResult<String> {
+    captured(
+        cargo(root)
+            .args(["build", "--locked", "--all-features", "-p", "mixture-cli"])
+            .arg("--target-dir")
+            .arg(root.join("target")),
+        directory,
+        "cli-build",
+    )?;
+    let name = format!(
+        "cli-{}-{}",
+        std::process::id(),
+        SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos()
+    );
+    let evidence = directory.join(&name);
+    let mut command = compile_command(root, "test");
+    command
+        .args([
+            "--test",
+            "cli_contract",
+            if gpu.is_some() {
+                "cli_contract_gpu"
+            } else {
+                "cli_contract_cpu"
+            },
+            "--",
+            "--ignored",
+            "--exact",
+            "--nocapture",
+        ])
+        .env(
+            "MIXTURE_CONSUMER_CLI",
+            root.join(format!("target/debug/mixture{}", env::consts::EXE_SUFFIX)),
+        )
+        .env("MIXTURE_CONSUMER_EVIDENCE_DIR", &evidence);
+    if let Some((backend, software, expected)) = gpu {
+        command
+            .env("MIXTURE_GPU_BACKEND", backend)
+            .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" });
+        if let Some(expected) = expected {
+            command.env("MIXTURE_GPU_EXPECT_ADAPTER", expected);
+        } else {
+            command.env_remove("MIXTURE_GPU_EXPECT_ADAPTER");
+        }
+    }
+    captured(&mut command, directory, "cli-tests")?;
+    let status: Value = serde_json::from_slice(&fs::read(evidence.join("status.json"))?)?;
+    validate_cli_status(&status, gpu.is_some())?;
+    if let Some((backend, software, expected)) = gpu {
+        let doctor: Value = serde_json::from_slice(&fs::read(evidence.join("doctor.stdout"))?)?;
+        gpu_smoke::validate_report(&doctor, backend, software, expected)?;
+    }
+    Ok(format!("{name}/status.json"))
+}
+
+fn validate_cli_status(status: &Value, gpu: bool) -> TaskResult {
+    let required: &[&str] = if gpu {
+        &[
+            "doctor",
+            "doctor-skipped",
+            "render-full",
+            "render-override",
+            "render-sliced",
+            "render-partial",
+            "render-partial-human",
+        ]
+    } else {
+        &[
+            "validate-valid",
+            "inspect-valid",
+            "validate-missing-warp.mix-json",
+            "inspect-missing-warp-human",
+            "render-missing-warp-human",
+            "render-invalid-override",
+            "render-budget",
+            "doctor-none",
+            "render-none",
+            "inspect-usage",
+            "render-usage",
+        ]
+    };
+    let cases = status["cases"]
+        .as_array()
+        .ok_or("CLI consumer omitted its invocations")?;
+    if status["schemaVersion"] != 1
+        || status["ok"] != true
+        || status["completed"] != true
+        || status["mode"]
+            != if gpu {
+                "cli-contract-gpu"
+            } else {
+                "cli-contract-cpu"
+            }
+        || status["gpuExecuted"] != gpu
+        || required
+            .iter()
+            .any(|id| !cases.iter().any(|case| case["id"] == *id))
+        || cases.iter().any(|case| {
+            case["exitCode"].as_i64().is_none() || case["exitCode"] != case["expectedExitCode"]
+        })
+    {
+        return Err(
+            "CLI consumer tests did not complete the required report/exit/output cases".into(),
+        );
+    }
     Ok(())
 }
 
@@ -198,6 +322,38 @@ fn validate_gpu(report: &Value) -> TaskResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn cli_contract_receipt_rejects_skipped_tests_partial_cases_and_wrong_exits() {
+        let cases: Vec<_> = [
+            ("doctor", 0),
+            ("doctor-skipped", 0),
+            ("render-full", 0),
+            ("render-override", 0),
+            ("render-sliced", 0),
+            ("render-partial", 1),
+            ("render-partial-human", 1),
+        ]
+        .into_iter()
+        .map(|(id, exit)| json!({"id":id,"exitCode":exit,"expectedExitCode":exit}))
+        .collect();
+        let valid = json!({"schemaVersion":1,"ok":true,"completed":true,
+            "mode":"cli-contract-gpu","gpuExecuted":true,"cases":cases});
+        assert!(validate_cli_status(&valid, true).is_ok());
+        let mut skipped = valid.clone();
+        skipped["cases"] = json!([]);
+        assert!(validate_cli_status(&skipped, true).is_err());
+        let mut incomplete = valid.clone();
+        incomplete["cases"].as_array_mut().unwrap().pop();
+        assert!(validate_cli_status(&incomplete, true).is_err());
+        let mut wrong_exit = valid.clone();
+        wrong_exit["cases"][5]["exitCode"] = json!(0);
+        assert!(validate_cli_status(&wrong_exit, true).is_err());
+        let mut unexecuted = valid;
+        unexecuted["gpuExecuted"] = json!(false);
+        assert!(validate_cli_status(&unexecuted, true).is_err());
+        assert!(validate_cli_status(&unexecuted, false).is_err());
+    }
 
     #[test]
     fn consumer_build_commands_lock_the_detached_manifest_and_target() {

@@ -1,0 +1,17 @@
+{
+  "name": "doctor-none",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "doctor",
+    "--backend",
+    "none",
+    "--json"
+  ],
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedExitCodeMatched": true,
+  "stdout": "doctor-none.stdout",
+  "stderr": "doctor-none.stderr",
+  "stdoutSha256": "2ff94ffc6c42fe21c66e447b8f84043b9dbddd59e8eb63dd5641a2461348b1f5",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

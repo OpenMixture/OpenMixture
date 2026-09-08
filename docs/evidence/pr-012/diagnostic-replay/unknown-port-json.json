@@ -1,0 +1,16 @@
+{
+  "name": "unknown-port-json",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/format/invalid/unknown-port.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "unknown-port-json.stdout",
+  "stderr": "unknown-port-json.stderr",
+  "stdoutSha256": "42a46b7bbb2f2f4c8353824802226d122beecbd326f4ec3d4bab33ec5a62f866",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

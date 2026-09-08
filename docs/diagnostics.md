@@ -146,3 +146,5 @@ Core now uses `serde`, `serde_json`, and `sha2` at runtime. PR-006 adds SHA-256 
 PR-006 `inspect --plan` returns `0` after compilation, `2` for invalid source/request, and `1` for source/report I/O failure. Compile failures retain the existing structured diagnostic codes and use `stage: "compile"`; source decoding/validation stages stay distinct. JSON adds `schemaVersion: 1` and `plan` (null on failure) to the shared report fields. See [inspection](./render-plan.md).
 
 PR-007 graph `render` follows the same input/operational exit policy. It validates and compiles before acquisition; GPU failures retain stage/source and available adapter/plan evidence. Completed outputs remain listed when a later file write fails. See [render reports](./graph-rendering.md).
+
+PR-012 uses shared human formatting to retain document, stage/severity, node, port and parameter context in every CLI diagnostic. It preserves existing JSON data and exit codes. See [the CLI contract](./cli-contract.md) for unversioned validation, versioned command envelopes, null/omitted fields, stdout/stderr rules and independent process evidence.

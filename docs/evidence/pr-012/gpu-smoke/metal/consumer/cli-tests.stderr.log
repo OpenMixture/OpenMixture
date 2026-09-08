@@ -1,0 +1,3 @@
+   Compiling mixture-native-consumer v0.0.0 (/Users/krapnik/Documents/OpenMixture/examples/native-consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.24s
+     Running tests/cli_contract.rs (target/native-consumer/debug/deps/cli_contract-9218e7ec13bd54a0)

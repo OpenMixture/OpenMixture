@@ -14,7 +14,9 @@ cargo xtask test-consumer
 
 该命令检查独立 workspace、格式、Clippy、五个单元测试、三个进程测试，并在无关工作目录执行实际 CPU 探针。完整 GPU 调用路径和原生 `Send` 约束会编译，但普通检查不获取 GPU。显式 `none` 获取测试执行 wgpu 初始化之前的公开提前失败路径。日志及完成状态写入 `tmp/consumer-check/`；每次运行前先将状态标为未完成。
 
-等效应用调用为：
+PR-012 还构建真实 CLI，并显式运行独立 CPU 契约测试（32 次子进程调用）。其 GPU 契约测试在此编译，仅通过显式 GPU 冒烟运行。两项契约测试在单独运行普通 Cargo 测试时均标为忽略，因为需要已构建 CLI 和新捕获目录；`test-consumer` 拒绝缺失或未完成的执行记录。
+
+仅运行应用的公开 Rust 探针：
 
 ```bash
 cargo run --locked --all-features \
@@ -51,6 +53,40 @@ cargo run --locked --all-features \
   --manifest-path examples/native-consumer/Cargo.toml \
   --target-dir target/native-consumer -- gpu vulkan software SwiftShader
 ```
+
+## CLI 进程契约
+
+[cli_contract.rs](./tests/cli_contract.rs)是单独的测试可执行程序，启动调用方提供的已构建 `mixture` 二进制。它不导入 Mixture Rust API 或 CLI 私有模块，将自有嵌入[输入](./input.mix)及[缺失 warp 夹具](./tests/inputs/missing-warp.mix)写入新工作目录，再检查 stdout／stderr、退出码、报告字段、覆盖、请求通道、实际 PNG 和部分写入失败。仅开发时使用的 `png` 依赖负责解码完成文件；应用仍无 PNG 编码器或替代像素执行器。新增测试依赖及其锁定闭包与生产方已有版本一致。
+
+通常使用 `cargo xtask test-consumer` 运行 32 次 CPU 调用，使用 `cargo xtask gpu-smoke` 运行 GPU 测试组的 10 次调用。每轮在新的 `cli-<pid>-<time>/` 目录保留原始子进程 stdout／stderr、准确参数／退出码、自有输入／输出文件及 `status.json`。外层消费者状态的 `cliEvidence` 指向当前运行。即使测试命令成功但匹配到零个测试，也不能在缺少完成记录时通过。失败运行保留文件及未完成状态。
+
+从仓库根目录单独运行 CPU 测试时，选择尚不存在的捕获路径：
+
+```bash
+mkdir -p tmp
+cargo build --locked --all-features -p mixture-cli --target-dir target
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_EVIDENCE_DIR="$PWD/tmp/cli-contract-cpu" \
+cargo test --locked --all-features \
+  --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test cli_contract \
+  cli_contract_cpu -- --ignored --exact --nocapture
+```
+
+显式 GPU 调用使用相同测试二进制及仓库工具的环境适配器策略。需要以固定 SwiftShader 替代 Metal 时，按 [GPU 指南](../../docs/gpu-context.zh-CN.md)配置：
+
+```bash
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_EVIDENCE_DIR="$PWD/tmp/cli-contract-metal" \
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+cargo test --locked --all-features \
+  --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test cli_contract \
+  cli_contract_gpu -- --ignored --exact --nocapture
+```
+
+子 CLI 接收显式后端／软件参数。其 context 是获取证据；doctor 探针成功和文件完成分别检查。预先创建的 `normal.png` 目录让按规范顺序写入的第二张 PNG 在 baseColor 完成后失败；测试验证完成文件清单，以及 JSON／人类可读错误上下文。本夹具不声称原子导出、取消、新旧结果调度或软件包内容验证。见 [CLI 契约](../../docs/cli-contract.zh-CN.md)及 [PR-012 证据](../../docs/evidence/pr-012/README.zh-CN.md)。
 
 ## Release 测量
 

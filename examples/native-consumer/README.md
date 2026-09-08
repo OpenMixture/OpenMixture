@@ -14,7 +14,9 @@ cargo xtask test-consumer
 
 This checks the independent workspace, formatting, Clippy, five unit tests, three process tests, and the actual CPU probe from an unrelated working directory. The entire GPU call path and native `Send` bounds compile, but ordinary checks do not acquire a GPU. The explicit `none` acquisition test exercises the public early failure before wgpu initialization. Logs and a completion status are written to `tmp/consumer-check/`; status is invalidated before each run.
 
-The equivalent application invocation is:
+PR-012 also builds the real CLI and explicitly runs the independent CPU contract test (32 child invocations). Its GPU contract test compiles here and runs only through explicit GPU smoke. Both contract tests are ignored by ordinary standalone Cargo tests because they require the built CLI and a fresh capture directory; `test-consumer` rejects missing or incomplete execution receipts.
+
+To run only the application's public-Rust probe:
 
 ```bash
 cargo run --locked --all-features \
@@ -51,6 +53,40 @@ cargo run --locked --all-features \
   --manifest-path examples/native-consumer/Cargo.toml \
   --target-dir target/native-consumer -- gpu vulkan software SwiftShader
 ```
+
+## CLI process contract
+
+[cli_contract.rs](./tests/cli_contract.rs) is a separate test executable that spawns a supplied, already-built `mixture` binary. It imports no Mixture Rust API or CLI-private modules. It writes its own embedded [input](./input.mix) and [missing-warp fixture](./tests/inputs/missing-warp.mix) into a new working directory, then checks stdout/stderr, exits, report fields, overrides, requested channels, actual PNGs and partial-write failures. A dev-only `png` dependency decodes completed files; the application still has no PNG encoder or alternate pixel executor. The added test dependency and its locked closure match the producer's existing versions.
+
+The ordinary entry points are `cargo xtask test-consumer` for the 32 CPU calls and `cargo xtask gpu-smoke` for the 10 GPU-suite calls. Each run keeps raw child stdout/stderr, exact arguments/exits, owned input/output files and `status.json` under a fresh `cli-<pid>-<time>/` directory. `cliEvidence` in the enclosing consumer status points to the current run. A successful test command that matched zero tests cannot pass without that completion receipt. Failed runs retain their files with incomplete status.
+
+For a standalone CPU run from the repository root, choose a capture path that does not exist:
+
+```bash
+mkdir -p tmp
+cargo build --locked --all-features -p mixture-cli --target-dir target
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_EVIDENCE_DIR="$PWD/tmp/cli-contract-cpu" \
+cargo test --locked --all-features \
+  --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test cli_contract \
+  cli_contract_cpu -- --ignored --exact --nocapture
+```
+
+The explicit GPU invocation uses the same test binary and environment adapter policy as the repository harness. Use the [GPU guide](../../docs/gpu-context.md) to configure pinned SwiftShader instead of Metal when needed:
+
+```bash
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_EVIDENCE_DIR="$PWD/tmp/cli-contract-metal" \
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+cargo test --locked --all-features \
+  --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test cli_contract \
+  cli_contract_gpu -- --ignored --exact --nocapture
+```
+
+The child CLI gets explicit backend/software arguments. Its context is acquisition evidence; doctor probe success and file completion are checked separately. A pre-existing `normal.png` directory forces the second canonical PNG write to fail after baseColor completes; the test verifies the completed-file list and both JSON/human error context. This fixture does not claim atomic export, cancellation, freshness scheduling or package-content verification. See the [CLI contract](../../docs/cli-contract.md) and [PR-012 evidence](../../docs/evidence/pr-012/README.md).
 
 ## Release measurement
 

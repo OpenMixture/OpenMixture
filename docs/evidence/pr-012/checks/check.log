@@ -1,0 +1,326 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask check`
+cargo fmt --all -- --check
+Dependency policy passed (four private crates, wgpu confined to mixture-wgpu).
+cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+    Checking xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+    Checking mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s
+cargo test --workspace --all-features --locked
+   Compiling xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.88s
+     Running unittests src/main.rs (target/debug/deps/mixture-ac7ae0509e76185c)
+
+running 2 tests
+test commands::render_builtin::tests::checker_png_encoding_preserves_dimensions_channels_and_srgb ... ok
+test commands::png_output::tests::png_transfer_metadata_distinguishes_color_from_linear_data ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-86d4e39b17a33f7e)
+
+running 2 tests
+test help_and_version_report_the_current_command_surface ... ok
+test missing_unknown_and_future_commands_never_claim_success ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.89s
+
+     Running tests/diagnostics.rs (target/debug/deps/diagnostics-edca2b88ff4a1dfd)
+
+running 5 tests
+test render_human_keeps_invalid_override_parameter_and_measured_evidence ... ok
+test validate_human_retains_complete_context ... ok
+test render_human_retains_complete_context ... ok
+test inspect_human_retains_complete_context ... ok
+test missing_warp_json_context_and_exit_are_identical_across_commands ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/doctor.rs (target/debug/deps/doctor-87479f1c1886fa50)
+
+running 4 tests
+test doctor_human_failure_explains_policy_and_unverified_probes ... ok
+test doctor_json_failure_has_stable_envelope_and_exit_code ... ok
+test doctor_help_is_available_without_gpu_access ... ok
+test doctor_rejects_invalid_options_before_acquisition ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/inspect.rs (target/debug/deps/inspect-b2be7d6675ec1960)
+
+running 5 tests
+test request_options_slice_override_and_normalize_output_order ... ok
+test inspection_snapshot_is_path_independent_and_never_changes_source ... ok
+test file_and_document_failures_keep_existing_stage_and_exit_contracts ... ok
+test semantic_failures_have_structured_codes_paths_and_null_plans ... ok
+test usage_is_explicit_and_dash_paths_are_supported ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/render.rs (target/debug/deps/render-e7d7d7b8acdd959b)
+
+running 3 tests
+test graph_gpu_cli_examples_png_metadata_hash_slicing_and_write_failure ... ignored, requires GPU; cargo xtask gpu-smoke
+test render_validates_source_and_request_before_acquiring_gpu_or_creating_outputs ... ok
+test render_usage_rejects_ambiguous_flags_and_accepts_dash_paths ... ok
+
+test result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/render_builtin.rs (target/debug/deps/render_builtin-76041202fc2d414e)
+
+running 3 tests
+test checker_gpu_cli_png_round_trip_skip_mode_and_output_failure ... ignored, requires GPU; cargo xtask gpu-smoke
+test checker_cli_validates_before_gpu_and_reports_operational_failure_separately ... ok
+test checker_cli_invalid_invocation_never_creates_output ... ok
+
+test result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/validate.rs (target/debug/deps/validate-6bfbf569d5cc98d3)
+
+running 4 tests
+test validate_cli_success_is_structured_and_source_is_never_changed ... ok
+test validate_cli_distinguishes_file_io_from_invalid_bytes_and_oversized_input ... ok
+test validate_cli_rejects_bad_usage_and_supports_options_and_dash_paths ... ok
+test validate_cli_fixture_failures_keep_codes_paths_and_input_exit_status ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/lib.rs (target/debug/deps/mixture_core-dacaddbd5d5d6bc2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/diagnostics.rs (target/debug/deps/diagnostics-cbd469ac69da00f5)
+
+running 8 tests
+test diagnostics_preserve_real_source_chains_without_leaking_them_into_json ... ok
+test diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary ... ok
+test diagnostics_report_matches_reviewed_json_snapshot ... ok
+test diagnostics_context_round_trips_and_optional_fields_are_omitted ... ok
+test diagnostics_evidence_preserves_integer_precision_and_key_order ... ok
+test diagnostics_report_success_is_derived_from_severity ... ok
+test diagnostics_invalid_wire_values_are_rejected ... ok
+test diagnostics_order_is_independent_of_input_order_including_ties ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/format.rs (target/debug/deps/format-801e2e8ee7c0de78)
+
+running 7 tests
+test format_byte_limit_is_checked_before_utf8_or_json_and_accepts_equality ... ok
+test format_rejects_duplicate_keys_at_every_object_boundary ... ok
+test format_rejects_invalid_utf8_json_trailing_data_and_nonfinite_numbers ... ok
+test format_numeric_parameters_do_not_drift_during_serialization_round_trips ... ok
+test format_round_trip_is_canonical_without_mutation_or_default_insertion ... ok
+test format_rejects_unknown_fields_missing_fields_and_wrong_structural_types ... ok
+test format_collection_limits_stop_before_constructing_an_extra_item ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/limits.rs (target/debug/deps/limits-9fb0714af67d3cff)
+
+running 7 tests
+test limits_defaults_match_architecture_and_reviewed_snapshot ... ok
+test limits_output_dimension_is_checked_independently_for_each_axis ... ok
+test limits_overrides_are_explicit_and_zero_is_not_replaced_by_a_default ... ok
+test limits_extreme_counts_do_not_overflow_or_truncate ... ok
+test limits_accept_below_and_at_boundary_but_reject_above_with_exact_evidence ... ok
+test limits_config_rejects_missing_unknown_negative_fractional_and_overflow_fields ... ok
+test limits_failure_json_matches_snapshot_and_preserves_callers_stage ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/m3_nodes.rs (target/debug/deps/m3_nodes-159a43e4eb54409c)
+
+running 3 tests
+test m3_new_ports_require_explicit_exact_kind_connections ... ok
+test m3_seed_is_required_even_on_an_unused_branch_and_never_coerced_or_defaulted ... ok
+test m3_typed_lowering_preserves_seed_bits_inputs_and_output_slicing ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/plan.rs (target/debug/deps/plan-78b1db3528df1ee7)
+
+running 16 tests
+test invalid_request_shapes_and_stricter_policies_fail_at_compile_stage ... ok
+test overrides_require_exposed_ids_and_exact_parameter_types ... ok
+test extreme_allocation_and_coordinate_arithmetic_returns_errors_without_panicking ... ok
+test channel_aliases_share_a_resource_and_charge_sequential_readback ... ok
+test odd_rectangular_sizes_have_checked_aligned_memory_and_dispatch ... ok
+test effective_overrides_match_explicit_source_and_semantic_changes_change_hash ... ok
+test explicit_defaults_numeric_spelling_signed_zero_and_noop_overrides_are_equivalent ... ok
+test stable_kahn_order_and_typed_resources_are_producer_first ... ok
+test requested_defaults_are_real_typed_resources_without_a_sink_pass ... ok
+test repeated_producer_bindings_and_missing_mask_lower_without_duplicate_node_passes ... ok
+test enum_color_and_cross_parameter_overrides_are_validated_after_atomic_application ... ok
+test normalization_is_immutable_explicit_and_order_independent ... ok
+test f32_collapse_is_rejected_and_equivalent_effective_values_share_hashes ... ok
+test unrequested_branches_and_their_valid_overrides_do_not_enter_plan_or_hash ... ok
+test reviewed_plan_and_hash_snapshots ... ok
+test transient_budget_is_computed_after_slicing_a_large_valid_graph ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/registry.rs (target/debug/deps/registry-a026c3655ea360ab)
+
+running 2 tests
+test m3_node_budget_stops_before_a_thirteenth_builtin ... ok
+test registry_has_exactly_eleven_version_one_contracts_with_valid_defaults_and_explicit_seed ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/resampling.rs (target/debug/deps/resampling-57765abf9e505e1d)
+
+running 3 tests
+test resampling_defaults_lower_to_typed_parameters_and_ordered_input_bindings ... ok
+test resampling_requires_exact_scalar_connections_and_preserves_repeated_warp_bindings ... ok
+test resampling_parameters_change_hashes_and_source_order_does_not ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/validation.rs (target/debug/deps/validation-19b6f31660d560ae)
+
+running 9 tests
+test validation_rechecks_constructed_documents_and_explicit_collection_limits ... ok
+test validation_all_m2_contracts_and_material_defaults_are_available_without_gpu ... ok
+test validation_requires_one_material_output_and_valid_required_inputs ... ok
+test validation_cycles_are_deterministic_and_do_not_mislabel_downstream_nodes ... ok
+test validation_exposed_bindings_require_unique_names_unique_targets_and_mutable_parameters ... ok
+test validation_rejects_duplicate_invalid_unknown_and_unsupported_nodes ... ok
+test validation_rejects_edge_identity_cardinality_endpoints_directions_and_kinds ... ok
+test validation_reports_are_stable_under_all_source_collection_orders_and_do_not_repair ... ok
+test validation_checks_parameter_shapes_ranges_defaults_and_relations ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/mixture_wgpu-adcb838be65350e8)
+
+running 15 tests
+test checker::shader_tests::checker_gpu_shader_pipeline_and_device_failures_preserve_stage ... ignored, requires GPU; cargo xtask gpu-smoke
+test executor::allocation_tests::graph_gpu_allocation_accounting_matches_plan_and_releases_aliased_readbacks ... ignored, requires GPU; cargo xtask gpu-smoke
+test allocations::tests::allocation_accounting_rejects_overflow_without_partial_counters ... ok
+test readback::gpu_tests::readback_gpu_mapping_failure_is_typed_and_does_not_poison_context ... ignored, requires GPU; cargo xtask gpu-smoke
+test checker::shader_tests::checker_probe_rejects_empty_and_uniform_images ... ok
+test kernels::tests::typed_parameter_uploads_match_shader_offsets_and_plan_estimates ... ok
+test context::tests::context_limit_failures_are_typed_before_request_device_can_panic ... ok
+test readback::tests::readback_alignment_and_sizes_include_padding_without_overflow ... ok
+test resources::tests::readback_gpu_copy_failure_releases_staging_allocation_and_preserves_first_error ... ignored, requires GPU; cargo xtask gpu-smoke
+test checker::tests::checker_validation_rejects_bad_dimensions_and_budget_before_gpu ... ok
+test readback::tests::readback_strips_padding_preserves_rows_and_converts_half_values ... ok
+test context::tests::context_native_device_errors_preserve_source_and_json_evidence ... ok
+test checker::shader_tests::checker_shader_validates_without_a_gpu ... ok
+test kernels::tests::resampling_parameter_uploads_match_typed_plan_and_shader_offsets ... ok
+test kernels::tests::graph_shader_validates_without_a_gpu_and_matches_uniform_abi ... ok
+
+test result: ok. 11 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/checker.rs (target/debug/deps/checker-6f6becbe27c53bb8)
+
+running 1 test
+test checker_gpu_odd_dimensions_row_padding_repeated_render_and_drop ... ignored, requires GPU; cargo xtask gpu-smoke
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/context.rs (target/debug/deps/context-b4c8a43dbdaaca12)
+
+running 2 tests
+test context_gpu_smoke_owns_independent_contexts ... ignored, requires a native GPU or configured software Vulkan adapter; cargo xtask gpu-smoke
+test context_disabled_policy_fails_without_a_gpu_and_preserves_policy ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/nodes.rs (target/debug/deps/nodes-c065b9ebb4d1a297)
+
+running 14 tests
+test graph_gpu_device_limits_fail_before_allocating_and_context_remains_usable ... ignored, requires GPU; cargo xtask gpu-smoke
+test graph_gpu_slicing_cache_reuse_clear_and_output_ownership ... ignored, requires GPU; cargo xtask gpu-smoke
+test node_blend_gpu ... ignored, requires GPU; cargo xtask test-node blend
+test node_checker_gpu ... ignored, requires GPU; cargo xtask test-node checker
+test node_constant_color_gpu ... ignored, requires GPU; cargo xtask test-node constant-color
+test node_constant_scalar_gpu ... ignored, requires GPU; cargo xtask test-node constant-scalar
+test node_fractal_noise_gpu ... ignored, requires GPU; cargo xtask test-node fractal-noise
+test node_gradient_map_gpu ... ignored, requires GPU; cargo xtask test-node gradient-map
+test node_height_to_normal_gpu ... ignored, requires GPU; cargo xtask test-node height-to-normal
+test node_levels_gpu ... ignored, requires GPU; cargo xtask test-node levels
+test node_material_output_gpu ... ignored, requires GPU; cargo xtask test-node material-output
+test node_transform_2d_gpu ... ignored, requires GPU; cargo xtask test-node transform-2d
+test node_warp_gpu ... ignored, requires GPU; cargo xtask test-node warp
+test node_fixtures_validate_defaults_boundaries_invalid_values_without_gpu ... ok
+
+test result: ok. 1 passed; 0 failed; 13 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/main.rs (target/debug/deps/xtask-a1c39d1c02d4b58c)
+
+running 27 tests
+test consumer::tests::consumer_build_commands_lock_the_detached_manifest_and_target ... ok
+test consumer::tests::consumer_evidence_rejects_skipped_gpu_and_missing_ownership ... ok
+test consumer::tests::cli_contract_receipt_rejects_skipped_tests_partial_cases_and_wrong_exits ... ok
+test dependencies::tests::accepts_runtime_json_dependency_for_strict_document_decoding ... ok
+test dependencies::tests::accepts_the_foundation_boundaries ... ok
+test dependencies::tests::rejects_publication_and_registry_substitutes ... ok
+test dependencies::tests::rejects_reversed_library_edges_and_extra_crates ... ok
+test golden::tests::candidate_file_paths_cannot_escape_the_review_directory ... ok
+test dependencies::tests::rejects_platform_cli_and_renamed_dependencies_in_core ... ok
+test golden::tests::directional_metrics_distinguish_axes_without_histogram_shortcuts ... ok
+test golden::tests::golden_metrics_measure_rgba_errors_and_pixel_ratios_with_exact_tolerance_boundaries ... ok
+test golden::tests::alternating_structure_accepts_intentional_wrap_jumps_but_rejects_seams_and_degeneracy ... ok
+test dependencies::tests::rejects_gpu_dependency_outside_executor_and_blocking_executor_dependencies ... ok
+test golden::trace::tests::trace_ranks_actual_peak_before_material_name_or_pass_count ... ok
+test golden::tests::normal_checks_reject_invalid_length_and_flipped_height_direction ... ok
+test golden::tests::uniform_default_and_parameter_causality_gates_are_not_nonempty_pixel_checks ... ok
+test golden::trace::tests::trace_rejects_missing_counters_leaks_reuse_and_over_budget_measurements ... ok
+test golden::tests::spatial_metrics_reject_scrambling_and_an_extra_wrap_seam ... ok
+test gpu_smoke::tests::gpu_smoke_requires_actual_probe_evidence_and_the_requested_adapter ... ok
+test links::tests::parses_inline_reference_and_image_links_but_ignores_code ... ok
+test links::tests::separates_local_paths_from_external_urls_and_anchors ... ok
+test golden::tests::material_fixture_contract_and_variants_are_strict_and_cover_all_channels ... ok
+test links::tests::reports_missing_files_with_locations_and_ignores_build_outputs ... ok
+test golden::trace::tests::trace_rejects_conflicting_source_snapshots_and_invalidates_early_failure ... ok
+test golden::tests::bounded_png_decoding_rejects_wrong_dimensions_metadata_and_truncated_files ... ok
+test golden::tests::golden_acceptance_copies_only_reviewed_outputs_retains_evidence_and_cannot_replay ... ok
+test golden::tests::candidate_guards_reject_changed_artifacts_inputs_baselines_and_failed_measurements ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 16.19s
+
+     Running tests/commands.rs (target/debug/deps/commands-1b69a4e6bb6604e3)
+
+running 6 tests
+test gpu_smoke_rejects_invalid_policy_before_starting_cargo_or_gpu ... ok
+test consumer_check_is_advertised_and_rejects_an_implicit_gpu_flag ... ok
+test unknown_and_not_yet_implemented_commands_fail ... ok
+test golden_updates_require_explicit_acceptance_and_refuse_ci_before_any_work ... ok
+test node_test_rejects_unknown_ids_and_invalid_adapter_policy ... ok
+test supported_repository_checks_work_outside_the_workspace_directory ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s
+
+   Doc-tests mixture_core
+
+running 3 tests
+test crates/mixture-core/src/lib.rs - (line 7) ... ok
+test crates/mixture-core/src/lib.rs - (line 18) ... ok
+test crates/mixture-core/src/lib.rs - (line 39) ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+all doctests ran in 0.67s; merged doctests compilation took 0.21s
+   Doc-tests mixture_wgpu
+
+running 3 tests
+test crates/mixture-wgpu/src/lib.rs - (line 18) - compile ... ok
+test crates/mixture-wgpu/src/lib.rs - (line 31) - compile ... ok
+test crates/mixture-wgpu/src/lib.rs - (line 7) - compile ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.62s; merged doctests compilation took 0.22s
+Independent Rust and CLI consumer CPU checks passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/consumer-check
+cargo doc --workspace --all-features --no-deps --locked
+ Documenting xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+ Documenting mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+   Generated /Users/krapnik/Documents/OpenMixture/target/doc/mixture/index.html and 3 other files
+Local document links passed (115 Markdown files; external URLs and anchors excluded).
+All repository checks passed.

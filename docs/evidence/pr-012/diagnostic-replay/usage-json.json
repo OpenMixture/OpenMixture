@@ -1,0 +1,16 @@
+{
+  "name": "usage-json",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "usage-json.stdout",
+  "stderr": "usage-json.stderr",
+  "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSha256": "96de0bc992d672a0c01a2aa5fbbe4f278b70649a15db1802b34c75bcda18b806"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "244b384aba257ab62ab225385ad6af1960775517",
+  "sourceRoot": "/Users/krapnik/Documents/OpenMixture",
+  "workingDirectory": "/Users/krapnik/Documents/OpenMixture",
+  "sourceStatus": "M crates/mixture-cli/src/commands/doctor.rs\n M crates/mixture-cli/src/commands/inspect.rs\n M crates/mixture-cli/src/commands/render.rs\n M crates/mixture-cli/src/commands/render_builtin.rs\n M crates/mixture-cli/src/commands/validate.rs\n M crates/mixture-cli/src/main.rs\n?? crates/mixture-cli/src/commands/human_diagnostics.rs\n?? crates/mixture-cli/tests/diagnostics.rs",
+  "binary": "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+  "binaryProfile": "debug",
+  "declaredBuildCommand": "cargo build --locked --all-features -p mixture-cli --target-dir target",
+  "binaryProfileEvidence": "Caller declaration; the helper does not build or inspect compiler flags.",
+  "binarySha256": "f728a1154f902c5b9bdb97266173f85ac3ed210396c43fdcd70650559095f63f",
+  "binarySourceEvidence": "Checkout revision and clean/dirty source status are recorded separately; the binary has no embedded source-revision attestation.",
+  "helperSha256": "29fc75f6a0b54692a74c3c2172a0204c1feabd263e50aa085d7738900c51fd09",
+  "fixtureSha256": {
+    "examples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "fixtures/format/invalid/cycle.mix": "8f13a11f05a5ec198adb569fb7daa3805705d75518beb7fdc6e2e98840d9361c",
+    "fixtures/format/invalid/duplicate-key.mix": "0280955e7a23d70eec876763c72fa318fd80f698f4fc7a9ab98324b7a5945490",
+    "fixtures/format/invalid/invalid-exposed.mix": "a5d176fab3927ff70ed3d52247bd33bebb3f599c9a3e3781486a44b89d50bec0",
+    "fixtures/format/invalid/invalid-parameters.mix": "1a18b78ada8585dba02ded08285f120ac244987759b90b3a4a063f109aa95709",
+    "fixtures/format/invalid/unknown-port.mix": "bfd86004dc02f47684ac4e422c3bf64c799a1ad8018b9a004e8777cded5d090d",
+    "fixtures/nodes/warp/missing-input.mix": "8dfddfe00f754b64a7d5cae116d21f1cf8b44d0cd2190fd7290c3cc79e2dbc05"
+  },
+  "gpuAcquisitionRequested": false,
+  "gpuPolicy": "Only doctor/render could acquire a GPU; both explicitly use --backend none. Other probes use CPU-only validate/inspect/help paths.",
+  "probes": [],
+  "runCompleted": false
+}

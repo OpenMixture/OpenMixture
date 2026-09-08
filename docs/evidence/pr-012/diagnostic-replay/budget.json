@@ -1,0 +1,19 @@
+{
+  "name": "budget",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--plan",
+    "--json",
+    "--size",
+    "4096"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "budget.stdout",
+  "stderr": "budget.stderr",
+  "stdoutSha256": "6c945606efcea4b053545702e0394455412f557933cc884d9dcdf0716b67e5dc",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

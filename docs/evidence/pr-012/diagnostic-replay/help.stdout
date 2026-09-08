@@ -1,0 +1,17 @@
+Mixture — material validation and GPU diagnostics
+
+Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
+                      [--power-preference high-performance|low-power] [--software]
+       mixture render-builtin checker [--size <pixels>] --out <file.png> [--json]
+       mixture validate <file.mix> [--json]
+       mixture inspect <file.mix> --plan [--json] [--size 64] [--output baseColor]
+                       [--set publicId=<JSON>]
+       mixture render <file.mix> --out <directory> [--json] [--size 64]
+                      [--output baseColor,...] [--set publicId=<JSON>]
+       mixture --help
+       mixture --version
+
+Doctor verifies checker compute/readback; --skip-probe reports unverified.
+Use `mixture doctor --help` for options and exit codes.
+Strict .mix v1 validation and deterministic plan inspection need no GPU.
+Use `mixture inspect --help` for compile options. Use `mixture render --help` for graph rendering and adapter options.

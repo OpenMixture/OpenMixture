@@ -4,7 +4,7 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012–015 and `package-check` remain planned. Remote CI remains deferred.
+This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012 adds the [CLI report/exit contract](./cli-contract.md), complete human diagnostic context and independent CLI process tests. PR-013–015 and `package-check` remain planned. Remote CI remains deferred.
 It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [eleven node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
@@ -53,7 +53,7 @@ The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Every n
 2. The current dependency policy against `cargo metadata`.
 3. Clippy on all workspace targets and features with warnings denied.
 4. Workspace tests, including CLI integration tests, tooling tests, and doctests.
-5. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and CPU invocation from an unrelated directory.
+5. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and public-Rust CPU invocation, followed by a built CLI and the explicit independent CPU contract test in a fresh working directory.
 6. Workspace rustdoc with warnings denied.
 7. Basic offline Markdown links to existing local files and directories.
 
@@ -63,7 +63,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-011 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
+At PR-012 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -76,7 +76,7 @@ Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promote
 
 [The dependency check](../xtask/src/dependencies.rs) enforces the four-crate boundary, dual license metadata, disabled publication, and this direct-dependency allowlist. It is an architecture/scope check, not a vulnerability database or transitive license audit. Expand the policy with a dependency's owning implementation PR and explain why the new dependency is necessary; retain the direction required by [ARCHITECTURE.md](../ARCHITECTURE.md).
 
-The [native consumer](../examples/native-consumer/Cargo.toml) is a separate one-package workspace with its own committed lockfile; `test-consumer` checks that boundary without adding a fifth member to the product workspace. It uses source-path `mixture-core`/`mixture-wgpu`, plus exactly pinned `pollster` and `serde_json` versions already used by the producer. The product lockfile and dependency policy are unchanged. Path dependency verification does not prove package contents.
+The [native consumer](../examples/native-consumer/Cargo.toml) is a separate one-package workspace with its own committed lockfile; `test-consumer` checks that boundary without adding a fifth member to the product workspace. It uses source-path `mixture-core`/`mixture-wgpu`, plus exactly pinned `pollster` and `serde_json` versions already used by the producer. PR-012 adds dev-only `png = "=0.18.1"` to decode completed CLI output files; its nine added lockfile entries use the same versions already resolved by the product. The product lockfile and dependency policy are unchanged. Path dependency and built-CLI verification do not prove package contents.
 
 ## CLI behavior and later work
 
@@ -84,9 +84,9 @@ The executable is named `mixture`. Help/version return `0`. `doctor` verifies ac
 
 `test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. `test-node <id>` validates fixtures and explicitly runs the selected GPU node cases. `test-material <id>` and `golden check` now render explicit GPU cases and compare material gates without changing baselines. `golden update <id> --accept` separately consumes a reviewed software candidate and refuses CI; see [the complete workflow](./material-goldens.md).
 
-`test-consumer` saves separate build/test/CPU reports and an invalidated-then-completed status under `tmp/consumer-check/`. It compiles the full GPU call path and native `Send` bounds, but does not initialize wgpu. See the [consumer guide](../examples/native-consumer/README.md).
+`test-consumer` saves separate build/test/CPU reports and an invalidated-then-completed status under `tmp/consumer-check/`. It compiles the full GPU call path and native `Send` bounds, but does not initialize wgpu. It also builds the real CLI and explicitly runs 32 CPU contract invocations using consumer-owned files. The selected fresh CLI capture is linked by `cliEvidence` in the completion status; ordinary consumer Cargo tests keep the CLI contract tests ignored until this explicit invocation. See the [consumer guide](../examples/native-consumer/README.md).
 
-`gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`, including the independent consumer in `native-consumer/`. The consumer renders twice, drops its renderer/context, then validates owned bytes and metadata. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
+`gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`, including the independent consumer in `native-consumer/`. The Rust consumer renders twice, drops its renderer/context, then validates owned bytes and metadata. PR-012 also runs 10 independent CLI invocations for doctor, successful PNGs and partial writes; raw streams and actual files remain under the linked CLI evidence directory. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
 
 ## 2K resource evidence
 

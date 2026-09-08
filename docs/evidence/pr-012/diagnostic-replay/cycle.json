@@ -1,0 +1,16 @@
+{
+  "name": "cycle",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/format/invalid/cycle.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "cycle.stdout",
+  "stderr": "cycle.stderr",
+  "stdoutSha256": "3e1c804fd87307b4884156194b5da2c2fc039618b185a0330ae2b33e7602a6d8",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

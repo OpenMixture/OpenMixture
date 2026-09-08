@@ -14,6 +14,7 @@ The root documents are the active project contract:
 
 [Development](./development.md) describes implemented commands and verification limits.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
+[Native CLI reports and exit codes](./cli-contract.md) defines PR-012 JSON presence/types, complete human context, independent process tests and partial-write behavior.
 [Diagnostics and safety limits](./diagnostics.md) defines the PR-002 public API, JSON contract, and shared CLI exit-code policy.
 [GPU context and doctor](./gpu-context.md) describes PR-003 acquisition, report fields, exit codes, and pinned software CI.
 [Built-in checker](./builtin-checker.md) defines PR-004 pixels, readback, PNG output, golden provenance, and execution evidence.

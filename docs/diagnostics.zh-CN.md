@@ -146,3 +146,5 @@ cargo xtask check
 PR-006 `inspect --plan` 编译后返回 `0`，源文件／请求无效返回 `2`，源文件／报告 I/O 失败返回 `1`。编译失败保留现有结构化诊断码并使用 `stage: "compile"`；源解码／验证阶段保持区分。JSON 在共享报告字段之外添加 `schemaVersion: 1` 和 `plan`（失败时为 null）。见[计划检查](./render-plan.zh-CN.md)。
 
 PR-007 图 `render` 遵循相同的输入／运行退出码策略，在获取上下文前验证并编译。GPU 失败保留阶段／来源及已知适配器／计划证据。后续文件写入失败时，报告仍列出已完成输出。见[渲染报告](./graph-rendering.zh-CN.md)。
+
+PR-012 通过共享人类可读格式化，在每项 CLI 诊断中保留文档、阶段／严重性、节点、端口及参数上下文，保持现有 JSON 数据和退出码。无版本验证结构、带版本命令结构、null／省略字段、stdout／stderr 规则及独立进程证据见 [CLI 契约](./cli-contract.zh-CN.md)。

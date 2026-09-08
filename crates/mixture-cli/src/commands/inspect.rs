@@ -150,21 +150,7 @@ fn human(out: &mut impl Write, report: &Report) -> io::Result<()> {
         )?;
     } else {
         writeln!(out, "Could not compile material plan.")?;
-        for diagnostic in report.diagnostics.diagnostics() {
-            writeln!(out, "{diagnostic}")?;
-            if let Some(node) = &diagnostic.node_id {
-                writeln!(out, "  node: {node}")?;
-            }
-            if let Some(parameter) = &diagnostic.parameter_id {
-                writeln!(out, "  parameter: {parameter}")?;
-            }
-            for (key, value) in &diagnostic.evidence {
-                writeln!(out, "  {key}: {value:?}")?;
-            }
-            if let Some(suggestion) = &diagnostic.suggestion {
-                writeln!(out, "  Suggestion: {suggestion}")?;
-            }
-        }
+        super::human_diagnostics::write(out, &report.diagnostics)?;
     }
     Ok(())
 }

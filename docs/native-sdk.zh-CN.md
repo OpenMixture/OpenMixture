@@ -2,7 +2,7 @@
 
 [English](./native-sdk.md) | 简体中文
 
-PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：CLI 稳定化、设备丢失／OOM 分类、过期结果处理及包消费是后续 [M4 步骤](../M4_PRS.zh-CN.md)。
+PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，设备丢失／OOM 分类、过期结果处理及包消费仍是后续 [M4 步骤](../M4_PRS.zh-CN.md)。
 
 ## 已审查的 API 路径
 

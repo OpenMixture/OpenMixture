@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "beforeDirectory": "docs/reviews/m3/diagnostics/release",
+  "beforeSourceRevision": "e9dd03bb272a29de6243aec79a3450b47b90530e",
+  "afterDirectory": "tmp/pr-012/diagnostic-replay",
+  "comparisons": [
+    {
+      "probe": "budget",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "6c945606efcea4b053545702e0394455412f557933cc884d9dcdf0716b67e5dc",
+      "afterSha256": "6c945606efcea4b053545702e0394455412f557933cc884d9dcdf0716b67e5dc"
+    },
+    {
+      "probe": "cycle",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "3e1c804fd87307b4884156194b5da2c2fc039618b185a0330ae2b33e7602a6d8",
+      "afterSha256": "3e1c804fd87307b4884156194b5da2c2fc039618b185a0330ae2b33e7602a6d8"
+    },
+    {
+      "probe": "doctor-none",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "2ff94ffc6c42fe21c66e447b8f84043b9dbddd59e8eb63dd5641a2461348b1f5",
+      "afterSha256": "2ff94ffc6c42fe21c66e447b8f84043b9dbddd59e8eb63dd5641a2461348b1f5"
+    },
+    {
+      "probe": "duplicate-key",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "d35b8408426ab217e91a0f22c0c73e3a1e1d6a759456433c50abddfff870ab57",
+      "afterSha256": "d35b8408426ab217e91a0f22c0c73e3a1e1d6a759456433c50abddfff870ab57"
+    },
+    {
+      "probe": "invalid-exposed",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "070faa8f5d13a9a7f6c9aba6f5405266ff4370903a63242ec144412aaf6610d4",
+      "afterSha256": "070faa8f5d13a9a7f6c9aba6f5405266ff4370903a63242ec144412aaf6610d4"
+    },
+    {
+      "probe": "invalid-parameters",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "7c9e9c517b8706cee0dbb63db8d2e8cb4e59aa6256fd1031ce32668c5006fee9",
+      "afterSha256": "7c9e9c517b8706cee0dbb63db8d2e8cb4e59aa6256fd1031ce32668c5006fee9"
+    },
+    {
+      "probe": "missing-file",
+      "rawJsonEqual": false,
+      "semanticJsonEqual": false,
+      "beforeSha256": "853c3d2afd563ede8616305eefacdeb28df0f4cd4f7d231f27bb8843774f1133",
+      "afterSha256": "5cb70065769c8a8bb86ae37ec7c9dbc5ff72e44df56a36f8f6a249eeef7a1b5c",
+      "onlyExpectedCallerPathChanged": true,
+      "changedField": "diagnostics[0].documentPath",
+      "beforePath": "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics-release-e9dd03b/not-present.mix",
+      "afterPath": "/Users/krapnik/Documents/OpenMixture/tmp/pr-012/diagnostic-replay/not-present.mix"
+    },
+    {
+      "probe": "missing-warp-json",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "2d116b47fc56f51632f8acfcbfd5f7686a1ceb042afc2741c6eea4f4e46ae8a8",
+      "afterSha256": "2d116b47fc56f51632f8acfcbfd5f7686a1ceb042afc2741c6eea4f4e46ae8a8"
+    },
+    {
+      "probe": "unknown-override",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "293f03dbe3e15f74a66d18a03d72557d45e43f31926c4767d9989bc0347231f5",
+      "afterSha256": "293f03dbe3e15f74a66d18a03d72557d45e43f31926c4767d9989bc0347231f5"
+    },
+    {
+      "probe": "unknown-port-json",
+      "rawJsonEqual": true,
+      "semanticJsonEqual": true,
+      "beforeSha256": "42a46b7bbb2f2f4c8353824802226d122beecbd326f4ec3d4bab33ec5a62f866",
+      "afterSha256": "42a46b7bbb2f2f4c8353824802226d122beecbd326f4ec3d4bab33ec5a62f866"
+    }
+  ],
+  "ok": true,
+  "method": "Compare untouched M3 release and PR-012 replay stdout. Nine JSON reports are byte-identical. The missing-file report differs only in its caller-supplied documentPath; comparison changes that field in memory only. Raw captures are not normalized."
+}

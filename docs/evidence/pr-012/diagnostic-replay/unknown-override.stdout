@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "plan": null,
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_COMPILE_INVALID_REQUEST",
+      "stage": "compile",
+      "severity": "error",
+      "message": "Override ID is not exposed by this document.",
+      "documentPath": "examples/checker.mix",
+      "evidence": {
+        "publicId": "frequncy"
+      },
+      "suggestion": "Use supported unique outputs, positive bounded dimensions, and declared parameter overrides."
+    }
+  ]
+}

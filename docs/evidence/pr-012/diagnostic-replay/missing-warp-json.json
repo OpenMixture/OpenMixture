@@ -1,0 +1,16 @@
+{
+  "name": "missing-warp-json",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/nodes/warp/missing-input.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "missing-warp-json.stdout",
+  "stderr": "missing-warp-json.stderr",
+  "stdoutSha256": "2d116b47fc56f51632f8acfcbfd5f7686a1ceb042afc2741c6eea4f4e46ae8a8",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

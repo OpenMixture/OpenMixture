@@ -79,23 +79,6 @@ fn write_human(out: &mut impl Write, path: &Path, report: &DiagnosticReport) -> 
         return writeln!(out, "Valid .mix v1 material: {}", path.display());
     }
     writeln!(out, "Invalid material: {}", path.display())?;
-    for diagnostic in report.diagnostics() {
-        writeln!(out, "{diagnostic}")?;
-        if let Some(node) = &diagnostic.node_id {
-            writeln!(out, "  node: {node}")?;
-        }
-        if let Some(port) = &diagnostic.port_id {
-            writeln!(out, "  port: {port}")?;
-        }
-        if let Some(parameter) = &diagnostic.parameter_id {
-            writeln!(out, "  parameter: {parameter}")?;
-        }
-        for (key, value) in &diagnostic.evidence {
-            writeln!(out, "  {key}: {value:?}")?;
-        }
-        if let Some(suggestion) = &diagnostic.suggestion {
-            writeln!(out, "  Suggestion: {suggestion}")?;
-        }
-    }
+    super::human_diagnostics::write(out, report)?;
     Ok(())
 }

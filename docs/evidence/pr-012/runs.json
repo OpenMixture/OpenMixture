@@ -1,0 +1,16 @@
+{
+  "metal": {
+    "consumerStatus": "gpu-smoke/metal/consumer/status.json",
+    "cliDirectory": "gpu-smoke/metal/consumer/cli-77840-1788863095273327000",
+    "adapter": "Apple M5"
+  },
+  "software": {
+    "consumerStatus": "gpu-smoke/software/consumer/status.json",
+    "cliDirectory": "gpu-smoke/software/consumer/cli-78064-1788863387711046000",
+    "adapter": "SwiftShader Device (LLVM 10.0.0)"
+  },
+  "cpu": {
+    "consumerStatus": "checks/consumer/status.json",
+    "cliDirectory": "checks/consumer/cli-78747-1788864274771719000"
+  }
+}

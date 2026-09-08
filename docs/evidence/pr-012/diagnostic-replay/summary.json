@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "244b384aba257ab62ab225385ad6af1960775517",
+  "sourceRoot": "/Users/krapnik/Documents/OpenMixture",
+  "workingDirectory": "/Users/krapnik/Documents/OpenMixture",
+  "sourceStatus": "M crates/mixture-cli/src/commands/doctor.rs\n M crates/mixture-cli/src/commands/inspect.rs\n M crates/mixture-cli/src/commands/render.rs\n M crates/mixture-cli/src/commands/render_builtin.rs\n M crates/mixture-cli/src/commands/validate.rs\n M crates/mixture-cli/src/main.rs\n?? crates/mixture-cli/src/commands/human_diagnostics.rs\n?? crates/mixture-cli/tests/diagnostics.rs",
+  "binary": "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+  "binaryProfile": "debug",
+  "declaredBuildCommand": "cargo build --locked --all-features -p mixture-cli --target-dir target",
+  "binaryProfileEvidence": "Caller declaration; the helper does not build or inspect compiler flags.",
+  "binarySha256": "f728a1154f902c5b9bdb97266173f85ac3ed210396c43fdcd70650559095f63f",
+  "binarySourceEvidence": "Checkout revision and clean/dirty source status are recorded separately; the binary has no embedded source-revision attestation.",
+  "helperSha256": "29fc75f6a0b54692a74c3c2172a0204c1feabd263e50aa085d7738900c51fd09",
+  "fixtureSha256": {
+    "examples/checker.mix": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+    "fixtures/format/invalid/cycle.mix": "8f13a11f05a5ec198adb569fb7daa3805705d75518beb7fdc6e2e98840d9361c",
+    "fixtures/format/invalid/duplicate-key.mix": "0280955e7a23d70eec876763c72fa318fd80f698f4fc7a9ab98324b7a5945490",
+    "fixtures/format/invalid/invalid-exposed.mix": "a5d176fab3927ff70ed3d52247bd33bebb3f599c9a3e3781486a44b89d50bec0",
+    "fixtures/format/invalid/invalid-parameters.mix": "1a18b78ada8585dba02ded08285f120ac244987759b90b3a4a063f109aa95709",
+    "fixtures/format/invalid/unknown-port.mix": "bfd86004dc02f47684ac4e422c3bf64c799a1ad8018b9a004e8777cded5d090d",
+    "fixtures/nodes/warp/missing-input.mix": "8dfddfe00f754b64a7d5cae116d21f1cf8b44d0cd2190fd7290c3cc79e2dbc05"
+  },
+  "gpuAcquisitionRequested": false,
+  "gpuPolicy": "Only doctor/render could acquire a GPU; both explicitly use --backend none. Other probes use CPU-only validate/inspect/help paths.",
+  "probes": [
+    {
+      "name": "help",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "--help"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "expectedExitCodeMatched": true,
+      "stdout": "help.stdout",
+      "stderr": "help.stderr",
+      "stdoutSha256": "36dd5c6cf8e03ae3d0e27165fcd513f857ad5a61af12f5db25d9d95c315d7384",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "unknown-port-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/unknown-port.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "unknown-port-json.stdout",
+      "stderr": "unknown-port-json.stderr",
+      "stdoutSha256": "42a46b7bbb2f2f4c8353824802226d122beecbd326f4ec3d4bab33ec5a62f866",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "unknown-port-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "fixtures/format/invalid/unknown-port.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "unknown-port-human.stdout",
+      "stderr": "unknown-port-human.stderr",
+      "stdoutSha256": "c2ddbd82ba2edbd920e8269a559a36ab42f1592635117036c50c5368b9c493f9",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "missing-warp-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "missing-warp-json.stdout",
+      "stderr": "missing-warp-json.stderr",
+      "stdoutSha256": "2d116b47fc56f51632f8acfcbfd5f7686a1ceb042afc2741c6eea4f4e46ae8a8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "missing-warp-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "missing-warp-human.stdout",
+      "stderr": "missing-warp-human.stderr",
+      "stdoutSha256": "8af2d6fc6ac31acdfe7c960b2d5b103de0da2619b05f3b104b08744f4fc18051",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "invalid-parameters",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/invalid-parameters.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "invalid-parameters.stdout",
+      "stderr": "invalid-parameters.stderr",
+      "stdoutSha256": "7c9e9c517b8706cee0dbb63db8d2e8cb4e59aa6256fd1031ce32668c5006fee9",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "cycle",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/cycle.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "cycle.stdout",
+      "stderr": "cycle.stderr",
+      "stdoutSha256": "3e1c804fd87307b4884156194b5da2c2fc039618b185a0330ae2b33e7602a6d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "duplicate-key",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/duplicate-key.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "duplicate-key.stdout",
+      "stderr": "duplicate-key.stderr",
+      "stdoutSha256": "d35b8408426ab217e91a0f22c0c73e3a1e1d6a759456433c50abddfff870ab57",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "invalid-exposed",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/invalid-exposed.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "invalid-exposed.stdout",
+      "stderr": "invalid-exposed.stderr",
+      "stdoutSha256": "070faa8f5d13a9a7f6c9aba6f5405266ff4370903a63242ec144412aaf6610d4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "unknown-override",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--plan",
+        "--json",
+        "--set",
+        "frequncy=16"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "unknown-override.stdout",
+      "stderr": "unknown-override.stderr",
+      "stdoutSha256": "293f03dbe3e15f74a66d18a03d72557d45e43f31926c4767d9989bc0347231f5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "4096"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "budget.stdout",
+      "stderr": "budget.stderr",
+      "stdoutSha256": "6c945606efcea4b053545702e0394455412f557933cc884d9dcdf0716b67e5dc",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "doctor-none",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "doctor",
+        "--backend",
+        "none",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "expectedExitCodeMatched": true,
+      "stdout": "doctor-none.stdout",
+      "stderr": "doctor-none.stderr",
+      "stdoutSha256": "2ff94ffc6c42fe21c66e447b8f84043b9dbddd59e8eb63dd5641a2461348b1f5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "missing-file",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "/Users/krapnik/Documents/OpenMixture/tmp/pr-012/diagnostic-replay/not-present.mix",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "expectedExitCodeMatched": true,
+      "stdout": "missing-file.stdout",
+      "stderr": "missing-file.stderr",
+      "stdoutSha256": "5cb70065769c8a8bb86ae37ec7c9dbc5ff72e44df56a36f8f6a249eeef7a1b5c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "usage-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "usage-json.stdout",
+      "stderr": "usage-json.stderr",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "96de0bc992d672a0c01a2aa5fbbe4f278b70649a15db1802b34c75bcda18b806"
+    },
+    {
+      "name": "missing-warp-render-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "render",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--out",
+        "/Users/krapnik/Documents/OpenMixture/tmp/pr-012/diagnostic-replay/unused-render-output",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "missing-warp-render-human.stdout",
+      "stderr": "missing-warp-render-human.stderr",
+      "stdoutSha256": "1f27a36c96808bfbcfd3904c65a81defe36591b7f91641ce77f10af891db02b7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "missing-warp-validate-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/nodes/warp/missing-input.mix"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "expectedExitCodeMatched": true,
+      "stdout": "missing-warp-validate-human.stdout",
+      "stderr": "missing-warp-validate-human.stderr",
+      "stdoutSha256": "341e79dff5a3697d4dec924b95d2af812101259cfa675360127da7bee32c35e5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "runCompleted": true,
+  "observations": {
+    "missingWarpJsonIdentifiesPort": true,
+    "missingWarpValidateHumanIdentifiesPort": true,
+    "missingWarpInspectHumanIdentifiesPort": true,
+    "missingWarpRenderHumanIdentifiesPort": true,
+    "doctorNoneHasNoAdapterOrDevice": true,
+    "doctorNoneHasNoEffectiveBackend": true,
+    "doctorNoneProbesNotRun": true,
+    "renderOutputDirectoryAbsent": true
+  },
+  "binaryUnchanged": true,
+  "fixturesUnchanged": true,
+  "sourceRevisionAfter": "244b384aba257ab62ab225385ad6af1960775517",
+  "sourceRevisionUnchanged": true,
+  "expectedExitCodesMatched": true
+}

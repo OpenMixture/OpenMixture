@@ -1,0 +1,16 @@
+{
+  "name": "missing-warp-human",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "fixtures/nodes/warp/missing-input.mix",
+    "--plan"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "missing-warp-human.stdout",
+  "stderr": "missing-warp-human.stderr",
+  "stdoutSha256": "8af2d6fc6ac31acdfe7c960b2d5b103de0da2619b05f3b104b08744f4fc18051",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

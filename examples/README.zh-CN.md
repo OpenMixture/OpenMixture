@@ -25,3 +25,5 @@ cargo run --locked -p mixture-cli -- render examples/blend.mix --size 256 \
 独立的 `render-builtin checker`／doctor 探针不读取 `.mix`，但共享棋盘格着色器与分发路径。见[图渲染](../docs/graph-rendering.zh-CN.md)、[格式](../docs/file-format.zh-CN.md)、[契约](../docs/node-contracts.zh-CN.md)及[开发指南](../docs/development.zh-CN.md)。
 
 [独立 Rust 消费者](./native-consumer/README.zh-CN.md)拥有单独 Cargo 工作区及输入。运行 `cargo xtask test-consumer` 检查 CPU／公开 API；`gpu-smoke` 还会执行其显式 GPU 路径，在 renderer 销毁后消费返回像素。
+
+PR-012 为该消费者夹具增加 [CLI 进程契约测试](./native-consumer/tests/cli_contract.rs)，使用自有源码并解码 PNG。CPU 用例通过 `test-consumer` 运行；真实 GPU 及部分写入用例仍在 `gpu-smoke` 中显式执行。

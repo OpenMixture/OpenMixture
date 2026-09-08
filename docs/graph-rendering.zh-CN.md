@@ -139,3 +139,5 @@ cargo xtask test-node warp
 两个节点测试集在固定 SwiftShader 通过，包含 17 个变换和 13 个扭曲[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)、既有噪声的精确恒等比较、边界／无效输入夹具以及完整图因果／缓存检查。字面量探针验证 X／Y 环绕插值、旋转顺序、输出坐标位移场读取及 f16 恒等路径。节点测试继续使用显式适配器策略；报告和原始输出保存于 `tmp/node-tests/<backend>/`，并另存 `<node>-literal-probes.json` 证据。这验证节点语义；材质观感和里程碑验收使用独立的[材质验收](./material-goldens.zh-CN.md)。
 
 PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations: AllocationReport`。它记录成功创建的描述符：纹理／uniform 数量与字节数，staging 数量、累计字节和峰值存活字节，以及总累计、峰值、存活、已释放和已复用字节。当前成功渲染最终满足 `liveBytes = 0`、`releasedBytes = cumulativeBytes` 和 `reusedBytes = 0`。释放记录显式 `destroy` 调用，不代表驱动立即归还物理内存。驱动分配粒度、管线／绑定组开销及 CPU 像素／PNG 缓冲区不计入。这些观测不进入 `RenderPlan` 或其哈希。
+
+[PR-012 CLI 契约](./cli-contract.zh-CN.md)统一记录报告字段类型、null／省略规则、退出码和部分文件写入行为，并提供独立 PNG／元数据／覆盖检查。像素执行及编码语义不变。

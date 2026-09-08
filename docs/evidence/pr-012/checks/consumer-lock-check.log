@@ -1,0 +1,20 @@
+     Locking 9 packages to latest Rust 1.98.1 compatible versions
+      Adding adler2 v2.0.1
+      Adding crc32fast v1.5.1
+      Adding fdeflate v0.3.7
+      Adding flate2 v1.1.10
+      Adding miniz_oxide v0.8.9
+      Adding miniz_oxide v0.9.1
+      Adding png v0.18.1
+      Adding simd-adler32 v0.3.10
+      Adding zlib-rs v0.6.7
+    Checking simd-adler32 v0.3.10
+    Checking adler2 v2.0.1
+   Compiling crc32fast v1.5.1
+    Checking miniz_oxide v0.9.1
+    Checking miniz_oxide v0.8.9
+    Checking fdeflate v0.3.7
+    Checking flate2 v1.1.10
+    Checking png v0.18.1
+    Checking mixture-native-consumer v0.0.0 (/Users/krapnik/Documents/OpenMixture/examples/native-consumer)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.36s

@@ -1,0 +1,7 @@
+
+running 1 test
+10 independent CLI invocations passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke/native-consumer/cli-77840-1788863095273327000
+test cli_contract_gpu ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.73s
+

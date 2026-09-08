@@ -5,6 +5,7 @@ mod commands {
     pub mod doctor;
     mod document_io;
     mod gpu_options;
+    mod human_diagnostics;
     pub mod inspect;
     mod png_output;
     pub mod render;

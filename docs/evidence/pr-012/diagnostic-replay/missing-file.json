@@ -1,0 +1,16 @@
+{
+  "name": "missing-file",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "/Users/krapnik/Documents/OpenMixture/tmp/pr-012/diagnostic-replay/not-present.mix",
+    "--json"
+  ],
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedExitCodeMatched": true,
+  "stdout": "missing-file.stdout",
+  "stderr": "missing-file.stderr",
+  "stdoutSha256": "5cb70065769c8a8bb86ae37ec7c9dbc5ff72e44df56a36f8f6a249eeef7a1b5c",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

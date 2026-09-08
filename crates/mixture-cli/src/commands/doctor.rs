@@ -118,14 +118,6 @@ fn write_human(out: &mut impl Write, report: &ContextReport) -> io::Result<()> {
         serde_json::to_writer_pretty(&mut *out, execution).map_err(io::Error::other)?;
         writeln!(out)?;
     }
-    for diagnostic in report.diagnostics().diagnostics() {
-        writeln!(out, "{diagnostic}")?;
-        for (key, value) in &diagnostic.evidence {
-            writeln!(out, "  {key}: {value:?}")?;
-        }
-        if let Some(suggestion) = &diagnostic.suggestion {
-            writeln!(out, "  Suggestion: {suggestion}")?;
-        }
-    }
+    super::human_diagnostics::write(out, report.diagnostics())?;
     Ok(())
 }

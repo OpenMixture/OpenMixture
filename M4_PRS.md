@@ -2,7 +2,7 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
-**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 is locally implemented and verified; PR-012 through PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
+**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 and PR-012 are locally implemented and verified; PR-013 through PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.
 
@@ -22,7 +22,7 @@ Each PR is a separate reviewable local commit or PR, with paired English/Chinese
 
 ## PR-011 — `feat(sdk): verify public Rust consumption end to end`
 
-**Completed locally, 2026-09-08:** the PR-011 commit containing this record follows `f56bffe` on `codex/pr-011-native-consumer`. See the [public API contract](./docs/native-sdk.md), [independent application](./examples/native-consumer/README.md), and [checks, source hashes and paired release evidence](./docs/evidence/pr-011/README.md). Raw wgpu getters remain documented escape hatches. Metal and pinned SwiftShader execute and inspect owned outputs after renderer drop; no product runtime behavior or dependency was changed. Packaged consumption remains PR-015.
+**Completed locally, 2026-09-08:** commit `244b384` follows `f56bffe` on `codex/pr-011-native-consumer`. See the [public API contract](./docs/native-sdk.md), [independent application](./examples/native-consumer/README.md), and [checks, source hashes and paired release evidence](./docs/evidence/pr-011/README.md). Raw wgpu getters remain documented escape hatches. Metal and pinned SwiftShader execute and inspect owned outputs after renderer drop; no product runtime behavior or dependency was changed. Packaged consumption remains PR-015.
 
 ### Outcome and evidence
 
@@ -44,6 +44,8 @@ Run `cargo xtask test-consumer`, `cargo xtask test-plan`, `cargo xtask check`, t
 **Out of scope:** new API abstraction layers without a consumer failure; N-API, daemon/IPC, browser/UI work; packaging/publication; shader changes or performance optimization.
 
 ## PR-012 — `fix(cli): preserve diagnostic context and verify consumer reports`
+
+**Completed locally, 2026-09-08:** the PR-012 commit containing this record follows `244b384` on `codex/pr-012-cli-contract`. A shared CLI formatter preserves document/stage/node/port/parameter context, including the missing displacement and render-override defects. The [CLI contract](./docs/cli-contract.md), independent CPU/GPU process tests, and [recorded evidence](./docs/evidence/pr-012/README.md) verify existing envelopes, exit codes, completed PNGs and partial writes. JSON shapes and versions are unchanged; `validate` retains its unversioned diagnostic envelope. No GPU/core semantics or product dependencies changed.
 
 ### Outcome and evidence
 

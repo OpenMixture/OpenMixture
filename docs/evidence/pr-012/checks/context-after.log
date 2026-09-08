@@ -1,0 +1,13 @@
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.53s
+     Running tests/diagnostics.rs (target/debug/deps/diagnostics-c9effb59fee8dd50)
+
+running 5 tests
+test render_human_keeps_invalid_override_parameter_and_measured_evidence ... ok
+test render_human_retains_complete_context ... ok
+test inspect_human_retains_complete_context ... ok
+test validate_human_retains_complete_context ... ok
+test missing_warp_json_context_and_exit_are_identical_across_commands ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+

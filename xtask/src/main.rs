@@ -25,7 +25,7 @@ Available repository commands:
   test-core   Run only mixture-core tests (no GPU)
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
-  test-consumer Check the independent public Rust consumer without acquiring a GPU
+  test-consumer Check independent public Rust and CLI consumption without a GPU
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
