@@ -1,6 +1,149 @@
 use super::*;
 use model::{Change, Structure};
 
+#[test]
+fn spatial_metrics_reject_scrambling_and_an_extra_wrap_seam() {
+    // Literal smooth periodic signal for measurement tests; no node implementation.
+    let row = [20_u8, 50, 110, 180, 220, 180, 110, 50];
+    let image = Image {
+        size: 8,
+        pixels: row
+            .repeat(8)
+            .into_iter()
+            .flat_map(|v| [v, v, v, 255])
+            .collect(),
+    };
+    let rule = Structure::Spatial {
+        min_span: 100,
+        min_std_dev: 20.,
+        min_neighbor_correlation: 0.6,
+        max_seam_ratio: 2.,
+    };
+    assert_eq!(pixels::structure(&image, &rule)["ok"], true);
+    let mut scrambled = image.clone();
+    for row in scrambled
+        .pixels
+        .as_chunks_mut::<32>()
+        .0
+        .iter_mut()
+        .skip(1)
+        .step_by(2)
+    {
+        row.rotate_left(4 * 4);
+    }
+    assert_eq!(
+        image.statistics(),
+        scrambled.statistics(),
+        "identical histograms must not imply spatial acceptance"
+    );
+    assert_eq!(pixels::structure(&scrambled, &rule)["ok"], false);
+    let mut seam = image.clone();
+    for row in seam.pixels.as_chunks_mut::<32>().0 {
+        row[7 * 4..].copy_from_slice(&[255, 255, 255, 255]);
+    }
+    let measured = pixels::structure(&seam, &rule);
+    assert!(
+        measured["measurements"]["seam"]["ratio"][0]
+            .as_f64()
+            .unwrap()
+            > 2.
+    );
+    assert_eq!(measured["ok"], false);
+    let fine = Image {
+        size: 8,
+        pixels: [20_u8, 110, 220, 110, 20, 110, 220, 110]
+            .repeat(8)
+            .into_iter()
+            .flat_map(|v| [v, v, v, 255])
+            .collect(),
+    };
+    let change = Change::NormalizedGradientEnergy {
+        min_ratio: 2.,
+        max_ratio: 5.,
+        min_pixel_ratio: 0.5,
+    };
+    assert_eq!(pixels::causality(&image, &fine, &change)["ok"], true);
+    assert_eq!(pixels::causality(&fine, &image, &change)["ok"], false);
+    assert_eq!(pixels::causality(&image, &image, &change)["ok"], false);
+    let mut darker = image.clone();
+    for pixel in darker.pixels.as_chunks_mut::<4>().0 {
+        for channel in &mut pixel[..3] {
+            *channel /= 2;
+        }
+    }
+    let measurement = pixels::causality(&image, &darker, &change);
+    assert!(
+        (measurement["redNormalizedGradientEnergy"]["ratio"]
+            .as_f64()
+            .unwrap()
+            - 1.0)
+            .abs()
+            < 1e-12,
+        "contrast alone must not count as additional spatial detail"
+    );
+    assert_eq!(measurement["ok"], false);
+}
+
+#[test]
+fn normal_checks_reject_invalid_length_and_flipped_height_direction() {
+    let heights = [20_u8, 50, 110, 180, 220, 180, 110, 50];
+    let height = Image {
+        size: 8,
+        pixels: heights
+            .repeat(8)
+            .into_iter()
+            .flat_map(|v| [v, v, v, 255])
+            .collect(),
+    };
+    let normal = Image {
+        size: 8,
+        pixels: [
+            [128, 128, 255, 255],
+            [70, 128, 242, 255],
+            [70, 128, 242, 255],
+            [70, 128, 242, 255],
+            [128, 128, 255, 255],
+            [185, 128, 242, 255],
+            [185, 128, 242, 255],
+            [185, 128, 242, 255],
+        ]
+        .repeat(8)
+        .into_iter()
+        .flatten()
+        .collect(),
+    };
+    let rule = Structure::Normal {
+        max_length_error: 0.015,
+        min_mean_tilt: 0.05,
+        max_mean_tilt: 0.2,
+        // This eight-sample literal has only four slope transitions per repeat.
+        max_seam_ratio: 3.,
+    };
+    assert_eq!(pixels::structure(&normal, &rule)["ok"], true);
+    assert_eq!(pixels::structure(&uniform(8, 128), &rule)["ok"], false);
+    let relation = model::Relationship::HeightNormalDirection {
+        min_sign_agreement: 0.98,
+        min_measured_ratio: 0.3,
+    };
+    let mut images = BTreeMap::from([
+        ("height".to_string(), height),
+        ("normal".to_string(), normal.clone()),
+    ]);
+    assert_eq!(pixels::relationship(&images, &relation)["ok"], true);
+    let mut flipped = normal;
+    for p in flipped.pixels.as_chunks_mut::<4>().0 {
+        p[0] = 255 - p[0];
+    }
+    images.insert("normal".to_string(), flipped);
+    assert_eq!(pixels::relationship(&images, &relation)["ok"], false);
+    images.insert("height".to_string(), uniform(8, 128));
+    assert_eq!(
+        pixels::relationship(&images, &relation)["ok"],
+        false,
+        "no usable height slope must not vacuously pass"
+    );
+}
+
 struct Temp(PathBuf);
 impl Temp {
     fn new() -> Self {

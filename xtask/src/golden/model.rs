@@ -53,6 +53,9 @@ pub(super) struct Case {
     pub checks: BTreeMap<String, Structure>,
     /// Every variant states both its affected and its unchanged channels.
     pub changes: BTreeMap<String, Change>,
+    /// Cross-channel observations, never expected-pixel reconstruction.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relationships: Vec<Relationship>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -68,6 +71,30 @@ pub(super) enum Structure {
         min_contrast: u8,
         max_balance_error: f64,
     },
+    #[serde(rename_all = "camelCase")]
+    Spatial {
+        min_span: u8,
+        min_std_dev: f64,
+        min_neighbor_correlation: f64,
+        max_seam_ratio: f64,
+    },
+    #[serde(rename_all = "camelCase")]
+    Normal {
+        max_length_error: f64,
+        min_mean_tilt: f64,
+        max_mean_tilt: f64,
+        max_seam_ratio: f64,
+    },
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
+pub(super) enum Relationship {
+    #[serde(rename_all = "camelCase")]
+    HeightNormalDirection {
+        min_sign_agreement: f64,
+        min_measured_ratio: f64,
+    },
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -81,6 +108,12 @@ pub(super) enum Change {
     #[serde(rename_all = "camelCase")]
     MeanIncreases {
         min_delta: f64,
+    },
+    #[serde(rename_all = "camelCase")]
+    NormalizedGradientEnergy {
+        min_ratio: f64,
+        max_ratio: f64,
+        min_pixel_ratio: f64,
     },
 }
 
@@ -184,15 +217,75 @@ impl Acceptance {
                 {
                     return Err("alternating structure requires resolved even cells, contrast, and a valid balance tolerance".into());
                 }
+                match check {
+                    Structure::Spatial {
+                        min_span,
+                        min_std_dev,
+                        min_neighbor_correlation,
+                        max_seam_ratio,
+                    } => {
+                        if *min_span == 0
+                            || !min_std_dev.is_finite()
+                            || *min_std_dev <= 0.0
+                            || *min_std_dev > 127.5
+                            || !unit(*min_neighbor_correlation)
+                            || *min_neighbor_correlation == 0.0
+                            || !positive(*max_seam_ratio)
+                        {
+                            return Err("spatial checks require nonzero variation, positive neighbor correlation, and a finite seam ratio".into());
+                        }
+                    }
+                    Structure::Normal {
+                        max_length_error,
+                        min_mean_tilt,
+                        max_mean_tilt,
+                        max_seam_ratio,
+                    } if !unit(*max_length_error)
+                        || !unit(*min_mean_tilt)
+                        || !unit(*max_mean_tilt)
+                        || min_mean_tilt > max_mean_tilt
+                        || !positive(*max_seam_ratio) =>
+                    {
+                        return Err("invalid normal length, tilt, or seam thresholds".into());
+                    }
+                    _ => {}
+                }
             }
             for change in case.changes.values() {
                 let threshold = match change {
                     Change::Unchanged => continue,
                     Change::Changed { min_pixel_ratio } => *min_pixel_ratio,
                     Change::MeanIncreases { min_delta } => *min_delta,
+                    Change::NormalizedGradientEnergy {
+                        min_ratio,
+                        max_ratio,
+                        min_pixel_ratio,
+                    } => {
+                        if !positive(*min_ratio)
+                            || !positive(*max_ratio)
+                            || min_ratio > max_ratio
+                            || (*min_ratio <= 1.0 && *max_ratio >= 1.0)
+                        {
+                            return Err("normalized-gradient-energy ratio interval must be positive and exclude the unchanged ratio one".into());
+                        }
+                        *min_pixel_ratio
+                    }
                 };
                 if !unit(threshold) || threshold == 0.0 {
                     return Err("causality thresholds must be positive and at most one".into());
+                }
+            }
+            for relation in &case.relationships {
+                let Relationship::HeightNormalDirection {
+                    min_sign_agreement,
+                    min_measured_ratio,
+                } = relation;
+                if !unit(*min_sign_agreement)
+                    || *min_sign_agreement <= 0.5
+                    || !unit(*min_measured_ratio)
+                    || *min_measured_ratio == 0.0
+                {
+                    return Err("height-normal direction checks require nonzero evidence and agreement above chance".into());
                 }
             }
         }
@@ -202,4 +295,7 @@ impl Acceptance {
 
 fn unit(value: f64) -> bool {
     value.is_finite() && (0.0..=1.0).contains(&value)
+}
+fn positive(value: f64) -> bool {
+    value.is_finite() && value > 0.0
 }

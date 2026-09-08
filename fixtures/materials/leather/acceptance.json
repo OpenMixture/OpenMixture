@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "material": "leather",
+  "size": 1024,
+  "softwareRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "hardwareTolerance": {
+    "maxAbsolute": 1,
+    "meanAbsolute": 0.15,
+    "pixelThreshold": 1,
+    "maxChangedPixelRatio": 0
+  },
+  "channels": {
+    "baseColor": {
+      "encoding": "rgba8-srgb",
+      "source": "connected"
+    },
+    "normal": {
+      "encoding": "rgba8-linear",
+      "source": "connected"
+    },
+    "roughness": {
+      "encoding": "rgba8-linear",
+      "source": "connected"
+    },
+    "height": {
+      "encoding": "rgba8-linear",
+      "source": "connected"
+    }
+  },
+  "cases": [
+    {
+      "id": "default",
+      "variant": null,
+      "checks": {
+        "baseColor": {
+          "kind": "spatial",
+          "minSpan": 25,
+          "minStdDev": 4,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "height": {
+          "kind": "spatial",
+          "minSpan": 140,
+          "minStdDev": 25,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "roughness": {
+          "kind": "spatial",
+          "minSpan": 35,
+          "minStdDev": 6,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "normal": {
+          "kind": "normal",
+          "maxLengthError": 0.015,
+          "minMeanTilt": 0.001,
+          "maxMeanTilt": 0.2,
+          "maxSeamRatio": 2.5
+        }
+      },
+      "changes": {},
+      "relationships": [
+        {
+          "kind": "heightNormalDirection",
+          "minSignAgreement": 0.98,
+          "minMeasuredRatio": 0.5
+        }
+      ]
+    },
+    {
+      "id": "detail-min",
+      "variant": "detail-min",
+      "checks": {
+        "baseColor": {
+          "kind": "spatial",
+          "minSpan": 25,
+          "minStdDev": 4,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "height": {
+          "kind": "spatial",
+          "minSpan": 140,
+          "minStdDev": 25,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "roughness": {
+          "kind": "spatial",
+          "minSpan": 35,
+          "minStdDev": 6,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "normal": {
+          "kind": "normal",
+          "maxLengthError": 0.015,
+          "minMeanTilt": 0.001,
+          "maxMeanTilt": 0.2,
+          "maxSeamRatio": 2.5
+        }
+      },
+      "changes": {
+        "baseColor": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "normal": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "roughness": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "height": {
+          "kind": "normalizedGradientEnergy",
+          "minRatio": 0.6,
+          "maxRatio": 0.95,
+          "minPixelRatio": 0.85
+        }
+      },
+      "relationships": [
+        {
+          "kind": "heightNormalDirection",
+          "minSignAgreement": 0.98,
+          "minMeasuredRatio": 0.5
+        }
+      ]
+    },
+    {
+      "id": "detail-max",
+      "variant": "detail-max",
+      "checks": {
+        "baseColor": {
+          "kind": "spatial",
+          "minSpan": 25,
+          "minStdDev": 4,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "height": {
+          "kind": "spatial",
+          "minSpan": 140,
+          "minStdDev": 25,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "roughness": {
+          "kind": "spatial",
+          "minSpan": 35,
+          "minStdDev": 6,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "normal": {
+          "kind": "normal",
+          "maxLengthError": 0.015,
+          "minMeanTilt": 0.001,
+          "maxMeanTilt": 0.2,
+          "maxSeamRatio": 2.5
+        }
+      },
+      "changes": {
+        "baseColor": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "normal": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "roughness": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "height": {
+          "kind": "normalizedGradientEnergy",
+          "minRatio": 1.5,
+          "maxRatio": 5,
+          "minPixelRatio": 0.85
+        }
+      },
+      "relationships": [
+        {
+          "kind": "heightNormalDirection",
+          "minSignAgreement": 0.98,
+          "minMeasuredRatio": 0.5
+        }
+      ]
+    },
+    {
+      "id": "coarse-grain",
+      "variant": "coarse-grain",
+      "checks": {
+        "baseColor": {
+          "kind": "spatial",
+          "minSpan": 25,
+          "minStdDev": 4,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "height": {
+          "kind": "spatial",
+          "minSpan": 140,
+          "minStdDev": 25,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "roughness": {
+          "kind": "spatial",
+          "minSpan": 35,
+          "minStdDev": 6,
+          "minNeighborCorrelation": 0.6,
+          "maxSeamRatio": 2.5
+        },
+        "normal": {
+          "kind": "normal",
+          "maxLengthError": 0.015,
+          "minMeanTilt": 0.001,
+          "maxMeanTilt": 0.2,
+          "maxSeamRatio": 2.5
+        }
+      },
+      "changes": {
+        "baseColor": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "normal": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "roughness": {
+          "kind": "changed",
+          "minPixelRatio": 0.75
+        },
+        "height": {
+          "kind": "normalizedGradientEnergy",
+          "minRatio": 0.15,
+          "maxRatio": 0.65,
+          "minPixelRatio": 0.85
+        }
+      },
+      "relationships": [
+        {
+          "kind": "heightNormalDirection",
+          "minSignAgreement": 0.98,
+          "minMeasuredRatio": 0.5
+        }
+      ]
+    }
+  ]
+}

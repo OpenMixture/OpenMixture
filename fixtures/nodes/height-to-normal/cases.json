@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "node": "height-to-normal",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "constant-zero",
+      "overrides": {
+        "height": 0,
+        "strength": 8
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "constant-one",
+      "overrides": {
+        "height": 1
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "zero-strength",
+      "overrides": {
+        "strength": 0
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            128,
+            128,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "source": "non-flat.mix"
+    },
+    {
+      "id": "non-flat",
+      "overrides": {
+        "strength": 0.08
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            142,
+            129,
+            254,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            5,
+            4
+          ],
+          "rgba": [
+            134,
+            137,
+            255,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            127,
+            116,
+            255,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "source": "non-flat.mix"
+    },
+    {
+      "id": "max-strength",
+      "overrides": {
+        "strength": 8
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "normal"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "normal",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            254,
+            139,
+            138,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            5,
+            4
+          ],
+          "rgba": [
+            198,
+            233,
+            141,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "normal",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            121,
+            1,
+            141,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "source": "non-flat.mix"
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "strength": -0.1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "strength": 8.1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "strength": "1"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

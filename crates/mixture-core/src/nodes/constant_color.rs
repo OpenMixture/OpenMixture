@@ -13,6 +13,6 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
     parameters: &[ParameterContract {
         id: "value",
         kind: ParameterKind::Color,
-        default: ParameterDefault::Color([1.0, 1.0, 1.0, 1.0]),
+        default: Some(ParameterDefault::Color([1.0, 1.0, 1.0, 1.0])),
     }],
 };

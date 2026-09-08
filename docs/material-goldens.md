@@ -58,7 +58,7 @@ fixtures/materials/<id>/
 
 V1 requires a 1024×1024 request for `baseColor`, `normal`, `roughness`, and `height`; one `default` case followed by at least two variants (at most sixteen cases). IDs are lowercase ASCII letters, digits, and hyphens, starting with a letter. Each non-default case names a matching `variants/<id>.json` with a nonempty `overrides` object. Overrides are passed to public CLI `--set` options; the compiler remains their semantic owner.
 
-Every channel declares its encoding and connected/default provenance. Each case provides all four structural checks. Default has no causality rules; each variant specifies all four, including unchanged channels, and must declare at least one meaningful change. Unknown fields, invalid thresholds, missing channels, duplicate case IDs, odd/undersampled/non-dividing checker cells, and wrong driver pins fail before rendering. This 1K schema is deliberately scoped to PR-008; representative 2K evidence belongs to PR-010.
+Every channel declares its encoding and connected/default provenance. Each case provides all four structural checks. Default has no causality rules; each variant specifies all four, including unchanged channels, and must declare at least one meaningful change. Unknown fields, invalid thresholds, missing channels, duplicate case IDs, odd/undersampled/non-dividing checker cells, and wrong driver pins fail before rendering. This 1K schema is scoped to PR-008/009; representative 2K evidence belongs to PR-010.
 
 ## What is measured
 
@@ -88,3 +88,16 @@ cargo xtask check
 ```
 
 The [material record](../fixtures/materials/glazed-ceramic/README.md) distinguishes machine comparisons, agent visual inspection, and human approval. Human acceptance is never fabricated by the harness. PR-009 noise/normals, resource lifetime optimization, 2K work, Web viewing, new nodes, and remote CI closure are outside PR-008.
+
+## PR-009 spatial and normal gates
+
+The [leather fixture](../fixtures/materials/leather/README.md) uses the three new nodes and these additive machine checks. Existing ceramic schema/pixels remain unchanged. Acceptance schema version stays 1; `relationships` is optional, with cross-field constraints still enforced by strict Rust validation.
+
+| Gate | Definition |
+| --- | --- |
+| `spatial` | Red span, standard deviation, wrapped adjacent Pearson correlation on both axes, and repeat-edge mean jump / interior adjacent mean jump; denominator is floored at one byte for quantization. Every alpha is opaque. |
+| `normal` | Maximum decoded XYZ unit-length error, mean `1-nz` tilt, positive Z, opaque alpha and the same seam ratio. |
+| `normalizedGradientEnergy` | Mean squared adjacent red differences across both axes including wrap, divided by red variance; then variant/default ratio. The allowed interval excludes one and a minimum changed-pixel ratio also applies. Constant defaults cannot pass. Normalization prevents contrast alone from masquerading as frequency change. |
+| `heightNormalDirection` | Compare signs of wrapped central height differences with normal X/Y, using only height steps of at least four bytes; neutral normal components do not count as agreement. Require both coverage and above-chance agreement. Image v is down and tangent Y up. This does not reconstruct expected normal pixels. |
+
+Leather detail min/default/max and coarser grainScale must satisfy image goldens, spatial, normal and causality constraints together. Controlled PBR views consume actual PNGs, applying the height slope through the exported normal once with no second bump. See [leather appearance review](../fixtures/materials/leather/review/README.md). Ceramic has user acceptance; leather human review is accepted. Remote CI and PR-010 directional wood/2K work remain open.

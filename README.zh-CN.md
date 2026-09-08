@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-007：严格 `.mix v1`、确定性 RenderPlan 编译／检查、六节点 `wgpu` 图执行、显式 GPU 诊断和请求通道 PNG 输出。三个示例、节点定向测试和棋盘格基准在本地 Metal 与固定 SwiftShader 上通过。远端 CI 证据仍待获取。PR-008 现已添加[受保护材质基准](./docs/material-goldens.zh-CN.md)与面向陶瓷目标的 1K 棋盘用例；机器检查通过，现已补齐真实导出通道的受控 PBR 光照评审。用户已接受受控观感评审，PR-008 本地验收完成。
+**已实现：** PR-001 至 PR-008 本地实现完成，用户已接受陶瓷观感评审。PR-009 添加带种子的噪声、渐变映射、高度转法线和[皮革候选](./fixtures/materials/leather/README.zh-CN.md)，节点目录增至九个。Metal 与固定 SwiftShader 验证及受控 PBR 证据已记录；皮革人工验收已获用户接受。远端 CI 仍暂缓，因此里程碑验收保持开放。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -29,7 +29,7 @@ cargo run --locked -p mixture-cli -- --help
 
 可运行[内置棋盘格](./docs/builtin-checker.zh-CN.md)：`cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`。Doctor 默认运行计算／回读探针；仅获取上下文时使用 `--skip-probe`。
 
-无需 GPU 即可验证[棋盘格文档](./examples/checker.mix)：`cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`。参阅[严格文件格式](./docs/file-format.zh-CN.md)和[六个节点契约](./docs/node-contracts.zh-CN.md)。
+无需 GPU 即可验证[棋盘格文档](./examples/checker.mix)：`cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`。参阅[严格文件格式](./docs/file-format.zh-CN.md)和[九个节点契约](./docs/node-contracts.zh-CN.md)。
 
 ## 使命
 

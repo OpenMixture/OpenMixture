@@ -360,6 +360,8 @@ The graph MVP and material MVP may introduce at most twelve built-in node types 
 
 The reserved slot is not permission to add a speculative node. It exists to avoid redesigning the stop rule for one demonstrated blocker.
 
+PR-009 extends the catalog additively to nine node types with `fractal-noise`, `gradient-map` and `height-to-normal`. Source shape and document/node version 1 remain unchanged. The noise seed is required explicitly: `ParameterContract::default: Option<ParameterDefault>` uses `None` for required parameters. A missing seed fails source validation even on an unused branch. Typed plans preserve all u32 seed bits; the sole WGSL mapping owns each new pixel formula. [Node conventions](./docs/node-contracts.md) and the [leather fixture](./fixtures/materials/leather/README.md) define coordinates, precision and consumer evidence.
+
 ## 8. Compilation model
 
 The compiler accepts:
@@ -484,7 +486,7 @@ Do not implement a general allocator before a 2K golden-material trace establish
 
 Pipeline caching is keyed only by semantic GPU inputs such as kernel, shader version, texture format, and relevant device capabilities.
 
-Cache ownership belongs to `Renderer`, not global state. PR-007 retains at most four pipelines keyed by `KernelId`, with one fixed device/shader ABI/format/workgroup policy per renderer. Explicit cache clear and renderer drop release them; request dimensions and parameters do not expand the cache.
+Cache ownership belongs to `Renderer`, not global state. PR-009 retains at most seven pipelines keyed by `KernelId`, with one fixed device/shader ABI/format/workgroup policy per renderer. Explicit cache clear and renderer drop release them; request dimensions and parameters do not expand the cache.
 
 ### 9.6 Adapter policy and fallback
 

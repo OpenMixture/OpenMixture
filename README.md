@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-007: strict `.mix v1`, deterministic RenderPlan compilation/inspection, six-node `wgpu` graph execution, explicit GPU diagnostics, and requested-channel PNG output. Three examples, focused node tests, and checker goldens pass locally on Metal and pinned SwiftShader. Remote CI evidence remains pending. PR-008 now adds [protected material goldens](./docs/material-goldens.md) and 1K checker cases for the ceramic target; machine gates pass, and a controlled PBR review now shows the actual exported channels under light. The user accepted the controlled appearance review; PR-008 local acceptance is complete.
+**Implemented:** PR-001 through PR-008 are locally implemented and the user accepted the ceramic appearance review. PR-009 adds seeded noise, gradient mapping, height-derived normals and a [leather candidate](./fixtures/materials/leather/README.md), bringing the catalog to nine nodes. Metal and pinned SwiftShader verification and controlled PBR evidence are recorded; the user has accepted the leather appearance review. Remote CI remains deferred, so milestone gates are still open.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -29,7 +29,7 @@ The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter sele
 
 Try [the built-in checker](./docs/builtin-checker.md): `cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`. Doctor runs its compute/readback probe by default; use `--skip-probe` for acquisition only.
 
-Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [six node contracts](./docs/node-contracts.md).
+Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [nine node contracts](./docs/node-contracts.md).
 
 ## Mission
 

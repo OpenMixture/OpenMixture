@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-PR-008 adds [glazed ceramic](./glazed-ceramic/README.md), four 1K channels, two parameter variants, and protected golden tooling. Leather-like and directional wood materials remain PR-009/010 work. Human review is tracked separately from machine checks; remote CI remains deferred.
+PR-008 adds [glazed ceramic](./glazed-ceramic/README.md), four 1K channels, two parameter variants, and protected golden tooling. PR-009 adds the [leather candidate](./leather/README.md), three node additions and controlled appearance evidence; human acceptance is recorded. Directional wood remains PR-010 work. Human review is tracked separately from machine checks; remote CI remains deferred.
 
 Each material directory contains `material.mix`, `README.md`, `acceptance.json`, `variants/`, `expected/`, and `reports/`. Machine checks and human visual acceptance must agree before M3 closes.
 

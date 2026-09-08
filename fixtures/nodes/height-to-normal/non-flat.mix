@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "height",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 42,
+        "scale": 4,
+        "octaves": 2
+      }
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "strength",
+      "nodeId": "normal",
+      "parameterId": "strength"
+    }
+  ]
+}

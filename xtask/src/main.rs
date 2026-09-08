@@ -29,7 +29,7 @@ Available repository commands:
   golden check Render and compare all material goldens (never updates baselines)
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   gpu-smoke   Run checker golden, three graph examples, and all GPU regressions
-  shader-check Validate every M2 WGSL kernel and its uniform ABI without a GPU
+  shader-check Validate every built-in WGSL kernel and its uniform ABI without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories

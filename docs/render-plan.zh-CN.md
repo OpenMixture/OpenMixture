@@ -100,4 +100,6 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 四份新快照分别是 checker/baseColor、checker/全部默认通道、all-M2/baseColor+roughness、all-M2/仅 roughness。使用 Python hashlib 从紧凑主体独立复现了 SHA-256。all-M2 请求 baseColor+roughness 时有 5 个 pass，仅请求 roughness 时只剩一个 `mask` 常量 pass。现有 GPU 像素基准未修改。
 
-固定工具链上的本地定向检查与工作区检查通过。远端跨平台 CI 仍待运行，本次不关闭 M0／M1／M2。PR-007 现已通过唯一的 `wgpu` 图渲染器[执行这些类型化调用](./graph-rendering.zh-CN.md)，并提供六个节点的像素夹具。PR-008 [材质基准工具](./material-goldens.zh-CN.md)现已实现，人工视觉验收保持开放。
+固定工具链上的本地定向检查与工作区检查通过。远端跨平台 CI 仍待运行，本次不关闭 M0／M1／M2。PR-007 现已通过唯一的 `wgpu` 图渲染器[执行这些类型化调用](./graph-rendering.zh-CN.md)，并提供六个节点的像素夹具。PR-008 [材质基准工具](./material-goldens.zh-CN.md)现已实现，陶瓷观感已接受，皮革人工验收已记录。
+
+PR-009 添加类型化 `FractalNoise`、`GradientMap` 和 `HeightToNormal` 调用，不改变计划版本 1 或原计划／哈希快照。噪声上传全部 u32 种子位，哈希包含种子、基底、scale、octave 及 persistence 语义；编译器保留 Scalar／Color／Normal 类型化连接并正常裁剪新分支。公共 [M3 API 测试](../crates/mixture-core/tests/m3_nodes.rs)验证默认值、必填种子、降级、分支裁剪及哈希敏感性。

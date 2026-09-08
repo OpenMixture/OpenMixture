@@ -1,0 +1,8 @@
+test_changed_png_is_rejected_before_output_creation (__main__.InputGuards) ... ok
+test_existing_review_is_preserved (__main__.InputGuards) ... ok
+test_output_inside_expected_is_rejected_without_mutation (__main__.InputGuards) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.122s
+
+OK

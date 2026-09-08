@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "material": "leather",
+  "status": "accepted",
+  "reviewer": "user (explicit acceptance in the Codex conversation)",
+  "reviewedAt": "2026-09-08T00:28:36.231686+00:00",
+  "baselineManifestSha256": "sha256:851fbc73d7217b1af42732364dea5af7d3ccf0971181161435150cec8a402d14",
+  "appearanceReportSha256": "sha256:a421dd451427b5a00fb53c31fe5402fb46368b5987f154e90e5533793b3be4a0",
+  "appearanceComparisonSha256": "sha256:f69adc9e8e846d3f5cfe13d8dc6ef8ad2da937ee1fb09d16ea0bfc11639382bf",
+  "criteria": [
+    "Brown pebbled micro-surface is useful as the intended leather-like target under controlled light.",
+    "Grain size and detail variants visibly change the intended structure.",
+    "Height-derived tangent normals and roughness support a coherent surface without an extra bump or procedural consumer detail.",
+    "Repeated plane has no unwanted edge band."
+  ],
+  "agentInspection": {
+    "reviewer": "Codex",
+    "kind": "agent",
+    "status": "inspected",
+    "evidence": [
+      "overview.png",
+      "tiling.png",
+      "pbr/comparison.png",
+      "pbr/default.png",
+      "pbr/review.json"
+    ],
+    "observations": [
+      "Irregular brown grains with narrow valleys are visible under neutral area lights; smooth sphere silhouette is display geometry.",
+      "Minimum detail emphasizes the base cellular grains. Maximum detail adds fine structure while lowering coarse contrast. Grain scale 32 produces broader grains.",
+      "Actual exported normal is applied once. Height is retained as diagnostic evidence, with no extra bump or displacement.",
+      "Full-image software comparisons are exact. Metal differences are at most one byte and all structural and causal gates pass."
+    ],
+    "humanAcceptanceClaimed": false
+  },
+  "remoteCi": "deferred by user; M3 and PR-010 remain open",
+  "humanDecision": {
+    "source": "user",
+    "text": "\u53ef\u4ee5\u63a5\u53d7\uff0c\u7ee7\u7eed\u4efb\u52a1",
+    "decision": "accepted",
+    "scope": "Leather appearance shown in the controlled PBR comparison, bound to the recorded baseline and appearance hashes",
+    "recordedBy": "Codex",
+    "remoteCi": "still deferred; PR-010 and full M3 review remain open"
+  }
+}

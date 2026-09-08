@@ -4,8 +4,8 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库实现了[实施计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-007，以及 PR-008 工具／材质机器验收。PR-008 人工视觉验收保持开放，见[材质基准](./material-goldens.zh-CN.md)。
-它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[六个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[六节点图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
+仓库已本地实现[实施计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-008 及 PR-009 皮革纵向切片。陶瓷观感已接受，皮革观感已获用户接受，见[材质基准](./material-goldens.zh-CN.md)。
+它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[九个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[九节点图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
 
@@ -60,7 +60,7 @@ cargo xtask gpu-smoke
 
 ## 依赖策略
 
-PR-008 唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
+PR-009 唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
 
 | 软件包 | 允许的依赖 |
 | --- | --- |
@@ -92,3 +92,5 @@ PR-008 唯一允许的直接依赖关系如下，包括构建、开发、可选�
 已实现的核心模块为[文档解码](../crates/mixture-core/src/document.rs)、[验证](../crates/mixture-core/src/validation.rs)、[注册表](../crates/mixture-core/src/registry.rs)、[节点契约](../crates/mixture-core/src/nodes/)、[诊断](../crates/mixture-core/src/error.rs)和[限制](../crates/mixture-core/src/limits.rs)。[Rust 诊断示例](../crates/mixture-core/examples/diagnostics.rs)和 crate 文档测试覆盖公开 API。
 
 PR-006 添加[编译器](../crates/mixture-core/src/compiler.rs)、[规范化与降级](../crates/mixture-core/src/compiler/)、[类型化计划 API](../crates/mixture-core/src/plan.rs) 和 [CLI inspect](../crates/mixture-cli/src/commands/inspect.rs)。计划快照位于核心测试旁，PR-007 [图渲染](./graph-rendering.zh-CN.md)添加执行器、资源、kernel 映射／缓存及 CLI render，没有新增依赖。
+
+PR-009 不增加依赖或锁文件变更。通过 `cargo xtask` 运行 `test-node fractal-noise`、`test-node gradient-map`、`test-node height-to-normal` 和 `test-material leather`；[皮革评审](../fixtures/materials/leather/review/README.zh-CN.md)是可选的外部 Blender 消费者，不是 Rust 运行时依赖。

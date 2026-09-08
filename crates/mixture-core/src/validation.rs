@@ -303,12 +303,10 @@ fn supported_contract(node: &Node) -> Option<&'static NodeContract> {
 }
 fn resolved_parameter(node: &Node, contract: &NodeContract, id: &str) -> Option<Value> {
     let parameter = contract.parameter(id)?;
-    Some(
-        node.parameters
-            .get(id)
-            .cloned()
-            .unwrap_or_else(|| parameter.default.value()),
-    )
+    node.parameters
+        .get(id)
+        .cloned()
+        .or_else(|| parameter.default.map(|default| default.value()))
 }
 fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
     if !identifier(&node.id) {
@@ -331,7 +329,7 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
                 "Unknown built-in node type.",
             )
             .with_evidence("type", node.type_id.as_str())
-            .with_suggestion("Use one of the six documented M2 node types."),
+            .with_suggestion("Use a documented built-in node type."),
         );
         return;
     };
@@ -349,6 +347,17 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
             ),
         );
         return;
+    }
+    for parameter in contract.parameters {
+        if parameter.default.is_none() && !node.parameters.contains_key(parameter.id) {
+            diagnostics.push(
+                at_parameter(Code::ParameterInvalidValue, &node.id, parameter.id,
+                    "Required parameter is missing; this contract defines no default.")
+                    .with_evidence("required", true)
+                    .with_evidence("present", false)
+                    .with_suggestion("Declare the required parameter explicitly in the .mix source; randomized nodes require an unsigned integer seed."),
+            );
+        }
     }
     for (id, value) in &node.parameters {
         let Some(parameter) = contract.parameter(id) else {

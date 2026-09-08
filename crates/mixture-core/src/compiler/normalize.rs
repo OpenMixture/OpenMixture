@@ -98,7 +98,8 @@ pub fn normalize(
                 .parameters
                 .get(parameter.id)
                 .cloned()
-                .unwrap_or_else(|| parameter.default.value());
+                .or_else(|| parameter.default.map(|default| default.value()))
+                .ok_or_else(|| invariant("Validated required parameter is missing."))?;
             let canonical = match parameter.kind {
                 ParameterKind::Float { .. } => {
                     json!(positive_zero(value.as_f64().ok_or_else(|| invariant(

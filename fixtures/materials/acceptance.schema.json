@@ -203,6 +203,12 @@
               }
             },
             "required": []
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/relationship"
+            }
           }
         },
         "required": [
@@ -289,6 +295,76 @@
             "minContrast",
             "maxBalanceError"
           ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "spatial"
+            },
+            "minSpan": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 255
+            },
+            "minStdDev": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 127.5
+            },
+            "minNeighborCorrelation": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "maxSeamRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "kind",
+            "minSpan",
+            "minStdDev",
+            "minNeighborCorrelation",
+            "maxSeamRatio"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "normal"
+            },
+            "maxLengthError": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minMeanTilt": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "maxMeanTilt": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "maxSeamRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "kind",
+            "maxLengthError",
+            "minMeanTilt",
+            "maxMeanTilt",
+            "maxSeamRatio"
+          ]
         }
       ]
     },
@@ -341,7 +417,59 @@
             "kind",
             "minDelta"
           ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "normalizedGradientEnergy"
+            },
+            "minRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "maxRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "minPixelRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "kind",
+            "minRatio",
+            "maxRatio",
+            "minPixelRatio"
+          ]
         }
+      ]
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "heightNormalDirection"
+        },
+        "minSignAgreement": {
+          "type": "number",
+          "exclusiveMinimum": 0.5,
+          "maximum": 1
+        },
+        "minMeasuredRatio": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "kind",
+        "minSignAgreement",
+        "minMeasuredRatio"
       ]
     }
   }

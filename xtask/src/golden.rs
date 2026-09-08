@@ -265,12 +265,14 @@ fn check(root: &Path, id: &str) -> TaskResult {
         });
         comparisons_passed &= plan_matches;
         let mut channels = BTreeMap::new();
+        let mut case_images = BTreeMap::new();
         let mut rows = Vec::new();
         let mut previews = Vec::new();
         for channel in CHANNELS {
             let filename = format!("{}/{channel}.png", case.id);
             let contract = &acceptance.channels[channel];
             let image = Image::read(&review.join(&filename), acceptance.size, &contract.encoding)?;
+            case_images.insert(channel.to_owned(), image.clone());
             let shape = pixels::structure(&image, &case.checks[channel]);
             machine_passed &= shape["ok"] == true;
             let cause = if case.id == "default" {
@@ -329,8 +331,14 @@ fn check(root: &Path, id: &str) -> TaskResult {
             }
         }
         pixels::sheet(&review.join(format!("contact-{}.png", case.id)), &rows)?;
+        let relationships = case
+            .relationships
+            .iter()
+            .map(|rule| pixels::relationship(&case_images, rule))
+            .collect::<Vec<_>>();
+        machine_passed &= relationships.iter().all(|r| r["ok"] == true);
         overview.push((case.id.clone(), previews));
-        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels}));
+        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels,"relationships":relationships}));
     }
     pixels::sheet(&review.join("overview.png"), &overview)?;
     pixels::sheet(&review.join("tiling.png"), &tiles)?;

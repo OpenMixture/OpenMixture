@@ -2,7 +2,7 @@
 use crate::operation::{GpuOperationError, checked};
 use mixture_core::{
     Stage,
-    plan::{BlendMode, KernelId, KernelInvocation},
+    plan::{BlendMode, KernelId, KernelInvocation, NoiseBasis},
 };
 use serde::Serialize;
 
@@ -12,6 +12,18 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
         KernelId::Checker => (include_str!("../shaders/nodes/checker.wgsl"), "checker"),
         KernelId::Levels => (include_str!("../shaders/nodes/levels.wgsl"), "levels"),
         KernelId::Blend => (include_str!("../shaders/nodes/blend.wgsl"), "blend"),
+        KernelId::FractalNoise => (
+            include_str!("../shaders/nodes/fractal-noise.wgsl"),
+            "fractal_noise",
+        ),
+        KernelId::GradientMap => (
+            include_str!("../shaders/nodes/gradient-map.wgsl"),
+            "gradient_map",
+        ),
+        KernelId::HeightToNormal => (
+            include_str!("../shaders/nodes/height-to-normal.wgsl"),
+            "height_to_normal",
+        ),
     }
 }
 
@@ -62,10 +74,36 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             };
             [mode.to_le_bytes(), opacity.to_le_bytes(), [0; 4], [0; 4]].concat()
         }
+        KernelInvocation::FractalNoise {
+            seed,
+            scale,
+            octaves,
+            persistence,
+            basis,
+        } => {
+            let basis = match basis {
+                NoiseBasis::Value => 0,
+                NoiseBasis::Cellular => 1,
+            };
+            let mut bytes: Vec<_> = [*seed, *scale, *octaves, basis]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(&[*persistence, 0., 0., 0.]));
+            bytes
+        }
+        KernelInvocation::GradientMap {
+            color_a, color_b, ..
+        } => {
+            let mut bytes = floats(color_a);
+            bytes.extend(floats(color_b));
+            bytes
+        }
+        KernelInvocation::HeightToNormal { strength, .. } => floats(&[*strength, 0., 0., 0.]),
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most four entries.
+/// Pipeline lookups for one render call. The cache has at most seven entries.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -147,6 +185,9 @@ mod tests {
             (KernelId::Checker, 48),
             (KernelId::Levels, 32),
             (KernelId::Blend, 16),
+            (KernelId::FractalNoise, 32),
+            (KernelId::GradientMap, 32),
+            (KernelId::HeightToNormal, 16),
         ] {
             let (source, entry) = shader(id);
             let module = naga::front::wgsl::parse_str(source).unwrap();

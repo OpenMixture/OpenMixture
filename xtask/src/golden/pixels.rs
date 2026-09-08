@@ -1,6 +1,6 @@
 //! Measurements and contact sheets of already-rendered pixels, never a renderer.
 
-use super::model::{Change, Structure, Tolerance};
+use super::model::{Change, Relationship, Structure, Tolerance};
 use crate::TaskResult;
 use serde_json::{Value, json};
 use std::{
@@ -165,6 +165,53 @@ pub(super) fn structure(image: &Image, rule: &Structure) -> Value {
                 "contrast":contrast,"transitionsIncludingWrap":counts,"expectedCells":cells,
                 "periodMaxError":period_error,"seam":seams})
         }
+        Structure::Spatial {
+            min_span,
+            min_std_dev,
+            min_neighbor_correlation,
+            max_seam_ratio,
+        } => {
+            let measurements = spatial(image);
+            let span = measurements["redSpan"].as_u64().unwrap_or(0);
+            let std_dev = measurements["redStdDev"].as_f64().unwrap_or(0.0);
+            let correlation = measurements["neighborCorrelation"]
+                .as_array()
+                .is_some_and(|v| {
+                    v.iter()
+                        .all(|r| r.as_f64().is_some_and(|r| r >= *min_neighbor_correlation))
+                });
+            let ok = span >= u64::from(*min_span)
+                && std_dev >= *min_std_dev
+                && correlation
+                && image.pixels.as_chunks::<4>().0.iter().all(|p| p[3] == 255)
+                && seam_ok(&measurements["seam"], *max_seam_ratio);
+            json!({"kind":"spatial","ok":ok,"measurements":measurements,"rule":rule})
+        }
+        Structure::Normal {
+            max_length_error,
+            min_mean_tilt,
+            max_mean_tilt,
+            max_seam_ratio,
+        } => {
+            let mut length_error = 0.0_f64;
+            let mut tilt = 0.0;
+            let mut outward = true;
+            for pixel in image.pixels.as_chunks::<4>().0 {
+                let n = [pixel[0], pixel[1], pixel[2]].map(|v| f64::from(v) / 127.5 - 1.0);
+                length_error =
+                    length_error.max((n.iter().map(|v| v * v).sum::<f64>().sqrt() - 1.0).abs());
+                tilt += 1.0 - n[2];
+                outward &= pixel[2] >= 128 && pixel[3] == 255;
+            }
+            tilt /= (image.pixels.len() / 4) as f64;
+            let seams = neighbor_seam(image);
+            let ok = outward
+                && length_error <= *max_length_error
+                && tilt >= *min_mean_tilt
+                && tilt <= *max_mean_tilt
+                && seam_ok(&seams, *max_seam_ratio);
+            json!({"kind":"normal","ok":ok,"maxLengthError":length_error,"meanTilt":tilt,"positiveZAndOpaque":outward,"seam":seams,"rule":rule})
+        }
     }
 }
 
@@ -209,12 +256,168 @@ pub(super) fn causality(default: &Image, variant: &Image, rule: &Change) -> Valu
             / ((image.pixels.len() / 4) as f64 * 255.0)
     };
     let delta = red_mean(variant) - red_mean(default);
+    let before_energy = normalized_gradient_energy(default);
+    let after_energy = normalized_gradient_energy(variant);
+    let energy_ratio = if before_energy > 0.0 {
+        Some(after_energy / before_energy)
+    } else {
+        None
+    };
     let ok = match rule {
         Change::Unchanged => changed == 0.0,
         Change::Changed { min_pixel_ratio } => changed >= *min_pixel_ratio,
         Change::MeanIncreases { min_delta } => delta >= *min_delta,
+        Change::NormalizedGradientEnergy {
+            min_ratio,
+            max_ratio,
+            min_pixel_ratio,
+        } => {
+            changed >= *min_pixel_ratio
+                && energy_ratio.is_some_and(|r| r >= *min_ratio && r <= *max_ratio)
+        }
     };
-    json!({"ok":ok,"rule":rule,"changedPixelRatio":changed,"redMeanDeltaNormalized":delta})
+    json!({"ok":ok,"rule":rule,"changedPixelRatio":changed,"redMeanDeltaNormalized":delta,
+        "redNormalizedGradientEnergy":{"default":before_energy,"variant":after_energy,"ratio":energy_ratio,"units":"mean squared adjacent red differences including wrap, divided by red variance"}})
+}
+
+fn normalized_gradient_energy(image: &Image) -> f64 {
+    let mut total = 0_u64;
+    for y in 0..image.size {
+        for x in 0..image.size {
+            for (nx, ny) in [((x + 1) % image.size, y), (x, (y + 1) % image.size)] {
+                let d = i64::from(image.pixel(x, y)[0]) - i64::from(image.pixel(nx, ny)[0]);
+                total += (d * d) as u64;
+            }
+        }
+    }
+    let count = f64::from(image.size).powi(2);
+    let mean = image
+        .pixels
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .map(|p| f64::from(p[0]))
+        .sum::<f64>()
+        / count;
+    let variance = image
+        .pixels
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .map(|p| (f64::from(p[0]) - mean).powi(2))
+        .sum::<f64>()
+        / count;
+    // Normalize away contrast: octave averaging changes amplitude as well as detail.
+    if variance > 0.0 {
+        total as f64 / (2.0 * count * variance)
+    } else {
+        0.0
+    }
+}
+
+fn spatial(image: &Image) -> Value {
+    let count = f64::from(image.size).powi(2);
+    let (mut sum, mut squares, mut min, mut max) = (0.0, 0.0, 255_u8, 0_u8);
+    for pixel in image.pixels.as_chunks::<4>().0 {
+        let value = f64::from(pixel[0]);
+        sum += value;
+        squares += value * value;
+        min = min.min(pixel[0]);
+        max = max.max(pixel[0]);
+    }
+    let mean = sum / count;
+    let variance = (squares / count - mean * mean).max(0.0);
+    let mut covariance = [0.0; 2];
+    for y in 0..image.size {
+        for x in 0..image.size {
+            let value = f64::from(image.pixel(x, y)[0]) - mean;
+            covariance[0] += value * (f64::from(image.pixel((x + 1) % image.size, y)[0]) - mean);
+            covariance[1] += value * (f64::from(image.pixel(x, (y + 1) % image.size)[0]) - mean);
+        }
+    }
+    let correlation = covariance.map(|v| {
+        if variance > 0.0 {
+            (v / (count * variance)).clamp(-1.0, 1.0)
+        } else {
+            0.0
+        }
+    });
+    json!({"redSpan":max-min,"redStdDev":variance.sqrt(),"neighborCorrelation":correlation,"seam":neighbor_seam(image)})
+}
+
+// Compare the actual repeat edge with typical adjacent interior steps. The
+// 1-byte denominator floor accounts for quantized near-constant channels.
+fn neighbor_seam(image: &Image) -> Value {
+    let mut wrap = [0_u64; 2];
+    let mut interior = [0_u64; 2];
+    for axis in 0..2 {
+        for row in 0..image.size {
+            let pixel = |column| {
+                if axis == 0 {
+                    image.pixel(column, row)
+                } else {
+                    image.pixel(row, column)
+                }
+            };
+            for c in 0..3 {
+                wrap[axis] += u64::from(pixel(0)[c].abs_diff(pixel(image.size - 1)[c]));
+                for column in 0..image.size - 1 {
+                    interior[axis] += u64::from(pixel(column)[c].abs_diff(pixel(column + 1)[c]));
+                }
+            }
+        }
+    }
+    let wrap = wrap.map(|v| v as f64 / (3.0 * f64::from(image.size)));
+    let interior =
+        interior.map(|v| v as f64 / (3.0 * f64::from(image.size) * f64::from(image.size - 1)));
+    let ratio = [
+        wrap[0] / interior[0].max(1.0),
+        wrap[1] / interior[1].max(1.0),
+    ];
+    json!({"wrapMeanAbsolute":wrap,"interiorMeanAbsolute":interior,"ratio":ratio,"quantizationFloor":1})
+}
+fn seam_ok(value: &Value, maximum: f64) -> bool {
+    value["ratio"]
+        .as_array()
+        .is_some_and(|v| v.iter().all(|r| r.as_f64().is_some_and(|r| r <= maximum)))
+}
+
+pub(super) fn relationship(images: &BTreeMap<String, Image>, rule: &Relationship) -> Value {
+    let Relationship::HeightNormalDirection {
+        min_sign_agreement,
+        min_measured_ratio,
+    } = rule;
+    let height = &images["height"];
+    let normal = &images["normal"];
+    let mut measured = 0_u64;
+    let mut agree = 0_u64;
+    for y in 0..height.size {
+        for x in 0..height.size {
+            let dx = i16::from(height.pixel((x + 1) % height.size, y)[0])
+                - i16::from(height.pixel((x + height.size - 1) % height.size, y)[0]);
+            let dy = i16::from(height.pixel(x, (y + 1) % height.size)[0])
+                - i16::from(height.pixel(x, (y + height.size - 1) % height.size)[0]);
+            let n = normal.pixel(x, y);
+            // Four height byte steps retain a margin above byte quantization. Only sign
+            // agreement is measured: this does not reconstruct expected normals.
+            for (slope, component, direction) in [(dx, n[0], -1_i32), (dy, n[1], 1_i32)] {
+                if slope.abs() >= 4 {
+                    measured += 1;
+                    let signed = 2 * i32::from(component) - 255;
+                    agree +=
+                        u64::from(signed.abs() > 1 && i32::from(slope) * signed * direction > 0);
+                }
+            }
+        }
+    }
+    let coverage = measured as f64 / (2.0 * f64::from(height.size).powi(2));
+    let agreement = if measured > 0 {
+        agree as f64 / measured as f64
+    } else {
+        0.0
+    };
+    json!({"kind":"heightNormalDirection","ok":coverage>=*min_measured_ratio && agreement>=*min_sign_agreement,
+        "measuredRatio":coverage,"signAgreement":agreement,"minimumHeightStep":4,"convention":"image u right/v down, tangent X right/Y up","rule":rule})
 }
 
 fn write_png(path: &Path, width: u32, height: u32, pixels: &[u8]) -> TaskResult {

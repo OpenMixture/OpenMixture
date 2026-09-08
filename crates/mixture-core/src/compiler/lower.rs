@@ -273,6 +273,26 @@ impl Builder<'_> {
                     opacity: number(node, "opacity")?,
                 }
             }
+            "fractal-noise" => KernelInvocation::FractalNoise {
+                seed: integer(node, "seed")?,
+                scale: integer(node, "scale")?,
+                octaves: integer(node, "octaves")?,
+                persistence: number(node, "persistence")?,
+                basis: match parameter(node, "basis")?.as_str() {
+                    Some("value") => NoiseBasis::Value,
+                    Some("cellular") => NoiseBasis::Cellular,
+                    _ => return Err(invariant("Validated noise basis is unsupported.")),
+                },
+            },
+            "gradient-map" => KernelInvocation::GradientMap {
+                input: binding("in")?,
+                color_a: color(node, "colorA")?,
+                color_b: color(node, "colorB")?,
+            },
+            "height-to-normal" => KernelInvocation::HeightToNormal {
+                input: binding("in")?,
+                strength: number(node, "strength")?,
+            },
             _ => {
                 return Err(invariant(
                     "Selected node has no supported pixel invocation in plan version 1.",

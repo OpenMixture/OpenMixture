@@ -7,14 +7,19 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 6] = [
+const NODES: [&str; 9] = [
     "constant-scalar",
     "constant-color",
     "checker",
     "levels",
     "blend",
     "material-output",
+    "fractal-noise",
+    "gradient-map",
+    "height-to-normal",
 ];
+#[path = "support/normal_probe.rs"]
+mod normal_probe;
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Fixture {
@@ -34,6 +39,14 @@ struct Case {
     overrides: BTreeMap<String, Value>,
     pass_count: usize,
     samples: Vec<Sample>,
+    golden: Option<Golden>,
+}
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct Golden {
+    channel: String,
+    file: String,
+    hardware_tolerance: u8,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -185,6 +198,43 @@ fn run_node(name: &str) {
                 include_bytes!("../../../fixtures/nodes/checker/checker-64.rgba")
             );
         }
+        if let Some(golden) = &case.golden {
+            let expected = std::fs::read(root().join(name).join(&golden.file)).unwrap();
+            let actual = rendered
+                .channels()
+                .iter()
+                .find(|c| c.channel.as_str() == golden.channel)
+                .unwrap()
+                .pixels();
+            assert_eq!(actual.len(), expected.len(), "full node golden dimensions");
+            let tolerance = if options().software_adapter {
+                0
+            } else {
+                golden.hardware_tolerance
+            };
+            let maximum = actual
+                .iter()
+                .zip(&expected)
+                .map(|(a, b)| a.abs_diff(*b))
+                .max()
+                .unwrap();
+            assert!(
+                maximum <= tolerance,
+                "{name}/{} full golden max error {maximum} exceeds {tolerance}",
+                case.id
+            );
+        }
+        if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+            let path = Path::new(&directory).join(name).join(&case.id);
+            std::fs::create_dir_all(&path).unwrap();
+            for channel in rendered.channels() {
+                std::fs::write(
+                    path.join(format!("{}.rgba", channel.channel.as_str())),
+                    channel.pixels(),
+                )
+                .unwrap();
+            }
+        }
         evidence.push(json!({"case":case.id,"ok":true,"sentinels":case.samples.len(),"execution":rendered.report()}));
     }
     if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
@@ -225,6 +275,111 @@ fn node_blend_gpu() {
 #[ignore = "requires GPU; cargo xtask test-node material-output"]
 fn node_material_output_gpu() {
     run_node("material-output");
+}
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node fractal-noise"]
+fn node_fractal_noise_gpu() {
+    run_node("fractal-noise");
+    noise_invariants();
+}
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node gradient-map"]
+fn node_gradient_map_gpu() {
+    run_node("gradient-map");
+}
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node height-to-normal"]
+fn node_height_to_normal_gpu() {
+    run_node("height-to-normal");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = normal_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::write(
+            Path::new(&directory).join("height-to-normal-relations.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
+}
+
+// Relations across full rendered outputs, not a second noise implementation.
+fn noise_invariants() {
+    let bytes = source("fractal-noise", "input.mix");
+    let base = CompileRequest {
+        size: [129, 65],
+        outputs: vec![OutputChannel::Height],
+        ..Default::default()
+    };
+    let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    let mut render = |request: &CompileRequest| {
+        let plan = plan(&bytes, request).unwrap();
+        pollster::block_on(renderer.render(&plan))
+            .unwrap()
+            .channels()[0]
+            .pixels()
+            .to_vec()
+    };
+    let mut reference = None;
+    for basis in ["value", "cellular"] {
+        let mut base = base.clone();
+        base.overrides.insert("basis".into(), json!(basis));
+        let default = render(&base);
+        assert_eq!(
+            default,
+            render(&base),
+            "same seed must reproduce every pixel with a warm cache"
+        );
+        let mut previous_seed_output = None;
+        for seed in [0_u32, u32::MAX, 16777216, 16777217] {
+            let mut request = base.clone();
+            request.overrides.insert("seed".into(), json!(seed));
+            let output = render(&request);
+            let changed = default
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .zip(output.as_chunks::<4>().0.iter())
+                .filter(|(a, b)| a != b)
+                .count();
+            assert!(
+                changed > default.len() / 4 * 9 / 10,
+                "{basis}: seed must change the spatial field"
+            );
+            if let Some(previous) = previous_seed_output {
+                assert_ne!(
+                    previous, output,
+                    "adjacent high seeds must not collapse through f32"
+                );
+            }
+            previous_seed_output = Some(output);
+        }
+        let mut first = base.clone();
+        first.overrides.insert("octaves".into(), json!(1));
+        let mut zero = base.clone();
+        zero.overrides.insert("persistence".into(), json!(0));
+        assert_eq!(
+            render(&first),
+            render(&zero),
+            "zero persistence removes later octaves"
+        );
+        let unique = default
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|p| p[0])
+            .collect::<std::collections::BTreeSet<_>>();
+        assert!(
+            unique.len() > 100,
+            "default must not collapse to a constant or binary field"
+        );
+        if let Some(value) = reference {
+            assert_ne!(
+                value, default,
+                "bases must produce different spatial fields"
+            );
+        }
+        reference = Some(default);
+    }
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask gpu-smoke"]

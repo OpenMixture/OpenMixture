@@ -65,7 +65,7 @@ renderer.clear_pipeline_cache();
 
 ## 缓存、生命周期与失败
 
-一个渲染器最多保留四条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
+一个渲染器最多保留七条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
 
 [每次调用的资源](../crates/mixture-wgpu/src/resources.rs)实现 [PR-006 生命周期模型](./render-plan.zh-CN.md)：全部 pass 纹理及含填充的 uniform 保留至执行和回读结束。每个请求通道使用一个 staging 缓冲区，在下一通道前完成映射、解包、解除映射与销毁。别名通道共享生产者纹理，但仍独立回读。成功或失败都会释放调用内的全部缓冲区／纹理。没有纹理池、最后使用者优化、pass 融合或磁盘缓存。
 
@@ -108,10 +108,14 @@ cargo xtask check
 
 `shader-check` 无需 GPU 即可验证全部 WGSL 入口／工作组尺寸和 uniform 结构大小。`test-node` 先在无 GPU 环境验证[全部节点夹具](../fixtures/nodes/README.zh-CN.md)，包括无效覆盖／源文件，再精确运行指定节点的 GPU 用例。它使用与冒烟相同的 `MIXTURE_GPU_BACKEND`、`MIXTURE_GPU_SOFTWARE` 及可选预期适配器策略。报告位于 `tmp/node-tests/<backend>/<node>.json`。未知节点和无效策略在 Cargo／GPU 工作开始前失败。
 
-`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部六个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
+`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部九个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
 
 本地 [Apple M5／Metal](./evidence/pr-007-apple-m5.json) 和固定 [SwiftShader／Vulkan](./evidence/pr-007-swiftshader.json)通过验证。已查看三个 256×256 示例。固定棋盘格与受保护基准逐字节一致，未覆盖任何像素基准。没有变更依赖或锁文件版本。
 
 已查看的 256×256 预览：[棋盘格](./evidence/pr-007-checker.png)、[levels 粗糙度](./evidence/pr-007-levels.png)和 [blend 底色](./evidence/pr-007-blend.png)。它们是证据图，不是新增测试基准。
 
-[远端 GPU 任务](../.github/workflows/gpu-smoke.yml)现已覆盖图示例和全部节点，但远端 Linux／macOS／Windows 结果仍待运行。M2 已实现并经本地验证，不宣称关闭仍开放的远端里程碑验收。PR-008 现已添加[受保护基准工具与釉面陶瓷机器验收](./material-goldens.zh-CN.md)，人工批准保持开放，不为这些 M2 示例添加真实感质量宣称。
+[远端 GPU 任务](../.github/workflows/gpu-smoke.yml)现已覆盖图示例和全部节点，但远端 Linux／macOS／Windows 结果仍待运行。M2 已实现并经本地验证，不宣称关闭仍开放的远端里程碑验收。PR-008 现已添加[受保护基准工具与釉面陶瓷机器验收](./material-goldens.zh-CN.md)，陶瓷观感已接受，皮革观感已获用户接受，不为这些 M2 示例添加真实感质量宣称。
+
+## PR-009 噪声到法线切片
+
+三个新增穷尽 `KernelId` 映射分别使用 32 字节噪声 uniform、32 字节渐变映射 uniform 和 16 字节高度转法线 uniform。节点默认值仍属于核心。新 kernel 复用相同分发、纹理分配、回读和错误路径。[皮革材质](../fixtures/materials/leather/README.zh-CN.md)以五个 pass 渲染四个连接通道，1K 估算峰值存活字节为 50,331,792。未添加资源池或 2K 优化。三个新节点测试和完整冒烟路径均在显式 Metal 与固定软件 Vulkan 适配器运行。

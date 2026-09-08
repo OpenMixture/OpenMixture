@@ -544,6 +544,8 @@ cargo xtask check
 
 ## PR-009 — `feat(materials): add the noise-to-normal pipeline and leather golden`
 
+**仓库状态：** 本地已实现三个契约／kernel、必填 u32 种子、专项夹具、五个 pass 的 1K 皮革、三个公开参数，以及 detail 最小／默认／最大和粗颗粒用例。已记录固定 SwiftShader 与 Metal 的节点／材质／冒烟证据、首份受保护基准、空间／法线因果检查及受控 PBR 视图。皮革人工验收已获用户接受；远端 CI 暂缓，M3 保持开放。见[皮革证据](./fixtures/materials/leather/README.zh-CN.md)。
+
 ### 目标
 
 用最少必需节点验证微表面材质行为，不扩大到无关节点。

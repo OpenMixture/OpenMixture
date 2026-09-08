@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "scope": "PR-009 locally implemented and human appearance accepted; remote CI deferred",
+  "checks": [
+    {
+      "command": "cargo xtask test-node fractal-noise",
+      "policy": "software",
+      "status": "passed",
+      "evidence": "software-node-fractal-noise.log"
+    },
+    {
+      "command": "cargo xtask test-node gradient-map",
+      "policy": "software",
+      "status": "passed",
+      "evidence": "software-node-gradient-map.log"
+    },
+    {
+      "command": "cargo xtask test-node height-to-normal",
+      "policy": "software",
+      "status": "passed",
+      "evidence": "software-node-height-to-normal.log"
+    },
+    {
+      "command": "cargo xtask gpu-smoke",
+      "policy": "software",
+      "status": "passed",
+      "evidence": "software-gpu-smoke.log"
+    },
+    {
+      "command": "cargo xtask test-node fractal-noise",
+      "policy": "metal",
+      "status": "passed",
+      "evidence": "metal-node-fractal-noise.log"
+    },
+    {
+      "command": "cargo xtask test-node gradient-map",
+      "policy": "metal",
+      "status": "passed",
+      "evidence": "metal-node-gradient-map.log"
+    },
+    {
+      "command": "cargo xtask test-node height-to-normal",
+      "policy": "metal",
+      "status": "passed",
+      "evidence": "metal-node-height-to-normal.log"
+    },
+    {
+      "command": "cargo xtask gpu-smoke",
+      "policy": "metal",
+      "status": "passed",
+      "evidence": "metal-gpu-smoke.log"
+    },
+    {
+      "command": "cargo xtask golden check",
+      "policy": "pinned SwiftShader / Vulkan",
+      "status": "passed",
+      "evidence": "software.json",
+      "includes": "glazed-ceramic and leather"
+    },
+    {
+      "command": "cargo xtask test-material leather",
+      "policy": "Apple M5 / Metal",
+      "status": "passed",
+      "evidence": "metal.json"
+    },
+    {
+      "command": "cargo xtask shader-check",
+      "status": "passed",
+      "evidence": "shader-check.log"
+    },
+    {
+      "command": "Blender 4.5.13 render.py, compare.py and real entry-point input guards",
+      "status": "passed",
+      "evidence": "pbr/review.json",
+      "guardEvidence": "pbr/input-tests.log"
+    },
+    {
+      "command": "cargo xtask test-plan",
+      "status": "passed",
+      "evidence": "test-plan.log"
+    },
+    {
+      "command": "cargo xtask test-format",
+      "status": "passed",
+      "evidence": "test-format.log"
+    },
+    {
+      "command": "cargo xtask check",
+      "status": "passed",
+      "evidence": "repository-check.log"
+    },
+    {
+      "command": "SHA-256 verification of baseline, PBR input/script/helper/output/comparison and node raw baselines",
+      "status": "passed"
+    },
+    {
+      "command": "cargo xtask golden check",
+      "policy": "Apple M5 / Metal",
+      "status": "passed",
+      "evidence": "metal-golden-check.log",
+      "includes": "glazed-ceramic and leather"
+    },
+    {
+      "command": "Verify every final candidate source and artifact SHA-256 against current files",
+      "status": "passed",
+      "evidence": [
+        "software-candidate.json",
+        "metal-candidate.json"
+      ]
+    },
+    {
+      "command": "cargo xtask check",
+      "status": "passed",
+      "scope": "After recording explicit human acceptance",
+      "evidence": "accepted-repository-check.log"
+    }
+  ],
+  "repositoryCheck": "passed",
+  "baselineUpdates": "Only initial leather baselines; existing ceramic and checker pixels unchanged. Hardware tolerance adjusted with the first failed measurement retained; no PNG reset.",
+  "builtInNodeCount": 9,
+  "newPixelKernels": 3,
+  "materialPassCount": 5,
+  "peakEstimatedBytesAt1K": 50331792,
+  "publicApiChange": "ParameterContract.default is Option<ParameterDefault>; None requires explicit source value. No document shape or old plan/hash change.",
+  "outOfScope": [
+    "PR-010 directional wood / transform / warp",
+    "2K optimization",
+    "new crates or dependencies",
+    "runtime PBR viewer",
+    "remote CI closure"
+  ],
+  "humanAcceptance": "accepted by explicit user message after the controlled PBR review; see human-review.json",
+  "sourceIdentity": "Final software/Metal candidate input digests match current runtime, WGSL, xtask, manifests, material and acceptance sources."
+}

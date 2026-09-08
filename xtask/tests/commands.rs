@@ -78,7 +78,7 @@ fn gpu_smoke_rejects_invalid_policy_before_starting_cargo_or_gpu() {
 #[test]
 fn node_test_rejects_unknown_ids_and_invalid_adapter_policy() {
     for (node, expected) in [
-        ("unknown", "unknown M2 node test"),
+        ("unknown", "unknown node test"),
         ("checker", "Invalid smoke policy"),
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))

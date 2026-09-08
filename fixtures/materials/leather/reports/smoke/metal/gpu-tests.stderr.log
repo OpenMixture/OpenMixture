@@ -1,0 +1,13 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running unittests src/main.rs (target/debug/deps/mixture-b0b19fdee45469b3)
+     Running tests/cli.rs (target/debug/deps/cli-071bd8571e563601)
+     Running tests/doctor.rs (target/debug/deps/doctor-90d7017fed72a7be)
+     Running tests/inspect.rs (target/debug/deps/inspect-91f8f3c06b92ba6d)
+     Running tests/render.rs (target/debug/deps/render-4c52a010326a5037)
+     Running tests/render_builtin.rs (target/debug/deps/render_builtin-103e617a4e6f1e31)
+     Running tests/validate.rs (target/debug/deps/validate-70498e8017090d76)
+     Running unittests src/lib.rs (target/debug/deps/mixture_wgpu-aa96692948488a98)
+     Running tests/checker.rs (target/debug/deps/checker-d0939dd4050360cd)
+     Running tests/context.rs (target/debug/deps/context-1f2c47fd7285497a)
+     Running tests/nodes.rs (target/debug/deps/nodes-3ac114c658e85271)
+   Doc-tests mixture_wgpu

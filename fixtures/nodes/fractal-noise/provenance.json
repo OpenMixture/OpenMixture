@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "source": "initial outputs from explicit SwiftShader Vulkan graph execution; existing value pixels preserved after the cellular basis addition",
+  "softwareRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "shaderSha256": "sha256:d014c6e215510538d68985ab233cf5352b70243a2cd86e8df5084fe50245abf5",
+  "files": {
+    "defaults-129x65.rgba": "sha256:01f22eb7616e822e8560b652925017e90beae338624680acaf6af8aa7dfefec8",
+    "cellular-129x65.rgba": "sha256:bef79b28e8b1efa88d96709a4f17e1545beb828bcea3d6b596dddd86fa7b60ba"
+  },
+  "dimensions": [
+    129,
+    65
+  ],
+  "encoding": "RGBA8 linear; scalar replicated to RGB",
+  "updatePolicy": "Tests read these files and write new evidence only to tmp. Never replace a baseline merely to make a failing test pass."
+}

@@ -18,12 +18,12 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
         ParameterContract {
             id: "inputMin",
             kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-            default: ParameterDefault::Float(0.0),
+            default: Some(ParameterDefault::Float(0.0)),
         },
         ParameterContract {
             id: "inputMax",
             kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-            default: ParameterDefault::Float(1.0),
+            default: Some(ParameterDefault::Float(1.0)),
         },
         ParameterContract {
             id: "gamma",
@@ -31,17 +31,17 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
                 min: 0.01,
                 max: 100.0,
             },
-            default: ParameterDefault::Float(1.0),
+            default: Some(ParameterDefault::Float(1.0)),
         },
         ParameterContract {
             id: "outputMin",
             kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-            default: ParameterDefault::Float(0.0),
+            default: Some(ParameterDefault::Float(0.0)),
         },
         ParameterContract {
             id: "outputMax",
             kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-            default: ParameterDefault::Float(1.0),
+            default: Some(ParameterDefault::Float(1.0)),
         },
     ],
 };

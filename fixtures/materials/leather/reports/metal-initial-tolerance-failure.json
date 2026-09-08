@@ -1,0 +1,2886 @@
+{
+  "adapter": {
+    "backend": "Metal",
+    "device": 0,
+    "deviceType": "IntegratedGpu",
+    "driver": "",
+    "driverInfo": "",
+    "name": "Apple M5",
+    "supportedFeatures": [
+      "ADDRESS_MODE_CLAMP_TO_BORDER",
+      "ADDRESS_MODE_CLAMP_TO_ZERO",
+      "BGRA8UNORM_STORAGE",
+      "BUFFER_BINDING_ARRAY",
+      "CLEAR_TEXTURE",
+      "CLIP_DISTANCES",
+      "DEPTH32FLOAT_STENCIL8",
+      "DEPTH_CLIP_CONTROL",
+      "DUAL_SOURCE_BLENDING",
+      "EXPERIMENTAL_COOPERATIVE_MATRIX",
+      "EXPERIMENTAL_MESH_SHADER",
+      "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+      "EXPERIMENTAL_MESH_SHADER_POINTS",
+      "EXPERIMENTAL_RAY_QUERY",
+      "EXTERNAL_TEXTURE",
+      "FLOAT32_BLENDABLE",
+      "FLOAT32_FILTERABLE",
+      "IMMEDIATES",
+      "INDIRECT_FIRST_INSTANCE",
+      "MAPPABLE_PRIMARY_BUFFERS",
+      "MEMORY_DECORATION_COHERENT",
+      "MULTISAMPLE_ARRAY",
+      "MULTIVIEW",
+      "PARTIALLY_BOUND_BINDING_ARRAY",
+      "PASSTHROUGH_SHADERS",
+      "POLYGON_MODE_LINE",
+      "PRIMITIVE_INDEX",
+      "RG11B10UFLOAT_RENDERABLE",
+      "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+      "SHADER_BARYCENTRICS",
+      "SHADER_F16",
+      "SHADER_FLOAT32_ATOMIC",
+      "SHADER_I16",
+      "SHADER_INT64",
+      "SHADER_INT64_ATOMIC_MIN_MAX",
+      "SHADER_PER_VERTEX",
+      "STORAGE_RESOURCE_BINDING_ARRAY",
+      "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+      "SUBGROUP",
+      "SUBGROUP_BARRIER",
+      "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+      "TEXTURE_ATOMIC",
+      "TEXTURE_BINDING_ARRAY",
+      "TEXTURE_COMPRESSION_ASTC",
+      "TEXTURE_COMPRESSION_ASTC_HDR",
+      "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+      "TEXTURE_COMPRESSION_BC",
+      "TEXTURE_COMPRESSION_BC_SLICED_3D",
+      "TEXTURE_COMPRESSION_ETC2",
+      "TEXTURE_FORMAT_16BIT_NORM",
+      "TEXTURE_INT64_ATOMIC",
+      "TIMESTAMP_QUERY",
+      "VERTEX_WRITABLE_STORAGE"
+    ],
+    "supportedLimits": {
+      "maxAccelerationStructuresPerShaderStage": 29,
+      "maxBindGroups": 8,
+      "maxBindGroupsPlusVertexBuffers": 24,
+      "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+      "maxBindingArrayElementsPerShaderStage": 1000000,
+      "maxBindingArraySamplerElementsPerShaderStage": 500000,
+      "maxBindingsPerBindGroup": 4294967295,
+      "maxBlasGeometryCount": 16777216,
+      "maxBlasPrimitiveCount": 268435456,
+      "maxBufferSize": 4294967295,
+      "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+      "maxColorAttachmentBytesPerSample": 64,
+      "maxColorAttachments": 8,
+      "maxComputeInvocationsPerWorkgroup": 1024,
+      "maxComputeWorkgroupSizeX": 1024,
+      "maxComputeWorkgroupSizeY": 1024,
+      "maxComputeWorkgroupSizeZ": 1024,
+      "maxComputeWorkgroupStorageSize": 32768,
+      "maxComputeWorkgroupsPerDimension": 65535,
+      "maxDynamicStorageBuffersPerPipelineLayout": 29,
+      "maxDynamicUniformBuffersPerPipelineLayout": 29,
+      "maxImmediateSize": 256,
+      "maxInterStageShaderVariables": 31,
+      "maxMeshInvocationsPerDimension": 1024,
+      "maxMeshInvocationsPerWorkgroup": 1024,
+      "maxMeshMultiviewViewCount": 0,
+      "maxMeshOutputLayers": 2048,
+      "maxMeshOutputPrimitives": 256,
+      "maxMeshOutputVertices": 256,
+      "maxMeshWorkgroupTotalCount": 4194304,
+      "maxMeshWorkgroupsPerDimension": 4194304,
+      "maxMultiviewViewCount": 8,
+      "maxNonSamplerBindings": 4294967295,
+      "maxRayDispatchCount": 0,
+      "maxRayRecursionDepth": 0,
+      "maxSampledTexturesPerShaderStage": 96,
+      "maxSamplersPerShaderStage": 16,
+      "maxStorageBufferBindingSize": 4294967292,
+      "maxStorageBuffersPerShaderStage": 29,
+      "maxStorageTexturesPerShaderStage": 32,
+      "maxTaskInvocationsPerDimension": 1024,
+      "maxTaskInvocationsPerWorkgroup": 1024,
+      "maxTaskPayloadSize": 16352,
+      "maxTaskWorkgroupTotalCount": 4294967295,
+      "maxTaskWorkgroupsPerDimension": 4294967295,
+      "maxTextureArrayLayers": 2048,
+      "maxTextureDimension1D": 32768,
+      "maxTextureDimension2D": 32768,
+      "maxTextureDimension3D": 2048,
+      "maxTlasInstanceCount": 16777216,
+      "maxUniformBufferBindingSize": 4294967295,
+      "maxUniformBuffersPerShaderStage": 29,
+      "maxVertexAttributes": 31,
+      "maxVertexBufferArrayStride": 2048,
+      "maxVertexBuffers": 16,
+      "minStorageBufferOffsetAlignment": 32,
+      "minUniformBufferOffsetAlignment": 256
+    },
+    "vendor": 0
+  },
+  "baselinePresent": true,
+  "cases": [
+    {
+      "channels": {
+        "baseColor": {
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.04947471618652344,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.012847661972045898,
+            "meanByComponent": [
+              0.02265167236328125,
+              0.017571449279785156,
+              0.011167526245117188,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              85,
+              56,
+              38,
+              255
+            ],
+            "mean": [
+              71.95495986938477,
+              46.725905418395996,
+              31.35561466217041,
+              255.0
+            ],
+            "min": [
+              45,
+              28,
+              18,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.8893432753732046,
+                0.8900079817026506
+              ],
+              "redSpan": 40,
+              "redStdDev": 7.661816054912492,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  1.9945838806410883,
+                  1.9909169186827957
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.524147012319626,
+                  1.6237480155486053
+                ],
+                "wrapMeanAbsolute": [
+                  3.0400390625,
+                  3.2327473958333335
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.08319759368896484,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.06239819526672363,
+            "meanByComponent": [
+              0.08319759368896484,
+              0.08319759368896484,
+              0.08319759368896484,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "mean": [
+              159.1578664779663,
+              159.1578664779663,
+              159.1578664779663,
+              255.0
+            ],
+            "min": [
+              3,
+              3,
+              3,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9024378529963435,
+                0.9028641137067709
+              ],
+              "redSpan": 252,
+              "redStdDev": 53.44337709977391,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  18.50573813996823,
+                  18.478800097751712
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.4146266817079767,
+                  1.4996069741222835
+                ],
+                "wrapMeanAbsolute": [
+                  26.1787109375,
+                  27.7109375
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.15693378448486328,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.041481971740722656,
+            "meanByComponent": [
+              0.053856849670410156,
+              0.05362415313720703,
+              0.05844688415527344,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              194,
+              197,
+              255,
+              255
+            ],
+            "mean": [
+              127.45872402191162,
+              127.46030807495117,
+              251.7406234741211,
+              255.0
+            ],
+            "min": [
+              60,
+              60,
+              233,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.006278843038371895,
+            "meanTilt": 0.025563737458194288,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                6.8914822366813295,
+                6.883998439536494
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.5862539072964736,
+                1.7167397636659523
+              ],
+              "wrapMeanAbsolute": [
+                10.931640625,
+                11.818033854166666
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.07568550109863281,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.05676412582397461,
+            "meanByComponent": [
+              0.07568550109863281,
+              0.07568550109863281,
+              0.07568550109863281,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              193,
+              193,
+              193,
+              255
+            ],
+            "mean": [
+              155.5182933807373,
+              155.5182933807373,
+              155.5182933807373,
+              255.0
+            ],
+            "min": [
+              132,
+              132,
+              132,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.902255335850054,
+                0.9026776242092535
+              ],
+              "redSpan": 61,
+              "redStdDev": 12.86128849505282,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  4.454329713465298,
+                  4.448041720124634
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.412775693495826,
+                  1.494908204753458
+                ],
+                "wrapMeanAbsolute": [
+                  6.29296875,
+                  6.6494140625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "execution": {
+        "adapter": {
+          "backend": "Metal",
+          "device": 0,
+          "deviceType": "IntegratedGpu",
+          "driver": "",
+          "driverInfo": "",
+          "name": "Apple M5",
+          "supportedFeatures": [
+            "ADDRESS_MODE_CLAMP_TO_BORDER",
+            "ADDRESS_MODE_CLAMP_TO_ZERO",
+            "BGRA8UNORM_STORAGE",
+            "BUFFER_BINDING_ARRAY",
+            "CLEAR_TEXTURE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "EXPERIMENTAL_COOPERATIVE_MATRIX",
+            "EXPERIMENTAL_MESH_SHADER",
+            "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+            "EXPERIMENTAL_MESH_SHADER_POINTS",
+            "EXPERIMENTAL_RAY_QUERY",
+            "EXTERNAL_TEXTURE",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "IMMEDIATES",
+            "INDIRECT_FIRST_INSTANCE",
+            "MAPPABLE_PRIMARY_BUFFERS",
+            "MEMORY_DECORATION_COHERENT",
+            "MULTISAMPLE_ARRAY",
+            "MULTIVIEW",
+            "PARTIALLY_BOUND_BINDING_ARRAY",
+            "PASSTHROUGH_SHADERS",
+            "POLYGON_MODE_LINE",
+            "PRIMITIVE_INDEX",
+            "RG11B10UFLOAT_RENDERABLE",
+            "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+            "SHADER_BARYCENTRICS",
+            "SHADER_F16",
+            "SHADER_FLOAT32_ATOMIC",
+            "SHADER_I16",
+            "SHADER_INT64",
+            "SHADER_INT64_ATOMIC_MIN_MAX",
+            "SHADER_PER_VERTEX",
+            "STORAGE_RESOURCE_BINDING_ARRAY",
+            "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+            "SUBGROUP",
+            "SUBGROUP_BARRIER",
+            "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+            "TEXTURE_ATOMIC",
+            "TEXTURE_BINDING_ARRAY",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_HDR",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TEXTURE_FORMAT_16BIT_NORM",
+            "TEXTURE_INT64_ATOMIC",
+            "TIMESTAMP_QUERY",
+            "VERTEX_WRITABLE_STORAGE"
+          ],
+          "supportedLimits": {
+            "maxAccelerationStructuresPerShaderStage": 29,
+            "maxBindGroups": 8,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArrayElementsPerShaderStage": 1000000,
+            "maxBindingArraySamplerElementsPerShaderStage": 500000,
+            "maxBindingsPerBindGroup": 4294967295,
+            "maxBlasGeometryCount": 16777216,
+            "maxBlasPrimitiveCount": 268435456,
+            "maxBufferSize": 4294967295,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+            "maxColorAttachmentBytesPerSample": 64,
+            "maxColorAttachments": 8,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 1024,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxDynamicStorageBuffersPerPipelineLayout": 29,
+            "maxDynamicUniformBuffersPerPipelineLayout": 29,
+            "maxImmediateSize": 256,
+            "maxInterStageShaderVariables": 31,
+            "maxMeshInvocationsPerDimension": 1024,
+            "maxMeshInvocationsPerWorkgroup": 1024,
+            "maxMeshMultiviewViewCount": 0,
+            "maxMeshOutputLayers": 2048,
+            "maxMeshOutputPrimitives": 256,
+            "maxMeshOutputVertices": 256,
+            "maxMeshWorkgroupTotalCount": 4194304,
+            "maxMeshWorkgroupsPerDimension": 4194304,
+            "maxMultiviewViewCount": 8,
+            "maxNonSamplerBindings": 4294967295,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0,
+            "maxSampledTexturesPerShaderStage": 96,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxStorageBuffersPerShaderStage": 29,
+            "maxStorageTexturesPerShaderStage": 32,
+            "maxTaskInvocationsPerDimension": 1024,
+            "maxTaskInvocationsPerWorkgroup": 1024,
+            "maxTaskPayloadSize": 16352,
+            "maxTaskWorkgroupTotalCount": 4294967295,
+            "maxTaskWorkgroupsPerDimension": 4294967295,
+            "maxTextureArrayLayers": 2048,
+            "maxTextureDimension1D": 32768,
+            "maxTextureDimension2D": 32768,
+            "maxTextureDimension3D": 2048,
+            "maxTlasInstanceCount": 16777216,
+            "maxUniformBufferBindingSize": 4294967295,
+            "maxUniformBuffersPerShaderStage": 29,
+            "maxVertexAttributes": 31,
+            "maxVertexBufferArrayStride": 2048,
+            "maxVertexBuffers": 16,
+            "minStorageBufferOffsetAlignment": 32,
+            "minUniformBufferOffsetAlignment": 256
+          },
+          "vendor": 0
+        },
+        "estimates": {
+          "cumulativeBytes": 75497616,
+          "cumulativeReadbackBytes": 33554432,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331792,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "textureBytes": 41943040,
+          "uniformBytes": 144
+        },
+        "mappedBytes": 33554432,
+        "passCount": 5,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 1,
+          "misses": 4
+        },
+        "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+        "readbackBytes": 33554432,
+        "rgbaBytes": 16777216,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 10.554958,
+          "pipelineMs": 5.558083,
+          "readbackMs": 1019.625292,
+          "totalMs": 1036.3809159999998
+        }
+      },
+      "id": "default",
+      "outputs": [
+        {
+          "channel": "baseColor",
+          "encoding": "rgba8-srgb",
+          "kind": "color",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/default/baseColor.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "color",
+              "portId": "color"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1188442
+        },
+        {
+          "channel": "normal",
+          "encoding": "rgba8-linear",
+          "kind": "normal",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/default/normal.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "normal",
+              "portId": "normal"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 2331885
+        },
+        {
+          "channel": "roughness",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/default/roughness.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "roughness",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 777664
+        },
+        {
+          "channel": "height",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/default/height.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "height",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1114754
+        }
+      ],
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+      "planMatchesGolden": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.9169535636901855,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "channels": {
+        "baseColor": {
+          "causality": {
+            "changedPixelRatio": 0.9056997299194336,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.006112188451430356,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22064874294753212,
+              "ratio": 0.9783269123507753,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.215866603401939
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.04412651062011719,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.011539936065673828,
+            "meanByComponent": [
+              0.020667076110839844,
+              0.01544189453125,
+              0.010050773620605469,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              85,
+              56,
+              38,
+              255
+            ],
+            "mean": [
+              70.39635181427002,
+              45.64603328704834,
+              30.628902435302734,
+              255.0
+            ],
+            "min": [
+              44,
+              27,
+              18,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.8921545475044402,
+                0.8919788491065099
+              ],
+              "redSpan": 41,
+              "redStdDev": 10.710178749782887,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.6329509179496577,
+                  2.6378610958374065
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.7057708546262662,
+                  1.8367351074622218
+                ],
+                "wrapMeanAbsolute": [
+                  4.4912109375,
+                  4.845052083333333
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "causality": {
+            "changedPixelRatio": 0.9502344131469727,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.03132933074352784,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1946980333174879,
+              "ratio": 0.889022465855257,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.17309092567708206
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 0.95,
+              "minPixelRatio": 0.85,
+              "minRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.06818389892578125,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.05113792419433594,
+            "meanByComponent": [
+              0.06818389892578125,
+              0.06818389892578125,
+              0.06818389892578125,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "mean": [
+              151.1688871383667,
+              151.1688871383667,
+              151.1688871383667,
+              255.0
+            ],
+            "min": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.913512616027736,
+                0.9133964583032684
+              ],
+              "redSpan": 255,
+              "redStdDev": 71.54023094082235,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  22.715667575452102,
+                  22.75621830706256
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.6506280109513245,
+                  1.7550148034748418
+                ],
+                "wrapMeanAbsolute": [
+                  37.4951171875,
+                  39.9375
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "causality": {
+            "changedPixelRatio": 0.9875001907348633,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00010746226591223929,
+            "redNormalizedGradientEnergy": {
+              "default": 0.4124016604378245,
+              "ratio": 0.8728932864605465,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.359982640721359
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.14558887481689453,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.03846406936645508,
+            "meanByComponent": [
+              0.05016040802001953,
+              0.04982566833496094,
+              0.053870201110839844,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              192,
+              192,
+              255,
+              255
+            ],
+            "mean": [
+              127.48612689971924,
+              127.48557758331299,
+              249.93098163604736,
+              255.0
+            ],
+            "min": [
+              63,
+              63,
+              234,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.006526487833136807,
+            "meanTilt": 0.03975700677655061,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                6.766627336876833,
+                6.773851481040241
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.5255630541981724,
+                1.7064028201956185
+              ],
+              "wrapMeanAbsolute": [
+                10.322916666666666,
+                11.558919270833334
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "causality": {
+            "changedPixelRatio": 0.9133491516113281,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00738583359063838,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19506703996090033,
+              "ratio": 0.8848756661171182,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.1726100769228962
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.14400386810302734,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.10800290107727051,
+            "meanByComponent": [
+              0.14400386810302734,
+              0.14400386810302734,
+              0.14400386810302734,
+              0.0
+            ],
+            "ok": false,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              194,
+              194,
+              194,
+              255
+            ],
+            "mean": [
+              157.4016809463501,
+              157.4016809463501,
+              157.4016809463501,
+              255.0
+            ],
+            "min": [
+              132,
+              132,
+              132,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9137534895070397,
+                0.9136364335237049
+              ],
+              "redSpan": 62,
+              "redStdDev": 17.259102445903785,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  5.47869604563783,
+                  5.488605816226784
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.6457568529794735,
+                  1.751141992486434
+                ],
+                "wrapMeanAbsolute": [
+                  9.0166015625,
+                  9.611328125
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "execution": {
+        "adapter": {
+          "backend": "Metal",
+          "device": 0,
+          "deviceType": "IntegratedGpu",
+          "driver": "",
+          "driverInfo": "",
+          "name": "Apple M5",
+          "supportedFeatures": [
+            "ADDRESS_MODE_CLAMP_TO_BORDER",
+            "ADDRESS_MODE_CLAMP_TO_ZERO",
+            "BGRA8UNORM_STORAGE",
+            "BUFFER_BINDING_ARRAY",
+            "CLEAR_TEXTURE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "EXPERIMENTAL_COOPERATIVE_MATRIX",
+            "EXPERIMENTAL_MESH_SHADER",
+            "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+            "EXPERIMENTAL_MESH_SHADER_POINTS",
+            "EXPERIMENTAL_RAY_QUERY",
+            "EXTERNAL_TEXTURE",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "IMMEDIATES",
+            "INDIRECT_FIRST_INSTANCE",
+            "MAPPABLE_PRIMARY_BUFFERS",
+            "MEMORY_DECORATION_COHERENT",
+            "MULTISAMPLE_ARRAY",
+            "MULTIVIEW",
+            "PARTIALLY_BOUND_BINDING_ARRAY",
+            "PASSTHROUGH_SHADERS",
+            "POLYGON_MODE_LINE",
+            "PRIMITIVE_INDEX",
+            "RG11B10UFLOAT_RENDERABLE",
+            "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+            "SHADER_BARYCENTRICS",
+            "SHADER_F16",
+            "SHADER_FLOAT32_ATOMIC",
+            "SHADER_I16",
+            "SHADER_INT64",
+            "SHADER_INT64_ATOMIC_MIN_MAX",
+            "SHADER_PER_VERTEX",
+            "STORAGE_RESOURCE_BINDING_ARRAY",
+            "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+            "SUBGROUP",
+            "SUBGROUP_BARRIER",
+            "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+            "TEXTURE_ATOMIC",
+            "TEXTURE_BINDING_ARRAY",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_HDR",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TEXTURE_FORMAT_16BIT_NORM",
+            "TEXTURE_INT64_ATOMIC",
+            "TIMESTAMP_QUERY",
+            "VERTEX_WRITABLE_STORAGE"
+          ],
+          "supportedLimits": {
+            "maxAccelerationStructuresPerShaderStage": 29,
+            "maxBindGroups": 8,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArrayElementsPerShaderStage": 1000000,
+            "maxBindingArraySamplerElementsPerShaderStage": 500000,
+            "maxBindingsPerBindGroup": 4294967295,
+            "maxBlasGeometryCount": 16777216,
+            "maxBlasPrimitiveCount": 268435456,
+            "maxBufferSize": 4294967295,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+            "maxColorAttachmentBytesPerSample": 64,
+            "maxColorAttachments": 8,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 1024,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxDynamicStorageBuffersPerPipelineLayout": 29,
+            "maxDynamicUniformBuffersPerPipelineLayout": 29,
+            "maxImmediateSize": 256,
+            "maxInterStageShaderVariables": 31,
+            "maxMeshInvocationsPerDimension": 1024,
+            "maxMeshInvocationsPerWorkgroup": 1024,
+            "maxMeshMultiviewViewCount": 0,
+            "maxMeshOutputLayers": 2048,
+            "maxMeshOutputPrimitives": 256,
+            "maxMeshOutputVertices": 256,
+            "maxMeshWorkgroupTotalCount": 4194304,
+            "maxMeshWorkgroupsPerDimension": 4194304,
+            "maxMultiviewViewCount": 8,
+            "maxNonSamplerBindings": 4294967295,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0,
+            "maxSampledTexturesPerShaderStage": 96,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxStorageBuffersPerShaderStage": 29,
+            "maxStorageTexturesPerShaderStage": 32,
+            "maxTaskInvocationsPerDimension": 1024,
+            "maxTaskInvocationsPerWorkgroup": 1024,
+            "maxTaskPayloadSize": 16352,
+            "maxTaskWorkgroupTotalCount": 4294967295,
+            "maxTaskWorkgroupsPerDimension": 4294967295,
+            "maxTextureArrayLayers": 2048,
+            "maxTextureDimension1D": 32768,
+            "maxTextureDimension2D": 32768,
+            "maxTextureDimension3D": 2048,
+            "maxTlasInstanceCount": 16777216,
+            "maxUniformBufferBindingSize": 4294967295,
+            "maxUniformBuffersPerShaderStage": 29,
+            "maxVertexAttributes": 31,
+            "maxVertexBufferArrayStride": 2048,
+            "maxVertexBuffers": 16,
+            "minStorageBufferOffsetAlignment": 32,
+            "minUniformBufferOffsetAlignment": 256
+          },
+          "vendor": 0
+        },
+        "estimates": {
+          "cumulativeBytes": 75497616,
+          "cumulativeReadbackBytes": 33554432,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331792,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "textureBytes": 41943040,
+          "uniformBytes": 144
+        },
+        "mappedBytes": 33554432,
+        "passCount": 5,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 1,
+          "misses": 4
+        },
+        "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+        "readbackBytes": 33554432,
+        "rgbaBytes": 16777216,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 10.954541,
+          "pipelineMs": 7.439708,
+          "readbackMs": 1014.109958,
+          "totalMs": 1033.30975
+        }
+      },
+      "id": "detail-min",
+      "outputs": [
+        {
+          "channel": "baseColor",
+          "encoding": "rgba8-srgb",
+          "kind": "color",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-min/baseColor.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "color",
+              "portId": "color"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1066979
+        },
+        {
+          "channel": "normal",
+          "encoding": "rgba8-linear",
+          "kind": "normal",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-min/normal.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "normal",
+              "portId": "normal"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 2092768
+        },
+        {
+          "channel": "roughness",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-min/roughness.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "roughness",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 694339
+        },
+        {
+          "channel": "height",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-min/height.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "height",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1012690
+        }
+      ],
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+      "planMatchesGolden": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.8824477195739746,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "channels": {
+        "baseColor": {
+          "causality": {
+            "changedPixelRatio": 0.9380264282226562,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0018335529402190853,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22064874294753212,
+              "ratio": 2.834855209725536,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6255072384642021
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.05219268798828125,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.01347970962524414,
+            "meanByComponent": [
+              0.02379131317138672,
+              0.018912315368652344,
+              0.0112152099609375,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              85,
+              56,
+              38,
+              255
+            ],
+            "mean": [
+              72.42251586914062,
+              47.04959297180176,
+              31.573087692260742,
+              255.0
+            ],
+            "min": [
+              45,
+              28,
+              18,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.6867557743688276,
+                0.6877369871454709
+              ],
+              "redSpan": 40,
+              "redStdDev": 6.268984120625558,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.8536082218352883,
+                  2.8494359548101986
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.3963726661365543,
+                  1.528422922373338
+                ],
+                "wrapMeanAbsolute": [
+                  3.9847005208333335,
+                  4.355143229166667
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "causality": {
+            "changedPixelRatio": 0.9803609848022461,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.009026396508310386,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1946980333174879,
+              "ratio": 3.0974588494428152,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6030691462683649
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 5.0,
+              "minPixelRatio": 0.85,
+              "minRatio": 1.5
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.08972644805908203,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.06729483604431152,
+            "meanByComponent": [
+              0.08972644805908203,
+              0.08972644805908203,
+              0.08972644805908203,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "mean": [
+              161.45959758758545,
+              161.45959758758545,
+              161.45959758758545,
+              255.0
+            ],
+            "min": [
+              4,
+              4,
+              4,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.698125065336478,
+                0.6988057883946786
+              ],
+              "redSpan": 251,
+              "redStdDev": 43.88107227736389,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  27.358828965053764,
+                  27.325777622495114
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.2965707083190683,
+                  1.4032437463347383
+                ],
+                "wrapMeanAbsolute": [
+                  35.47265625,
+                  38.3447265625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "causality": {
+            "changedPixelRatio": 0.9992952346801758,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.000030035131117878144,
+            "redNormalizedGradientEnergy": {
+              "default": 0.4124016604378245,
+              "ratio": 2.2927788587087155,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.9455458083482144
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.1593008041381836,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.04211616516113281,
+            "meanByComponent": [
+              0.05491161346435547,
+              0.05475044250488281,
+              0.05880260467529297,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              207,
+              210,
+              255,
+              255
+            ],
+            "mean": [
+              127.45106506347656,
+              127.4534215927124,
+              250.25820922851562,
+              255.0
+            ],
+            "min": [
+              47,
+              46,
+              223,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.006402657720362193,
+            "meanTilt": 0.03719051585524598,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                13.68098003726784,
+                13.677437492363147
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.4487494642933647,
+                1.5301155576487628
+              ],
+              "wrapMeanAbsolute": [
+                19.8203125,
+                20.928059895833332
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "causality": {
+            "changedPixelRatio": 0.9446649551391602,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.002093778872022445,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19506703996090033,
+              "ratio": 3.0935838281176795,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6034562402218264
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.049475669860839844,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.03710675239562988,
+            "meanByComponent": [
+              0.049475669860839844,
+              0.049475669860839844,
+              0.049475669860839844,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              193,
+              193,
+              193,
+              255
+            ],
+            "mean": [
+              154.98437976837158,
+              154.98437976837158,
+              154.98437976837158,
+              255.0
+            ],
+            "min": [
+              132,
+              132,
+              132,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.6979234313889426,
+                0.6986203283889353
+              ],
+              "redSpan": 61,
+              "redStdDev": 10.54018646224717,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  6.570009889723852,
+                  6.561897643267351
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.290933416366058,
+                  1.3996820450138487
+                ],
+                "wrapMeanAbsolute": [
+                  8.4814453125,
+                  9.1845703125
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "execution": {
+        "adapter": {
+          "backend": "Metal",
+          "device": 0,
+          "deviceType": "IntegratedGpu",
+          "driver": "",
+          "driverInfo": "",
+          "name": "Apple M5",
+          "supportedFeatures": [
+            "ADDRESS_MODE_CLAMP_TO_BORDER",
+            "ADDRESS_MODE_CLAMP_TO_ZERO",
+            "BGRA8UNORM_STORAGE",
+            "BUFFER_BINDING_ARRAY",
+            "CLEAR_TEXTURE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "EXPERIMENTAL_COOPERATIVE_MATRIX",
+            "EXPERIMENTAL_MESH_SHADER",
+            "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+            "EXPERIMENTAL_MESH_SHADER_POINTS",
+            "EXPERIMENTAL_RAY_QUERY",
+            "EXTERNAL_TEXTURE",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "IMMEDIATES",
+            "INDIRECT_FIRST_INSTANCE",
+            "MAPPABLE_PRIMARY_BUFFERS",
+            "MEMORY_DECORATION_COHERENT",
+            "MULTISAMPLE_ARRAY",
+            "MULTIVIEW",
+            "PARTIALLY_BOUND_BINDING_ARRAY",
+            "PASSTHROUGH_SHADERS",
+            "POLYGON_MODE_LINE",
+            "PRIMITIVE_INDEX",
+            "RG11B10UFLOAT_RENDERABLE",
+            "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+            "SHADER_BARYCENTRICS",
+            "SHADER_F16",
+            "SHADER_FLOAT32_ATOMIC",
+            "SHADER_I16",
+            "SHADER_INT64",
+            "SHADER_INT64_ATOMIC_MIN_MAX",
+            "SHADER_PER_VERTEX",
+            "STORAGE_RESOURCE_BINDING_ARRAY",
+            "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+            "SUBGROUP",
+            "SUBGROUP_BARRIER",
+            "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+            "TEXTURE_ATOMIC",
+            "TEXTURE_BINDING_ARRAY",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_HDR",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TEXTURE_FORMAT_16BIT_NORM",
+            "TEXTURE_INT64_ATOMIC",
+            "TIMESTAMP_QUERY",
+            "VERTEX_WRITABLE_STORAGE"
+          ],
+          "supportedLimits": {
+            "maxAccelerationStructuresPerShaderStage": 29,
+            "maxBindGroups": 8,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArrayElementsPerShaderStage": 1000000,
+            "maxBindingArraySamplerElementsPerShaderStage": 500000,
+            "maxBindingsPerBindGroup": 4294967295,
+            "maxBlasGeometryCount": 16777216,
+            "maxBlasPrimitiveCount": 268435456,
+            "maxBufferSize": 4294967295,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+            "maxColorAttachmentBytesPerSample": 64,
+            "maxColorAttachments": 8,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 1024,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxDynamicStorageBuffersPerPipelineLayout": 29,
+            "maxDynamicUniformBuffersPerPipelineLayout": 29,
+            "maxImmediateSize": 256,
+            "maxInterStageShaderVariables": 31,
+            "maxMeshInvocationsPerDimension": 1024,
+            "maxMeshInvocationsPerWorkgroup": 1024,
+            "maxMeshMultiviewViewCount": 0,
+            "maxMeshOutputLayers": 2048,
+            "maxMeshOutputPrimitives": 256,
+            "maxMeshOutputVertices": 256,
+            "maxMeshWorkgroupTotalCount": 4194304,
+            "maxMeshWorkgroupsPerDimension": 4194304,
+            "maxMultiviewViewCount": 8,
+            "maxNonSamplerBindings": 4294967295,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0,
+            "maxSampledTexturesPerShaderStage": 96,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxStorageBuffersPerShaderStage": 29,
+            "maxStorageTexturesPerShaderStage": 32,
+            "maxTaskInvocationsPerDimension": 1024,
+            "maxTaskInvocationsPerWorkgroup": 1024,
+            "maxTaskPayloadSize": 16352,
+            "maxTaskWorkgroupTotalCount": 4294967295,
+            "maxTaskWorkgroupsPerDimension": 4294967295,
+            "maxTextureArrayLayers": 2048,
+            "maxTextureDimension1D": 32768,
+            "maxTextureDimension2D": 32768,
+            "maxTextureDimension3D": 2048,
+            "maxTlasInstanceCount": 16777216,
+            "maxUniformBufferBindingSize": 4294967295,
+            "maxUniformBuffersPerShaderStage": 29,
+            "maxVertexAttributes": 31,
+            "maxVertexBufferArrayStride": 2048,
+            "maxVertexBuffers": 16,
+            "minStorageBufferOffsetAlignment": 32,
+            "minUniformBufferOffsetAlignment": 256
+          },
+          "vendor": 0
+        },
+        "estimates": {
+          "cumulativeBytes": 75497616,
+          "cumulativeReadbackBytes": 33554432,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331792,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "textureBytes": 41943040,
+          "uniformBytes": 144
+        },
+        "mappedBytes": 33554432,
+        "passCount": 5,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 1,
+          "misses": 4
+        },
+        "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+        "readbackBytes": 33554432,
+        "rgbaBytes": 16777216,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 10.803459,
+          "pipelineMs": 7.752875,
+          "readbackMs": 1017.353584,
+          "totalMs": 1037.022208
+        }
+      },
+      "id": "detail-max",
+      "outputs": [
+        {
+          "channel": "baseColor",
+          "encoding": "rgba8-srgb",
+          "kind": "color",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-max/baseColor.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "color",
+              "portId": "color"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1282181
+        },
+        {
+          "channel": "normal",
+          "encoding": "rgba8-linear",
+          "kind": "normal",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-max/normal.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "normal",
+              "portId": "normal"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 2829534
+        },
+        {
+          "channel": "roughness",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-max/roughness.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "roughness",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 901991
+        },
+        {
+          "channel": "height",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/detail-max/height.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "height",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1293918
+        }
+      ],
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+      "planMatchesGolden": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.9450440406799316,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "channels": {
+        "baseColor": {
+          "causality": {
+            "changedPixelRatio": 0.9722385406494141,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00003844242469935866,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22064874294753212,
+              "ratio": 0.30311804920584634,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06688261652197817
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.05017852783203125,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.013034820556640625,
+            "meanByComponent": [
+              0.02308177947998047,
+              0.017812728881835938,
+              0.011244773864746094,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              85,
+              56,
+              38,
+              255
+            ],
+            "mean": [
+              71.94515705108643,
+              46.718923568725586,
+              31.351181030273438,
+              255.0
+            ],
+            "min": [
+              46,
+              28,
+              19,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9665420813863107,
+                0.9665753020492676
+              ],
+              "redSpan": 39,
+              "redStdDev": 7.662007134381268,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  1.0638526774804498,
+                  1.063615298651841
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.6220158806074074,
+                  1.6389046535053642
+                ],
+                "wrapMeanAbsolute": [
+                  1.7255859375,
+                  1.7431640625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "causality": {
+            "changedPixelRatio": 0.9925146102905273,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00025630277745858354,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1946980333174879,
+              "ratio": 0.28667111132956163,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.05581430158480427
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 0.65,
+              "minPixelRatio": 0.85,
+              "minRatio": 0.15
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.08242988586425781,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.06182241439819336,
+            "meanByComponent": [
+              0.08242988586425781,
+              0.08242988586425781,
+              0.08242988586425781,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "mean": [
+              159.09250926971436,
+              159.09250926971436,
+              159.09250926971436,
+              255.0
+            ],
+            "min": [
+              8,
+              8,
+              8,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.972081386917812,
+                0.9721043114799383
+              ],
+              "redSpan": 247,
+              "redStdDev": 53.42289306994533,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  9.8103960471652,
+                  9.810325406280548
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.492358201403147,
+                  1.4644965284028357
+                ],
+                "wrapMeanAbsolute": [
+                  14.640625,
+                  14.3671875
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "causality": {
+            "changedPixelRatio": 0.999241828918457,
+            "ok": true,
+            "redMeanDeltaNormalized": 9.331048703653533e-6,
+            "redNormalizedGradientEnergy": {
+              "default": 0.4124016604378245,
+              "ratio": 0.5173130259929636,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.21334075088561363
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.15393638610839844,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.040602922439575195,
+            "meanByComponent": [
+              0.052898406982421875,
+              0.05314350128173828,
+              0.056369781494140625,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              176,
+              176,
+              255,
+              255
+            ],
+            "mean": [
+              127.46110343933105,
+              127.46119117736816,
+              253.91015434265137,
+              255.0
+            ],
+            "min": [
+              78,
+              78,
+              244,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.0052888803993735856,
+            "meanTilt": 0.00854780907723661,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                2.622607119582926,
+                2.627554845328283
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.735212726305613,
+                1.8517443715719804
+              ],
+              "wrapMeanAbsolute": [
+                4.55078125,
+                4.865559895833333
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "causality": {
+            "changedPixelRatio": 0.975255012512207,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00006227680281101211,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19506703996090033,
+              "ratio": 0.29016561884165465,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.05660174836586442
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.07548999786376953,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 0.05661749839782715,
+            "meanByComponent": [
+              0.07548999786376953,
+              0.07548999786376953,
+              0.07548999786376953,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 2,
+              "maxChangedPixelRatio": 0.005,
+              "meanAbsolute": 0.1,
+              "pixelThreshold": 1
+            }
+          },
+          "floatReadback": {
+            "evidence": "mixture-wgpu readback validates every f16 component before RGBA8 encoding; invalid values fail render",
+            "nonFiniteComponents": 0,
+            "ok": true,
+            "outOfRangeComponents": 0,
+            "range": [
+              0,
+              1
+            ]
+          },
+          "statistics": {
+            "max": [
+              192,
+              192,
+              192,
+              255
+            ],
+            "mean": [
+              155.5341739654541,
+              155.5341739654541,
+              155.5341739654541,
+              255.0
+            ],
+            "min": [
+              132,
+              132,
+              132,
+              255
+            ],
+            "units": "RGBA8 encoded component values (0..255)"
+          },
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9716875487698944,
+                0.9717107028989214
+              ],
+              "redSpan": 60,
+              "redStdDev": 12.856430269427571,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.361728105144184,
+                  2.3617634255865103
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.4873411146900626,
+                  1.469538857025064
+                ],
+                "wrapMeanAbsolute": [
+                  3.5126953125,
+                  3.470703125
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "execution": {
+        "adapter": {
+          "backend": "Metal",
+          "device": 0,
+          "deviceType": "IntegratedGpu",
+          "driver": "",
+          "driverInfo": "",
+          "name": "Apple M5",
+          "supportedFeatures": [
+            "ADDRESS_MODE_CLAMP_TO_BORDER",
+            "ADDRESS_MODE_CLAMP_TO_ZERO",
+            "BGRA8UNORM_STORAGE",
+            "BUFFER_BINDING_ARRAY",
+            "CLEAR_TEXTURE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "EXPERIMENTAL_COOPERATIVE_MATRIX",
+            "EXPERIMENTAL_MESH_SHADER",
+            "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+            "EXPERIMENTAL_MESH_SHADER_POINTS",
+            "EXPERIMENTAL_RAY_QUERY",
+            "EXTERNAL_TEXTURE",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "IMMEDIATES",
+            "INDIRECT_FIRST_INSTANCE",
+            "MAPPABLE_PRIMARY_BUFFERS",
+            "MEMORY_DECORATION_COHERENT",
+            "MULTISAMPLE_ARRAY",
+            "MULTIVIEW",
+            "PARTIALLY_BOUND_BINDING_ARRAY",
+            "PASSTHROUGH_SHADERS",
+            "POLYGON_MODE_LINE",
+            "PRIMITIVE_INDEX",
+            "RG11B10UFLOAT_RENDERABLE",
+            "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+            "SHADER_BARYCENTRICS",
+            "SHADER_F16",
+            "SHADER_FLOAT32_ATOMIC",
+            "SHADER_I16",
+            "SHADER_INT64",
+            "SHADER_INT64_ATOMIC_MIN_MAX",
+            "SHADER_PER_VERTEX",
+            "STORAGE_RESOURCE_BINDING_ARRAY",
+            "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+            "SUBGROUP",
+            "SUBGROUP_BARRIER",
+            "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+            "TEXTURE_ATOMIC",
+            "TEXTURE_BINDING_ARRAY",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_HDR",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TEXTURE_FORMAT_16BIT_NORM",
+            "TEXTURE_INT64_ATOMIC",
+            "TIMESTAMP_QUERY",
+            "VERTEX_WRITABLE_STORAGE"
+          ],
+          "supportedLimits": {
+            "maxAccelerationStructuresPerShaderStage": 29,
+            "maxBindGroups": 8,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArrayElementsPerShaderStage": 1000000,
+            "maxBindingArraySamplerElementsPerShaderStage": 500000,
+            "maxBindingsPerBindGroup": 4294967295,
+            "maxBlasGeometryCount": 16777216,
+            "maxBlasPrimitiveCount": 268435456,
+            "maxBufferSize": 4294967295,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+            "maxColorAttachmentBytesPerSample": 64,
+            "maxColorAttachments": 8,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 1024,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxDynamicStorageBuffersPerPipelineLayout": 29,
+            "maxDynamicUniformBuffersPerPipelineLayout": 29,
+            "maxImmediateSize": 256,
+            "maxInterStageShaderVariables": 31,
+            "maxMeshInvocationsPerDimension": 1024,
+            "maxMeshInvocationsPerWorkgroup": 1024,
+            "maxMeshMultiviewViewCount": 0,
+            "maxMeshOutputLayers": 2048,
+            "maxMeshOutputPrimitives": 256,
+            "maxMeshOutputVertices": 256,
+            "maxMeshWorkgroupTotalCount": 4194304,
+            "maxMeshWorkgroupsPerDimension": 4194304,
+            "maxMultiviewViewCount": 8,
+            "maxNonSamplerBindings": 4294967295,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0,
+            "maxSampledTexturesPerShaderStage": 96,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBufferBindingSize": 4294967292,
+            "maxStorageBuffersPerShaderStage": 29,
+            "maxStorageTexturesPerShaderStage": 32,
+            "maxTaskInvocationsPerDimension": 1024,
+            "maxTaskInvocationsPerWorkgroup": 1024,
+            "maxTaskPayloadSize": 16352,
+            "maxTaskWorkgroupTotalCount": 4294967295,
+            "maxTaskWorkgroupsPerDimension": 4294967295,
+            "maxTextureArrayLayers": 2048,
+            "maxTextureDimension1D": 32768,
+            "maxTextureDimension2D": 32768,
+            "maxTextureDimension3D": 2048,
+            "maxTlasInstanceCount": 16777216,
+            "maxUniformBufferBindingSize": 4294967295,
+            "maxUniformBuffersPerShaderStage": 29,
+            "maxVertexAttributes": 31,
+            "maxVertexBufferArrayStride": 2048,
+            "maxVertexBuffers": 16,
+            "minStorageBufferOffsetAlignment": 32,
+            "minUniformBufferOffsetAlignment": 256
+          },
+          "vendor": 0
+        },
+        "estimates": {
+          "cumulativeBytes": 75497616,
+          "cumulativeReadbackBytes": 33554432,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331792,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "textureBytes": 41943040,
+          "uniformBytes": 144
+        },
+        "mappedBytes": 33554432,
+        "passCount": 5,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 1,
+          "misses": 4
+        },
+        "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+        "readbackBytes": 33554432,
+        "rgbaBytes": 16777216,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 11.469334,
+          "pipelineMs": 7.517958,
+          "readbackMs": 1017.56025,
+          "totalMs": 1037.563875
+        }
+      },
+      "id": "coarse-grain",
+      "outputs": [
+        {
+          "channel": "baseColor",
+          "encoding": "rgba8-srgb",
+          "kind": "color",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/coarse-grain/baseColor.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "color",
+              "portId": "color"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 942592
+        },
+        {
+          "channel": "normal",
+          "encoding": "rgba8-linear",
+          "kind": "normal",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/coarse-grain/normal.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "normal",
+              "portId": "normal"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 1627025
+        },
+        {
+          "channel": "roughness",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/coarse-grain/roughness.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "roughness",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 588371
+        },
+        {
+          "channel": "height",
+          "encoding": "rgba8-linear",
+          "kind": "scalar",
+          "path": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788777452057080000-53759/coarse-grain/height.png",
+          "size": [
+            1024,
+            1024
+          ],
+          "source": {
+            "from": {
+              "nodeId": "height",
+              "portId": "value"
+            },
+            "source": "connected"
+          },
+          "writtenBytes": 892774
+        }
+      ],
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+      "planMatchesGolden": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.8577938079833984,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    }
+  ],
+  "contactSheets": [
+    "contact-default.png",
+    "contact-detail-min.png",
+    "contact-detail-max.png",
+    "contact-coarse-grain.png",
+    "overview.png",
+    "tiling.png"
+  ],
+  "goldenComparisonsPassed": false,
+  "humanReview": "not decided by this command; see fixture reports/human-review.json",
+  "machineChecksPassed": true,
+  "material": "leather",
+  "ok": false,
+  "policy": "hardware",
+  "remoteCi": "deferred; this is local evidence only",
+  "requested": {
+    "backend": "metal",
+    "effectiveBackends": [
+      "METAL"
+    ],
+    "powerPreference": "high-performance",
+    "requiredFeatures": [],
+    "requiredLimits": {
+      "maxAccelerationStructuresPerShaderStage": 0,
+      "maxBindGroups": 4,
+      "maxBindGroupsPlusVertexBuffers": 24,
+      "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+      "maxBindingArrayElementsPerShaderStage": 0,
+      "maxBindingArraySamplerElementsPerShaderStage": 0,
+      "maxBindingsPerBindGroup": 1000,
+      "maxBlasGeometryCount": 0,
+      "maxBlasPrimitiveCount": 0,
+      "maxBufferSize": 268435456,
+      "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+      "maxColorAttachmentBytesPerSample": 32,
+      "maxColorAttachments": 8,
+      "maxComputeInvocationsPerWorkgroup": 256,
+      "maxComputeWorkgroupSizeX": 256,
+      "maxComputeWorkgroupSizeY": 256,
+      "maxComputeWorkgroupSizeZ": 64,
+      "maxComputeWorkgroupStorageSize": 16384,
+      "maxComputeWorkgroupsPerDimension": 65535,
+      "maxDynamicStorageBuffersPerPipelineLayout": 4,
+      "maxDynamicUniformBuffersPerPipelineLayout": 8,
+      "maxImmediateSize": 0,
+      "maxInterStageShaderVariables": 16,
+      "maxMeshInvocationsPerDimension": 0,
+      "maxMeshInvocationsPerWorkgroup": 0,
+      "maxMeshMultiviewViewCount": 0,
+      "maxMeshOutputLayers": 0,
+      "maxMeshOutputPrimitives": 0,
+      "maxMeshOutputVertices": 0,
+      "maxMeshWorkgroupTotalCount": 0,
+      "maxMeshWorkgroupsPerDimension": 0,
+      "maxMultiviewViewCount": 0,
+      "maxNonSamplerBindings": 1000000,
+      "maxRayDispatchCount": 0,
+      "maxRayRecursionDepth": 0,
+      "maxSampledTexturesPerShaderStage": 16,
+      "maxSamplersPerShaderStage": 16,
+      "maxStorageBufferBindingSize": 134217728,
+      "maxStorageBuffersPerShaderStage": 8,
+      "maxStorageTexturesPerShaderStage": 4,
+      "maxTaskInvocationsPerDimension": 0,
+      "maxTaskInvocationsPerWorkgroup": 0,
+      "maxTaskPayloadSize": 0,
+      "maxTaskWorkgroupTotalCount": 0,
+      "maxTaskWorkgroupsPerDimension": 0,
+      "maxTextureArrayLayers": 256,
+      "maxTextureDimension1D": 8192,
+      "maxTextureDimension2D": 8192,
+      "maxTextureDimension3D": 2048,
+      "maxTlasInstanceCount": 0,
+      "maxUniformBufferBindingSize": 65536,
+      "maxUniformBuffersPerShaderStage": 12,
+      "maxVertexAttributes": 16,
+      "maxVertexBufferArrayStride": 2048,
+      "maxVertexBuffers": 8,
+      "minStorageBufferOffsetAlignment": 256,
+      "minUniformBufferOffsetAlignment": 256
+    },
+    "softwareAdapter": false
+  },
+  "schemaVersion": 1,
+  "size": 1024,
+  "softwareSource": null
+}

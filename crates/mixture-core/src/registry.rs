@@ -1,4 +1,4 @@
-//! Versioned M2 contracts only. Pixel execution belongs to mixture-wgpu.
+//! Versioned built-in contracts only. Pixel execution belongs to mixture-wgpu.
 
 use serde::Serialize;
 use serde_json::{Value, json};
@@ -103,8 +103,8 @@ pub struct ParameterContract {
     pub id: &'static str,
     /// JSON type and range.
     pub kind: ParameterKind,
-    /// Value for an omitted parameter.
-    pub default: ParameterDefault,
+    /// Value for an omitted parameter; None requires an explicit source value.
+    pub default: Option<ParameterDefault>,
 }
 impl ParameterContract {
     /// Check a value without coercion, clamping, or source mutation.
@@ -160,12 +160,15 @@ impl NodeContract {
         self.parameters.iter().find(|p| p.id == id)
     }
 }
-/// The six PR-005 node contracts in lexical type-ID order.
+/// The nine PR-009 node contracts in lexical type-ID order.
 pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::blend::CONTRACT,
     &crate::nodes::checker::CONTRACT,
     &crate::nodes::constant_color::CONTRACT,
     &crate::nodes::constant_scalar::CONTRACT,
+    &crate::nodes::fractal_noise::CONTRACT,
+    &crate::nodes::gradient_map::CONTRACT,
+    &crate::nodes::height_to_normal::CONTRACT,
     &crate::nodes::levels::CONTRACT,
     &crate::nodes::material_output::CONTRACT,
 ];

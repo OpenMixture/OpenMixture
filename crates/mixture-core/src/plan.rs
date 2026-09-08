@@ -139,7 +139,7 @@ pub enum PassOrigin {
         port: String,
     },
 }
-/// Four compute kernel families; material-output is a mapping, not a pixel pass.
+/// Compute kernel families; material-output is a mapping, not a pixel pass.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum KernelId {
@@ -151,6 +151,21 @@ pub enum KernelId {
     Levels,
     /// Component color blending.
     Blend,
+    /// Periodic explicitly seeded scalar noise.
+    FractalNoise,
+    /// Scalar-to-color linear gradient.
+    GradientMap,
+    /// Wrapped height derivative to encoded tangent normal.
+    HeightToNormal,
+}
+/// Fractal noise basis, independent of any backend API.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum NoiseBasis {
+    /// Quintic-interpolated periodic lattice values.
+    Value,
+    /// Gap between nearest two jittered-cell distances in a wrapped 3x3 neighborhood.
+    Cellular,
 }
 /// Supported component blend modes, matching the version 1 node contract.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -210,6 +225,35 @@ pub enum KernelInvocation {
         /// Overall opacity.
         opacity: f32,
     },
+    /// Explicit seed and bounded periodic fractal value-noise parameters.
+    FractalNoise {
+        /// All 32 bits of the source seed, never lowered through a float.
+        seed: u32,
+        /// Integer base lattice period per output tile on both axes.
+        scale: u32,
+        /// Number of octaves; each doubles the lattice period.
+        octaves: u32,
+        /// Successive octave amplitude multiplier.
+        persistence: f32,
+        /// Per-octave basis.
+        basis: NoiseBasis,
+    },
+    /// Clamped scalar input interpolated between two linear RGBA endpoints.
+    GradientMap {
+        /// Scalar input texture.
+        input: ResourceId,
+        /// Color at zero.
+        color_a: [f32; 4],
+        /// Color at one.
+        color_b: [f32; 4],
+    },
+    /// Wrapped central differences in UV units, with tangent +Y up.
+    HeightToNormal {
+        /// Scalar height texture.
+        input: ResourceId,
+        /// Height amplitude per unit UV tile; zero produces neutral normals.
+        strength: f32,
+    },
 }
 impl KernelInvocation {
     /// Exhaustive kernel identity; parameter variants cannot disagree with this ID.
@@ -219,13 +263,20 @@ impl KernelInvocation {
             Self::Checker { .. } => KernelId::Checker,
             Self::Levels { .. } => KernelId::Levels,
             Self::Blend { .. } => KernelId::Blend,
+            Self::FractalNoise { .. } => KernelId::FractalNoise,
+            Self::GradientMap { .. } => KernelId::GradientMap,
+            Self::HeightToNormal { .. } => KernelId::HeightToNormal,
         }
     }
     /// Logical input resources in binding order. Repeated bindings are preserved.
     pub fn inputs(&self) -> impl Iterator<Item = ResourceId> {
         match self {
-            Self::Constant { .. } | Self::Checker { .. } => [None, None, None],
-            Self::Levels { input, .. } => [Some(*input), None, None],
+            Self::Constant { .. } | Self::Checker { .. } | Self::FractalNoise { .. } => {
+                [None, None, None]
+            }
+            Self::Levels { input, .. }
+            | Self::GradientMap { input, .. }
+            | Self::HeightToNormal { input, .. } => [Some(*input), None, None],
             Self::Blend { a, b, mask, .. } => [Some(*a), Some(*b), Some(*mask)],
         }
         .into_iter()
@@ -234,9 +285,9 @@ impl KernelInvocation {
     /// Uniform allocation assumed by plan version 1, including struct padding.
     pub fn uniform_bytes(&self) -> u64 {
         match self {
-            Self::Constant { .. } | Self::Blend { .. } => 16,
+            Self::Constant { .. } | Self::Blend { .. } | Self::HeightToNormal { .. } => 16,
             Self::Checker { .. } => 48,
-            Self::Levels { .. } => 32,
+            Self::Levels { .. } | Self::FractalNoise { .. } | Self::GradientMap { .. } => 32,
         }
     }
 }

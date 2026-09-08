@@ -1,0 +1,8 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/xtask golden check`
+Rendering glazed-ceramic on vulkan (software), 1024x1024, 3 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/software-1788778414244186000-55339/report.json
+Rendering leather on vulkan (software), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/leather/software-1788778427431284000-55339/report.json

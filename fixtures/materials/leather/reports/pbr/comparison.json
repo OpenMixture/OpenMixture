@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "reviewSha256": "sha256:a421dd451427b5a00fb53c31fe5402fb46368b5987f154e90e5533793b3be4a0",
+  "scriptSha256": "sha256:e033eeaa8372d80e4d754ac7f3bbbd809a036d42b4e70c49cf4a36c7836f3782",
+  "pillowVersion": "12.3.0",
+  "operation": "Labeled contact sheet; Lanczos downsampling only, no relighting or retouching",
+  "outputSha256": "sha256:f69adc9e8e846d3f5cfe13d8dc6ef8ad2da937ee1fb09d16ea0bfc11639382bf",
+  "humanAcceptanceClaimed": false
+}

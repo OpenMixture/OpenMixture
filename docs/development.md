@@ -4,8 +4,8 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-007 and PR-008 tooling/material machine gates from [the implementation train](../INITIAL_PRS.md). PR-008 human visual acceptance remains open; see [material goldens](./material-goldens.md).
-It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [six node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Six-node graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
+This repository implements PR-001 through PR-008 locally and the PR-009 leather slice from [the implementation train](../INITIAL_PRS.md). Ceramic appearance is accepted; leather appearance is accepted by the user. See [material goldens](./material-goldens.md).
+It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [nine node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Nine-node graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
 
@@ -60,7 +60,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-008 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
+At PR-009 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -92,3 +92,5 @@ Unimplemented runtime modules in the agent guide remain a future ownership map. 
 Implemented core modules are [document decoding](../crates/mixture-core/src/document.rs), [validation](../crates/mixture-core/src/validation.rs), [registry](../crates/mixture-core/src/registry.rs), [node contracts](../crates/mixture-core/src/nodes/), [diagnostics](../crates/mixture-core/src/error.rs), and [limits](../crates/mixture-core/src/limits.rs). The [Rust diagnostics example](../crates/mixture-core/examples/diagnostics.rs) and crate doctests exercise public APIs.
 
 PR-006 adds [the compiler](../crates/mixture-core/src/compiler.rs), [normalization and lowering](../crates/mixture-core/src/compiler/), [typed plan API](../crates/mixture-core/src/plan.rs), and [CLI inspect](../crates/mixture-cli/src/commands/inspect.rs). Plan snapshots live beside core tests; PR-007 [graph rendering](./graph-rendering.md) adds the executor, resources, kernel mapping/cache, and CLI render without new dependencies.
+
+PR-009 adds no dependency or lockfile change. Run `test-node fractal-noise`, `test-node gradient-map`, `test-node height-to-normal` and `test-material leather` through `cargo xtask`; [leather review](../fixtures/materials/leather/review/README.md) is an optional external Blender consumer, not a Rust runtime dependency.

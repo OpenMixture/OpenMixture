@@ -1,0 +1,618 @@
+{
+  "schemaVersion": 1,
+  "node": "fractal-noise",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            149,
+            149,
+            149,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            162,
+            162,
+            162,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            149,
+            149,
+            149,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "golden": {
+        "channel": "height",
+        "file": "defaults-129x65.rgba",
+        "hardwareTolerance": 1
+      }
+    },
+    {
+      "id": "seed-zero",
+      "overrides": {
+        "seed": 0
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            147,
+            147,
+            147,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            115,
+            115,
+            115,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            147,
+            147,
+            147,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "seed-max",
+      "overrides": {
+        "seed": 4294967295
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            156,
+            156,
+            156,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            90,
+            90,
+            90,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            155,
+            155,
+            155,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "minimum",
+      "overrides": {
+        "scale": 1,
+        "octaves": 1,
+        "persistence": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            209,
+            209,
+            209,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "maximum",
+      "overrides": {
+        "scale": 128,
+        "octaves": 6,
+        "persistence": 1
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            114,
+            114,
+            114,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            5,
+            4
+          ],
+          "rgba": [
+            149,
+            149,
+            149,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            99,
+            99,
+            99,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "cellular",
+      "overrides": {
+        "basis": "cellular"
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            52,
+            52,
+            52,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            62,
+            62,
+            62,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            44,
+            44,
+            44,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "golden": {
+        "channel": "height",
+        "file": "cellular-129x65.rgba",
+        "hardwareTolerance": 1
+      }
+    },
+    {
+      "id": "first-octave",
+      "overrides": {
+        "octaves": 1
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            209,
+            209,
+            209,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            213,
+            213,
+            213,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            209,
+            209,
+            209,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "zero-persistence",
+      "overrides": {
+        "persistence": 0
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            209,
+            209,
+            209,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            213,
+            213,
+            213,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            209,
+            209,
+            209,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "cellular-minimum",
+      "overrides": {
+        "basis": "cellular",
+        "scale": 1,
+        "octaves": 1,
+        "persistence": 0,
+        "seed": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            205,
+            205,
+            205,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    },
+    {
+      "id": "cellular-maximum",
+      "overrides": {
+        "basis": "cellular",
+        "scale": 128,
+        "octaves": 6,
+        "persistence": 1,
+        "seed": 4294967295
+      },
+      "size": [
+        17,
+        9
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            101,
+            101,
+            101,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            5,
+            4
+          ],
+          "rgba": [
+            36,
+            36,
+            36,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            84,
+            84,
+            84,
+            255
+          ],
+          "tolerance": 1
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {},
+      "code": "MIX_PARAMETER_INVALID_VALUE",
+      "source": "missing-seed.mix"
+    },
+    {
+      "overrides": {
+        "seed": -1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "seed": 4294967296
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "seed": 1.0
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "scale": 0
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "scale": 129
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "octaves": 0
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "octaves": 7
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "persistence": -0.1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "persistence": 1.01
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "basis": "simplex"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

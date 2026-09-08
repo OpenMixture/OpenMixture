@@ -1,0 +1,53 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask test-format`
+cargo test --locked -p mixture-core --test format --test validation --test registry
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.25s
+     Running tests/format.rs (target/debug/deps/format-716c99f6c7921042)
+
+running 7 tests
+test format_byte_limit_is_checked_before_utf8_or_json_and_accepts_equality ... ok
+test format_rejects_duplicate_keys_at_every_object_boundary ... ok
+test format_rejects_invalid_utf8_json_trailing_data_and_nonfinite_numbers ... ok
+test format_numeric_parameters_do_not_drift_during_serialization_round_trips ... ok
+test format_round_trip_is_canonical_without_mutation_or_default_insertion ... ok
+test format_rejects_unknown_fields_missing_fields_and_wrong_structural_types ... ok
+test format_collection_limits_stop_before_constructing_an_extra_item ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/registry.rs (target/debug/deps/registry-36632d8f4870355e)
+
+running 1 test
+test registry_has_exactly_nine_version_one_contracts_with_valid_defaults_and_explicit_seed ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/validation.rs (target/debug/deps/validation-0eb19709c5cc4dff)
+
+running 9 tests
+test validation_rechecks_constructed_documents_and_explicit_collection_limits ... ok
+test validation_requires_one_material_output_and_valid_required_inputs ... ok
+test validation_cycles_are_deterministic_and_do_not_mislabel_downstream_nodes ... ok
+test validation_all_m2_contracts_and_material_defaults_are_available_without_gpu ... ok
+test validation_rejects_duplicate_invalid_unknown_and_unsupported_nodes ... ok
+test validation_rejects_edge_identity_cardinality_endpoints_directions_and_kinds ... ok
+test validation_exposed_bindings_require_unique_names_unique_targets_and_mutable_parameters ... ok
+test validation_reports_are_stable_under_all_source_collection_orders_and_do_not_repair ... ok
+test validation_checks_parameter_shapes_ranges_defaults_and_relations ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+cargo test --locked -p mixture-cli --test validate
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+     Running tests/validate.rs (target/debug/deps/validate-9501c9bee0367e63)
+
+running 4 tests
+test validate_cli_success_is_structured_and_source_is_never_changed ... ok
+test validate_cli_distinguishes_file_io_from_invalid_bytes_and_oversized_input ... ok
+test validate_cli_rejects_bad_usage_and_supports_options_and_dash_paths ... ok
+test validate_cli_fixture_failures_keep_codes_paths_and_input_exit_status ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s
+

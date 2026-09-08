@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "kind": "external-pbr-appearance-review",
+  "material": "leather",
+  "baselineManifestSha256": "sha256:851fbc73d7217b1af42732364dea5af7d3ccf0971181161435150cec8a402d14",
+  "inputs": {
+    "coarse-grain/baseColor.png": "sha256:93c9610a0ea7e420c8efc9899672fa7c534760a5f7c2f602b3aaa39c0487ca5a",
+    "coarse-grain/height.png": "sha256:15ec2a0ec849e583eae55b20aef4ac40b2d5ef1acf72ed649028bde51e234c2f",
+    "coarse-grain/normal.png": "sha256:1899a557568c9c39f89532fe2b7c9809609ef7669c8f9a2d44959d5288f725a2",
+    "coarse-grain/roughness.png": "sha256:f20d2f17b86cd4e3ced8611f20102b26276b1e69fbaa1130c3199841cc110119",
+    "default/baseColor.png": "sha256:f457177316916bdc6639145720e211072b04e588ad65aacfcd4c1f2569d310ab",
+    "default/height.png": "sha256:0d8ede05f8304f1a292ebcf48ac26506b86293f18f8c07a0fa313df84ce2b6bb",
+    "default/normal.png": "sha256:b303d7445d5e73d9a8edb0f1790aaa0d64a8ca9feb66515a6b0954a150c57c1a",
+    "default/roughness.png": "sha256:71fa372a505cd06225c46648ca1e1c2a0617143322af560bc7fd69edef4047c1",
+    "detail-max/baseColor.png": "sha256:f7790806cab7a3ce37ea5dd58afd0390c517ec037cc9fa67a808ac4ce326f47b",
+    "detail-max/height.png": "sha256:81d9dca4e7d450a3e11806e3d8368c0138bb16f3d5f1d0319a8c453ba11cba85",
+    "detail-max/normal.png": "sha256:2fdbb9ed2ea24de0aec6d6fdb53493a1030be4eeaa50fb4bb002813cdbcd61f6",
+    "detail-max/roughness.png": "sha256:bfe583ba1f13a0548f7f83b5a3e21218b468b15e2ead8340810f1ee5b4739481",
+    "detail-min/baseColor.png": "sha256:2bb82f48d6509aff80bf2d31dde26e51cb314907d1479a0e27fc409565b1fa04",
+    "detail-min/height.png": "sha256:fec8ddfd383209b25e5376b216ee13d552add360aeaf227e31c88a140e51e0a0",
+    "detail-min/normal.png": "sha256:5ede03d7b2282701d2edba90ed88f9f99cd4473d1c2e44b30b5776455d106364",
+    "detail-min/roughness.png": "sha256:4e93819af7da78a087d0eab1d464de0a8b280798c5c8010c039f71c7a30f6b8b"
+  },
+  "sceneScriptSha256": "sha256:3fa7c1360a30c6d7a012588357daa9583e67aee8bc3a36180827656e5b9313ac",
+  "sceneHelperSha256": "sha256:e81abb09e861bdc88ce07bba00a7b3c9e411b2443f67466332dbca21619f0ad2",
+  "sceneHelper": "../../glazed-ceramic/review/render.py",
+  "blenderVersion": "4.5.13 LTS",
+  "blenderBuildHash": "daeeeca98fb0",
+  "engine": "CYCLES",
+  "requestedDevice": "METAL",
+  "selectedDevices": [
+    {
+      "name": "Apple M5 (GPU - 10 cores)",
+      "type": "METAL",
+      "id": "METAL_Apple M5 (GPU - 10 cores)"
+    }
+  ],
+  "samples": 512,
+  "seed": 8,
+  "denoising": false,
+  "adaptiveSampling": false,
+  "size": [
+    1000,
+    1000
+  ],
+  "view": {
+    "transform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0
+  },
+  "brdf": {
+    "model": "Principled BSDF",
+    "ior": 1.5,
+    "metallic": 0,
+    "coat": 0
+  },
+  "channelUse": {
+    "baseColor": "sRGB -> Base Color",
+    "roughness": "Non-Color -> Roughness, no remap",
+    "normal": "Non-Color -> tangent Normal Map -> Principled Normal, strength 1",
+    "height": "Loaded as Non-Color for inspection; no extra bump or displacement because normal already derives from height"
+  },
+  "geometry": "UV sphere and one-repeat planar swatch on neutral rounded backing; all consumer geometry, no generated relief",
+  "controlledComparison": "Same camera, lights, geometry, BRDF, exposure and sampling for every case; only verified PNG inputs change",
+  "scope": "Supplementary appearance evidence, not a Mixture texture executor, material golden, runtime dependency, or M4 acceptance",
+  "humanAcceptanceClaimed": false,
+  "results": {
+    "detail-min": {
+      "file": "detail-min.png",
+      "sha256": "sha256:f28161f648c8efe6923d37446233a4ffb389501af3eb4bcae9dbde6e777490c9",
+      "renderWallSeconds": 13.287752958996862
+    },
+    "default": {
+      "file": "default.png",
+      "sha256": "sha256:0c4f017ca926525d1eb49dcaa33549d789cc1c703fa64f052152fd0c611227af",
+      "renderWallSeconds": 11.145126250004978
+    },
+    "detail-max": {
+      "file": "detail-max.png",
+      "sha256": "sha256:4f357cb262ba2dd25723765804a34859a3e1ad347779f7afb07bf323cbc2917a",
+      "renderWallSeconds": 11.113707458003773
+    },
+    "coarse-grain": {
+      "file": "coarse-grain.png",
+      "sha256": "sha256:16950a548f7b6681fc8ad3afd123d56f933a65e749161cd8bda6830ee4494764",
+      "renderWallSeconds": 11.108381500001997
+    }
+  }
+}

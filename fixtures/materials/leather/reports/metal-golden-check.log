@@ -1,0 +1,9 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/xtask golden check`
+Rendering glazed-ceramic on metal (hardware), 1024x1024, 3 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/hardware-1788778414233679000-55340/report.json
+Rendering leather on metal (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788778427345316000-55340/report.json

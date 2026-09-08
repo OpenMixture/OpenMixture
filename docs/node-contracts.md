@@ -1,4 +1,4 @@
-# M2 node contracts, version 1
+# Built-in node contracts, version 1
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
@@ -6,7 +6,7 @@ PR-005 registers six static contracts in [mixture-core](../crates/mixture-core/s
 
 ## Common rules
 
-All six node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. No node requires a seed because none is randomized.
+All nine node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
@@ -102,3 +102,43 @@ cargo xtask test-format
 These tests validate contracts without a GPU. The existing fixed checker golden is unchanged. PR-007 [node fixtures](../fixtures/nodes/README.md) and `test-node` now verify actual graph pixels; no additional pixel golden is claimed.
 
 PR-006 [typed lowering](./render-plan.md) maps these source contracts to Constant, Checker, Levels, and Blend invocations; material-output remains a mapping. Constants also materialize optional defaults. This adds no source node type. PR-007 implements the exhaustive GPU mapping and pixel tests.
+
+## PR-009 additions
+
+PR-009 adds three contracts and three WGSL kernels, bringing the catalog to nine nodes and the renderer cache bound to seven pipelines. The existing six contracts, M2 plan snapshots and checker goldens are unchanged. `ParameterContract::default` is now `Option<ParameterDefault>`: `None` means required in the source. This is an intentional pre-publication Rust API change; downstream callers must handle `None`. Existing defaults remain `Some`, and missing seed reports `MIX_PARAMETER_INVALID_VALUE` with node/parameter evidence. The `.mix v1` shape is unchanged; adding versioned node types is additive.
+
+### fractal-noise
+
+[Contract](../crates/mixture-core/src/nodes/fractal_noise.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl), [fixtures](../fixtures/nodes/fractal-noise/README.md). No inputs; output `value: Scalar`.
+
+| Parameter | Type / range | Default |
+| --- | --- | --- |
+| `seed` | Integer `[0, 4294967295]` | Required; no default |
+| `scale` | Integer `[1, 128]` | `8` |
+| `octaves` | Integer `[1, 6]` | `4` |
+| `persistence` | Float `[0, 1]` | `0.5` |
+| `basis` | Enum `value`, `cellular` | `value` |
+
+Sample at pixel-center UV `(x+0.5, y+0.5)/(width,height)`, with image v down. Each octave doubles the integer lattice period, multiplies its amplitude by persistence, and derives its own u32 seed. Divide the weighted sum by total amplitude and clamp to `[0,1]`. Persistence zero equals one octave. The full u32 seed is uploaded as an integer, never through f32.
+
+The single WGSL uses a documented wrapping u32 avalanche hash (multipliers `0x7feb352d`, `0x846ca68b`) and the upper 24 bits scaled by `2^-24`. Cell identity wraps modulo the octave period. Value noise interpolates four lattice values using quintic fade. Cellular uses one site in each cell's central 60%, independent X/Y jitter, and the clamped difference between second and first nearest distances in a bounded 3×3 neighborhood. This is the defined local cellular field, not an unbounded nearest-site search. It produces grain interiors separated by dark valleys.
+
+Both bases repeat over one UV tile. Adjacent border pixels need not match; they are distinct pixel-center samples. Cellular gradients have cell-boundary cusps. There is no antialiasing: high scale/octaves can undersample at small resolutions. Arithmetic is f32 and storage is f16; exact software baselines and explicit hardware tolerance cover the final RGBA8 result, not universal cross-driver float identity. The WGSL is the sole pixel formula.
+
+### gradient-map
+
+[Contract](../crates/mixture-core/src/nodes/gradient_map.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl), [fixtures](../fixtures/nodes/gradient-map/README.md). Required input `in: Scalar`; output `color: Color`. Parameters `colorA` and `colorB` are straight linear RGBA in `[0,1]`, default opaque black and white. Interpolate all four components with `clamp(in,0,1)`; convert color RGB to sRGB only on output encoding. This is a two-endpoint ramp, with no stops or hidden color-space conversion. Tiling follows the input; f32 interpolation and f16 storage apply.
+
+### height-to-normal
+
+[Contract](../crates/mixture-core/src/nodes/height_to_normal.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl), [fixtures](../fixtures/nodes/height-to-normal/README.md). Required input `in: Scalar`; output `normal: Normal`. `strength` is Float `[0,8]`, default `1`.
+
+Read wrapped left/right/up/down neighbors. `du = (right-left)*width/2`, `dv = (down-up)*height/2`; encode `normalize(-strength*du, +strength*dv, 1)*0.5+0.5` with alpha 1. Image u points right and v down; tangent X points right and Y up (OpenGL convention). Derivatives are per UV unit, so the same resolved surface has comparable strength at different resolutions. This does not correct undersampling. Strength zero or a constant input gives neutral normal; a one- or two-texel axis has identical central neighbors and zero derivative. Wrapped neighbors preserve periodic input semantics, including legitimate boundary slopes. Strong/high-frequency inputs can approach grazing normals; quantized nearly neutral components require care in downstream measurements.
+
+```bash
+cargo xtask test-node fractal-noise
+cargo xtask test-node gradient-map
+cargo xtask test-node height-to-normal
+```
+
+The normal tests feed literal half-float horizontal/vertical ramps directly through the production shader at rectangular sizes to establish wrap, Y sign, UV scaling and zero strength. They do not implement a CPU normal renderer. The [leather fixture](../fixtures/materials/leather/README.md) exercises all three additions as a material consumer.

@@ -81,7 +81,7 @@ fn validation_rejects_duplicate_invalid_unknown_and_unsupported_nodes() {
         .contains(&Code::NodeDuplicateId)
     );
     assert!(
-        codes(&changed(|v| v["nodes"][0]["type"] = json!("fractal-noise")))
+        codes(&changed(|v| v["nodes"][0]["type"] = json!("transform-2d")))
             .contains(&Code::NodeUnknownType)
     );
     let unsupported = changed(|v| {

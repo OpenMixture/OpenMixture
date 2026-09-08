@@ -195,9 +195,17 @@ pub(super) fn policy() -> TaskResult<(String, String)> {
 pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
     if !matches!(
         node,
-        "constant-scalar" | "constant-color" | "checker" | "levels" | "blend" | "material-output"
+        "constant-scalar"
+            | "constant-color"
+            | "checker"
+            | "levels"
+            | "blend"
+            | "material-output"
+            | "fractal-noise"
+            | "gradient-map"
+            | "height-to-normal"
     ) {
-        return Err(format!("unknown M2 node test: {node}").into());
+        return Err(format!("unknown node test: {node}").into());
     }
     let (backend, software) = policy()?;
     run_cargo(

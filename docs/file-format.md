@@ -49,7 +49,7 @@ The [checker example](../examples/checker.mix) is a minimal complete material:
 | Endpoint | `nodeId`: string; `portId`: string | None |
 | Exposed parameter | `id`: public string ID; `nodeId`: target; `parameterId`: mutable parameter | None |
 
-Node and public parameter IDs match `[A-Za-z][A-Za-z0-9_-]{0,63}`. Node IDs and public IDs have separate namespaces and must each be unique. Type, port, and parameter IDs are exact, case-sensitive strings from the [six node contracts](./node-contracts.md). All fields above use their exact spellings.
+Node and public parameter IDs match `[A-Za-z][A-Za-z0-9_-]{0,63}`. Node IDs and public IDs have separate namespaces and must each be unique. Type, port, and parameter IDs are exact, case-sensitive strings from the [nine node contracts](./node-contracts.md). All fields above use their exact spellings.
 
 Unknown fields are rejected at every object boundary, including layout, metadata, thumbnails, presets, resources, subgraphs, export targets, and arbitrary WGSL. Duplicate JSON keys are rejected, even if values agree or keys use equivalent JSON escapes. This includes nested parameter objects; invalid parameter shapes are retained only to report semantic type errors. No last-key-wins interpretation is allowed.
 
@@ -110,3 +110,7 @@ Existing code spellings and stage order remain unchanged. PR-005 adds these code
 Existing UTF-8/JSON/version/limit/node/port/parameter/cycle codes handle their corresponding failures. Parse errors retain native source, line/column where supplied by the parser, and selected source text. Semantic diagnostics identify node, port, parameter, public ID, counts, or cycle path as applicable.
 
 [Format fixtures](../fixtures/format/README.md) include a two-node checker, all six M2 contracts, and focused invalid documents. Tests cover strict syntax/schema, duplicate escapes, deep nesting, byte/collection boundaries, explicit limits, float round trips, defaults, graph order permutations, exact cycle evidence, CLI exit codes, bounded reads, and unchanged source files. `cargo xtask test-format` runs core format/validation/registry tests and CLI validation tests; `cargo xtask test-core` runs the entire GPU-free core suite. Remote cross-platform CI still needs its actual run.
+
+## Additive PR-009 catalog extension
+
+The document JSON shape remains `.mix v1`; existing documents retain their meaning and need no migration. Three new version-1 node types are described in [node contracts](./node-contracts.md). Only `fractal-noise.seed` has no parameter default: it must be an explicit unsigned integer token in the source, from 0 through 4294967295. Missing seed returns `MIX_PARAMETER_INVALID_VALUE` with parameter evidence, including for unused nodes. Decoding, deterministic serialization and old source/plan fixtures remain unchanged.

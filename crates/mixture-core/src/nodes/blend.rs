@@ -32,12 +32,12 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
             kind: ParameterKind::Enum {
                 values: &["normal", "multiply", "screen"],
             },
-            default: ParameterDefault::Enum("normal"),
+            default: Some(ParameterDefault::Enum("normal")),
         },
         ParameterContract {
             id: "opacity",
             kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-            default: ParameterDefault::Float(1.0),
+            default: Some(ParameterDefault::Float(1.0)),
         },
     ],
 };

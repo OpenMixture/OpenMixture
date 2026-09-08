@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "noise",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 1337
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "noise",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "seed",
+      "nodeId": "noise",
+      "parameterId": "seed"
+    },
+    {
+      "id": "scale",
+      "nodeId": "noise",
+      "parameterId": "scale"
+    },
+    {
+      "id": "octaves",
+      "nodeId": "noise",
+      "parameterId": "octaves"
+    },
+    {
+      "id": "persistence",
+      "nodeId": "noise",
+      "parameterId": "persistence"
+    },
+    {
+      "id": "basis",
+      "nodeId": "noise",
+      "parameterId": "basis"
+    }
+  ]
+}

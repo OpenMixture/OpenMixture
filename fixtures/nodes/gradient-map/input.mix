@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "scalar",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "gradient",
+      "type": "gradient-map",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "scalar",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "gradient",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "gradient",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "input",
+      "nodeId": "scalar",
+      "parameterId": "value"
+    },
+    {
+      "id": "colorA",
+      "nodeId": "gradient",
+      "parameterId": "colorA"
+    },
+    {
+      "id": "colorB",
+      "nodeId": "gradient",
+      "parameterId": "colorB"
+    }
+  ]
+}

@@ -14,22 +14,22 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
         ParameterContract {
             id: "cellsX",
             kind: ParameterKind::Integer { min: 1, max: 1024 },
-            default: ParameterDefault::Integer(8),
+            default: Some(ParameterDefault::Integer(8)),
         },
         ParameterContract {
             id: "cellsY",
             kind: ParameterKind::Integer { min: 1, max: 1024 },
-            default: ParameterDefault::Integer(8),
+            default: Some(ParameterDefault::Integer(8)),
         },
         ParameterContract {
             id: "colorA",
             kind: ParameterKind::Color,
-            default: ParameterDefault::Color([0.0, 0.0, 0.0, 1.0]),
+            default: Some(ParameterDefault::Color([0.0, 0.0, 0.0, 1.0])),
         },
         ParameterContract {
             id: "colorB",
             kind: ParameterKind::Color,
-            default: ParameterDefault::Color([1.0, 1.0, 1.0, 1.0]),
+            default: Some(ParameterDefault::Color([1.0, 1.0, 1.0, 1.0])),
         },
     ],
 };

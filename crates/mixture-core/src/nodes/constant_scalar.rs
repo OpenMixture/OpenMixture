@@ -13,6 +13,6 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
     parameters: &[ParameterContract {
         id: "value",
         kind: ParameterKind::Float { min: 0.0, max: 1.0 },
-        default: ParameterDefault::Float(0.0),
+        default: Some(ParameterDefault::Float(0.0)),
     }],
 };

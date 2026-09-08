@@ -11,6 +11,10 @@ PR-007 provides defaults, boundaries, nontrivial pixels, and invalid inputs for 
 - [blend](./blend/README.md)
 - [material-output](./material-output/README.md)
 
-Each directory has readable `.mix` input and a `cases.json` manifest. Fixed RGBA8 sample coordinates/values include their tolerance; invalid cases specify a stable diagnostic code. Public-contract validation runs without a GPU; `cargo xtask test-node <id>` explicitly runs the selected node's GPU cases. Smoke runs all of them and records actual adapter/plan evidence. None is randomized.
+Each directory has readable `.mix` input and a `cases.json` manifest. Fixed RGBA8 sample coordinates/values include their tolerance; invalid cases specify a stable diagnostic code. Public-contract validation runs without a GPU; `cargo xtask test-node <id>` explicitly runs the selected node's GPU cases. Smoke runs all of them and records actual adapter/plan evidence. PR-009 adds explicit seeded noise and its color/normal consumers:
 
 The existing [checker PNG/raw golden](./checker/README.md) and SwiftShader provenance are unchanged. No test command overwrites pixel baselines. See [graph execution and evidence](../../docs/graph-rendering.md), [node workflow](../../AGENTS.md), and [implementation train](../../INITIAL_PRS.md).
+
+- [fractal-noise](./fractal-noise/README.md)
+- [gradient-map](./gradient-map/README.md)
+- [height-to-normal](./height-to-normal/README.md)

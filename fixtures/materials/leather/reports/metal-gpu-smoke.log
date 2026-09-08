@@ -1,0 +1,4 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask gpu-smoke`
+Running checker GPU smoke (backend=metal, software=0)
+GPU checker and graph smoke passed: "Apple M5" ("IntegratedGpu", "Metal"); doctor healthy; golden exact. Evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke

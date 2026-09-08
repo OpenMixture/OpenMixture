@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "grain",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 271828,
+        "scale": 64,
+        "octaves": 3,
+        "persistence": 0.35,
+        "basis": "cellular"
+      }
+    },
+    {
+      "id": "height",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 0.6,
+        "gamma": 1.6
+      }
+    },
+    {
+      "id": "color",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": [
+          0.025,
+          0.011,
+          0.006,
+          1
+        ],
+        "colorB": [
+          0.09,
+          0.039,
+          0.019,
+          1
+        ]
+      }
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "parameters": {
+        "strength": 0.002
+      }
+    },
+    {
+      "id": "roughness",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "outputMin": 0.76,
+        "outputMax": 0.52
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "grain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "height",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "color",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "roughness",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "roughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "seed",
+      "nodeId": "grain",
+      "parameterId": "seed"
+    },
+    {
+      "id": "grainScale",
+      "nodeId": "grain",
+      "parameterId": "scale"
+    },
+    {
+      "id": "detail",
+      "nodeId": "grain",
+      "parameterId": "persistence"
+    }
+  ]
+}

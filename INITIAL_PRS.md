@@ -544,6 +544,8 @@ cargo xtask check
 
 ## PR-009 — `feat(materials): add the noise-to-normal pipeline and leather golden`
 
+**Repository status:** Implemented locally: three contracts/kernels, required u32 seed, focused fixtures, five-pass 1K leather with three exposed parameters and detail min/default/max plus coarse-grain cases. Pinned SwiftShader and Metal node/material/smoke evidence, protected first baselines, spatial/normal causality and controlled PBR views are recorded. Human acceptance of leather is recorded; remote CI is deferred and M3 remains open. See [leather evidence](./fixtures/materials/leather/README.md).
+
 ### Goal
 
 Prove micro-surface material behavior without expanding beyond the minimum required nodes.
