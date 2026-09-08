@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011–015](./M4_PRS.zh-CN.md)已规划，实施将从独立公开 Rust 消费路径开始。远端 CI 继续暂缓。
+**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011](./M4_PRS.zh-CN.md)现已验证[独立公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)，包括自有 GPU 输出与 renderer 复用测量；PR-012–015 仍待实施。远端 CI 继续暂缓。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -21,7 +21,7 @@ cargo xtask check
 cargo run --locked -p mixture-cli -- --help
 ```
 
-仓库固定使用 Rust 1.98.1 / edition 2024，并包含 `Cargo.lock`。检查覆盖格式、依赖边界、Clippy、测试、rustdoc 和本地文档链接，无需 GPU。所有已实现命令和平台前置条件见[开发指南](./docs/development.zh-CN.md)。
+仓库固定使用 Rust 1.98.1 / edition 2024，并包含 `Cargo.lock`。检查覆盖格式、依赖边界、Clippy、工作区及独立消费者测试、rustdoc 和本地文档链接，无需 GPU。所有已实现命令和平台前置条件见[开发指南](./docs/development.zh-CN.md)。
 
 核心现已提供[诊断与安全限制 API](./docs/diagnostics.zh-CN.md)，包含强类型错误、确定性 JSON 报告和七类显式资源上限。可通过 `cargo run --locked -p mixture-core --example diagnostics` 运行公共示例。
 

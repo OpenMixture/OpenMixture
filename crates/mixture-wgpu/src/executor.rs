@@ -109,7 +109,8 @@ impl Renderer {
             cache: PipelineCache::default(),
         }
     }
-    /// Read-only access to context ownership and acquisition evidence.
+    /// Borrow context ownership and acquisition evidence.
+    /// Its raw wgpu escape hatches can still mutate shared device state.
     pub fn context(&self) -> &GpuContext {
         &self.context
     }
@@ -124,6 +125,9 @@ impl Renderer {
     /// Execute an immutable compiler-produced plan and read only requested channels.
     /// All per-call allocations are released on success or failure. Each native wait
     /// is bounded to 30 seconds. This is a native headless API, not a browser API.
+    /// Although expressed as a future, native device polling may block its thread.
+    /// Consumers needing a responsive event loop should own the renderer on their
+    /// explicitly managed worker. This method does not promise cancellation.
     pub async fn render(&mut self, plan: &RenderPlan) -> Result<RenderOutput, GpuOperationError> {
         if plan.version() != PLAN_VERSION {
             return Err(GpuOperationError::at(

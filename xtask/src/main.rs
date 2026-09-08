@@ -1,5 +1,6 @@
 //! Private repository automation. No material or rendering semantics belong here.
 
+mod consumer;
 mod dependencies;
 mod golden;
 mod gpu_smoke;
@@ -17,19 +18,20 @@ type TaskResult<T = ()> = Result<T, Box<dyn Error>>;
 const HELP: &str = "Usage: cargo xtask <command>
 
 Available repository commands:
-  check       Format, dependency policy, Clippy, tests, rustdoc, and local doc links
+  check       Format, dependency policy, Clippy, tests, consumer, rustdoc, and doc links
   fmt         Check Rust formatting
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
   test-core   Run only mixture-core tests (no GPU)
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
+  test-consumer Check the independent public Rust consumer without acquiring a GPU
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   trace-2k    Rank all M3 material cases and measure the largest at 2048 on a GPU
-  gpu-smoke   Run checker golden, three graph examples, and all GPU regressions
+  gpu-smoke   Run checker golden, graph examples, native consumer, and GPU regressions
   shader-check Validate every built-in WGSL kernel and its uniform ABI without a GPU
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
@@ -73,13 +75,21 @@ fn run() -> TaskResult {
         "--help" | "-h" | "help" => println!("{HELP}"),
         "trace-2k" => golden::trace::run(&root)?,
         "check" => {
-            for task in ["fmt", "deps", "clippy", "test", "doc", "links"] {
+            for task in [
+                "fmt",
+                "deps",
+                "clippy",
+                "test",
+                "test-consumer",
+                "doc",
+                "links",
+            ] {
                 run_task(&root, task)?;
             }
             println!("All repository checks passed.");
         }
         "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
-        | "shader-check" | "test-format" | "test-plan" => {
+        | "shader-check" | "test-format" | "test-plan" | "test-consumer" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -192,6 +202,7 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
             )
         }
         "test-core" => run_cargo(root, &["test", "-p", "mixture-core", "--locked"], false),
+        "test-consumer" => consumer::check(root),
         "doc" => run_cargo(
             root,
             &[

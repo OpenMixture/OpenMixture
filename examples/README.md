@@ -23,3 +23,5 @@ cargo run --locked -p mixture-cli -- render examples/blend.mix --size 256 \
 Files use deterministic `<channel>.png` names. Color output is sRGB; scalar and encoded-normal output is linear. Requesting only roughness in blend prunes the color/levels branch and executes one constant pass. The examples establish graph execution, not realistic material quality.
 
 The separate `render-builtin checker`/doctor probe does not read a `.mix`; it shares the checker shader and dispatch path. See [graph rendering](../docs/graph-rendering.md), [format](../docs/file-format.md), [contracts](../docs/node-contracts.md), and [development](../docs/development.md).
+
+The [independent Rust consumer](./native-consumer/README.md) owns a separate Cargo workspace and input. Run `cargo xtask test-consumer` for CPU/public-API checks; `gpu-smoke` also executes its explicit GPU path and consumes returned pixels after renderer drop.

@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/mixture render examples/levels.mix --size 64 --output baseColor,normal,roughness --out tmp/gpu-smoke/graph-levels --json --backend vulkan --software`

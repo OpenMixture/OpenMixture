@@ -4,7 +4,7 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011–015](../M4_PRS.md) are planned; their proposed `test-consumer` and `package-check` commands are not implemented. Remote CI remains deferred.
+This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012–015 and `package-check` remain planned. Remote CI remains deferred.
 It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [eleven node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
@@ -19,6 +19,7 @@ cargo xtask test
 cargo xtask test-core
 cargo xtask test-format
 cargo xtask test-plan
+cargo xtask test-consumer
 cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --json
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
 cargo xtask doc
@@ -52,8 +53,9 @@ The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Every n
 2. The current dependency policy against `cargo metadata`.
 3. Clippy on all workspace targets and features with warnings denied.
 4. Workspace tests, including CLI integration tests, tooling tests, and doctests.
-5. Workspace rustdoc with warnings denied.
-6. Basic offline Markdown links to existing local files and directories.
+5. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and CPU invocation from an unrelated directory.
+6. Workspace rustdoc with warnings denied.
+7. Basic offline Markdown links to existing local files and directories.
 
 Every failed subprocess fails the enclosing check. Checks do not rewrite sources, fixtures, or baselines. Markdown parsing handles inline links, reference links, and images while ignoring code examples; external URLs, heading anchors, raw HTML links, and percent-encoded local paths are outside this basic check. Use ordinary relative paths, or angle brackets for paths with spaces. Build/output directories are excluded from discovery.
 
@@ -61,7 +63,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-010 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
+At PR-011 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -74,13 +76,17 @@ Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promote
 
 [The dependency check](../xtask/src/dependencies.rs) enforces the four-crate boundary, dual license metadata, disabled publication, and this direct-dependency allowlist. It is an architecture/scope check, not a vulnerability database or transitive license audit. Expand the policy with a dependency's owning implementation PR and explain why the new dependency is necessary; retain the direction required by [ARCHITECTURE.md](../ARCHITECTURE.md).
 
+The [native consumer](../examples/native-consumer/Cargo.toml) is a separate one-package workspace with its own committed lockfile; `test-consumer` checks that boundary without adding a fifth member to the product workspace. It uses source-path `mixture-core`/`mixture-wgpu`, plus exactly pinned `pollster` and `serde_json` versions already used by the producer. The product lockfile and dependency policy are unchanged. Path dependency verification does not prove package contents.
+
 ## CLI behavior and later work
 
 The executable is named `mixture`. Help/version return `0`. `doctor` verifies actual checker compute/readback and returns `0` with `healthy`; explicit `--skip-probe` returns `unverified`. Acquisition/probe failures return `1` with `unhealthy`. `render-builtin checker` returns `0` after writing PNG, `1` for operational failure, or `2` for invalid dimensions/budgets. JSON mode writes one report to stdout; human mode includes the same policy and capability evidence. `validate` returns `0` for valid source, `2` for invalid input, and `1` for file/report I/O failure; it never initializes a GPU. `inspect --plan` returns `0` for compilation, `2` for invalid source/request, or `1` for file/report I/O failure; it also needs no GPU. `render` compiles before GPU acquisition and returns `0` after all requested PNGs, `2` for invalid source/request, and `1` for GPU/encoding/I/O failure. Invalid options and missing commands return `2` on stderr. Output I/O failures return `1`. See [doctor usage](./gpu-context.md) and the [shared exit policy](./diagnostics.md).
 
 `test-format` runs core format/validation/registry tests and CLI validation tests. `test-plan` runs core plan/hash tests and CLI inspection tests. `test-node <id>` validates fixtures and explicitly runs the selected GPU node cases. `test-material <id>` and `golden check` now render explicit GPU cases and compare material gates without changing baselines. `golden update <id> --accept` separately consumes a reviewed software candidate and refuses CI; see [the complete workflow](./material-goldens.md).
 
-`gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
+`test-consumer` saves separate build/test/CPU reports and an invalidated-then-completed status under `tmp/consumer-check/`. It compiles the full GPU call path and native `Send` bounds, but does not initialize wgpu. See the [consumer guide](../examples/native-consumer/README.md).
+
+`gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`, including the independent consumer in `native-consumer/`. The consumer renders twice, drops its renderer/context, then validates owned bytes and metadata. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
 
 ## 2K resource evidence
 

@@ -64,6 +64,12 @@ pub struct GpuContextOptions {
 }
 
 /// Owns all GPU handles. Construction is explicit and asynchronous.
+///
+/// Normal consumers use [`Self::report`] and move the context into
+/// [`crate::Renderer`]. The raw handle accessors below are retained escape hatches
+/// coupled to the wgpu major version used by this crate (currently 30). Shared
+/// handle references do not prevent external submission, destruction, or callback
+/// mutation. Such operations can affect rendering and are the caller's responsibility.
 #[derive(Debug)]
 pub struct GpuContext {
     instance: wgpu::Instance,
@@ -170,18 +176,22 @@ impl GpuContext {
     }
 
     /// Borrow the instance owned by this context.
+    /// This exposes the dependency's wgpu API, not a version-independent Mixture facade.
     pub fn instance(&self) -> &wgpu::Instance {
         &self.instance
     }
     /// Borrow the selected adapter.
+    /// Prefer [`Self::report`] for Mixture's adapter identity and capability evidence.
     pub fn adapter(&self) -> &wgpu::Adapter {
         &self.adapter
     }
     /// Borrow the device created for this context.
+    /// External destruction or callback changes can invalidate later renderer operations.
     pub fn device(&self) -> &wgpu::Device {
         &self.device
     }
     /// Borrow the queue associated with this device.
+    /// External submissions share the same device and are not counted in Mixture metrics.
     pub fn queue(&self) -> &wgpu::Queue {
         &self.queue
     }

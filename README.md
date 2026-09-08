@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-010 are locally implemented, with eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. [M4 PR-011–015](./M4_PRS.md) are planned; implementation starts with independent public Rust consumption. Remote CI remains deferred.
+**Implemented:** PR-001 through PR-010 are locally implemented, with eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. [M4 PR-011](./M4_PRS.md) now verifies [independent public Rust consumption](./docs/native-sdk.md), including owned GPU outputs and reused-renderer measurements; PR-012–015 remain planned. Remote CI remains deferred.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -21,7 +21,7 @@ cargo xtask check
 cargo run --locked -p mixture-cli -- --help
 ```
 
-The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
+The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, workspace and independent-consumer tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
 
 The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
 

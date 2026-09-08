@@ -2,7 +2,7 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
-**Status:** planned from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-015 are not implemented yet. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
+**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 is locally implemented and verified; PR-012 through PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.
 
@@ -18,9 +18,11 @@ PR-011 Public Rust API + independent consumer
 
 Each PR is a separate reviewable local commit or PR, with paired English/Chinese documentation, focused tests, and `cargo xtask check`. Keep `mixture-core` GPU-free, `mixture-wgpu` the sole pixel executor, CLI thin, GPU state explicit, and the source review bundle unchanged. No new runtime crate is justified. A separate consumer Cargo fixture is an actual dependency/compilation boundary and must not join the product workspace by accident.
 
-`cargo xtask test-consumer` is a **proposed** CPU-only command introduced by PR-011. `cargo xtask package-check` is **proposed** for PR-015. Neither exists at this review. GPU execution remains explicit through the existing `gpu-smoke` policy; no GPU requirement is added to ordinary `check`. Preserve existing CLI schema/exit behavior while adding tests; any intentional incompatible change needs an explicit compatibility decision first.
+`cargo xtask test-consumer` is **implemented** by PR-011 and included in `check`; it remains CPU-only. `cargo xtask package-check` is **proposed** for PR-015 and is not implemented. GPU execution remains explicit through the existing `gpu-smoke` policy; no GPU requirement is added to ordinary `check`. Preserve existing CLI schema/exit behavior while adding tests; any intentional incompatible change needs an explicit compatibility decision first.
 
 ## PR-011 — `feat(sdk): verify public Rust consumption end to end`
+
+**Completed locally, 2026-09-08:** the PR-011 commit containing this record follows `f56bffe` on `codex/pr-011-native-consumer`. See the [public API contract](./docs/native-sdk.md), [independent application](./examples/native-consumer/README.md), and [checks, source hashes and paired release evidence](./docs/evidence/pr-011/README.md). Raw wgpu getters remain documented escape hatches. Metal and pinned SwiftShader execute and inspect owned outputs after renderer drop; no product runtime behavior or dependency was changed. Packaged consumption remains PR-015.
 
 ### Outcome and evidence
 

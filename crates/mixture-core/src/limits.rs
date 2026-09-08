@@ -56,7 +56,7 @@ impl LimitKind {
 /// Caller-owned maximums with conservative v1 defaults, in platform-independent units.
 ///
 /// Every field is required when deserializing; use [`Default`] explicitly for defaults.
-/// Zero is a valid upper bound. Lower bounds and graph correctness belong to future
+/// Zero is a valid upper bound. Lower bounds and graph correctness belong to
 /// request/document validation. Changing a field never changes other limits.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]

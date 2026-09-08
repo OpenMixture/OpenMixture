@@ -4,7 +4,7 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011–015](../M4_PRS.zh-CN.md)已规划，其拟议 `test-consumer` 和 `package-check` 命令尚未实现。远端 CI 继续暂缓。
+仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012–015 及 `package-check` 仍待实施。远端 CI 继续暂缓。
 它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
@@ -19,6 +19,7 @@ cargo xtask test
 cargo xtask test-core
 cargo xtask test-format
 cargo xtask test-plan
+cargo xtask test-consumer
 cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --json
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
 cargo xtask doc
@@ -52,8 +53,9 @@ cargo xtask gpu-smoke
 2. 基于 `cargo metadata` 的当前依赖策略检查。
 3. 覆盖工作区全部目标和特性的 Clippy，将警告视为错误。
 4. 工作区测试，包括 CLI 集成测试、工具测试和文档测试。
-5. 工作区 rustdoc 构建，将警告视为错误。
-6. 基础离线 Markdown 链接检查，确认所引用的本地文件和目录存在。
+5. `test-consumer`：独立 Cargo 元数据、格式化、Clippy、单元／进程测试、构建，以及从无关目录执行 CPU 调用。
+6. 工作区 rustdoc 构建，将警告视为错误。
+7. 基础离线 Markdown 链接检查，确认所引用的本地文件和目录存在。
 
 任何子进程失败都会使整体检查失败。检查不会重写源文件、夹具或基准。Markdown 解析处理行内链接、引用式链接和图片，忽略代码示例；外部 URL、标题锚点、原始 HTML 链接和百分号编码本地路径不在基础检查支持范围内。使用普通相对路径；包含空格的路径使用尖括号。扫描时排除构建／输出目录。
 
@@ -61,7 +63,7 @@ cargo xtask gpu-smoke
 
 ## 依赖策略
 
-PR-010 唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
+PR-011 产品／工具工作区唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
 
 | 软件包 | 允许的依赖 |
 | --- | --- |
@@ -74,13 +76,17 @@ PR-010 唯一允许的直接依赖关系如下，包括构建、开发、可选�
 
 [依赖检查](../xtask/src/dependencies.rs)约束四个 crate 的边界、双许可证元数据、禁用发布，以及上述直接依赖允许列表。它检查架构和范围，不是漏洞数据库检查或传递依赖许可证审计。引入依赖时，在负责该依赖的实施 PR 中扩展策略并说明必要性，保持[架构文档](../ARCHITECTURE.zh-CN.md)要求的方向。
 
+[原生消费者](../examples/native-consumer/Cargo.toml)是独立单包工作区，拥有已提交的锁文件；`test-consumer` 检查该边界，不给产品工作区增加第五个成员。它通过源码 path 使用 `mixture-core`／`mixture-wgpu`，并精确固定生产方已使用的 `pollster` 和 `serde_json` 版本。产品锁文件及依赖策略不变。path 依赖验证不证明软件包内容。
+
 ## CLI 行为与后续工作
 
 可执行程序名为 `mixture`。帮助／版本返回 `0`。`doctor` 验证真实棋盘格计算／回读，成功返回 `0` 和 `healthy`；显式 `--skip-probe` 返回 `unverified`。获取／探针失败返回 `1` 和 `unhealthy`。`render-builtin checker` 写入 PNG 后返回 `0`，运行失败返回 `1`，尺寸／预算无效返回 `2`。JSON 模式向 stdout 写入一份报告，人类可读模式包含相同的策略和能力证据。`validate` 对有效源文件返回 `0`，输入无效返回 `2`，文件／报告 I/O 失败返回 `1`，且不初始化 GPU。`inspect --plan` 编译成功返回 `0`，源文件／请求无效返回 `2`，文件／报告 I/O 失败返回 `1`，同样无需 GPU。`render` 在获取 GPU 前编译，全部请求 PNG 写入后返回 `0`，源文件／请求无效返回 `2`，GPU／编码／I/O 失败返回 `1`。无效选项和缺少命令返回 `2`，说明写入 stderr。输出 I/O 失败返回 `1`。见 [doctor 用法](./gpu-context.zh-CN.md)和[共享退出码策略](./diagnostics.zh-CN.md)。
 
 `test-format` 运行核心格式／验证／注册表测试及 CLI 验证测试。`test-plan` 运行核心计划／哈希测试与 CLI 检查测试。`test-node <id>` 验证夹具并显式运行所选 GPU 节点用例。`test-material <id>` 和 `golden check` 现已显式渲染 GPU 用例并比较材质验收，不修改基准。`golden update <id> --accept` 独立消费已审查的软件候选并拒绝 CI，见[完整工作流](./material-goldens.zh-CN.md)。
 
-`gpu-smoke` 显式访问 GPU 硬件或配置的软件适配器，将报告保存到 `tmp/gpu-smoke/`。它不属于 `check` 和普通工作区测试。适配器策略变量、固定 SwiftShader 准备方式和本地证据见 [GPU 指南](./gpu-context.zh-CN.md)。
+`test-consumer` 将独立构建／测试／CPU 报告及每次先失效再标记完成的状态保存到 `tmp/consumer-check/`。它编译完整 GPU 调用路径及原生 `Send` 约束，但不初始化 wgpu。见[消费者指南](../examples/native-consumer/README.zh-CN.md)。
+
+`gpu-smoke` 显式访问 GPU 硬件或配置的软件适配器，将报告保存到 `tmp/gpu-smoke/`，其中 `native-consumer/` 保存独立消费者证据。消费者渲染两次，销毁 renderer／context 后验证自有字节及元数据。它不属于 `check` 和普通工作区测试。适配器策略变量、固定 SwiftShader 准备方式和本地证据见 [GPU 指南](./gpu-context.zh-CN.md)。
 
 ## 2K 资源证据
 

@@ -1,0 +1,4 @@
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.43s
+     Running `target/debug/mixture doctor --json --backend metal`

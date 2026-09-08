@@ -1,0 +1,1219 @@
+{
+  "adapter": {
+    "backend": "Metal",
+    "device": 0,
+    "deviceType": "IntegratedGpu",
+    "driver": "",
+    "driverInfo": "",
+    "name": "Apple M5",
+    "supportedFeatures": [
+      "ADDRESS_MODE_CLAMP_TO_BORDER",
+      "ADDRESS_MODE_CLAMP_TO_ZERO",
+      "BGRA8UNORM_STORAGE",
+      "BUFFER_BINDING_ARRAY",
+      "CLEAR_TEXTURE",
+      "CLIP_DISTANCES",
+      "DEPTH32FLOAT_STENCIL8",
+      "DEPTH_CLIP_CONTROL",
+      "DUAL_SOURCE_BLENDING",
+      "EXPERIMENTAL_COOPERATIVE_MATRIX",
+      "EXPERIMENTAL_MESH_SHADER",
+      "EXPERIMENTAL_MESH_SHADER_MULTIVIEW",
+      "EXPERIMENTAL_MESH_SHADER_POINTS",
+      "EXPERIMENTAL_RAY_QUERY",
+      "EXTERNAL_TEXTURE",
+      "FLOAT32_BLENDABLE",
+      "FLOAT32_FILTERABLE",
+      "IMMEDIATES",
+      "INDIRECT_FIRST_INSTANCE",
+      "MAPPABLE_PRIMARY_BUFFERS",
+      "MEMORY_DECORATION_COHERENT",
+      "MULTISAMPLE_ARRAY",
+      "MULTIVIEW",
+      "PARTIALLY_BOUND_BINDING_ARRAY",
+      "PASSTHROUGH_SHADERS",
+      "POLYGON_MODE_LINE",
+      "PRIMITIVE_INDEX",
+      "RG11B10UFLOAT_RENDERABLE",
+      "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+      "SHADER_BARYCENTRICS",
+      "SHADER_F16",
+      "SHADER_FLOAT32_ATOMIC",
+      "SHADER_I16",
+      "SHADER_INT64",
+      "SHADER_INT64_ATOMIC_MIN_MAX",
+      "SHADER_PER_VERTEX",
+      "STORAGE_RESOURCE_BINDING_ARRAY",
+      "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+      "SUBGROUP",
+      "SUBGROUP_BARRIER",
+      "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+      "TEXTURE_ATOMIC",
+      "TEXTURE_BINDING_ARRAY",
+      "TEXTURE_COMPRESSION_ASTC",
+      "TEXTURE_COMPRESSION_ASTC_HDR",
+      "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+      "TEXTURE_COMPRESSION_BC",
+      "TEXTURE_COMPRESSION_BC_SLICED_3D",
+      "TEXTURE_COMPRESSION_ETC2",
+      "TEXTURE_FORMAT_16BIT_NORM",
+      "TEXTURE_INT64_ATOMIC",
+      "TIMESTAMP_QUERY",
+      "VERTEX_WRITABLE_STORAGE"
+    ],
+    "supportedLimits": {
+      "maxAccelerationStructuresPerShaderStage": 29,
+      "maxBindGroups": 8,
+      "maxBindGroupsPlusVertexBuffers": 24,
+      "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+      "maxBindingArrayElementsPerShaderStage": 1000000,
+      "maxBindingArraySamplerElementsPerShaderStage": 500000,
+      "maxBindingsPerBindGroup": 4294967295,
+      "maxBlasGeometryCount": 16777216,
+      "maxBlasPrimitiveCount": 268435456,
+      "maxBufferSize": 4294967295,
+      "maxBuffersAndAccelerationStructuresPerShaderStage": 29,
+      "maxColorAttachmentBytesPerSample": 64,
+      "maxColorAttachments": 8,
+      "maxComputeInvocationsPerWorkgroup": 1024,
+      "maxComputeWorkgroupSizeX": 1024,
+      "maxComputeWorkgroupSizeY": 1024,
+      "maxComputeWorkgroupSizeZ": 1024,
+      "maxComputeWorkgroupStorageSize": 32768,
+      "maxComputeWorkgroupsPerDimension": 65535,
+      "maxDynamicStorageBuffersPerPipelineLayout": 29,
+      "maxDynamicUniformBuffersPerPipelineLayout": 29,
+      "maxImmediateSize": 256,
+      "maxInterStageShaderVariables": 31,
+      "maxMeshInvocationsPerDimension": 1024,
+      "maxMeshInvocationsPerWorkgroup": 1024,
+      "maxMeshMultiviewViewCount": 0,
+      "maxMeshOutputLayers": 2048,
+      "maxMeshOutputPrimitives": 256,
+      "maxMeshOutputVertices": 256,
+      "maxMeshWorkgroupTotalCount": 4194304,
+      "maxMeshWorkgroupsPerDimension": 4194304,
+      "maxMultiviewViewCount": 8,
+      "maxNonSamplerBindings": 4294967295,
+      "maxRayDispatchCount": 0,
+      "maxRayRecursionDepth": 0,
+      "maxSampledTexturesPerShaderStage": 96,
+      "maxSamplersPerShaderStage": 16,
+      "maxStorageBufferBindingSize": 4294967292,
+      "maxStorageBuffersPerShaderStage": 29,
+      "maxStorageTexturesPerShaderStage": 32,
+      "maxTaskInvocationsPerDimension": 1024,
+      "maxTaskInvocationsPerWorkgroup": 1024,
+      "maxTaskPayloadSize": 16352,
+      "maxTaskWorkgroupTotalCount": 4294967295,
+      "maxTaskWorkgroupsPerDimension": 4294967295,
+      "maxTextureArrayLayers": 2048,
+      "maxTextureDimension1D": 32768,
+      "maxTextureDimension2D": 32768,
+      "maxTextureDimension3D": 2048,
+      "maxTlasInstanceCount": 16777216,
+      "maxUniformBufferBindingSize": 4294967295,
+      "maxUniformBuffersPerShaderStage": 29,
+      "maxVertexAttributes": 31,
+      "maxVertexBufferArrayStride": 2048,
+      "maxVertexBuffers": 16,
+      "minStorageBufferOffsetAlignment": 32,
+      "minUniformBufferOffsetAlignment": 256
+    },
+    "vendor": 0
+  },
+  "cases": [
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "identity-rectangular-one-texel-y",
+      "displacement": null,
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "positive-half-texel-x-wrap",
+      "displacement": null,
+      "expectedScalar": [
+        0.125,
+        0.375,
+        0.75,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.125,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-half-texel-x-wrap",
+      "displacement": null,
+      "expectedScalar": [
+        0.5,
+        0.125,
+        0.375,
+        0.75
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          -0.125,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "positive-full-period-identity",
+      "displacement": null,
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          1.0,
+          1.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-full-period-identity",
+      "displacement": null,
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          -1.0,
+          -1.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "integer-scale-center-pivot",
+      "displacement": null,
+      "expectedScalar": [
+        0.75,
+        0.125,
+        0.75,
+        0.125
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          2,
+          1
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "maximum-integer-scale",
+      "displacement": null,
+      "expectedScalar": [
+        0.375,
+        0.375,
+        0.375,
+        0.375
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          64,
+          64
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "clockwise-quarter-turn",
+      "displacement": null,
+      "expectedScalar": [
+        0.5,
+        0.0,
+        1.0,
+        0.25
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 1,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "half-turn",
+      "displacement": null,
+      "expectedScalar": [
+        1.0,
+        0.5,
+        0.25,
+        0.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 2,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "three-quarter-turns",
+      "displacement": null,
+      "expectedScalar": [
+        0.25,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 3,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "four-neighbor-interpolation",
+      "displacement": null,
+      "expectedScalar": [
+        0.4375,
+        0.4375,
+        0.4375,
+        0.4375
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.25,
+          0.25
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "positive-half-texel-y-rectangular",
+      "displacement": null,
+      "expectedScalar": [
+        0.125,
+        0.125,
+        0.375,
+        0.375,
+        0.75,
+        0.75,
+        0.5,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.0,
+        0.25,
+        0.25,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.125
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-half-texel-y-rectangular",
+      "displacement": null,
+      "expectedScalar": [
+        0.5,
+        0.5,
+        0.125,
+        0.125,
+        0.375,
+        0.375,
+        0.75,
+        0.75
+      ],
+      "input": [
+        0.0,
+        0.0,
+        0.25,
+        0.25,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          -0.125
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "size": [
+        2,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "integer-y-scale-center-pivot",
+      "displacement": null,
+      "expectedScalar": [
+        0.75,
+        0.75,
+        0.125,
+        0.125,
+        0.75,
+        0.75,
+        0.125,
+        0.125
+      ],
+      "input": [
+        0.0,
+        0.0,
+        0.25,
+        0.25,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          1,
+          2
+        ]
+      },
+      "size": [
+        2,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.609375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.609375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.328125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.328125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.609375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.609375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.328125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.328125,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "rotation-before-anisotropic-scale",
+      "displacement": null,
+      "expectedScalar": [
+        0.609375,
+        0.609375,
+        0.328125,
+        0.328125,
+        0.609375,
+        0.609375,
+        0.328125,
+        0.328125
+      ],
+      "input": [
+        0.0,
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        0.625,
+        0.75,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.0,
+          0.0
+        ],
+        "quarterTurns": 1,
+        "scale": [
+          2,
+          1
+        ]
+      },
+      "size": [
+        4,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "one-texel-x-axis",
+      "displacement": null,
+      "expectedScalar": [
+        0.125,
+        0.375,
+        0.75,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          0.375,
+          0.125
+        ],
+        "quarterTurns": 0,
+        "scale": [
+          64,
+          1
+        ]
+      },
+      "size": [
+        1,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "single-texel-all-neighbors-wrap",
+      "displacement": null,
+      "expectedScalar": [
+        0.75
+      ],
+      "input": [
+        0.75
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "offset": [
+          -0.375,
+          0.625
+        ],
+        "quarterTurns": 3,
+        "scale": [
+          64,
+          64
+        ]
+      },
+      "size": [
+        1,
+        1
+      ]
+    }
+  ],
+  "kind": "literal scalar probes through production WGSL",
+  "ok": true
+}

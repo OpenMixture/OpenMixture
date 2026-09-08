@@ -29,6 +29,7 @@ pub struct RequestedPolicy {
     /// Sorted requested optional features; empty in PR-003.
     pub required_features: Vec<String>,
     /// Baseline wgpu device requirements, never silently reduced.
+    /// This field exposes wgpu's version-coupled `Limits` type.
     pub required_limits: wgpu::Limits,
 }
 
@@ -67,6 +68,7 @@ pub struct AdapterDiagnostics {
     /// Additional backend-supplied driver information.
     pub driver_info: String,
     /// Actual adapter limits with limit bucketing disabled.
+    /// This field exposes wgpu's version-coupled `Limits` type.
     pub supported_limits: wgpu::Limits,
     /// Sorted names of all optional features supported by this adapter.
     pub supported_features: Vec<String>,
@@ -93,7 +95,7 @@ impl AdapterDiagnostics {
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceDiagnostics {
-    /// Limits exposed by the acquired device.
+    /// Limits exposed by the acquired device, using wgpu's version-coupled `Limits` type.
     pub limits: wgpu::Limits,
     /// Sorted enabled optional features; empty in PR-003.
     pub features: Vec<String>,

@@ -31,6 +31,21 @@ fn unknown_and_not_yet_implemented_commands_fail() {
 }
 
 #[test]
+fn consumer_check_is_advertised_and_rejects_an_implicit_gpu_flag() {
+    let help = Command::new(env!("CARGO_BIN_EXE_xtask"))
+        .arg("--help")
+        .output()
+        .unwrap();
+    assert!(String::from_utf8_lossy(&help.stdout).contains("test-consumer"));
+    let invalid = Command::new(env!("CARGO_BIN_EXE_xtask"))
+        .args(["test-consumer", "--gpu"])
+        .output()
+        .unwrap();
+    assert!(!invalid.status.success());
+    assert!(String::from_utf8_lossy(&invalid.stderr).contains("expected one command"));
+}
+
+#[test]
 fn golden_updates_require_explicit_acceptance_and_refuse_ci_before_any_work() {
     for (args, ci, message) in [
         (

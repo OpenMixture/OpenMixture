@@ -1,0 +1,7 @@
+{
+  "decodedBytes": 16384,
+  "differingBytes": 0,
+  "golden": "fixtures/nodes/checker/checker-64.rgba",
+  "goldenBytes": 16384,
+  "ok": true
+}

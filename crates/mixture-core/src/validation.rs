@@ -95,7 +95,7 @@ impl ValidatedDocument {
 impl MaterialDocument {
     /// Validate source semantics and collection limits without editing the source.
     /// Byte limits apply in `decode`; render-request limits belong to the caller's
-    /// future compiler request. Over-budget collections stop graph analysis.
+    /// compiler request. Over-budget collections stop graph analysis.
     pub fn validate(&self, limits: &SafetyLimits) -> DiagnosticReport {
         let mut diagnostics = Vec::new();
         if self.version != FORMAT_VERSION {

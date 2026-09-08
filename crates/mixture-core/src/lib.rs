@@ -1,6 +1,6 @@
 //! Backend-neutral material graph semantics for Mixture.
 //!
-//! Strict .mix v1 decoding, six versioned node contracts, graph validation, and
+//! Strict .mix v1 decoding, eleven versioned node contracts, graph validation, and
 //! structured diagnostics with explicit safety limits, and deterministic RenderPlan compilation.
 //! This library has no GPU, CLI, browser, or image dependencies.
 //!
@@ -18,7 +18,15 @@
 //!
 //! ```
 //! use mixture_core::{MaterialDocument, SafetyLimits};
-//! let bytes = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../examples/checker.mix"));
+//! let bytes = br#"{
+//!   "version": 1,
+//!   "nodes": [
+//!     {"id":"checker","type":"checker","version":1},
+//!     {"id":"out","type":"material-output","version":1}
+//!   ],
+//!   "edges": [{"from":{"nodeId":"checker","portId":"color"},
+//!              "to":{"nodeId":"out","portId":"baseColor"}}]
+//! }"#;
 //! let limits = SafetyLimits::default();
 //! let document = MaterialDocument::decode(bytes, &limits)?;
 //! let validated = document.into_validated(&limits)?;
@@ -32,7 +40,16 @@
 //!
 //! ```
 //! use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, compile};
-//! let bytes = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../examples/checker.mix"));
+//! let bytes = br#"{
+//!   "version": 1,
+//!   "nodes": [
+//!     {"id":"checker","type":"checker","version":1},
+//!     {"id":"out","type":"material-output","version":1}
+//!   ],
+//!   "edges": [{"from":{"nodeId":"checker","portId":"color"},
+//!              "to":{"nodeId":"out","portId":"baseColor"}}],
+//!   "exposedParameters": [{"id":"frequency","nodeId":"checker","parameterId":"cellsX"}]
+//! }"#;
 //! let mut request = CompileRequest::default();
 //! request.size = [65, 3];
 //! request.outputs = vec![OutputChannel::BaseColor, OutputChannel::Roughness];

@@ -50,7 +50,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 速查
 
-当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`test-format`、`test-plan`、`test-node <id>`、`test-material <id>`、`golden check`、受保护的 `golden update <id> --accept`、`doc`、`deps`、`links`、`trace-2k`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现纯 CPU `validate` 和 `inspect --plan`、支持 `--skip-probe` 的验证型 `doctor` 及图 `render`／`render-builtin checker`，均提供人类可读与 JSON 模式。下面其余命令是目标接口，不得声称已经实现。
+当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`test-format`、`test-plan`、`test-consumer`、`test-node <id>`、`test-material <id>`、`golden check`、受保护的 `golden update <id> --accept`、`doc`、`deps`、`links`、`trace-2k`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现纯 CPU `validate` 和 `inspect --plan`、支持 `--skip-probe` 的验证型 `doctor` 及图 `render`／`render-builtin checker`，均提供人类可读与 JSON 模式。下面其余命令是目标接口，不得声称已经实现。
 
 仓库计划提供以下命令：
 
@@ -64,6 +64,7 @@ cargo xtask test-node <node-id>
 cargo xtask test-material <material-id>
 cargo xtask test-format
 cargo xtask test-plan
+cargo xtask test-consumer
 cargo xtask shader-check
 cargo xtask golden check
 cargo xtask gpu-smoke
@@ -79,7 +80,7 @@ cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
 
 ## 仓库职责地图
 
-以下是计划中的运行时模块职责地图。PR-002 添加了核心诊断与限制；PR-003 添加了 `mixture-wgpu/src/context.rs`、`mixture-wgpu/src/diagnostics.rs` 和 `mixture-cli/src/commands/doctor.rs`。PR-004 添加了固定棋盘格、回读、操作错误、一个 WGSL kernel 和 CLI PNG 编排。PR-005 添加有界文档解码、静态节点契约、图验证和 CLI validate。PR-006 添加编译器规范化／裁剪、类型化计划、哈希及 CLI inspect。PR-007 添加共享执行器、每次调用的资源、kernel 映射／缓存、图 render 和全部 M2 节点夹具。PR-008 在 `xtask/src/golden/` 添加受保护材质基准工具和首个陶瓷夹具，没有新增运行时模块。PR-009 添加噪声、渐变映射和高度转法线的三个显式核心契约／WGSL kernel，以及皮革夹具。PR-010 添加 transform／warp 契约与 kernel、`mixture-wgpu/src/allocations.rs` 中的逐次渲染描述符计数，以及 `xtask/src/golden/trace.rs`。其余模块由对应实施 PR 引入，不创建空的运行时桩。现有模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
+以下是计划中的运行时模块职责地图。PR-002 添加了核心诊断与限制；PR-003 添加了 `mixture-wgpu/src/context.rs`、`mixture-wgpu/src/diagnostics.rs` 和 `mixture-cli/src/commands/doctor.rs`。PR-004 添加了固定棋盘格、回读、操作错误、一个 WGSL kernel 和 CLI PNG 编排。PR-005 添加有界文档解码、静态节点契约、图验证和 CLI validate。PR-006 添加编译器规范化／裁剪、类型化计划、哈希及 CLI inspect。PR-007 添加共享执行器、每次调用的资源、kernel 映射／缓存、图 render 和全部 M2 节点夹具。PR-008 在 `xtask/src/golden/` 添加受保护材质基准工具和首个陶瓷夹具，没有新增运行时模块。PR-009 添加噪声、渐变映射和高度转法线的三个显式核心契约／WGSL kernel，以及皮革夹具。PR-010 添加 transform／warp 契约与 kernel、`mixture-wgpu/src/allocations.rs` 中的逐次渲染描述符计数，以及 `xtask/src/golden/trace.rs`。PR-011 添加独立 `examples/native-consumer/` 工作区及 `xtask/src/consumer.rs`，将 CPU 检查纳入 `check`，在 `gpu-smoke` 中显式消费自有输出；产品运行时边界不变。其余模块由对应实施 PR 引入，不创建空的运行时桩。现有模块和命令的链接见[开发指南](./docs/development.zh-CN.md)。
 
 ```text
 crates/mixture-core/

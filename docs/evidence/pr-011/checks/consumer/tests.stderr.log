@@ -1,0 +1,4 @@
+   Compiling mixture-native-consumer v0.0.0 (/Users/krapnik/Documents/OpenMixture/examples/native-consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.46s
+     Running unittests src/main.rs (target/native-consumer/debug/deps/mixture_native_consumer-914435aa8bdc6b4c)
+     Running tests/commands.rs (target/native-consumer/debug/deps/commands-5458c8da22ae2628)

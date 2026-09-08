@@ -1,0 +1,5 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask gpu-smoke`
+Running checker GPU smoke (backend=vulkan, software=1)
+Independent consumer GPU checks passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke/native-consumer
+GPU checker and graph smoke passed: "SwiftShader Device (LLVM 10.0.0)" ("Cpu", "Vulkan"); doctor healthy; golden exact. Evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke

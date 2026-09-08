@@ -23,3 +23,5 @@ cargo run --locked -p mixture-cli -- render examples/blend.mix --size 256 \
 文件使用确定的 `<channel>.png` 名称。颜色输出为 sRGB，标量及编码法线输出为线性。Blend 仅请求 roughness 时裁剪颜色／levels 分支，只执行一个常量 pass。示例用于证明图执行，不宣称真实感材质质量。
 
 独立的 `render-builtin checker`／doctor 探针不读取 `.mix`，但共享棋盘格着色器与分发路径。见[图渲染](../docs/graph-rendering.zh-CN.md)、[格式](../docs/file-format.zh-CN.md)、[契约](../docs/node-contracts.zh-CN.md)及[开发指南](../docs/development.zh-CN.md)。
+
+[独立 Rust 消费者](./native-consumer/README.zh-CN.md)拥有单独 Cargo 工作区及输入。运行 `cargo xtask test-consumer` 检查 CPU／公开 API；`gpu-smoke` 还会执行其显式 GPU 路径，在 renderer 销毁后消费返回像素。

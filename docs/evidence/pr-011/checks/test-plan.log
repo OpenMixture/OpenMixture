@@ -1,0 +1,43 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask test-plan`
+cargo test --locked -p mixture-core --test plan
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.71s
+     Running tests/plan.rs (target/debug/deps/plan-377e5f149a12b2af)
+
+running 16 tests
+test channel_aliases_share_a_resource_and_charge_sequential_readback ... ok
+test overrides_require_exposed_ids_and_exact_parameter_types ... ok
+test extreme_allocation_and_coordinate_arithmetic_returns_errors_without_panicking ... ok
+test odd_rectangular_sizes_have_checked_aligned_memory_and_dispatch ... ok
+test invalid_request_shapes_and_stricter_policies_fail_at_compile_stage ... ok
+test explicit_defaults_numeric_spelling_signed_zero_and_noop_overrides_are_equivalent ... ok
+test enum_color_and_cross_parameter_overrides_are_validated_after_atomic_application ... ok
+test effective_overrides_match_explicit_source_and_semantic_changes_change_hash ... ok
+test repeated_producer_bindings_and_missing_mask_lower_without_duplicate_node_passes ... ok
+test f32_collapse_is_rejected_and_equivalent_effective_values_share_hashes ... ok
+test requested_defaults_are_real_typed_resources_without_a_sink_pass ... ok
+test stable_kahn_order_and_typed_resources_are_producer_first ... ok
+test normalization_is_immutable_explicit_and_order_independent ... ok
+test unrequested_branches_and_their_valid_overrides_do_not_enter_plan_or_hash ... ok
+test reviewed_plan_and_hash_snapshots ... ok
+test transient_budget_is_computed_after_slicing_a_large_valid_graph ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+cargo test --locked -p mixture-cli --test inspect
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.53s
+     Running tests/inspect.rs (target/debug/deps/inspect-befb244f889d33b9)
+
+running 5 tests
+test request_options_slice_override_and_normalize_output_order ... ok
+test inspection_snapshot_is_path_independent_and_never_changes_source ... ok
+test file_and_document_failures_keep_existing_stage_and_exit_contracts ... ok
+test semantic_failures_have_structured_codes_paths_and_null_plans ... ok
+test usage_is_explicit_and_dash_paths_are_supported ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.91s
+

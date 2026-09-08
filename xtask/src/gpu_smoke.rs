@@ -171,6 +171,13 @@ pub(super) fn run(root: &Path) -> TaskResult {
     if !tests.status.success() {
         return Err(format!("GPU tests failed; inspect {}", directory.display()).into());
     }
+    crate::consumer::gpu(
+        root,
+        &directory,
+        &backend,
+        software == "1",
+        expected.as_deref(),
+    )?;
     println!(
         "GPU checker and graph smoke passed: {} ({}, {}); doctor healthy; golden exact. Evidence: {}",
         doctor["adapter"]["name"],
