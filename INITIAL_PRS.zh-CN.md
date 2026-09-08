@@ -604,6 +604,8 @@ cargo xtask gpu-smoke
 
 ## PR-010 — `feat(materials): add directional warp, wood golden, and 2K memory evidence`
 
+**仓库状态：** 已在 `e9dd03b` 本地实现；木材获用户接受，十一个 1K 用例通过 Metal 和固定 SwiftShader，2K 峰值无需生命周期优化即可满足 512 MiB。见 [M3 评审](./docs/m3-review.zh-CN.md)。远端 CI 继续暂缓。
+
 ### 目标
 
 用方向性材质和实测高分辨率资源行为完成 M3。
@@ -683,6 +685,8 @@ cargo xtask check
 6. 独立原生使用方实际需要哪些 API？
 
 根据答案编写 M4 实施计划。不要照搬旧 Mixture 仓库中未经证实的 M4 任务。
+
+**评审状态：** 已完成 [M3 评审](./docs/m3-review.zh-CN.md)。有证据依据的 [M4 计划](./M4_PRS.zh-CN.md)定义 PR-011–015，尚未开始实施。
 
 ## PR 描述模板
 

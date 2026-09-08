@@ -1,0 +1,16 @@
+{
+  "name": "unknown-port-human",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "inspect",
+    "fixtures/format/invalid/unknown-port.mix",
+    "--plan"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "unknown-port-human.stdout",
+  "stderr": "unknown-port-human.stderr",
+  "stdoutSha256": "202daeb639e235991ccaa56c1007f8748a0a4ee87bc935510ee2717e0ec68c8e",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

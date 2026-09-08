@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_EXPOSED_PARAMETER_INVALID",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Exposed parameter target does not resolve to one supported mutable parameter.",
+      "documentPath": "fixtures/format/invalid/invalid-exposed.mix",
+      "nodeId": "checker",
+      "parameterId": "version",
+      "evidence": {
+        "publicId": "frequency"
+      },
+      "suggestion": "Bind one unique public ID to one existing mutable node parameter; aliases are unsupported."
+    }
+  ]
+}

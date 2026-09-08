@@ -1,0 +1,25 @@
+   Compiling xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.56s
+     Running unittests src/main.rs (target/debug/deps/xtask-55ba651b87e6f418)
+
+running 11 tests
+test golden::tests::candidate_file_paths_cannot_escape_the_review_directory ... ok
+test golden::tests::golden_metrics_measure_rgba_errors_and_pixel_ratios_with_exact_tolerance_boundaries ... ok
+test golden::tests::uniform_default_and_parameter_causality_gates_are_not_nonempty_pixel_checks ... ok
+test golden::tests::normal_checks_reject_invalid_length_and_flipped_height_direction ... ok
+test golden::tests::spatial_metrics_reject_scrambling_and_an_extra_wrap_seam ... ok
+test golden::tests::alternating_structure_accepts_intentional_wrap_jumps_but_rejects_seams_and_degeneracy ... ok
+test golden::tests::directional_metrics_distinguish_axes_without_histogram_shortcuts ... ok
+test golden::tests::material_fixture_contract_and_variants_are_strict_and_cover_all_channels ... ok
+test golden::tests::bounded_png_decoding_rejects_wrong_dimensions_metadata_and_truncated_files ... ok
+test golden::tests::golden_acceptance_copies_only_reviewed_outputs_retains_evidence_and_cannot_replay ... ok
+test golden::tests::candidate_guards_reject_changed_artifacts_inputs_baselines_and_failed_measurements ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 13 filtered out; finished in 16.87s
+
+     Running tests/commands.rs (target/debug/deps/commands-f5ce26481c2fe8a6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+

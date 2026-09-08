@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 PR-010 adds a warm brown wood-like surface with elongated, gently warped grain. [material.mix](./material.mix) uses eight compute passes: explicitly seeded value fractal noise → integer repeat/rotation → a second seeded field displaces the grain → levels height → gradient-map color, height-to-normal, and inverted levels roughness. All four 1024×1024 channels are connected. The total built-in vocabulary is eleven nodes and nine kernels.
 
-The [reports](./reports/README.md) separate full-image comparisons, machine measurements, agent inspection, and [human acceptance](./reports/human-review.json). Wood human acceptance is recorded. Ceramic and leather already have user acceptance; their baseline PNGs remain unchanged. Remote CI and the full M3 review remain open.
+The [reports](./reports/README.md) separate full-image comparisons, machine measurements, agent inspection, and [human acceptance](./reports/human-review.json). Wood human acceptance is recorded. Ceramic and leather already have user acceptance; their baseline PNGs remain unchanged. The [full M3 review](../../../docs/m3-review.md) is complete; remote CI remains deferred.
 
 ## Controls and intended effects
 

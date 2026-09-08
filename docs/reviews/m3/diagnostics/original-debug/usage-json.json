@@ -1,0 +1,12 @@
+{
+  "name": "usage-json",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "stdout": "usage-json.stdout",
+  "stderr": "usage-json.stderr"
+}

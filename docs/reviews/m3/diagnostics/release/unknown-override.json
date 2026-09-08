@@ -1,0 +1,19 @@
+{
+  "name": "unknown-override",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--plan",
+    "--json",
+    "--set",
+    "frequncy=16"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "unknown-override.stdout",
+  "stderr": "unknown-override.stderr",
+  "stdoutSha256": "293f03dbe3e15f74a66d18a03d72557d45e43f31926c4767d9989bc0347231f5",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

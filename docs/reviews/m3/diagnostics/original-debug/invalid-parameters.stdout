@@ -1,0 +1,43 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_PARAMETER_INVALID_VALUE",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Parameter does not satisfy its JSON type, range, or enum contract.",
+      "documentPath": "fixtures/format/invalid/invalid-parameters.mix",
+      "nodeId": "checker",
+      "parameterId": "cellsX",
+      "evidence": {
+        "expected": "Integer { min: 1, max: 1024 }",
+        "observed": "0"
+      },
+      "suggestion": "Supply a finite value in the documented range and exact JSON type; values are never clamped or coerced."
+    },
+    {
+      "code": "MIX_PARAMETER_INVALID_VALUE",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Parameter does not satisfy its JSON type, range, or enum contract.",
+      "documentPath": "fixtures/format/invalid/invalid-parameters.mix",
+      "nodeId": "checker",
+      "parameterId": "colorA",
+      "evidence": {
+        "expected": "Color",
+        "observed": "[1,0,0]"
+      },
+      "suggestion": "Supply a finite value in the documented range and exact JSON type; values are never clamped or coerced."
+    },
+    {
+      "code": "MIX_PARAMETER_UNKNOWN",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Unknown node parameter.",
+      "documentPath": "fixtures/format/invalid/invalid-parameters.mix",
+      "nodeId": "checker",
+      "parameterId": "unknown",
+      "suggestion": "Use parameter IDs from this node's versioned contract."
+    }
+  ]
+}

@@ -604,6 +604,8 @@ cargo xtask gpu-smoke
 
 ## PR-010 — `feat(materials): add directional warp, wood golden, and 2K memory evidence`
 
+**Repository status:** implemented locally in `e9dd03b`; wood is user-accepted, eleven 1K cases pass on Metal and pinned SwiftShader, and the 2K peak fits 512 MiB without lifetime optimization. See [M3 review](./docs/m3-review.md). Remote CI remains deferred.
+
 ### Goal
 
 Complete M3 with a directional material and measured high-resolution resource behavior.
@@ -683,6 +685,8 @@ First perform an M3 review that answers:
 6. Which API does an independent native consumer actually need?
 
 Use those answers to write the M4 implementation train. Do not copy speculative M4 tasks from the old Mixture repository.
+
+**Review status:** completed in [M3 review](./docs/m3-review.md). The evidence-driven [M4 train](./M4_PRS.md) defines PR-011–015; implementation has not started.
 
 ## Pull request description template
 

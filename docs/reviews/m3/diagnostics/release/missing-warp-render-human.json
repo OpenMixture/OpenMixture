@@ -1,0 +1,19 @@
+{
+  "name": "missing-warp-render-human",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "render",
+    "fixtures/nodes/warp/missing-input.mix",
+    "--out",
+    "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics-release-e9dd03b/unused-render-output",
+    "--backend",
+    "none"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "missing-warp-render-human.stdout",
+  "stderr": "missing-warp-render-human.stderr",
+  "stdoutSha256": "ada20958493d3f71e3d3d1ca4fec3349f385fc1aba90dbeb71bdd6d37190dfff",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

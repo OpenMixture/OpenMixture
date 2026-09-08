@@ -1,0 +1,205 @@
+{
+  "binary": "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+  "binarySha256": "43e8e26cd69fba66ac492fe14122e73ff1d3f27a2c5a9ba73b075627e5603d16",
+  "probes": [
+    {
+      "name": "help",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "help.stdout",
+      "stderr": "help.stderr"
+    },
+    {
+      "name": "unknown-port-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/unknown-port.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "unknown-port-json.stdout",
+      "stderr": "unknown-port-json.stderr"
+    },
+    {
+      "name": "unknown-port-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "fixtures/format/invalid/unknown-port.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "stdout": "unknown-port-human.stdout",
+      "stderr": "unknown-port-human.stderr"
+    },
+    {
+      "name": "missing-warp-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "missing-warp-json.stdout",
+      "stderr": "missing-warp-json.stderr"
+    },
+    {
+      "name": "missing-warp-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "stdout": "missing-warp-human.stdout",
+      "stderr": "missing-warp-human.stderr"
+    },
+    {
+      "name": "invalid-parameters",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/invalid-parameters.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "invalid-parameters.stdout",
+      "stderr": "invalid-parameters.stderr"
+    },
+    {
+      "name": "cycle",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/cycle.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "cycle.stdout",
+      "stderr": "cycle.stderr"
+    },
+    {
+      "name": "duplicate-key",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/duplicate-key.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "duplicate-key.stdout",
+      "stderr": "duplicate-key.stderr"
+    },
+    {
+      "name": "invalid-exposed",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/format/invalid/invalid-exposed.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "invalid-exposed.stdout",
+      "stderr": "invalid-exposed.stderr"
+    },
+    {
+      "name": "unknown-override",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--plan",
+        "--json",
+        "--set",
+        "frequncy=16"
+      ],
+      "exitCode": 2,
+      "stdout": "unknown-override.stdout",
+      "stderr": "unknown-override.stderr"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "4096"
+      ],
+      "exitCode": 2,
+      "stdout": "budget.stdout",
+      "stderr": "budget.stderr"
+    },
+    {
+      "name": "doctor-none",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "doctor",
+        "--backend",
+        "none",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "doctor-none.stdout",
+      "stderr": "doctor-none.stderr"
+    },
+    {
+      "name": "missing-file",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics/not-present.mix",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "missing-file.stdout",
+      "stderr": "missing-file.stderr"
+    },
+    {
+      "name": "usage-json",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "inspect",
+        "examples/checker.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "stdout": "usage-json.stdout",
+      "stderr": "usage-json.stderr"
+    },
+    {
+      "name": "missing-warp-render-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "render",
+        "fixtures/nodes/warp/missing-input.mix",
+        "--out",
+        "tmp/m3-review/diagnostics/unused-render-output"
+      ],
+      "exitCode": 2,
+      "stdout": "missing-warp-render-human.stdout",
+      "stderr": "missing-warp-render-human.stderr"
+    },
+    {
+      "name": "missing-warp-validate-human",
+      "command": [
+        "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+        "validate",
+        "fixtures/nodes/warp/missing-input.mix"
+      ],
+      "exitCode": 2,
+      "stdout": "missing-warp-validate-human.stdout",
+      "stderr": "missing-warp-validate-human.stderr"
+    }
+  ],
+  "gpuInitialized": false,
+  "note": "Only CPU validation/inspection, help/usage and doctor --backend none preflight."
+}

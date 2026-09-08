@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_IO_READ_FAILED",
+      "stage": "parse",
+      "severity": "error",
+      "message": "Could not read the material file.",
+      "documentPath": "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics/not-present.mix",
+      "evidence": {
+        "sourceMessage": "No such file or directory (os error 2)"
+      },
+      "suggestion": "Check the input path, file type, and read permissions."
+    }
+  ]
+}

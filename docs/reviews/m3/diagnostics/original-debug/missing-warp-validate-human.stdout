@@ -1,0 +1,5 @@
+Invalid material: fixtures/nodes/warp/missing-input.mix
+MIX_PORT_REQUIRED_CONNECTION: Required input has no valid connection.
+  node: sample
+  port: displacement
+  Suggestion: Connect one compatible output to this required input.

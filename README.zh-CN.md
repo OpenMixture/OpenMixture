@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-009 已在本地实现；用户已接受陶瓷与皮革的视觉评审。PR-010 添加 `transform-2d`、`warp`，将目录扩展到十一种节点，并提供[木材候选](./fixtures/materials/wood/README.zh-CN.md)与 `trace-2k` 分配证据。木材人工评审已获用户接受；下一步为完整 M3 评审，远端 CI 继续暂缓。
+**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011–015](./M4_PRS.zh-CN.md)已规划，实施将从独立公开 Rust 消费路径开始。远端 CI 继续暂缓。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 

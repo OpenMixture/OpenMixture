@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "nodes": [
+    { "id": "pattern", "type": "checker", "version": 1 },
+    { "id": "surface", "type": "material-output", "version": 1 }
+  ],
+  "edges": [
+    {
+      "from": { "nodeId": "pattern", "portId": "color" },
+      "to": { "nodeId": "surface", "portId": "baseColor" }
+    }
+  ],
+  "exposedParameters": [
+    { "id": "repeat", "nodeId": "pattern", "parameterId": "cellsX" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_FORMAT_INVALID_DOCUMENT",
+      "stage": "parse",
+      "severity": "error",
+      "message": "Material input does not conform to .mix v1 JSON.",
+      "documentPath": "fixtures/format/invalid/duplicate-key.mix",
+      "evidence": {
+        "column": 22,
+        "line": 1,
+        "sourceMessage": "duplicate field \"version\" at line 1 column 22"
+      },
+      "suggestion": "Use the documented .mix schema; remove duplicate or unknown fields and correct JSON types."
+    }
+  ]
+}

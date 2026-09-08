@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_PORT_REQUIRED_CONNECTION",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Required input has no valid connection.",
+      "documentPath": "fixtures/nodes/warp/missing-input.mix",
+      "nodeId": "sample",
+      "portId": "displacement",
+      "suggestion": "Connect one compatible output to this required input."
+    }
+  ]
+}

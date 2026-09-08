@@ -1,0 +1,12 @@
+{
+  "name": "missing-file",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics/not-present.mix",
+    "--json"
+  ],
+  "exitCode": 1,
+  "stdout": "missing-file.stdout",
+  "stderr": "missing-file.stderr"
+}

@@ -9,6 +9,8 @@
 - [架构](../ARCHITECTURE.zh-CN.md)
 - [路线图](../ROADMAP.zh-CN.md)
 - [初始 PR 实施计划](../INITIAL_PRS.zh-CN.md)
+- [M3 评审与证据](./m3-review.zh-CN.md)
+- [M4 实施计划](../M4_PRS.zh-CN.md)
 
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。

@@ -1,0 +1,16 @@
+{
+  "name": "invalid-parameters",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "validate",
+    "fixtures/format/invalid/invalid-parameters.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "invalid-parameters.stdout",
+  "stderr": "invalid-parameters.stderr",
+  "stdoutSha256": "7c9e9c517b8706cee0dbb63db8d2e8cb4e59aa6256fd1031ce32668c5006fee9",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

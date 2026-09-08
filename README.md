@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-009 are locally implemented; the user accepted the ceramic and leather appearance reviews. PR-010 adds `transform-2d`, `warp`, an eleven-node catalog, the [wood candidate](./fixtures/materials/wood/README.md), and `trace-2k` allocation evidence. The user has accepted the wood appearance review. The full M3 review remains next. Remote CI remains deferred.
+**Implemented:** PR-001 through PR-010 are locally implemented, with eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. [M4 PR-011–015](./M4_PRS.md) are planned; implementation starts with independent public Rust consumption. Remote CI remains deferred.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 

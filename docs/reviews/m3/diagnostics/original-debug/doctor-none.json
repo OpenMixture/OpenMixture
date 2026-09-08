@@ -1,0 +1,13 @@
+{
+  "name": "doctor-none",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "doctor",
+    "--backend",
+    "none",
+    "--json"
+  ],
+  "exitCode": 1,
+  "stdout": "doctor-none.stdout",
+  "stderr": "doctor-none.stderr"
+}

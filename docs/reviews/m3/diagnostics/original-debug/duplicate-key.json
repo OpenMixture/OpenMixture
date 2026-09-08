@@ -1,0 +1,12 @@
+{
+  "name": "duplicate-key",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/format/invalid/duplicate-key.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "stdout": "duplicate-key.stdout",
+  "stderr": "duplicate-key.stderr"
+}

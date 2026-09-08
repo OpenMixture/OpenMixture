@@ -1,0 +1,16 @@
+{
+  "name": "duplicate-key",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "validate",
+    "fixtures/format/invalid/duplicate-key.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "duplicate-key.stdout",
+  "stderr": "duplicate-key.stderr",
+  "stdoutSha256": "d35b8408426ab217e91a0f22c0c73e3a1e1d6a759456433c50abddfff870ab57",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

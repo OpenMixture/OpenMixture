@@ -1,5 +1,6 @@
 use super::*;
 use model::{Change, Structure};
+use std::sync::atomic::{AtomicU64, Ordering};
 
 #[test]
 fn directional_metrics_distinguish_axes_without_histogram_shortcuts() {
@@ -227,13 +228,16 @@ fn normal_checks_reject_invalid_length_and_flipped_height_direction() {
 struct Temp(PathBuf);
 impl Temp {
     fn new() -> Self {
+        // Wall-clock resolution can be coarser than concurrent test creation.
+        static NEXT_DIRECTORY: AtomicU64 = AtomicU64::new(0);
         let directory = env::temp_dir().join(format!(
-            "mixture-golden-test-{}-{}",
+            "mixture-golden-test-{}-{}-{}",
             std::process::id(),
             SystemTime::now()
                 .duration_since(UNIX_EPOCH)
                 .unwrap()
-                .as_nanos()
+                .as_nanos(),
+            NEXT_DIRECTORY.fetch_add(1, Ordering::Relaxed)
         ));
         fs::create_dir(&directory).unwrap();
         Self(directory)

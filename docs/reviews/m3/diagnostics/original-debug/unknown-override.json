@@ -1,0 +1,15 @@
+{
+  "name": "unknown-override",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--plan",
+    "--json",
+    "--set",
+    "frequncy=16"
+  ],
+  "exitCode": 2,
+  "stdout": "unknown-override.stdout",
+  "stderr": "unknown-override.stderr"
+}

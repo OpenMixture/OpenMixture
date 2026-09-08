@@ -1,0 +1,3 @@
+   Compiling m3-native-consumer-probe v0.0.0 (/Users/krapnik/Documents/OpenMixture/docs/reviews/m3/native-consumer)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s
+     Running `target/m3-native-consumer/debug/m3-native-consumer-probe`

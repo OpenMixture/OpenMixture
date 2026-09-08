@@ -1,0 +1,12 @@
+{
+  "name": "invalid-exposed",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/format/invalid/invalid-exposed.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "stdout": "invalid-exposed.stdout",
+  "stderr": "invalid-exposed.stderr"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "unknown-port-human",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "fixtures/format/invalid/unknown-port.mix",
+    "--plan"
+  ],
+  "exitCode": 2,
+  "stdout": "unknown-port-human.stdout",
+  "stderr": "unknown-port-human.stderr"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "invalid-parameters",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/format/invalid/invalid-parameters.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "stdout": "invalid-parameters.stdout",
+  "stderr": "invalid-parameters.stderr"
+}

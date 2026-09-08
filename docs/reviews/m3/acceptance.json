@@ -1,0 +1,1051 @@
+{
+  "allocationTraces": [
+    {
+      "adapter": {
+        "backend": "Vulkan",
+        "name": "SwiftShader Device (LLVM 10.0.0)"
+      },
+      "allRecordedChecksPassed": true,
+      "allocationScope": "Successful texture/uniform/staging descriptors; driver/pipeline overhead and CPU PNG/RGBA buffers are excluded.",
+      "allocations": {
+        "cumulativeBytes": 402653408,
+        "liveBytes": 0,
+        "peakBytes": 301990112,
+        "peakStagingBytes": 33554432,
+        "releasedBytes": 402653408,
+        "reusedBytes": 0,
+        "stagingBytes": 134217728,
+        "stagingCount": 4,
+        "textureBytes": 268435456,
+        "textureCount": 8,
+        "uniformBytes": 224,
+        "uniformCount": 8
+      },
+      "backend": "software",
+      "inputHashCount": 84,
+      "inputVerification": "Git source bytes at baseRevision",
+      "lifetimeDecision": "Measured naive peak fits the documented budget. No last-consumer release, pooling or compatible texture reuse is justified by this workload.",
+      "limits": "This fixed workload measurement is not a 2K golden or proof about every possible graph; GPU timings are CPU wall measurements around the recorded stages.",
+      "outputPngHashCount": 4,
+      "planHash": "sha256:a15829a0be13e1180c127b674491c5643e36ffc160e6ec86a0f6fd350bf050c4",
+      "rankedCaseCount": 11,
+      "selected": {
+        "case": "default",
+        "material": "wood",
+        "overrides": {}
+      },
+      "size": [
+        2048,
+        2048
+      ],
+      "trace": {
+        "path": "fixtures/materials/wood/reports/2k/software/trace.json",
+        "sha256": "sha256:0db170f3799f9909a5e3ca711b2dcefa6404ffa32a095e6e3b7013f40ca52920"
+      },
+      "transientBudgetBytes": 536870912
+    },
+    {
+      "adapter": {
+        "backend": "Metal",
+        "name": "Apple M5"
+      },
+      "allRecordedChecksPassed": true,
+      "allocationScope": "Successful texture/uniform/staging descriptors; driver/pipeline overhead and CPU PNG/RGBA buffers are excluded.",
+      "allocations": {
+        "cumulativeBytes": 402653408,
+        "liveBytes": 0,
+        "peakBytes": 301990112,
+        "peakStagingBytes": 33554432,
+        "releasedBytes": 402653408,
+        "reusedBytes": 0,
+        "stagingBytes": 134217728,
+        "stagingCount": 4,
+        "textureBytes": 268435456,
+        "textureCount": 8,
+        "uniformBytes": 224,
+        "uniformCount": 8
+      },
+      "backend": "metal",
+      "inputHashCount": 84,
+      "inputVerification": "Git source bytes at baseRevision",
+      "lifetimeDecision": "Measured naive peak fits the documented budget. No last-consumer release, pooling or compatible texture reuse is justified by this workload.",
+      "limits": "This fixed workload measurement is not a 2K golden or proof about every possible graph; GPU timings are CPU wall measurements around the recorded stages.",
+      "outputPngHashCount": 4,
+      "planHash": "sha256:a15829a0be13e1180c127b674491c5643e36ffc160e6ec86a0f6fd350bf050c4",
+      "rankedCaseCount": 11,
+      "selected": {
+        "case": "default",
+        "material": "wood",
+        "overrides": {}
+      },
+      "size": [
+        2048,
+        2048
+      ],
+      "trace": {
+        "path": "fixtures/materials/wood/reports/2k/metal/trace.json",
+        "sha256": "sha256:b3c995d8c50e57eb0234d7cb48e7db9262c07625587ebfc1a01630dd06fb088b"
+      },
+      "transientBudgetBytes": 536870912
+    }
+  ],
+  "baseRevision": "e9dd03bb272a29de6243aec79a3450b47b90530e",
+  "currentEvidenceIntegrity": {
+    "fileCount": 133,
+    "files": [
+      "fixtures/materials/glazed-ceramic/acceptance.json",
+      "fixtures/materials/glazed-ceramic/expected/default/baseColor.png",
+      "fixtures/materials/glazed-ceramic/expected/default/height.png",
+      "fixtures/materials/glazed-ceramic/expected/default/normal.png",
+      "fixtures/materials/glazed-ceramic/expected/default/roughness.png",
+      "fixtures/materials/glazed-ceramic/expected/fine-tiles/baseColor.png",
+      "fixtures/materials/glazed-ceramic/expected/fine-tiles/height.png",
+      "fixtures/materials/glazed-ceramic/expected/fine-tiles/normal.png",
+      "fixtures/materials/glazed-ceramic/expected/fine-tiles/roughness.png",
+      "fixtures/materials/glazed-ceramic/expected/manifest.json",
+      "fixtures/materials/glazed-ceramic/expected/matte/baseColor.png",
+      "fixtures/materials/glazed-ceramic/expected/matte/height.png",
+      "fixtures/materials/glazed-ceramic/expected/matte/normal.png",
+      "fixtures/materials/glazed-ceramic/expected/matte/roughness.png",
+      "fixtures/materials/glazed-ceramic/reports/human-review.json",
+      "fixtures/materials/glazed-ceramic/reports/pbr/comparison.json",
+      "fixtures/materials/glazed-ceramic/reports/pbr/comparison.png",
+      "fixtures/materials/glazed-ceramic/reports/pbr/default.png",
+      "fixtures/materials/glazed-ceramic/reports/pbr/fine-tiles.png",
+      "fixtures/materials/glazed-ceramic/reports/pbr/matte.png",
+      "fixtures/materials/glazed-ceramic/reports/pbr/review.json",
+      "fixtures/materials/glazed-ceramic/review/compare.py",
+      "fixtures/materials/glazed-ceramic/review/render.py",
+      "fixtures/materials/glazed-ceramic/variants/fine-tiles.json",
+      "fixtures/materials/glazed-ceramic/variants/matte.json",
+      "fixtures/materials/leather/acceptance.json",
+      "fixtures/materials/leather/expected/coarse-grain/baseColor.png",
+      "fixtures/materials/leather/expected/coarse-grain/height.png",
+      "fixtures/materials/leather/expected/coarse-grain/normal.png",
+      "fixtures/materials/leather/expected/coarse-grain/roughness.png",
+      "fixtures/materials/leather/expected/default/baseColor.png",
+      "fixtures/materials/leather/expected/default/height.png",
+      "fixtures/materials/leather/expected/default/normal.png",
+      "fixtures/materials/leather/expected/default/roughness.png",
+      "fixtures/materials/leather/expected/detail-max/baseColor.png",
+      "fixtures/materials/leather/expected/detail-max/height.png",
+      "fixtures/materials/leather/expected/detail-max/normal.png",
+      "fixtures/materials/leather/expected/detail-max/roughness.png",
+      "fixtures/materials/leather/expected/detail-min/baseColor.png",
+      "fixtures/materials/leather/expected/detail-min/height.png",
+      "fixtures/materials/leather/expected/detail-min/normal.png",
+      "fixtures/materials/leather/expected/detail-min/roughness.png",
+      "fixtures/materials/leather/expected/manifest.json",
+      "fixtures/materials/leather/reports/human-review.json",
+      "fixtures/materials/leather/reports/pbr/coarse-grain.png",
+      "fixtures/materials/leather/reports/pbr/comparison.json",
+      "fixtures/materials/leather/reports/pbr/comparison.png",
+      "fixtures/materials/leather/reports/pbr/default.png",
+      "fixtures/materials/leather/reports/pbr/detail-max.png",
+      "fixtures/materials/leather/reports/pbr/detail-min.png",
+      "fixtures/materials/leather/reports/pbr/review.json",
+      "fixtures/materials/leather/review/compare.py",
+      "fixtures/materials/leather/review/render.py",
+      "fixtures/materials/leather/variants/coarse-grain.json",
+      "fixtures/materials/leather/variants/detail-max.json",
+      "fixtures/materials/leather/variants/detail-min.json",
+      "fixtures/materials/wood/acceptance.json",
+      "fixtures/materials/wood/expected/coarse-grain/baseColor.png",
+      "fixtures/materials/wood/expected/coarse-grain/height.png",
+      "fixtures/materials/wood/expected/coarse-grain/normal.png",
+      "fixtures/materials/wood/expected/coarse-grain/roughness.png",
+      "fixtures/materials/wood/expected/default/baseColor.png",
+      "fixtures/materials/wood/expected/default/height.png",
+      "fixtures/materials/wood/expected/default/normal.png",
+      "fixtures/materials/wood/expected/default/roughness.png",
+      "fixtures/materials/wood/expected/horizontal-grain/baseColor.png",
+      "fixtures/materials/wood/expected/horizontal-grain/height.png",
+      "fixtures/materials/wood/expected/horizontal-grain/normal.png",
+      "fixtures/materials/wood/expected/horizontal-grain/roughness.png",
+      "fixtures/materials/wood/expected/manifest.json",
+      "fixtures/materials/wood/expected/straight-grain/baseColor.png",
+      "fixtures/materials/wood/expected/straight-grain/height.png",
+      "fixtures/materials/wood/expected/straight-grain/normal.png",
+      "fixtures/materials/wood/expected/straight-grain/roughness.png",
+      "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-default.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-fine-tiles.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-matte.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-leather-coarse-grain.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-leather-default.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-leather-detail-max.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-leather-detail-min.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-wood-coarse-grain.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-wood-default.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-wood-horizontal-grain.json",
+      "fixtures/materials/wood/reports/2k/metal/inspect-wood-straight-grain.json",
+      "fixtures/materials/wood/reports/2k/metal/png/baseColor.png",
+      "fixtures/materials/wood/reports/2k/metal/png/height.png",
+      "fixtures/materials/wood/reports/2k/metal/png/normal.png",
+      "fixtures/materials/wood/reports/2k/metal/png/roughness.png",
+      "fixtures/materials/wood/reports/2k/metal/render.json",
+      "fixtures/materials/wood/reports/2k/metal/selection.json",
+      "fixtures/materials/wood/reports/2k/metal/trace.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-default.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-fine-tiles.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-matte.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-leather-coarse-grain.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-leather-default.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-leather-detail-max.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-leather-detail-min.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-wood-coarse-grain.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-wood-default.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-wood-horizontal-grain.json",
+      "fixtures/materials/wood/reports/2k/software/inspect-wood-straight-grain.json",
+      "fixtures/materials/wood/reports/2k/software/png/baseColor.png",
+      "fixtures/materials/wood/reports/2k/software/png/height.png",
+      "fixtures/materials/wood/reports/2k/software/png/normal.png",
+      "fixtures/materials/wood/reports/2k/software/png/roughness.png",
+      "fixtures/materials/wood/reports/2k/software/render.json",
+      "fixtures/materials/wood/reports/2k/software/selection.json",
+      "fixtures/materials/wood/reports/2k/software/trace.json",
+      "fixtures/materials/wood/reports/glazed-ceramic-metal-regression.json",
+      "fixtures/materials/wood/reports/glazed-ceramic-software-regression.json",
+      "fixtures/materials/wood/reports/human-review.json",
+      "fixtures/materials/wood/reports/leather-metal-regression.json",
+      "fixtures/materials/wood/reports/leather-software-regression.json",
+      "fixtures/materials/wood/reports/metal-candidate.json",
+      "fixtures/materials/wood/reports/metal-golden-check.log",
+      "fixtures/materials/wood/reports/metal.json",
+      "fixtures/materials/wood/reports/pbr/coarse-grain.png",
+      "fixtures/materials/wood/reports/pbr/comparison.json",
+      "fixtures/materials/wood/reports/pbr/comparison.png",
+      "fixtures/materials/wood/reports/pbr/default.png",
+      "fixtures/materials/wood/reports/pbr/horizontal-grain.png",
+      "fixtures/materials/wood/reports/pbr/review.json",
+      "fixtures/materials/wood/reports/pbr/straight-grain.png",
+      "fixtures/materials/wood/reports/software-candidate.json",
+      "fixtures/materials/wood/reports/software-golden-check.log",
+      "fixtures/materials/wood/reports/software.json",
+      "fixtures/materials/wood/review/compare.py",
+      "fixtures/materials/wood/review/render.py",
+      "fixtures/materials/wood/variants/coarse-grain.json",
+      "fixtures/materials/wood/variants/horizontal-grain.json",
+      "fixtures/materials/wood/variants/straight-grain.json"
+    ],
+    "method": "Current retained evidence bytes must equal baseRevision and recorded hashes.",
+    "workingTreeEqualsBaseRequired": true
+  },
+  "filesVerifiedByBothMethods": 11,
+  "goldenChecks": [
+    {
+      "backend": "software",
+      "candidate": {
+        "path": "fixtures/materials/wood/reports/software-candidate.json",
+        "sha256": "sha256:c2fce18424f9e85999eb8698dda4f564771659523b989e6bd9ea9916f3643d05"
+      },
+      "candidateFinalReportHashMatched": true,
+      "candidateInputHashCount": 75,
+      "candidateInputVerification": "Git source bytes at baseRevision",
+      "candidatePreviousBaselineHashCount": 17,
+      "caseCount": 11,
+      "log": {
+        "path": "fixtures/materials/wood/reports/software-golden-check.log",
+        "sha256": "sha256:c9d2b8dbdbee6ea5d8598f197623c16208b9621a1ccf8c2fb18dd0101cc80431"
+      },
+      "materials": [
+        {
+          "adapter": {
+            "backend": "Vulkan",
+            "name": "SwiftShader Device (LLVM 10.0.0)"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/software-1788829146899710000-62661",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "fine-tiles",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "matte",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "glazed-ceramic",
+          "report": {
+            "path": "fixtures/materials/wood/reports/glazed-ceramic-software-regression.json",
+            "sha256": "sha256:7f549c68e63769ca02513d209b3be5d309e3d8d5f4143ed78425085c6baa450a"
+          }
+        },
+        {
+          "adapter": {
+            "backend": "Vulkan",
+            "name": "SwiftShader Device (LLVM 10.0.0)"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/software-1788829159881317000-62661",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "detail-min",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "detail-max",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "coarse-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "leather",
+          "report": {
+            "path": "fixtures/materials/wood/reports/leather-software-regression.json",
+            "sha256": "sha256:5544d7ff09c81fbb447a4881166b372c25ad487aa7772e8465ae05c2c7979742"
+          }
+        },
+        {
+          "adapter": {
+            "backend": "Vulkan",
+            "name": "SwiftShader Device (LLVM 10.0.0)"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/wood/software-1788829205909035000-62661",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "coarse-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "straight-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "horizontal-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "wood",
+          "report": {
+            "path": "fixtures/materials/wood/reports/software.json",
+            "sha256": "sha256:9000bf7a8e82a88b36bcefa305a1bfb430f71a17f2b824c56b18fd659ed6380f"
+          }
+        }
+      ]
+    },
+    {
+      "backend": "metal",
+      "candidate": {
+        "path": "fixtures/materials/wood/reports/metal-candidate.json",
+        "sha256": "sha256:47f9496222df4f7025f0c431c0360c0a64264c5fe82a68975dfb54faa7cd6366"
+      },
+      "candidateFinalReportHashMatched": true,
+      "candidateInputHashCount": 75,
+      "candidateInputVerification": "Git source bytes at baseRevision",
+      "candidatePreviousBaselineHashCount": 17,
+      "caseCount": 11,
+      "log": {
+        "path": "fixtures/materials/wood/reports/metal-golden-check.log",
+        "sha256": "sha256:2080a78a47411dd5b1b736908e95e3e77fe3f49a9077886e9fa9a88ab236d462"
+      },
+      "materials": [
+        {
+          "adapter": {
+            "backend": "Metal",
+            "name": "Apple M5"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/hardware-1788829146902499000-62660",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "fine-tiles",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "matte",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 0,
+              "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "glazed-ceramic",
+          "report": {
+            "path": "fixtures/materials/wood/reports/glazed-ceramic-metal-regression.json",
+            "sha256": "sha256:65dafd97b8f5a02b450b1d7da67a0be4f039601f1da2bc2316fe5f8c54f8710e"
+          }
+        },
+        {
+          "adapter": {
+            "backend": "Metal",
+            "name": "Apple M5"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1788829159809338000-62660",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "detail-min",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "detail-max",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "coarse-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "leather",
+          "report": {
+            "path": "fixtures/materials/wood/reports/leather-metal-regression.json",
+            "sha256": "sha256:a8484511f9309c530c811be3df448b579c7b1b4c0730a2bbe3243401cc80b976"
+          }
+        },
+        {
+          "adapter": {
+            "backend": "Metal",
+            "name": "Apple M5"
+          },
+          "allGatesPassed": true,
+          "capturedRunDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/golden/wood/hardware-1788829205887398000-62660",
+          "cases": [
+            {
+              "id": "default",
+              "passedChannelGateCounts": {
+                "causality": 0,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "coarse-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "straight-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+              "planMatchesGolden": true
+            },
+            {
+              "id": "horizontal-grain",
+              "passedChannelGateCounts": {
+                "causality": 4,
+                "comparison": 4,
+                "floatReadback": 4,
+                "structure": 4
+              },
+              "passedRelationshipCount": 1,
+              "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+              "planMatchesGolden": true
+            }
+          ],
+          "material": "wood",
+          "report": {
+            "path": "fixtures/materials/wood/reports/metal.json",
+            "sha256": "sha256:446a6c107562ede35e89e5a6a6f85e462782f3ec5a488076d264c6db4af6bc8f"
+          }
+        }
+      ]
+    }
+  ],
+  "historicalCapturePolicy": "Current reports/human-review.json status and humanDecision govern acceptance. Earlier pending captions and automated humanAcceptanceClaimed=false records remain historical capture evidence; they are not new rejection decisions.",
+  "historicalSourceBindings": {
+    "fileCount": 84,
+    "files": [
+      ".github/scripts/setup-swiftshader.sh",
+      "Cargo.lock",
+      "Cargo.toml",
+      "crates/mixture-cli/Cargo.toml",
+      "crates/mixture-cli/src/commands/compile_options.rs",
+      "crates/mixture-cli/src/commands/doctor.rs",
+      "crates/mixture-cli/src/commands/document_io.rs",
+      "crates/mixture-cli/src/commands/gpu_options.rs",
+      "crates/mixture-cli/src/commands/inspect.rs",
+      "crates/mixture-cli/src/commands/png_output.rs",
+      "crates/mixture-cli/src/commands/render.rs",
+      "crates/mixture-cli/src/commands/render_builtin.rs",
+      "crates/mixture-cli/src/commands/validate.rs",
+      "crates/mixture-cli/src/main.rs",
+      "crates/mixture-core/Cargo.toml",
+      "crates/mixture-core/src/compiler.rs",
+      "crates/mixture-core/src/compiler/lower.rs",
+      "crates/mixture-core/src/compiler/normalize.rs",
+      "crates/mixture-core/src/document.rs",
+      "crates/mixture-core/src/document/decode.rs",
+      "crates/mixture-core/src/error.rs",
+      "crates/mixture-core/src/lib.rs",
+      "crates/mixture-core/src/limits.rs",
+      "crates/mixture-core/src/nodes/blend.rs",
+      "crates/mixture-core/src/nodes/checker.rs",
+      "crates/mixture-core/src/nodes/constant_color.rs",
+      "crates/mixture-core/src/nodes/constant_scalar.rs",
+      "crates/mixture-core/src/nodes/fractal_noise.rs",
+      "crates/mixture-core/src/nodes/gradient_map.rs",
+      "crates/mixture-core/src/nodes/height_to_normal.rs",
+      "crates/mixture-core/src/nodes/levels.rs",
+      "crates/mixture-core/src/nodes/material_output.rs",
+      "crates/mixture-core/src/nodes/mod.rs",
+      "crates/mixture-core/src/nodes/transform_2d.rs",
+      "crates/mixture-core/src/nodes/warp.rs",
+      "crates/mixture-core/src/plan.rs",
+      "crates/mixture-core/src/registry.rs",
+      "crates/mixture-core/src/validation.rs",
+      "crates/mixture-wgpu/Cargo.toml",
+      "crates/mixture-wgpu/shaders/nodes/blend.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/checker.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/constant.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/levels.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl",
+      "crates/mixture-wgpu/shaders/nodes/warp.wgsl",
+      "crates/mixture-wgpu/src/allocations.rs",
+      "crates/mixture-wgpu/src/checker.rs",
+      "crates/mixture-wgpu/src/context.rs",
+      "crates/mixture-wgpu/src/diagnostics.rs",
+      "crates/mixture-wgpu/src/executor.rs",
+      "crates/mixture-wgpu/src/kernels.rs",
+      "crates/mixture-wgpu/src/lib.rs",
+      "crates/mixture-wgpu/src/operation.rs",
+      "crates/mixture-wgpu/src/readback.rs",
+      "crates/mixture-wgpu/src/resources.rs",
+      "fixtures/materials/glazed-ceramic/acceptance.json",
+      "fixtures/materials/glazed-ceramic/material.mix",
+      "fixtures/materials/glazed-ceramic/variants/fine-tiles.json",
+      "fixtures/materials/glazed-ceramic/variants/matte.json",
+      "fixtures/materials/leather/acceptance.json",
+      "fixtures/materials/leather/material.mix",
+      "fixtures/materials/leather/variants/coarse-grain.json",
+      "fixtures/materials/leather/variants/detail-max.json",
+      "fixtures/materials/leather/variants/detail-min.json",
+      "fixtures/materials/wood/acceptance.json",
+      "fixtures/materials/wood/material.mix",
+      "fixtures/materials/wood/variants/coarse-grain.json",
+      "fixtures/materials/wood/variants/horizontal-grain.json",
+      "fixtures/materials/wood/variants/straight-grain.json",
+      "rust-toolchain.toml",
+      "xtask/Cargo.toml",
+      "xtask/src/dependencies.rs",
+      "xtask/src/golden.rs",
+      "xtask/src/golden/files.rs",
+      "xtask/src/golden/model.rs",
+      "xtask/src/golden/pixels.rs",
+      "xtask/src/golden/tests.rs",
+      "xtask/src/golden/trace.rs",
+      "xtask/src/gpu_smoke.rs",
+      "xtask/src/links.rs",
+      "xtask/src/main.rs"
+    ],
+    "method": "Candidate and trace inputs hashes are checked against git show baseRevision:path.",
+    "workingTreeEqualsBaseRequired": false
+  },
+  "humanAcceptance": [
+    {
+      "appearanceFrameCount": 3,
+      "baselinePngCount": 12,
+      "bindingsAndExpectedFilesMatchBase": true,
+      "boundEvidence": [
+        {
+          "path": "fixtures/materials/glazed-ceramic/expected/manifest.json",
+          "sha256": "sha256:c05d0beedd6c41553d18f91e3839d3a4f292486381d05acd6552e472f890b953"
+        },
+        {
+          "path": "fixtures/materials/glazed-ceramic/reports/pbr/review.json",
+          "sha256": "sha256:868be1161739ed0506815878140617c38ff239d1ec50de5eb608e3ce7428888d"
+        },
+        {
+          "path": "fixtures/materials/glazed-ceramic/reports/pbr/comparison.png",
+          "sha256": "sha256:d15900c9bd638d89859c22ca24d27538634a683a9781ca228225e439c6ba1803"
+        }
+      ],
+      "decision": {
+        "decision": "accepted",
+        "recordedBy": "Codex",
+        "remoteCi": "still deferred; no full M3 closure",
+        "scope": "Glazed ceramic/checker appearance shown in the controlled PBR comparison, bound to the recorded baseline and appearance digests",
+        "source": "user",
+        "text": "接受，开始下一步任务"
+      },
+      "material": "glazed-ceramic",
+      "review": {
+        "path": "fixtures/materials/glazed-ceramic/reports/human-review.json",
+        "sha256": "sha256:815aaef90068bbf04bfbbb18c699ac236216f845deb379efeaea12615163a622"
+      },
+      "reviewedAt": "2026-09-07T09:42:37.750016+00:00",
+      "reviewer": "user (explicit acceptance in the Codex conversation)",
+      "status": "accepted"
+    },
+    {
+      "appearanceFrameCount": 4,
+      "baselinePngCount": 16,
+      "bindingsAndExpectedFilesMatchBase": true,
+      "boundEvidence": [
+        {
+          "path": "fixtures/materials/leather/expected/manifest.json",
+          "sha256": "sha256:851fbc73d7217b1af42732364dea5af7d3ccf0971181161435150cec8a402d14"
+        },
+        {
+          "path": "fixtures/materials/leather/reports/pbr/review.json",
+          "sha256": "sha256:a421dd451427b5a00fb53c31fe5402fb46368b5987f154e90e5533793b3be4a0"
+        },
+        {
+          "path": "fixtures/materials/leather/reports/pbr/comparison.png",
+          "sha256": "sha256:f69adc9e8e846d3f5cfe13d8dc6ef8ad2da937ee1fb09d16ea0bfc11639382bf"
+        }
+      ],
+      "decision": {
+        "decision": "accepted",
+        "recordedBy": "Codex",
+        "remoteCi": "still deferred; PR-010 and full M3 review remain open",
+        "scope": "Leather appearance shown in the controlled PBR comparison, bound to the recorded baseline and appearance hashes",
+        "source": "user",
+        "text": "可以接受，继续任务"
+      },
+      "material": "leather",
+      "review": {
+        "path": "fixtures/materials/leather/reports/human-review.json",
+        "sha256": "sha256:b1396e7433cb8d41695749acd461a8847cfe0f54aff8ad4819a9601d8670fe1c"
+      },
+      "reviewedAt": "2026-09-08T00:28:36.231686+00:00",
+      "reviewer": "user (explicit acceptance in the Codex conversation)",
+      "status": "accepted"
+    },
+    {
+      "appearanceFrameCount": 4,
+      "baselinePngCount": 16,
+      "bindingsAndExpectedFilesMatchBase": true,
+      "boundEvidence": [
+        {
+          "path": "fixtures/materials/wood/expected/manifest.json",
+          "sha256": "sha256:36447d89980991db61b01edbad42e8f96a43b33ae8d4824d93e8a5036c3b4d69"
+        },
+        {
+          "path": "fixtures/materials/wood/reports/pbr/review.json",
+          "sha256": "sha256:dbab30326e2d140a680c3f38e472e8226831d2e72091b7b2776e9d3cf9910203"
+        },
+        {
+          "path": "fixtures/materials/wood/reports/pbr/comparison.png",
+          "sha256": "sha256:c999ac8bb58b3903cdcf66407390ac0d67cc5c59220c81ee5686233635d3805f"
+        }
+      ],
+      "decision": {
+        "decision": "accepted",
+        "recordedBy": "Codex",
+        "remoteCi": "still deferred; proceed with the six-question M3 review before M4",
+        "scope": "Wood appearance shown in the controlled four-case PBR comparison, bound to the recorded baseline and appearance hashes",
+        "source": "user",
+        "text": "接受，开始下一步任务"
+      },
+      "material": "wood",
+      "review": {
+        "path": "fixtures/materials/wood/reports/human-review.json",
+        "sha256": "sha256:9758152267a203c3adad0ea8ff48dc3fd13b389a622347afdfd7d53c30b296ab"
+      },
+      "reviewedAt": "2026-09-08T01:14:09.742029+00:00",
+      "reviewer": "user (explicit acceptance in the Codex conversation)",
+      "status": "accepted"
+    }
+  ],
+  "kind": "m3-committed-acceptance-evidence-audit",
+  "limits": [
+    "Reported machine outcomes and their declared rules are verified, not recomputed from pixels.",
+    "Human approval is read from the existing user decision records, not inferred from machine gates.",
+    "The 2K evidence covers the selected workload and descriptor bytes, not all graphs or process RSS.",
+    "Original temporary paths in capture reports are historical; this audit uses committed paths.",
+    "Recorded GPU runs describe baseRevision sources; newer source changes require their own validation.",
+    "This receipt does not claim M4 SDK, package publication, or remote CI acceptance."
+  ],
+  "ok": true,
+  "remoteCi": {
+    "remoteAcceptanceClaimed": false,
+    "status": "deferred"
+  },
+  "schemaVersion": 1,
+  "scope": "Local verification of existing committed evidence; no new GPU run or human decision.",
+  "verificationCommand": "python3 docs/reviews/m3/native-consumer/verify_acceptance.py --check",
+  "verifiedCommittedFileCount": 206,
+  "verifiedCommittedFiles": {
+    ".github/scripts/setup-swiftshader.sh": "sha256:91d7f399699820c408fa8d5431845dbb1745b99ea95088183f9f209a366fd577",
+    "Cargo.lock": "sha256:838e0ca9f81fd21d88f6ff5f129c015df97a23cef1335f1ff7ceb99e399234a4",
+    "Cargo.toml": "sha256:b61aba5988aa5e163a680fec89f24809267216190d152cc222ecec940ea008f6",
+    "crates/mixture-cli/Cargo.toml": "sha256:c1dd71b350aaf9a57b9faa253f2e7a799b46018b53fb587bc49340ebba3775de",
+    "crates/mixture-cli/src/commands/compile_options.rs": "sha256:bf93c1fc7865d6f6a45c281e6e01cd2c6dc70a7ba5ea36b86edc4ac83662057e",
+    "crates/mixture-cli/src/commands/doctor.rs": "sha256:d84fd48ae5c856037470b6b3d68c10cf97d65103ab738a4667aa6b4930b7a0b0",
+    "crates/mixture-cli/src/commands/document_io.rs": "sha256:3f018c32774244896a75801676843ad47c9ed829585f29ce69028382850476ca",
+    "crates/mixture-cli/src/commands/gpu_options.rs": "sha256:d5fe4e0c2569fffa004c9e814a054d4729fc80520d6f9b49c1daab5e4988aec9",
+    "crates/mixture-cli/src/commands/inspect.rs": "sha256:af36587d59479b4b947c8b97662125338592c61c27e7f401e8f76ee7d35b355d",
+    "crates/mixture-cli/src/commands/png_output.rs": "sha256:387f5e8d45adedad59bbd89396c70adbb60f9619be80453202a4a6c28b6768e2",
+    "crates/mixture-cli/src/commands/render.rs": "sha256:1d7a50e703a721697f6da0bd73274f7921f5095a9ef45bed7aa24cd6b5a6eae7",
+    "crates/mixture-cli/src/commands/render_builtin.rs": "sha256:5112650b652910e611a4c5cfd7dd4ddc5891e532953d27486edbdfa6d62f1f1f",
+    "crates/mixture-cli/src/commands/validate.rs": "sha256:df991531079d1f2e3e4b558d352cdc49a2791f4a1eb1bb9ad6eb6eb6701c8ffe",
+    "crates/mixture-cli/src/main.rs": "sha256:c8b11740be35faf2027a1a192042680ebec5431904a12dad2ef051a507c06838",
+    "crates/mixture-core/Cargo.toml": "sha256:bab7fe6dff4227e43a7778f25b6a38804af45d693096352dbea33f3f9739790c",
+    "crates/mixture-core/src/compiler.rs": "sha256:839e9888dbc8ea36bc7d4a45f4e688ce27674239be9a92e0128bc341c0cd2ac8",
+    "crates/mixture-core/src/compiler/lower.rs": "sha256:4c42a547c136a03f4c757cfd39f363eee0ae5211ffd9c8166d7ae7cec2da69df",
+    "crates/mixture-core/src/compiler/normalize.rs": "sha256:46e8e2ab212b2f16a32ecb538570ea7efc948d3db318812ed08d15fd90ff97df",
+    "crates/mixture-core/src/document.rs": "sha256:79c975513dc69d0310888970cafc793b97e8463b49d6e49c70959e0f201a30fe",
+    "crates/mixture-core/src/document/decode.rs": "sha256:5381b02d9cb7bb3f274c1e9b11b69122764c871dc0585097a3ca722407e2bb43",
+    "crates/mixture-core/src/error.rs": "sha256:ac3a7befdacd84ff8aec80c614cacd8bf963093c4e9e030626bb15b5fb6be896",
+    "crates/mixture-core/src/lib.rs": "sha256:036fe2a8838867be8681431505c55adad43dd26dd45ee69d2c2448d8c7e17a33",
+    "crates/mixture-core/src/limits.rs": "sha256:1162fa345dab38f275429fba1c5cd2e3746c66c77c36f6b4602304089d6902ff",
+    "crates/mixture-core/src/nodes/blend.rs": "sha256:bb57f1591e4648036b22941718fbbb94c4ceaf598e8db1d4d122789b862ebbba",
+    "crates/mixture-core/src/nodes/checker.rs": "sha256:0e9191831861b98863a916e6dc97482c92845aaf92d54990d4235b433886a9f8",
+    "crates/mixture-core/src/nodes/constant_color.rs": "sha256:1b6ff43580ce56b038c6397b5d8d4a4938069addb54609c8e6b4a3c68c9a4f09",
+    "crates/mixture-core/src/nodes/constant_scalar.rs": "sha256:c8a7ecdf9b22c88e94d151f101b8d0e51b043d380c3fe959594aa8a2062b42a5",
+    "crates/mixture-core/src/nodes/fractal_noise.rs": "sha256:cfea5208d5e03459cc0400e0c6fff95244d01bc4e169ae028598ed825c8a9f72",
+    "crates/mixture-core/src/nodes/gradient_map.rs": "sha256:a309f6332cff9bd289485294100860f4f2f1b1e5475875ab9b897430228a34b6",
+    "crates/mixture-core/src/nodes/height_to_normal.rs": "sha256:a5c927eb3119e73e6dfe4cf4ebd6ec7385d1c8a6995cb8e640c637a308cc0368",
+    "crates/mixture-core/src/nodes/levels.rs": "sha256:c3373ca896b1bd76b799bfca2c873428034067eabe61437142a0409ca98483e1",
+    "crates/mixture-core/src/nodes/material_output.rs": "sha256:6e68c67a089e14712bf4b9dfc95d0035307e73297f24bb85c8a97dca36c14f59",
+    "crates/mixture-core/src/nodes/mod.rs": "sha256:9f7c92e66686d673ed05cf7fbdb7649ffed45be52fe9871bd3ab2767e7593e99",
+    "crates/mixture-core/src/nodes/transform_2d.rs": "sha256:aa359719798908555f036ccc7bcc6b41c871a3d98255066837aa384cc1c35d0b",
+    "crates/mixture-core/src/nodes/warp.rs": "sha256:1783b5866c70246a5d03e0f68fb1d36969744f07b6441e5bd1731a478a184c73",
+    "crates/mixture-core/src/plan.rs": "sha256:3ebeb79fa7a05efff3e78de935953819e424eb6509052c828751bd997b300cbf",
+    "crates/mixture-core/src/registry.rs": "sha256:3a41272599dc8d06ee9cbe72c5a0a86394e58926ac84660f0d06dfd6f0dc2999",
+    "crates/mixture-core/src/validation.rs": "sha256:b55cc00093149d37c13a56a59dd064ef4b0589a3fc723a6582e927bd6c69d455",
+    "crates/mixture-wgpu/Cargo.toml": "sha256:6af88477f92fd2de5528fdcdae7b78998bcf48a0221a3863cb4a449c734d9207",
+    "crates/mixture-wgpu/shaders/nodes/blend.wgsl": "sha256:5d3cf2a3b0e14940aac952438057edb6a877738f052ac358b6dcc0c89ad84ba6",
+    "crates/mixture-wgpu/shaders/nodes/checker.wgsl": "sha256:f72d4ed93781f00ffcfa69a81336d7edb31acdde5da9fadb037b8dccbce4e9fc",
+    "crates/mixture-wgpu/shaders/nodes/constant.wgsl": "sha256:6d30618c4d22f18a81f085a8602d691c87cddb422e67664631aa74c19f6c1972",
+    "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl": "sha256:d014c6e215510538d68985ab233cf5352b70243a2cd86e8df5084fe50245abf5",
+    "crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl": "sha256:2aaa44f6f48cc057f3bd3ee84b90b4da4f57af9db6b326602ce5634bccb2cdb0",
+    "crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl": "sha256:eeceb4a1e1572e280de4d5f5b7b341da05270de08fa2e6ae7f2e007921d5656f",
+    "crates/mixture-wgpu/shaders/nodes/levels.wgsl": "sha256:111e8482f0ace65de26f012ddd3381a88c05ae0e385641dba8c33f5918ae9007",
+    "crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl": "sha256:1511e78f73f3a7e8e799e45ff386b5b65c165b094753851de03802de2cbeb829",
+    "crates/mixture-wgpu/shaders/nodes/warp.wgsl": "sha256:3db562f515cac08c560165309a4bef08026e4ef62e6bf1a97bb2a2e9cddc9ac3",
+    "crates/mixture-wgpu/src/allocations.rs": "sha256:77836de61e0d6f916dd98becf8d2e7cbb416a2aa281ea6c545bc92f170e450c6",
+    "crates/mixture-wgpu/src/checker.rs": "sha256:090558a1732a462fc81cd3bb7b6cdda54d9946cf89385474b5bf0bfefb84d203",
+    "crates/mixture-wgpu/src/context.rs": "sha256:8c2bad6fef7ab8c3a5b3a75ab7e24a14b16378859d0f3e1d875a97ee12fdf99b",
+    "crates/mixture-wgpu/src/diagnostics.rs": "sha256:43407c120b995734009bcc9e9114111af45245e0ab326c73ee01a836c4ae9750",
+    "crates/mixture-wgpu/src/executor.rs": "sha256:88447fd2694df1571de05e70f97fdbfee698dd07df40e11792f2ac487bfb6804",
+    "crates/mixture-wgpu/src/kernels.rs": "sha256:b391267761153b07e58f65a6220f31381db1bc2600166132020b0459ea1cd9b1",
+    "crates/mixture-wgpu/src/lib.rs": "sha256:5bfb8b8abd4b25412fd589c1bcdcc6cfd858a9a2f99ca3a7fbe12f7d34dcaaf5",
+    "crates/mixture-wgpu/src/operation.rs": "sha256:f800e5760e8229249d66bb5fb5059216274d9a6004835b44962894446dfb0506",
+    "crates/mixture-wgpu/src/readback.rs": "sha256:460283e52153d22fe96a863aaa8d6d4c6b14a2a7976196ce657cd266c62b8d45",
+    "crates/mixture-wgpu/src/resources.rs": "sha256:cbbb904de97b565c3a7d522c3b4f96224ac18cdb0798e1e4ce4108e4a96599e7",
+    "fixtures/materials/glazed-ceramic/acceptance.json": "sha256:6b96f8b064e78824bd8f46f4760858dc72193ad66229a870302363932ba5ae0d",
+    "fixtures/materials/glazed-ceramic/expected/default/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "fixtures/materials/glazed-ceramic/expected/default/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "fixtures/materials/glazed-ceramic/expected/default/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "fixtures/materials/glazed-ceramic/expected/default/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "fixtures/materials/glazed-ceramic/expected/fine-tiles/baseColor.png": "sha256:a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+    "fixtures/materials/glazed-ceramic/expected/fine-tiles/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "fixtures/materials/glazed-ceramic/expected/fine-tiles/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "fixtures/materials/glazed-ceramic/expected/fine-tiles/roughness.png": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+    "fixtures/materials/glazed-ceramic/expected/manifest.json": "sha256:c05d0beedd6c41553d18f91e3839d3a4f292486381d05acd6552e472f890b953",
+    "fixtures/materials/glazed-ceramic/expected/matte/baseColor.png": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+    "fixtures/materials/glazed-ceramic/expected/matte/height.png": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+    "fixtures/materials/glazed-ceramic/expected/matte/normal.png": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+    "fixtures/materials/glazed-ceramic/expected/matte/roughness.png": "sha256:adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+    "fixtures/materials/glazed-ceramic/material.mix": "sha256:ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+    "fixtures/materials/glazed-ceramic/reports/human-review.json": "sha256:815aaef90068bbf04bfbbb18c699ac236216f845deb379efeaea12615163a622",
+    "fixtures/materials/glazed-ceramic/reports/pbr/comparison.json": "sha256:57913d66fbe42324c2eb55722eb7fad116d327313246faca046cf6306133afd3",
+    "fixtures/materials/glazed-ceramic/reports/pbr/comparison.png": "sha256:d15900c9bd638d89859c22ca24d27538634a683a9781ca228225e439c6ba1803",
+    "fixtures/materials/glazed-ceramic/reports/pbr/default.png": "sha256:3a3cf142a66319cdd68622dd9ec5b8a70f0e4a3d2b9c6ef93c3ee41259d0ee96",
+    "fixtures/materials/glazed-ceramic/reports/pbr/fine-tiles.png": "sha256:1e9e0cdd261979cc3cfa20fa46b090092bb9681634a4ae3a4ded26a23d7eca33",
+    "fixtures/materials/glazed-ceramic/reports/pbr/matte.png": "sha256:07bb3753ea6c817774ea543000d9c4ae837aea3738664b7f9014c70536ed0a00",
+    "fixtures/materials/glazed-ceramic/reports/pbr/review.json": "sha256:868be1161739ed0506815878140617c38ff239d1ec50de5eb608e3ce7428888d",
+    "fixtures/materials/glazed-ceramic/review/compare.py": "sha256:b1c006392749369fda8d6b8d55ffa8177a964527342a8513a80c74efb875a43a",
+    "fixtures/materials/glazed-ceramic/review/render.py": "sha256:e81abb09e861bdc88ce07bba00a7b3c9e411b2443f67466332dbca21619f0ad2",
+    "fixtures/materials/glazed-ceramic/variants/fine-tiles.json": "sha256:5e8de17920fb3d3c862b5a4527c8011f9f003d81f8f75753316399f4a6a5e84c",
+    "fixtures/materials/glazed-ceramic/variants/matte.json": "sha256:59e54ff66bd2311d3e24048559621bd0809b0ab4bbe8a30ea9b85fedc600ada4",
+    "fixtures/materials/leather/acceptance.json": "sha256:9b7a8ca88be6321fd43ef0696d693a26edc4353883babfc7d937a2071ae4ceb8",
+    "fixtures/materials/leather/expected/coarse-grain/baseColor.png": "sha256:93c9610a0ea7e420c8efc9899672fa7c534760a5f7c2f602b3aaa39c0487ca5a",
+    "fixtures/materials/leather/expected/coarse-grain/height.png": "sha256:15ec2a0ec849e583eae55b20aef4ac40b2d5ef1acf72ed649028bde51e234c2f",
+    "fixtures/materials/leather/expected/coarse-grain/normal.png": "sha256:1899a557568c9c39f89532fe2b7c9809609ef7669c8f9a2d44959d5288f725a2",
+    "fixtures/materials/leather/expected/coarse-grain/roughness.png": "sha256:f20d2f17b86cd4e3ced8611f20102b26276b1e69fbaa1130c3199841cc110119",
+    "fixtures/materials/leather/expected/default/baseColor.png": "sha256:f457177316916bdc6639145720e211072b04e588ad65aacfcd4c1f2569d310ab",
+    "fixtures/materials/leather/expected/default/height.png": "sha256:0d8ede05f8304f1a292ebcf48ac26506b86293f18f8c07a0fa313df84ce2b6bb",
+    "fixtures/materials/leather/expected/default/normal.png": "sha256:b303d7445d5e73d9a8edb0f1790aaa0d64a8ca9feb66515a6b0954a150c57c1a",
+    "fixtures/materials/leather/expected/default/roughness.png": "sha256:71fa372a505cd06225c46648ca1e1c2a0617143322af560bc7fd69edef4047c1",
+    "fixtures/materials/leather/expected/detail-max/baseColor.png": "sha256:f7790806cab7a3ce37ea5dd58afd0390c517ec037cc9fa67a808ac4ce326f47b",
+    "fixtures/materials/leather/expected/detail-max/height.png": "sha256:81d9dca4e7d450a3e11806e3d8368c0138bb16f3d5f1d0319a8c453ba11cba85",
+    "fixtures/materials/leather/expected/detail-max/normal.png": "sha256:2fdbb9ed2ea24de0aec6d6fdb53493a1030be4eeaa50fb4bb002813cdbcd61f6",
+    "fixtures/materials/leather/expected/detail-max/roughness.png": "sha256:bfe583ba1f13a0548f7f83b5a3e21218b468b15e2ead8340810f1ee5b4739481",
+    "fixtures/materials/leather/expected/detail-min/baseColor.png": "sha256:2bb82f48d6509aff80bf2d31dde26e51cb314907d1479a0e27fc409565b1fa04",
+    "fixtures/materials/leather/expected/detail-min/height.png": "sha256:fec8ddfd383209b25e5376b216ee13d552add360aeaf227e31c88a140e51e0a0",
+    "fixtures/materials/leather/expected/detail-min/normal.png": "sha256:5ede03d7b2282701d2edba90ed88f9f99cd4473d1c2e44b30b5776455d106364",
+    "fixtures/materials/leather/expected/detail-min/roughness.png": "sha256:4e93819af7da78a087d0eab1d464de0a8b280798c5c8010c039f71c7a30f6b8b",
+    "fixtures/materials/leather/expected/manifest.json": "sha256:851fbc73d7217b1af42732364dea5af7d3ccf0971181161435150cec8a402d14",
+    "fixtures/materials/leather/material.mix": "sha256:8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+    "fixtures/materials/leather/reports/human-review.json": "sha256:b1396e7433cb8d41695749acd461a8847cfe0f54aff8ad4819a9601d8670fe1c",
+    "fixtures/materials/leather/reports/pbr/coarse-grain.png": "sha256:16950a548f7b6681fc8ad3afd123d56f933a65e749161cd8bda6830ee4494764",
+    "fixtures/materials/leather/reports/pbr/comparison.json": "sha256:b7807968b6f4573a8aece60126175555cbd933eb68c19dfdbb48ead503366fe6",
+    "fixtures/materials/leather/reports/pbr/comparison.png": "sha256:f69adc9e8e846d3f5cfe13d8dc6ef8ad2da937ee1fb09d16ea0bfc11639382bf",
+    "fixtures/materials/leather/reports/pbr/default.png": "sha256:0c4f017ca926525d1eb49dcaa33549d789cc1c703fa64f052152fd0c611227af",
+    "fixtures/materials/leather/reports/pbr/detail-max.png": "sha256:4f357cb262ba2dd25723765804a34859a3e1ad347779f7afb07bf323cbc2917a",
+    "fixtures/materials/leather/reports/pbr/detail-min.png": "sha256:f28161f648c8efe6923d37446233a4ffb389501af3eb4bcae9dbde6e777490c9",
+    "fixtures/materials/leather/reports/pbr/review.json": "sha256:a421dd451427b5a00fb53c31fe5402fb46368b5987f154e90e5533793b3be4a0",
+    "fixtures/materials/leather/review/compare.py": "sha256:e033eeaa8372d80e4d754ac7f3bbbd809a036d42b4e70c49cf4a36c7836f3782",
+    "fixtures/materials/leather/review/render.py": "sha256:3fa7c1360a30c6d7a012588357daa9583e67aee8bc3a36180827656e5b9313ac",
+    "fixtures/materials/leather/variants/coarse-grain.json": "sha256:77ee16752fd46ebf87ae69c107f65ba34fad00ff0e9195a717d5820450eae8a4",
+    "fixtures/materials/leather/variants/detail-max.json": "sha256:7ad34991bc755b6d4ca9294b643fed848244184b61f664311fe7f2fae966da6d",
+    "fixtures/materials/leather/variants/detail-min.json": "sha256:5accc0314aba56376cd103a5ee7e338dbee1be9b8d4371b4d3a792827dc69e9a",
+    "fixtures/materials/wood/acceptance.json": "sha256:4bca7957355f598fa765e86655fc5c8a01280f08b94ade5d2c10a0575d1fb8cc",
+    "fixtures/materials/wood/expected/coarse-grain/baseColor.png": "sha256:5a7a650a0030d64ba735e4b326cc29e60a8b762303fcb10ea89188bbfe8b44a4",
+    "fixtures/materials/wood/expected/coarse-grain/height.png": "sha256:d107ec5c7169d55af00f710fc0ae5d39f7348bdf09a7a6fbde623e79d3770f32",
+    "fixtures/materials/wood/expected/coarse-grain/normal.png": "sha256:439b41afdb86ab4cf0afef27f13a33dd95e777f6e0efa92f00f5ecae12a5d04a",
+    "fixtures/materials/wood/expected/coarse-grain/roughness.png": "sha256:93b140604d2a6516465d834f180dfaafac62e1ec75b12559818a7892d5f0ae53",
+    "fixtures/materials/wood/expected/default/baseColor.png": "sha256:e0d3afb5434742ee5cead0ffaf15ee7e41eacb243009ba7ea56cdd0a44fcce58",
+    "fixtures/materials/wood/expected/default/height.png": "sha256:23bf1db115c42bdf52d7689c0ae1f91cc8b5e17bc93b93d9163890d589055884",
+    "fixtures/materials/wood/expected/default/normal.png": "sha256:cb424b7783204640afc388b11e2895f30c01d0eeb85747109987594a7e65d22a",
+    "fixtures/materials/wood/expected/default/roughness.png": "sha256:48e83939521c647b60566f2259faed5bd831a5054c3e7f4c9fccf54ec84f1533",
+    "fixtures/materials/wood/expected/horizontal-grain/baseColor.png": "sha256:9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+    "fixtures/materials/wood/expected/horizontal-grain/height.png": "sha256:d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a",
+    "fixtures/materials/wood/expected/horizontal-grain/normal.png": "sha256:106f2ec5be76b97f61afde6ef8a7e30d10b57c29937fd5a35a064140fd326e30",
+    "fixtures/materials/wood/expected/horizontal-grain/roughness.png": "sha256:cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+    "fixtures/materials/wood/expected/manifest.json": "sha256:36447d89980991db61b01edbad42e8f96a43b33ae8d4824d93e8a5036c3b4d69",
+    "fixtures/materials/wood/expected/straight-grain/baseColor.png": "sha256:48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+    "fixtures/materials/wood/expected/straight-grain/height.png": "sha256:2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+    "fixtures/materials/wood/expected/straight-grain/normal.png": "sha256:97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+    "fixtures/materials/wood/expected/straight-grain/roughness.png": "sha256:d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+    "fixtures/materials/wood/material.mix": "sha256:204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-default.json": "sha256:128d359d9a45c496cdadce334a0ec85093d703d827ba336b01987b3c23fa24f4",
+    "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-fine-tiles.json": "sha256:87ebc31e9b345cff529deae0fbef64d05096445d50171571867d8c2114ad130f",
+    "fixtures/materials/wood/reports/2k/metal/inspect-glazed-ceramic-matte.json": "sha256:3246f9e9137ccdf850d317b6441c337ce65f1195e000350d2932fbf5ba1a2b80",
+    "fixtures/materials/wood/reports/2k/metal/inspect-leather-coarse-grain.json": "sha256:c3ae6d243e495d321c11aad3106ee43b5332adcdafd85177ee33916153fafc72",
+    "fixtures/materials/wood/reports/2k/metal/inspect-leather-default.json": "sha256:54575ddcc83d3e2cdfa3a9824b54d8e5f8de193811bcc62ca9d872ae93aa1bc4",
+    "fixtures/materials/wood/reports/2k/metal/inspect-leather-detail-max.json": "sha256:5fb6ffae0f24cbac44dca0450a6557a9ba7c3999402562e5a81a4439ebe5e6d2",
+    "fixtures/materials/wood/reports/2k/metal/inspect-leather-detail-min.json": "sha256:2027b806b9d084eeeef13ec714ab880967e813b237a377e29937d488ec1da873",
+    "fixtures/materials/wood/reports/2k/metal/inspect-wood-coarse-grain.json": "sha256:0e8ba5615e8d62914592eff395376f30a29c609042ab26f62e2fbecc4071c639",
+    "fixtures/materials/wood/reports/2k/metal/inspect-wood-default.json": "sha256:ac8740e8cbabe19d797dd631397baa0c1992d35c68b683a4b145c818b1124e93",
+    "fixtures/materials/wood/reports/2k/metal/inspect-wood-horizontal-grain.json": "sha256:c146af2f54576668b3804b8658887bd95773d86f4dff72cf530a18965af03fed",
+    "fixtures/materials/wood/reports/2k/metal/inspect-wood-straight-grain.json": "sha256:1191767a7fc2a0387d1e73f967c73c031253ec4f03b3b8b15c8f8e360c663519",
+    "fixtures/materials/wood/reports/2k/metal/png/baseColor.png": "sha256:52d026c4e8b62bf1b29911319b84881e11aa595ed4e588ae79345e990eaf9567",
+    "fixtures/materials/wood/reports/2k/metal/png/height.png": "sha256:4c581b7b11e2387305b502be477b0d3b25ccd240214378f24744a12ebedb3806",
+    "fixtures/materials/wood/reports/2k/metal/png/normal.png": "sha256:c4a47036e06dd7d8d534ab6d66ea2be44ab5f1c39c346af13302b68e8c7b658f",
+    "fixtures/materials/wood/reports/2k/metal/png/roughness.png": "sha256:f207f6e3891b6231117beafe0952d399d802ec63966e9ae7434efd0d65f73ef9",
+    "fixtures/materials/wood/reports/2k/metal/render.json": "sha256:a8bbb509144db343ab5a1b57a6af0cf68f17621daf2dba5dc5b9a60057febf74",
+    "fixtures/materials/wood/reports/2k/metal/selection.json": "sha256:e723a76eca02ffe874502a10119d8821664c3b3e619557daeb256d4c9be7e1c4",
+    "fixtures/materials/wood/reports/2k/metal/trace.json": "sha256:b3c995d8c50e57eb0234d7cb48e7db9262c07625587ebfc1a01630dd06fb088b",
+    "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-default.json": "sha256:128d359d9a45c496cdadce334a0ec85093d703d827ba336b01987b3c23fa24f4",
+    "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-fine-tiles.json": "sha256:87ebc31e9b345cff529deae0fbef64d05096445d50171571867d8c2114ad130f",
+    "fixtures/materials/wood/reports/2k/software/inspect-glazed-ceramic-matte.json": "sha256:3246f9e9137ccdf850d317b6441c337ce65f1195e000350d2932fbf5ba1a2b80",
+    "fixtures/materials/wood/reports/2k/software/inspect-leather-coarse-grain.json": "sha256:c3ae6d243e495d321c11aad3106ee43b5332adcdafd85177ee33916153fafc72",
+    "fixtures/materials/wood/reports/2k/software/inspect-leather-default.json": "sha256:54575ddcc83d3e2cdfa3a9824b54d8e5f8de193811bcc62ca9d872ae93aa1bc4",
+    "fixtures/materials/wood/reports/2k/software/inspect-leather-detail-max.json": "sha256:5fb6ffae0f24cbac44dca0450a6557a9ba7c3999402562e5a81a4439ebe5e6d2",
+    "fixtures/materials/wood/reports/2k/software/inspect-leather-detail-min.json": "sha256:2027b806b9d084eeeef13ec714ab880967e813b237a377e29937d488ec1da873",
+    "fixtures/materials/wood/reports/2k/software/inspect-wood-coarse-grain.json": "sha256:0e8ba5615e8d62914592eff395376f30a29c609042ab26f62e2fbecc4071c639",
+    "fixtures/materials/wood/reports/2k/software/inspect-wood-default.json": "sha256:ac8740e8cbabe19d797dd631397baa0c1992d35c68b683a4b145c818b1124e93",
+    "fixtures/materials/wood/reports/2k/software/inspect-wood-horizontal-grain.json": "sha256:c146af2f54576668b3804b8658887bd95773d86f4dff72cf530a18965af03fed",
+    "fixtures/materials/wood/reports/2k/software/inspect-wood-straight-grain.json": "sha256:1191767a7fc2a0387d1e73f967c73c031253ec4f03b3b8b15c8f8e360c663519",
+    "fixtures/materials/wood/reports/2k/software/png/baseColor.png": "sha256:ec6ff2e5353c86ca15087830d3401c7e237f1b4c5f9b044060715634e79e667f",
+    "fixtures/materials/wood/reports/2k/software/png/height.png": "sha256:2e6d478b6e1a58c0e26b4fbe9f7a2ae2d8607f285d7df02a84f6cf7de928424f",
+    "fixtures/materials/wood/reports/2k/software/png/normal.png": "sha256:9cbd52f482c78474ff0a50ccad2d7b47c58e580eed6644d2202a7a3934a181a7",
+    "fixtures/materials/wood/reports/2k/software/png/roughness.png": "sha256:13cdb8ba15b1d9904e15e75fc6b6cc0f3b0304c889be7b156f6d51c649b1c061",
+    "fixtures/materials/wood/reports/2k/software/render.json": "sha256:594562c170da88845c15f913262b6e9a0d6e5b48940a79d8f957cc3fe24175d7",
+    "fixtures/materials/wood/reports/2k/software/selection.json": "sha256:e723a76eca02ffe874502a10119d8821664c3b3e619557daeb256d4c9be7e1c4",
+    "fixtures/materials/wood/reports/2k/software/trace.json": "sha256:0db170f3799f9909a5e3ca711b2dcefa6404ffa32a095e6e3b7013f40ca52920",
+    "fixtures/materials/wood/reports/glazed-ceramic-metal-regression.json": "sha256:65dafd97b8f5a02b450b1d7da67a0be4f039601f1da2bc2316fe5f8c54f8710e",
+    "fixtures/materials/wood/reports/glazed-ceramic-software-regression.json": "sha256:7f549c68e63769ca02513d209b3be5d309e3d8d5f4143ed78425085c6baa450a",
+    "fixtures/materials/wood/reports/human-review.json": "sha256:9758152267a203c3adad0ea8ff48dc3fd13b389a622347afdfd7d53c30b296ab",
+    "fixtures/materials/wood/reports/leather-metal-regression.json": "sha256:a8484511f9309c530c811be3df448b579c7b1b4c0730a2bbe3243401cc80b976",
+    "fixtures/materials/wood/reports/leather-software-regression.json": "sha256:5544d7ff09c81fbb447a4881166b372c25ad487aa7772e8465ae05c2c7979742",
+    "fixtures/materials/wood/reports/metal-candidate.json": "sha256:47f9496222df4f7025f0c431c0360c0a64264c5fe82a68975dfb54faa7cd6366",
+    "fixtures/materials/wood/reports/metal-golden-check.log": "sha256:2080a78a47411dd5b1b736908e95e3e77fe3f49a9077886e9fa9a88ab236d462",
+    "fixtures/materials/wood/reports/metal.json": "sha256:446a6c107562ede35e89e5a6a6f85e462782f3ec5a488076d264c6db4af6bc8f",
+    "fixtures/materials/wood/reports/pbr/coarse-grain.png": "sha256:6fcf67191448ca351b927386ca62dc514314c2e9cd80be9e52eab37787b90ea8",
+    "fixtures/materials/wood/reports/pbr/comparison.json": "sha256:a0edd0173733c6aba35fa4d3d359c21f6b7567a0be214a73ca9b24133086e203",
+    "fixtures/materials/wood/reports/pbr/comparison.png": "sha256:c999ac8bb58b3903cdcf66407390ac0d67cc5c59220c81ee5686233635d3805f",
+    "fixtures/materials/wood/reports/pbr/default.png": "sha256:07663e19ffa2142803d83b27b7a763ee83562c923acf12a8c85d1d9335995eb9",
+    "fixtures/materials/wood/reports/pbr/horizontal-grain.png": "sha256:a65b5a9ed641271cea85c9ecf5afea86bd283f8b5503b5a15bb6a0507a15469a",
+    "fixtures/materials/wood/reports/pbr/review.json": "sha256:dbab30326e2d140a680c3f38e472e8226831d2e72091b7b2776e9d3cf9910203",
+    "fixtures/materials/wood/reports/pbr/straight-grain.png": "sha256:b08d2d6f60b67206b12e2a3e98b203ce8205540602d269ac1808906899c7c7c4",
+    "fixtures/materials/wood/reports/software-candidate.json": "sha256:c2fce18424f9e85999eb8698dda4f564771659523b989e6bd9ea9916f3643d05",
+    "fixtures/materials/wood/reports/software-golden-check.log": "sha256:c9d2b8dbdbee6ea5d8598f197623c16208b9621a1ccf8c2fb18dd0101cc80431",
+    "fixtures/materials/wood/reports/software.json": "sha256:9000bf7a8e82a88b36bcefa305a1bfb430f71a17f2b824c56b18fd659ed6380f",
+    "fixtures/materials/wood/review/compare.py": "sha256:b1e6a13af0a7c04df6e52c1eadccfc096f3c2fae707b8a16e972c75c0d0e9791",
+    "fixtures/materials/wood/review/render.py": "sha256:8a7394cc63a489e3bac5a30a84f1cea4041d242ed8acf64086913b5089b96f0f",
+    "fixtures/materials/wood/variants/coarse-grain.json": "sha256:af64046504ce553feed8b61b51a42c7d173ab7f05313c5db376e0bfa8e67832a",
+    "fixtures/materials/wood/variants/horizontal-grain.json": "sha256:c85248cee7245b2ed21fa29395dac8f0d8cbdc3ba0ff569c28e66ac1eef980a2",
+    "fixtures/materials/wood/variants/straight-grain.json": "sha256:2aba7616964a664677ccc1fbe96b023ac79a5c510da3b235d93260cc3bfcaf5e",
+    "rust-toolchain.toml": "sha256:c910997cb152c6dc8ed13b1fdf9fa28a4ed30d6776123e27dd6170e5c66067a0",
+    "xtask/Cargo.toml": "sha256:b07d9b528646460db1d63eecce137330bb2c188791587cb532e5fa07788b2b30",
+    "xtask/src/dependencies.rs": "sha256:6bfb7897c2499ed5f89b1531243bc44314523c20712c5fb89a7459f199ad93d7",
+    "xtask/src/golden.rs": "sha256:3a2079d7b2251a567ec966b7ae0f348b80d08cc5ba99714feb8d13989d111bea",
+    "xtask/src/golden/files.rs": "sha256:65b5342bdd98ce7a69ba64c6b3606a3dba2ed962344c2a4627578e717a129416",
+    "xtask/src/golden/model.rs": "sha256:af57d1ff85375483945fbcaaea03d2a71b34b0828769f1184acacc460f725b90",
+    "xtask/src/golden/pixels.rs": "sha256:2fa4c65832e2fb406f0e2a706b65e9800e7ee676b8edc27e000b4356558a66af",
+    "xtask/src/golden/tests.rs": "sha256:338c4ca385ead0a1a9bf9462adbf5643575896659a55861a0a03374a7a85becd",
+    "xtask/src/golden/trace.rs": "sha256:e4d584a6d7e1ace53b5e91217e7e72091b4040989cd4d0170e836978b34e04ed",
+    "xtask/src/gpu_smoke.rs": "sha256:c5209b64f522b3c4ea0e3ff692741da7e45d3ea182a337eb8aa0a7ee41f3831a",
+    "xtask/src/links.rs": "sha256:a673451a6709f7a7c6ba1d9e880b44b87edf0c80efd1434bbdca63450a51a052",
+    "xtask/src/main.rs": "sha256:ed6173379d46097c1d22c051ce9d4cb9cf81c58d8d5bef5bd44e0dee263fb1f0"
+  }
+}

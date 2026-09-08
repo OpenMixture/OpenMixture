@@ -4,7 +4,7 @@
 
 PR-010 添加温暖棕色的类木材表面，具有细长、轻微弯曲的纹理。[material.mix](./material.mix) 使用八个计算 pass：显式种子的 value 分形噪声 → 整数重复／旋转 → 第二个带种子的场扰动纹理 → levels 高度 → gradient-map 颜色、height-to-normal 及反向 levels 粗糙度。四个 1024×1024 通道全部连接。内置词汇共十一种节点、九个 kernel。
 
-[报告](./reports/README.zh-CN.md)分别记录全图比较、机器测量、代理检查与[人工接受](./reports/human-review.json)。木材人工接受已记录。陶瓷与皮革已获用户接受，其基准 PNG 保持不变。远端 CI 与完整 M3 评审仍开放。
+[报告](./reports/README.zh-CN.md)分别记录全图比较、机器测量、代理检查与[人工接受](./reports/human-review.json)。木材人工接受已记录。陶瓷与皮革已获用户接受，其基准 PNG 保持不变。[完整 M3 评审](../../../docs/m3-review.zh-CN.md)已完成；远端 CI 继续暂缓。
 
 ## 控件与预期效果
 

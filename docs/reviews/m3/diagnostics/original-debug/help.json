@@ -1,0 +1,10 @@
+{
+  "name": "help",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "--help"
+  ],
+  "exitCode": 0,
+  "stdout": "help.stdout",
+  "stderr": "help.stderr"
+}

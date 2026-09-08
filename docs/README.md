@@ -9,6 +9,8 @@ The root documents are the active project contract:
 - [Architecture](../ARCHITECTURE.md)
 - [Roadmap](../ROADMAP.md)
 - [Initial PR sequence](../INITIAL_PRS.md)
+- [M3 review and evidence](./m3-review.md)
+- [M4 implementation train](../M4_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
 [Diagnostics and safety limits](./diagnostics.md) defines the PR-002 public API, JSON contract, and shared CLI exit-code policy.

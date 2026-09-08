@@ -1,0 +1,15 @@
+{
+  "name": "budget",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "inspect",
+    "examples/checker.mix",
+    "--plan",
+    "--json",
+    "--size",
+    "4096"
+  ],
+  "exitCode": 2,
+  "stdout": "budget.stdout",
+  "stderr": "budget.stderr"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "missing-warp-validate-human",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/debug/mixture",
+    "validate",
+    "fixtures/nodes/warp/missing-input.mix"
+  ],
+  "exitCode": 2,
+  "stdout": "missing-warp-validate-human.stdout",
+  "stderr": "missing-warp-validate-human.stderr"
+}

@@ -1,0 +1,8 @@
+Could not compile material plan.
+MIX_PORT_UNKNOWN: Node has no port with this name and direction.
+  node: checker
+  direction: Text("output")
+  Suggestion: Use a named output as the source and a named input as the destination.
+MIX_PORT_REQUIRED_CONNECTION: Required input has no valid connection.
+  node: out
+  Suggestion: Connect one compatible output to this required input.

@@ -1,0 +1,16 @@
+{
+  "name": "missing-file",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "validate",
+    "/Users/krapnik/Documents/OpenMixture/tmp/m3-review/diagnostics-release-e9dd03b/not-present.mix",
+    "--json"
+  ],
+  "exitCode": 1,
+  "expectedExitCode": 1,
+  "expectedExitCodeMatched": true,
+  "stdout": "missing-file.stdout",
+  "stderr": "missing-file.stderr",
+  "stdoutSha256": "853c3d2afd563ede8616305eefacdeb28df0f4cd4f7d231f27bb8843774f1133",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,3 @@
+MIX_PORT_REQUIRED_CONNECTION: Required input has no valid connection.
+  node: sample
+  Suggestion: Connect one compatible output to this required input.

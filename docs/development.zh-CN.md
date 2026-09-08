@@ -4,7 +4,7 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库已本地实现[实施计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-009。PR-010 添加 transform／warp 节点、描述符分配报告及显式 2K 跟踪命令。陶瓷、皮革和木材观感均已获用户接受；下一步为完整 M3 评审，见[材质基准](./material-goldens.zh-CN.md)。
+仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011–015](../M4_PRS.zh-CN.md)已规划，其拟议 `test-consumer` 和 `package-check` 命令尚未实现。远端 CI 继续暂缓。
 它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。

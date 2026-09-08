@@ -1,0 +1,16 @@
+{
+  "name": "invalid-exposed",
+  "command": [
+    "/Users/krapnik/Documents/OpenMixture/target/release/mixture",
+    "validate",
+    "fixtures/format/invalid/invalid-exposed.mix",
+    "--json"
+  ],
+  "exitCode": 2,
+  "expectedExitCode": 2,
+  "expectedExitCodeMatched": true,
+  "stdout": "invalid-exposed.stdout",
+  "stderr": "invalid-exposed.stderr",
+  "stdoutSha256": "070faa8f5d13a9a7f6c9aba6f5405266ff4370903a63242ec144412aaf6610d4",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}
