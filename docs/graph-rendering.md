@@ -1,8 +1,8 @@
-# Six-node graph rendering
+# Eleven-node graph rendering
 
 English | [简体中文](./graph-rendering.zh-CN.md)
 
-PR-007 completes the local `.mix → validate → RenderPlan → wgpu → PNG` path for the six M2 contracts. [Renderer](../crates/mixture-wgpu/src/executor.rs) accepts only an immutable compiler-produced plan. It owns one explicitly acquired context and a small pipeline cache. The GPU crate does not parse documents, resolve node defaults, or interpret parameter overrides. [The CLI](../crates/mixture-cli/src/commands/render.rs) handles file I/O, arguments, PNG encoding, and reports.
+The local `.mix → validate → RenderPlan → wgpu → PNG` path executes eleven built-in contracts. PR-007 established the six M2 contracts; PR-009 added noise/color/normal kernels, and PR-010 adds scalar transform/warp. [Renderer](../crates/mixture-wgpu/src/executor.rs) accepts only an immutable compiler-produced plan. It owns one explicitly acquired context and a small pipeline cache. The GPU crate does not parse documents, resolve node defaults, or interpret parameter overrides. [The CLI](../crates/mixture-cli/src/commands/render.rs) handles file I/O, arguments, PNG encoding, and reports.
 
 ## Run the examples
 
@@ -56,8 +56,13 @@ renderer.clear_pipeline_cache();
 | `checker` | [checker.wgsl](../crates/mixture-wgpu/shaders/nodes/checker.wgsl); uniform 0, storage output 1 | cells and two colors, 48 bytes |
 | `levels` | [levels.wgsl](../crates/mixture-wgpu/shaders/nodes/levels.wgsl); uniform 0, output 1, scalar input 2 | five f32 values with padding, 32 bytes |
 | `blend` | [blend.wgsl](../crates/mixture-wgpu/shaders/nodes/blend.wgsl); uniform 0, output 1, a/b/mask inputs 2/3/4 | mode code and opacity with padding, 16 bytes |
+| `fractalNoise` | [fractal-noise.wgsl](../crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl); uniform 0, output 1 | u32 seed/scale/octaves/basis, f32 persistence and padding, 32 bytes |
+| `gradientMap` | [gradient-map.wgsl](../crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl); uniform 0, output 1, scalar input 2 | two linear RGBA endpoints, 32 bytes |
+| `heightToNormal` | [height-to-normal.wgsl](../crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl); uniform 0, output 1, scalar input 2 | f32 strength and padding, 16 bytes |
+| `transform2d` | [transform-2d.wgsl](../crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl); uniform 0, output 1, scalar input 2 | two u32 scales, u32 turns, two f32 offsets and padding, 32 bytes |
+| `warp` | [warp.wgsl](../crates/mixture-wgpu/shaders/nodes/warp.wgsl); uniform 0, output 1, scalar input 2, scalar displacement 3 | two f32 strengths and padding, 16 bytes |
 
-Constants serve both scalar/color nodes and compiler-generated optional defaults. `material-output` reads mapped resources, with no additional shader. Inputs use unfiltered `textureLoad` at the same pixel coordinate; outputs use `rgba16float` storage. Every kernel uses 8×8 workgroups and bounds-checks partial workgroups. Checker dimensions come from the output texture; frequencies/colors come from the typed invocation. No random values or seeds are involved.
+Constants serve both scalar/color nodes and compiler-generated optional defaults. `material-output` reads mapped resources, with no additional shader. Pointwise kernels read inputs with `textureLoad` at the same pixel coordinate; height-to-normal reads wrapped neighbors, and transform/warp perform four-load periodic bilinear sampling. Outputs use `rgba16float` storage. Every kernel uses 8×8 workgroups and bounds-checks partial workgroups. Checker dimensions come from the output texture and frequencies/colors from its typed invocation; noise receives the complete explicit u32 seed. The resampling kernels introduce no additional random operation.
 
 The [node contract formulas](./node-contracts.md) are unchanged. Levels handles input endpoints before division/pow, preserving clamp behavior and avoiding undefined calculations in tiny intervals with no representable half-float input between bounds. Blend implements normal/multiply/screen RGB interpolation with `opacity × mask`, and interpolates alpha independently. There is no source-over compositing, implicit premultiplication, or CPU graph evaluator.
 
@@ -65,7 +70,7 @@ The fixed `render-builtin checker` and `doctor` probe now call the same allocati
 
 ## Cache, lifetime, and failures
 
-A renderer retains at most seven pipelines, keyed by `KernelId`. Within a renderer, device, shader ABI/version, local workgroup size, and storage format are fixed, so parameter values and output dimensions do not need additional cache keys. Entries are populated only after successful pipeline creation. `cached_pipeline_count()` exposes the size; `clear_pipeline_cache()` and renderer drop release retained handles. Each render report counts per-pass cache hits and misses, including reuse earlier in the same call.
+A renderer retains at most nine pipelines, keyed by `KernelId`. Within a renderer, device, shader ABI/version, local workgroup size, and storage format are fixed, so parameter values and output dimensions do not need additional cache keys. Entries are populated only after successful pipeline creation. `cached_pipeline_count()` exposes the size; `clear_pipeline_cache()` and renderer drop release retained handles. Each render report counts per-pass cache hits and misses, including reuse earlier in the same call.
 
 [Per-call resources](../crates/mixture-wgpu/src/resources.rs) implement the [PR-006 lifetime model](./render-plan.md): all pass textures and padded uniforms remain allocated through execution and readback. Each requested channel gets a staging buffer that is mapped, unpacked, unmapped, and destroyed before the next channel. Aliased channels share the producer texture but still read back separately. All per-call buffers/textures are released on success or failure. There is no texture pool, last-consumer optimization, pass fusion, or disk cache.
 
@@ -108,7 +113,7 @@ cargo xtask check
 
 `shader-check` validates all WGSL entry points/workgroup sizes and uniform struct spans without a GPU. `test-node` first validates [all node fixture families](../fixtures/nodes/README.md), including invalid overrides/source, without a GPU, then runs exactly the named node's GPU cases. It uses the same `MIXTURE_GPU_BACKEND`, `MIXTURE_GPU_SOFTWARE`, and optional expected-adapter policy as smoke. Reports go to `tmp/node-tests/<backend>/<node>.json`. Unknown nodes and invalid policies fail before running Cargo/GPU work.
 
-`gpu-smoke` retains the fixed checker/doctor golden gate, renders all three graph examples, verifies the graph checker against the same golden, and runs every ignored library/CLI GPU regression. It includes all nine node families, odd dimensions, nontrivial colors/alpha, all blend modes, levels extremes, defaults/aliases, executed slicing, cache reuse/clear, device rejection/recovery, invalid shader/pipeline/map/device paths, PNG metadata, file names, and partial-output failure reports. Evidence is saved under `tmp/gpu-smoke/`, including per-node case reports. Ordinary `check`/workspace tests never initialize a GPU.
+`gpu-smoke` retains the fixed checker/doctor golden gate, renders all three graph examples, verifies the graph checker against the same golden, and runs every ignored library/CLI GPU regression. It includes all eleven node families, odd dimensions, nontrivial colors/alpha, all blend modes, levels extremes, defaults/aliases, executed slicing, cache reuse/clear, device rejection/recovery, invalid shader/pipeline/map/device paths, PNG metadata, file names, and partial-output failure reports. Evidence is saved under `tmp/gpu-smoke/`, including per-node case reports. Ordinary `check`/workspace tests never initialize a GPU.
 
 Local [Apple M5/Metal](./evidence/pr-007-apple-m5.json) and pinned [SwiftShader/Vulkan](./evidence/pr-007-swiftshader.json) pass. Three 256×256 examples were visually inspected. The fixed checker remains byte-identical to its protected golden; no pixel golden was overwritten. No dependency or lockfile version changed.
 
@@ -119,3 +124,18 @@ The [remote GPU job](../.github/workflows/gpu-smoke.yml) now covers graph exampl
 ## PR-009 noise-to-normal slice
 
 Three new exhaustive `KernelId` mappings use one 32-byte noise uniform, one 32-byte gradient-map uniform and one 16-byte height-to-normal uniform. Node defaults stay in core. New kernels reuse the same dispatch, texture allocation, readback and error path. The [leather material](../fixtures/materials/leather/README.md) renders four connected channels in five passes; peak estimated live bytes at 1K are 50,331,792. No resource pooling or 2K optimization was added. The new three node tests and the full smoke path run on both explicit Metal and pinned software Vulkan adapters.
+
+## PR-010 periodic scalar resampling
+
+`Transform2d` and `Warp` are typed plan invocations using the existing dispatch/resource/readback path; [core lowering](../crates/mixture-core/src/compiler/lower.rs) owns all parameter defaults and required input resolution. `Transform2d` consumes one Scalar resource; `Warp` consumes source and displacement Scalar resources in that binding order. Their padded uniform layouts are 32 and 16 bytes, respectively, and [ABI tests](../crates/mixture-wgpu/src/kernels.rs) check exact uploaded bytes against the compiled plan.
+
+The [node contracts](./node-contracts.md) define pixel-center UV with v down, inverse clockwise coordinate rotation before integer source-axis scaling, sampling-offset signs, and repeat-bilinear interpolation of wrapped neighbors. Warp loads and clamps the displacement at the output texel, centers it at `0.5`, and applies independent signed UV strengths. Default transform and zero-strength/neutral-field warp use exact direct-load identities. Integer scales and quarter turns preserve the source period; a periodic warp field preserves it as well. No generalized affine matrix, sampler/filter selection, mip chain or additional pixel executor is introduced.
+
+```bash
+cargo xtask test-node transform-2d
+cargo xtask test-node warp
+```
+
+The two node suites pass on pinned SwiftShader with 17 transform and 13 warp [literal GPU probes](../crates/mixture-wgpu/tests/support/resampling_probe.rs), exact existing-noise identity comparisons, boundary/invalid-input fixtures, and whole-graph causality/cache checks. Literal probes establish the X/Y wrap interpolation, rotation order, output-coordinate displacement lookup and f16 identity paths. The node test adapter policy remains explicit; reports and raw outputs are saved under `tmp/node-tests/<backend>/`, with separate `<node>-literal-probes.json` evidence. This verifies the node semantics; material appearance and milestone acceptance use the separate [material gates](./material-goldens.md).
+
+PR-010 adds `execution.allocations`, exposed as `RenderReport.allocations: AllocationReport`. It records successful descriptor allocations: texture/uniform counts and bytes; staging count, cumulative bytes and peak live staging; and total cumulative, peak, live, released and reused bytes. Current successful renders finish with `liveBytes = 0`, `releasedBytes = cumulativeBytes`, and `reusedBytes = 0`. Release records explicit `destroy` calls, not immediate physical memory reclamation by the driver. Driver granularity, pipeline/bind-group overhead and CPU pixel/PNG buffers are excluded. These observations do not enter `RenderPlan` or its hash.

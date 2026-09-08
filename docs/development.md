@@ -4,8 +4,8 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-008 locally and the PR-009 leather slice from [the implementation train](../INITIAL_PRS.md). Ceramic appearance is accepted; leather appearance is accepted by the user. See [material goldens](./material-goldens.md).
-It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [nine node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Nine-node graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
+This repository implements PR-001 through PR-009 locally from [the implementation train](../INITIAL_PRS.md). PR-010 adds transform/warp nodes, descriptor allocation reports, and the explicit 2K trace command. Ceramic, leather and wood appearance are accepted by the user; the full M3 review is next. See [material goldens](./material-goldens.md).
+It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [eleven node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
 
@@ -38,6 +38,7 @@ cargo xtask shader-check
 cargo xtask test-node checker
 cargo xtask test-material glazed-ceramic
 cargo xtask golden check
+cargo xtask trace-2k
 cargo run --locked -p mixture-cli -- render examples/checker.mix --size 256 --out ./tmp/checker
 cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png
 cargo xtask gpu-smoke
@@ -60,7 +61,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-009 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
+At PR-010 the only allowed direct dependency edges, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -81,11 +82,29 @@ The executable is named `mixture`. Help/version return `0`. `doctor` verifies ac
 
 `gpu-smoke` explicitly accesses GPU hardware or a configured software adapter and saves reports under `tmp/gpu-smoke/`. It is excluded from `check` and ordinary workspace tests. Its adapter policy variables, pinned SwiftShader setup, and local evidence are documented in [the GPU guide](./gpu-context.md).
 
+## 2K resource evidence
+
+`cargo xtask trace-2k` runs a separate explicit GPU workload; `check` and ordinary workspace tests do not run it. Configure the desired adapter through the same `MIXTURE_GPU_BACKEND`, `MIXTURE_GPU_SOFTWARE`, and optional `MIXTURE_GPU_EXPECT_ADAPTER` variables as `gpu-smoke`. Software execution requires Vulkan and the verified pinned SwiftShader source/loader setup from [the GPU guide](./gpu-context.md).
+
+```bash
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 cargo xtask trace-2k
+# After configuring the pinned SwiftShader source and loader:
+MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 cargo xtask trace-2k
+```
+
+The [trace task](../xtask/src/golden/trace.rs) first compiles every configured case of `glazed-ceramic`, `leather`, and `wood` at 2048×2048 with `baseColor`, `normal`, `roughness`, and `height` requested. All three fixtures must be present and valid. It selects the greatest estimated `peakBytes`, then pass count, lexical material name, default case first, and lexical case ID. It verifies `doctor` and renders that exact plan with the requested adapter. A rejected inspection stops before GPU work; the task does not increase safety limits.
+
+The transient budget is **512 MiB (536,870,912 bytes) of peak live descriptors**, matching the default `SafetyLimits::transient_bytes`. Cumulative allocation across sequential readbacks may exceed the peak. [Core estimates](./render-plan.md) retain every pass texture and uniform through execution/readback, with one staging buffer alive at a time. Aliased channels still get separate readbacks. PR-010 measures this existing schedule; it adds no last-consumer release, compatible texture reuse, or pool. Such a lifetime change requires an over-budget or failed measured workload first.
+
+`RenderReport.allocations` is the public [AllocationReport](../crates/mixture-wgpu/src/allocations.rs), serialized as `execution.allocations` by the CLI. It counts successful texture/uniform/staging descriptor creations and their cumulative, peak, live, released, and reused bytes. The trace requires these counts to agree with the selected plan, all requested readbacks to complete sequentially, `liveBytes` to finish at zero, `releasedBytes` to equal `cumulativeBytes`, and `reusedBytes` to remain zero. Release records the call to `destroy`; it does not prove that the driver or operating system immediately returned physical memory. Driver allocation granularity, shader/pipeline/bind-group memory, and CPU pixel/PNG buffers are excluded. Pipeline caches remain renderer-owned and are outside these per-call counters. Allocation observations do not change the core plan, its estimates, or its hash.
+
+A successful run writes `selection.json`, every inspection report, `doctor.json`, `render.json`, four PNGs and their hashes, source/fixture hashes, exact render arguments and adapter settings, and `trace.json` under `tmp/trace-2k/<run>/`. `pipelineMs`, `executionMs`, `readbackMs`, and `totalMs` are finite CPU wall measurements; no GPU timestamp query is claimed. The task rejects changed source/fixture inputs or 1K baselines during the run. `latest-software.json` or `latest-hardware.json` records the latest attempt; failures retain available CLI JSON/stderr and `failure.json`. A passing trace proves this workload's bounded naive schedule. It neither creates nor updates a 2K golden and does not decide human material acceptance or close deferred remote CI gates.
+
 ## CI and milestone evidence
 
 [Non-GPU CI](../.github/workflows/ci.yml) runs the same locked command on Linux, macOS, and Windows. No GPU or display is required. A local pass proves the host environment only; the M0 cross-platform gate remains pending until the configured CI matrix has actually passed on the remote repository.
 
-[Dedicated GPU CI](../.github/workflows/gpu-smoke.yml) builds a pinned SwiftShader Vulkan adapter and runs compute/readback, PNG/golden checks, and GPU regressions; its remote result remains pending. Local Metal and pinned SwiftShader Vulkan evidence is recorded in [the checker guide](./builtin-checker.md).
+[Dedicated GPU CI](../.github/workflows/gpu-smoke.yml) builds a pinned SwiftShader Vulkan adapter and runs compute/readback, node regressions, all three 1K material comparisons, and the largest-case 2K trace. It retains all three evidence directories even on failure; its remote result remains pending. Local Metal and pinned SwiftShader Vulkan evidence is recorded in [the checker guide](./builtin-checker.md).
 
 Unimplemented runtime modules in the agent guide remain a future ownership map. Current compilation roots are [core](../crates/mixture-core/src/lib.rs), [wgpu](../crates/mixture-wgpu/src/lib.rs), [CLI](../crates/mixture-cli/src/main.rs), and [xtask](../xtask/src/main.rs). The checker has a real GPU-generated fixture; [format fixtures](../fixtures/format/README.md) and [checker.mix](../examples/checker.mix) now exercise source validation. All three [M2 examples](../examples/README.md) now render requested channels.
 
@@ -94,3 +113,5 @@ Implemented core modules are [document decoding](../crates/mixture-core/src/docu
 PR-006 adds [the compiler](../crates/mixture-core/src/compiler.rs), [normalization and lowering](../crates/mixture-core/src/compiler/), [typed plan API](../crates/mixture-core/src/plan.rs), and [CLI inspect](../crates/mixture-cli/src/commands/inspect.rs). Plan snapshots live beside core tests; PR-007 [graph rendering](./graph-rendering.md) adds the executor, resources, kernel mapping/cache, and CLI render without new dependencies.
 
 PR-009 adds no dependency or lockfile change. Run `test-node fractal-noise`, `test-node gradient-map`, `test-node height-to-normal` and `test-material leather` through `cargo xtask`; [leather review](../fixtures/materials/leather/review/README.md) is an optional external Blender consumer, not a Rust runtime dependency.
+
+PR-010 also adds no dependency or lockfile change. Run `test-node transform-2d`, `test-node warp`, `test-material wood`, `golden check`, and `trace-2k` through `cargo xtask`. The public Renderer doctest compiles access to `AllocationReport`; focused GPU tests verify odd-width aliased readbacks, per-call counter reset, and release after a readback error.

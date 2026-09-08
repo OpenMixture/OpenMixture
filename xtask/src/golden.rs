@@ -5,6 +5,7 @@ mod model;
 mod pixels;
 #[cfg(test)]
 mod tests;
+pub(super) mod trace;
 
 use crate::{TaskResult, gpu_smoke};
 use files::Digests;

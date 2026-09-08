@@ -1,6 +1,6 @@
 //! Measurements and contact sheets of already-rendered pixels, never a renderer.
 
-use super::model::{Change, Relationship, Structure, Tolerance};
+use super::model::{Change, GrainAxis, Relationship, Structure, Tolerance};
 use crate::TaskResult;
 use serde_json::{Value, json};
 use std::{
@@ -170,6 +170,13 @@ pub(super) fn structure(image: &Image, rule: &Structure) -> Value {
             min_std_dev,
             min_neighbor_correlation,
             max_seam_ratio,
+        }
+        | Structure::Directional {
+            min_span,
+            min_std_dev,
+            min_neighbor_correlation,
+            max_seam_ratio,
+            ..
         } => {
             let measurements = spatial(image);
             let span = measurements["redSpan"].as_u64().unwrap_or(0);
@@ -185,7 +192,20 @@ pub(super) fn structure(image: &Image, rule: &Structure) -> Value {
                 && correlation
                 && image.pixels.as_chunks::<4>().0.iter().all(|p| p[3] == 255)
                 && seam_ok(&measurements["seam"], *max_seam_ratio);
-            json!({"kind":"spatial","ok":ok,"measurements":measurements,"rule":rule})
+            if let Structure::Directional {
+                axis,
+                min_energy_ratio,
+                ..
+            } = rule
+            {
+                let direction = directionality(image, *axis);
+                let directed = direction["crossToAlongRatio"]
+                    .as_f64()
+                    .is_some_and(|ratio| ratio >= *min_energy_ratio);
+                json!({"kind":"directional","ok":ok && directed,"measurements":measurements,"directionality":direction,"rule":rule})
+            } else {
+                json!({"kind":"spatial","ok":ok,"measurements":measurements,"rule":rule})
+            }
         }
         Structure::Normal {
             max_length_error,
@@ -313,6 +333,30 @@ fn normalized_gradient_energy(image: &Image) -> f64 {
     } else {
         0.0
     }
+}
+
+fn directionality(image: &Image, axis: GrainAxis) -> Value {
+    let mut energy = [0_u64; 2];
+    for y in 0..image.size {
+        for x in 0..image.size {
+            for (index, (nx, ny)) in [((x + 1) % image.size, y), (x, (y + 1) % image.size)]
+                .into_iter()
+                .enumerate()
+            {
+                let difference =
+                    i64::from(image.pixel(x, y)[0]) - i64::from(image.pixel(nx, ny)[0]);
+                energy[index] += (difference * difference) as u64;
+            }
+        }
+    }
+    let energy = energy.map(|value| value as f64 / f64::from(image.size).powi(2));
+    let (cross, along) = match axis {
+        GrainAxis::Vertical => (energy[0], energy[1]),
+        GrainAxis::Horizontal => (energy[1], energy[0]),
+    };
+    // A one-byte squared denominator floor makes flat or barely quantized fields
+    // fail without emitting an infinite ratio for exactly constant grain rows.
+    json!({"axis":axis,"gradientEnergyXY":energy,"crossToAlongRatio":cross/along.max(1.0),"alongEnergyFloor":1.0,"units":"mean squared adjacent red differences in RGBA8 units, including wrap"})
 }
 
 fn spatial(image: &Image) -> Value {

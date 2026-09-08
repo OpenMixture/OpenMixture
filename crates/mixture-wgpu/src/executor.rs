@@ -1,6 +1,6 @@
 //! The sole graph executor: explicit context, bounded pipeline cache, typed passes.
 use crate::{
-    AdapterDiagnostics, ExecutionTimings, GpuContext, GpuOperationError,
+    AdapterDiagnostics, AllocationReport, ExecutionTimings, GpuContext, GpuOperationError,
     kernels::{PipelineCache, PipelineCacheReport},
     operation::checked,
     readback::ReadbackLayout,
@@ -69,6 +69,8 @@ pub struct RenderReport {
     pub pipeline_cache: PipelineCacheReport,
     /// Logical peak/cumulative allocation estimates, excluding driver overhead.
     pub estimates: PlanEstimates,
+    /// Successful descriptor allocations and destruction, excluding driver overhead.
+    pub allocations: AllocationReport,
     /// Tight raw rgba16float channel bytes read from the GPU.
     pub readback_bytes: u64,
     /// Total padded staging bytes mapped, sequentially across channels.
@@ -94,7 +96,7 @@ impl RenderOutput {
         &self.report
     }
 }
-/// Owns a single context and up to four pipelines. No resource pool or global cache.
+/// Owns a single context and at most one pipeline per kernel. No resource pool or global cache.
 pub struct Renderer {
     context: GpuContext,
     cache: PipelineCache,
@@ -111,7 +113,7 @@ impl Renderer {
     pub fn context(&self) -> &GpuContext {
         &self.context
     }
-    /// Number of retained kernel pipelines (at most four).
+    /// Number of retained pipelines, bounded by the built-in kernel count.
     pub fn cached_pipeline_count(&self) -> usize {
         self.cache.len()
     }
@@ -164,6 +166,7 @@ impl Renderer {
             pass_count: kernels.len(),
             pipeline_cache: result.cache,
             estimates: plan.estimates().clone(),
+            allocations: result.allocations,
             readback_bytes: plan.estimates().readback_bytes,
             mapped_bytes: plan.estimates().cumulative_readback_bytes,
             rgba_bytes: plan.estimates().readback_bytes / 2,
@@ -172,10 +175,12 @@ impl Renderer {
         Ok(RenderOutput { channels, report })
     }
 }
+
 pub(crate) struct Executed {
     pub pixels: Vec<Vec<u8>>,
     pub cache: PipelineCacheReport,
     pub timings: ExecutionTimings,
+    pub allocations: AllocationReport,
 }
 // The fixed probe also uses this exact dispatch, upload, allocation and readback path.
 pub(crate) async fn execute(
@@ -271,16 +276,24 @@ pub(crate) async fn execute(
             GpuOperationError::at(Stage::Readback, "Output resource is missing.").after_compute()
         })?;
         pixels.push(
-            resources::read_texture(device, context.queue(), texture, layout, *kind)
-                .await
-                .map_err(GpuOperationError::after_compute)?,
+            resources::read_texture(
+                device,
+                context.queue(),
+                texture,
+                layout,
+                *kind,
+                &mut resources.allocations,
+            )
+            .await
+            .map_err(GpuOperationError::after_compute)?,
         );
     }
     let readback_ms = readback_started.elapsed().as_secs_f64() * 1000.;
-    drop(resources);
+    let allocations = resources.finish();
     Ok(Executed {
         pixels,
         cache: cache_report,
+        allocations,
         timings: ExecutionTimings {
             pipeline_ms,
             execution_ms,
@@ -288,4 +301,66 @@ pub(crate) async fn execute(
             total_ms: total.elapsed().as_secs_f64() * 1000.,
         },
     })
+}
+
+#[cfg(test)]
+mod allocation_tests {
+    use super::*;
+    use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn graph_gpu_allocation_accounting_matches_plan_and_releases_aliased_readbacks() {
+        let mut document = MaterialDocument::decode(
+            include_bytes!("../../../fixtures/nodes/constant-scalar/input.mix"),
+            &SafetyLimits::default(),
+        )
+        .unwrap();
+        document.edges.push(mixture_core::document::Edge {
+            from: mixture_core::document::Endpoint {
+                node_id: "scalar".into(),
+                port_id: "value".into(),
+            },
+            to: mixture_core::document::Endpoint {
+                node_id: "out".into(),
+                port_id: "height".into(),
+            },
+        });
+        let document = document.into_validated(&SafetyLimits::default()).unwrap();
+        let plan = compile(
+            &document,
+            &CompileRequest {
+                size: [33, 3],
+                outputs: vec![
+                    OutputChannel::BaseColor,
+                    OutputChannel::Roughness,
+                    OutputChannel::Height,
+                ],
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let context =
+            pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+        let mut renderer = Renderer::new(context);
+        for _ in 0..2 {
+            let output = pollster::block_on(renderer.render(&plan)).unwrap();
+            let measured = &output.report().allocations;
+            let estimated = plan.estimates();
+            assert_eq!(measured.texture_count, 2);
+            assert_eq!(measured.uniform_count, 2);
+            assert_eq!(measured.staging_count, 3);
+            assert_eq!(measured.texture_bytes, estimated.texture_bytes);
+            assert_eq!(measured.uniform_bytes, estimated.uniform_bytes);
+            assert_eq!(measured.staging_bytes, estimated.cumulative_readback_bytes);
+            assert_eq!(measured.peak_staging_bytes, estimated.readback_buffer_bytes);
+            assert_eq!(measured.cumulative_bytes, estimated.cumulative_bytes);
+            assert_eq!(measured.peak_bytes, estimated.peak_bytes);
+            assert_eq!(measured.released_bytes, measured.cumulative_bytes);
+            assert_eq!(measured.live_bytes, 0);
+            assert_eq!(measured.reused_bytes, 0);
+            assert_eq!(estimated.padded_bytes_per_row, 512);
+            assert_eq!(output.channels()[1].pixels(), output.channels()[2].pixels());
+        }
+    }
 }

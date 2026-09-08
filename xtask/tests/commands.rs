@@ -80,6 +80,8 @@ fn node_test_rejects_unknown_ids_and_invalid_adapter_policy() {
     for (node, expected) in [
         ("unknown", "unknown node test"),
         ("checker", "Invalid smoke policy"),
+        ("transform-2d", "Invalid smoke policy"),
+        ("warp", "Invalid smoke policy"),
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
             .args(["test-node", node])

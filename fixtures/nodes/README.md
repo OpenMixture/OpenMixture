@@ -18,3 +18,8 @@ The existing [checker PNG/raw golden](./checker/README.md) and SwiftShader prove
 - [fractal-noise](./fractal-noise/README.md)
 - [gradient-map](./gradient-map/README.md)
 - [height-to-normal](./height-to-normal/README.md)
+
+PR-010 adds periodic scalar resampling and literal interpolation/rotation probes:
+
+- [transform-2d](./transform-2d/README.md)
+- [warp](./warp/README.md)

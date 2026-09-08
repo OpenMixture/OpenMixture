@@ -1,0 +1,16 @@
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s
+     Running tests/validation.rs (target/debug/deps/validation-0eb19709c5cc4dff)
+
+running 9 tests
+test validation_rechecks_constructed_documents_and_explicit_collection_limits ... ok
+test validation_requires_one_material_output_and_valid_required_inputs ... ok
+test validation_all_m2_contracts_and_material_defaults_are_available_without_gpu ... ok
+test validation_exposed_bindings_require_unique_names_unique_targets_and_mutable_parameters ... ok
+test validation_rejects_edge_identity_cardinality_endpoints_directions_and_kinds ... ok
+test validation_rejects_duplicate_invalid_unknown_and_unsupported_nodes ... ok
+test validation_cycles_are_deterministic_and_do_not_mislabel_downstream_nodes ... ok
+test validation_reports_are_stable_under_all_source_collection_orders_and_do_not_repair ... ok
+test validation_checks_parameter_shapes_ranges_defaults_and_relations ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

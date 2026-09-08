@@ -1,8 +1,8 @@
-# 六节点材质图渲染
+# 十一节点材质图渲染
 
 [English](./graph-rendering.md) | 简体中文
 
-PR-007 打通六个 M2 契约的本地 `.mix → validate → RenderPlan → wgpu → PNG` 路径。[Renderer](../crates/mixture-wgpu/src/executor.rs)只接受编译器生成的不可变计划，持有一个显式获取的上下文及小型管线缓存。GPU crate 不解析文档、不解析节点默认值、不解释参数覆盖。[CLI](../crates/mixture-cli/src/commands/render.rs)负责文件 I/O、参数、PNG 编码和报告。
+本地 `.mix → validate → RenderPlan → wgpu → PNG` 路径执行十一个内置契约。PR-007 建立六个 M2 契约，PR-009 添加噪声／颜色／法线 kernel，PR-010 添加标量变换／扭曲。[Renderer](../crates/mixture-wgpu/src/executor.rs)只接受编译器生成的不可变计划，持有一个显式获取的上下文及小型管线缓存。GPU crate 不解析文档、不解析节点默认值、不解释参数覆盖。[CLI](../crates/mixture-cli/src/commands/render.rs)负责文件 I/O、参数、PNG 编码和报告。
 
 ## 运行示例
 
@@ -56,8 +56,13 @@ renderer.clear_pipeline_cache();
 | `checker` | [checker.wgsl](../crates/mixture-wgpu/shaders/nodes/checker.wgsl)；uniform 0，存储输出 1 | 单元数及两种颜色，48 字节 |
 | `levels` | [levels.wgsl](../crates/mixture-wgpu/shaders/nodes/levels.wgsl)；uniform 0，输出 1，标量输入 2 | 五个 f32 值及填充，32 字节 |
 | `blend` | [blend.wgsl](../crates/mixture-wgpu/shaders/nodes/blend.wgsl)；uniform 0，输出 1，a／b／mask 输入 2／3／4 | 模式码、不透明度及填充，16 字节 |
+| `fractalNoise` | [fractal-noise.wgsl](../crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl)；uniform 0，输出 1 | u32 种子／scale／octaves／basis，f32 persistence 及填充，32 字节 |
+| `gradientMap` | [gradient-map.wgsl](../crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl)；uniform 0，输出 1，标量输入 2 | 两个线性 RGBA 端点，32 字节 |
+| `heightToNormal` | [height-to-normal.wgsl](../crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl)；uniform 0，输出 1，标量输入 2 | f32 强度及填充，16 字节 |
+| `transform2d` | [transform-2d.wgsl](../crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl)；uniform 0，输出 1，标量输入 2 | 两个 u32 缩放、u32 旋转次数、两个 f32 偏移及填充，32 字节 |
+| `warp` | [warp.wgsl](../crates/mixture-wgpu/shaders/nodes/warp.wgsl)；uniform 0，输出 1，标量输入 2，标量位移场 3 | 两个 f32 强度及填充，16 字节 |
 
-常量同时服务标量／颜色节点及编译器生成的可选默认值。`material-output` 回读映射资源，不增加着色器。输入在相同像素坐标使用无过滤的 `textureLoad`，输出使用 `rgba16float` 存储。全部 kernel 使用 8×8 工作组，对不完整工作组进行边界检查。棋盘格尺寸来自输出纹理，频率／颜色来自类型化调用。不涉及随机值或种子。
+常量同时服务标量／颜色节点及编译器生成的可选默认值。`material-output` 回读映射资源，不增加着色器。逐点 kernel 在相同像素坐标以 `textureLoad` 读取输入；高度转法线读取环绕邻居，变换／扭曲执行四次读取的周期双线性采样。输出使用 `rgba16float` 存储。全部 kernel 使用 8×8 工作组，对不完整工作组进行边界检查。棋盘格尺寸来自输出纹理，频率／颜色来自类型化调用；噪声接收完整的显式 u32 种子。重采样 kernel 不引入额外随机运算。
 
 [节点契约公式](./node-contracts.zh-CN.md)保持不变。Levels 在除法／pow 前处理输入端点，保持钳制语义，并避免在上下限之间没有可表示半精度输入的极小区间中计算未定义结果。Blend 使用 `opacity × mask` 执行 normal／multiply／screen RGB 插值，并独立插值 alpha。没有 source-over 合成、隐式预乘或 CPU 图求值器。
 
@@ -65,7 +70,7 @@ renderer.clear_pipeline_cache();
 
 ## 缓存、生命周期与失败
 
-一个渲染器最多保留七条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
+一个渲染器最多保留九条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
 
 [每次调用的资源](../crates/mixture-wgpu/src/resources.rs)实现 [PR-006 生命周期模型](./render-plan.zh-CN.md)：全部 pass 纹理及含填充的 uniform 保留至执行和回读结束。每个请求通道使用一个 staging 缓冲区，在下一通道前完成映射、解包、解除映射与销毁。别名通道共享生产者纹理，但仍独立回读。成功或失败都会释放调用内的全部缓冲区／纹理。没有纹理池、最后使用者优化、pass 融合或磁盘缓存。
 
@@ -108,7 +113,7 @@ cargo xtask check
 
 `shader-check` 无需 GPU 即可验证全部 WGSL 入口／工作组尺寸和 uniform 结构大小。`test-node` 先在无 GPU 环境验证[全部节点夹具](../fixtures/nodes/README.zh-CN.md)，包括无效覆盖／源文件，再精确运行指定节点的 GPU 用例。它使用与冒烟相同的 `MIXTURE_GPU_BACKEND`、`MIXTURE_GPU_SOFTWARE` 及可选预期适配器策略。报告位于 `tmp/node-tests/<backend>/<node>.json`。未知节点和无效策略在 Cargo／GPU 工作开始前失败。
 
-`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部九个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
+`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部十一个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
 
 本地 [Apple M5／Metal](./evidence/pr-007-apple-m5.json) 和固定 [SwiftShader／Vulkan](./evidence/pr-007-swiftshader.json)通过验证。已查看三个 256×256 示例。固定棋盘格与受保护基准逐字节一致，未覆盖任何像素基准。没有变更依赖或锁文件版本。
 
@@ -119,3 +124,18 @@ cargo xtask check
 ## PR-009 噪声到法线切片
 
 三个新增穷尽 `KernelId` 映射分别使用 32 字节噪声 uniform、32 字节渐变映射 uniform 和 16 字节高度转法线 uniform。节点默认值仍属于核心。新 kernel 复用相同分发、纹理分配、回读和错误路径。[皮革材质](../fixtures/materials/leather/README.zh-CN.md)以五个 pass 渲染四个连接通道，1K 估算峰值存活字节为 50,331,792。未添加资源池或 2K 优化。三个新节点测试和完整冒烟路径均在显式 Metal 与固定软件 Vulkan 适配器运行。
+
+## PR-010 周期标量重采样
+
+`Transform2d` 和 `Warp` 是类型化计划调用，使用已有分发／资源／回读路径；[核心降级](../crates/mixture-core/src/compiler/lower.rs)拥有所有参数默认值与必填输入解析。`Transform2d` 消费一个 Scalar 资源；`Warp` 按源、位移场的绑定顺序消费两个 Scalar 资源。两者填充后的 uniform 布局分别为 32 和 16 字节，[ABI 测试](../crates/mixture-wgpu/src/kernels.rs)根据编译计划验证上传字节的精确值。
+
+[节点契约](./node-contracts.zh-CN.md)定义 v 向下的像素中心 UV、先逆向旋转坐标实现顺时针视觉旋转再按源轴整数缩放、采样偏移的符号，以及环绕邻居的重复双线性插值。Warp 在输出纹素读取并钳制位移场，以 `0.5` 为中心，应用各轴独立带符号 UV 强度。默认变换和零强度／中性场扭曲通过直接读取实现精确恒等。整数缩放与四分之一圈旋转保持源周期；周期位移场同样保持该周期。未引入通用仿射矩阵、sampler／滤波选项、mip 链或额外像素执行器。
+
+```bash
+cargo xtask test-node transform-2d
+cargo xtask test-node warp
+```
+
+两个节点测试集在固定 SwiftShader 通过，包含 17 个变换和 13 个扭曲[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)、既有噪声的精确恒等比较、边界／无效输入夹具以及完整图因果／缓存检查。字面量探针验证 X／Y 环绕插值、旋转顺序、输出坐标位移场读取及 f16 恒等路径。节点测试继续使用显式适配器策略；报告和原始输出保存于 `tmp/node-tests/<backend>/`，并另存 `<node>-literal-probes.json` 证据。这验证节点语义；材质观感和里程碑验收使用独立的[材质验收](./material-goldens.zh-CN.md)。
+
+PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations: AllocationReport`。它记录成功创建的描述符：纹理／uniform 数量与字节数，staging 数量、累计字节和峰值存活字节，以及总累计、峰值、存活、已释放和已复用字节。当前成功渲染最终满足 `liveBytes = 0`、`releasedBytes = cumulativeBytes` 和 `reusedBytes = 0`。释放记录显式 `destroy` 调用，不代表驱动立即归还物理内存。驱动分配粒度、管线／绑定组开销及 CPU 像素／PNG 缓冲区不计入。这些观测不进入 `RenderPlan` 或其哈希。

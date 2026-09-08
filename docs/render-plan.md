@@ -60,10 +60,21 @@ Each selected pixel node emits one pass. An unconnected optional input emits a c
 | `checker` | `[u32; 2]` cells and two `[f32; 4]` colors | 48 |
 | `levels` | scalar input `ResourceId`, five f32 parameters | 32 |
 | `blend` | color `a`/`b` and scalar `mask` resource IDs, typed `BlendMode`, f32 opacity | 16 |
+| `fractalNoise` / `FractalNoise` | u32 `seed`, `scale`, `octaves`; f32 `persistence`; typed `NoiseBasis` | 32 |
+| `gradientMap` / `GradientMap` | scalar `input: ResourceId`, two linear RGBA `[f32; 4]` endpoints | 32 |
+| `heightToNormal` / `HeightToNormal` | scalar `input: ResourceId`, f32 `strength` | 16 |
+| `transform2d` / `Transform2d` | `transform-2d` source node; `input: ResourceId`, `scale: [u32; 2]`, `quarter_turns: u32`, `offset: [f32; 2]` | 32 |
+| `warp` / `Warp` | `warp` source node; `input: ResourceId`, `displacement: ResourceId`, `strength: [f32; 2]` | 16 |
 
 `KernelInvocation::id()` is exhaustive; `inputs()` exposes typed bindings in binding order. There is no arbitrary parameter JSON or second untyped input list in the plan. `PassOrigin` retains node ID/type/version or the owner and port of a synthesized default. `PlanOutput` retains channel kind, the connected endpoint or explicit default, and the actual logical resource. `RenderPlan` is immutable through its public API and cannot be deserialized or publicly constructed with forged references/hashes.
 
 Source f64 values are rounded to f32 during lowering; the plan records those effective parameters. Distinct decimals that round to the same f32 have the same plan. `levels` input bounds must remain strictly increasing after conversion; collapsed bounds fail at compile stage. Checker coordinate multiplication and allocation arithmetic are checked before returning a plan. Device-specific limits, shader binding layouts, actual GPU allocation, f16 texture precision, and pixel verification remain the executor's responsibility in PR-007.
+
+`KernelInvocation::Transform2d` lowers source `scaleX`/`scaleY` to `scale`, `quarterTurns` to `quarter_turns`, and `offsetX`/`offsetY` to `offset`. Scale components remain exact u32 integers in `[1, 64]`, and quarter turns remain an exact u32 in `[0, 3]`; neither passes through a float. Defaults are `scale: [1, 1]`, `quarter_turns: 0`, and `offset: [0.0, 0.0]`. Offsets lower from finite source f64 values in `[-1, 1]` to f32. The invocation specifies inverse quarter rotation about the tile center, then scaling along the source axes, then a source UV offset; `quarter_turns` describes the visible clockwise rotation in top-left image coordinates.
+
+`KernelInvocation::Warp` lowers `strengthX`/`strengthY` to `strength: [f32; 2]`, with default `[0.05, 0.0]`. Each component lowers from a finite source f64 value in `[-1, 1]`. Both invocations require a `Scalar` connection at source port `in` and produce a `Scalar` resource. Warp also requires a `Scalar` `displacement` connection; field value `0.5` is neutral. `inputs()` returns `[input]` for transform and `[input, displacement]` for warp. Repeated warp bindings remain in this list even when they refer to one shared producer pass; required connections never generate synthesized defaults. See [the node contracts](./node-contracts.md) for repeat-bilinear sampling and coordinate semantics.
+
+The executor binds the uniform at `0`, output texture at `1`, and `input` at `2`; warp adds `displacement` at `3`. Transform's 32-byte uniform contains four u32 words `[scale[0], scale[1], quarter_turns, 0]`, followed by four f32 words `[offset[0], offset[1], 0.0, 0.0]`. Warp's 16-byte uniform contains four f32 words `[strength[0], strength[1], 0.0, 0.0]`. The plan's `uniform_bytes()` includes this padding; resource IDs are typed bindings, not uniform payload values.
 
 ## Allocation estimate contract
 
@@ -103,3 +114,5 @@ The four new snapshots are checker/baseColor, checker/all defaults, all-M2/baseC
 Local focused and workspace checks pass on the pinned toolchain. Remote cross-platform CI remains pending; this work does not close M0/M1/M2. PR-007 now [executes these typed invocations](./graph-rendering.md) through the sole `wgpu` graph renderer, with all six node pixel fixtures. PR-008 [material golden tooling](./material-goldens.md) is now implemented; ceramic appearance is accepted and leather human acceptance is recorded.
 
 PR-009 adds typed `FractalNoise`, `GradientMap` and `HeightToNormal` invocations without changing plan version 1 or old plan/hash snapshots. Noise uploads all u32 seed bits and hashes seed, basis, scale, octave and persistence semantics; the compiler retains typed Scalar/Color/Normal connections and slices new branches normally. Public [M3 API tests](../crates/mixture-core/tests/m3_nodes.rs) verify defaults, required seed, lowering, branch slicing and hash sensitivity.
+
+PR-010 adds typed `Transform2d` and `Warp` invocations as an additive extension to the v1 source node catalog. Document and plan versions remain `1`; the existing hash prefix, old plan/hash snapshots, and existing material pixel baselines are unchanged. The new invocations use the same typed serialization, effective-parameter hashing and dependency slicing rules. Public [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover lowered defaults, integer fields, ordered and repeated scalar bindings, uniform sizes, unrequested-branch slicing, parameter hash sensitivity, source-order equivalence, and rejection of missing or mistyped connections.

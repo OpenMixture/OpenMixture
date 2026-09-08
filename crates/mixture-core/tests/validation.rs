@@ -81,8 +81,10 @@ fn validation_rejects_duplicate_invalid_unknown_and_unsupported_nodes() {
         .contains(&Code::NodeDuplicateId)
     );
     assert!(
-        codes(&changed(|v| v["nodes"][0]["type"] = json!("transform-2d")))
-            .contains(&Code::NodeUnknownType)
+        codes(&changed(
+            |v| v["nodes"][0]["type"] = json!("test-unknown-node")
+        ))
+        .contains(&Code::NodeUnknownType)
     );
     let unsupported = changed(|v| {
         v["nodes"][0]["version"] = json!(2);

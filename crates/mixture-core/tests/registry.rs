@@ -3,7 +3,7 @@ use mixture_core::registry::{BUILT_INS, ParameterKind, PortKind, node_contract};
 use serde_json::json;
 use std::collections::BTreeSet;
 #[test]
-fn registry_has_exactly_nine_version_one_contracts_with_valid_defaults_and_explicit_seed() {
+fn registry_has_exactly_eleven_version_one_contracts_with_valid_defaults_and_explicit_seed() {
     let names: Vec<_> = BUILT_INS.iter().map(|c| c.type_id).collect();
     assert_eq!(
         names,
@@ -16,7 +16,9 @@ fn registry_has_exactly_nine_version_one_contracts_with_valid_defaults_and_expli
             "gradient-map",
             "height-to-normal",
             "levels",
-            "material-output"
+            "material-output",
+            "transform-2d",
+            "warp"
         ]
     );
     for contract in BUILT_INS {
@@ -76,7 +78,7 @@ fn registry_has_exactly_nine_version_one_contracts_with_valid_defaults_and_expli
         }
     }
     assert!(node_contract("Checker").is_none());
-    assert!(node_contract("transform-2d").is_none());
+    assert!(node_contract("unregistered-node").is_none());
     assert!(
         node_contract("fractal-noise")
             .unwrap()
@@ -95,4 +97,12 @@ fn registry_has_exactly_nine_version_one_contracts_with_valid_defaults_and_expli
     );
     assert!(node_contract("checker").unwrap().input("color").is_none());
     assert!(node_contract("material-output").unwrap().outputs.is_empty());
+}
+
+#[test]
+fn m3_node_budget_stops_before_a_thirteenth_builtin() {
+    assert!(
+        BUILT_INS.len() <= 12,
+        "M3 acceptance must precede a thirteenth built-in node"
+    );
 }

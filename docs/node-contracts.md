@@ -2,11 +2,11 @@
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
-PR-005 registers six static contracts in [mixture-core](../crates/mixture-core/src/registry.rs). PR-006 lowers them into typed plans; PR-007 [executes all six](./graph-rendering.md) through the sole `wgpu` path. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader. No source node types or CPU pixel renderer were added.
+The eleven version-1 contracts in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
 
 ## Common rules
 
-All nine node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
+All eleven node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
@@ -142,3 +142,62 @@ cargo xtask test-node height-to-normal
 ```
 
 The normal tests feed literal half-float horizontal/vertical ramps directly through the production shader at rectangular sizes to establish wrap, Y sign, UV scaling and zero strength. They do not implement a CPU normal renderer. The [leather fixture](../fixtures/materials/leather/README.md) exercises all three additions as a material consumer.
+
+## PR-010 scalar resampling additions
+
+PR-010 adds `transform-2d` and `warp`, bringing the catalog to eleven nodes and the renderer cache bound to nine pipelines. The source JSON shape, document/node version 1, prior node contracts and existing pixel/plan/hash baselines are unchanged. These are additive catalog entries; existing documents need no migration. The [registry test](../crates/mixture-core/tests/registry.rs), included in `cargo xtask check`, enforces the twelve-node ceiling before M3 acceptance.
+
+Both nodes operate on `Scalar` input and output. Derive colors and tangent normals after transforming or warping height; neither node implicitly accepts `Color` or `Normal`. They introduce no random operation and require no additional seed. Input periodicity comes from their source graphs, whose randomized nodes retain the explicit-seed requirement.
+
+### Shared sampling convention
+
+For output texel `(x,y)`, use center UV `(x+0.5,y+0.5)/(width,height)`, with u right and v down. At the requested source UV, compute `p=fract(sampleUV)*inputDimensions-0.5`. Read the four integer neighbors around `floor(p)`, wrapping each coordinate modulo the corresponding input dimension before loading, then bilinearly interpolate using `fract(p)`. Negative neighbors wrap to the opposite edge. This explicitly uses four `textureLoad` calls: no sampler, mip chain or antialiasing is implied.
+
+Arithmetic is f32, intermediate scalar storage is `[value,0,0,1]` in f16, and exported RGBA8 replicates red into RGB with opaque alpha. One-texel axes are valid and wrap to the same texel. Repeat sampling preserves a periodic source's boundary convention; it does not repair an existing input seam. Opposite border pixels are distinct center samples, so seamless tiling does not require their byte values to be identical. High integer scales or rapidly varying warp fields can undersample input detail.
+
+### transform-2d
+
+[Contract](../crates/mixture-core/src/nodes/transform_2d.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl), [fixtures](../fixtures/nodes/transform-2d/README.md). Required input `in: Scalar`; output `value: Scalar`.
+
+| Parameter | Type / range | Default |
+| --- | --- | --- |
+| `scaleX` | Integer `[1,64]` | `1` |
+| `scaleY` | Integer `[1,64]` | `1` |
+| `quarterTurns` | Integer `[0,3]` | `0` |
+| `offsetX` | Float `[-1,1]` | `0` |
+| `offsetY` | Float `[-1,1]` | `0` |
+
+Let `p=uv-0.5`. Inverse-rotate those coordinates first, then scale on the source axes, then translate: `sampleUV=rotated*vec2(scaleX,scaleY)+0.5+vec2(offsetX,offsetY)`.
+
+| `quarterTurns` | Inverse-rotated coordinates | Visible pattern rotation |
+| --- | --- | --- |
+| `0` | `(p.x,p.y)` | none |
+| `1` | `(p.y,-p.x)` | clockwise 90 degrees |
+| `2` | `(-p.x,-p.y)` | 180 degrees |
+| `3` | `(-p.y,p.x)` | clockwise 270 degrees |
+
+The pivot is the UV tile center. Rotation precedes per-axis scaling so it rotates the anisotropic grain axis as well: `scaleX=8, scaleY=1` produces eight source periods horizontally at zero turns, and vertically at one turn. These are sample-period counts; increasing a scale repeats/compresses the source instead of enlarging it. Rotation uses normalized UV coordinates; rectangular output dimensions do not swap. Positive offsets move source sampling right/down and move the visible pattern left/up.
+
+Integer scales and quarter-turn rotations preserve a periodic source for every permitted setting, including fractional offsets. Fractional scales and arbitrary rotation angles are deliberately outside this v1 contract because they generally break output-tile periodicity. With both scales one, zero turns and zero offsets, the shader directly loads the corresponding input texel, preserving scalar pixels exactly.
+
+### warp
+
+[Contract](../crates/mixture-core/src/nodes/warp.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/warp.wgsl), [fixtures](../fixtures/nodes/warp/README.md). Required inputs `in: Scalar` and `displacement: Scalar`; output `value: Scalar`.
+
+| Parameter | Type / range | Default |
+| --- | --- | --- |
+| `strengthX` | Float `[-1,1]` | `0.05` |
+| `strengthY` | Float `[-1,1]` | `0` |
+
+Read the displacement scalar at the current output texel, set `d=2*clamp(field,0,1)-1`, then sample `in` at `sampleUV=uv+d*vec2(strengthX,strengthY)` with the shared repeat-bilinear rule. The strengths are independent signed UV displacements. Field `0.5` is neutral; field `1` applies positive strength, and field `0` applies negative strength. Positive X/Y displacement samples right/down, moving the visible pattern left/up. The field is read at the output coordinate, not at the displaced input coordinate; its clamp is shader semantics and does not relax source parameter validation.
+
+A neutral field texel or a zero strength vector uses a direct input load and preserves its scalar pixel exactly. The required field connection is still validated and compiled when strength is zero. Periodic source and displacement inputs preserve the tile contract because an output-tile step adds an integer source-UV step. Large displacements can fold the sampled pattern; no monotonicity or antialiasing is promised.
+
+```bash
+cargo test --locked -p mixture-core --test resampling --test registry
+cargo xtask shader-check
+cargo xtask test-node transform-2d
+cargo xtask test-node warp
+```
+
+The [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover defaults, typed input order, repeated bindings, exact kinds, required connections, dependency slicing and parameter/hash behavior. The [literal GPU probes](../crates/mixture-wgpu/tests/support/resampling_probe.rs) use 17 transform and 13 warp cases with hand-specified half-float inputs and exact expected outputs. They establish interpolation across X/Y seams, negative offsets, all rotations, rotation-before-scale order, single-texel dimensions, displacement polarity/clamping and output-coordinate field reads through the production WGSL. Node graph cases reference the existing noise identity baseline without changing it, and check meaningful parameter changes and warm-cache repeatability. Node evidence is saved under `tmp/node-tests/<backend>/`, including `<node>-literal-probes.json`.

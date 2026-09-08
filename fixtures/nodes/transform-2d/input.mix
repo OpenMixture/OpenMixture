@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "source",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 1337
+      }
+    },
+    {
+      "id": "sample",
+      "type": "transform-2d",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "source",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "sample",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "sample",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "scaleX",
+      "nodeId": "sample",
+      "parameterId": "scaleX"
+    },
+    {
+      "id": "scaleY",
+      "nodeId": "sample",
+      "parameterId": "scaleY"
+    },
+    {
+      "id": "quarterTurns",
+      "nodeId": "sample",
+      "parameterId": "quarterTurns"
+    },
+    {
+      "id": "offsetX",
+      "nodeId": "sample",
+      "parameterId": "offsetX"
+    },
+    {
+      "id": "offsetY",
+      "nodeId": "sample",
+      "parameterId": "offsetY"
+    }
+  ]
+}

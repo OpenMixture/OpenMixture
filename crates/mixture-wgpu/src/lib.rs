@@ -36,10 +36,12 @@
 //!     let mut renderer = Renderer::new(context);
 //!     let output = renderer.render(plan).await?;
 //!     assert_eq!(&output.report().plan_hash, plan.hash());
+//!     assert_eq!(output.report().allocations.live_bytes, 0);
 //!     Ok(output)
 //! }
 //! ```
 
+mod allocations;
 pub mod checker;
 pub mod context;
 pub mod diagnostics;
@@ -49,6 +51,7 @@ mod operation;
 mod readback;
 mod resources;
 
+pub use allocations::AllocationReport;
 pub use checker::{CheckerOutput, CheckerRequest, ExecutionReport, ExecutionTimings};
 pub use context::{
     BackendPreference, GpuContext, GpuContextError, GpuContextOptions, PowerPreference,

@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render /Users/krapnik/Documents/OpenMixture/tmp/pr-010/intermediates/warp.mix --size 1024 --output height --out /Users/krapnik/Documents/OpenMixture/tmp/pr-010/intermediates/software/warp --json --backend vulkan --software`

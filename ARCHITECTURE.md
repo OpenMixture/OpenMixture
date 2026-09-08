@@ -441,7 +441,7 @@ let result = renderer.render(&plan).await?;
 
 No public render API initializes a hidden global device.
 
-PR-003 implements context acquisition; its immutable snapshot remains `unverified`. PR-004 adds `GpuContext::render_checker` and a verified doctor probe: actual compute/readback and pixel checks yield `healthy`, explicit skip yields `unverified`, and failures yield `unhealthy` with their exact stage. The general `Renderer` in the conceptual example is still future work; the fixed checker needs no renderer framework. See [GPU ownership](./docs/gpu-context.md) and [the checker contract](./docs/builtin-checker.md).
+PR-003 implements context acquisition; its immutable snapshot remains `unverified`. PR-004 adds `GpuContext::render_checker` and a verified doctor probe: actual compute/readback and pixel checks yield `healthy`, explicit skip yields `unverified`, and failures yield `unhealthy` with their exact stage. PR-007 implements the shared `Renderer` for immutable core plans; the fixed checker and graph path use the same executor. See [GPU ownership](./docs/gpu-context.md) and [the checker contract](./docs/builtin-checker.md).
 
 ### 9.2 Headless compute only
 
@@ -486,7 +486,7 @@ Do not implement a general allocator before a 2K golden-material trace establish
 
 Pipeline caching is keyed only by semantic GPU inputs such as kernel, shader version, texture format, and relevant device capabilities.
 
-Cache ownership belongs to `Renderer`, not global state. PR-009 retains at most seven pipelines keyed by `KernelId`, with one fixed device/shader ABI/format/workgroup policy per renderer. Explicit cache clear and renderer drop release them; request dimensions and parameters do not expand the cache.
+Cache ownership belongs to `Renderer`, not global state. PR-010 retains at most nine pipelines keyed by `KernelId`, with one fixed device/shader ABI/format/workgroup policy per renderer. Explicit cache clear and renderer drop release them; request dimensions and parameters do not expand the cache.
 
 ### 9.6 Adapter policy and fallback
 
@@ -708,3 +708,7 @@ A change requires an architecture decision record when it introduces or changes:
 - a compatibility promise.
 
 An ADR must include context, decision, alternatives, consequences, migration, and verification. It must also update this document when the accepted decision changes a normative rule.
+
+## PR-010 measured resampling slice
+
+The catalog now has eleven node types and nine kernels. Scalar `transform-2d` and `warp` use explicit wrapped bilinear texture loads before color/normal derivation; document and node versions remain 1. Their additive typed payloads are documented in [node contracts](./docs/node-contracts.md). `RenderReport.allocations` records successful resource descriptor bytes separately from core estimates. The naive retain-all-pass-textures schedule remains in place; `trace-2k` ranks all three materials and their cases by peak estimate, then measures the largest against the existing 512 MiB budget. Counters exclude driver overhead and CPU buffers; destruction is not a claim of immediate physical memory reclamation. See [development and trace semantics](./docs/development.md). No new crate, format, dependency, cache, optimizer or renderer is introduced.

@@ -293,6 +293,17 @@ impl Builder<'_> {
                 input: binding("in")?,
                 strength: number(node, "strength")?,
             },
+            "transform-2d" => KernelInvocation::Transform2d {
+                input: binding("in")?,
+                scale: [integer(node, "scaleX")?, integer(node, "scaleY")?],
+                quarter_turns: integer(node, "quarterTurns")?,
+                offset: [number(node, "offsetX")?, number(node, "offsetY")?],
+            },
+            "warp" => KernelInvocation::Warp {
+                input: binding("in")?,
+                displacement: binding("displacement")?,
+                strength: [number(node, "strengthX")?, number(node, "strengthY")?],
+            },
             _ => {
                 return Err(invariant(
                     "Selected node has no supported pixel invocation in plan version 1.",

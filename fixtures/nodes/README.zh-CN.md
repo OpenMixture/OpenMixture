@@ -18,3 +18,8 @@ PR-007 为每个 M2 节点提供默认值、边界、非平凡像素及无效输
 - [fractal-noise](./fractal-noise/README.zh-CN.md)
 - [gradient-map](./gradient-map/README.zh-CN.md)
 - [height-to-normal](./height-to-normal/README.zh-CN.md)
+
+PR-010 添加循环标量重采样与字面插值／旋转探针：
+
+- [transform-2d](./transform-2d/README.zh-CN.md)
+- [warp](./warp/README.zh-CN.md)

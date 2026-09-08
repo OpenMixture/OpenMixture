@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      2048,
+      2048
+    ],
+    "materialOutput": {
+      "id": "out",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "grain",
+            "typeId": "fractal-noise",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "fractalNoise",
+          "seed": 271828,
+          "scale": 64,
+          "octaves": 3,
+          "persistence": 1.0,
+          "basis": "cellular"
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 2048,
+          "height": 2048,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          256,
+          256,
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "height",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 0,
+          "inputMin": 0.0,
+          "inputMax": 0.6,
+          "gamma": 1.6,
+          "outputMin": 0.0,
+          "outputMax": 1.0
+        },
+        "output": 1,
+        "outputDesc": {
+          "width": 2048,
+          "height": 2048,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          256,
+          256,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "color",
+            "typeId": "gradient-map",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "gradientMap",
+          "input": 1,
+          "colorA": [
+            0.025,
+            0.011,
+            0.006,
+            1.0
+          ],
+          "colorB": [
+            0.09,
+            0.039,
+            0.019,
+            1.0
+          ]
+        },
+        "output": 2,
+        "outputDesc": {
+          "width": 2048,
+          "height": 2048,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          256,
+          256,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "normal",
+            "typeId": "height-to-normal",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "heightToNormal",
+          "input": 1,
+          "strength": 0.002
+        },
+        "output": 3,
+        "outputDesc": {
+          "width": 2048,
+          "height": 2048,
+          "format": "rgba16float",
+          "kind": "normal"
+        },
+        "dispatch": [
+          256,
+          256,
+          1
+        ]
+      },
+      {
+        "id": 4,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "roughness",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 1,
+          "inputMin": 0.0,
+          "inputMax": 1.0,
+          "gamma": 1.0,
+          "outputMin": 0.76,
+          "outputMax": 0.52
+        },
+        "output": 4,
+        "outputDesc": {
+          "width": 2048,
+          "height": 2048,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          256,
+          256,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "baseColor",
+        "kind": "color",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "color",
+            "portId": "color"
+          }
+        },
+        "resource": 2
+      },
+      {
+        "channel": "normal",
+        "kind": "normal",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "normal",
+            "portId": "normal"
+          }
+        },
+        "resource": 3
+      },
+      {
+        "channel": "roughness",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "roughness",
+            "portId": "value"
+          }
+        },
+        "resource": 4
+      },
+      {
+        "channel": "height",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "height",
+            "portId": "value"
+          }
+        },
+        "resource": 1
+      }
+    ],
+    "estimates": {
+      "textureBytes": 167772160,
+      "uniformBytes": 144,
+      "paddedBytesPerRow": 16384,
+      "readbackBufferBytes": 33554432,
+      "readbackBytes": 134217728,
+      "cumulativeReadbackBytes": 134217728,
+      "cumulativeBytes": 301990032,
+      "peakBytes": 201326736
+    },
+    "hash": "sha256:b5c7f0bcbbb90052122b29e221f4d9646c5c6cba82e1d2bd07f838ddf40618d2"
+  },
+  "ok": true,
+  "diagnostics": []
+}

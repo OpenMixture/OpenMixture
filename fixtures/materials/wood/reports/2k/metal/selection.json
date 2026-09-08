@@ -1,0 +1,218 @@
+{
+  "ranking": [
+    {
+      "case": "default",
+      "estimates": {
+        "cumulativeBytes": 402653408,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990112,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 224
+      },
+      "material": "wood",
+      "overrides": {},
+      "passCount": 8,
+      "planHash": "sha256:a15829a0be13e1180c127b674491c5643e36ffc160e6ec86a0f6fd350bf050c4"
+    },
+    {
+      "case": "coarse-grain",
+      "estimates": {
+        "cumulativeBytes": 402653408,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990112,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 224
+      },
+      "material": "wood",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "passCount": 8,
+      "planHash": "sha256:93ac2dbdac9895a73fa4a073ad8a51be9e6eb2d99f811275e4385bcc994df11e"
+    },
+    {
+      "case": "horizontal-grain",
+      "estimates": {
+        "cumulativeBytes": 402653408,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990112,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 224
+      },
+      "material": "wood",
+      "overrides": {
+        "orientation": 1
+      },
+      "passCount": 8,
+      "planHash": "sha256:c12f102b94cf41e1308cf75e29f94abb9b41b719bf63885b333d6387043468fd"
+    },
+    {
+      "case": "straight-grain",
+      "estimates": {
+        "cumulativeBytes": 402653408,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990112,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 224
+      },
+      "material": "wood",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "passCount": 8,
+      "planHash": "sha256:ba003c31e44fd646d40fda729d96e927807995aa20fa94b88848f6e976e2c1cc"
+    },
+    {
+      "case": "default",
+      "estimates": {
+        "cumulativeBytes": 402653360,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990064,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 176
+      },
+      "material": "glazed-ceramic",
+      "overrides": {},
+      "passCount": 8,
+      "planHash": "sha256:92aeeaa864cbd887b1387735aa76145cf35a35e3f02726b8404fa676ce9be94a"
+    },
+    {
+      "case": "fine-tiles",
+      "estimates": {
+        "cumulativeBytes": 402653360,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990064,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 176
+      },
+      "material": "glazed-ceramic",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "passCount": 8,
+      "planHash": "sha256:24c3b095c8d43adfdab8bd9fe2b5f37f734c9c95f18d7da52f4603b329284489"
+    },
+    {
+      "case": "matte",
+      "estimates": {
+        "cumulativeBytes": 402653360,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 301990064,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 268435456,
+        "uniformBytes": 176
+      },
+      "material": "glazed-ceramic",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "passCount": 8,
+      "planHash": "sha256:fd48c3ef8ec9fd4bf917685acbb8ccc2838bbd656727cd3b2b5b1c1fc4a2ab2a"
+    },
+    {
+      "case": "default",
+      "estimates": {
+        "cumulativeBytes": 301990032,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 201326736,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 167772160,
+        "uniformBytes": 144
+      },
+      "material": "leather",
+      "overrides": {},
+      "passCount": 5,
+      "planHash": "sha256:2a2eb629f403c9789aa29974e8f0073c19eae8035515f0b4134e0bfcb8205479"
+    },
+    {
+      "case": "coarse-grain",
+      "estimates": {
+        "cumulativeBytes": 301990032,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 201326736,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 167772160,
+        "uniformBytes": 144
+      },
+      "material": "leather",
+      "overrides": {
+        "grainScale": 32
+      },
+      "passCount": 5,
+      "planHash": "sha256:c42c90415506c5e2448d4b7cdb98bfc9a903cd38c1e7fa6e7d7aec2ae7ae6660"
+    },
+    {
+      "case": "detail-max",
+      "estimates": {
+        "cumulativeBytes": 301990032,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 201326736,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 167772160,
+        "uniformBytes": 144
+      },
+      "material": "leather",
+      "overrides": {
+        "detail": 1
+      },
+      "passCount": 5,
+      "planHash": "sha256:b5c7f0bcbbb90052122b29e221f4d9646c5c6cba82e1d2bd07f838ddf40618d2"
+    },
+    {
+      "case": "detail-min",
+      "estimates": {
+        "cumulativeBytes": 301990032,
+        "cumulativeReadbackBytes": 134217728,
+        "paddedBytesPerRow": 16384,
+        "peakBytes": 201326736,
+        "readbackBufferBytes": 33554432,
+        "readbackBytes": 134217728,
+        "textureBytes": 167772160,
+        "uniformBytes": 144
+      },
+      "material": "leather",
+      "overrides": {
+        "detail": 0
+      },
+      "passCount": 5,
+      "planHash": "sha256:30f3ae0592c415994390f9d9bdcea02ad410c794d8c97fef665660715173d152"
+    }
+  ],
+  "schemaVersion": 1,
+  "selected": {
+    "case": "default",
+    "material": "wood"
+  },
+  "selection": "highest peakBytes, then passCount, lexical material, default case first, lexical case",
+  "size": [
+    2048,
+    2048
+  ]
+}

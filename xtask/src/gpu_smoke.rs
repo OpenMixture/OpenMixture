@@ -204,6 +204,8 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             | "fractal-noise"
             | "gradient-map"
             | "height-to-normal"
+            | "transform-2d"
+            | "warp"
     ) {
         return Err(format!("unknown node test: {node}").into());
     }

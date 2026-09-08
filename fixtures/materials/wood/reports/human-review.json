@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "material": "wood",
+  "status": "accepted",
+  "reviewer": "user (explicit acceptance in the Codex conversation)",
+  "reviewedAt": "2026-09-08T01:14:09.742029+00:00",
+  "baselineManifestSha256": "sha256:36447d89980991db61b01edbad42e8f96a43b33ae8d4824d93e8a5036c3b4d69",
+  "appearanceReportSha256": "sha256:dbab30326e2d140a680c3f38e472e8226831d2e72091b7b2776e9d3cf9910203",
+  "appearanceComparisonSha256": "sha256:c999ac8bb58b3903cdcf66407390ac0d67cc5c59220c81ee5686233635d3805f",
+  "criteria": [
+    "The directional brown surface is useful as the intended stylized wood-like target.",
+    "Coarse, straight and rotated controls visibly change the intended structure.",
+    "Height-derived normal and roughness support a coherent surface under identical light.",
+    "Repeated plane has no unwanted edge band."
+  ],
+  "agentInspection": {
+    "reviewer": "Codex",
+    "kind": "agent",
+    "status": "inspected",
+    "evidence": [
+      "overview.png",
+      "tiling.png",
+      "pbr/comparison.png",
+      "pbr/default.png",
+      "pbr/review.json"
+    ],
+    "observations": [
+      "Warm elongated grain is visible on the one-repeat plane and sphere under identical area lights.",
+      "Coarse grain broadens the bands; zero warp straightens them; the quarter turn changes the dominant image-space axis.",
+      "The normal and roughness produce a smooth wood-like response. Sphere poles and perspective distort the texture; they are consumer mapping effects.",
+      "No extra seam band is apparent in the repeated texture. Fine previews may alias; full-resolution PNGs and measured seam metrics remain authoritative."
+    ],
+    "humanAcceptanceClaimed": false
+  },
+  "remoteCi": "deferred by user; full M3 review remains the next task",
+  "humanDecision": {
+    "source": "user",
+    "text": "接受，开始下一步任务",
+    "decision": "accepted",
+    "scope": "Wood appearance shown in the controlled four-case PBR comparison, bound to the recorded baseline and appearance hashes",
+    "recordedBy": "Codex",
+    "remoteCi": "still deferred; proceed with the six-question M3 review before M4"
+  }
+}

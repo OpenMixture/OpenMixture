@@ -71,9 +71,9 @@ cargo xtask check
 cargo xtask gpu-smoke
 ```
 
-`gpu-smoke` 显式启用真实 GPU 工作，使用 `--all-features` 使 macOS 软件 Vulkan 特性可用。它运行完整及跳过探针的 doctor，渲染／解码 PNG，将解码 RGBA 与已审查的 SwiftShader 基准比较，渲染带计划哈希的三个图示例，再执行全部默认忽略的库／CLI GPU 测试，包括九组节点夹具。报告、PNG、比较 JSON、stderr 和测试日志保存在已忽略的 `tmp/gpu-smoke/`。`check` 和普通工作区测试不初始化 GPU。冒烟失败会使任务失败，绝不更新基准。
+`gpu-smoke` 显式启用真实 GPU 工作，使用 `--all-features` 使 macOS 软件 Vulkan 特性可用。它运行完整及跳过探针的 doctor，渲染／解码 PNG，将解码 RGBA 与已审查的 SwiftShader 基准比较，渲染带计划哈希的三个图示例，再执行全部默认忽略的库／CLI GPU 测试，包括十一组节点夹具。报告、PNG、比较 JSON、stderr 和测试日志保存在已忽略的 `tmp/gpu-smoke/`。`check` 和普通工作区测试不初始化 GPU。冒烟失败会使任务失败，绝不更新基准。
 
-只有冒烟工具读取 `MIXTURE_GPU_BACKEND`（`auto`、`vulkan`、`metal`、`dx12`，默认 `auto`）、`MIXTURE_GPU_SOFTWARE`（`0`／`1`，默认 `0`）及可选 `MIXTURE_GPU_EXPECT_ADAPTER`（区分大小写的名称子串）。生产 API／直接 CLI 调用使用显式选项，不使用这些测试变量。
+仓库 GPU 工具（`gpu-smoke`、节点／材质检查、`golden check` 与 `trace-2k`）读取 `MIXTURE_GPU_BACKEND`（`auto`、`vulkan`、`metal`、`dx12`，默认 `auto`）、`MIXTURE_GPU_SOFTWARE`（`0`／`1`，默认 `0`）及可选 `MIXTURE_GPU_EXPECT_ADAPTER`（区分大小写的名称子串）。生产 API／直接 CLI 调用使用显式选项，不使用这些测试变量。
 
 ## 固定软件适配器
 

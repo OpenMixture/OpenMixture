@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "material": "wood",
+  "softwareRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "planHashes": {
+    "coarse-grain": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+    "default": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+    "horizontal-grain": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+    "straight-grain": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662"
+  },
+  "files": {
+    "coarse-grain/baseColor.png": "sha256:5a7a650a0030d64ba735e4b326cc29e60a8b762303fcb10ea89188bbfe8b44a4",
+    "coarse-grain/height.png": "sha256:d107ec5c7169d55af00f710fc0ae5d39f7348bdf09a7a6fbde623e79d3770f32",
+    "coarse-grain/normal.png": "sha256:439b41afdb86ab4cf0afef27f13a33dd95e777f6e0efa92f00f5ecae12a5d04a",
+    "coarse-grain/roughness.png": "sha256:93b140604d2a6516465d834f180dfaafac62e1ec75b12559818a7892d5f0ae53",
+    "default/baseColor.png": "sha256:e0d3afb5434742ee5cead0ffaf15ee7e41eacb243009ba7ea56cdd0a44fcce58",
+    "default/height.png": "sha256:23bf1db115c42bdf52d7689c0ae1f91cc8b5e17bc93b93d9163890d589055884",
+    "default/normal.png": "sha256:cb424b7783204640afc388b11e2895f30c01d0eeb85747109987594a7e65d22a",
+    "default/roughness.png": "sha256:48e83939521c647b60566f2259faed5bd831a5054c3e7f4c9fccf54ec84f1533",
+    "horizontal-grain/baseColor.png": "sha256:9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+    "horizontal-grain/height.png": "sha256:d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a",
+    "horizontal-grain/normal.png": "sha256:106f2ec5be76b97f61afde6ef8a7e30d10b57c29937fd5a35a064140fd326e30",
+    "horizontal-grain/roughness.png": "sha256:cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+    "straight-grain/baseColor.png": "sha256:48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+    "straight-grain/height.png": "sha256:2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+    "straight-grain/normal.png": "sha256:97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+    "straight-grain/roughness.png": "sha256:d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162"
+  }
+}

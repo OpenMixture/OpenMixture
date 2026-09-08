@@ -15,14 +15,14 @@ The root documents are the active project contract:
 [GPU context and doctor](./gpu-context.md) describes PR-003 acquisition, report fields, exit codes, and pinned software CI.
 [Built-in checker](./builtin-checker.md) defines PR-004 pixels, readback, PNG output, golden provenance, and execution evidence.
 [Strict .mix v1 format](./file-format.md) defines PR-005 decoding, validation, CLI behavior, and source fixtures.
-[Nine built-in node contracts](./node-contracts.md) define typed ports, parameters, defaults, and declared semantics before graph execution.
+[Eleven built-in node contracts](./node-contracts.md) define typed ports, parameters, defaults, and declared semantics before graph execution.
 [Deterministic RenderPlan](./render-plan.md) defines PR-006 requests, normalization, slicing, typed resources, estimates, hashes, and CLI inspection.
-[Nine-node graph rendering](./graph-rendering.md) defines PR-007/009 execution, caching, readback/PNG encoding, examples, tests, and adapter evidence.
+[Eleven-node graph rendering](./graph-rendering.md) defines PR-007/009/010 execution, caching, readback/PNG encoding, examples, tests, and adapter evidence.
 [Architecture decisions](./decisions/README.md) record the four foundation decisions.
 
 The original [review bundle](../mixture-greenfield-docs/README.md) is retained unchanged as source material. Its planned commands are not a claim that later milestones are implemented. Root documentation is maintained with the code from this point onward; the bundle manifest applies only to the original bundle.
 
-[Material goldens](./material-goldens.md) defines PR-008/009 guarded updates, fixture schema, metrics, and the ceramic/leather review workflows.
+[Material goldens](./material-goldens.md) defines PR-008/009/010 guarded updates, fixture schema, metrics, and the ceramic/leather/wood review workflows.
 
 ## Supporting documentation
 

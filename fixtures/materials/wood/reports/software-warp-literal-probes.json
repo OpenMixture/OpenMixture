@@ -1,0 +1,922 @@
+{
+  "adapter": {
+    "backend": "Vulkan",
+    "device": 49374,
+    "deviceType": "Cpu",
+    "driver": "SwiftShader driver",
+    "driverInfo": "",
+    "name": "SwiftShader Device (LLVM 10.0.0)",
+    "supportedFeatures": [
+      "ADDRESS_MODE_CLAMP_TO_BORDER",
+      "ADDRESS_MODE_CLAMP_TO_ZERO",
+      "BGRA8UNORM_STORAGE",
+      "BUFFER_BINDING_ARRAY",
+      "CLEAR_TEXTURE",
+      "CLIP_DISTANCES",
+      "DEPTH32FLOAT_STENCIL8",
+      "DEPTH_CLIP_CONTROL",
+      "FLOAT32_BLENDABLE",
+      "FLOAT32_FILTERABLE",
+      "IMMEDIATES",
+      "INDIRECT_FIRST_INSTANCE",
+      "MAPPABLE_PRIMARY_BUFFERS",
+      "MEMORY_DECORATION_COHERENT",
+      "MEMORY_DECORATION_VOLATILE",
+      "MULTISAMPLE_ARRAY",
+      "MULTIVIEW",
+      "PARTIALLY_BOUND_BINDING_ARRAY",
+      "PASSTHROUGH_SHADERS",
+      "PIPELINE_CACHE",
+      "POLYGON_MODE_LINE",
+      "POLYGON_MODE_POINT",
+      "RG11B10UFLOAT_RENDERABLE",
+      "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+      "SELECTIVE_MULTIVIEW",
+      "SHADER_EARLY_DEPTH_TEST",
+      "STORAGE_RESOURCE_BINDING_ARRAY",
+      "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+      "SUBGROUP",
+      "SUBGROUP_BARRIER",
+      "SUBGROUP_VERTEX",
+      "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+      "TEXTURE_ATOMIC",
+      "TEXTURE_BINDING_ARRAY",
+      "TEXTURE_COMPRESSION_ASTC",
+      "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+      "TEXTURE_COMPRESSION_BC",
+      "TEXTURE_COMPRESSION_BC_SLICED_3D",
+      "TEXTURE_COMPRESSION_ETC2",
+      "TEXTURE_FORMAT_16BIT_NORM",
+      "TEXTURE_FORMAT_NV12",
+      "TEXTURE_FORMAT_P010",
+      "TIMESTAMP_QUERY",
+      "TIMESTAMP_QUERY_INSIDE_ENCODERS",
+      "TIMESTAMP_QUERY_INSIDE_PASSES",
+      "VERTEX_WRITABLE_STORAGE",
+      "VULKAN_EXTERNAL_MEMORY_FD"
+    ],
+    "supportedLimits": {
+      "maxAccelerationStructuresPerShaderStage": 0,
+      "maxBindGroups": 4,
+      "maxBindGroupsPlusVertexBuffers": 24,
+      "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+      "maxBindingArrayElementsPerShaderStage": 500000,
+      "maxBindingArraySamplerElementsPerShaderStage": 500000,
+      "maxBindingsPerBindGroup": 1024,
+      "maxBlasGeometryCount": 0,
+      "maxBlasPrimitiveCount": 0,
+      "maxBufferSize": 1073741824,
+      "maxBuffersAndAccelerationStructuresPerShaderStage": 4294967295,
+      "maxColorAttachmentBytesPerSample": 128,
+      "maxColorAttachments": 8,
+      "maxComputeInvocationsPerWorkgroup": 256,
+      "maxComputeWorkgroupSizeX": 256,
+      "maxComputeWorkgroupSizeY": 256,
+      "maxComputeWorkgroupSizeZ": 64,
+      "maxComputeWorkgroupStorageSize": 32768,
+      "maxComputeWorkgroupsPerDimension": 65535,
+      "maxDynamicStorageBuffersPerPipelineLayout": 4,
+      "maxDynamicUniformBuffersPerPipelineLayout": 8,
+      "maxImmediateSize": 128,
+      "maxInterStageShaderVariables": 31,
+      "maxMeshInvocationsPerDimension": 0,
+      "maxMeshInvocationsPerWorkgroup": 0,
+      "maxMeshMultiviewViewCount": 0,
+      "maxMeshOutputLayers": 0,
+      "maxMeshOutputPrimitives": 0,
+      "maxMeshOutputVertices": 0,
+      "maxMeshWorkgroupTotalCount": 0,
+      "maxMeshWorkgroupsPerDimension": 0,
+      "maxMultiviewViewCount": 6,
+      "maxNonSamplerBindings": 4294967295,
+      "maxRayDispatchCount": 0,
+      "maxRayRecursionDepth": 0,
+      "maxSampledTexturesPerShaderStage": 157,
+      "maxSamplersPerShaderStage": 64,
+      "maxStorageBufferBindingSize": 1073741824,
+      "maxStorageBuffersPerShaderStage": 10,
+      "maxStorageTexturesPerShaderStage": 10,
+      "maxTaskInvocationsPerDimension": 0,
+      "maxTaskInvocationsPerWorkgroup": 0,
+      "maxTaskPayloadSize": 0,
+      "maxTaskWorkgroupTotalCount": 0,
+      "maxTaskWorkgroupsPerDimension": 0,
+      "maxTextureArrayLayers": 2048,
+      "maxTextureDimension1D": 16384,
+      "maxTextureDimension2D": 8192,
+      "maxTextureDimension3D": 2048,
+      "maxTlasInstanceCount": 0,
+      "maxUniformBufferBindingSize": 65536,
+      "maxUniformBuffersPerShaderStage": 15,
+      "maxVertexAttributes": 16,
+      "maxVertexBufferArrayStride": 2048,
+      "maxVertexBuffers": 16,
+      "minStorageBufferOffsetAlignment": 256,
+      "minUniformBufferOffsetAlignment": 256
+    },
+    "vendor": 6880
+  },
+  "cases": [
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "neutral-displacement-exact-identity",
+      "displacement": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          -1.0,
+          1.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "zero-strength-exact-identity",
+      "displacement": [
+        0.0,
+        1.0,
+        0.25,
+        0.75
+      ],
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.0,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "positive-half-texel-x-wrap",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.125,
+        0.375,
+        0.75,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.125,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-half-texel-x-wrap",
+      "displacement": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "expectedScalar": [
+        0.5,
+        0.125,
+        0.375,
+        0.75
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.125,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-strength-reverses-polarity",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.5,
+        0.125,
+        0.375,
+        0.75
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          -0.125,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "displacement-clamps-before-centering",
+      "displacement": [
+        -2.0,
+        0.0,
+        1.0,
+        2.0
+      ],
+      "expectedScalar": [
+        0.5,
+        0.125,
+        0.75,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.125,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "spatial-displacement-loaded-at-output-texel",
+      "displacement": [
+        0.0,
+        0.5,
+        1.0,
+        0.5
+      ],
+      "expectedScalar": [
+        1.0,
+        0.25,
+        1.0,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.25,
+          0.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "maximum-strength-full-period-identity",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          -1.0,
+          1.0
+        ]
+      },
+      "size": [
+        4,
+        1
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "positive-half-texel-y-rectangular",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.125,
+        0.125,
+        0.375,
+        0.375,
+        0.75,
+        0.75,
+        0.5,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.0,
+        0.25,
+        0.25,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.0,
+          0.125
+        ]
+      },
+      "size": [
+        2,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "negative-half-texel-y-rectangular",
+      "displacement": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "expectedScalar": [
+        0.5,
+        0.5,
+        0.125,
+        0.125,
+        0.375,
+        0.375,
+        0.75,
+        0.75
+      ],
+      "input": [
+        0.0,
+        0.0,
+        0.25,
+        0.25,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.0,
+          0.125
+        ]
+      },
+      "size": [
+        2,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.4375,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "four-neighbor-interpolation",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.4375,
+        0.4375,
+        0.4375,
+        0.4375
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.25,
+          0.25
+        ]
+      },
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.375,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "one-texel-x-axis",
+      "displacement": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expectedScalar": [
+        0.125,
+        0.375,
+        0.75,
+        0.5
+      ],
+      "input": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.375,
+          0.125
+        ]
+      },
+      "size": [
+        1,
+        4
+      ]
+    },
+    {
+      "actualRgba": [
+        [
+          0.75,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "case": "single-texel-all-neighbors-wrap",
+      "displacement": [
+        1.0
+      ],
+      "expectedScalar": [
+        0.75
+      ],
+      "input": [
+        0.75
+      ],
+      "maxTolerance": 0,
+      "parameters": {
+        "strength": [
+          0.75,
+          -0.25
+        ]
+      },
+      "size": [
+        1,
+        1
+      ]
+    }
+  ],
+  "kind": "literal scalar probes through production WGSL",
+  "ok": true
+}

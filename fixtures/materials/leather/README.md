@@ -41,7 +41,7 @@ cargo xtask golden check
 cargo xtask check
 ```
 
-`golden check` needs the same explicit GPU policy environment and checks both material fixtures. Output is written under `tmp/golden/`; it never updates [expected/](./expected/). The separate `cargo xtask golden update leather --accept` consumes an existing, intact software candidate without rendering and refuses CI. See [protected update rules](../../../docs/material-goldens.md).
+`golden check` needs the same explicit GPU policy environment and checks all material fixtures. Output is written under `tmp/golden/`; it never updates [expected/](./expected/). The separate `cargo xtask golden update leather --accept` consumes an existing, intact software candidate without rendering and refuses CI. See [protected update rules](../../../docs/material-goldens.md).
 
 Software comparison is exact. Hardware requires max absolute error ≤1 byte, mean RGBA error ≤0.15 byte, and zero pixels above one byte. An initial mean limit of 0.10 failed at 0.1080 for detail-min roughness, despite max error 1 and all structure checks passing. [The original report](./reports/metal-initial-tolerance-failure.json) is retained. The final policy allows the measured quantization spread while tightening the previous maximum from 2 to 1 and eliminating all permitted >1-byte pixels. No shader or baseline PNG was changed to resolve that threshold failure.
 

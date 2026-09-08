@@ -1,0 +1,8 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask golden check`
+Rendering glazed-ceramic on vulkan (software), 1024x1024, 3 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/software-1788829146899710000-62661/report.json
+Rendering leather on vulkan (software), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/leather/software-1788829159881317000-62661/report.json
+Rendering wood on vulkan (software), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/wood/software-1788829205909035000-62661/report.json

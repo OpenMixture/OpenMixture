@@ -2,6 +2,86 @@ use super::*;
 use model::{Change, Structure};
 
 #[test]
+fn directional_metrics_distinguish_axes_without_histogram_shortcuts() {
+    let row = [20_u8, 50, 110, 180, 220, 180, 110, 50];
+    let vertical = Image {
+        size: 8,
+        pixels: row
+            .repeat(8)
+            .into_iter()
+            .flat_map(|v| [v, v, v, 255])
+            .collect(),
+    };
+    let horizontal = Image {
+        size: 8,
+        pixels: row
+            .into_iter()
+            .flat_map(|v| [v, v, v, 255].repeat(8))
+            .collect(),
+    };
+    let rule = |axis| Structure::Directional {
+        axis,
+        min_energy_ratio: 4.,
+        min_span: 100,
+        min_std_dev: 20.,
+        min_neighbor_correlation: 0.6,
+        max_seam_ratio: 2.,
+    };
+    assert_eq!(vertical.statistics(), horizontal.statistics());
+    for (image, axis, wrong) in [
+        (
+            &vertical,
+            model::GrainAxis::Vertical,
+            model::GrainAxis::Horizontal,
+        ),
+        (
+            &horizontal,
+            model::GrainAxis::Horizontal,
+            model::GrainAxis::Vertical,
+        ),
+    ] {
+        assert_eq!(pixels::structure(image, &rule(axis))["ok"], true);
+        assert_eq!(pixels::structure(image, &rule(wrong))["ok"], false);
+    }
+    let mut scrambled = vertical.clone();
+    for row in scrambled
+        .pixels
+        .as_chunks_mut::<32>()
+        .0
+        .iter_mut()
+        .skip(1)
+        .step_by(2)
+    {
+        row.rotate_left(16);
+    }
+    assert_eq!(vertical.statistics(), scrambled.statistics());
+    assert_eq!(
+        pixels::structure(&scrambled, &rule(model::GrainAxis::Vertical))["ok"],
+        false
+    );
+    let measured = pixels::structure(&uniform(8, 128), &rule(model::GrainAxis::Vertical));
+    assert_eq!(measured["ok"], false);
+    assert_eq!(measured["directionality"]["crossToAlongRatio"], 0.);
+
+    let root = crate::workspace_root().unwrap();
+    let (_, mut contract) = material(&root, "leather").unwrap();
+    contract.cases[0]
+        .checks
+        .insert("height".into(), rule(model::GrainAxis::Vertical));
+    assert!(contract.validate("leather").is_ok());
+    if let Structure::Directional {
+        min_energy_ratio, ..
+    } = contract.cases[0].checks.get_mut("height").unwrap()
+    {
+        *min_energy_ratio = 1.;
+    }
+    assert!(contract.validate("leather").is_err());
+    let mut encoded = serde_json::to_value(rule(model::GrainAxis::Vertical)).unwrap();
+    encoded["axis"] = json!("diagonal");
+    assert!(serde_json::from_value::<Structure>(encoded).is_err());
+}
+
+#[test]
 fn spatial_metrics_reject_scrambling_and_an_extra_wrap_seam() {
     // Literal smooth periodic signal for measurement tests; no node implementation.
     let row = [20_u8, 50, 110, 180, 220, 180, 110, 50];

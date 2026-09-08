@@ -41,7 +41,7 @@ cargo xtask golden check
 cargo xtask check
 ```
 
-`golden check` 同样需要显式 GPU 策略环境，并检查两种材质夹具。输出写入 `tmp/golden/`，不会更新 [expected/](./expected/)。单独的 `cargo xtask golden update leather --accept` 消费已有完整软件候选，不重新渲染，并拒绝 CI。见[受保护更新规则](../../../docs/material-goldens.zh-CN.md)。
+`golden check` 同样需要显式 GPU 策略环境，并检查全部材质夹具。输出写入 `tmp/golden/`，不会更新 [expected/](./expected/)。单独的 `cargo xtask golden update leather --accept` 消费已有完整软件候选，不重新渲染，并拒绝 CI。见[受保护更新规则](../../../docs/material-goldens.zh-CN.md)。
 
 软件逐字节比较。硬件要求最大绝对误差 ≤1 字节、RGBA 平均误差 ≤0.15 字节、零像素超过一字节。初始均值上限 0.10 在 detail-min 粗糙度实测 0.1080 时失败，但最大误差为 1 且全部结构检查通过。[原报告](./reports/metal-initial-tolerance-failure.json)予以保留。最终策略允许实测量化分布，同时将原最大误差从 2 收紧到 1，并不再允许任何 >1 字节像素。解决此阈值失败没有修改着色器或基准 PNG。
 

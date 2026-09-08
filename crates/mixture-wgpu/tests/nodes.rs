@@ -7,7 +7,7 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 9] = [
+const NODES: [&str; 11] = [
     "constant-scalar",
     "constant-color",
     "checker",
@@ -17,9 +17,13 @@ const NODES: [&str; 9] = [
     "fractal-noise",
     "gradient-map",
     "height-to-normal",
+    "transform-2d",
+    "warp",
 ];
 #[path = "support/normal_probe.rs"]
 mod normal_probe;
+#[path = "support/resampling_probe.rs"]
+mod resampling_probe;
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Fixture {
@@ -299,6 +303,82 @@ fn node_height_to_normal_gpu() {
             serde_json::to_vec_pretty(&evidence).unwrap(),
         )
         .unwrap();
+    }
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node transform-2d"]
+fn node_transform_2d_gpu() {
+    run_node("transform-2d");
+    resampling_evidence("transform-2d");
+    resampling_invariants("transform-2d");
+}
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node warp"]
+fn node_warp_gpu() {
+    run_node("warp");
+    resampling_evidence("warp");
+    resampling_invariants("warp");
+}
+fn resampling_evidence(name: &str) {
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = resampling_probe::run(&context, name);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::write(
+            Path::new(&directory).join(format!("{name}-literal-probes.json")),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
+}
+fn resampling_invariants(name: &str) {
+    let bytes = source(name, "input.mix");
+    let base = CompileRequest {
+        size: [128, 64],
+        outputs: vec![OutputChannel::Height],
+        ..Default::default()
+    };
+    let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    let mut render = |request: &CompileRequest| {
+        pollster::block_on(renderer.render(&plan(&bytes, request).unwrap()))
+            .unwrap()
+            .channels()[0]
+            .pixels()
+            .to_vec()
+    };
+    let original = render(&base);
+    assert_eq!(render(&base), original, "warm cache repeats exactly");
+    let mut changed = base.clone();
+    if name == "transform-2d" {
+        changed.overrides.insert("scaleX".into(), json!(8));
+    } else {
+        changed.overrides.insert("field".into(), json!(1));
+        changed.overrides.insert("strengthX".into(), json!(0.125));
+    }
+    let transformed = render(&changed);
+    assert!(
+        transformed
+            .iter()
+            .zip(&original)
+            .filter(|(a, b)| a != b)
+            .count()
+            > original.len() / 4,
+        "nontrivial transform must change a substantial part of the real graph output"
+    );
+    if name == "transform-2d" {
+        changed.overrides.insert("quarterTurns".into(), json!(1));
+        assert_ne!(
+            render(&changed),
+            transformed,
+            "rotation changes the anisotropic pattern"
+        );
+    } else {
+        changed.overrides.insert("strengthX".into(), json!(0));
+        assert_eq!(
+            render(&changed),
+            original,
+            "zero strength is exact identity"
+        );
     }
 }
 

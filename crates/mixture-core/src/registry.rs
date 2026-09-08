@@ -160,7 +160,7 @@ impl NodeContract {
         self.parameters.iter().find(|p| p.id == id)
     }
 }
-/// The nine PR-009 node contracts in lexical type-ID order.
+/// The eleven PR-010 node contracts in lexical type-ID order.
 pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::blend::CONTRACT,
     &crate::nodes::checker::CONTRACT,
@@ -171,6 +171,8 @@ pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::height_to_normal::CONTRACT,
     &crate::nodes::levels::CONTRACT,
     &crate::nodes::material_output::CONTRACT,
+    &crate::nodes::transform_2d::CONTRACT,
+    &crate::nodes::warp::CONTRACT,
 ];
 /// Find the supported contract by exact type ID. Check its version separately.
 pub fn node_contract(type_id: &str) -> Option<&'static NodeContract> {

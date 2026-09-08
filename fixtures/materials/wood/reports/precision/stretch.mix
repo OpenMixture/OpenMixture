@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "grain",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 161803,
+        "scale": 4,
+        "octaves": 4,
+        "persistence": 0.45,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "stretch",
+      "type": "transform-2d",
+      "version": 1,
+      "parameters": {
+        "scaleX": 32,
+        "scaleY": 1,
+        "quarterTurns": 0
+      }
+    },
+    {
+      "id": "distortion",
+      "type": "fractal-noise",
+      "version": 1,
+      "parameters": {
+        "seed": 314159,
+        "scale": 3,
+        "octaves": 3,
+        "persistence": 0.45,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "warp",
+      "type": "warp",
+      "version": 1,
+      "parameters": {
+        "strengthX": 0.018,
+        "strengthY": 0
+      }
+    },
+    {
+      "id": "height",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.12,
+        "inputMax": 0.88,
+        "gamma": 0.7
+      }
+    },
+    {
+      "id": "color",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": [
+          0.05,
+          0.017,
+          0.006,
+          1
+        ],
+        "colorB": [
+          0.34,
+          0.17,
+          0.063,
+          1
+        ]
+      }
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "parameters": {
+        "strength": 0.0015
+      }
+    },
+    {
+      "id": "roughness",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "outputMin": 0.65,
+        "outputMax": 0.45
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "grain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "stretch",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "stretch",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "warp",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "distortion",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "warp",
+        "portId": "displacement"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "warp",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "height",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "color",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "roughness",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "stretch",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "roughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "grainSeed",
+      "nodeId": "grain",
+      "parameterId": "seed"
+    },
+    {
+      "id": "grainRepeat",
+      "nodeId": "stretch",
+      "parameterId": "scaleX"
+    },
+    {
+      "id": "warpStrength",
+      "nodeId": "warp",
+      "parameterId": "strengthX"
+    },
+    {
+      "id": "orientation",
+      "nodeId": "stretch",
+      "parameterId": "quarterTurns"
+    }
+  ]
+}

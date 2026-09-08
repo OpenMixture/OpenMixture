@@ -49,7 +49,7 @@ The [checker example](../examples/checker.mix) is a minimal complete material:
 | Endpoint | `nodeId`: string; `portId`: string | None |
 | Exposed parameter | `id`: public string ID; `nodeId`: target; `parameterId`: mutable parameter | None |
 
-Node and public parameter IDs match `[A-Za-z][A-Za-z0-9_-]{0,63}`. Node IDs and public IDs have separate namespaces and must each be unique. Type, port, and parameter IDs are exact, case-sensitive strings from the [nine node contracts](./node-contracts.md). All fields above use their exact spellings.
+Node and public parameter IDs match `[A-Za-z][A-Za-z0-9_-]{0,63}`. Node IDs and public IDs have separate namespaces and must each be unique. Type, port, and parameter IDs are exact, case-sensitive strings from the [eleven node contracts](./node-contracts.md). All fields above use their exact spellings.
 
 Unknown fields are rejected at every object boundary, including layout, metadata, thumbnails, presets, resources, subgraphs, export targets, and arbitrary WGSL. Duplicate JSON keys are rejected, even if values agree or keys use equivalent JSON escapes. This includes nested parameter objects; invalid parameter shapes are retained only to report semantic type errors. No last-key-wins interpretation is allowed.
 
@@ -65,7 +65,7 @@ After structural decoding, an unsupported document version fails with `MIX_FORMA
 2. Node IDs, known types, node versions, parameter names, types, ranges, enums, and cross-parameter relations are checked. An unsupported node version is never interpreted with version 1 defaults.
 3. Edge endpoints must identify existing, unambiguous nodes and declared output-to-input ports of exactly the same kind. All inputs accept at most one edge. Repeated edge identities and multiple sources are rejected separately.
 4. Iterative, lexically ordered depth-first traversal detects directed cycles, including self-loops and disconnected cycles. Evidence names actual closed paths; downstream nodes are not mislabeled as cycle members. The validator reports discovered back-edge cycles, not an exhaustive enumeration of all possible cycles.
-5. Exactly one `material-output` is required. Its `baseColor` input needs a valid `Color` connection. Other inputs use their documented defaults. Required inputs on `levels` and `blend` also need valid connections.
+5. Exactly one `material-output` is required. Its `baseColor` input needs a valid `Color` connection. Other inputs use their documented defaults. Every required input in the node contracts needs a valid connection, including both Scalar inputs of `warp`.
 6. Exposed public names must be valid and unique. Each targets an existing mutable parameter on a supported node version, including a parameter using a default. Targets are unique too: aliases and duplicate bindings are rejected. Node IDs, node versions, ports, and structural fields are not mutable parameters.
 
 Independent diagnostics are accumulated and sorted using the [shared ordering](./diagnostics.md). Invalid or ambiguous nodes suppress dependent port interpretation; valid independent checks still run. Validation never adds nodes/edges, repairs cycles, coerces or clamps values, inserts conversions, or edits explicit parameters.
@@ -114,3 +114,7 @@ Existing UTF-8/JSON/version/limit/node/port/parameter/cycle codes handle their c
 ## Additive PR-009 catalog extension
 
 The document JSON shape remains `.mix v1`; existing documents retain their meaning and need no migration. Three new version-1 node types are described in [node contracts](./node-contracts.md). Only `fractal-noise.seed` has no parameter default: it must be an explicit unsigned integer token in the source, from 0 through 4294967295. Missing seed returns `MIX_PARAMETER_INVALID_VALUE` with parameter evidence, including for unused nodes. Decoding, deterministic serialization and old source/plan fixtures remain unchanged.
+
+## Additive PR-010 resampling nodes
+
+`transform-2d` and `warp` add two version-1 node types without adding fields or changing existing `.mix v1` meanings. Their required ports accept exact `Scalar` connections. Transform scales and quarter-turn counts require bounded unsigned integer tokens; offsets and warp strengths accept bounded finite JSON numbers. Defaults, parameter bounds, input requirements and explicit public bindings follow the same validator rules as the existing catalog, including on unused branches. See [node contracts](./node-contracts.md) and the [public resampling tests](../crates/mixture-core/tests/resampling.rs). No migration, source repair or implicit conversion is introduced.

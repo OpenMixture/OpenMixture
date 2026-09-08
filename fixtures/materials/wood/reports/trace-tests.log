@@ -1,0 +1,16 @@
+   Compiling xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.50s
+     Running unittests src/main.rs (target/debug/deps/xtask-55ba651b87e6f418)
+
+running 3 tests
+test golden::trace::tests::trace_rejects_missing_counters_leaks_reuse_and_over_budget_measurements ... ok
+test golden::trace::tests::trace_ranks_actual_peak_before_material_name_or_pass_count ... ok
+test golden::trace::tests::trace_rejects_conflicting_source_snapshots_and_invalidates_early_failure ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.00s
+
+     Running tests/commands.rs (target/debug/deps/commands-f5ce26481c2fe8a6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s

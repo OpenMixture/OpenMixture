@@ -28,6 +28,7 @@ Available repository commands:
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
+  trace-2k    Rank all M3 material cases and measure the largest at 2048 on a GPU
   gpu-smoke   Run checker golden, three graph examples, and all GPU regressions
   shader-check Validate every built-in WGSL kernel and its uniform ABI without a GPU
   doc         Build workspace rustdoc, denying warnings
@@ -70,6 +71,7 @@ fn run() -> TaskResult {
     let root = workspace_root()?;
     match command {
         "--help" | "-h" | "help" => println!("{HELP}"),
+        "trace-2k" => golden::trace::run(&root)?,
         "check" => {
             for task in ["fmt", "deps", "clippy", "test", "doc", "links"] {
                 run_task(&root, task)?;

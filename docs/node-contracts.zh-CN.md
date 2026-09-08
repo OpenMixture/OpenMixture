@@ -2,11 +2,11 @@
 
 [English](./node-contracts.md) | 简体中文
 
-PR-005 在 [mixture-core](../crates/mixture-core/src/registry.rs)注册六个静态契约，PR-006 将其降级为类型化计划，PR-007 通过唯一 `wgpu` 路径[执行全部六个节点](./graph-rendering.zh-CN.md)。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。未添加源节点类型或 CPU 像素渲染器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十一个版本 1 契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 
-九个节点类型都要求 `version: 1`。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+十一个节点类型都要求 `version: 1`。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -142,3 +142,62 @@ cargo xtask test-node height-to-normal
 ```
 
 法线测试将字面量半精度水平／垂直坡面直接送入生产着色器，以矩形尺寸验证循环、Y 符号、UV 缩放及零强度，不实现 CPU 法线渲染器。[皮革夹具](../fixtures/materials/leather/README.zh-CN.md)作为实际材质消费者使用全部三个新增节点。
+
+## PR-010 标量重采样扩展
+
+PR-010 添加 `transform-2d` 和 `warp`，使目录达到十一个节点，渲染器缓存上限达到九条管线。源 JSON 结构、文档／节点版本 1、原有节点契约以及已有像素／计划／哈希基准保持不变。这是增量目录扩展，现有文档无需迁移。[注册表测试](../crates/mixture-core/tests/registry.rs)随 `cargo xtask check` 执行，在 M3 验收前强制十二节点上限。
+
+两个节点的输入和输出均为 `Scalar`。应先变换或扭曲高度，再派生颜色和切线法线；它们不隐式接受 `Color` 或 `Normal`。两者不引入随机运算，也无需额外种子。输入周期性来自源图，其中的随机节点仍须显式种子。
+
+### 共用采样约定
+
+输出纹素 `(x,y)` 使用中心 UV `(x+0.5,y+0.5)/(width,height)`，u 向右、v 向下。在所需源 UV 处计算 `p=fract(sampleUV)*inputDimensions-0.5`，读取 `floor(p)` 周围四个整数邻居；读取前将各坐标按对应输入维度取模环绕，然后按 `fract(p)` 做双线性插值。负邻居环绕到对侧边缘。明确使用四次 `textureLoad`，不隐含 sampler、mip 链或抗锯齿。
+
+计算使用 f32，中间标量以 `[value,0,0,1]` 存入 f16；导出 RGBA8 时将红通道复制到 RGB，并使用不透明 alpha。单纹素轴有效且环绕到同一纹素。重复采样保持周期源的边界约定，但不会修复输入已有接缝。对侧边界像素是不同的中心采样，因此无缝平铺不要求它们的字节值相同。高整数缩放或快速变化的扭曲场可能欠采样输入细节。
+
+### transform-2d
+
+[契约](../crates/mixture-core/src/nodes/transform_2d.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl)、[夹具](../fixtures/nodes/transform-2d/README.zh-CN.md)。必填输入 `in: Scalar`，输出 `value: Scalar`。
+
+| 参数 | 类型／范围 | 默认值 |
+| --- | --- | --- |
+| `scaleX` | 整数 `[1,64]` | `1` |
+| `scaleY` | 整数 `[1,64]` | `1` |
+| `quarterTurns` | 整数 `[0,3]` | `0` |
+| `offsetX` | 浮点 `[-1,1]` | `0` |
+| `offsetY` | 浮点 `[-1,1]` | `0` |
+
+令 `p=uv-0.5`。先逆向旋转坐标，再按源坐标轴缩放，最后平移：`sampleUV=rotated*vec2(scaleX,scaleY)+0.5+vec2(offsetX,offsetY)`。
+
+| `quarterTurns` | 逆向旋转坐标 | 视觉图案旋转 |
+| --- | --- | --- |
+| `0` | `(p.x,p.y)` | 不旋转 |
+| `1` | `(p.y,-p.x)` | 顺时针 90 度 |
+| `2` | `(-p.x,-p.y)` | 180 度 |
+| `3` | `(-p.y,p.x)` | 顺时针 270 度 |
+
+枢轴是 UV 图块中心。旋转先于各轴缩放，因此也旋转各向异性纹理轴：`scaleX=8, scaleY=1` 在零次旋转时横向采样八个源周期，在一次旋转时纵向采样八个源周期。缩放表示采样周期数；增大缩放会重复／压缩源，而非放大它。旋转使用归一化 UV 坐标，矩形输出的宽高不交换。正偏移使源采样向右／下移动，使视觉图案向左／上移动。
+
+整数缩放和四分之一圈旋转对所有允许设置都保持周期源的平铺性质，包括小数偏移。小数缩放和任意旋转角度明确不属于此 v1 契约，因为通常会破坏输出图块周期性。两个缩放均为一、零旋转且零偏移时，着色器直接读取对应输入纹素，精确保留标量像素。
+
+### warp
+
+[契约](../crates/mixture-core/src/nodes/warp.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/warp.wgsl)、[夹具](../fixtures/nodes/warp/README.zh-CN.md)。必填输入 `in: Scalar` 和 `displacement: Scalar`，输出 `value: Scalar`。
+
+| 参数 | 类型／范围 | 默认值 |
+| --- | --- | --- |
+| `strengthX` | 浮点 `[-1,1]` | `0.05` |
+| `strengthY` | 浮点 `[-1,1]` | `0` |
+
+在当前输出纹素读取位移标量，令 `d=2*clamp(field,0,1)-1`，再使用共用的重复双线性规则，在 `sampleUV=uv+d*vec2(strengthX,strengthY)` 采样 `in`。两个强度是独立的带符号 UV 位移。位移场 `0.5` 为中性，`1` 应用正强度，`0` 应用负强度。正 X／Y 位移向右／下采样，使视觉图案向左／上移动。位移场在输出坐标读取，而非位移后的输入坐标；钳制属于着色器语义，不放宽源参数验证。
+
+中性场纹素或零强度向量直接读取输入，精确保留该标量像素。即使强度为零，也仍验证并编译必填位移场连接。周期源与周期位移输入保持平铺契约，因为跨越一个输出图块会增加整数源 UV 步长。大位移可能折叠采样图案；不承诺单调性或抗锯齿。
+
+```bash
+cargo test --locked -p mixture-core --test resampling --test registry
+cargo xtask shader-check
+cargo xtask test-node transform-2d
+cargo xtask test-node warp
+```
+
+[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖默认值、类型化输入顺序、重复绑定、精确种类、必填连接、依赖裁剪与参数／哈希行为。[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)包含 17 个变换和 13 个扭曲用例，以手工指定的半精度输入和精确预期输出，经生产 WGSL 验证 X／Y 接缝插值、负偏移、全部旋转、先旋转后缩放、单纹素尺寸、位移极性／钳制及输出坐标场读取。节点图用例只读引用已有噪声恒等基准，并检查有意义的参数变化与热缓存重复性。节点证据保存于 `tmp/node-tests/<backend>/`，包括 `<node>-literal-probes.json`。

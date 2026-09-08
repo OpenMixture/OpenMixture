@@ -60,10 +60,21 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 | `checker` | `[u32; 2]` 单元数和两个 `[f32; 4]` 颜色 | 48 |
 | `levels` | 标量输入 `ResourceId`，五个 f32 参数 | 32 |
 | `blend` | 颜色 `a`／`b` 与标量 `mask` 资源 ID、类型化 `BlendMode`、f32 不透明度 | 16 |
+| `fractalNoise`／`FractalNoise` | u32 `seed`、`scale`、`octaves`；f32 `persistence`；类型化 `NoiseBasis` | 32 |
+| `gradientMap`／`GradientMap` | 标量 `input: ResourceId`，两个线性 RGBA `[f32; 4]` 端点 | 32 |
+| `heightToNormal`／`HeightToNormal` | 标量 `input: ResourceId`，f32 `strength` | 16 |
+| `transform2d`／`Transform2d` | 源节点 `transform-2d`；`input: ResourceId`、`scale: [u32; 2]`、`quarter_turns: u32`、`offset: [f32; 2]` | 32 |
+| `warp`／`Warp` | 源节点 `warp`；`input: ResourceId`、`displacement: ResourceId`、`strength: [f32; 2]` | 16 |
 
 `KernelInvocation::id()` 穷尽匹配；`inputs()` 按绑定顺序提供类型化输入。计划没有任意参数 JSON，也没有第二份无类型输入列表。`PassOrigin` 保留节点 ID／类型／版本，或生成默认值的所属节点与端口。`PlanOutput` 保留通道类型、连接端点或显式默认值及真实逻辑资源。`RenderPlan` 的公共 API 不可变，不允许反序列化或通过公开构造函数伪造引用／哈希。
 
 源 f64 值在降级时舍入为 f32，计划记录实际参数。不同十进制值若舍入为同一 f32，生成相同计划。`levels` 输入上下限转换后仍须严格递增，重合则在编译阶段失败。返回计划前检查棋盘格坐标乘法及分配算术。设备限制、着色器绑定布局、实际 GPU 分配、f16 纹理精度和像素验证仍由 PR-007 执行器负责。
+
+`KernelInvocation::Transform2d` 将源参数 `scaleX`／`scaleY` 降级为 `scale`，`quarterTurns` 降级为 `quarter_turns`，`offsetX`／`offsetY` 降级为 `offset`。scale 分量保留为 `[1, 64]` 范围内的精确 u32 整数，quarter turns 保留为 `[0, 3]` 范围内的精确 u32 整数，两者均不经过浮点转换。默认值为 `scale: [1, 1]`、`quarter_turns: 0` 和 `offset: [0.0, 0.0]`。偏移从 `[-1, 1]` 范围内的有限源 f64 值降级为 f32。该调用先围绕纹理块中心进行逆向四分之一圈旋转，再沿源坐标轴缩放，最后叠加源 UV 偏移；`quarter_turns` 描述以左上角为原点的图像坐标中可见的顺时针旋转。
+
+`KernelInvocation::Warp` 将 `strengthX`／`strengthY` 降级为 `strength: [f32; 2]`，默认值为 `[0.05, 0.0]`。每个分量从 `[-1, 1]` 范围内的有限源 f64 值降级而来。两个调用都要求源端口 `in` 连接 `Scalar` 输入，并生成 `Scalar` 资源。Warp 还要求 `Scalar` 类型的 `displacement` 连接，位移场值 `0.5` 表示无位移。`inputs()` 对 transform 返回 `[input]`，对 warp 返回 `[input, displacement]`。即使 warp 的两个绑定引用同一个共享生产者 pass，列表仍保留重复绑定；必填连接不会生成默认值 pass。重复寻址的双线性采样及坐标语义见[节点契约](./node-contracts.zh-CN.md)。
+
+执行器在绑定 `0` 放置 uniform，在 `1` 放置输出纹理，在 `2` 放置 `input`；warp 在 `3` 增加 `displacement`。Transform 的 32 字节 uniform 先包含四个 u32 字 `[scale[0], scale[1], quarter_turns, 0]`，再包含四个 f32 字 `[offset[0], offset[1], 0.0, 0.0]`。Warp 的 16 字节 uniform 包含四个 f32 字 `[strength[0], strength[1], 0.0, 0.0]`。计划的 `uniform_bytes()` 包含这些填充字节；资源 ID 是类型化绑定，不是 uniform 载荷中的值。
 
 ## 分配估算契约
 
@@ -103,3 +114,5 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 固定工具链上的本地定向检查与工作区检查通过。远端跨平台 CI 仍待运行，本次不关闭 M0／M1／M2。PR-007 现已通过唯一的 `wgpu` 图渲染器[执行这些类型化调用](./graph-rendering.zh-CN.md)，并提供六个节点的像素夹具。PR-008 [材质基准工具](./material-goldens.zh-CN.md)现已实现，陶瓷观感已接受，皮革人工验收已记录。
 
 PR-009 添加类型化 `FractalNoise`、`GradientMap` 和 `HeightToNormal` 调用，不改变计划版本 1 或原计划／哈希快照。噪声上传全部 u32 种子位，哈希包含种子、基底、scale、octave 及 persistence 语义；编译器保留 Scalar／Color／Normal 类型化连接并正常裁剪新分支。公共 [M3 API 测试](../crates/mixture-core/tests/m3_nodes.rs)验证默认值、必填种子、降级、分支裁剪及哈希敏感性。
+
+PR-010 添加类型化 `Transform2d` 和 `Warp` 调用，作为 v1 源节点目录的兼容新增扩展。文档版本和计划版本仍为 `1`；现有哈希前缀、原计划／哈希快照以及现有材质像素基准保持不变。新调用沿用相同的类型化序列化、有效参数哈希及依赖裁剪规则。公共[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖降级后的默认值、整数字段、有序及重复的标量绑定、uniform 大小、未请求分支裁剪、参数哈希敏感性、源顺序等价性，以及缺失连接或连接类型错误的拒绝行为。

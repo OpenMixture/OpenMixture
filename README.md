@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** greenfield, pre-alpha, no compatibility promises yet.
 
-**Implemented:** PR-001 through PR-008 are locally implemented and the user accepted the ceramic appearance review. PR-009 adds seeded noise, gradient mapping, height-derived normals and a [leather candidate](./fixtures/materials/leather/README.md), bringing the catalog to nine nodes. Metal and pinned SwiftShader verification and controlled PBR evidence are recorded; the user has accepted the leather appearance review. Remote CI remains deferred, so milestone gates are still open.
+**Implemented:** PR-001 through PR-009 are locally implemented; the user accepted the ceramic and leather appearance reviews. PR-010 adds `transform-2d`, `warp`, an eleven-node catalog, the [wood candidate](./fixtures/materials/wood/README.md), and `trace-2k` allocation evidence. The user has accepted the wood appearance review. The full M3 review remains next. Remote CI remains deferred.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -29,7 +29,7 @@ The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter sele
 
 Try [the built-in checker](./docs/builtin-checker.md): `cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`. Doctor runs its compute/readback probe by default; use `--skip-probe` for acquisition only.
 
-Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [nine node contracts](./docs/node-contracts.md).
+Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [eleven node contracts](./docs/node-contracts.md).
 
 ## Mission
 

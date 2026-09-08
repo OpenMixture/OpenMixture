@@ -1,5 +1,6 @@
 //! Straightforward per-render allocations; all textures/uniforms live until readback.
 use crate::{
+    allocations::Allocations,
     operation::{GpuOperationError, checked},
     readback::{ReadbackLayout, read_pixels},
 };
@@ -11,18 +12,32 @@ pub(crate) struct Resources {
     pub textures: Vec<wgpu::Texture>,
     uniforms: Vec<wgpu::Buffer>,
     pub groups: Vec<wgpu::BindGroup>,
+    pub allocations: Allocations,
 }
 impl Drop for Resources {
     fn drop(&mut self) {
-        for buffer in &self.uniforms {
-            buffer.destroy();
-        }
-        for texture in &self.textures {
-            texture.destroy();
-        }
+        self.release();
     }
 }
 impl Resources {
+    fn release(&mut self) {
+        if self.uniforms.is_empty() && self.textures.is_empty() {
+            return;
+        }
+        self.groups.clear();
+        for buffer in self.uniforms.drain(..) {
+            buffer.destroy();
+        }
+        for texture in self.textures.drain(..) {
+            texture.destroy();
+        }
+        self.allocations.release_passes();
+    }
+
+    pub fn finish(mut self) -> crate::AllocationReport {
+        self.release();
+        self.allocations.report()
+    }
     pub async fn push(
         &mut self,
         device: &wgpu::Device,
@@ -95,6 +110,16 @@ impl Resources {
             },
         )
         .await?;
+        let texture_bytes = u64::from(texture.width())
+            .checked_mul(u64::from(texture.height()))
+            .and_then(|bytes| bytes.checked_mul(8))
+            .ok_or_else(|| {
+                GpuOperationError::at(
+                    Stage::GpuExecution,
+                    "Pass texture descriptor byte count overflowed.",
+                )
+            })?;
+        self.allocations.pass(texture_bytes, uniform.size())?;
         // Retain allocations before fallible upload so the guard also cleans errors.
         self.textures.push(texture);
         self.uniforms.push(uniform);
@@ -155,10 +180,14 @@ pub(crate) async fn submit(
         })?;
     Ok(())
 }
-struct Staging(wgpu::Buffer);
-impl Drop for Staging {
+struct Staging<'a> {
+    buffer: wgpu::Buffer,
+    allocations: &'a mut Allocations,
+}
+impl Drop for Staging<'_> {
     fn drop(&mut self) {
-        self.0.destroy();
+        self.buffer.destroy();
+        self.allocations.release_staging(self.buffer.size());
     }
 }
 pub(crate) async fn read_texture(
@@ -167,23 +196,27 @@ pub(crate) async fn read_texture(
     texture: &wgpu::Texture,
     layout: ReadbackLayout,
     kind: PortKind,
+    allocations: &mut Allocations,
 ) -> Result<Vec<u8>, GpuOperationError> {
-    let buffer = Staging(
-        checked(
-            device,
-            Stage::Readback,
-            "Could not allocate staging buffer.",
-            || {
-                device.create_buffer(&wgpu::BufferDescriptor {
-                    label: Some("channel readback"),
-                    size: layout.buffer_bytes,
-                    usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
-                    mapped_at_creation: false,
-                })
-            },
-        )
-        .await?,
-    );
+    let buffer = checked(
+        device,
+        Stage::Readback,
+        "Could not allocate staging buffer.",
+        || {
+            device.create_buffer(&wgpu::BufferDescriptor {
+                label: Some("channel readback"),
+                size: layout.buffer_bytes,
+                usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
+                mapped_at_creation: false,
+            })
+        },
+    )
+    .await?;
+    allocations.staging(buffer.size())?;
+    let buffer = Staging {
+        buffer,
+        allocations,
+    };
     let encoder = checked(
         device,
         Stage::Readback,
@@ -200,7 +233,7 @@ pub(crate) async fn read_texture(
                     aspect: wgpu::TextureAspect::All,
                 },
                 wgpu::TexelCopyBufferInfo {
-                    buffer: &buffer.0,
+                    buffer: &buffer.buffer,
                     layout: wgpu::TexelCopyBufferLayout {
                         offset: 0,
                         bytes_per_row: Some(layout.padded_row_bytes),
@@ -214,5 +247,52 @@ pub(crate) async fn read_texture(
     )
     .await?;
     submit(device, queue, encoder, Stage::Readback).await?;
-    read_pixels(device, &buffer.0, layout, kind).await
+    read_pixels(device, &buffer.buffer, layout, kind).await
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn readback_gpu_copy_failure_releases_staging_allocation_and_preserves_first_error() {
+        let context =
+            pollster::block_on(crate::GpuContext::request(crate::test_support::options())).unwrap();
+        let texture = context.device().create_texture(&wgpu::TextureDescriptor {
+            label: Some("intentional missing COPY_SRC usage"),
+            size: extent([33, 3]),
+            mip_level_count: 1,
+            sample_count: 1,
+            dimension: wgpu::TextureDimension::D2,
+            format: wgpu::TextureFormat::Rgba16Float,
+            usage: wgpu::TextureUsages::TEXTURE_BINDING,
+            view_formats: &[],
+        });
+        let layout = ReadbackLayout::new(33, 3).unwrap();
+        let mut allocations = Allocations::default();
+        let error = pollster::block_on(read_texture(
+            context.device(),
+            context.queue(),
+            &texture,
+            layout,
+            PortKind::Scalar,
+            &mut allocations,
+        ))
+        .unwrap_err();
+        assert_eq!(error.diagnostic().stage, Stage::Readback);
+        // Backends may validate the copy when encoding it or finishing commands.
+        assert!(matches!(
+            error.diagnostic().message.as_str(),
+            "Could not encode channel readback." | "Could not finish GPU commands."
+        ));
+        assert!(std::error::Error::source(error.diagnostic()).is_some());
+        let report = allocations.report();
+        assert_eq!(report.staging_count, 1);
+        assert_eq!(report.staging_bytes, layout.buffer_bytes);
+        assert_eq!(report.peak_bytes, layout.buffer_bytes);
+        assert_eq!(report.released_bytes, layout.buffer_bytes);
+        assert_eq!(report.live_bytes, 0);
+        texture.destroy();
+    }
 }

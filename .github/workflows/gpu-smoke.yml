@@ -1,4 +1,4 @@
-name: GPU graph smoke
+name: GPU material acceptance
 
 on:
   push:
@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   swiftshader:
-    name: Pinned SwiftShader Vulkan graph MVP
+    name: Pinned SwiftShader Vulkan M3 materials
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -39,10 +39,17 @@ jobs:
         run: rustup show active-toolchain
       - name: Verify checker golden, graph examples, all nodes, and doctor
         run: cargo xtask gpu-smoke
+      - name: Compare all three materials at 1K
+        run: cargo xtask golden check
+      - name: Measure the largest material case at 2K
+        run: cargo xtask trace-2k
       - name: Retain execution, comparison, and environment evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: swiftshader-graph-evidence
-          path: tmp/gpu-smoke/
+          name: swiftshader-material-evidence
+          path: |
+            tmp/gpu-smoke/
+            tmp/golden/
+            tmp/trace-2k/
           if-no-files-found: error

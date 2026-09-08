@@ -24,6 +24,11 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
             include_str!("../shaders/nodes/height-to-normal.wgsl"),
             "height_to_normal",
         ),
+        KernelId::Transform2d => (
+            include_str!("../shaders/nodes/transform-2d.wgsl"),
+            "transform_2d",
+        ),
+        KernelId::Warp => (include_str!("../shaders/nodes/warp.wgsl"), "warp"),
     }
 }
 
@@ -100,10 +105,24 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             bytes
         }
         KernelInvocation::HeightToNormal { strength, .. } => floats(&[*strength, 0., 0., 0.]),
+        KernelInvocation::Transform2d {
+            scale,
+            quarter_turns,
+            offset,
+            ..
+        } => {
+            let mut bytes: Vec<_> = [scale[0], scale[1], *quarter_turns, 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(&[offset[0], offset[1], 0., 0.]));
+            bytes
+        }
+        KernelInvocation::Warp { strength, .. } => floats(&[strength[0], strength[1], 0., 0.]),
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most seven entries.
+/// Pipeline lookups for one render call. The cache has at most nine entries.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -188,6 +207,8 @@ mod tests {
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
             (KernelId::HeightToNormal, 16),
+            (KernelId::Transform2d, 32),
+            (KernelId::Warp, 16),
         ] {
             let (source, entry) = shader(id);
             let module = naga::front::wgsl::parse_str(source).unwrap();
@@ -227,5 +248,47 @@ mod tests {
         assert_eq!(&bytes[8..16], &[0; 8]);
         assert_eq!(&bytes[20..24], &0.25f32.to_le_bytes());
         assert_eq!(&bytes[32..36], &1f32.to_le_bytes());
+    }
+
+    #[test]
+    fn resampling_parameter_uploads_match_typed_plan_and_shader_offsets() {
+        use mixture_core::{
+            CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile,
+        };
+        for (source, overrides, integers, floats) in [
+            (
+                include_bytes!("../../../fixtures/nodes/transform-2d/input.mix").as_slice(),
+                serde_json::json!({"scaleX":64,"scaleY":3,"quarterTurns":3,"offsetX":-1,"offsetY":0.25}),
+                vec![64u32, 3, 3, 0],
+                vec![-1f32, 0.25, 0., 0.],
+            ),
+            (
+                include_bytes!("../../../fixtures/nodes/warp/input.mix").as_slice(),
+                serde_json::json!({"strengthX":-1,"strengthY":0.5}),
+                vec![],
+                vec![-1f32, 0.5, 0., 0.],
+            ),
+        ] {
+            let limits = SafetyLimits::default();
+            let document = MaterialDocument::decode(source, &limits)
+                .unwrap()
+                .into_validated(&limits)
+                .unwrap();
+            let plan = compile(
+                &document,
+                &CompileRequest {
+                    outputs: vec![OutputChannel::Height],
+                    overrides: serde_json::from_value(overrides).unwrap(),
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+            let kernel = &plan.passes().last().unwrap().kernel;
+            let mut expected: Vec<_> = integers.into_iter().flat_map(u32::to_le_bytes).collect();
+            expected.extend(floats.into_iter().flat_map(f32::to_le_bytes));
+            let actual = parameters(kernel);
+            assert_eq!(actual, expected);
+            assert_eq!(actual.len() as u64, kernel.uniform_bytes());
+        }
     }
 }

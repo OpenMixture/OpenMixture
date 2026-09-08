@@ -157,6 +157,10 @@ pub enum KernelId {
     GradientMap,
     /// Wrapped height derivative to encoded tangent normal.
     HeightToNormal,
+    /// Periodic scalar transform with integer scales and clockwise quarter turns.
+    Transform2d,
+    /// Periodic scalar resampling displaced by a scalar field.
+    Warp,
 }
 /// Fractal noise basis, independent of any backend API.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -254,6 +258,26 @@ pub enum KernelInvocation {
         /// Height amplitude per unit UV tile; zero produces neutral normals.
         strength: f32,
     },
+    /// Inverse quarter rotation, then integer scaling, then a sampling UV offset.
+    Transform2d {
+        /// Scalar input texture.
+        input: ResourceId,
+        /// Source sample periods on the two source axes per output UV tile.
+        scale: [u32; 2],
+        /// Visible clockwise quarter rotations, in top-left image coordinates.
+        quarter_turns: u32,
+        /// Source-coordinate UV offset after rotation and scaling.
+        offset: [f32; 2],
+    },
+    /// Sample input at UV plus centered scalar displacement times UV strength.
+    Warp {
+        /// Scalar input texture sampled with repeat-bilinear interpolation.
+        input: ResourceId,
+        /// Scalar field read at each output texel; 0.5 is neutral.
+        displacement: ResourceId,
+        /// Signed UV displacement at field value one, independently per axis.
+        strength: [f32; 2],
+    },
 }
 impl KernelInvocation {
     /// Exhaustive kernel identity; parameter variants cannot disagree with this ID.
@@ -266,6 +290,8 @@ impl KernelInvocation {
             Self::FractalNoise { .. } => KernelId::FractalNoise,
             Self::GradientMap { .. } => KernelId::GradientMap,
             Self::HeightToNormal { .. } => KernelId::HeightToNormal,
+            Self::Transform2d { .. } => KernelId::Transform2d,
+            Self::Warp { .. } => KernelId::Warp,
         }
     }
     /// Logical input resources in binding order. Repeated bindings are preserved.
@@ -276,7 +302,13 @@ impl KernelInvocation {
             }
             Self::Levels { input, .. }
             | Self::GradientMap { input, .. }
-            | Self::HeightToNormal { input, .. } => [Some(*input), None, None],
+            | Self::HeightToNormal { input, .. }
+            | Self::Transform2d { input, .. } => [Some(*input), None, None],
+            Self::Warp {
+                input,
+                displacement,
+                ..
+            } => [Some(*input), Some(*displacement), None],
             Self::Blend { a, b, mask, .. } => [Some(*a), Some(*b), Some(*mask)],
         }
         .into_iter()
@@ -285,9 +317,15 @@ impl KernelInvocation {
     /// Uniform allocation assumed by plan version 1, including struct padding.
     pub fn uniform_bytes(&self) -> u64 {
         match self {
-            Self::Constant { .. } | Self::Blend { .. } | Self::HeightToNormal { .. } => 16,
+            Self::Constant { .. }
+            | Self::Blend { .. }
+            | Self::HeightToNormal { .. }
+            | Self::Warp { .. } => 16,
             Self::Checker { .. } => 48,
-            Self::Levels { .. } | Self::FractalNoise { .. } | Self::GradientMap { .. } => 32,
+            Self::Levels { .. }
+            | Self::FractalNoise { .. }
+            | Self::GradientMap { .. }
+            | Self::Transform2d { .. } => 32,
         }
     }
 }

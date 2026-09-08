@@ -441,7 +441,7 @@ let result = renderer.render(&plan).await?;
 
 任何公共渲染 API 都不得初始化隐藏的全局设备。
 
-PR-003 实现上下文获取，其不可变快照保持 `unverified`。PR-004 添加 `GpuContext::render_checker` 和验证型 doctor 探针：实际计算／回读及像素检查通过后为 `healthy`，显式跳过为 `unverified`，失败为 `unhealthy` 并保留准确阶段。概念示例中的通用 `Renderer` 仍是未来工作；固定棋盘格不需要渲染器框架。见 [GPU 所有权](./docs/gpu-context.zh-CN.md)和[棋盘格契约](./docs/builtin-checker.zh-CN.md)。
+PR-003 实现上下文获取，其不可变快照保持 `unverified`。PR-004 添加 `GpuContext::render_checker` 和验证型 doctor 探针：实际计算／回读及像素检查通过后为 `healthy`，显式跳过为 `unverified`，失败为 `unhealthy` 并保留准确阶段。PR-007 实现了接受不可变核心计划的共享 `Renderer`；固定棋盘格与图路径使用同一个执行器。见 [GPU 所有权](./docs/gpu-context.zh-CN.md)和[棋盘格契约](./docs/builtin-checker.zh-CN.md)。
 
 ### 9.2 仅使用无界面计算
 
@@ -486,7 +486,7 @@ M1 和早期 M2 可以采用直观的分配方式，以保持清晰。M3 退出�
 
 管线缓存键只包含 GPU 语义输入，例如内核、着色器版本、纹理格式和相关设备能力。
 
-缓存属于 `Renderer`，不得放在全局状态中。PR-009 以 `KernelId` 为键最多保留七条管线，每个渲染器固定设备／着色器 ABI／格式／工作组策略。显式清理及渲染器释放会释放管线，请求尺寸与参数不会扩展缓存。
+缓存属于 `Renderer`，不得放在全局状态中。PR-010 以 `KernelId` 为键最多保留九条管线，每个渲染器固定设备／着色器 ABI／格式／工作组策略。显式清理及渲染器释放会释放管线，请求尺寸与参数不会扩展缓存。
 
 ### 9.6 适配器策略与回退
 
@@ -708,3 +708,7 @@ M4 退出前，独立使用方必须仅通过公共 CLI 或 Rust API 完成使�
 - 兼容性承诺。
 
 ADR 必须包含背景、决策、备选方案、影响、迁移和验证。已接受决策改变规范规则时，还必须更新本文。
+
+## PR-010 实测重采样实现
+
+目录现有十一种节点与九个 kernel。标量 `transform-2d` 和 `warp` 在颜色／法线派生前使用显式循环双线性纹理读取；文档与节点版本仍为 1。新增类型化载荷见[节点契约](./docs/node-contracts.zh-CN.md)。`RenderReport.allocations` 在核心估算之外独立记录成功创建的资源描述符字节数。继续保留全部 pass 纹理的朴素生命周期；`trace-2k` 按峰值估算对三种材质的所有案例排序，再测量最大项是否符合既有 512 MiB 预算。计数不含驱动开销与 CPU 缓冲区；销毁不代表物理内存立即归还。见[开发与追踪语义](./docs/development.zh-CN.md)。不引入新 crate、格式、依赖、缓存、优化器或渲染器。

@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "kind": "wood-cross-adapter-precision-investigation",
+  "size": [
+    1024,
+    1024
+  ],
+  "observations": [
+    {
+      "stage": "grain",
+      "maxAbsolute": 1,
+      "meanAbsoluteRgba": 0.032707929611206055,
+      "pixelsAboveOneByte": 0,
+      "aboveOneByteRatio": 0.0,
+      "maxAdjacentRedStepMetal": 2
+    },
+    {
+      "stage": "distortion",
+      "maxAbsolute": 1,
+      "meanAbsoluteRgba": 0.03458046913146973,
+      "pixelsAboveOneByte": 0,
+      "aboveOneByteRatio": 0.0,
+      "maxAdjacentRedStepMetal": 1
+    },
+    {
+      "stage": "stretch",
+      "maxAbsolute": 1,
+      "meanAbsoluteRgba": 0.04579925537109375,
+      "pixelsAboveOneByte": 0,
+      "aboveOneByteRatio": 0.0,
+      "maxAdjacentRedStepMetal": 45
+    },
+    {
+      "stage": "warp",
+      "maxAbsolute": 1,
+      "meanAbsoluteRgba": 0.10241460800170898,
+      "pixelsAboveOneByte": 0,
+      "aboveOneByteRatio": 0.0,
+      "maxAdjacentRedStepMetal": 46
+    },
+    {
+      "stage": "height-linear",
+      "maxAbsolute": 2,
+      "meanAbsoluteRgba": 0.16288161277770996,
+      "pixelsAboveOneByte": 49,
+      "aboveOneByteRatio": 4.673004150390625e-05,
+      "maxAdjacentRedStepMetal": 61
+    }
+  ],
+  "finalHeightComparisons": [
+    {
+      "case": "default",
+      "comparison": {
+        "aboveThresholdPixelRatio": 0.0002117156982421875,
+        "changedPixelRatio": 0.2177133560180664,
+        "maxAbsolute": 2,
+        "maxByComponent": [
+          2,
+          2,
+          2,
+          0
+        ],
+        "meanAbsolute": 0.16344380378723145,
+        "meanByComponent": [
+          0.2179250717163086,
+          0.2179250717163086,
+          0.2179250717163086,
+          0.0
+        ],
+        "ok": false,
+        "status": "compared",
+        "tolerance": {
+          "maxAbsolute": 1,
+          "maxChangedPixelRatio": 0.0,
+          "meanAbsolute": 0.15,
+          "pixelThreshold": 1
+        }
+      }
+    },
+    {
+      "case": "coarse-grain",
+      "comparison": {
+        "aboveThresholdPixelRatio": 1.9073486328125e-06,
+        "changedPixelRatio": 0.197265625,
+        "maxAbsolute": 2,
+        "maxByComponent": [
+          2,
+          2,
+          2,
+          0
+        ],
+        "meanAbsolute": 0.1479506492614746,
+        "meanByComponent": [
+          0.1972675323486328,
+          0.1972675323486328,
+          0.1972675323486328,
+          0.0
+        ],
+        "ok": false,
+        "status": "compared",
+        "tolerance": {
+          "maxAbsolute": 1,
+          "maxChangedPixelRatio": 0.0,
+          "meanAbsolute": 0.15,
+          "pixelThreshold": 1
+        }
+      }
+    },
+    {
+      "case": "straight-grain",
+      "comparison": {
+        "aboveThresholdPixelRatio": 0.0,
+        "changedPixelRatio": 0.12384033203125,
+        "maxAbsolute": 1,
+        "maxByComponent": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "meanAbsolute": 0.0928802490234375,
+        "meanByComponent": [
+          0.12384033203125,
+          0.12384033203125,
+          0.12384033203125,
+          0.0
+        ],
+        "ok": true,
+        "status": "compared",
+        "tolerance": {
+          "maxAbsolute": 1,
+          "maxChangedPixelRatio": 0.0,
+          "meanAbsolute": 0.15,
+          "pixelThreshold": 1
+        }
+      }
+    },
+    {
+      "case": "horizontal-grain",
+      "comparison": {
+        "aboveThresholdPixelRatio": 0.0,
+        "changedPixelRatio": 0.17807292938232422,
+        "maxAbsolute": 1,
+        "maxByComponent": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "meanAbsolute": 0.13355469703674316,
+        "meanByComponent": [
+          0.17807292938232422,
+          0.17807292938232422,
+          0.17807292938232422,
+          0.0
+        ],
+        "ok": true,
+        "status": "compared",
+        "tolerance": {
+          "maxAbsolute": 1,
+          "maxChangedPixelRatio": 0.0,
+          "meanAbsolute": 0.15,
+          "pixelThreshold": 1
+        }
+      }
+    }
+  ],
+  "inputs": {
+    "distortion.mix": "sha256:2cac558f85303df9c9146ca913b9d5584bff20730b98cea2a944599142ff5143",
+    "grain.mix": "sha256:2fc6ec13668663e5927e0336cf10c7475c79a8906e517fe2d708505d847f1966",
+    "height-linear.mix": "sha256:20020bfdd1832a91db6003d9c205a1625d0775dc2f43c5163eda43995536835c",
+    "metal/distortion/height.png": "sha256:adfa8997caf532e5e0a22593d141707c8e6b99079d06a81f3ec53f9a45b81308",
+    "metal/grain/height.png": "sha256:ecfd29121bdcbeb5e93a81e6dde87b2afd438ec49e0228f0c332c00ff121175d",
+    "metal/height-linear/height.png": "sha256:5309a16f918fd2ce20da26791692ae37f14d45995e1fd03953a9768f3e020189",
+    "metal/stretch/height.png": "sha256:ef6499e444d515e733547e60cd49a700c26958c4367ba2cbb240900631e7864b",
+    "metal/warp/height.png": "sha256:6f0718168ae9fd1d0157987aceae3783f6c5e7f3855aefb6959a8b5519a827c2",
+    "metal-distortion.json": "sha256:a24a88304e26bc07392f822f51631de11a5c2b04c64f18e90c6aa412e2befb85",
+    "metal-distortion.stderr.log": "sha256:efff7f250b61ecea10c6b3840be9c135b2f82120026e669335dc706056dadb33",
+    "metal-grain.json": "sha256:48b18a6c777c4da0007efcad815a9f12088f554270ba544d236210299bfa29b4",
+    "metal-grain.stderr.log": "sha256:d2feb7338b9120aceaa50d7e1076bd792d6d566ccc647bcca30ad8091864ba3c",
+    "metal-height-linear.json": "sha256:05e6e14ea974b28c06deb4192cce6563887277c00fe59fd3f9f7e9ef3b91ede2",
+    "metal-height-linear.stderr.log": "sha256:184cebe333696d363b1cbc0ca548be13f329286bce8a85688c71245b98279165",
+    "metal-stretch.json": "sha256:38210190704864a4bf3ca9d3af33cf765b2e58dce021d33844693a23c7f4b4ce",
+    "metal-stretch.stderr.log": "sha256:00b756a8206cae7f6d0ee62af528b7c1b56ed8315461d84acebadaf35d188be5",
+    "metal-warp.json": "sha256:20d33fb8fb8fb378bd6881e9126677ebe733778d415fb447fe53e089a83e725b",
+    "metal-warp.stderr.log": "sha256:06cfffd252fa8928eca3fe91e9a2b23b03513e68b5f6a69ebbcaf32e2700010d",
+    "software/distortion/height.png": "sha256:97cc21e6730fc9150e4d7b6c05cea19c005fd2bead38e30322712b08dc382269",
+    "software/grain/height.png": "sha256:61f025b62a457d7de41802321bd98656993c99c34aa82aed15edc19a0fd21364",
+    "software/height-linear/height.png": "sha256:0f98bf0b97c8ed041b7f4af6a1136de28b14fa55de789c3346b4073d80580a49",
+    "software/stretch/height.png": "sha256:675acea11600d41f2d73a9e64e92ca4c72cb5280a99bbd6c74fd8e33fbb3eeb9",
+    "software/warp/height.png": "sha256:c5b506c8a2916249ac09083e8cb9c6c6e8ad431cbf42430d15076256963ba275",
+    "software-distortion.json": "sha256:03bf1474eea8515602b32dd8149159819f5865d3c261489b100cb5349dd88204",
+    "software-distortion.stderr.log": "sha256:bbf0e5132aa95bc1428f09aa4c680e6b2be81021d543ae5f09e26e31bb363290",
+    "software-grain.json": "sha256:57ebff8ce87e208ebe75a1c923d4b8356c851bee190c15b0f71cf7df9132e99a",
+    "software-grain.stderr.log": "sha256:6847fe460e05b2e86fd2bfbc972d77371f83f9339e3106f9b88d63230d129df1",
+    "software-height-linear.json": "sha256:8a563d1a3a40aa6cb1097e5d4b167a29655c388de38020c763799b895b6dc2de",
+    "software-height-linear.stderr.log": "sha256:e5463250f0e68ae26757b25d03a483792e4db6a9e9bf267f62c95c8569e5e829",
+    "software-stretch.json": "sha256:d934ec9e80b4848fac73dc03420d5c3d9fba88f61b47df2876b3877f0c0f88ac",
+    "software-stretch.stderr.log": "sha256:a77d25985d010b56a85e935572ff2a4f242fe0f208ef32075a8ce8af46e5109b",
+    "software-warp.json": "sha256:7c8783787d79fd37fe04165b4ed94d8927f26a2c5824000fe0e643e058eba3ff",
+    "software-warp.stderr.log": "sha256:62f99def6742e0640e7a235202df44276533256a1e2a696ec2c0f07bf01c9684",
+    "stretch.mix": "sha256:66a92c85f6e7c01eb513db60e3be3199555b784b30380263b2563782252429db",
+    "warp.mix": "sha256:d04b6fd975a34062f15111c031d58cad543e9175d9f620750c1be0c50400cc09"
+  },
+  "sourceMaterialSha256": "sha256:204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+  "method": "Each .mix differs only by connecting the selected scalar stage to output.height; height-linear also sets gamma=1. Both explicit adapters execute the unchanged production shaders. CPU work only compares returned PNG bytes.",
+  "inference": "Observed one-byte differences before levels and two-byte differences after levels are consistent with propagation of intermediate precision differences through resampling/remapping. No sampling-contract discrepancy was found in thirty literal probes on either adapter. This is an empirical local bound; it does not identify the exact driver rounding mode.",
+  "numericalContext": {
+    "conditionalDisplacementUlp": 0.00048828125,
+    "conditionalWarpShiftTexels": 0.018,
+    "levelsMaximumDerivative": 1.8796992481203008
+  },
+  "decision": {
+    "scope": "wood hardware only",
+    "maxAbsolute": 2,
+    "meanAbsolute": 0.2,
+    "pixelThreshold": 1,
+    "maxChangedPixelRatio": 0.00025,
+    "maxPixelsAboveOneAt1K": 262,
+    "softwareBaselineChanged": false,
+    "structuralGatesChanged": false
+  }
+}

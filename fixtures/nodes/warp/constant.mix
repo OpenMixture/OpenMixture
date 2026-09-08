@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "source",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.25
+      }
+    },
+    {
+      "id": "field",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "sample",
+      "type": "warp",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "source",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "sample",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "sample",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "field",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "sample",
+        "portId": "displacement"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "strengthX",
+      "nodeId": "sample",
+      "parameterId": "strengthX"
+    },
+    {
+      "id": "strengthY",
+      "nodeId": "sample",
+      "parameterId": "strengthY"
+    },
+    {
+      "id": "field",
+      "nodeId": "field",
+      "parameterId": "value"
+    },
+    {
+      "id": "value",
+      "nodeId": "source",
+      "parameterId": "value"
+    }
+  ]
+}

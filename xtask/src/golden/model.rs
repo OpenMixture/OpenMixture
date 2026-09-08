@@ -79,12 +79,28 @@ pub(super) enum Structure {
         max_seam_ratio: f64,
     },
     #[serde(rename_all = "camelCase")]
+    Directional {
+        axis: GrainAxis,
+        min_energy_ratio: f64,
+        min_span: u8,
+        min_std_dev: f64,
+        min_neighbor_correlation: f64,
+        max_seam_ratio: f64,
+    },
+    #[serde(rename_all = "camelCase")]
     Normal {
         max_length_error: f64,
         min_mean_tilt: f64,
         max_mean_tilt: f64,
         max_seam_ratio: f64,
     },
+}
+
+#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub(super) enum GrainAxis {
+    Horizontal,
+    Vertical,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -217,12 +233,29 @@ impl Acceptance {
                 {
                     return Err("alternating structure requires resolved even cells, contrast, and a valid balance tolerance".into());
                 }
+                if let Structure::Directional {
+                    min_energy_ratio, ..
+                } = check
+                    && (!min_energy_ratio.is_finite() || *min_energy_ratio <= 1.0)
+                {
+                    return Err(
+                        "directional checks require a finite cross-grain energy ratio above one"
+                            .into(),
+                    );
+                }
                 match check {
                     Structure::Spatial {
                         min_span,
                         min_std_dev,
                         min_neighbor_correlation,
                         max_seam_ratio,
+                    }
+                    | Structure::Directional {
+                        min_span,
+                        min_std_dev,
+                        min_neighbor_correlation,
+                        max_seam_ratio,
+                        ..
                     } => {
                         if *min_span == 0
                             || !min_std_dev.is_finite()
