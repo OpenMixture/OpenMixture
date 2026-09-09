@@ -54,12 +54,13 @@ mod resources;
 pub use allocations::AllocationReport;
 pub use checker::{CheckerOutput, CheckerRequest, ExecutionReport, ExecutionTimings};
 pub use context::{
-    BackendPreference, GpuContext, GpuContextError, GpuContextOptions, PowerPreference,
+    BackendPreference, DeviceLoss, DeviceLossReason, GpuContext, GpuContextError,
+    GpuContextOptions, PowerPreference,
 };
 pub use diagnostics::{AdapterDiagnostics, ContextReport, DeviceDiagnostics, DoctorVerdict};
 pub use executor::{OutputEncoding, RenderOutput, RenderReport, RenderedChannel, Renderer};
 pub use kernels::PipelineCacheReport;
-pub use operation::GpuOperationError;
+pub use operation::{GpuFailureReason, GpuOperationError};
 
 #[cfg(test)]
 mod test_support {

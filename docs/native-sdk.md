@@ -2,7 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), while device-loss/OOM classification, stale-result handling and packaged consumption remain [M4 steps](../M4_PRS.md).
+PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), while stale-result handling and packaged consumption remain [M4 steps](../M4_PRS.md).
 
 ## Reviewed API path
 
@@ -14,6 +14,7 @@ PR-011 verifies the existing public Rust path with an [independent application](
 | Acquire the requested device | `GpuContext::request(options).await` owns its instance/adapter/device/queue and returns structured requested/actual context evidence. |
 | Render | `Renderer::new(context)` consumes the context; `render(&plan).await` returns owned `RenderOutput` or `GpuOperationError`. |
 | Consume data and reports | `channels()`, `pixels()` and `report()` borrow CPU-owned data from the result, which outlives the renderer/context. |
+| Inspect GPU failure | `GpuOperationError::reason()`, `device_loss()`, `adapter()` and `allocations()` retain the primary classification, delivered loss, selected adapter and cleanup evidence. |
 
 Core also publicly exposes `BUILT_INS`, `node_contract`, node/port/parameter types and versioned defaults. Consumers do not need a second catalog, parser, compiler or pixel implementation. [Core Rustdoc](../crates/mixture-core/src/lib.rs) now uses complete inline source examples instead of repository-relative files; it accurately describes all eleven contracts and implemented validation/compilation.
 
@@ -50,6 +51,8 @@ Although `Renderer::render` returns a future and its native types satisfy `Send`
 
 ## Diagnostics and verification
 
+PR-013 adds context-owned `DeviceLoss` records and `GpuFailureReason` without changing acquisition snapshots. Replacing the raw device's registered loss callback disables that tracking. An earlier OOM/mapping error remains primary when loss is also observed; inspect the attached loss before considering reuse. The [failure contract](./gpu-failures.md) defines notification timing, scoped unmap cleanup, new codes and strict-decoder compatibility.
+
 `DocumentError::report`, `CompileError::report`, `GpuContextError::report`/`diagnostic` and `GpuOperationError::diagnostic` preserve Mixture's structured errors. The example's render-error wrapper retains the selected context and original source chain rather than replacing the first GPU error. The CPU probe confirms an invalid `repeat=0` names `pattern`, `cellsX` and public ID `repeat`; process tests cover disabled backend acquisition without constructing wgpu state.
 
 ```bash
@@ -61,3 +64,5 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
 `test-consumer` is CPU-only and included in `check`. `gpu-smoke` explicitly builds and runs the same independent application, alongside the existing checker, graph and GPU regressions. Its environment policy is passed as explicit consumer arguments; standalone consumer commands do not read that policy implicitly. The [example guide](../examples/native-consumer/README.md) gives direct and pinned-software commands. [PR-011 evidence](./evidence/pr-011/README.md) records local results and paired release measurements; deferred remote CI remains open.
+
+PR-013 additionally runs the independent `device_loss` integration test with explicit harness environment variables. It destroys cold/warm devices, verifies repeated failures without new allocations and consumes another context's correct outputs. Its fresh JSON receipt is linked by `deviceLossEvidence` in the smoke consumer status. See [PR-013 evidence](./evidence/pr-013/README.md).

@@ -195,122 +195,223 @@ pub(crate) async fn execute(
     outputs: &[(usize, PortKind)],
 ) -> Result<Executed, GpuOperationError> {
     let total = Instant::now();
-    let layout = ReadbackLayout::new(size[0], size[1])?;
-    let device = context.device();
-    let limits = device.limits();
-    let dispatch = [size[0].div_ceil(8), size[1].div_ceil(8), 1];
-    if size.iter().any(|n| *n > limits.max_texture_dimension_2d)
-        || layout.buffer_bytes > limits.max_buffer_size
-        || dispatch
-            .iter()
-            .any(|n| *n > limits.max_compute_workgroups_per_dimension)
-    {
-        return Err(GpuOperationError::at(
-            Stage::GpuExecution,
-            "Render request exceeds acquired device limits.",
-        )
-        .evidence(
-            "maxTextureDimension2D",
-            u64::from(limits.max_texture_dimension_2d),
-        )
-        .evidence("maxBufferSize", limits.max_buffer_size)
-        .evidence(
-            "maxComputeWorkgroupsPerDimension",
-            u64::from(limits.max_compute_workgroups_per_dimension),
-        ));
-    }
-    let pipeline_started = Instant::now();
-    let mut cache_report = PipelineCacheReport {
-        entries: cache.len(),
-        ..Default::default()
-    };
-    let mut pipelines = Vec::new();
-    for (index, kernel) in kernels.iter().enumerate() {
-        pipelines.push(
-            cache
-                .get(device, kernel.id(), &mut cache_report)
+    let mut resources = Resources::default();
+    let result = async {
+        let layout = ReadbackLayout::new(size[0], size[1])?;
+        let device = context.device();
+        let limits = device.limits();
+        let dispatch = [size[0].div_ceil(8), size[1].div_ceil(8), 1];
+        if size.iter().any(|n| *n > limits.max_texture_dimension_2d)
+            || layout.buffer_bytes > limits.max_buffer_size
+            || dispatch
+                .iter()
+                .any(|n| *n > limits.max_compute_workgroups_per_dimension)
+        {
+            return Err(GpuOperationError::at(
+                Stage::GpuExecution,
+                "Render request exceeds acquired device limits.",
+            )
+            .evidence(
+                "maxTextureDimension2D",
+                u64::from(limits.max_texture_dimension_2d),
+            )
+            .evidence("maxBufferSize", limits.max_buffer_size)
+            .evidence(
+                "maxComputeWorkgroupsPerDimension",
+                u64::from(limits.max_compute_workgroups_per_dimension),
+            ));
+        }
+        // Deliver pending native destruction callbacks before touching the pipeline
+        // cache or allocating resources. An already-recorded loss does not poll again.
+        context.ensure_available(Stage::GpuExecution)?;
+        device.poll(wgpu::PollType::Poll).map_err(|source| {
+            GpuOperationError::source_error(
+                Stage::GpuExecution,
+                "Could not poll the GPU before rendering.",
+                source,
+            )
+        })?;
+        context.ensure_available(Stage::GpuExecution)?;
+        let pipeline_started = Instant::now();
+        let mut cache_report = PipelineCacheReport {
+            entries: cache.len(),
+            ..Default::default()
+        };
+        let mut pipelines = Vec::new();
+        for (index, kernel) in kernels.iter().enumerate() {
+            pipelines.push(
+                cache
+                    .get(device, kernel.id(), &mut cache_report)
+                    .await
+                    .map_err(|error| {
+                        error
+                            .evidence("passIndex", index as u64)
+                            .evidence("kernel", format!("{:?}", kernel.id()))
+                    })?,
+            );
+        }
+        let pipeline_ms = pipeline_started.elapsed().as_secs_f64() * 1000.;
+        for (index, (kernel, pipeline)) in kernels.iter().zip(&pipelines).enumerate() {
+            context.ensure_available(Stage::GpuExecution)?;
+            resources
+                .push(device, pipeline, kernel, size)
                 .await
                 .map_err(|error| {
                     error
                         .evidence("passIndex", index as u64)
                         .evidence("kernel", format!("{:?}", kernel.id()))
-                })?,
-        );
-    }
-    let pipeline_ms = pipeline_started.elapsed().as_secs_f64() * 1000.;
-    let mut resources = Resources::default();
-    for (index, (kernel, pipeline)) in kernels.iter().zip(&pipelines).enumerate() {
-        resources
-            .push(device, pipeline, kernel, size)
-            .await
-            .map_err(|error| {
-                error
-                    .evidence("passIndex", index as u64)
-                    .evidence("kernel", format!("{:?}", kernel.id()))
-            })?;
-    }
-    let execution_started = Instant::now();
-    let encoder = checked(
-        device,
-        Stage::GpuExecution,
-        "Could not encode compute passes.",
-        || {
-            let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                label: Some("material graph"),
-            });
-            for (pipeline, group) in pipelines.iter().zip(&resources.groups) {
-                let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
-                    label: Some("material pass"),
-                    timestamp_writes: None,
+                })?;
+        }
+        let execution_started = Instant::now();
+        let encoder = checked(
+            device,
+            Stage::GpuExecution,
+            "Could not encode compute passes.",
+            || {
+                let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                    label: Some("material graph"),
                 });
-                pass.set_pipeline(pipeline);
-                pass.set_bind_group(0, group, &[]);
-                pass.dispatch_workgroups(dispatch[0], dispatch[1], dispatch[2]);
-            }
-            encoder
-        },
-    )
-    .await?;
-    resources::submit(device, context.queue(), encoder, Stage::GpuExecution).await?;
-    let execution_ms = execution_started.elapsed().as_secs_f64() * 1000.;
-    let readback_started = Instant::now();
-    let mut pixels = Vec::new();
-    for (resource, kind) in outputs {
-        let texture = resources.textures.get(*resource).ok_or_else(|| {
-            GpuOperationError::at(Stage::Readback, "Output resource is missing.").after_compute()
-        })?;
-        pixels.push(
-            resources::read_texture(
-                device,
-                context.queue(),
-                texture,
-                layout,
-                *kind,
-                &mut resources.allocations,
-            )
-            .await
-            .map_err(GpuOperationError::after_compute)?,
-        );
+                for (pipeline, group) in pipelines.iter().zip(&resources.groups) {
+                    let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+                        label: Some("material pass"),
+                        timestamp_writes: None,
+                    });
+                    pass.set_pipeline(pipeline);
+                    pass.set_bind_group(0, group, &[]);
+                    pass.dispatch_workgroups(dispatch[0], dispatch[1], dispatch[2]);
+                }
+                encoder
+            },
+        )
+        .await?;
+        resources::submit(device, context.queue(), encoder, Stage::GpuExecution).await?;
+        context.ensure_available(Stage::GpuExecution)?;
+        let execution_ms = execution_started.elapsed().as_secs_f64() * 1000.;
+        let readback_started = Instant::now();
+        let mut pixels = Vec::new();
+        for (resource, kind) in outputs {
+            context
+                .ensure_available(Stage::Readback)
+                .map_err(GpuOperationError::after_compute)?;
+            let texture = resources.textures.get(*resource).ok_or_else(|| {
+                GpuOperationError::at(Stage::Readback, "Output resource is missing.")
+                    .after_compute()
+            })?;
+            pixels.push(
+                resources::read_texture(
+                    device,
+                    context.queue(),
+                    texture,
+                    layout,
+                    *kind,
+                    &mut resources.allocations,
+                )
+                .await
+                .map_err(GpuOperationError::after_compute)?,
+            );
+        }
+        let readback_ms = readback_started.elapsed().as_secs_f64() * 1000.;
+        Ok((
+            pixels,
+            cache_report,
+            ExecutionTimings {
+                pipeline_ms,
+                execution_ms,
+                readback_ms,
+                total_ms: total.elapsed().as_secs_f64() * 1000.,
+            },
+        ))
     }
-    let readback_ms = readback_started.elapsed().as_secs_f64() * 1000.;
+    .await;
+    // Finish the same resource guard on both paths, before publishing success or
+    // attaching actual cleanup counters to the first operation failure.
     let allocations = resources.finish();
-    Ok(Executed {
-        pixels,
-        cache: cache_report,
-        allocations,
-        timings: ExecutionTimings {
-            pipeline_ms,
-            execution_ms,
-            readback_ms,
-            total_ms: total.elapsed().as_secs_f64() * 1000.,
-        },
-    })
+    let result = result.and_then(|completed| {
+        context
+            .ensure_available(Stage::Readback)
+            .map_err(GpuOperationError::after_compute)
+            .map(|()| completed)
+    });
+    if context.device_loss().is_some() {
+        cache.clear();
+    }
+    match result {
+        Ok((pixels, cache, mut timings)) => {
+            timings.total_ms = total.elapsed().as_secs_f64() * 1000.;
+            Ok(Executed {
+                pixels,
+                cache,
+                allocations,
+                timings,
+            })
+        }
+        Err(error) => Err(error.with_allocations(allocations).in_context(context)),
+    }
 }
 
 #[cfg(test)]
 mod allocation_tests {
     use super::*;
     use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn graph_gpu_failure_after_readback_releases_resources_without_returning_partial_pixels() {
+        let context =
+            pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+        let mut cache = PipelineCache::default();
+        let kernel = KernelInvocation::Constant {
+            value: [0.25, 0.0, 0.0, 1.0],
+        };
+        // Internal invalid mapping: first readback succeeds, then the second
+        // fails. Public compiler-produced plans cannot contain this mapping.
+        let error = match pollster::block_on(execute(
+            &context,
+            &mut cache,
+            [33, 3],
+            &[&kernel],
+            &[(0, PortKind::Scalar), (usize::MAX, PortKind::Scalar)],
+        )) {
+            Err(error) => error,
+            Ok(_) => panic!("partial pixels must never become a successful render"),
+        };
+        assert_eq!(
+            error.diagnostic().code,
+            mixture_core::DiagnosticCode::ReadbackFailed
+        );
+        assert_eq!(error.diagnostic().message, "Output resource is missing.");
+        assert!(error.compute_completed());
+        let measured = error.allocations().unwrap();
+        assert_eq!(measured.texture_count, 1);
+        assert_eq!(measured.uniform_count, 1);
+        assert_eq!(measured.staging_count, 1);
+        assert_eq!(measured.live_bytes, 0);
+        assert_eq!(measured.released_bytes, measured.cumulative_bytes);
+        assert!(measured.cumulative_bytes > 0);
+        assert!(error.device_loss().is_none());
+        // Ordinary readback failures do not poison this context or its cache.
+        let output = pollster::block_on(execute(
+            &context,
+            &mut cache,
+            [33, 3],
+            &[&kernel],
+            &[(0, PortKind::Scalar)],
+        ))
+        .unwrap();
+        assert!(
+            output.pixels[0]
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .all(|pixel| *pixel == [64, 64, 64, 255])
+        );
+        assert_eq!(output.cache.misses, 0);
+        assert_eq!(output.cache.hits, 1);
+        eprintln!(
+            "readback failure cleanup: {}",
+            serde_json::to_string(error.diagnostic()).unwrap()
+        );
+    }
 
     #[test]
     #[ignore = "requires GPU; cargo xtask gpu-smoke"]

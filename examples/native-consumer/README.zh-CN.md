@@ -105,3 +105,17 @@ target/native-consumer/release/mixture-native-consumer measure \
 这是专项消费者示例，不是新的通用 CLI 契约。成功写入 JSON 报告并退出 `0`；操作或验证失败返回 `1`，在适用处保留原始 Mixture 诊断上下文／source chain；usage 失败退出 `2` 并写入 stderr。`RenderFailure` 将所选上下文与原始 GPU 操作错误一起保留。不提供备用执行或设备恢复。原生 `Renderer::render` 可能在 polling 期间阻塞调用线程；需要响应性的应用应管理自己的 worker。过期结果调度留给 PR-014。
 
 所有权、依赖类型暴露及验收限制见[公开原生 API 指南](../../docs/native-sdk.zh-CN.md)。
+
+## 设备丢失契约（PR-013）
+
+独立 `tests/device_loss.rs` 使用公开 Rust API 与自有输入。它销毁冷／热缓存设备，验证每例两次重复失败均无分配，在 renderer drop 后保留自有诊断，并消费另一个存活上下文的正确像素。CPU 检查只编译此忽略测试。显式 smoke 会运行并验证新建 `deviceLossEvidence` 回执。单独运行要求绝对、尚不存在且父目录已存在的证据文件名：
+
+```bash
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+MIXTURE_CONSUMER_DEVICE_LOSS_EVIDENCE="$PWD/tmp/device-loss-$(date +%s).json" \
+cargo test --locked --manifest-path examples/native-consumer/Cargo.toml \
+  --test device_loss device_loss_contract -- --ignored --exact --nocapture
+```
+
+使用上文 GPU 命令中的固定 Vulkan 策略与 loader，可在 SwiftShader 上运行同一测试。回执起初为未完成，只有所有断言通过才变为完成。这测试设备销毁，不测试物理 OOM。见[失败语义](../../docs/gpu-failures.zh-CN.md)。

@@ -268,6 +268,8 @@ fn diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary() {
         Code::ParameterUnknown,
         Code::ExposedParameterInvalid,
         Code::IoReadFailed,
+        Code::GpuDeviceLost,
+        Code::GpuOutOfMemory,
     ];
     for code in codes {
         assert_eq!(

@@ -1,11 +1,56 @@
 //! Caller-owned adapter, device, and queue acquisition. No rendering occurs here.
 
-use std::{error::Error, fmt};
+use std::{
+    error::Error,
+    fmt,
+    sync::{Arc, OnceLock},
+};
 
 use mixture_core::error::{Diagnostic, DiagnosticCode, Stage};
 use serde::Serialize;
 
 use crate::diagnostics::{AdapterDiagnostics, ContextReport, DeviceDiagnostics, RequestedPolicy};
+
+/// The reason supplied by the native device-loss callback, not inferred from text.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub enum DeviceLossReason {
+    /// Driver/device failure without a more specific callback reason.
+    Unknown,
+    /// The caller explicitly destroyed the device.
+    Destroyed,
+}
+
+/// The first device-loss notification owned by one context.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DeviceLoss {
+    /// Native notification category; unknown messages are never parsed for a cause.
+    pub reason: DeviceLossReason,
+    /// Original callback text, which may be empty for explicit destruction.
+    pub message: String,
+}
+
+impl DeviceLoss {
+    fn from_native(reason: wgpu::DeviceLostReason, message: String) -> Self {
+        Self {
+            reason: match reason {
+                wgpu::DeviceLostReason::Unknown => DeviceLossReason::Unknown,
+                wgpu::DeviceLostReason::Destroyed => DeviceLossReason::Destroyed,
+            },
+            message,
+        }
+    }
+}
+
+impl fmt::Display for DeviceLoss {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Device lost ({:?}): {}", self.reason, self.message)
+    }
+}
+
+impl Error for DeviceLoss {}
 
 /// Native backends permitted for this request. `None` disables GPU acquisition.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize)]
@@ -77,6 +122,7 @@ pub struct GpuContext {
     device: wgpu::Device,
     queue: wgpu::Queue,
     report: ContextReport,
+    loss: Arc<OnceLock<DeviceLoss>>,
 }
 
 impl GpuContext {
@@ -166,12 +212,19 @@ impl GpuContext {
             adapter_info,
             DeviceDiagnostics::from_device(&device),
         );
+        let loss = Arc::new(OnceLock::new());
+        let callback_loss = Arc::clone(&loss);
+        device.set_device_lost_callback(move |reason, message| {
+            // One context-owned record, no GPU handles or global state in the callback.
+            let _ = callback_loss.set(DeviceLoss::from_native(reason, message));
+        });
         Ok(Self {
             instance,
             adapter,
             device,
             queue,
             report,
+            loss,
         })
     }
 
@@ -198,6 +251,21 @@ impl GpuContext {
     /// Borrow the acquisition report, including requested and actual evidence.
     pub fn report(&self) -> &ContextReport {
         &self.report
+    }
+
+    /// Borrow the first delivered loss notification. This does not poll or block.
+    /// A native callback may require device polling; render polls before GPU work.
+    /// The acquisition report remains an immutable snapshot. Replacing the raw
+    /// device's loss callback disables this tracking and is outside this contract.
+    pub fn device_loss(&self) -> Option<&DeviceLoss> {
+        self.loss.get()
+    }
+
+    pub(crate) fn ensure_available(&self, stage: Stage) -> Result<(), crate::GpuOperationError> {
+        match self.device_loss() {
+            Some(loss) => Err(crate::GpuOperationError::lost(stage, loss.clone())),
+            None => Ok(()),
+        }
     }
 }
 

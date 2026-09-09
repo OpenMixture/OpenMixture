@@ -141,3 +141,5 @@ cargo xtask test-node warp
 PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations: AllocationReport`。它记录成功创建的描述符：纹理／uniform 数量与字节数，staging 数量、累计字节和峰值存活字节，以及总累计、峰值、存活、已释放和已复用字节。当前成功渲染最终满足 `liveBytes = 0`、`releasedBytes = cumulativeBytes` 和 `reusedBytes = 0`。释放记录显式 `destroy` 调用，不代表驱动立即归还物理内存。驱动分配粒度、管线／绑定组开销及 CPU 像素／PNG 缓冲区不计入。这些观测不进入 `RenderPlan` 或其哈希。
 
 [PR-012 CLI 契约](./cli-contract.zh-CN.md)统一记录报告字段类型、null／省略规则、退出码和部分文件写入行为，并提供独立 PNG／元数据／覆盖检查。像素执行及编码语义不变。
+
+PR-013 在 GPU 工作前与返回输出前检查已送达的设备丢失。观察到丢失会清空 renderer 管线缓存；重复调用返回结构化失败，不重新获取设备。错误路径释放逐次描述符并附带分配证据，readback unmap 在错误作用域内运行，使清理失败不会替换原始错误。见 [GPU 失败契约](./gpu-failures.zh-CN.md)。

@@ -441,6 +441,8 @@ let result = renderer.render(&plan).await?;
 
 任何公共渲染 API 都不得初始化隐藏的全局设备。
 
+PR-013 在每个上下文内部记录首个原生设备丢失通知，与获取快照分开。已观察到的丢失阻止后续 GPU 工作并清除该渲染器的流水线，不触发恢复。类型化 OOM／丢失诊断保留操作阶段及首个失败，受保护的回读清理保留次生 unmap 错误。失败报告包含已跟踪描述符的释放证据。见 [GPU 失败与生命周期](./docs/gpu-failures.zh-CN.md)。
+
 PR-003 实现上下文获取，其不可变快照保持 `unverified`。PR-004 添加 `GpuContext::render_checker` 和验证型 doctor 探针：实际计算／回读及像素检查通过后为 `healthy`，显式跳过为 `unverified`，失败为 `unhealthy` 并保留准确阶段。PR-007 实现了接受不可变核心计划的共享 `Renderer`；固定棋盘格与图路径使用同一个执行器。见 [GPU 所有权](./docs/gpu-context.zh-CN.md)和[棋盘格契约](./docs/builtin-checker.zh-CN.md)。
 
 ### 9.2 仅使用无界面计算
@@ -583,6 +585,7 @@ PR-002 在 `mixture-core` 中实现 `Diagnostic`、`DiagnosticReport` 和原生�
 - `MIX_COMPILE_*`
 - `MIX_GPU_ADAPTER_*`
 - `MIX_GPU_DEVICE_*`
+- `MIX_GPU_OUT_OF_MEMORY`
 - `MIX_GPU_SHADER_*`
 - `MIX_GPU_EXECUTION_*`
 - `MIX_READBACK_*`

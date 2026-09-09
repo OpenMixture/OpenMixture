@@ -56,14 +56,8 @@ fn context_gpu_smoke_owns_independent_contexts() {
         pollster::block_on(GpuContext::request(options)).expect("first context acquisition");
     let second =
         pollster::block_on(GpuContext::request(options)).expect("independent context acquisition");
-    let (first_lost_tx, first_lost_rx) = std::sync::mpsc::channel();
-    first.device().set_device_lost_callback(move |reason, _| {
-        let _ = first_lost_tx.send(reason);
-    });
-    let (second_lost_tx, second_lost_rx) = std::sync::mpsc::channel();
-    second.device().set_device_lost_callback(move |reason, _| {
-        let _ = second_lost_tx.send(reason);
-    });
+    assert!(first.device_loss().is_none());
+    assert!(second.device_loss().is_none());
     // Handle equality uses instance-local IDs, so it cannot prove independence.
     // Destroying one device must signal loss only on that context.
     first.device().destroy();
@@ -72,20 +66,18 @@ fn context_gpu_smoke_owns_independent_contexts() {
         .poll(wgpu::PollType::Poll)
         .expect("deliver destruction callback");
     assert_eq!(
-        first_lost_rx
-            .recv_timeout(std::time::Duration::from_secs(5))
-            .expect("first device destruction"),
-        wgpu::DeviceLostReason::Destroyed
+        first
+            .device_loss()
+            .expect("first device destruction")
+            .reason,
+        mixture_wgpu::DeviceLossReason::Destroyed
     );
     drop(first);
     second
         .device()
         .poll(wgpu::PollType::Poll)
         .expect("second device remains live");
-    assert_eq!(
-        second_lost_rx.try_recv(),
-        Err(std::sync::mpsc::TryRecvError::Empty)
-    );
+    assert!(second.device_loss().is_none());
     assert_eq!(second.report().verdict(), DoctorVerdict::Unverified);
     assert!(second.report().diagnostics().is_ok());
     assert_eq!(

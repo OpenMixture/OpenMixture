@@ -441,6 +441,8 @@ let result = renderer.render(&plan).await?;
 
 No public render API initializes a hidden global device.
 
+PR-013 records the first native device-loss notification inside each context, separately from its acquisition snapshot. Observed loss prevents further GPU work and clears that renderer's pipelines; it never triggers recovery. Typed OOM/loss diagnostics retain the operation stage and first failure, and scoped readback cleanup preserves secondary unmap errors. Failure reports include tracked descriptor release evidence. See [GPU failures and lifetime](./docs/gpu-failures.md).
+
 PR-003 implements context acquisition; its immutable snapshot remains `unverified`. PR-004 adds `GpuContext::render_checker` and a verified doctor probe: actual compute/readback and pixel checks yield `healthy`, explicit skip yields `unverified`, and failures yield `unhealthy` with their exact stage. PR-007 implements the shared `Renderer` for immutable core plans; the fixed checker and graph path use the same executor. See [GPU ownership](./docs/gpu-context.md) and [the checker contract](./docs/builtin-checker.md).
 
 ### 9.2 Headless compute only
@@ -583,6 +585,7 @@ Initial code families should include:
 - `MIX_COMPILE_*`
 - `MIX_GPU_ADAPTER_*`
 - `MIX_GPU_DEVICE_*`
+- `MIX_GPU_OUT_OF_MEMORY`
 - `MIX_GPU_SHADER_*`
 - `MIX_GPU_EXECUTION_*`
 - `MIX_READBACK_*`

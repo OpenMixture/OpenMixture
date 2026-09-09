@@ -1,0 +1,16 @@
+{
+  "metal": {
+    "status": "gpu-smoke/metal/consumer/status.json",
+    "cliEvidence": "cli-85254-1788947819543825000/status.json",
+    "completed": true,
+    "deviceLossEvidence": "device-loss-85254-1788947820388061000.json",
+    "ok": true
+  },
+  "software": {
+    "status": "gpu-smoke/software/consumer/status.json",
+    "cliEvidence": "cli-85417-1788947909762035000/status.json",
+    "completed": true,
+    "deviceLossEvidence": "device-loss-85417-1788947910827270000.json",
+    "ok": true
+  }
+}

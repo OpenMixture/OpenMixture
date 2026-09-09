@@ -105,3 +105,5 @@ PR-007 将棋盘格执行与图渲染器共享，并添加全部节点／图证�
 PR-011 在[原生 API 指南](./native-sdk.zh-CN.md)中记录原始 `GpuContext` getter 及依赖类型的兼容性。`gpu-smoke` 现还构建独立应用并验证两次渲染，在 renderer／context 销毁后消费返回像素。适配器策略通过显式参数传入；纯 CPU `test-consumer` 纳入 `check`。
 
 PR-012 为该显式冒烟增加独立已构建 CLI 测试，覆盖 healthy／跳过探针的 doctor、PNG 完成和部分写入。[CLI 契约](./cli-contract.zh-CN.md)区分渲染获取快照与 doctor 健康判定，并记录 JSON 字段存在规则。
+
+PR-013 在所属上下文中记录首个已送达的丢失通知。`GpuContext::device_loss()` 不轮询，只读取记录；获取报告仍是历史快照。替换原始设备丢失回调会禁用该跟踪。[GPU 失败处理](./gpu-failures.zh-CN.md)定义复用前的快速失败检查、类型化 OOM 分类和清理证据。

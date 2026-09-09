@@ -1,0 +1,32 @@
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.32s
+     Running unittests src/lib.rs (target/debug/deps/mixture_wgpu-aa96692948488a98)
+
+running 5 tests
+test operation::tests::operation_primary_loss_is_typed_and_preserves_its_notification ... ok
+test operation::tests::operation_scope_precedence_preserves_oom_and_other_driver_messages ... ok
+test operation::tests::operation_classification_never_parses_driver_or_host_allocation_messages ... ok
+test operation::tests::operation_later_loss_keeps_first_failure_stage_reason_and_source ... ok
+test operation::tests::operation_oom_preserves_stage_native_chain_and_numeric_cleanup_evidence ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.00s
+
+     Running tests/checker.rs (target/debug/deps/checker-d0939dd4050360cd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/context.rs (target/debug/deps/context-1f2c47fd7285497a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests/nodes.rs (target/debug/deps/nodes-3ac114c658e85271)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s
+

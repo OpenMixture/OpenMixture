@@ -1,0 +1,3 @@
+   Compiling mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.95s
+     Running `target/debug/mixture doctor --backend metal --json`

@@ -2,11 +2,12 @@
 
 [English](./native-sdk.md) | 简体中文
 
-PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，设备丢失／OOM 分类、过期结果处理及包消费仍是后续 [M4 步骤](../M4_PRS.zh-CN.md)。
+PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，过期结果处理及包消费仍是后续 [M4 步骤](../M4_PRS.zh-CN.md)。
 
 ## 已审查的 API 路径
 
 | 消费者操作 | 公开 API 与所有权 |
+| 检查 GPU 失败 | `GpuOperationError::reason()`、`device_loss()`、`adapter()` 和 `allocations()` 保留首要分类、已送达的丢失通知、实际适配器和清理证据。 |
 |---|---|
 | 使用显式限额解码源文件 | `MaterialDocument::decode(bytes, &limits)` 返回源文档或 `DocumentError`，不访问 GPU。 |
 | 验证图 | `into_validated(&limits)` 返回不可变 `ValidatedDocument`；验证不修复或填充源文档。 |
@@ -50,6 +51,8 @@ Core 也公开 `BUILT_INS`、`node_contract`、节点／端口／参数类型和
 
 ## 诊断与验证
 
+PR-013 添加上下文自有的 `DeviceLoss` 记录与 `GpuFailureReason`，不改变获取快照。替换原始设备已注册的丢失回调会禁用该跟踪。同时观察到丢失时，较早的 OOM／映射错误仍为首要原因；考虑复用前应检查附带的丢失信息。[失败契约](./gpu-failures.zh-CN.md)定义通知时机、受保护 unmap 清理、新错误码及严格解码器兼容性。
+
 `DocumentError::report`、`CompileError::report`、`GpuContextError::report`／`diagnostic` 和 `GpuOperationError::diagnostic` 保留 Mixture 结构化错误。示例的渲染错误包装保留所选上下文和原始 source chain，不替换首个 GPU 错误。CPU 探针确认非法 `repeat=0` 标明 `pattern`、`cellsX` 和公开 ID `repeat`；进程测试覆盖不创建 wgpu 状态的禁用后端获取。
 
 ```bash
@@ -61,3 +64,5 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
 `test-consumer` 仅使用 CPU，并纳入 `check`。`gpu-smoke` 在现有棋盘、图和 GPU 回归之外，显式构建并运行同一独立应用。其环境策略转换为显式消费者参数；独立消费者命令不隐式读取该策略。[示例指南](../examples/native-consumer/README.zh-CN.md)提供直接及固定软件命令。[PR-011 证据](./evidence/pr-011/README.zh-CN.md)记录本地结果与成对 release 测量；暂缓的远端 CI 仍开放。
+
+PR-013 还使用显式测试环境变量运行独立 `device_loss` 集成测试：销毁冷／热缓存设备，验证重复失败不产生新分配，并消费另一上下文的正确输出。新建 JSON 回执由 smoke 消费者状态中的 `deviceLossEvidence` 引用。见 [PR-013 证据](./evidence/pr-013/README.zh-CN.md)。

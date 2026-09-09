@@ -4,7 +4,7 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013–015 及 `package-check` 仍待实施。远端 CI 继续暂缓。
+仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014–015 及 `package-check` 仍待实施。远端 CI 继续暂缓。
 它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
@@ -63,7 +63,7 @@ cargo xtask gpu-smoke
 
 ## 依赖策略
 
-PR-012 产品／工具工作区唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
+PR-013 产品／工具工作区唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
 
 | 软件包 | 允许的依赖 |
 | --- | --- |
@@ -121,3 +121,5 @@ PR-006 添加[编译器](../crates/mixture-core/src/compiler.rs)、[规范化与
 PR-009 不增加依赖或锁文件变更。通过 `cargo xtask` 运行 `test-node fractal-noise`、`test-node gradient-map`、`test-node height-to-normal` 和 `test-material leather`；[皮革评审](../fixtures/materials/leather/review/README.zh-CN.md)是可选的外部 Blender 消费者，不是 Rust 运行时依赖。
 
 PR-010 同样不增加依赖或锁文件变更。通过 `cargo xtask` 运行 `test-node transform-2d`、`test-node warp`、`test-material wood`、`golden check` 和 `trace-2k`。公开 Renderer 文档测试编译验证 `AllocationReport` 的访问；定向 GPU 测试验证非对齐宽度的别名回读、逐次调用计数重置，以及回读错误后的释放。
+
+PR-013 添加 CPU 分类与消费者回执守卫测试。`test-consumer` 编译独立 `device_loss` 测试但保持忽略；显式 `gpu-smoke` 执行其冷／热缓存销毁用例，并校验 `native-consumer/status.json` → `deviceLossEvidence` 引用的新建回执。[GPU 失败复现](./gpu-failures.zh-CN.md)和[本地证据](./evidence/pr-013/README.zh-CN.md)区分类型化合成 OOM 与真实设备销毁。

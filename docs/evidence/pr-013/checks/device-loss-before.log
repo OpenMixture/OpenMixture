@@ -1,0 +1,30 @@
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.47s
+     Running tests/nodes.rs (target/debug/deps/nodes-3ac114c658e85271)
+
+running 2 tests
+destroyed device, warmCache=false: {"code":"MIX_GPU_EXECUTION_FAILED","stage":"gpuExecution","severity":"error","message":"Could not allocate compute resources.","nodeId":"checker","evidence":{"driverMessage":"Validation Error\n\nCaused by:\n  In ComputePipeline::get_bind_group_layout\n    ComputePipeline with 'checker' label is invalid\n","kernel":"Checker","passIndex":0,"planHash":"sha256:c30ffceec901912f94a5fe14534ec5ad0762afd74e75465b2e43ae2c3f4ca60d"},"suggestion":"Inspect the GPU stage and driver evidence; reproduce on the pinned software adapter."}
+
+thread 'graph_gpu_device_loss_with_cold_cache_is_typed' (1343581) panicked at crates/mixture-wgpu/tests/nodes.rs:556:5:
+assertion `left == right` failed
+  left: "MIX_GPU_EXECUTION_FAILED"
+ right: "MIX_GPU_DEVICE_LOST"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test graph_gpu_device_loss_with_cold_cache_is_typed ... FAILED
+destroyed device, warmCache=true: {"code":"MIX_GPU_EXECUTION_FAILED","stage":"gpuExecution","severity":"error","message":"Could not upload typed parameters.","nodeId":"checker","evidence":{"driverMessage":"Buffer view error: Validation Error\n\nCaused by:\n  Buffer with 'typed kernel parameters' label is invalid\n","kernel":"Checker","passIndex":0,"planHash":"sha256:c30ffceec901912f94a5fe14534ec5ad0762afd74e75465b2e43ae2c3f4ca60d"},"suggestion":"Inspect the GPU stage and driver evidence; reproduce on the pinned software adapter."}
+
+thread 'graph_gpu_device_loss_with_warm_cache_is_typed' (1343582) panicked at crates/mixture-wgpu/tests/nodes.rs:556:5:
+assertion `left == right` failed
+  left: "MIX_GPU_EXECUTION_FAILED"
+ right: "MIX_GPU_DEVICE_LOST"
+test graph_gpu_device_loss_with_warm_cache_is_typed ... FAILED
+
+failures:
+
+failures:
+    graph_gpu_device_loss_with_cold_cache_is_typed
+    graph_gpu_device_loss_with_warm_cache_is_typed
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.28s
+
+error: test failed, to rerun pass `-p mixture-wgpu --test nodes`

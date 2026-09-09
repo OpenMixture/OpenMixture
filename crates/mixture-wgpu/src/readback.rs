@@ -55,61 +55,77 @@ pub(crate) async fn read_pixels(
     layout: ReadbackLayout,
     kind: PortKind,
 ) -> Result<Vec<u8>, GpuOperationError> {
-    let (sender, receiver) = mpsc::channel();
-    checked(
+    let result = async {
+        let (sender, receiver) = mpsc::channel();
+        checked(
+            device,
+            Stage::Readback,
+            "Could not map the texture readback buffer.",
+            || {
+                buffer
+                    .slice(..)
+                    .map_async(wgpu::MapMode::Read, move |result| {
+                        let _ = sender.send(result);
+                    });
+            },
+        )
+        .await?;
+        device
+            .poll(wgpu::PollType::Wait {
+                submission_index: None,
+                timeout: Some(Duration::from_secs(30)),
+            })
+            .map_err(|source| {
+                GpuOperationError::source_error(
+                    Stage::Readback,
+                    "Timed out while mapping texture pixels.",
+                    source,
+                )
+            })?;
+        receiver
+            .try_recv()
+            .map_err(|source| {
+                GpuOperationError::source_error(
+                    Stage::Readback,
+                    "Readback mapping callback did not complete.",
+                    source,
+                )
+            })
+            .and_then(|result| {
+                result.map_err(|source| {
+                    GpuOperationError::source_error(
+                        Stage::Readback,
+                        "Readback mapping failed.",
+                        source,
+                    )
+                })
+            })?;
+        // The view is dropped before the cleanup scope, including on invalid data.
+        match buffer.slice(..).get_mapped_range() {
+            Ok(view) => rgba16float_to_rgba8(&view, layout, kind),
+            Err(source) => Err(GpuOperationError::source_error(
+                Stage::Readback,
+                "Could not access mapped texture pixels.",
+                source,
+            )),
+        }
+    }
+    .await;
+    // Unmapping a device-destroyed buffer can itself raise a validation error.
+    // Always attempt cleanup, but never turn that secondary error into a panic
+    // or replace the original map/access/conversion failure.
+    let unmapped = checked(
         device,
         Stage::Readback,
-        "Could not map the texture readback buffer.",
-        || {
-            buffer
-                .slice(..)
-                .map_async(wgpu::MapMode::Read, move |result| {
-                    let _ = sender.send(result);
-                });
-        },
+        "Could not unmap the texture readback buffer.",
+        || buffer.unmap(),
     )
-    .await?;
-    let polled = device.poll(wgpu::PollType::Wait {
-        submission_index: None,
-        timeout: Some(Duration::from_secs(30)),
-    });
-    if let Err(source) = polled {
-        buffer.unmap();
-        return Err(GpuOperationError::source_error(
-            Stage::Readback,
-            "Timed out while mapping texture pixels.",
-            source,
-        ));
+    .await;
+    match (result, unmapped) {
+        (Err(error), Err(cleanup)) => Err(error.with_cleanup_error(cleanup)),
+        (Err(error), Ok(())) | (Ok(_), Err(error)) => Err(error),
+        (Ok(pixels), Ok(())) => Ok(pixels),
     }
-    let mapped = receiver
-        .try_recv()
-        .map_err(|source| {
-            GpuOperationError::source_error(
-                Stage::Readback,
-                "Readback mapping callback did not complete.",
-                source,
-            )
-        })
-        .and_then(|result| {
-            result.map_err(|source| {
-                GpuOperationError::source_error(Stage::Readback, "Readback mapping failed.", source)
-            })
-        });
-    if let Err(error) = mapped {
-        buffer.unmap();
-        return Err(error);
-    }
-    // Drop the view before unmapping, including on invalid samples or layout.
-    let result = match buffer.slice(..).get_mapped_range() {
-        Ok(view) => rgba16float_to_rgba8(&view, layout, kind),
-        Err(source) => Err(GpuOperationError::source_error(
-            Stage::Readback,
-            "Could not access mapped texture pixels.",
-            source,
-        )),
-    };
-    buffer.unmap();
-    result
 }
 
 fn rgba16float_to_rgba8(

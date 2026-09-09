@@ -110,4 +110,6 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 
 测试夹具使用 `serde_json`、标准进程／文件系统 API 和仅开发时使用的 PNG 解码器，不导入 Mixture Rust API 或 CLI 私有模块，仅使用自有嵌入源码夹具。应用仍是独立 Cargo 工作区。完成记录及原始子进程 stdout／stderr 保存在新目录；跳过或未完成的测试不能满足 `test-consumer`／`gpu-smoke`。[示例指南](../examples/native-consumer/README.zh-CN.md)提供独立调用细节，[PR-012 证据](./evidence/pr-012/README.zh-CN.md)记录本地结果。
 
-PR-012 不改变 JSON 字段、null／省略规则、枚举拼写、源码／计划版本或退出码策略。测试固定相关语义字段，不快照易变的适配器／耗时。当前数据已在本地验证；软件包消费、设备丢失／OOM 分类、过期结果调度、完整兼容性／发布策略及暂缓的远端平台 CI，仍属于后续 M4 验收。
+PR-012 不改变 JSON 字段、null／省略规则、枚举拼写、源码／计划版本或退出码策略。测试固定相关语义字段，不快照易变的适配器／耗时。当前数据已在本地验证；软件包消费、过期结果调度、完整兼容性／发布策略及暂缓的远端平台 CI，仍属于后续 M4 验收。
+
+PR-013 扩展诊断词汇，加入 `MIX_GPU_DEVICE_LOST` 与 `MIX_GPU_OUT_OF_MEMORY`；报告外层结构和退出码不变。失败诊断可携带适配器、已送达的丢失通知及分配释放证据，同时保留首个错误及其阶段。严格解码器兼容性与分类限制见 [GPU 失败契约](./gpu-failures.zh-CN.md)。

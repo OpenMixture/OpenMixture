@@ -105,3 +105,17 @@ The parent of the output directory must exist, and the output directory itself m
 This is a focused consumer example, not a new general-purpose CLI contract. Success writes a JSON report and exits `0`; operational or validation failures return `1` with original Mixture diagnostic context/source chains where applicable; usage failures return `2` on stderr. `RenderFailure` retains the selected context alongside the original GPU operation error. There is no fallback or device recovery. Native `Renderer::render` can block its calling thread during polling; an application needing responsiveness should manage its own worker. Stale-result scheduling is reserved for PR-014.
 
 See the [public native API guide](../../docs/native-sdk.md) for ownership, dependency exposure and acceptance limits.
+
+## Device-loss contract (PR-013)
+
+The independent `tests/device_loss.rs` uses public Rust APIs and owned input. It destroys cold/warm devices, verifies two repeated failures per case without allocations, preserves owned diagnostics after renderer drop, and consumes correct pixels from a separate live context. CPU checks only compile this ignored test. Explicit smoke runs it and validates its fresh `deviceLossEvidence` receipt. A standalone run requires an absolute, not-yet-existing evidence filename whose parent exists:
+
+```bash
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+MIXTURE_CONSUMER_DEVICE_LOSS_EVIDENCE="$PWD/tmp/device-loss-$(date +%s).json" \
+cargo test --locked --manifest-path examples/native-consumer/Cargo.toml \
+  --test device_loss device_loss_contract -- --ignored --exact --nocapture
+```
+
+Use the pinned Vulkan policy and loader from the GPU commands above to run the same test on SwiftShader. Receipts start incomplete and become complete only after all assertions pass. This tests device destruction, not physical OOM. See [failure semantics](../../docs/gpu-failures.md).

@@ -531,3 +531,88 @@ fn graph_gpu_device_limits_fail_before_allocating_and_context_remains_usable() {
     request.size = [1, 1];
     pollster::block_on(renderer.render(&plan(&bytes, &request).unwrap())).unwrap();
 }
+
+fn device_loss_contract(warm_cache: bool) {
+    let plan = plan(
+        include_bytes!("../../../examples/blend.mix"),
+        &CompileRequest {
+            size: [33, 3],
+            outputs: vec![OutputChannel::BaseColor, OutputChannel::Roughness],
+            ..Default::default()
+        },
+    )
+    .unwrap();
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let mut renderer = Renderer::new(context);
+    if warm_cache {
+        pollster::block_on(renderer.render(&plan)).unwrap();
+    }
+    assert_eq!(
+        renderer.cached_pipeline_count(),
+        if warm_cache { 4 } else { 0 }
+    );
+    let acquisition = serde_json::to_value(renderer.context().report()).unwrap();
+    renderer.context().device().destroy();
+    let error = pollster::block_on(renderer.render(&plan)).unwrap_err();
+    eprintln!(
+        "destroyed device, warmCache={warm_cache}: {}",
+        serde_json::to_string(error.diagnostic()).unwrap()
+    );
+    assert_eq!(error.diagnostic().code.as_str(), "MIX_GPU_DEVICE_LOST");
+    assert_eq!(error.diagnostic().stage, mixture_core::Stage::GpuExecution);
+    assert_eq!(error.reason(), mixture_wgpu::GpuFailureReason::DeviceLost);
+    let loss = error.device_loss().unwrap().clone();
+    assert_eq!(loss.reason, mixture_wgpu::DeviceLossReason::Destroyed);
+    assert_eq!(renderer.context().device_loss(), Some(&loss));
+    assert_eq!(renderer.cached_pipeline_count(), 0);
+    assert_eq!(
+        error.allocations(),
+        Some(&mixture_wgpu::AllocationReport::default())
+    );
+    assert_eq!(
+        serde_json::to_value(error.adapter().unwrap()).unwrap(),
+        acquisition["adapter"]
+    );
+    assert_eq!(
+        serde_json::to_value(renderer.context().report()).unwrap(),
+        acquisition
+    );
+    assert_eq!(
+        error.diagnostic().evidence["planHash"],
+        mixture_core::EvidenceValue::Text(plan.hash().to_string())
+    );
+    for _ in 0..2 {
+        let repeated = pollster::block_on(renderer.render(&plan)).unwrap_err();
+        assert_eq!(repeated.device_loss(), Some(&loss));
+        assert_eq!(
+            repeated.allocations(),
+            Some(&mixture_wgpu::AllocationReport::default())
+        );
+        assert_eq!(
+            serde_json::to_value(repeated.diagnostic()).unwrap(),
+            serde_json::to_value(error.diagnostic()).unwrap()
+        );
+        assert_eq!(renderer.cached_pipeline_count(), 0);
+    }
+    let mut independent = pollster::block_on(GpuContext::request(options())).unwrap();
+    assert_eq!(
+        pollster::block_on(independent.probe_checker()).verdict(),
+        mixture_wgpu::DoctorVerdict::Healthy
+    );
+    assert!(independent.device_loss().is_none());
+    drop(renderer);
+    assert_eq!(error.device_loss(), Some(&loss));
+    assert!(std::error::Error::source(error.diagnostic()).is_some());
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+fn graph_gpu_device_loss_with_cold_cache_is_typed() {
+    device_loss_contract(false);
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+fn graph_gpu_device_loss_with_warm_cache_is_typed() {
+    device_loss_contract(true);
+}

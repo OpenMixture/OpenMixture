@@ -2,7 +2,7 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
-**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 and PR-012 are locally implemented and verified; PR-013 through PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
+**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-013 are locally implemented and verified; PR-014 and PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.
 
@@ -45,7 +45,7 @@ Run `cargo xtask test-consumer`, `cargo xtask test-plan`, `cargo xtask check`, t
 
 ## PR-012 — `fix(cli): preserve diagnostic context and verify consumer reports`
 
-**Completed locally, 2026-09-08:** the PR-012 commit containing this record follows `244b384` on `codex/pr-012-cli-contract`. A shared CLI formatter preserves document/stage/node/port/parameter context, including the missing displacement and render-override defects. The [CLI contract](./docs/cli-contract.md), independent CPU/GPU process tests, and [recorded evidence](./docs/evidence/pr-012/README.md) verify existing envelopes, exit codes, completed PNGs and partial writes. JSON shapes and versions are unchanged; `validate` retains its unversioned diagnostic envelope. No GPU/core semantics or product dependencies changed.
+**Completed locally, 2026-09-08:** commit `8ce6c0a` follows `244b384` on `codex/pr-012-cli-contract`. A shared CLI formatter preserves document/stage/node/port/parameter context, including the missing displacement and render-override defects. The [CLI contract](./docs/cli-contract.md), independent CPU/GPU process tests, and [recorded evidence](./docs/evidence/pr-012/README.md) verify existing envelopes, exit codes, completed PNGs and partial writes. JSON shapes and versions are unchanged; `validate` retains its unversioned diagnostic envelope. No GPU/core semantics or product dependencies changed.
 
 ### Outcome and evidence
 
@@ -67,9 +67,11 @@ Add CLI integration/contract assertions covering the same invalid warp fixture t
 
 ## PR-013 — `fix(gpu): classify device loss and out-of-memory failures`
 
+**Completed locally, 2026-09-09:** the PR-013 commit containing this record follows `8ce6c0a` on `codex/pr-013-gpu-failures`. [GPU failure contracts](./docs/gpu-failures.md) define context-owned loss records, typed OOM/loss codes, first-error precedence and cleanup evidence. Real destruction tests cover cold/warm caches and independent contexts; synthetic typed errors cover OOM without exhausting memory. The reproduced destroyed-buffer unmap panic is fixed with scoped cleanup. See [checks and evidence](./docs/evidence/pr-013/README.md). No shader, dependency, format, fallback or recovery change is included.
+
 ### Outcome and evidence
 
-Library and JSON consumers can branch on device loss and out-of-memory without parsing driver strings. Currently error scopes capture OOM but map it only by operation stage; the context has no runtime device-loss record. Existing destroyed-device tests prove failure, not a stable reason/lifecycle contract.
+Library and JSON consumers can branch on device loss and out-of-memory without parsing driver strings. Before PR-013, error scopes captured OOM but mapped it only by operation stage, and the context had no runtime device-loss record. The earlier destroyed-device tests proved failure without a stable reason/lifecycle contract.
 
 ### Scope
 

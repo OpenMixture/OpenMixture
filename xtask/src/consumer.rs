@@ -129,14 +129,99 @@ pub(super) fn gpu(
         &directory,
         Some((backend, software, expected_adapter)),
     )?;
+    let loss_evidence =
+        device_loss_contract(root, &directory, backend, software, expected_adapter)?;
     fs::write(
         directory.join("status.json"),
-        serde_json::to_vec_pretty(&json!({"ok":true,"completed":true,"cliEvidence":cli_evidence}))?,
+        serde_json::to_vec_pretty(
+            &json!({"ok":true,"completed":true,"cliEvidence":cli_evidence,"deviceLossEvidence":loss_evidence}),
+        )?,
     )?;
     println!(
         "Independent Rust and CLI consumer GPU checks passed; evidence: {}",
         directory.display()
     );
+    Ok(())
+}
+
+fn device_loss_contract(
+    root: &Path,
+    directory: &Path,
+    backend: &str,
+    software: bool,
+    expected_adapter: Option<&str>,
+) -> TaskResult<String> {
+    let name = format!(
+        "device-loss-{}-{}.json",
+        std::process::id(),
+        SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos()
+    );
+    let mut command = compile_command(root, "test");
+    command
+        .args([
+            "--test",
+            "device_loss",
+            "device_loss_contract",
+            "--",
+            "--ignored",
+            "--exact",
+            "--nocapture",
+        ])
+        .env(
+            "MIXTURE_CONSUMER_DEVICE_LOSS_EVIDENCE",
+            directory.join(&name),
+        )
+        .env("MIXTURE_GPU_BACKEND", backend)
+        .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" });
+    if let Some(expected) = expected_adapter {
+        command.env("MIXTURE_GPU_EXPECT_ADAPTER", expected);
+    } else {
+        command.env_remove("MIXTURE_GPU_EXPECT_ADAPTER");
+    }
+    captured(&mut command, directory, "device-loss-tests")?;
+    let report: Value = serde_json::from_slice(&fs::read(directory.join(&name))?)?;
+    validate_device_loss(&report)?;
+    gpu_smoke::validate_adapter(&report["context"], backend, software, expected_adapter)?;
+    Ok(name)
+}
+
+fn validate_device_loss(report: &Value) -> TaskResult {
+    let cases = report["cases"]
+        .as_array()
+        .ok_or("device-loss consumer omitted its cases")?;
+    if report["schemaVersion"] != 1
+        || report["ok"] != true
+        || report["completed"] != true
+        || report["gpuExecuted"] != true
+        || cases.len() != 2
+        || cases.iter().enumerate().any(|(index, case)| {
+            case["warmCache"] != (index == 1)
+                || case["cacheBeforeLoss"]
+                    .as_u64()
+                    .is_none_or(|count| (count > 0) != (index == 1))
+                || case["cacheAfterLoss"] != 0
+                || case["repeatedFailures"] != 2
+                || case["reason"] != "deviceLost"
+                || case["diagnostic"]["code"] != "MIX_GPU_DEVICE_LOST"
+                || case["diagnostic"]["stage"] != "gpuExecution"
+                || case["deviceLoss"]["reason"] != "destroyed"
+                || case["allocations"]["cumulativeBytes"] != 0
+                || case["allocations"]["liveBytes"] != 0
+                || case["allocations"]["releasedBytes"] != 0
+                || case["independentExecution"]["passCount"]
+                    .as_u64()
+                    .is_none_or(|count| count == 0)
+                || case["independentExecution"]["planHash"].as_str().is_none()
+                || case["independentExecution"]["planHash"]
+                    != case["diagnostic"]["evidence"]["planHash"]
+                || case["independentExecution"]["allocations"]["liveBytes"] != 0
+        })
+    {
+        return Err(
+            "device-loss consumer did not verify cold/warm loss, cleanup and independent execution"
+                .into(),
+        );
+    }
     Ok(())
 }
 
@@ -322,6 +407,46 @@ fn validate_gpu(report: &Value) -> TaskResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn device_loss_receipt_rejects_skipped_or_incomplete_lifecycle_checks() {
+        let case = |warm: bool| {
+            json!({
+                "warmCache":warm,"cacheBeforeLoss":u64::from(warm),"cacheAfterLoss":0,
+                "repeatedFailures":2,"reason":"deviceLost","deviceLoss":{"reason":"destroyed"},
+                "diagnostic":{"code":"MIX_GPU_DEVICE_LOST","stage":"gpuExecution","evidence":{"planHash":"test-plan"}},
+                "allocations":{"cumulativeBytes":0,"releasedBytes":0,"liveBytes":0},
+                "independentExecution":{"planHash":"test-plan","passCount":1,"allocations":{"liveBytes":0}},
+            })
+        };
+        let good = json!({"schemaVersion":1,"ok":true,"completed":true,"gpuExecuted":true,"cases":[case(false),case(true)]});
+        assert!(validate_device_loss(&good).is_ok());
+        for (field, value) in [
+            ("ok", json!(false)),
+            ("completed", json!(false)),
+            ("gpuExecuted", json!(false)),
+            ("cases", json!([])),
+        ] {
+            let mut bad = good.clone();
+            bad[field] = value;
+            assert!(validate_device_loss(&bad).is_err(), "accepted {field}");
+        }
+        for pointer in [
+            "/cases/0/repeatedFailures",
+            "/cases/1/warmCache",
+            "/cases/1/cacheBeforeLoss",
+            "/cases/1/reason",
+            "/cases/1/diagnostic/code",
+            "/cases/1/deviceLoss/reason",
+            "/cases/1/allocations/liveBytes",
+            "/cases/1/independentExecution/planHash",
+            "/cases/1/independentExecution/passCount",
+        ] {
+            let mut bad = good.clone();
+            *bad.pointer_mut(pointer).unwrap() = Value::Null;
+            assert!(validate_device_loss(&bad).is_err(), "accepted {pointer}");
+        }
+    }
 
     #[test]
     fn cli_contract_receipt_rejects_skipped_tests_partial_cases_and_wrong_exits() {

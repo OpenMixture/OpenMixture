@@ -1,0 +1,6 @@
+{
+  "pairedDocuments": 56,
+  "missingPairs": [],
+  "executableBlockMismatches": [],
+  "method": "Compare fenced executable/configuration blocks after removing full-line translated comments; narrative and tree diagrams reviewed separately."
+}

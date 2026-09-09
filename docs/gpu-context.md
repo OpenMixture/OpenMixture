@@ -105,3 +105,5 @@ PR-007 shares checker execution with the graph renderer and adds all-node/graph 
 PR-011 documents raw `GpuContext` getter and dependency-type compatibility in the [native API guide](./native-sdk.md). `gpu-smoke` now also builds an independent application and verifies two renders with returned pixels consumed after renderer/context drop. Its adapter policy is passed as explicit arguments; CPU-only `test-consumer` remains part of `check`.
 
 PR-012 extends that explicit smoke with independent built-CLI tests for healthy/skipped doctor, PNG completion and partial writes. The [CLI contract](./cli-contract.md) distinguishes the acquired render context snapshot from doctor health and documents JSON field presence.
+
+PR-013 records the first delivered loss in the owning context. `GpuContext::device_loss()` reads that record without polling; the acquisition report remains a historical snapshot. Replacing the raw device loss callback disables this tracking. [GPU failure handling](./gpu-failures.md) defines fail-fast reuse checks, typed OOM classification and cleanup evidence.

@@ -256,6 +256,60 @@ mod tests {
 
     #[test]
     #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn readback_gpu_device_loss_releases_staging_and_keeps_the_mapping_failure() {
+        let context =
+            pollster::block_on(crate::GpuContext::request(crate::test_support::options())).unwrap();
+        let layout = ReadbackLayout::new(33, 3).unwrap();
+        let buffer = context.device().create_buffer(&wgpu::BufferDescriptor {
+            label: Some("staging before device destruction"),
+            size: layout.buffer_bytes,
+            usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
+            mapped_at_creation: false,
+        });
+        let mut allocations = Allocations::default();
+        allocations.staging(buffer.size()).unwrap();
+        let staging = Staging {
+            buffer,
+            allocations: &mut allocations,
+        };
+        context.device().destroy();
+        let error = pollster::block_on(read_pixels(
+            context.device(),
+            &staging.buffer,
+            layout,
+            PortKind::Scalar,
+        ))
+        .unwrap_err();
+        let original = error.diagnostic().clone();
+        drop(staging);
+        // Some backends fail mapping before its polling step. Deliver the native
+        // callback explicitly and prove it cannot replace the first failure.
+        context.device().poll(wgpu::PollType::Poll).unwrap();
+        let error = error
+            .with_allocations(allocations.report())
+            .in_context(&context);
+        assert_eq!(error.diagnostic().code, original.code);
+        assert_eq!(error.diagnostic().stage, Stage::Readback);
+        assert_eq!(error.diagnostic().message, original.message);
+        assert!(std::error::Error::source(error.diagnostic()).is_some());
+        assert_eq!(
+            error.device_loss().unwrap().reason,
+            crate::DeviceLossReason::Destroyed
+        );
+        assert_eq!(error.allocations().unwrap().staging_count, 1);
+        assert_eq!(error.allocations().unwrap().live_bytes, 0);
+        assert_eq!(
+            error.allocations().unwrap().released_bytes,
+            layout.buffer_bytes
+        );
+        eprintln!(
+            "device-loss mapping cleanup: {}",
+            serde_json::to_string(error.diagnostic()).unwrap()
+        );
+    }
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
     fn readback_gpu_copy_failure_releases_staging_allocation_and_preserves_first_error() {
         let context =
             pollster::block_on(crate::GpuContext::request(crate::test_support::options())).unwrap();

@@ -1,0 +1,35 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/mixture_wgpu-aa96692948488a98)
+
+running 5 tests
+device-loss mapping cleanup: {"code":"MIX_READBACK_FAILED","stage":"readback","severity":"error","message":"Readback mapping failed.","evidence":{"adapterName":"Apple M5","allocationCumulativeBytes":1536,"allocationLiveBytes":0,"allocationPeakBytes":1536,"allocationReleasedBytes":1536,"allocationStagingCount":1,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Metal","cleanupCode":"MIX_READBACK_FAILED","cleanupDriverMessage":"Validation Error\n\nCaused by:\n  In Buffer::buffer_unmap\n    Buffer with 'staging before device destruction' label has been destroyed\n","cleanupMessage":"Could not unmap the texture readback buffer.","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","driverMessage":"Error occurred when trying to async map a buffer"},"suggestion":"Inspect the readback layout and driver evidence; rerun doctor on the same adapter."}
+test resources::tests::readback_gpu_device_loss_releases_staging_and_keeps_the_mapping_failure ... ok
+test resources::tests::readback_gpu_copy_failure_releases_staging_allocation_and_preserves_first_error ... ok
+readback failure cleanup: {"code":"MIX_READBACK_FAILED","stage":"readback","severity":"error","message":"Output resource is missing.","evidence":{"adapterName":"Apple M5","allocationCumulativeBytes":2344,"allocationLiveBytes":0,"allocationPeakBytes":2344,"allocationReleasedBytes":2344,"allocationStagingCount":1,"allocationTextureCount":1,"allocationUniformCount":1,"backend":"Metal"},"suggestion":"Inspect the readback layout and driver evidence; rerun doctor on the same adapter."}
+test readback::gpu_tests::readback_gpu_mapping_failure_is_typed_and_does_not_poison_context ... ok
+test executor::allocation_tests::graph_gpu_failure_after_readback_releases_resources_without_returning_partial_pixels ... ok
+test executor::allocation_tests::graph_gpu_allocation_accounting_matches_plan_and_releases_aliased_readbacks ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.20s
+
+     Running tests/checker.rs (target/debug/deps/checker-d0939dd4050360cd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/context.rs (target/debug/deps/context-1f2c47fd7285497a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests/nodes.rs (target/debug/deps/nodes-3ac114c658e85271)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s
+

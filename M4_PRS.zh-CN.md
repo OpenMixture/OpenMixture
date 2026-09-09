@@ -2,7 +2,7 @@
 
 [English](./M4_PRS.md) | 简体中文
 
-**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011、PR-012 已本地实现并验证；PR-013 至 PR-015 仍待实施。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
+**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011 至 PR-013 已本地实现并验证；PR-014、PR-015 仍待实施。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
 
 消费者需要现有的解码 → 验证 → 编译 → wgpu → 自有输出路径。Release 测量支持防抖预览，未显示值得引入原生绑定或守护进程的启动瓶颈。2K 描述符峰值无需池化即可满足当前预算。以下工作稳定可观察行为，并独立验证消费路径。
 
@@ -45,7 +45,7 @@ PR-011 Public Rust API + independent consumer
 
 ## PR-012 — `fix(cli): preserve diagnostic context and verify consumer reports`
 
-**本地完成，2026-09-08：** 包含本记录的 PR-012 提交位于 `codex/pr-012-cli-contract`，父提交为 `244b384`。共享 CLI 格式化函数保留文档／阶段／节点／端口／参数上下文，修复缺失位移端口及渲染覆盖参数遗漏。[CLI 契约](./docs/cli-contract.zh-CN.md)、独立 CPU／GPU 进程测试及[已记录证据](./docs/evidence/pr-012/README.zh-CN.md)验证现有报告结构、退出码、完成的 PNG 及部分写入。JSON 结构和版本不变；`validate` 保留无版本字段的诊断结构。GPU／核心语义及产品依赖没有改变。
+**本地完成，2026-09-08：** 提交 `8ce6c0a` 位于 `codex/pr-012-cli-contract`，父提交为 `244b384`。共享 CLI 格式化函数保留文档／阶段／节点／端口／参数上下文，修复缺失位移端口及渲染覆盖参数遗漏。[CLI 契约](./docs/cli-contract.zh-CN.md)、独立 CPU／GPU 进程测试及[已记录证据](./docs/evidence/pr-012/README.zh-CN.md)验证现有报告结构、退出码、完成的 PNG 及部分写入。JSON 结构和版本不变；`validate` 保留无版本字段的诊断结构。GPU／核心语义及产品依赖没有改变。
 
 ### 结果与依据
 
@@ -67,9 +67,11 @@ PR-011 Public Rust API + independent consumer
 
 ## PR-013 — `fix(gpu): classify device loss and out-of-memory failures`
 
+**本地完成，2026-09-09：** 包含本记录的 PR-013 提交位于 `codex/pr-013-gpu-failures`，父提交为 `8ce6c0a`。[GPU 失败契约](./docs/gpu-failures.zh-CN.md)定义上下文自有丢失记录、类型化 OOM／丢失码、首个错误优先规则及清理证据。真实销毁测试覆盖冷／热缓存和独立上下文；合成类型化错误验证 OOM，不耗尽内存。已复现的销毁缓冲区 unmap panic 通过受保护清理修复。见[检查与证据](./docs/evidence/pr-013/README.zh-CN.md)。不包含 shader、依赖、格式、回退或恢复改动。
+
 ### 结果与依据
 
-库和 JSON 消费者无需解析驱动字符串，即可根据设备丢失和内存不足分支处理。当前错误作用域捕获 OOM，但仅按操作阶段映射；上下文没有运行时设备丢失记录。现有销毁设备测试证明会失败，未证明稳定原因／生命周期契约。
+库和 JSON 消费者无需解析驱动字符串，即可根据设备丢失和内存不足分支处理。PR-013 之前，错误作用域捕获 OOM，但仅按操作阶段映射；上下文没有运行时设备丢失记录。先前的销毁设备测试证明会失败，未证明稳定原因／生命周期契约。
 
 ### 范围
 

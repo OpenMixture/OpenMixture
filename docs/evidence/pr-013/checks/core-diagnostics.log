@@ -1,0 +1,16 @@
+   Compiling mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.80s
+     Running tests/diagnostics.rs (target/debug/deps/diagnostics-d2ba52375f9d1da3)
+
+running 8 tests
+test diagnostics_preserve_real_source_chains_without_leaking_them_into_json ... ok
+test diagnostics_report_success_is_derived_from_severity ... ok
+test diagnostics_invalid_wire_values_are_rejected ... ok
+test diagnostics_evidence_preserves_integer_precision_and_key_order ... ok
+test diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary ... ok
+test diagnostics_report_matches_reviewed_json_snapshot ... ok
+test diagnostics_context_round_trips_and_optional_fields_are_omitted ... ok
+test diagnostics_order_is_independent_of_input_order_including_ties ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

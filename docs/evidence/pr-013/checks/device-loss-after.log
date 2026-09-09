@@ -1,0 +1,12 @@
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running tests/nodes.rs (target/debug/deps/nodes-3ac114c658e85271)
+
+running 2 tests
+destroyed device, warmCache=false: {"code":"MIX_GPU_DEVICE_LOST","stage":"gpuExecution","severity":"error","message":"The GPU context received a device-loss notification.","evidence":{"adapterName":"Apple M5","allocationCumulativeBytes":0,"allocationLiveBytes":0,"allocationPeakBytes":0,"allocationReleasedBytes":0,"allocationStagingCount":0,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Metal","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","failureReason":"deviceLost","planHash":"sha256:c30ffceec901912f94a5fe14534ec5ad0762afd74e75465b2e43ae2c3f4ca60d"},"suggestion":"Stop using this context. The application may explicitly acquire a new context; Mixture does not retry or recover automatically."}
+test graph_gpu_device_loss_with_cold_cache_is_typed ... ok
+destroyed device, warmCache=true: {"code":"MIX_GPU_DEVICE_LOST","stage":"gpuExecution","severity":"error","message":"The GPU context received a device-loss notification.","evidence":{"adapterName":"Apple M5","allocationCumulativeBytes":0,"allocationLiveBytes":0,"allocationPeakBytes":0,"allocationReleasedBytes":0,"allocationStagingCount":0,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Metal","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","failureReason":"deviceLost","planHash":"sha256:c30ffceec901912f94a5fe14534ec5ad0762afd74e75465b2e43ae2c3f4ca60d"},"suggestion":"Stop using this context. The application may explicitly acquire a new context; Mixture does not retry or recover automatically."}
+test graph_gpu_device_loss_with_warm_cache_is_typed ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.34s
+

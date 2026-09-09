@@ -4,7 +4,7 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012 adds the [CLI report/exit contract](./cli-contract.md), complete human diagnostic context and independent CLI process tests. PR-013–015 and `package-check` remain planned. Remote CI remains deferred.
+This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012 adds the [CLI report/exit contract](./cli-contract.md), complete human diagnostic context and independent CLI process tests. PR-013 adds [GPU failure reasons, loss lifetime and cleanup](./gpu-failures.md). PR-014–015 and `package-check` remain planned. Remote CI remains deferred.
 It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [eleven node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
@@ -63,7 +63,7 @@ Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when
 
 ## Dependency policy
 
-At PR-012 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
+At PR-013 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -121,3 +121,5 @@ PR-006 adds [the compiler](../crates/mixture-core/src/compiler.rs), [normalizati
 PR-009 adds no dependency or lockfile change. Run `test-node fractal-noise`, `test-node gradient-map`, `test-node height-to-normal` and `test-material leather` through `cargo xtask`; [leather review](../fixtures/materials/leather/review/README.md) is an optional external Blender consumer, not a Rust runtime dependency.
 
 PR-010 also adds no dependency or lockfile change. Run `test-node transform-2d`, `test-node warp`, `test-material wood`, `golden check`, and `trace-2k` through `cargo xtask`. The public Renderer doctest compiles access to `AllocationReport`; focused GPU tests verify odd-width aliased readbacks, per-call counter reset, and release after a readback error.
+
+PR-013 adds CPU classification and consumer-receipt guard tests. `test-consumer` compiles the independent `device_loss` test but leaves it ignored; explicit `gpu-smoke` executes its cold/warm destruction cases and verifies the fresh receipt referenced by `native-consumer/status.json` → `deviceLossEvidence`. [GPU failure reproduction](./gpu-failures.md) and [local evidence](./evidence/pr-013/README.md) distinguish typed synthetic OOM from real device destruction.

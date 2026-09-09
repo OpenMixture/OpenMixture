@@ -110,6 +110,12 @@ pub enum DiagnosticCode {
     /// Reading source bytes failed at the caller I/O boundary.
     #[serde(rename = "MIX_IO_READ_FAILED")]
     IoReadFailed,
+    /// The explicit GPU context has received a device-loss notification.
+    #[serde(rename = "MIX_GPU_DEVICE_LOST")]
+    GpuDeviceLost,
+    /// A typed GPU allocation error reported out-of-memory.
+    #[serde(rename = "MIX_GPU_OUT_OF_MEMORY")]
+    GpuOutOfMemory,
 }
 
 impl DiagnosticCode {
@@ -150,6 +156,8 @@ impl DiagnosticCode {
             Self::ParameterUnknown => "MIX_PARAMETER_UNKNOWN",
             Self::ExposedParameterInvalid => "MIX_EXPOSED_PARAMETER_INVALID",
             Self::IoReadFailed => "MIX_IO_READ_FAILED",
+            Self::GpuDeviceLost => "MIX_GPU_DEVICE_LOST",
+            Self::GpuOutOfMemory => "MIX_GPU_OUT_OF_MEMORY",
         }
     }
 }

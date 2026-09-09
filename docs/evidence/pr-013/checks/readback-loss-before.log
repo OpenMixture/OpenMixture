@@ -1,0 +1,25 @@
+   Compiling mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.20s
+     Running unittests src/lib.rs (target/debug/deps/mixture_wgpu-aa96692948488a98)
+
+running 1 test
+
+thread 'resources::tests::readback_gpu_device_loss_releases_staging_and_keeps_the_mapping_failure' (1352941) panicked at /Users/krapnik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-30.0.1/src/backend/wgpu_core.rs:2283:22:
+wgpu error: Validation Error
+
+Caused by:
+  In Buffer::buffer_unmap
+    Buffer with 'staging before device destruction' label has been destroyed
+
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test resources::tests::readback_gpu_device_loss_releases_staging_and_keeps_the_mapping_failure ... FAILED
+
+failures:
+
+failures:
+    resources::tests::readback_gpu_device_loss_releases_staging_and_keeps_the_mapping_failure
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.27s
+
+error: test failed, to rerun pass `-p mixture-wgpu --lib`
