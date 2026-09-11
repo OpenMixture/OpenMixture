@@ -353,7 +353,7 @@ fn check(root: &Path, id: &str) -> TaskResult {
     let report = json!({"schemaVersion":1,"material":id,"size":acceptance.size,"policy":policy,"softwareSource":driver,
         "adapter":doctor["adapter"],"requested":doctor["requested"],"ok":ok,"machineChecksPassed":machine_passed,"goldenComparisonsPassed":comparisons_passed,
         "baselinePresent":baseline.is_some(),"humanReview":"not decided by this command; see fixture reports/human-review.json",
-        "cases":cases,"contactSheets":acceptance.cases.iter().map(|c|format!("contact-{}.png",c.id)).chain(["overview.png".into(),"tiling.png".into()]).collect::<Vec<_>>(),"remoteCi":"deferred; this is local evidence only"});
+        "cases":cases,"contactSheets":acceptance.cases.iter().map(|c|format!("contact-{}.png",c.id)).chain(["overview.png".into(),"tiling.png".into()]).collect::<Vec<_>>(),"remoteCi":"not inferred by this report; verify the CI run and revision separately"});
     files::write_json(&review.join("report.json"), &report)?;
     let candidate = Candidate {
         schema_version: 1,

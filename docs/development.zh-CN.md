@@ -4,7 +4,7 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 已本地验收；远端 CI 继续暂缓。
+仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 已本地验收；[远端 CI 验证](./evidence/remote-ci/README.zh-CN.md)已启动，三平台 CPU 通过，GPU 测试调度正在修复。
 它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
@@ -91,6 +91,10 @@ PR-015 产品／工具工作区唯一允许的直接依赖关系如下，包括�
 `test-consumer` 将独立构建／测试／CPU 报告及每次先失效再标记完成的状态保存到 `tmp/consumer-check/`。它编译完整 GPU 调用路径及原生 `Send` 约束，但不初始化 wgpu。它还构建真实 CLI，并使用消费者自有文件显式运行 32 次 CPU 契约调用。完成状态的 `cliEvidence` 指向本次新 CLI 捕获目录；消费者普通 Cargo 测试保持 CLI 契约测试为忽略状态，直到这次显式调用。见[消费者指南](../examples/native-consumer/README.zh-CN.md)。
 
 `gpu-smoke` 显式访问 GPU 硬件或配置的软件适配器，将报告保存到 `tmp/gpu-smoke/`，其中 `native-consumer/` 保存独立消费者证据。Rust 消费者渲染两次，销毁 renderer／context 后验证自有字节及元数据。PR-012 还执行 10 次独立 CLI 调用，覆盖 doctor、成功 PNG 及部分写入；原始输出流和实际文件保留在所链接的 CLI 证据目录。它不属于 `check` 和普通工作区测试。适配器策略变量、固定 SwiftShader 准备方式和本地证据见 [GPU 指南](./gpu-context.zh-CN.md)。
+
+GPU smoke 使用 `--test-threads=1` 串行运行独立 Rust GPU 测试。此前 Linux SwiftShader 的并发测试进程曾因 SIGSEGV 退出，因此将节点渲染与无关的主动设备销毁测试分开执行。全部测试仍会运行，包括单个测试内部的独立上下文检查。此测试调度策略不认证任意并发设备销毁，也不代表已确定驱动崩溃的原因。
+
+Linux GPU 工作流以精确键缓存固定 SwiftShader 源码及构建，键覆盖操作系统、架构、编译器／CMake／Ninja／libc 版本及工作流／包含源码固定版本的准备脚本。命中缓存后仍验证源码版本、配置／构建并选择显式 ICD；smoke、包、材质和 2K 检查始终执行。驱动构建成功后即保存缓存，避免测试失败导致再次耗费 16–29 分钟重编驱动。不使用部分键缓存回退。
 
 ## 2K 资源证据
 

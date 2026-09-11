@@ -155,6 +155,8 @@ pub(super) fn run(root: &Path) -> TaskResult {
             }
         }
     }
+    // Keep unrelated node workloads and deliberate device destruction separate.
+    // Individual tests still exercise their explicit independent contexts.
     let tests = cargo(root)
         .args([
             "test",
@@ -167,6 +169,7 @@ pub(super) fn run(root: &Path) -> TaskResult {
             "--",
             "--ignored",
             "--nocapture",
+            "--test-threads=1",
         ])
         .env("MIXTURE_NODE_EVIDENCE_DIR", directory.join("nodes"))
         .output()?;

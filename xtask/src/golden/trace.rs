@@ -237,7 +237,7 @@ fn trace(
             "allocationScope":"Successful texture/uniform/staging descriptors; driver/pipeline overhead and CPU PNG/RGBA buffers are excluded.",
             "lifetimeDecision":"Measured naive peak fits the documented budget. No last-consumer release, pooling or compatible texture reuse is justified by this workload.",
             "limits":"This fixed workload measurement is not a 2K golden or proof about every possible graph; GPU timings are CPU wall measurements around the recorded stages.",
-            "remoteCi":"deferred; this local trace does not close remote acceptance"
+            "remoteCi":"not inferred by this report; verify the CI run and revision separately"
         }),
     )?;
     Ok(())

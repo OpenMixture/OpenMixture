@@ -4,6 +4,8 @@ English | [简体中文](./release.zh-CN.md)
 
 **Local M4 acceptance, 2026-09-11; not release-ready.** PR-011–015 are implemented and locally verified. All product packages remain pre-alpha `0.1.0` with publication disabled. Remote platform CI remains deferred at the user's request, and no push, merge, tag, publication, installer or binary distribution is part of this train. [PR-015 evidence](./evidence/pr-015/README.md) records the final local checks and implementing revision.
 
+**Remote verification update, 2026-09-12:** The user authorized remote push and CI. [Current evidence](./evidence/remote-ci/README.md) supersedes the earlier deferral: three CPU platforms pass; the Linux GPU harness is under repair after a SIGSEGV. Publication remains disabled.
+
 ## M4 exit assessment
 
 | Exit criterion | Local evidence and result |
