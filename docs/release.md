@@ -2,9 +2,7 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**Local M4 acceptance, 2026-09-11; not release-ready.** PR-011–015 are implemented and locally verified. All product packages remain pre-alpha `0.1.0` with publication disabled. Remote platform CI remains deferred at the user's request, and no push, merge, tag, publication, installer or binary distribution is part of this train. [PR-015 evidence](./evidence/pr-015/README.md) records the final local checks and implementing revision.
-
-**Remote verification update, 2026-09-12:** The user authorized remote push and CI. [Current evidence](./evidence/remote-ci/README.md) supersedes the earlier deferral: three CPU platforms pass; the Linux GPU harness is under repair after a SIGSEGV. Publication remains disabled.
+**M4 accepted locally and remotely, 2026-09-12; packages remain unpublished.** PR-011–015 and the CI tooling fixes pass the documented acceptance matrix. The previously deferred clean-checkout CPU and Linux SwiftShader gates are now closed; see [remote CI evidence](./evidence/remote-ci/README.md). All product packages remain pre-alpha `0.1.0` with publication disabled. This work pushed the implementation and CI fixes; no merge, release tag, publication, installer or binary distribution is included. [PR-015 evidence](./evidence/pr-015/README.md) retains the earlier local assessment.
 
 ## M4 exit assessment
 
@@ -19,7 +17,7 @@ English | [简体中文](./release.zh-CN.md)
 
 The separate consumer can load `.mix`, validate, override exposed parameters, request channels, render, and consume outputs/metrics using public APIs resolved from the actual local package contents. No producer-private import or outer repository runtime asset is required. [Package resolution and limitations](./package-consumption.md) describe the local patch and separate verification lock precisely.
 
-This closes the **local** M4 implementation train and provides its exit assessment. It does not close M0/M1 clean-checkout/platform gates or authorize M5. Evaluate the open gates below and choose the next train explicitly before adding WebAssembly, editor work or more nodes.
+The local implementation and documented remote matrix complete M4 acceptance and close the deferred M0/M1 clean-checkout/platform gates. This does not authorize M5. Choose the next train explicitly; distribution still requires the release checklist below.
 
 ## Verified host/backend matrix and open gates
 
@@ -28,9 +26,9 @@ This closes the **local** M4 implementation train and provides its exit assessme
 | Current local macOS/aarch64, CPU | `package-check`, source consumer, repository checks, isolated package unit tests/Rustdoc and 32 packaged CLI CPU cases pass. This is an existing local working tree, not remote clean-checkout evidence. |
 | Same host, Apple M5 / Metal | Full GPU smoke, source and packaged public-Rust/CLI consumption, all three 1K materials and largest 2K trace pass. |
 | Same host, pinned SwiftShader Device (LLVM 10.0.0) / Vulkan / CPU adapter | The same GPU/package/material/trace gates pass; source pin `694585a05946e1ed49b6bd577ca6537cbb57f025` is recorded. This is not the Linux CI result. |
-| Remote Linux/macOS/Windows CPU matrix | **Open/deferred.** Workflow runs `cargo xtask check`, now including packages, and retains package evidence. No remote result is claimed. |
-| Remote Linux pinned SwiftShader GPU/material job | **Open/deferred.** Workflow includes packaged consumption and retains smoke/package/golden/trace evidence. No remote result is claimed. |
-| Other native hardware/drivers, including Windows/DX12 | **Not certified by this local run.** Exposed adapter options are not proof that every supported backend/device passed the acceptance matrix. |
+| Remote Linux/macOS/Windows CPU matrix | **Passed on `8b43c84`.** [Three-platform run](https://github.com/OpenMixture/OpenMixture/actions/runs/34622547271) executes `cargo xtask check`, including isolated packages, and retains evidence. |
+| Remote Linux pinned SwiftShader GPU/material job | **Passed on `8b43c84`.** [Linux run](https://github.com/OpenMixture/OpenMixture/actions/runs/34622547778) includes serial GPU tests, packaged consumption, all three 1K materials and the 2K trace. [Evidence and concurrency limits](./evidence/remote-ci/README.md) retain the earlier failed parallel run. |
+| Other native hardware/drivers, including Windows/DX12 | **Not certified by this matrix.** Exposed adapter options are not proof that every supported backend/device passed the acceptance matrix. |
 
 The current largest-case selection is wood/default at 2048×2048 with eight passes. The budget is the existing 512 MiB descriptor limit; reports distinguish estimated/recorded peak, cumulative bytes, release and zero reuse. This is a bounded correctness/resource trace, not a new latency benchmark or a physical VRAM measurement. [Trace semantics](./development.md#2k-resource-evidence) and the raw final evidence define its scope.
 
@@ -67,7 +65,7 @@ The macOS loader paths are local preparation paths, not portable installation in
 - [x] Preserve independently reviewable PR-011–015 local commits, matching bilingual docs and local evidence.
 - [x] Verify actual local package source/assets/licenses, exact peer versions, independent consumers and missing-asset rejection.
 - [x] Record source/lock/archive identity and the tested host/backend policies; retain accepted material pixels unchanged.
-- [ ] Obtain the deferred remote clean-checkout CPU and pinned-software GPU/material/trace results before claiming those platform gates.
+- [x] Obtain remote clean-checkout CPU and pinned-software GPU/material/trace results on the same revision; see [accepted CI evidence](./evidence/remote-ci/README.md).
 - [ ] Select the intended published version and support scope; review API/dependency/wire compatibility and any required migration using [the compatibility record](./compatibility.md).
 - [ ] Review final registry/package-lock/install metadata for the intended distribution. Current local archives omit locks and use a separate pinned verifier; `publish = false` stays until a separately authorized release change.
 - [ ] Review final release notes, actual package contents and source identity at the release revision. A local archive or successful CI run does not itself authorize publication, push/merge or a release tag.
@@ -76,4 +74,4 @@ The macOS loader paths are local preparation paths, not portable installation in
 
 PR-011 proved public Rust consumption and owned output, including explicit context and repeated rendering. PR-012 fixed omitted human port/parameter context and verified existing CLI reports/exits/files. PR-013 made typed GPU loss/OOM actionable and fixed an uncaptured destroyed-buffer unmap failure. PR-014 added consumer-only freshness and bounded retention without GPU cancellation. PR-015 now verifies package-local assets and isolated archive consumers, adds exact peer dependency metadata and ships README/license files, while retaining disabled publication and existing lockfiles.
 
-Document/node/plan versions, the eleven-node vocabulary, nine WGSL implementations and accepted material appearance remain unchanged by PR-011–015. Diagnostic vocabulary gained the two PR-013 codes, which strict older decoders must account for. No fallback executor, hidden GPU state, new product crate, runtime dependency, pooling optimizer, WebAssembly or editor was introduced. The next decision follows this M4 assessment and the still-open platform evidence.
+Document/node/plan versions, the eleven-node vocabulary, nine WGSL implementations and accepted material appearance remain unchanged by PR-011–015. Diagnostic vocabulary gained the two PR-013 codes, which strict older decoders must account for. No fallback executor, hidden GPU state, new product crate, runtime dependency, pooling optimizer, WebAssembly or editor was introduced. The next decision follows this M4 assessment, the completed remote matrix and the remaining compatibility/distribution checklist.

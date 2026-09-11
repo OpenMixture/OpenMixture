@@ -1,0 +1,122 @@
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	﻿2026-09-11T17:01:38.9533521Z ##[group]Run cargo xtask gpu-smoke
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9533852Z ^[[36;1mcargo xtask gpu-smoke^[[0m
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9569654Z shell: /usr/bin/bash -e {0}
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9569915Z env:
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9570111Z   CARGO_TERM_COLOR: always
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9570365Z   CC: clang-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9570561Z   CXX: clang++-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9570778Z   MIXTURE_GPU_BACKEND: vulkan
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9571019Z   MIXTURE_GPU_SOFTWARE: 1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9571258Z   MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9571789Z   VK_ICD_FILENAMES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9572559Z   VK_DRIVER_FILES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:38.9573061Z ##[endgroup]
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.0163828Z ^[[1m^[[92m    Updating^[[0m crates.io index
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3181368Z ^[[1m^[[92m Downloading^[[0m crates ...
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3525847Z ^[[1m^[[92m  Downloaded^[[0m cfg-if v1.0.4
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3544760Z ^[[1m^[[92m  Downloaded^[[0m cpufeatures v0.3.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3566815Z ^[[1m^[[92m  Downloaded^[[0m adler2 v2.0.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3590687Z ^[[1m^[[92m  Downloaded^[[0m block-buffer v0.12.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3604546Z ^[[1m^[[92m  Downloaded^[[0m crypto-common v0.2.2
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3624562Z ^[[1m^[[92m  Downloaded^[[0m flate2 v1.1.10
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3696003Z ^[[1m^[[92m  Downloaded^[[0m quote v1.0.47
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3724258Z ^[[1m^[[92m  Downloaded^[[0m digest v0.11.3
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3749134Z ^[[1m^[[92m  Downloaded^[[0m miniz_oxide v0.9.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3774687Z ^[[1m^[[92m  Downloaded^[[0m unicase v2.9.0
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3788796Z ^[[1m^[[92m  Downloaded^[[0m crc32fast v1.5.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3809901Z ^[[1m^[[92m  Downloaded^[[0m serde v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3844947Z ^[[1m^[[92m  Downloaded^[[0m serde_core v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3872635Z ^[[1m^[[92m  Downloaded^[[0m simd-adler32 v0.3.10
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3891385Z ^[[1m^[[92m  Downloaded^[[0m memchr v2.8.3
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3947093Z ^[[1m^[[92m  Downloaded^[[0m fdeflate v0.3.7
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.3963289Z ^[[1m^[[92m  Downloaded^[[0m serde_json v1.0.151
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4037160Z ^[[1m^[[92m  Downloaded^[[0m zmij v1.0.23
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4054563Z ^[[1m^[[92m  Downloaded^[[0m sha2 v0.11.0
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4092478Z ^[[1m^[[92m  Downloaded^[[0m bitflags v2.13.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4137832Z ^[[1m^[[92m  Downloaded^[[0m proc-macro2 v1.0.107
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4167823Z ^[[1m^[[92m  Downloaded^[[0m serde_derive v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4198692Z ^[[1m^[[92m  Downloaded^[[0m zlib-rs v0.6.7
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4253239Z ^[[1m^[[92m  Downloaded^[[0m hybrid-array v0.4.14
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4276113Z ^[[1m^[[92m  Downloaded^[[0m miniz_oxide v0.8.9
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4300852Z ^[[1m^[[92m  Downloaded^[[0m unicode-ident v1.0.24
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4328454Z ^[[1m^[[92m  Downloaded^[[0m itoa v1.0.18
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4342615Z ^[[1m^[[92m  Downloaded^[[0m pulldown-cmark v0.13.4
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4392394Z ^[[1m^[[92m  Downloaded^[[0m typenum v1.20.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4428316Z ^[[1m^[[92m  Downloaded^[[0m png v0.18.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4668309Z ^[[1m^[[92m  Downloaded^[[0m syn v3.0.5
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4944962Z ^[[1m^[[92m   Compiling^[[0m proc-macro2 v1.0.107
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4947289Z ^[[1m^[[92m   Compiling^[[0m unicode-ident v1.0.24
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4948008Z ^[[1m^[[92m   Compiling^[[0m quote v1.0.47
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.4948618Z ^[[1m^[[92m   Compiling^[[0m typenum v1.20.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.5577837Z ^[[1m^[[92m   Compiling^[[0m simd-adler32 v0.3.10
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.6578492Z ^[[1m^[[92m   Compiling^[[0m serde_core v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.7318072Z ^[[1m^[[92m   Compiling^[[0m cfg-if v1.0.4
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.7628123Z ^[[1m^[[92m   Compiling^[[0m adler2 v2.0.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.8412292Z ^[[1m^[[92m   Compiling^[[0m crc32fast v1.5.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:39.8613185Z ^[[1m^[[92m   Compiling^[[0m zmij v1.0.23
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.1448291Z ^[[1m^[[92m   Compiling^[[0m miniz_oxide v0.9.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.4407953Z ^[[1m^[[92m   Compiling^[[0m hybrid-array v0.4.14
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.5707836Z ^[[1m^[[92m   Compiling^[[0m syn v3.0.5
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.8567840Z ^[[1m^[[92m   Compiling^[[0m pulldown-cmark v0.13.4
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.9455472Z ^[[1m^[[92m   Compiling^[[0m serde v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:40.9618455Z ^[[1m^[[92m   Compiling^[[0m block-buffer v0.12.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:41.0588025Z ^[[1m^[[92m   Compiling^[[0m crypto-common v0.2.2
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:41.1168281Z ^[[1m^[[92m   Compiling^[[0m memchr v2.8.3
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:41.8788193Z ^[[1m^[[92m   Compiling^[[0m serde_json v1.0.151
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:41.9858783Z ^[[1m^[[92m   Compiling^[[0m bitflags v2.13.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.1483272Z ^[[1m^[[92m   Compiling^[[0m digest v0.11.3
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.2738682Z ^[[1m^[[92m   Compiling^[[0m flate2 v1.1.10
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.3658749Z ^[[1m^[[92m   Compiling^[[0m miniz_oxide v0.8.9
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.5937979Z ^[[1m^[[92m   Compiling^[[0m fdeflate v0.3.7
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.6628207Z ^[[1m^[[92m   Compiling^[[0m cpufeatures v0.3.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.6977926Z ^[[1m^[[92m   Compiling^[[0m itoa v1.0.18
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:42.8278285Z ^[[1m^[[92m   Compiling^[[0m unicase v2.9.0
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:43.0247820Z ^[[1m^[[92m   Compiling^[[0m png v0.18.1
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:43.1028125Z ^[[1m^[[92m   Compiling^[[0m serde_derive v1.0.229
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:44.2948271Z ^[[1m^[[92m   Compiling^[[0m sha2 v0.11.0
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:45.4609078Z ^[[1m^[[92m   Compiling^[[0m xtask v0.1.0 (/home/runner/work/OpenMixture/OpenMixture/xtask)
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:48.1612190Z ^[[1m^[[92m    Finished^[[0m `dev` profile [unoptimized + debuginfo] target(s) in 9.17s
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:48.1845859Z ^[[1m^[[92m     Running^[[0m `target/xtask-runner/debug/xtask gpu-smoke`
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:01:48.1918567Z Running checker GPU smoke (backend=vulkan, software=1)
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:03:19.2518118Z Independent Rust and CLI consumer GPU checks passed; evidence: /home/runner/work/OpenMixture/OpenMixture/tmp/gpu-smoke/native-consumer
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:03:19.2522006Z Verifying local Cargo packages outside the repository; evidence: /home/runner/work/OpenMixture/OpenMixture/tmp/package-check/gpu-5880-1789146199251738467
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:04:32.2053493Z Packaged Rust and CLI consumption passed (GPU)
+Pinned SwiftShader Vulkan materials and packaged consumption	Verify checker, graphs, nodes, doctor, and packaged consumers	2026-09-11T17:04:32.2055032Z GPU checker and graph smoke passed: "SwiftShader Device (LLVM 10.0.0)" ("Cpu", "Vulkan"); doctor healthy; golden exact. Evidence: /home/runner/work/OpenMixture/OpenMixture/tmp/gpu-smoke
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	﻿2026-09-11T17:04:32.2094292Z ##[group]Run cargo xtask golden check
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2094629Z ^[[36;1mcargo xtask golden check^[[0m
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2130149Z shell: /usr/bin/bash -e {0}
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2130396Z env:
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2130588Z   CARGO_TERM_COLOR: always
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2130824Z   CC: clang-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2131015Z   CXX: clang++-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2131221Z   MIXTURE_GPU_BACKEND: vulkan
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2131463Z   MIXTURE_GPU_SOFTWARE: 1
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2131713Z   MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2132247Z   VK_ICD_FILENAMES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2133024Z   VK_DRIVER_FILES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2133544Z ##[endgroup]
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2887326Z ^[[1m^[[92m    Finished^[[0m `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:32.2899878Z ^[[1m^[[92m     Running^[[0m `target/xtask-runner/debug/xtask golden check`
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:33.0385096Z Rendering glazed-ceramic on vulkan (software), 1024x1024, 3 cases
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:04:58.3094531Z Material machine checks: true; golden comparisons: true. Review: /home/runner/work/OpenMixture/OpenMixture/tmp/golden/glazed-ceramic/software-1789146272292878967-17053/report.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:05:00.8143117Z Rendering leather on vulkan (software), 1024x1024, 4 cases
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:06:24.8298609Z Material machine checks: true; golden comparisons: true. Review: /home/runner/work/OpenMixture/OpenMixture/tmp/golden/leather/software-1789146298315847964-17053/report.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:06:25.9074966Z Rendering wood on vulkan (software), 1024x1024, 4 cases
+Pinned SwiftShader Vulkan materials and packaged consumption	Compare all three materials at 1K	2026-09-11T17:07:27.8410790Z Material machine checks: true; golden comparisons: true. Review: /home/runner/work/OpenMixture/OpenMixture/tmp/golden/wood/software-1789146384837583398-17053/report.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	﻿2026-09-11T17:07:27.8534067Z ##[group]Run cargo xtask trace-2k
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8534440Z ^[[36;1mcargo xtask trace-2k^[[0m
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8570081Z shell: /usr/bin/bash -e {0}
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8570327Z env:
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8570518Z   CARGO_TERM_COLOR: always
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8570749Z   CC: clang-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8570943Z   CXX: clang++-18
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8571150Z   MIXTURE_GPU_BACKEND: vulkan
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8571389Z   MIXTURE_GPU_SOFTWARE: 1
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8571635Z   MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8572163Z   VK_ICD_FILENAMES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8572916Z   VK_DRIVER_FILES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.8573418Z ##[endgroup]
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.9360882Z ^[[1m^[[92m    Finished^[[0m `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:27.9374071Z ^[[1m^[[92m     Running^[[0m `target/xtask-runner/debug/xtask trace-2k`
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:07:30.4991425Z 2K trace selects wood/default: 8 passes, 301990112 peak estimated bytes
+Pinned SwiftShader Vulkan materials and packaged consumption	Measure the largest material case at 2K	2026-09-11T17:08:08.1860952Z 2K naive lifetime trace passed; evidence: /home/runner/work/OpenMixture/OpenMixture/tmp/trace-2k/software-1789146447940051595-17264/trace.json
