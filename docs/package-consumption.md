@@ -24,6 +24,8 @@ These local source archives intentionally omit `Cargo.lock`. They are not advert
 
 ## Isolated verification sequence
 
+Manifest identity and target containment use canonical filesystem paths, including Windows verbatim-path normalization. Different spellings of the same extracted file are accepted; missing files or targets outside their extracted package are rejected.
+
 1. Snapshot source/build inputs, check duplicated licenses and the three unit fixtures, and fetch only the committed lock's public dependencies.
 2. Generate archives, validate member paths/required files, extract into a fresh OS temporary directory **outside** the producer repository, and compare extracted source bytes with the snapshot. Archives themselves are never rewritten.
 3. Copy the independent application's own source, tests and `.mix` input into that directory. Only its staging manifest changes: replace the two producer paths with exact version requirements and join a disposable verification workspace. No source or runtime behavior is rewritten.

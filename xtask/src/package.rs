@@ -265,7 +265,15 @@ fn validate_resolution(metadata: &Value, lab: &Path, version: &str) -> TaskResul
         } else {
             lab.join(format!("packages/{name}-{version}/Cargo.toml"))
         };
-        if package["manifest_path"] != json!(expected)
+        // Cargo metadata may omit Windows' verbatim prefix even when the staging
+        // root came from canonicalize. Compare real paths, not JSON spellings.
+        let expected = fs::canonicalize(expected)?;
+        let manifest = fs::canonicalize(
+            package["manifest_path"]
+                .as_str()
+                .ok_or("package omitted manifest path")?,
+        )?;
+        if manifest != expected
             || !package["source"].is_null()
             || !package["publish"].as_array().is_some_and(Vec::is_empty)
             || (name != APP && package["version"] != version)
@@ -291,7 +299,8 @@ fn validate_resolution(metadata: &Value, lab: &Path, version: &str) -> TaskResul
             }
         }
         for target in package["targets"].as_array().ok_or("missing targets")? {
-            let source = Path::new(target["src_path"].as_str().ok_or("target omitted source")?);
+            let source =
+                fs::canonicalize(target["src_path"].as_str().ok_or("target omitted source")?)?;
             if !source.starts_with(expected.parent().ok_or("missing manifest parent")?) {
                 return Err("package target escapes extracted source".into());
             }
@@ -782,9 +791,35 @@ mod tests {
     }
     #[test]
     fn resolution_rejects_registry_fallback_producer_paths_and_wrong_versions() {
-        let lab = env::temp_dir().join("isolated-package-test");
+        struct Scratch(PathBuf);
+        impl Drop for Scratch {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let scratch = Scratch(env::temp_dir().join(format!(
+            "isolated-package-test-{}-{}",
+            std::process::id(),
+            SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos()
+        )));
+        let lab = scratch.0.clone();
         let good = metadata(&lab);
+        for package in good["packages"].as_array().unwrap() {
+            for path in [
+                package["manifest_path"].as_str().unwrap(),
+                package["targets"][0]["src_path"].as_str().unwrap(),
+            ] {
+                fs::create_dir_all(Path::new(path).parent().unwrap()).unwrap();
+                fs::write(path, "").unwrap();
+            }
+        }
         assert!(validate_resolution(&good, &lab, "0.1.0").is_ok());
+        // Reproduce Cargo's ordinary paths versus a canonical staging root
+        // (Windows verbatim prefix; /var aliases on macOS).
+        let lab = fs::canonicalize(lab).unwrap();
+        assert!(validate_resolution(&good, &lab, "0.1.0").is_ok());
+        let outside = lab.join("outside.rs");
+        fs::write(&outside, "").unwrap();
         for (pointer, value) in [
             ("/packages/0/source", json!("registry")),
             (
@@ -795,6 +830,7 @@ mod tests {
             ("/packages/0/publish", Value::Null),
             ("/packages/3/dependencies/0/req", json!("*")),
             ("/packages/1/targets/0/src_path", json!("/outside/lib.rs")),
+            ("/packages/1/targets/0/src_path", json!(outside)),
         ] {
             let mut bad = good.clone();
             *bad.pointer_mut(pointer).unwrap() = value;
