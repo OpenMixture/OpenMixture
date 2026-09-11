@@ -417,7 +417,7 @@ mod allocation_tests {
     #[ignore = "requires GPU; cargo xtask gpu-smoke"]
     fn graph_gpu_allocation_accounting_matches_plan_and_releases_aliased_readbacks() {
         let mut document = MaterialDocument::decode(
-            include_bytes!("../../../fixtures/nodes/constant-scalar/input.mix"),
+            include_bytes!("testdata/constant-scalar.mix"),
             &SafetyLimits::default(),
         )
         .unwrap();

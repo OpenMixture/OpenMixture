@@ -1,0 +1,8 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/xtask golden check`
+Rendering glazed-ceramic on metal (hardware), 1024x1024, 3 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/hardware-1789116717674709000-95161/report.json
+Rendering leather on metal (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/leather/hardware-1789116730612412000-95161/report.json
+Rendering wood on metal (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: /Users/krapnik/Documents/OpenMixture/tmp/golden/wood/hardware-1789116775110274000-95161/report.json

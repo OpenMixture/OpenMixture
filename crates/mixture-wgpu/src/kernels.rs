@@ -257,13 +257,13 @@ mod tests {
         };
         for (source, overrides, integers, floats) in [
             (
-                include_bytes!("../../../fixtures/nodes/transform-2d/input.mix").as_slice(),
+                include_bytes!("testdata/transform-2d.mix").as_slice(),
                 serde_json::json!({"scaleX":64,"scaleY":3,"quarterTurns":3,"offsetX":-1,"offsetY":0.25}),
                 vec![64u32, 3, 3, 0],
                 vec![-1f32, 0.25, 0., 0.],
             ),
             (
-                include_bytes!("../../../fixtures/nodes/warp/input.mix").as_slice(),
+                include_bytes!("testdata/warp.mix").as_slice(),
                 serde_json::json!({"strengthX":-1,"strengthY":0.5}),
                 vec![],
                 vec![-1f32, 0.5, 0., 0.],

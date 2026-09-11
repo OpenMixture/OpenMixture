@@ -1,0 +1,10 @@
+Could not compile material plan.
+MIX_PARAMETER_INVALID_VALUE: Override does not satisfy the target parameter's type, range, or enum contract.
+  stage: Compile, severity: Error
+  document: input.mix
+  node: pattern
+  parameter: cellsX
+  expected: Text("Integer { min: 1, max: 1024 }")
+  observed: Text("0")
+  publicId: Text("repeat")
+  Suggestion: Use the exact JSON type and range declared by the exposed target parameter.

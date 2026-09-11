@@ -1,0 +1,19 @@
+   Compiling xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.64s
+     Running unittests src/main.rs (target/debug/deps/xtask-55ba651b87e6f418)
+
+running 4 tests
+test package::tests::consumer_manifest_rewrite_refuses_missing_or_ambiguous_entries ... ok
+test package::tests::archive_paths_and_required_distribution_files_are_checked ... ok
+test package::tests::disposable_lock_may_prune_but_must_not_upgrade_or_change_checksums ... ok
+test package::tests::resolution_rejects_registry_fallback_producer_paths_and_wrong_versions ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 29 filtered out; finished in 0.00s
+
+     Running tests/commands.rs (target/debug/deps/commands-f5ce26481c2fe8a6)
+
+running 1 test
+test package_check_is_advertised_and_keeps_gpu_execution_explicit ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.47s
+

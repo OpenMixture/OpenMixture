@@ -1,0 +1,12 @@
+{
+  "args": [
+    "gpu",
+    "vulkan",
+    "software",
+    "SwiftShader"
+  ],
+  "cwd": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-94603-1789116509357142000/run",
+  "exitCode": 0,
+  "program": "/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/mixture-native-consumer",
+  "success": true
+}

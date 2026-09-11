@@ -1,0 +1,4 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/xtask package-check`
+Verifying local Cargo packages outside the repository; evidence: /Users/krapnik/Documents/OpenMixture/tmp/package-check/cpu-95990-1789117397494403000
+Packaged Rust and CLI consumption passed (CPU only)

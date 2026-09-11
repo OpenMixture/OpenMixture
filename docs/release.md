@@ -1,0 +1,77 @@
+# M4 release status and checklist
+
+English | [简体中文](./release.zh-CN.md)
+
+**Local M4 acceptance, 2026-09-11; not release-ready.** PR-011–015 are implemented and locally verified. All product packages remain pre-alpha `0.1.0` with publication disabled. Remote platform CI remains deferred at the user's request, and no push, merge, tag, publication, installer or binary distribution is part of this train. [PR-015 evidence](./evidence/pr-015/README.md) records the final local checks and implementing revision.
+
+## M4 exit assessment
+
+| Exit criterion | Local evidence and result |
+|---|---|
+| Independent native consumer | PR-011's application uses public parse/validate/compile/render APIs, explicit overrides/channels/context and CPU-owned output after renderer drop. |
+| CLI boundary | PR-012 verifies report envelopes, exits, diagnostics and actual PNG/partial-write behavior from separate working directories. |
+| Failure contract | PR-013 adds typed device-loss/OOM classification, context-owned loss state, first-error preservation and guarded cleanup. OOM classification uses synthetic typed errors; destruction tests use real GPU devices. |
+| Stale work and retained state | PR-014 bounds work to one active/one pending request, publishes only the newest generation, cleans owned directories and verifies the nine-kernel cache/lifetime bound. |
+| Package consumption | PR-015 builds and tests real normalized Cargo archives in a temporary workspace outside the repository, checks locked external dependencies, rejects a missing embedded shader and runs packaged Rust/CLI CPU and GPU consumers. |
+| Contracts and materials | Paired public docs agree with the tests. Ceramic, leather and wood 1K machine/golden checks and the ranked 2K trace pass under both local adapter policies without changing accepted baselines. |
+
+The separate consumer can load `.mix`, validate, override exposed parameters, request channels, render, and consume outputs/metrics using public APIs resolved from the actual local package contents. No producer-private import or outer repository runtime asset is required. [Package resolution and limitations](./package-consumption.md) describe the local patch and separate verification lock precisely.
+
+This closes the **local** M4 implementation train and provides its exit assessment. It does not close M0/M1 clean-checkout/platform gates or authorize M5. Evaluate the open gates below and choose the next train explicitly before adding WebAssembly, editor work or more nodes.
+
+## Verified host/backend matrix and open gates
+
+| Environment | Recorded status |
+|---|---|
+| Current local macOS/aarch64, CPU | `package-check`, source consumer, repository checks, isolated package unit tests/Rustdoc and 32 packaged CLI CPU cases pass. This is an existing local working tree, not remote clean-checkout evidence. |
+| Same host, Apple M5 / Metal | Full GPU smoke, source and packaged public-Rust/CLI consumption, all three 1K materials and largest 2K trace pass. |
+| Same host, pinned SwiftShader Device (LLVM 10.0.0) / Vulkan / CPU adapter | The same GPU/package/material/trace gates pass; source pin `694585a05946e1ed49b6bd577ca6537cbb57f025` is recorded. This is not the Linux CI result. |
+| Remote Linux/macOS/Windows CPU matrix | **Open/deferred.** Workflow runs `cargo xtask check`, now including packages, and retains package evidence. No remote result is claimed. |
+| Remote Linux pinned SwiftShader GPU/material job | **Open/deferred.** Workflow includes packaged consumption and retains smoke/package/golden/trace evidence. No remote result is claimed. |
+| Other native hardware/drivers, including Windows/DX12 | **Not certified by this local run.** Exposed adapter options are not proof that every supported backend/device passed the acceptance matrix. |
+
+The current largest-case selection is wood/default at 2048×2048 with eight passes. The budget is the existing 512 MiB descriptor limit; reports distinguish estimated/recorded peak, cumulative bytes, release and zero reuse. This is a bounded correctness/resource trace, not a new latency benchmark or a physical VRAM measurement. [Trace semantics](./development.md#2k-resource-evidence) and the raw final evidence define its scope.
+
+## Reproducible verification
+
+```bash
+cargo xtask package-check
+cargo xtask test-consumer
+cargo xtask check
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask golden check
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask trace-2k
+DYLD_LIBRARY_PATH="$PWD/tmp/pr-004/swiftshader-build/bin" \
+MIXTURE_SWIFTSHADER_SOURCE="$PWD/tmp/pr-004/swiftshader-source" \
+MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 \
+MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
+DYLD_LIBRARY_PATH="$PWD/tmp/pr-004/swiftshader-build/bin" \
+MIXTURE_SWIFTSHADER_SOURCE="$PWD/tmp/pr-004/swiftshader-source" \
+MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 \
+MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask golden check
+DYLD_LIBRARY_PATH="$PWD/tmp/pr-004/swiftshader-build/bin" \
+MIXTURE_SWIFTSHADER_SOURCE="$PWD/tmp/pr-004/swiftshader-source" \
+MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 \
+MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask trace-2k
+```
+
+The macOS loader paths are local preparation paths, not portable installation instructions; use the [GPU guide](./gpu-context.md) or the pinned Linux CI setup for the intended host. `golden check` never accepts new baselines. Do not substitute `golden update` to repair a failing release check.
+
+## Checklist before an actual release
+
+- [x] Preserve independently reviewable PR-011–015 local commits, matching bilingual docs and local evidence.
+- [x] Verify actual local package source/assets/licenses, exact peer versions, independent consumers and missing-asset rejection.
+- [x] Record source/lock/archive identity and the tested host/backend policies; retain accepted material pixels unchanged.
+- [ ] Obtain the deferred remote clean-checkout CPU and pinned-software GPU/material/trace results before claiming those platform gates.
+- [ ] Select the intended published version and support scope; review API/dependency/wire compatibility and any required migration using [the compatibility record](./compatibility.md).
+- [ ] Review final registry/package-lock/install metadata for the intended distribution. Current local archives omit locks and use a separate pinned verifier; `publish = false` stays until a separately authorized release change.
+- [ ] Review final release notes, actual package contents and source identity at the release revision. A local archive or successful CI run does not itself authorize publication, push/merge or a release tag.
+
+## Local unreleased notes
+
+PR-011 proved public Rust consumption and owned output, including explicit context and repeated rendering. PR-012 fixed omitted human port/parameter context and verified existing CLI reports/exits/files. PR-013 made typed GPU loss/OOM actionable and fixed an uncaptured destroyed-buffer unmap failure. PR-014 added consumer-only freshness and bounded retention without GPU cancellation. PR-015 now verifies package-local assets and isolated archive consumers, adds exact peer dependency metadata and ships README/license files, while retaining disabled publication and existing lockfiles.
+
+Document/node/plan versions, the eleven-node vocabulary, nine WGSL implementations and accepted material appearance remain unchanged by PR-011–015. Diagnostic vocabulary gained the two PR-013 codes, which strict older decoders must account for. No fallback executor, hidden GPU state, new product crate, runtime dependency, pooling optimizer, WebAssembly or editor was introduced. The next decision follows this M4 assessment and the still-open platform evidence.

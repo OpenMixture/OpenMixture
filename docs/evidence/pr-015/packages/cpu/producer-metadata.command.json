@@ -1,0 +1,13 @@
+{
+  "args": [
+    "metadata",
+    "--locked",
+    "--format-version",
+    "1",
+    "--no-deps"
+  ],
+  "cwd": "/Users/krapnik/Documents/OpenMixture",
+  "exitCode": 0,
+  "program": "/Users/krapnik/.rustup/toolchains/1.98.1-aarch64-apple-darwin/bin/cargo",
+  "success": true
+}

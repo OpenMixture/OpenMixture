@@ -1,0 +1,8 @@
+    Checking mixture-wgpu v0.1.0 (/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-93800-1789116301901451000/packages/mixture-wgpu-0.1.0)
+error: couldn't read `packages/mixture-wgpu-0.1.0/src/../shaders/nodes/constant.wgsl`: No such file or directory (os error 2)
+  --> packages/mixture-wgpu-0.1.0/src/kernels.rs:11:32
+   |
+11 |         KernelId::Constant => (include_str!("../shaders/nodes/constant.wgsl"), "constant"),
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `mixture-wgpu` (lib) due to 1 previous error

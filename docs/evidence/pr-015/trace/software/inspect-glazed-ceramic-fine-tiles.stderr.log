@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/mixture inspect fixtures/materials/glazed-ceramic/material.mix --size 2048 --output baseColor,normal,roughness,height --json --set tilesX=16 --set tilesY=16 --plan`

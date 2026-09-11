@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "plan": null,
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_PORT_REQUIRED_CONNECTION",
+      "stage": "validation",
+      "severity": "error",
+      "message": "Required input has no valid connection.",
+      "documentPath": "missing-warp.mix",
+      "nodeId": "sample",
+      "portId": "displacement",
+      "suggestion": "Connect one compatible output to this required input."
+    }
+  ]
+}

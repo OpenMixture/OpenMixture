@@ -107,3 +107,18 @@ fn node_test_rejects_unknown_ids_and_invalid_adapter_policy() {
         assert!(String::from_utf8_lossy(&output.stderr).contains(expected));
     }
 }
+
+#[test]
+fn package_check_is_advertised_and_keeps_gpu_execution_explicit() {
+    let help = Command::new(env!("CARGO_BIN_EXE_xtask"))
+        .arg("--help")
+        .output()
+        .unwrap();
+    assert!(String::from_utf8_lossy(&help.stdout).contains("package-check"));
+    let invalid = Command::new(env!("CARGO_BIN_EXE_xtask"))
+        .args(["package-check", "--gpu"])
+        .output()
+        .unwrap();
+    assert!(!invalid.status.success());
+    assert!(String::from_utf8_lossy(&invalid.stderr).contains("expected one command"));
+}

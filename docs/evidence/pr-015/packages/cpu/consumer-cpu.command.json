@@ -1,0 +1,9 @@
+{
+  "args": [
+    "check"
+  ],
+  "cwd": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000/run",
+  "exitCode": 0,
+  "program": "/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/mixture-native-consumer",
+  "success": true
+}

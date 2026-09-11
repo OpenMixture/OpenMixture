@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render fixtures/materials/glazed-ceramic/material.mix --size 1024 --output baseColor,normal,roughness,height --out /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/software-1789116891175527000-95465/fine-tiles --json --set tilesX=16 --set tilesY=16 --backend vulkan --software`

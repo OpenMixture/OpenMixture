@@ -60,4 +60,4 @@ MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
 
 按 [GPU 指南](./gpu-context.zh-CN.md)准备固定 loader。CPU 检查运行六个状态／生命周期测试，编译忽略的 CLI 测试。显式 smoke 运行 Rust `latest` 及五次调用的 CLI 序列；`native-consumer/status.json` 的 `latestEvidence` 引用新建 CLI 回执，Rust 证据位于 `latest.stdout.log`。缺失／跳过／未完成回执均不能通过门槛。不需要 sleep 或时间竞争。
 
-已经提交的 GPU 工作可能继续完成。drop 渲染 future 或达到逐次 poll 超时不承诺取消或整体 deadline。硬中断、运行时任务框架、daemon／IPC、UI 控件、资源池、包消费及暂缓的远端 CI 均在范围外。PR-015 负责包验证与兼容性／发布文档。
+已经提交的 GPU 工作可能继续完成。drop 渲染 future 或达到逐次 poll 超时不承诺取消或整体 deadline。硬中断、运行时任务框架、daemon／IPC、UI 控件、资源池、包消费及暂缓的远端 CI 均在范围外。PR-015 现已提供[包验证](./package-consumption.zh-CN.md)及[兼容性／发布文档](./release.zh-CN.md)。

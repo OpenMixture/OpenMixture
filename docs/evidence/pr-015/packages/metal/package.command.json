@@ -1,0 +1,22 @@
+{
+  "args": [
+    "package",
+    "--locked",
+    "--offline",
+    "--no-verify",
+    "--exclude-lockfile",
+    "--allow-dirty",
+    "-p",
+    "mixture-core",
+    "-p",
+    "mixture-wgpu",
+    "-p",
+    "mixture-cli",
+    "--target-dir",
+    "/Users/krapnik/Documents/OpenMixture/tmp/package-check/gpu-93800-1789116301901451000/cargo"
+  ],
+  "cwd": "/Users/krapnik/Documents/OpenMixture",
+  "exitCode": 0,
+  "program": "/Users/krapnik/.rustup/toolchains/1.98.1-aarch64-apple-darwin/bin/cargo",
+  "success": true
+}

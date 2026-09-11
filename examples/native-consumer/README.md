@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-This application has its own Cargo workspace, lockfile and [input.mix](./input.mix). It imports only the public `mixture-core` and `mixture-wgpu` crates, plus `serde_json` for reports and `pollster` to drive native futures. It has no direct wgpu dependency, private imports or producer-owned runtime assets. The two path dependencies locate public source crates; packaged-crate consumption remains PR-015 work.
+This application has its own Cargo workspace, lockfile and [input.mix](./input.mix). It imports only the public `mixture-core` and `mixture-wgpu` crates, plus `serde_json` for reports and `pollster` to drive native futures. It has no direct wgpu dependency, private imports or producer-owned runtime assets. The two path dependencies locate public source crates; PR-015 separately verifies [actual local archive consumption](../../docs/package-consumption.md).
 
 ## CPU check
 
@@ -137,3 +137,16 @@ cargo test --locked --all-features --manifest-path examples/native-consumer/Carg
 ```
 
 Explicit `gpu-smoke` orchestrates both checks and rejects incomplete evidence. For SwiftShader use the loader and Vulkan/software policy above; add `--all-features` to the standalone Rust command to enable the software feature. See [the contract and memory limits](../../docs/stale-results.md). Submitted GPU work may finish; this is stale-result handling, not GPU cancellation. No new product crate or dependency is added.
+
+## Packaged consumption (PR-015)
+
+The repository verifier stages this application and its owned input/tests outside the producer repository. Only the temporary manifest changes: exact version dependencies resolve to the normalized local core/wgpu archives, and the archived CLI is built alongside them. The source-path fixture above stays independent and unchanged. The external verifier records `packagedCratesValidated: true` after checking actual provenance, pinned dependency identities, missing-asset rejection and consumption; the application itself retains its original provenance-neutral `false` field.
+
+```bash
+cargo xtask package-check
+cargo xtask check
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
+```
+
+See [package resolution](../../docs/package-consumption.md), [compatibility](../../docs/compatibility.md) and [M4 exit/release status](../../docs/release.md). Publication is still disabled and remote platform CI is deferred.

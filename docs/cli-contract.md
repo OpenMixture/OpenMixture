@@ -115,3 +115,5 @@ No JSON field, null/omission rule, enum spelling, source/plan version or exit-co
 PR-013 extends the diagnostic vocabulary with `MIX_GPU_DEVICE_LOST` and `MIX_GPU_OUT_OF_MEMORY`; report envelopes and exit codes are unchanged. Failure diagnostics can carry adapter, delivered loss and released-allocation evidence while retaining the first error and its phase. See the [GPU failure contract](./gpu-failures.md) for strict-decoder compatibility and classification limits.
 
 PR-014 adds a separate consumer test using fresh generation directories. The product CLI still writes files sequentially; the consumer selects only the newest completed directory, removes obsolete/partial owned directories and propagates cleanup failures. See [the scheduling contract](./stale-results.md).
+
+PR-015 runs the same independent 32-case CPU and ten-case GPU process contracts against a CLI built solely from its local Cargo archive and archived library peers, with a working directory outside the producer repository. This adds [package evidence](./package-consumption.md), without changing the product report envelopes or exits.

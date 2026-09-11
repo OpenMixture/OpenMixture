@@ -1,0 +1,7 @@
+{
+  "cliEvidence": "cli-94603-1789116507092296000/status.json",
+  "completed": true,
+  "deviceLossEvidence": "device-loss-94603-1789116508153935000.json",
+  "latestEvidence": "latest-cli-94603-1789116509026140000/status.json",
+  "ok": true
+}

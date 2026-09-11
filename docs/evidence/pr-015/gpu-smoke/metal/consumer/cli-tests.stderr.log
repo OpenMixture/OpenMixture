@@ -1,0 +1,2 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running tests/cli_contract.rs (target/native-consumer/debug/deps/cli_contract-e83c5e7edad03396)

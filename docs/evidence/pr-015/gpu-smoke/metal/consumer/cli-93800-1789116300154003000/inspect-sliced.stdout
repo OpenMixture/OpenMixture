@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      65,
+      3
+    ],
+    "materialOutput": {
+      "id": "surface",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "finish",
+            "typeId": "constant-scalar",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            0.25,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 65,
+          "height": 3,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          9,
+          1,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "roughness",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "finish",
+            "portId": "value"
+          }
+        },
+        "resource": 0
+      }
+    ],
+    "estimates": {
+      "textureBytes": 1560,
+      "uniformBytes": 16,
+      "paddedBytesPerRow": 768,
+      "readbackBufferBytes": 2304,
+      "readbackBytes": 1560,
+      "cumulativeReadbackBytes": 2304,
+      "cumulativeBytes": 3880,
+      "peakBytes": 3880
+    },
+    "hash": "sha256:48b03ce602e7ddccabd2b62c3b6b684368412b97fc99d9b77b2278fa5af6583c"
+  },
+  "ok": true,
+  "diagnostics": []
+}

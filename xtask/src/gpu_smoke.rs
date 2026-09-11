@@ -5,10 +5,14 @@ use serde_json::{Value, json};
 use std::{env, fs, io::Cursor, path::Path};
 
 pub(super) fn run(root: &Path) -> TaskResult {
-    let (backend, software) = policy()?;
-    let expected = env::var("MIXTURE_GPU_EXPECT_ADAPTER").ok();
     let directory = root.join("tmp/gpu-smoke");
     fs::create_dir_all(&directory)?;
+    fs::write(
+        directory.join("package-status.json"),
+        br#"{"ok":false,"completed":false}"#,
+    )?;
+    let (backend, software) = policy()?;
+    let expected = env::var("MIXTURE_GPU_EXPECT_ADAPTER").ok();
     println!("Running checker GPU smoke (backend={backend}, software={software})");
     let doctor = command_report(
         root,
@@ -172,6 +176,13 @@ pub(super) fn run(root: &Path) -> TaskResult {
         return Err(format!("GPU tests failed; inspect {}", directory.display()).into());
     }
     crate::consumer::gpu(
+        root,
+        &directory,
+        &backend,
+        software == "1",
+        expected.as_deref(),
+    )?;
+    crate::package::gpu(
         root,
         &directory,
         &backend,

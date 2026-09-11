@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render fixtures/materials/wood/material.mix --size 1024 --output baseColor,normal,roughness,height --out /Users/krapnik/Documents/OpenMixture/tmp/golden/wood/software-1789116949363769000-95465/coarse-grain --json --set grainRepeat=16 --backend vulkan --software`

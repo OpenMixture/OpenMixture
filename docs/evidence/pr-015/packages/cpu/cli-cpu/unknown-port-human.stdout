@@ -1,0 +1,14 @@
+Could not compile material plan.
+MIX_PORT_UNKNOWN: Node has no port with this name and direction.
+  stage: Validation, severity: Error
+  document: unknown-port.mix
+  node: pattern
+  port: missing
+  direction: Text("output")
+  Suggestion: Use a named output as the source and a named input as the destination.
+MIX_PORT_REQUIRED_CONNECTION: Required input has no valid connection.
+  stage: Validation, severity: Error
+  document: unknown-port.mix
+  node: surface
+  port: baseColor
+  Suggestion: Connect one compatible output to this required input.

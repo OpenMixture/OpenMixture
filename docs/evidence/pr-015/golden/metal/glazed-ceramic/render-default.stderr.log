@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render fixtures/materials/glazed-ceramic/material.mix --size 1024 --output baseColor,normal,roughness,height --out /Users/krapnik/Documents/OpenMixture/tmp/golden/glazed-ceramic/hardware-1789116717674709000-95161/default --json --backend metal`

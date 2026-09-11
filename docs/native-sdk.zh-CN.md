@@ -2,7 +2,7 @@
 
 [English](./native-sdk.md) | 简体中文
 
-PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，PR-014 添加[消费者自有新鲜度处理](./stale-results.zh-CN.md)，包消费仍为 PR-015 工作。
+PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，PR-014 添加[消费者自有新鲜度处理](./stale-results.zh-CN.md)，PR-015 验证[真实本地软件包消费](./package-consumption.zh-CN.md)。见 [M4 退出／发布评估](./release.zh-CN.md)。
 
 ## 已审查的 API 路径
 
@@ -18,7 +18,7 @@ PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证�
 
 Core 也公开 `BUILT_INS`、`node_contract`、节点／端口／参数类型和版本化默认值。消费者无需第二套目录、解析器、编译器或像素实现。[Core Rustdoc](../crates/mixture-core/src/lib.rs)现使用完整内联源示例，替代仓库相对文件，并准确描述十一种契约及已实现的验证／编译。
 
-独立示例拥有输入与 Cargo 清单，仅使用公开 crate 导入，独立编译，并在生产方工作目录之外运行。其 path 依赖证明源码级 API 消费，**不证明**未来发布归档包含全部必要资源；该验收归 PR-015。历史 [M3 仅编译探针](./reviews/m3/native-consumer/README.zh-CN.md)作为较早证据保持不变。
+独立示例拥有输入与 Cargo 清单，仅使用公开 crate 导入，独立编译，并在生产方工作目录之外运行。其 path 依赖证明源码级 API 消费，**不证明**未来发布归档包含全部必要资源；PR-015 通过[隔离包解析](./package-consumption.zh-CN.md)另行验证真实本地归档。历史 [M3 仅编译探针](./reviews/m3/native-consumer/README.zh-CN.md)作为较早证据保持不变。
 
 ## 数据及生命周期契约
 
@@ -45,7 +45,7 @@ Core 也公开 `BUILT_INS`、`node_contract`、节点／端口／参数类型和
 
 现有公开 `instance()`、`adapter()`、`device()`、`queue()` getter **保留**为高级 escape hatch。其签名暴露本 crate 使用的 wgpu 主版本，当前为 30，并非独立于该依赖的门面。`RequestedPolicy`、`AdapterDiagnostics`、`DeviceDiagnostics` 中的 `wgpu::Limits` 字段具有相同耦合。公开 serde trait 及 core 的 `serde_json::Value` 参数也暴露各自依赖类型。升级依赖若改变公开签名或序列化 limits 形状，必须明确审查兼容性、测试并同步文档，不能隐藏在未改名的 Mixture 方法背后。
 
-共享 wgpu 句柄引用不代表 GPU 状态不可变：调用者可通过它们提交工作、销毁设备或修改回调。这些干预由调用者负责，可能使后续 Mixture 操作失败。外部提交和分配不属于 Mixture 报告的耗时／计数。普通消费者验收不认证任意原始 wgpu 互操作。PR-011 不删除现有访问器，也不新增全面稳定性承诺；完整发布／兼容性策略归 PR-015。
+共享 wgpu 句柄引用不代表 GPU 状态不可变：调用者可通过它们提交工作、销毁设备或修改回调。这些干预由调用者负责，可能使后续 Mixture 操作失败。外部提交和分配不属于 Mixture 报告的耗时／计数。普通消费者验收不认证任意原始 wgpu 互操作。PR-011 不删除现有访问器，也不新增全面稳定性承诺；已审查范围见[兼容性记录](./compatibility.zh-CN.md)和[发布状态](./release.zh-CN.md)。
 
 虽然 `Renderer::render` 返回 future，且其原生类型满足 `Send`，原生 polling 可能阻塞执行线程。需要响应性的应用应在显式管理的 worker 上拥有 renderer。各次等待限制为 30 秒，并非整体渲染 deadline。drop future 不是 GPU 取消契约。PR-014 添加消费者自有新鲜度状态，不引入线程、恢复或隐式备用执行。
 

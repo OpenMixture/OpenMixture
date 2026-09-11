@@ -75,7 +75,7 @@ Counters cover successful descriptor batches retained by Mixture. Temporary hand
 
 The two diagnostic codes are an intentional addition to the non-exhaustive vocabulary. Known typed OOM/loss cases now use these specific codes; generic operation failures retain their existing codes. No `.mix`, node or plan version changes. CLI envelopes, optional/null rules and exit codes remain unchanged: GPU errors return `1`, with no completed graph execution or PNG outputs. Existing acquired-context and plan evidence survives. See the [CLI contract](./cli-contract.md).
 
-The core diagnostic decoder rejects unknown code strings. A strict older decoder therefore needs the updated vocabulary to consume these new failures; this is not a promise that pre-alpha diagnostic vocabularies are interchangeable. Full package/release compatibility remains PR-015.
+The core diagnostic decoder rejects unknown code strings. A strict older decoder therefore needs the updated vocabulary to consume these new failures; this is not a promise that pre-alpha diagnostic vocabularies are interchangeable. PR-015 records the [package/release compatibility limits](./compatibility.md).
 
 Classification is based on public typed runtime signals. The pinned wgpu `RequestDeviceError` does not expose its category publicly; acquisition failures continue using `MIX_GPU_DEVICE_REQUEST_FAILED` with native evidence. Host allocation failures are not labeled GPU OOM. No private wgpu-core dependency or driver-message parser is added.
 

@@ -2,7 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and packaged consumption remains PR-015 work.
+PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
 
 ## Reviewed API path
 
@@ -18,7 +18,7 @@ PR-011 verifies the existing public Rust path with an [independent application](
 
 Core also publicly exposes `BUILT_INS`, `node_contract`, node/port/parameter types and versioned defaults. Consumers do not need a second catalog, parser, compiler or pixel implementation. [Core Rustdoc](../crates/mixture-core/src/lib.rs) now uses complete inline source examples instead of repository-relative files; it accurately describes all eleven contracts and implemented validation/compilation.
 
-The independent example owns its input and Cargo manifest, uses only public crate imports, compiles separately, and runs outside the producer's working directory. Its path dependencies prove source-level API consumption. They do **not** prove that future published archives contain every required asset; PR-015 owns that gate. The historical [M3 compile-only probe](./reviews/m3/native-consumer/README.md) remains unchanged as earlier evidence.
+The independent example owns its input and Cargo manifest, uses only public crate imports, compiles separately, and runs outside the producer's working directory. Its path dependencies prove source-level API consumption. They do **not** prove that future published archives contain every required asset; PR-015 separately verifies actual local archives with [isolated package resolution](./package-consumption.md). The historical [M3 compile-only probe](./reviews/m3/native-consumer/README.md) remains unchanged as earlier evidence.
 
 ## Data and lifetime contract
 
@@ -45,7 +45,7 @@ Normal consumer code needs `GpuContextOptions`, `ContextReport`, `Renderer` and 
 
 The existing public `instance()`, `adapter()`, `device()` and `queue()` getters are **retained** as advanced escape hatches. Their signatures expose the crate's wgpu major version, currently 30, and are not a facade independent of that dependency. The `wgpu::Limits` fields in `RequestedPolicy`, `AdapterDiagnostics` and `DeviceDiagnostics` have the same coupling. Public serde traits and core `serde_json::Value` parameters likewise expose their respective dependency types. A dependency upgrade that changes any public signature or serialized limit shape requires an explicit compatibility review, tests and documentation; it is not hidden behind unchanged Mixture method names.
 
-Shared references to wgpu handles do not imply immutable GPU state: a caller can submit work, destroy the device or change callbacks through them. Such interference is the caller's responsibility and may make subsequent Mixture operations fail. External submissions and allocations are outside Mixture's reported timings/accounting. Normal consumer acceptance does not certify arbitrary raw-wgpu interoperation. PR-011 removes no existing accessors and makes no new blanket stability promise; the full release/compatibility policy belongs to PR-015.
+Shared references to wgpu handles do not imply immutable GPU state: a caller can submit work, destroy the device or change callbacks through them. Such interference is the caller's responsibility and may make subsequent Mixture operations fail. External submissions and allocations are outside Mixture's reported timings/accounting. Normal consumer acceptance does not certify arbitrary raw-wgpu interoperation. PR-011 removes no existing accessors and makes no new blanket stability promise; the [compatibility record](./compatibility.md) and [release status](./release.md) define the reviewed scope.
 
 Although `Renderer::render` returns a future and its native types satisfy `Send`, native polling may block the executing thread. A responsive application should own the renderer on an explicitly managed worker. Individual waits are bounded to 30 seconds, not an overall render deadline. Dropping a future is not a GPU cancellation contract. PR-014 adds consumer-owned freshness state; it introduces no thread, recovery or implicit alternate execution.
 

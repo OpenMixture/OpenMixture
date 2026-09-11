@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-本应用拥有自己的 Cargo workspace、锁文件和 [input.mix](./input.mix)，仅导入公开的 `mixture-core`、`mixture-wgpu`，以及用于报告的 `serde_json`、用于驱动原生 future 的 `pollster`。它没有直接 wgpu 依赖、私有导入或生产方拥有的运行时资源。两个 path 依赖定位公开源码 crate；打包 crate 消费仍属于 PR-015。
+本应用拥有自己的 Cargo workspace、锁文件和 [input.mix](./input.mix)，仅导入公开的 `mixture-core`、`mixture-wgpu`，以及用于报告的 `serde_json`、用于驱动原生 future 的 `pollster`。它没有直接 wgpu 依赖、私有导入或生产方拥有的运行时资源。两个 path 依赖定位公开源码 crate；PR-015 另行验证[真实本地归档消费](../../docs/package-consumption.zh-CN.md)。
 
 ## CPU 检查
 
@@ -137,3 +137,16 @@ cargo test --locked --all-features --manifest-path examples/native-consumer/Carg
 ```
 
 显式 `gpu-smoke` 编排两项检查并拒绝未完成证据。SwiftShader 使用上文 loader 和 Vulkan／software 策略；单独 Rust 命令需加 `--all-features` 启用软件特性。见[契约与内存限制](../../docs/stale-results.zh-CN.md)。已提交的 GPU 工作可能完成；这里处理过期结果，不取消 GPU。未添加产品 crate 或依赖。
+
+## 软件包消费（PR-015）
+
+仓库验证器把本应用及其自有输入／测试暂存于生产仓库外。仅临时清单变化：精确版本依赖解析到规范化本地 core／wgpu 归档，并同时构建 CLI 归档。上文源码路径夹具保持独立且不变。外部验证器检查真实来源、固定依赖身份、缺失资源拒绝及消费后记录 `packagedCratesValidated: true`；应用本身保留原有不证明来源的 `false` 字段。
+
+```bash
+cargo xtask package-check
+cargo xtask check
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
+```
+
+见[包解析](../../docs/package-consumption.zh-CN.md)、[兼容性](../../docs/compatibility.zh-CN.md)及 [M4 退出／发布状态](../../docs/release.zh-CN.md)。发布仍禁用，远端平台 CI 仍暂缓。

@@ -1,0 +1,7 @@
+Invalid material: missing-warp.mix
+MIX_PORT_REQUIRED_CONNECTION: Required input has no valid connection.
+  stage: Validation, severity: Error
+  document: missing-warp.mix
+  node: sample
+  port: displacement
+  Suggestion: Connect one compatible output to this required input.

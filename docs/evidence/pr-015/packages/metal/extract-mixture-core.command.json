@@ -1,0 +1,12 @@
+{
+  "args": [
+    "-xzf",
+    "/Users/krapnik/Documents/OpenMixture/tmp/package-check/gpu-93800-1789116301901451000/archives/mixture-core-0.1.0.crate",
+    "-C",
+    "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-93800-1789116301901451000/packages"
+  ],
+  "cwd": null,
+  "exitCode": 0,
+  "program": "tar",
+  "success": true
+}

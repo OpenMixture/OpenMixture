@@ -5,6 +5,7 @@ mod dependencies;
 mod golden;
 mod gpu_smoke;
 mod links;
+mod package;
 
 use std::{
     env,
@@ -18,7 +19,7 @@ type TaskResult<T = ()> = Result<T, Box<dyn Error>>;
 const HELP: &str = "Usage: cargo xtask <command>
 
 Available repository commands:
-  check       Format, dependency policy, Clippy, tests, consumer, rustdoc, and doc links
+  check       Format, dependency policy, Clippy, tests, consumer, packages, rustdoc, and doc links
   fmt         Check Rust formatting
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
@@ -26,6 +27,7 @@ Available repository commands:
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
   test-consumer Check independent public Rust and CLI consumption without a GPU
+  package-check Verify local Cargo archives and isolated Rust/CLI consumption (CPU)
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
@@ -81,6 +83,7 @@ fn run() -> TaskResult {
                 "clippy",
                 "test",
                 "test-consumer",
+                "package-check",
                 "doc",
                 "links",
             ] {
@@ -89,7 +92,7 @@ fn run() -> TaskResult {
             println!("All repository checks passed.");
         }
         "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
-        | "shader-check" | "test-format" | "test-plan" | "test-consumer" => {
+        | "shader-check" | "test-format" | "test-plan" | "test-consumer" | "package-check" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -139,6 +142,7 @@ fn run_cargo(root: &Path, arguments: &[&str], rustdoc: bool) -> TaskResult {
 
 fn run_task(root: &Path, task: &str) -> TaskResult {
     match task {
+        "package-check" => package::check(root),
         "fmt" => run_cargo(root, &["fmt", "--all", "--", "--check"], false),
         "clippy" => run_cargo(
             root,

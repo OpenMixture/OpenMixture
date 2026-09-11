@@ -31,5 +31,12 @@ jobs:
       - name: Install the repository toolchain
         # rustup reads rust-toolchain.toml, including rustfmt and Clippy.
         run: rustup show active-toolchain
-      - name: Verify the foundation
+      - name: Verify repository and isolated packages
         run: cargo xtask check
+      - name: Retain local package verification evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: package-evidence-${{ matrix.os }}
+          path: tmp/package-check/
+          if-no-files-found: warn

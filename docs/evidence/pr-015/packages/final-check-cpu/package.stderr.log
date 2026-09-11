@@ -1,0 +1,25 @@
+   Packaging mixture-core v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-core)
+warning: ignoring example `diagnostics` as `examples/diagnostics.rs` is not included in the published package
+warning: ignoring test `diagnostics` as `tests/diagnostics.rs` is not included in the published package
+warning: ignoring test `format` as `tests/format.rs` is not included in the published package
+warning: ignoring test `limits` as `tests/limits.rs` is not included in the published package
+warning: ignoring test `m3_nodes` as `tests/m3_nodes.rs` is not included in the published package
+warning: ignoring test `plan` as `tests/plan.rs` is not included in the published package
+warning: ignoring test `registry` as `tests/registry.rs` is not included in the published package
+warning: ignoring test `resampling` as `tests/resampling.rs` is not included in the published package
+warning: ignoring test `validation` as `tests/validation.rs` is not included in the published package
+    Packaged 30 files, 139.4KiB (35.1KiB compressed)
+   Packaging mixture-wgpu v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-wgpu)
+warning: ignoring test `checker` as `tests/checker.rs` is not included in the published package
+warning: ignoring test `context` as `tests/context.rs` is not included in the published package
+warning: ignoring test `nodes` as `tests/nodes.rs` is not included in the published package
+    Packaged 29 files, 145.9KiB (37.4KiB compressed)
+   Packaging mixture-cli v0.1.0 (/Users/krapnik/Documents/OpenMixture/crates/mixture-cli)
+warning: ignoring test `cli` as `tests/cli.rs` is not included in the published package
+warning: ignoring test `diagnostics` as `tests/diagnostics.rs` is not included in the published package
+warning: ignoring test `doctor` as `tests/doctor.rs` is not included in the published package
+warning: ignoring test `inspect` as `tests/inspect.rs` is not included in the published package
+warning: ignoring test `render` as `tests/render.rs` is not included in the published package
+warning: ignoring test `render_builtin` as `tests/render_builtin.rs` is not included in the published package
+warning: ignoring test `validate` as `tests/validate.rs` is not included in the published package
+    Packaged 18 files, 57.6KiB (16.3KiB compressed)

@@ -1,0 +1,7 @@
+[workspace]
+members = ["consumer","packages/mixture-core-0.1.0","packages/mixture-wgpu-0.1.0","packages/mixture-cli-0.1.0"]
+resolver = "3"
+
+[patch.crates-io]
+mixture-core = { path = "packages/mixture-core-0.1.0" }
+mixture-wgpu = { path = "packages/mixture-wgpu-0.1.0" }

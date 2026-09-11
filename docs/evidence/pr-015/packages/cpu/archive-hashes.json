@@ -1,0 +1,5 @@
+{
+  "mixture-cli-0.1.0.crate": "sha256:f93374ab31b99e8279d7d5af344d8a995b329c02b457669d3ebfcd2ee5bb25e3",
+  "mixture-core-0.1.0.crate": "sha256:2cf66f32411559ea307fe7a53fc63e1583c9994931e6497daa5c5c1c510a6417",
+  "mixture-wgpu-0.1.0.crate": "sha256:7769190bc0806fbcd3c510bbaceae20580ccdbc797d0b7e32747cde3362c538e"
+}

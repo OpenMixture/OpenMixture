@@ -1,0 +1,22 @@
+{
+  "args": [
+    "test",
+    "--offline",
+    "--locked",
+    "--all-features",
+    "-p",
+    "mixture-native-consumer",
+    "--target-dir",
+    "/Users/krapnik/Documents/OpenMixture/target/package-consumer",
+    "--test",
+    "cli_contract",
+    "cli_contract_cpu",
+    "--",
+    "--ignored",
+    "--exact",
+    "--nocapture"
+  ],
+  "cwd": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000",
+  "phase": "cli-cpu-tests",
+  "program": "/Users/krapnik/.rustup/toolchains/1.98.1-aarch64-apple-darwin/bin/cargo"
+}

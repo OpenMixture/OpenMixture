@@ -1,0 +1,10 @@
+{
+  "args": [
+    "-tzf",
+    "/Users/krapnik/Documents/OpenMixture/tmp/package-check/gpu-93800-1789116301901451000/archives/mixture-wgpu-0.1.0.crate"
+  ],
+  "cwd": null,
+  "exitCode": 0,
+  "program": "tar",
+  "success": true
+}

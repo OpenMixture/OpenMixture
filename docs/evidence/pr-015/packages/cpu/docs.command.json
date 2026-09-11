@@ -1,0 +1,16 @@
+{
+  "args": [
+    "doc",
+    "--workspace",
+    "--all-features",
+    "--offline",
+    "--locked",
+    "--target-dir",
+    "/Users/krapnik/Documents/OpenMixture/target/package-consumer",
+    "--no-deps"
+  ],
+  "cwd": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000",
+  "exitCode": 0,
+  "program": "/Users/krapnik/.rustup/toolchains/1.98.1-aarch64-apple-darwin/bin/cargo",
+  "success": true
+}

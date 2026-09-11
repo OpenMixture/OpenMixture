@@ -11,8 +11,8 @@ repository = "https://github.com/OpenMixture/OpenMixture"
 publish = false
 
 [workspace.dependencies]
-mixture-core = { path = "crates/mixture-core" }
-mixture-wgpu = { path = "crates/mixture-wgpu" }
+mixture-core = { version = "=0.1.0", path = "crates/mixture-core" }
+mixture-wgpu = { version = "=0.1.0", path = "crates/mixture-wgpu" }
 pulldown-cmark = { version = "0.13.4", default-features = false }
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = "1.0.151"

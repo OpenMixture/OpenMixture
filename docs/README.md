@@ -44,3 +44,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 - The original `mixture-greenfield-docs/` remains a historical source. Use the current paired project documents for implementation status. If the languages diverge, consult the authoritative contracts and implementation using [the guide's authority order](../AGENTS.md), then correct both versions.
 
 [Latest requests and bounded consumer state](./stale-results.md) defines PR-014 generation handling, explicit stale display, CLI directory cleanup and CPU/GPU memory boundaries.
+
+[Local package consumption](./package-consumption.md), [compatibility](./compatibility.md) and [M4 release/exit status](./release.md) define PR-015 archive verification and the remaining external gates.

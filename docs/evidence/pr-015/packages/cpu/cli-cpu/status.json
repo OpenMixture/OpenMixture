@@ -1,0 +1,480 @@
+{
+  "cases": [
+    {
+      "args": [
+        "validate",
+        "input.mix",
+        "--json"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "validate-valid",
+      "stderr": "validate-valid.stderr",
+      "stdout": "validate-valid.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-valid",
+      "stderr": "inspect-valid.stderr",
+      "stdout": "inspect-valid.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "baseColor,normal,roughness,height",
+        "--set",
+        "repeat=16"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-reordered",
+      "stderr": "inspect-reordered.stderr",
+      "stdout": "inspect-reordered.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "baseColor,normal,roughness,height",
+        "--set",
+        "repeat=4"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-override",
+      "stderr": "inspect-override.stderr",
+      "stdout": "inspect-override.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "roughness"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-sliced",
+      "stderr": "inspect-sliced.stderr",
+      "stdout": "inspect-sliced.stdout"
+    },
+    {
+      "args": [
+        "validate",
+        "missing-warp.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "validate-missing-warp.mix-json",
+      "stderr": "validate-missing-warp.mix-json.stderr",
+      "stdout": "validate-missing-warp.mix-json.stdout"
+    },
+    {
+      "args": [
+        "validate",
+        "missing-warp.mix"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "validate-missing-warp-human",
+      "stderr": "validate-missing-warp-human.stderr",
+      "stdout": "validate-missing-warp-human.stdout"
+    },
+    {
+      "args": [
+        "validate",
+        "malformed.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "validate-malformed.mix-json",
+      "stderr": "validate-malformed.mix-json.stderr",
+      "stdout": "validate-malformed.mix-json.stdout"
+    },
+    {
+      "args": [
+        "validate",
+        "missing.mix",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "validate-missing.mix-json",
+      "stderr": "validate-missing.mix-json.stderr",
+      "stdout": "validate-missing.mix-json.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "missing-warp.mix",
+        "--json",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-missing-warp.mix-json",
+      "stderr": "inspect-missing-warp.mix-json.stderr",
+      "stdout": "inspect-missing-warp.mix-json.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "missing-warp.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-missing-warp-human",
+      "stderr": "inspect-missing-warp-human.stderr",
+      "stdout": "inspect-missing-warp-human.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "malformed.mix",
+        "--json",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-malformed.mix-json",
+      "stderr": "inspect-malformed.mix-json.stderr",
+      "stdout": "inspect-malformed.mix-json.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "missing.mix",
+        "--json",
+        "--plan"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "inspect-missing.mix-json",
+      "stderr": "inspect-missing.mix-json.stderr",
+      "stdout": "inspect-missing.mix-json.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "missing-warp.mix",
+        "--json",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-missing-warp.mix-json",
+      "stderr": "render-missing-warp.mix-json.stderr",
+      "stdout": "render-missing-warp.mix-json.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "missing-warp.mix",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-missing-warp-human",
+      "stderr": "render-missing-warp-human.stderr",
+      "stdout": "render-missing-warp-human.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "malformed.mix",
+        "--json",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-malformed.mix-json",
+      "stderr": "render-malformed.mix-json.stderr",
+      "stdout": "render-malformed.mix-json.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "missing.mix",
+        "--json",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "render-missing.mix-json",
+      "stderr": "render-missing.mix-json.stderr",
+      "stdout": "render-missing.mix-json.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "unknown-port.mix",
+        "--plan",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "unknown-port",
+      "stderr": "unknown-port.stderr",
+      "stdout": "unknown-port.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "unknown-port.mix",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "unknown-port-human",
+      "stderr": "unknown-port-human.stderr",
+      "stdout": "unknown-port-human.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "unknown-port.mix",
+        "--plan",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "unknown-port-replay",
+      "stderr": "unknown-port-replay.stderr",
+      "stdout": "unknown-port-replay.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--json",
+        "--set",
+        "repeat=0",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-invalid-override",
+      "stderr": "inspect-invalid-override.stderr",
+      "stdout": "inspect-invalid-override.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--set",
+        "repeat=0",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-invalid-override-human",
+      "stderr": "inspect-invalid-override-human.stderr",
+      "stdout": "inspect-invalid-override-human.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--json",
+        "--size",
+        "2049x3",
+        "--plan"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-budget",
+      "stderr": "inspect-budget.stderr",
+      "stdout": "inspect-budget.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--json",
+        "--set",
+        "repeat=0",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-invalid-override",
+      "stderr": "render-invalid-override.stderr",
+      "stdout": "render-invalid-override.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--set",
+        "repeat=0",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-invalid-override-human",
+      "stderr": "render-invalid-override-human.stderr",
+      "stdout": "render-invalid-override-human.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--json",
+        "--size",
+        "2049x3",
+        "--out",
+        "unused",
+        "--backend",
+        "none"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-budget",
+      "stderr": "render-budget.stderr",
+      "stdout": "render-budget.stdout"
+    },
+    {
+      "args": [
+        "doctor",
+        "--backend",
+        "none",
+        "--software",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "doctor-none",
+      "stderr": "doctor-none.stderr",
+      "stdout": "doctor-none.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--json",
+        "--out",
+        "unused",
+        "--backend",
+        "none",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "render-none",
+      "stderr": "render-none.stderr",
+      "stdout": "render-none.stdout"
+    },
+    {
+      "args": [
+        "validate",
+        "input.mix",
+        "--json",
+        "--unknown"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "validate-usage",
+      "stderr": "validate-usage.stderr",
+      "stdout": "validate-usage.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "inspect-usage",
+      "stderr": "inspect-usage.stderr",
+      "stdout": "inspect-usage.stdout"
+    },
+    {
+      "args": [
+        "doctor",
+        "--json",
+        "--backend",
+        "bogus"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "doctor-usage",
+      "stderr": "doctor-usage.stderr",
+      "stdout": "doctor-usage.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--json"
+      ],
+      "exitCode": 2,
+      "expectedExitCode": 2,
+      "id": "render-usage",
+      "stderr": "render-usage.stderr",
+      "stdout": "render-usage.stdout"
+    }
+  ],
+  "cli": "/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/mixture",
+  "completed": true,
+  "gpuExecuted": false,
+  "mode": "cli-contract-cpu",
+  "ok": true,
+  "packagedCratesValidated": false,
+  "schemaVersion": 1,
+  "workingDirectory": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000/cli-cpu"
+}

@@ -2,7 +2,7 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
-**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-014 are locally implemented and verified; PR-015 remains planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
+**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-015 are locally implemented and verified. The [M4 exit/release assessment](./docs/release.md) records local acceptance and still-open external gates. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.
 
@@ -18,7 +18,7 @@ PR-011 Public Rust API + independent consumer
 
 Each PR is a separate reviewable local commit or PR, with paired English/Chinese documentation, focused tests, and `cargo xtask check`. Keep `mixture-core` GPU-free, `mixture-wgpu` the sole pixel executor, CLI thin, GPU state explicit, and the source review bundle unchanged. No new runtime crate is justified. A separate consumer Cargo fixture is an actual dependency/compilation boundary and must not join the product workspace by accident.
 
-`cargo xtask test-consumer` is **implemented** by PR-011 and included in `check`; it remains CPU-only. `cargo xtask package-check` is **proposed** for PR-015 and is not implemented. GPU execution remains explicit through the existing `gpu-smoke` policy; no GPU requirement is added to ordinary `check`. Preserve existing CLI schema/exit behavior while adding tests; any intentional incompatible change needs an explicit compatibility decision first.
+`cargo xtask test-consumer` is **implemented** by PR-011 and included in `check`; it remains CPU-only. `cargo xtask package-check` is **implemented** by PR-015 and included in `check`, using an isolated local archive consumer. GPU execution remains explicit through the existing `gpu-smoke` policy; no GPU requirement is added to ordinary `check`. Preserve existing CLI schema/exit behavior while adding tests; any intentional incompatible change needs an explicit compatibility decision first.
 
 ## PR-011 — `feat(sdk): verify public Rust consumption end to end`
 
@@ -88,7 +88,7 @@ Test classification and serialization deterministically without exhausting physi
 
 ## PR-014 — `feat(consumer): reject stale renders and bound retained state`
 
-**Completed locally, 2026-09-11:** the PR-014 commit containing this record follows `6246647a95d104d9ea60f80df9cce6a839cc25cb` on `codex/pr-014-stale-results`. The independent consumer owns one active/one pending generation, rejects stale/duplicate completion, retains an explicitly stale display on newest failure, and cleans generation-specific CLI directories. Real Rust/CLI sequences and the nine-kernel cache regression pass on Metal and pinned SwiftShader. See [the contract](./docs/stale-results.md) and [evidence](./docs/evidence/pr-014/README.md). Product runtime code, shaders, dependencies and formats are unchanged.
+**Completed locally, 2026-09-11:** commit `30a190a` follows `6246647a95d104d9ea60f80df9cce6a839cc25cb` on `codex/pr-014-stale-results`. The independent consumer owns one active/one pending generation, rejects stale/duplicate completion, retains an explicitly stale display on newest failure, and cleans generation-specific CLI directories. Real Rust/CLI sequences and the nine-kernel cache regression pass on Metal and pinned SwiftShader. See [the contract](./docs/stale-results.md) and [evidence](./docs/evidence/pr-014/README.md). Product runtime code, shaders, dependencies and formats are unchanged.
 
 ### Outcome and evidence
 
@@ -110,6 +110,8 @@ Use deterministic consumer tests for out-of-order completion, newer-request fail
 **Out of scope:** hard GPU interruption, an async job framework inside core, daemon/IPC, unbounded parallel rendering, pooling/last-consumer optimization, UI controls.
 
 ## PR-015 — `test(release): verify packaged native consumption and compatibility`
+
+**Completed locally, 2026-09-11:** the PR-015 commit containing this record follows `30a190a41b8d425c40976a5cde8924e1e2ba9cd4` on `codex/pr-015-package-consumer`. `package-check` verifies real normalized archives outside the producer repository, exact peer versions and pinned external dependencies, package-local licenses/README/test/shader assets, actual missing-shader rejection and independent Rust/CLI consumption. Both local adapters pass packaged GPU checks, all three 1K material checks and the 2K trace with baselines unchanged. See [package resolution](./docs/package-consumption.md), [compatibility](./docs/compatibility.md), [evidence](./docs/evidence/pr-015/README.md) and [M4 exit/release status](./docs/release.md). Publication and remote CI remain disabled/deferred; no new runtime crate or dependency is added.
 
 ### Outcome and evidence
 

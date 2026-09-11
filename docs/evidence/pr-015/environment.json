@@ -1,0 +1,10 @@
+{
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.1\nBuildVersion:\t\t25F80",
+  "architecture": "arm64",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "parent": "30a190a41b8d425c40976a5cde8924e1e2ba9cd4",
+  "branch": "codex/pr-015-package-consumer",
+  "swiftShaderPin": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "swiftShaderStatus": ""
+}

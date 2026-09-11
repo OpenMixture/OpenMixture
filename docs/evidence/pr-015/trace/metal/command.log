@@ -1,0 +1,4 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/xtask trace-2k`
+2K trace selects wood/default: 8 passes, 301990112 peak estimated bytes
+2K naive lifetime trace passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/trace-2k/hardware-1789116808311454000-95285/trace.json

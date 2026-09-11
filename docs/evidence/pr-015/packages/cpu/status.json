@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "gpuExecuted": false,
+  "mode": "cpu",
+  "ok": true,
+  "packagedCratesValidated": true,
+  "schemaVersion": 1,
+  "stagingDirectory": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000",
+  "stagingRemoved": true,
+  "verification": {
+    "archives": {
+      "mixture-cli-0.1.0.crate": "sha256:f93374ab31b99e8279d7d5af344d8a995b329c02b457669d3ebfcd2ee5bb25e3",
+      "mixture-core-0.1.0.crate": "sha256:2cf66f32411559ea307fe7a53fc63e1583c9994931e6497daa5c5c1c510a6417",
+      "mixture-wgpu-0.1.0.crate": "sha256:7769190bc0806fbcd3c510bbaceae20580ccdbc797d0b7e32747cde3362c538e"
+    },
+    "binaryHashes": {
+      "cli": "sha256:4fcc78e3464aa9f0db0953f9e15160f621f22c335f708b7be94ce82f9aa00b2f",
+      "consumer": "sha256:5850e3978a880fa08d882c047550eb6b4eb7036a893dd8cd1202c9a4eab13727"
+    },
+    "buildCache": "/Users/krapnik/Documents/OpenMixture/target/package-consumer",
+    "cliCpu": "cli-cpu/status.json",
+    "cliGpu": null,
+    "cpuConsumer": "consumer-cpu.stdout.log",
+    "externalPinnedPackages": 128,
+    "extractedSourcesUnchanged": true,
+    "gpuConsumer": null,
+    "lockPolicy": "archives omit lockfiles while publication is disabled; disposable verification lock is seeded from the committed workspace lock, local membership normalized offline, external name/version/source/checksum pins checked, then all builds/tests use --offline --locked",
+    "missingShaderRejected": true,
+    "packageVersion": "0.1.0",
+    "producerSourcesUnchanged": true,
+    "resolution": "Cargo-normalized archives extracted outside the producer; version-only consumer and package dependencies resolved through local [patch.crates-io] entries to those extracted archives"
+  }
+}

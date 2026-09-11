@@ -44,3 +44,5 @@
 - 原始 `mixture-greenfield-docs/` 是保留的历史来源。使用当前配对的项目文档了解实现状态。若两种语言出现差异，依据[指南中的优先级](../AGENTS.zh-CN.md)核对权威契约和实现，并修正两版。
 
 [最新请求与有界消费者状态](./stale-results.zh-CN.md)定义 PR-014 代次处理、明确过期的展示、CLI 目录清理及 CPU／GPU 内存边界。
+
+[本地软件包消费](./package-consumption.zh-CN.md)、[兼容性](./compatibility.zh-CN.md)及 [M4 发布／退出状态](./release.zh-CN.md)定义 PR-015 归档验证与剩余外部门槛。

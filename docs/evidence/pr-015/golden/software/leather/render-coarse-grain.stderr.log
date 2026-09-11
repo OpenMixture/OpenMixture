@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render fixtures/materials/leather/material.mix --size 1024 --output baseColor,normal,roughness,height --out /Users/krapnik/Documents/OpenMixture/tmp/golden/leather/software-1789116904596843000-95465/coarse-grain --json --set grainScale=32 --backend vulkan --software`

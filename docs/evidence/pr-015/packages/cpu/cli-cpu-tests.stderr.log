@@ -1,0 +1,4 @@
+   Compiling mixture-wgpu v0.1.0 (/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000/packages/mixture-wgpu-0.1.0)
+   Compiling mixture-native-consumer v0.0.0 (/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-cpu-95990-1789117397494403000/consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.53s
+     Running tests/cli_contract.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/cli_contract-4dd2420fb9d0637b)

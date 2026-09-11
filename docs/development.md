@@ -4,7 +4,7 @@ English | [简体中文](./development.zh-CN.md)
 
 ## Foundation, diagnostics, and GPU context status
 
-This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012 adds the [CLI report/exit contract](./cli-contract.md), complete human diagnostic context and independent CLI process tests. PR-013 adds [GPU failure reasons, loss lifetime and cleanup](./gpu-failures.md). PR-014 adds [latest requests and bounded retention](./stale-results.md). PR-015 and `package-check` remain planned. Remote CI remains deferred.
+This repository implements PR-001 through PR-010 locally from [the initial train](../INITIAL_PRS.md). Ceramic, leather and wood appearance are accepted by the user. The [M3 review](./m3-review.md) and [reproduction helpers](./reviews/m3/README.md) record local acceptance, release performance and native-consumer gaps. [M4 PR-011](../M4_PRS.md) now implements the [independent public Rust consumer](./native-sdk.md) and CPU-only `test-consumer`, with explicit GPU ownership checks and 1K release evidence. PR-012 adds the [CLI report/exit contract](./cli-contract.md), complete human diagnostic context and independent CLI process tests. PR-013 adds [GPU failure reasons, loss lifetime and cleanup](./gpu-failures.md). PR-014 adds [latest requests and bounded retention](./stale-results.md). PR-015 adds [isolated local package verification](./package-consumption.md) through `package-check`, plus [compatibility](./compatibility.md) and the [M4 exit/release assessment](./release.md). M4 is locally accepted; remote CI remains deferred.
 It contains three product crate boundaries and private repository tooling. Core provides [diagnostics and safety-limit APIs](./diagnostics.md); [explicit GPU acquisition and doctor](./gpu-context.md) are available. [Checker compute/readback and CLI PNG output](./builtin-checker.md) are implemented. [Strict .mix decoding/validation](./file-format.md) and [eleven node contracts](./node-contracts.md) are implemented. [Deterministic compilation and plan inspection](./render-plan.md) are implemented. [Graph execution](./graph-rendering.md) and three PNG examples are implemented. All packages have publication disabled.
 
 Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.toml](../rust-toolchain.toml). Install Rust through [rustup](https://rustup.rs/) and use a native Rust linker/toolchain (Xcode Command Line Tools on macOS, a C linker on Linux, or Visual Studio C++ Build Tools on Windows). Running Cargo in this repository installs the pinned toolchain when needed.
@@ -20,6 +20,7 @@ cargo xtask test-core
 cargo xtask test-format
 cargo xtask test-plan
 cargo xtask test-consumer
+cargo xtask package-check
 cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --json
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
 cargo xtask doc
@@ -45,7 +46,7 @@ cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out chec
 cargo xtask gpu-smoke
 ```
 
-The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Every nested Cargo command that resolves dependencies also uses `--locked`. Formatting does not resolve dependencies. The first run downloads the locked tooling dependencies; subsequent verification can use the Cargo cache.
+The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Build/test/doc commands and producer dependency resolution use `--locked`. The sole package-staging exception is an offline metadata pass to normalize a disposable lock; external versions/sources/checksums are checked against the committed pins before all subsequent `--offline --locked` verification. Committed locks are never rewritten by the checker. Formatting does not resolve dependencies. The first run downloads the locked tooling dependencies; subsequent verification can use the Cargo cache.
 
 `check` runs, in order:
 
@@ -54,16 +55,17 @@ The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Every n
 3. Clippy on all workspace targets and features with warnings denied.
 4. Workspace tests, including CLI integration tests, tooling tests, and doctests.
 5. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and public-Rust CPU invocation, followed by a built CLI and the explicit independent CPU contract test in a fresh working directory.
-6. Workspace rustdoc with warnings denied.
-7. Basic offline Markdown links to existing local files and directories.
+6. `package-check`: actual local archives, isolated source/lock resolution, unit tests/Rustdoc, missing-shader rejection and independent CPU consumption.
+7. Workspace rustdoc with warnings denied.
+8. Basic offline Markdown links to existing local files and directories.
 
-Every failed subprocess fails the enclosing check. Checks do not rewrite sources, fixtures, or baselines. Markdown parsing handles inline links, reference links, and images while ignoring code examples; external URLs, heading anchors, raw HTML links, and percent-encoded local paths are outside this basic check. Use ordinary relative paths, or angle brackets for paths with spaces. Build/output directories are excluded from discovery.
+Every unexpected subprocess failure fails the enclosing check; the explicit missing-shader probe must fail and is validated as a negative test. Checks do not rewrite sources, fixtures, or baselines. Markdown parsing handles inline links, reference links, and images while ignoring code examples; external URLs, heading anchors, raw HTML links, and percent-encoded local paths are outside this basic check. Use ordinary relative paths, or angle brackets for paths with spaces. Build/output directories are excluded from discovery.
 
 Use `cargo fmt --all` to apply formatting. Update `Cargo.lock` deliberately when changing dependencies, then rerun `cargo xtask check`. Cargo workspace and lint inheritance follow the [Cargo workspace reference](https://doc.rust-lang.org/cargo/reference/workspaces.html).
 
 ## Dependency policy
 
-At PR-014 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
+At PR-015 the only allowed direct dependency edges in the product/tooling workspace, including build, dev, optional, and target-specific dependencies, are:
 
 | Package | Allowed dependencies |
 | --- | --- |
@@ -125,3 +127,5 @@ PR-010 also adds no dependency or lockfile change. Run `test-node transform-2d`,
 PR-013 adds CPU classification and consumer-receipt guard tests. `test-consumer` compiles the independent `device_loss` test but leaves it ignored; explicit `gpu-smoke` executes its cold/warm destruction cases and verifies the fresh receipt referenced by `native-consumer/status.json` → `deviceLossEvidence`. [GPU failure reproduction](./gpu-failures.md) and [local evidence](./evidence/pr-013/README.md) distinguish typed synthetic OOM from real device destruction.
 
 PR-014 keeps scheduling in `examples/native-consumer/src/latest.rs`, with a library target inside that existing example package. `test-consumer` runs six deterministic state/lifetime tests. Explicit `gpu-smoke` adds Rust `latest`, five generation-isolated CLI calls and the nine-kernel cache-bound GPU regression. The root consumer status points to `latestEvidence`; [reproduction and limits](./stale-results.md) explain the receipts and structural output bound.
+
+PR-015 introduces no direct dependency or committed lockfile change. Product packages add exact peer version requirements, explicit include lists, paired READMEs and license copies. Three small wgpu unit inputs move to package-local include paths; `package-check` checks their byte identity against canonical fixtures. It requires a compatible `tar` and an external OS temporary directory, preserves raw package evidence under `tmp/package-check/`, and uses only an ignored compiler artifact cache under `target/package-consumer`. See [the full verification method](./package-consumption.md).

@@ -1,0 +1,15 @@
+   Compiling mixture-cli v0.1.0 (/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-93800-1789116301901451000/packages/mixture-cli-0.1.0)
+   Compiling mixture-native-consumer v0.0.0 (/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-93800-1789116301901451000/consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.35s
+     Running unittests src/main.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/mixture-8db71c059e4fcd73)
+     Running unittests src/lib.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/mixture_core-5fd409cebd2ba5a2)
+     Running unittests src/lib.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/mixture_native_consumer-3c2a3df3f50970e7)
+     Running unittests src/main.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/mixture_native_consumer-0670e4d9de9fc035)
+     Running tests/cli_contract.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/cli_contract-4dd2420fb9d0637b)
+     Running tests/commands.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/commands-9b82fb13fe51be6d)
+     Running tests/device_loss.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/device_loss-4b4e878614817fee)
+     Running tests/latest_cli.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/latest_cli-946dea50a6cd3cdc)
+     Running unittests src/lib.rs (/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/deps/mixture_wgpu-33b95c1a8c529357)
+   Doc-tests mixture_core
+   Doc-tests mixture_native_consumer
+   Doc-tests mixture_wgpu

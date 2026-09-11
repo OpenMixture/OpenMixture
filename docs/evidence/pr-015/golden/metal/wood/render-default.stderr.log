@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/mixture render fixtures/materials/wood/material.mix --size 1024 --output baseColor,normal,roughness,height --out /Users/krapnik/Documents/OpenMixture/tmp/golden/wood/hardware-1789116775110274000-95161/default --json --backend metal`

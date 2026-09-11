@@ -397,7 +397,7 @@ fn cli_contract(
     Ok(format!("{name}/status.json"))
 }
 
-fn validate_cli_status(status: &Value, gpu: bool) -> TaskResult {
+pub(super) fn validate_cli_status(status: &Value, gpu: bool) -> TaskResult {
     let required: &[&str] = if gpu {
         &[
             "doctor",
@@ -472,7 +472,7 @@ fn validate_workspace(metadata: &Value) -> TaskResult {
     Ok(())
 }
 
-fn validate_cpu(report: &Value) -> TaskResult {
+pub(super) fn validate_cpu(report: &Value) -> TaskResult {
     if report["schemaVersion"] != 1
         || report["ok"] != true
         || report["mode"] != "check"
@@ -488,7 +488,7 @@ fn validate_cpu(report: &Value) -> TaskResult {
     Ok(())
 }
 
-fn validate_gpu(report: &Value) -> TaskResult {
+pub(super) fn validate_gpu(report: &Value) -> TaskResult {
     validate_cpu(&report["cpu"])?;
     if report["schemaVersion"] != 1
         || report["ok"] != true

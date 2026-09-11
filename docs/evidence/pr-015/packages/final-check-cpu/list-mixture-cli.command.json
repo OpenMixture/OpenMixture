@@ -1,0 +1,10 @@
+{
+  "args": [
+    "-tzf",
+    "/Users/krapnik/Documents/OpenMixture/tmp/package-check/cpu-96782-1789118245535713000/archives/mixture-cli-0.1.0.crate"
+  ],
+  "cwd": null,
+  "exitCode": 0,
+  "program": "tar",
+  "success": true
+}

@@ -1,0 +1,212 @@
+{
+  "cases": [
+    {
+      "args": [
+        "doctor",
+        "--json",
+        "--backend",
+        "vulkan",
+        "--software"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "doctor",
+      "stderr": "doctor.stderr",
+      "stdout": "doctor.stdout"
+    },
+    {
+      "args": [
+        "doctor",
+        "--json",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--skip-probe"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "doctor-skipped",
+      "stderr": "doctor-skipped.stderr",
+      "stdout": "doctor-skipped.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-full",
+      "stderr": "inspect-full.stderr",
+      "stdout": "inspect-full.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--out",
+        "full",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16",
+        "--backend",
+        "vulkan",
+        "--software"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "render-full",
+      "stderr": "render-full.stderr",
+      "stdout": "render-full.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=4"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-override",
+      "stderr": "inspect-override.stderr",
+      "stdout": "inspect-override.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--out",
+        "override",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=4",
+        "--backend",
+        "vulkan",
+        "--software"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "render-override",
+      "stderr": "render-override.stderr",
+      "stdout": "render-override.stdout"
+    },
+    {
+      "args": [
+        "inspect",
+        "input.mix",
+        "--plan",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "roughness",
+        "--set",
+        "repeat=16"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "inspect-sliced",
+      "stderr": "inspect-sliced.stderr",
+      "stdout": "inspect-sliced.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--out",
+        "sliced",
+        "--json",
+        "--size",
+        "65x3",
+        "--output",
+        "roughness",
+        "--set",
+        "repeat=16",
+        "--backend",
+        "vulkan",
+        "--software"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "id": "render-sliced",
+      "stderr": "render-sliced.stderr",
+      "stdout": "render-sliced.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--out",
+        "partial",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "render-partial",
+      "stderr": "render-partial.stderr",
+      "stdout": "render-partial.stdout"
+    },
+    {
+      "args": [
+        "render",
+        "input.mix",
+        "--out",
+        "partial-human",
+        "--size",
+        "65x3",
+        "--output",
+        "height,roughness,normal,baseColor",
+        "--set",
+        "repeat=16",
+        "--backend",
+        "vulkan",
+        "--software"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "id": "render-partial-human",
+      "stderr": "render-partial-human.stderr",
+      "stdout": "render-partial-human.stdout"
+    }
+  ],
+  "cli": "/Users/krapnik/Documents/OpenMixture/target/package-consumer/debug/mixture",
+  "completed": true,
+  "gpuExecuted": true,
+  "mode": "cli-contract-gpu",
+  "ok": true,
+  "packagedCratesValidated": false,
+  "schemaVersion": 1,
+  "workingDirectory": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-package-gpu-94603-1789116509357142000/cli-gpu"
+}

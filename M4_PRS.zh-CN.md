@@ -2,7 +2,7 @@
 
 [English](./M4_PRS.md) | 简体中文
 
-**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011 至 PR-014 已本地实现并验证；PR-015 仍待实施。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
+**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011 至 PR-015 已本地实现并验证。[M4 退出／发布评估](./docs/release.zh-CN.md)记录本地验收与仍开放的外部门槛。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
 
 消费者需要现有的解码 → 验证 → 编译 → wgpu → 自有输出路径。Release 测量支持防抖预览，未显示值得引入原生绑定或守护进程的启动瓶颈。2K 描述符峰值无需池化即可满足当前预算。以下工作稳定可观察行为，并独立验证消费路径。
 
@@ -18,7 +18,7 @@ PR-011 Public Rust API + independent consumer
 
 每个 PR 保留为可独立评审的本地提交或 PR，包含成对中英文文档、定向测试和 `cargo xtask check`。保持 `mixture-core` 无 GPU 依赖、`mixture-wgpu` 为唯一像素执行器、CLI 轻薄、GPU 状态显式，并保持原始评审资料包不变。无需新增运行时 crate。独立消费者 Cargo 夹具属于实际依赖／编译边界，不能意外加入产品 workspace。
 
-`cargo xtask test-consumer` 已由 PR-011 **实现**并纳入 `check`，保持纯 CPU。`cargo xtask package-check` **拟由** PR-015 引入，尚未实现。GPU 执行继续通过现有 `gpu-smoke` 策略显式进行，不给普通 `check` 新增 GPU 要求。增加测试时保持现有 CLI schema／退出行为；任何有意不兼容变更均须先明确兼容性决定。
+`cargo xtask test-consumer` 已由 PR-011 **实现**并纳入 `check`，保持纯 CPU。`cargo xtask package-check` 已由 PR-015 **实现**并纳入 `check`，使用隔离本地归档消费者。GPU 执行继续通过现有 `gpu-smoke` 策略显式进行，不给普通 `check` 新增 GPU 要求。增加测试时保持现有 CLI schema／退出行为；任何有意不兼容变更均须先明确兼容性决定。
 
 ## PR-011 — `feat(sdk): verify public Rust consumption end to end`
 
@@ -88,7 +88,7 @@ PR-011 Public Rust API + independent consumer
 
 ## PR-014 — `feat(consumer): reject stale renders and bound retained state`
 
-**本地完成，2026-09-11：** 包含本记录的 PR-014 提交位于 `codex/pr-014-stale-results`，父提交为 `6246647a95d104d9ea60f80df9cce6a839cc25cb`。独立消费者拥有一个活跃／一个待执行代次，拒绝过期／重复完成，最新失败时保留明确过期的展示，并清理按代次隔离的 CLI 目录。真实 Rust／CLI 序列及九内核缓存回归通过 Metal 和固定 SwiftShader 验证。见[契约](./docs/stale-results.zh-CN.md)及[证据](./docs/evidence/pr-014/README.zh-CN.md)。产品运行时代码、shader、依赖和格式不变。
+**本地完成，2026-09-11：** 提交 `30a190a` 位于 `codex/pr-014-stale-results`，父提交为 `6246647a95d104d9ea60f80df9cce6a839cc25cb`。独立消费者拥有一个活跃／一个待执行代次，拒绝过期／重复完成，最新失败时保留明确过期的展示，并清理按代次隔离的 CLI 目录。真实 Rust／CLI 序列及九内核缓存回归通过 Metal 和固定 SwiftShader 验证。见[契约](./docs/stale-results.zh-CN.md)及[证据](./docs/evidence/pr-014/README.zh-CN.md)。产品运行时代码、shader、依赖和格式不变。
 
 ### 结果与依据
 
@@ -110,6 +110,8 @@ PR-011 Public Rust API + independent consumer
 **不在范围内：** 强制 GPU 中断、core 内异步任务框架、守护进程／IPC、无界并行渲染、池化／最后消费者优化、UI 控件。
 
 ## PR-015 — `test(release): verify packaged native consumption and compatibility`
+
+**本地完成，2026-09-11：** 包含本记录的 PR-015 提交位于 `codex/pr-015-package-consumer`，父提交为 `30a190a41b8d425c40976a5cde8924e1e2ba9cd4`。`package-check` 在生产仓库外验证真实规范化归档、精确同组版本与固定外部依赖、包内许可／README／测试／shader 资源、真实缺失 shader 拒绝及独立 Rust／CLI 消费。两种本地适配器均通过打包 GPU 检查、三种 1K 材质检查和 2K 跟踪，基准不变。见[包解析](./docs/package-consumption.zh-CN.md)、[兼容性](./docs/compatibility.zh-CN.md)、[证据](./docs/evidence/pr-015/README.zh-CN.md)及 [M4 退出／发布状态](./docs/release.zh-CN.md)。发布／远端 CI 仍禁用／暂缓；未添加运行时 crate 或依赖。
 
 ### 结果与依据
 

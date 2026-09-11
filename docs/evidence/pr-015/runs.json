@@ -1,0 +1,46 @@
+{
+  "metal": {
+    "gpuSmoke": "gpu-smoke/metal/command.log",
+    "package": "packages/metal/status.json",
+    "materials": {
+      "glazed-ceramic": {
+        "originalRun": "tmp/golden/glazed-ceramic/hardware-1789116717674709000-95161",
+        "report": "golden/metal/glazed-ceramic/report.json"
+      },
+      "leather": {
+        "originalRun": "tmp/golden/leather/hardware-1789116730612412000-95161",
+        "report": "golden/metal/leather/report.json"
+      },
+      "wood": {
+        "originalRun": "tmp/golden/wood/hardware-1789116775110274000-95161",
+        "report": "golden/metal/wood/report.json"
+      }
+    },
+    "trace": "trace/metal/trace.json",
+    "consumerStatus": "gpu-smoke/metal/consumer/status.json"
+  },
+  "software": {
+    "gpuSmoke": "gpu-smoke/software/command.log",
+    "package": "packages/software/status.json",
+    "materials": {
+      "glazed-ceramic": {
+        "originalRun": "tmp/golden/glazed-ceramic/software-1789116891175527000-95465",
+        "report": "golden/software/glazed-ceramic/report.json"
+      },
+      "leather": {
+        "originalRun": "tmp/golden/leather/software-1789116904596843000-95465",
+        "report": "golden/software/leather/report.json"
+      },
+      "wood": {
+        "originalRun": "tmp/golden/wood/software-1789116949363769000-95465",
+        "report": "golden/software/wood/report.json"
+      }
+    },
+    "trace": "trace/software/trace.json",
+    "consumerStatus": "gpu-smoke/software/consumer/status.json"
+  },
+  "finalRepositoryCheck": {
+    "log": "checks/check.log",
+    "packageStatus": "packages/final-check-cpu/status.json"
+  }
+}
