@@ -143,3 +143,5 @@ PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations
 [PR-012 CLI 契约](./cli-contract.zh-CN.md)统一记录报告字段类型、null／省略规则、退出码和部分文件写入行为，并提供独立 PNG／元数据／覆盖检查。像素执行及编码语义不变。
 
 PR-013 在 GPU 工作前与返回输出前检查已送达的设备丢失。观察到丢失会清空 renderer 管线缓存；重复调用返回结构化失败，不重新获取设备。错误路径释放逐次描述符并附带分配证据，readback unmap 在错误作用域内运行，使清理失败不会替换原始错误。见 [GPU 失败契约](./gpu-failures.zh-CN.md)。
+
+PR-014 通过全部九内核、变化请求、重复、clear／drop 及独立 renderer 验证既有缓存边界；renderer 实现不变。[消费者保留](./stale-results.zh-CN.md)另外限制 CPU 输出并拒绝过期结果。

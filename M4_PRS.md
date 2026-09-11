@@ -2,7 +2,7 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
-**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-013 are locally implemented and verified; PR-014 and PR-015 remain planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
+**Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-014 are locally implemented and verified; PR-015 remains planned. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. Remote platform CI remains deferred; M4 planning and local work do not close it.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.
 
@@ -87,6 +87,8 @@ Test classification and serialization deterministically without exhausting physi
 **Out of scope:** automatic recovery, fallback executors, process-global error state, hardware memory exhaustion, new resource pools, a generalized retry framework.
 
 ## PR-014 — `feat(consumer): reject stale renders and bound retained state`
+
+**Completed locally, 2026-09-11:** the PR-014 commit containing this record follows `6246647a95d104d9ea60f80df9cce6a839cc25cb` on `codex/pr-014-stale-results`. The independent consumer owns one active/one pending generation, rejects stale/duplicate completion, retains an explicitly stale display on newest failure, and cleans generation-specific CLI directories. Real Rust/CLI sequences and the nine-kernel cache regression pass on Metal and pinned SwiftShader. See [the contract](./docs/stale-results.md) and [evidence](./docs/evidence/pr-014/README.md). Product runtime code, shaders, dependencies and formats are unchanged.
 
 ### Outcome and evidence
 

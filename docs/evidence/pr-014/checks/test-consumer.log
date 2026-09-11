@@ -1,0 +1,4 @@
+   Compiling xtask v0.1.0 (/Users/krapnik/Documents/OpenMixture/xtask)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.36s
+     Running `target/debug/xtask test-consumer`
+Independent Rust and CLI consumer CPU checks passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/consumer-check

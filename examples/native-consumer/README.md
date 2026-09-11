@@ -102,7 +102,7 @@ target/native-consumer/release/mixture-native-consumer measure \
 
 The parent of the output directory must exist, and the output directory itself must not exist. The measurement input is read with the default byte limit plus one sentinel byte; core owns the actual limit diagnostic. No files or baselines are overwritten. [The PR-011 measurement helper](../../docs/evidence/pr-011/measure_native.py) compares the accepted materials to raw Rust and decoded CLI output, with all hashing/comparison after timing.
 
-This is a focused consumer example, not a new general-purpose CLI contract. Success writes a JSON report and exits `0`; operational or validation failures return `1` with original Mixture diagnostic context/source chains where applicable; usage failures return `2` on stderr. `RenderFailure` retains the selected context alongside the original GPU operation error. There is no fallback or device recovery. Native `Renderer::render` can block its calling thread during polling; an application needing responsiveness should manage its own worker. Stale-result scheduling is reserved for PR-014.
+This is a focused consumer example, not a new general-purpose CLI contract. Success writes a JSON report and exits `0`; operational or validation failures return `1` with original Mixture diagnostic context/source chains where applicable; usage failures return `2` on stderr. `RenderFailure` retains the selected context alongside the original GPU operation error. There is no fallback or device recovery. Native `Renderer::render` can block its calling thread during polling; an application needing responsiveness should manage its own worker. PR-014 provides the consumer-owned `latest` scheduling example described below.
 
 See the [public native API guide](../../docs/native-sdk.md) for ownership, dependency exposure and acceptance limits.
 
@@ -119,3 +119,21 @@ cargo test --locked --manifest-path examples/native-consumer/Cargo.toml \
 ```
 
 Use the pinned Vulkan policy and loader from the GPU commands above to run the same test on SwiftShader. Receipts start incomplete and become complete only after all assertions pass. This tests device destruction, not physical OOM. See [failure semantics](../../docs/gpu-failures.md).
+
+## Latest requests (PR-014)
+
+The [state module](./src/latest.rs) is a library target within this example package, shared by its executable and independent CLI test. Six CPU tests cover replacement, stale/duplicate/out-of-order completion, newest failure, overflow, drops and directory isolation. The `latest` mode runs actual Rust renders with deterministic event delivery and bounded output ownership. `latest_cli` uses a prebuilt CLI, fresh absolute evidence directory (existing parent), five child calls and explicit cleanup. Build the CLI using the earlier commands before running:
+
+```bash
+cargo run --locked --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer -- latest metal hardware 'Apple M5'
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_LATEST_DIR="$PWD/tmp/latest-cli-$(date +%s)" \
+cargo test --locked --all-features --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test latest_cli latest_cli_contract \
+  -- --ignored --exact --nocapture
+```
+
+Explicit `gpu-smoke` orchestrates both checks and rejects incomplete evidence. For SwiftShader use the loader and Vulkan/software policy above; add `--all-features` to the standalone Rust command to enable the software feature. See [the contract and memory limits](../../docs/stale-results.md). Submitted GPU work may finish; this is stale-result handling, not GPU cancellation. No new product crate or dependency is added.

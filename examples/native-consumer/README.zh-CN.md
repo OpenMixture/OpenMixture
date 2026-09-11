@@ -102,7 +102,7 @@ target/native-consumer/release/mixture-native-consumer measure \
 
 输出目录的父目录必须存在，输出目录自身必须不存在。测量输入最多读取默认字节限额加一个哨兵字节；实际限额诊断归 core 所有。不覆盖任何文件或基准。[PR-011 测量脚本](../../docs/evidence/pr-011/measure_native.py)将接受的材质与原始 Rust／解码 CLI 输出比较，所有哈希／比较都在计时后进行。
 
-这是专项消费者示例，不是新的通用 CLI 契约。成功写入 JSON 报告并退出 `0`；操作或验证失败返回 `1`，在适用处保留原始 Mixture 诊断上下文／source chain；usage 失败退出 `2` 并写入 stderr。`RenderFailure` 将所选上下文与原始 GPU 操作错误一起保留。不提供备用执行或设备恢复。原生 `Renderer::render` 可能在 polling 期间阻塞调用线程；需要响应性的应用应管理自己的 worker。过期结果调度留给 PR-014。
+这是专项消费者示例，不是新的通用 CLI 契约。成功写入 JSON 报告并退出 `0`；操作或验证失败返回 `1`，在适用处保留原始 Mixture 诊断上下文／source chain；usage 失败退出 `2` 并写入 stderr。`RenderFailure` 将所选上下文与原始 GPU 操作错误一起保留。不提供备用执行或设备恢复。原生 `Renderer::render` 可能在 polling 期间阻塞调用线程；需要响应性的应用应管理自己的 worker。PR-014 提供下述消费者自有 `latest` 调度示例。
 
 所有权、依赖类型暴露及验收限制见[公开原生 API 指南](../../docs/native-sdk.zh-CN.md)。
 
@@ -119,3 +119,21 @@ cargo test --locked --manifest-path examples/native-consumer/Cargo.toml \
 ```
 
 使用上文 GPU 命令中的固定 Vulkan 策略与 loader，可在 SwiftShader 上运行同一测试。回执起初为未完成，只有所有断言通过才变为完成。这测试设备销毁，不测试物理 OOM。见[失败语义](../../docs/gpu-failures.zh-CN.md)。
+
+## 最新请求（PR-014）
+
+[状态模块](./src/latest.rs) 是此示例包中的库 target，由可执行程序和独立 CLI 测试共享。六个 CPU 测试覆盖替换、过期／重复／乱序完成、最新失败、溢出、drop 及目录隔离。`latest` 模式通过确定性事件交付运行真实 Rust 渲染并限制输出所有权。`latest_cli` 使用预构建 CLI、新建绝对证据目录（父目录需存在）、五次子调用及显式清理。运行前按前文命令构建 CLI：
+
+```bash
+cargo run --locked --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer -- latest metal hardware 'Apple M5'
+MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
+MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' \
+MIXTURE_CONSUMER_CLI="$PWD/target/debug/mixture" \
+MIXTURE_CONSUMER_LATEST_DIR="$PWD/tmp/latest-cli-$(date +%s)" \
+cargo test --locked --all-features --manifest-path examples/native-consumer/Cargo.toml \
+  --target-dir target/native-consumer --test latest_cli latest_cli_contract \
+  -- --ignored --exact --nocapture
+```
+
+显式 `gpu-smoke` 编排两项检查并拒绝未完成证据。SwiftShader 使用上文 loader 和 Vulkan／software 策略；单独 Rust 命令需加 `--all-features` 启用软件特性。见[契约与内存限制](../../docs/stale-results.zh-CN.md)。已提交的 GPU 工作可能完成；这里处理过期结果，不取消 GPU。未添加产品 crate 或依赖。

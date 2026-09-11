@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running unittests src/lib.rs (target/native-consumer/debug/deps/mixture_native_consumer-151385e8d8cf0416)
+     Running unittests src/main.rs (target/native-consumer/debug/deps/mixture_native_consumer-ef8a260c2ac214f7)
+     Running tests/cli_contract.rs (target/native-consumer/debug/deps/cli_contract-e83c5e7edad03396)
+     Running tests/commands.rs (target/native-consumer/debug/deps/commands-50f58c7008447730)
+     Running tests/device_loss.rs (target/native-consumer/debug/deps/device_loss-88c8c4c1ac6c9bd4)
+     Running tests/latest_cli.rs (target/native-consumer/debug/deps/latest_cli-0f200ec27d7b1635)
+   Doc-tests mixture_native_consumer

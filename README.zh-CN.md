@@ -6,7 +6,7 @@
 
 **状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
 
-**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011](./M4_PRS.zh-CN.md)现已验证[独立公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)，包括自有 GPU 输出与 renderer 复用测量；PR-012 验证 [CLI 报告及退出码](./docs/cli-contract.zh-CN.md)，修复人类可读诊断上下文。PR-013 添加 [GPU 失败分类与丢失生命周期](./docs/gpu-failures.zh-CN.md)，包括受保护的回读清理。PR-014–015 仍待实施。远端 CI 继续暂缓。
+**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011](./M4_PRS.zh-CN.md)现已验证[独立公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)，包括自有 GPU 输出与 renderer 复用测量；PR-012 验证 [CLI 报告及退出码](./docs/cli-contract.zh-CN.md)，修复人类可读诊断上下文。PR-013 添加 [GPU 失败分类与丢失生命周期](./docs/gpu-failures.zh-CN.md)，包括受保护的回读清理。PR-014 现已验证[最新结果发布与有界消费者状态](./docs/stale-results.zh-CN.md)。PR-015 仍待实施。远端 CI 继续暂缓。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 

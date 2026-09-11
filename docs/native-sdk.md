@@ -2,7 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), while stale-result handling and packaged consumption remain [M4 steps](../M4_PRS.md).
+PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and packaged consumption remains PR-015 work.
 
 ## Reviewed API path
 
@@ -47,7 +47,7 @@ The existing public `instance()`, `adapter()`, `device()` and `queue()` getters 
 
 Shared references to wgpu handles do not imply immutable GPU state: a caller can submit work, destroy the device or change callbacks through them. Such interference is the caller's responsibility and may make subsequent Mixture operations fail. External submissions and allocations are outside Mixture's reported timings/accounting. Normal consumer acceptance does not certify arbitrary raw-wgpu interoperation. PR-011 removes no existing accessors and makes no new blanket stability promise; the full release/compatibility policy belongs to PR-015.
 
-Although `Renderer::render` returns a future and its native types satisfy `Send`, native polling may block the executing thread. A responsive application should own the renderer on an explicitly managed worker. Individual waits are bounded to 30 seconds, not an overall render deadline. Dropping a future is not a GPU cancellation contract. This example introduces no threads, recovery, implicit fallback or stale-result scheduler.
+Although `Renderer::render` returns a future and its native types satisfy `Send`, native polling may block the executing thread. A responsive application should own the renderer on an explicitly managed worker. Individual waits are bounded to 30 seconds, not an overall render deadline. Dropping a future is not a GPU cancellation contract. PR-014 adds consumer-owned freshness state; it introduces no thread, recovery or implicit alternate execution.
 
 ## Diagnostics and verification
 
@@ -66,3 +66,5 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 `test-consumer` is CPU-only and included in `check`. `gpu-smoke` explicitly builds and runs the same independent application, alongside the existing checker, graph and GPU regressions. Its environment policy is passed as explicit consumer arguments; standalone consumer commands do not read that policy implicitly. The [example guide](../examples/native-consumer/README.md) gives direct and pinned-software commands. [PR-011 evidence](./evidence/pr-011/README.md) records local results and paired release measurements; deferred remote CI remains open.
 
 PR-013 additionally runs the independent `device_loss` integration test with explicit harness environment variables. It destroys cold/warm devices, verifies repeated failures without new allocations and consumes another context's correct outputs. Its fresh JSON receipt is linked by `deviceLossEvidence` in the smoke consumer status. See [PR-013 evidence](./evidence/pr-013/README.md).
+
+[PR-014 freshness state](./stale-results.md) lives entirely in the independent consumer. It accepts generations before compilation, limits active/pending work and retains at most displayed pixels plus a current completion. A stale display stays labeled stale after newer failure. The host still owns responsive worker scheduling.

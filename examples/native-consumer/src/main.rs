@@ -10,8 +10,10 @@ use std::{error::Error, ffi::OsString, path::PathBuf, process::ExitCode};
 type Result<T> = std::result::Result<T, Box<dyn Error>>;
 const HELP: &str = "Usage: mixture-native-consumer check
        mixture-native-consumer gpu <auto|metal|vulkan|dx12|none> <hardware|software> [expected-adapter]
+       mixture-native-consumer latest <auto|metal|vulkan|dx12|none> <hardware|software> [expected-adapter]
        mixture-native-consumer measure <file.mix> <new-output-directory> <backend> <hardware|software> [expected-adapter]
 
+latest runs a bounded freshness sequence on consumer-owned input.
 check is CPU-only. gpu checks the consumer-owned input at 65x3.
 measure returns four 1K RGBA8 channels for a first and reused-renderer call.
 GPU modes require an explicit policy. No environment adapter overrides are read.";
@@ -20,6 +22,7 @@ GPU modes require an explicit policy. No environment adapter overrides are read.
 enum Mode {
     Check,
     Gpu(Selection),
+    Latest(Selection),
     Measure(PathBuf, PathBuf, Selection),
 }
 
@@ -69,6 +72,7 @@ fn parse(args: &[OsString]) -> Result<Mode> {
     match args {
         [] => Ok(Mode::Check),
         [command] if command == "check" => Ok(Mode::Check),
+        [command, rest @ ..] if command == "latest" => Ok(Mode::Latest(selection(rest)?)),
         [command, rest @ ..] if command == "gpu" => Ok(Mode::Gpu(selection(rest)?)),
         [command, input, out, rest @ ..] if command == "measure" => {
             Ok(Mode::Measure(input.into(), out.into(), selection(rest)?))
@@ -118,6 +122,7 @@ fn main() -> ExitCode {
     };
     let result = match mode {
         Mode::Check => cpu::check(),
+        Mode::Latest(selection) => pollster::block_on(gpu::latest(&selection)),
         Mode::Gpu(selection) => pollster::block_on(gpu::check(&selection)),
         Mode::Measure(input, out, selection) => {
             pollster::block_on(gpu::measure(&input, &out, &selection))

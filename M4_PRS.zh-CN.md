@@ -2,7 +2,7 @@
 
 [English](./M4_PRS.md) | 简体中文
 
-**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011 至 PR-013 已本地实现并验证；PR-014、PR-015 仍待实施。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
+**状态：** 依据 `e9dd03b` 的 [M3 评审](./docs/m3-review.zh-CN.md)启动，日期 2026-09-08。PR-011 至 PR-014 已本地实现并验证；PR-015 仍待实施。本计划具体落实 [M4](./ROADMAP.zh-CN.md#m4--稳定的原生-sdk)，不改变架构或扩展节点词汇。远端平台 CI 继续暂缓；M4 规划及本地工作不关闭这些验收项。
 
 消费者需要现有的解码 → 验证 → 编译 → wgpu → 自有输出路径。Release 测量支持防抖预览，未显示值得引入原生绑定或守护进程的启动瓶颈。2K 描述符峰值无需池化即可满足当前预算。以下工作稳定可观察行为，并独立验证消费路径。
 
@@ -87,6 +87,8 @@ PR-011 Public Rust API + independent consumer
 **不在范围内：** 自动恢复、备用执行器、进程全局错误状态、硬件内存耗尽、新资源池、通用重试框架。
 
 ## PR-014 — `feat(consumer): reject stale renders and bound retained state`
+
+**本地完成，2026-09-11：** 包含本记录的 PR-014 提交位于 `codex/pr-014-stale-results`，父提交为 `6246647a95d104d9ea60f80df9cce6a839cc25cb`。独立消费者拥有一个活跃／一个待执行代次，拒绝过期／重复完成，最新失败时保留明确过期的展示，并清理按代次隔离的 CLI 目录。真实 Rust／CLI 序列及九内核缓存回归通过 Metal 和固定 SwiftShader 验证。见[契约](./docs/stale-results.zh-CN.md)及[证据](./docs/evidence/pr-014/README.zh-CN.md)。产品运行时代码、shader、依赖和格式不变。
 
 ### 结果与依据
 

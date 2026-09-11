@@ -143,3 +143,5 @@ PR-010 adds `execution.allocations`, exposed as `RenderReport.allocations: Alloc
 The [PR-012 CLI contract](./cli-contract.md) consolidates report field types, null/omission rules, exit codes and partial-file-write behavior, with independent PNG/metadata/override checks. Pixel execution and encoding semantics are unchanged.
 
 PR-013 checks delivered device loss before GPU work and before returning outputs. Observed loss clears the renderer pipeline cache; repeated calls return structured failures without reacquisition. Error paths release per-call descriptors and attach allocation evidence, and readback unmap runs inside error scopes so cleanup cannot replace the original failure. See [GPU failures](./gpu-failures.md).
+
+PR-014 verifies the existing cache bound through all nine kernels, changed requests, repeats, clear/drop and independent renderers; renderer implementation is unchanged. [Consumer retention](./stale-results.md) separately bounds CPU outputs and rejects stale results.

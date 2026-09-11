@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "input": "input.mix",
+  "outputDirectory": "/Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke/native-consumer/latest-cli-90001-1789113382434698000/generation-3",
+  "planHash": null,
+  "context": null,
+  "execution": null,
+  "outputs": [],
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_PARAMETER_INVALID_VALUE",
+      "stage": "compile",
+      "severity": "error",
+      "message": "Override does not satisfy the target parameter's type, range, or enum contract.",
+      "documentPath": "input.mix",
+      "nodeId": "pattern",
+      "parameterId": "cellsX",
+      "evidence": {
+        "expected": "Integer { min: 1, max: 1024 }",
+        "observed": "0",
+        "publicId": "repeat"
+      },
+      "suggestion": "Use the exact JSON type and range declared by the exposed target parameter."
+    }
+  ]
+}

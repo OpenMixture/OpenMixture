@@ -1,0 +1,16 @@
+Invalid backend: bogus
+
+Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
+                      [--power-preference high-performance|low-power] [--software] [--skip-probe]
+
+  --json               Write one structured report to stdout
+  --skip-probe         Acquire context only; report unverified
+  --backend            Permit one native backend (default: auto); none disables GPU
+  --power-preference   Adapter preference (default: high-performance)
+  --software           Require a software adapter through the same wgpu path
+  --help, -h           Show this help without initializing a GPU
+
+Exit 0: verified compute/readback (healthy), or explicit --skip-probe (unverified).
+Exit 1: acquisition/probe failed (unhealthy), or output failed.
+Exit 2: invalid arguments; usage errors go to stderr, including with --json.
+WGPU_* environment variables do not override these options.

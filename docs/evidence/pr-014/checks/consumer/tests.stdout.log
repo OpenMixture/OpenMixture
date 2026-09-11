@@ -1,0 +1,53 @@
+
+running 6 tests
+test latest::tests::generation_exhaustion_preserves_pending_and_display ... ok
+test latest::tests::latest_failure_keeps_old_display_explicitly_stale ... ok
+test latest::tests::replaced_pending_stale_and_duplicate_completions_do_not_publish ... ok
+test latest::tests::retained_outputs_and_pending_requests_are_dropped_promptly ... ok
+test latest::tests::superseded_failure_does_not_report_newest_failure ... ok
+test latest::tests::output_directories_are_isolated_and_only_owned_paths_removed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test gpu::tests::native_worker_types_compile_without_acquiring_a_gpu ... ok
+test cpu::tests::malformed_source_and_missing_port_keep_typed_diagnostics ... ok
+test cpu::tests::source_bytes_round_trip_without_external_assets_or_semantic_repair ... ok
+test cpu::tests::output_order_normalizes_but_duplicates_and_exceeded_limits_are_rejected ... ok
+test cpu::tests::consumer_overrides_channels_hashes_and_diagnostics_need_no_gpu ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test cli_contract_cpu ... ignored, requires built CLI; cargo xtask test-consumer invokes this CPU-only test explicitly
+test cli_contract_gpu ... ignored, requires built CLI and explicit GPU; cargo xtask gpu-smoke invokes this test
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test cpu_probe_runs_from_an_unrelated_directory_without_an_adapter ... ok
+test disabled_backend_preserves_context_diagnostic_without_initializing_wgpu ... ok
+test missing_or_invalid_gpu_policy_is_a_usage_failure ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.91s
+
+
+running 1 test
+test device_loss_contract ... ignored, requires explicit GPU policy and a new evidence file; cargo xtask gpu-smoke
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test latest_cli_contract ... ignored, requires prebuilt CLI, explicit GPU policy and a fresh evidence directory
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

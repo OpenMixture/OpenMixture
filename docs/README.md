@@ -42,3 +42,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 - Update both languages in the same PR when behavior, commands, scope, or acceptance criteria change. Chinese documents preserve the full requirements rather than replacing the source with a summary.
 - Keep commands, paths, API/type/node identifiers, and executable examples consistent. Chinese prose links to Chinese documents where available; source code, configuration, licenses, and the original review bundle retain their original targets.
 - The original `mixture-greenfield-docs/` remains a historical source. Use the current paired project documents for implementation status. If the languages diverge, consult the authoritative contracts and implementation using [the guide's authority order](../AGENTS.md), then correct both versions.
+
+[Latest requests and bounded consumer state](./stale-results.md) defines PR-014 generation handling, explicit stale display, CLI directory cleanup and CPU/GPU memory boundaries.

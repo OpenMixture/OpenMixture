@@ -225,6 +225,76 @@ pub async fn measure(input: &Path, out: &Path, selection: &Selection) -> Result<
     }))
 }
 
+/// Deterministic event driver: inject newer requests before delivering a completion.
+/// A host can call the same state from its event loop and explicitly owned worker.
+pub async fn latest(selection: &Selection) -> Result<Value> {
+    use mixture_native_consumer::latest::Latest;
+    let context = acquire(selection).await?;
+    let context_report = context.report().clone();
+    let mut renderer = Renderer::new(context);
+    let mut state = Latest::<u32, RenderOutput, Value>::default();
+    let mut events = Vec::new();
+    // Initial displayed result.
+    state.request(16)?;
+    let (first, repeat) = state.start().ok_or("missing first request")?;
+    let plan = cpu::own_plan(repeat)?;
+    let output = render(&mut renderer, &plan).await?;
+    check_literals(&output)?;
+    events.push(inspect(&output, &plan)?);
+    drop(state.complete(first, Ok(output)));
+    // While request 2 is active, request 3 replaces the pending slot; 4 replaces 3.
+    state.request(4)?;
+    let (old, repeat) = state.start().ok_or("missing old request")?;
+    state.request(8)?;
+    let newest_failed = state.request(0)?;
+    require(state.start().is_none(), "started concurrent work")?;
+    let plan = cpu::own_plan(repeat)?;
+    let output = render(&mut renderer, &plan).await?;
+    events.push(inspect(&output, &plan)?);
+    drop(state.complete(old, Ok(output)));
+    let (generation, repeat) = state.start().ok_or("missing newest request")?;
+    require(
+        generation == newest_failed && repeat == 0,
+        "pending was not replaced",
+    )?;
+    let error = cpu::own_plan(repeat)
+        .err()
+        .ok_or("invalid request succeeded")?;
+    let failed = crate::failure(error.as_ref());
+    drop(state.complete(generation, Err(failed.clone())));
+    let (displayed, _, current) = state.displayed().ok_or("lost previous display")?;
+    require(
+        displayed == first && !current && state.failure().is_some(),
+        "failed newest request made old pixels current",
+    )?;
+    // Only the retained display and this completion coexist during replacement.
+    let current = state.request(4)?;
+    let (generation, repeat) = state.start().ok_or("missing replacement")?;
+    let plan = cpu::own_plan(repeat)?;
+    let output = render(&mut renderer, &plan).await?;
+    check_literals(&output)?;
+    events.push(inspect(&output, &plan)?);
+    drop(state.complete(generation, Ok(output)));
+    let (generation, output, is_current) = state.displayed().ok_or("no current display")?;
+    require(
+        generation == current && is_current,
+        "replacement not current",
+    )?;
+    let retained_bytes: usize = output.channels().iter().map(|c| c.pixels().len()).sum();
+    drop(renderer);
+    check_literals(output)?;
+    Ok(
+        json!({"schemaVersion":1,"ok":true,"completed":true,"gpuExecuted":true,
+        "mode":"latest","context":context_report,"executions":events,
+        "startedGenerations":[1,2,4,5],"publishedGenerations":[1,5],
+        "staleCompletion":2,"replacedPending":3,"failedGeneration":4,
+        "failedRequest":failed,"oldDisplayWasStaleAfterFailure":true,
+        "displayedGeneration":generation.value(),"displayedCurrent":is_current,
+        "retainedOutputBytes":retained_bytes,"maximumCoexistingOutputs":2,
+        "pixelsCheckedAfterRendererDrop":true}),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -616,3 +616,83 @@ fn graph_gpu_device_loss_with_cold_cache_is_typed() {
 fn graph_gpu_device_loss_with_warm_cache_is_typed() {
     device_loss_contract(true);
 }
+
+#[test]
+#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
+    let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    let mut other = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    let mut seen = std::collections::BTreeSet::new();
+    let mut rows = Vec::new();
+    // Every focused contract case varies parameters/channels without new cache keys.
+    // Existing node tests separately verify their pixels and boundary expectations.
+    for name in NODES {
+        let fixture = fixture(name);
+        for case in fixture.cases.iter().take(2) {
+            let bytes = source(name, case.source.as_deref().unwrap_or(&fixture.source));
+            let request = CompileRequest {
+                size: [33, 3],
+                outputs: case.outputs.iter().map(|s| s.parse().unwrap()).collect(),
+                overrides: case.overrides.clone(),
+                ..Default::default()
+            };
+            let plan = plan(&bytes, &request).unwrap();
+            let output = pollster::block_on(renderer.render(&plan)).unwrap();
+            let report = output.report();
+            for pass in plan.passes() {
+                seen.insert(format!("{:?}", pass.kernel.id()));
+            }
+            assert_eq!(renderer.cached_pipeline_count(), seen.len());
+            assert!(seen.len() <= 9);
+            assert_eq!(report.allocations.live_bytes, 0);
+            assert_eq!(
+                report.allocations.released_bytes,
+                report.allocations.cumulative_bytes
+            );
+            assert_eq!(report.allocations.reused_bytes, 0);
+            // Identical request counters must reset rather than accumulate.
+            let again = pollster::block_on(renderer.render(&plan)).unwrap();
+            assert_eq!(again.report().allocations, report.allocations);
+            assert_eq!(again.report().pipeline_cache.misses, 0);
+            assert!(
+                output
+                    .channels()
+                    .iter()
+                    .zip(again.channels())
+                    .all(|(a, b)| a.pixels() == b.pixels())
+            );
+            assert_eq!(other.cached_pipeline_count(), 0);
+            rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
+        }
+    }
+    assert_eq!(seen.len(), 9);
+    renderer.clear_pipeline_cache();
+    assert_eq!(renderer.cached_pipeline_count(), 0);
+    let plan = plan(
+        &source("constant-color", "input.mix"),
+        &CompileRequest {
+            size: [33, 3],
+            ..Default::default()
+        },
+    )
+    .unwrap();
+    let output = pollster::block_on(renderer.render(&plan)).unwrap();
+    assert_eq!(output.report().pipeline_cache.misses, 1);
+    renderer.context().device().destroy();
+    let failed = pollster::block_on(renderer.render(&plan)).unwrap_err();
+    assert_eq!(failed.allocations().unwrap().live_bytes, 0);
+    assert_eq!(failed.allocations().unwrap().cumulative_bytes, 0);
+    assert_eq!(renderer.cached_pipeline_count(), 0);
+    drop(renderer);
+    let independent = pollster::block_on(other.render(&plan)).unwrap();
+    assert_eq!(independent.report().pipeline_cache.misses, 1);
+    assert_eq!(independent.report().allocations.live_bytes, 0);
+    assert_eq!(
+        output.channels()[0].pixels(),
+        independent.channels()[0].pixels()
+    );
+    println!(
+        "cache-bound-evidence: {}",
+        json!({"kernelCount":seen.len(),"cases":rows,"failure":failed.diagnostic(),"independentExecution":independent.report(),"outputsSurviveDrop":true})
+    );
+}

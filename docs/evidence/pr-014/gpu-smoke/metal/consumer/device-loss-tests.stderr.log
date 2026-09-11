@@ -1,0 +1,2 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running tests/device_loss.rs (target/native-consumer/debug/deps/device_loss-88c8c4c1ac6c9bd4)

@@ -113,3 +113,5 @@ The test fixture uses `serde_json`, the standard process/filesystem APIs and a d
 No JSON field, null/omission rule, enum spelling, source/plan version or exit-code policy is changed in PR-012. Tests pin relevant semantic fields rather than volatile adapter/timing snapshots. Current data is verified locally; packaged consumption, stale-result scheduling, full compatibility/release policy and deferred remote platform CI remain their later M4 gates.
 
 PR-013 extends the diagnostic vocabulary with `MIX_GPU_DEVICE_LOST` and `MIX_GPU_OUT_OF_MEMORY`; report envelopes and exit codes are unchanged. Failure diagnostics can carry adapter, delivered loss and released-allocation evidence while retaining the first error and its phase. See the [GPU failure contract](./gpu-failures.md) for strict-decoder compatibility and classification limits.
+
+PR-014 adds a separate consumer test using fresh generation directories. The product CLI still writes files sequentially; the consumer selects only the newest completed directory, removes obsolete/partial owned directories and propagates cleanup failures. See [the scheduling contract](./stale-results.md).

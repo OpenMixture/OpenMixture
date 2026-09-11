@@ -1,0 +1,93 @@
+{
+  "gpuExecuted": false,
+  "invalidOverride": {
+    "diagnostics": [
+      {
+        "code": "MIX_PARAMETER_INVALID_VALUE",
+        "evidence": {
+          "expected": "Integer { min: 1, max: 1024 }",
+          "observed": "0",
+          "publicId": "repeat"
+        },
+        "message": "Override does not satisfy the target parameter's type, range, or enum contract.",
+        "nodeId": "pattern",
+        "parameterId": "cellsX",
+        "severity": "error",
+        "stage": "compile",
+        "suggestion": "Use the exact JSON type and range declared by the exposed target parameter."
+      }
+    ],
+    "message": "MIX_PARAMETER_INVALID_VALUE: Override does not satisfy the target parameter's type, range, or enum contract. (1 diagnostic(s))",
+    "ok": false,
+    "schemaVersion": 1,
+    "sourceChain": [
+      "MIX_PARAMETER_INVALID_VALUE: Override does not satisfy the target parameter's type, range, or enum contract."
+    ]
+  },
+  "mode": "check",
+  "ok": true,
+  "outputs": [
+    {
+      "channel": "baseColor",
+      "input": {
+        "from": {
+          "nodeId": "pattern",
+          "portId": "color"
+        },
+        "source": "connected"
+      },
+      "kind": "color",
+      "resource": 1
+    },
+    {
+      "channel": "normal",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "normal",
+          "value": [
+            0.5,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "kind": "normal",
+      "resource": 2
+    },
+    {
+      "channel": "roughness",
+      "input": {
+        "from": {
+          "nodeId": "finish",
+          "portId": "value"
+        },
+        "source": "connected"
+      },
+      "kind": "scalar",
+      "resource": 0
+    },
+    {
+      "channel": "height",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 0.0
+        }
+      },
+      "kind": "scalar",
+      "resource": 3
+    }
+  ],
+  "packagedCratesValidated": false,
+  "passes": 4,
+  "planHash": "sha256:0d612f096a2c29dfc6e63a46a9f0abc32e5ea93ac23ba88fcb3bfab6ebe43e43",
+  "schemaVersion": 1,
+  "size": [
+    65,
+    3
+  ],
+  "slicedPasses": 1,
+  "source": "consumer-owned input.mix"
+}

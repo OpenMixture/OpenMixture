@@ -131,16 +131,129 @@ pub(super) fn gpu(
     )?;
     let loss_evidence =
         device_loss_contract(root, &directory, backend, software, expected_adapter)?;
+    let latest_evidence = latest_contract(root, &directory, backend, software, expected_adapter)?;
     fs::write(
         directory.join("status.json"),
         serde_json::to_vec_pretty(
-            &json!({"ok":true,"completed":true,"cliEvidence":cli_evidence,"deviceLossEvidence":loss_evidence}),
+            &json!({"ok":true,"completed":true,"cliEvidence":cli_evidence,"deviceLossEvidence":loss_evidence,"latestEvidence":latest_evidence}),
         )?,
     )?;
     println!(
         "Independent Rust and CLI consumer GPU checks passed; evidence: {}",
         directory.display()
     );
+    Ok(())
+}
+
+fn latest_contract(
+    root: &Path,
+    directory: &Path,
+    backend: &str,
+    software: bool,
+    expected: Option<&str>,
+) -> TaskResult<String> {
+    let mut command = binary(root);
+    command.args([
+        "latest",
+        backend,
+        if software { "software" } else { "hardware" },
+    ]);
+    if let Some(expected) = expected {
+        command.arg(expected);
+    }
+    let report: Value = serde_json::from_slice(&captured(&mut command, directory, "latest")?)?;
+    validate_latest(&report)?;
+    gpu_smoke::validate_adapter(&report["context"], backend, software, expected)?;
+    let name = format!(
+        "latest-cli-{}-{}",
+        std::process::id(),
+        SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos()
+    );
+    let mut command = compile_command(root, "test");
+    command
+        .args([
+            "--test",
+            "latest_cli",
+            "latest_cli_contract",
+            "--",
+            "--ignored",
+            "--exact",
+            "--nocapture",
+        ])
+        .env("MIXTURE_CONSUMER_LATEST_DIR", directory.join(&name))
+        .env(
+            "MIXTURE_CONSUMER_CLI",
+            root.join(format!("target/debug/mixture{}", env::consts::EXE_SUFFIX)),
+        )
+        .env("MIXTURE_GPU_BACKEND", backend)
+        .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" });
+    if let Some(expected) = expected {
+        command.env("MIXTURE_GPU_EXPECT_ADAPTER", expected);
+    } else {
+        command.env_remove("MIXTURE_GPU_EXPECT_ADAPTER");
+    }
+    captured(&mut command, directory, "latest-cli-tests")?;
+    let receipt: Value =
+        serde_json::from_slice(&fs::read(directory.join(&name).join("status.json"))?)?;
+    validate_latest_cli(&receipt)?;
+    for index in [0, 1, 3, 4] {
+        gpu_smoke::validate_adapter(
+            &receipt["cases"][index]["report"]["context"],
+            backend,
+            software,
+            expected,
+        )?;
+    }
+    Ok(format!("{name}/status.json"))
+}
+fn validate_latest(report: &Value) -> TaskResult {
+    if report["schemaVersion"] != 1
+        || report["ok"] != true
+        || report["completed"] != true
+        || report["gpuExecuted"] != true
+        || report["mode"] != "latest"
+        || report["startedGenerations"] != json!([1, 2, 4, 5])
+        || report["publishedGenerations"] != json!([1, 5])
+        || report["displayedGeneration"] != 5
+        || report["displayedCurrent"] != true
+        || report["oldDisplayWasStaleAfterFailure"] != true
+        || report["maximumCoexistingOutputs"] != 2
+        || report["retainedOutputBytes"] != 3120
+        || report["failedRequest"]["diagnostics"][0]["code"] != "MIX_PARAMETER_INVALID_VALUE"
+        || report["pixelsCheckedAfterRendererDrop"] != true
+        || report["executions"].as_array().is_none_or(|rows| {
+            rows.len() != 3
+                || rows.iter().any(|r| {
+                    r["execution"]["allocations"]["liveBytes"] != 0
+                        || r["execution"]["passCount"] != 4
+                })
+        })
+    {
+        return Err("latest consumer omitted bounded freshness/ownership evidence".into());
+    }
+    Ok(())
+}
+fn validate_latest_cli(report: &Value) -> TaskResult {
+    if report["schemaVersion"] != 1
+        || report["ok"] != true
+        || report["completed"] != true
+        || report["gpuExecuted"] != true
+        || report["publishedGenerations"] != json!([1, 5])
+        || report["displayedGeneration"] != 5
+        || report["obsoleteDirectoriesRemoved"] != json!([1, 2, 3, 4])
+        || report["retainedDirectories"] != json!(["generation-5"])
+        || report["oldDisplayWasStaleAfterFailure"] != true
+        || report["unrelatedPreserved"] != true
+        || report["cases"].as_array().is_none_or(|rows| {
+            rows.len() != 5
+                || rows
+                    .iter()
+                    .zip([0, 0, 2, 1, 0])
+                    .any(|(r, exit)| r["exitCode"] != exit)
+        })
+    {
+        return Err("latest CLI consumer omitted fresh completion or cleanup evidence".into());
+    }
     Ok(())
 }
 
@@ -407,6 +520,46 @@ fn validate_gpu(report: &Value) -> TaskResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn latest_receipts_reject_skipped_wrong_generation_or_leaked_outputs() {
+        let good = json!({"schemaVersion":1,"ok":true,"completed":true,"gpuExecuted":true,"mode":"latest",
+            "startedGenerations":[1,2,4,5],"publishedGenerations":[1,5],"displayedGeneration":5,"displayedCurrent":true,
+            "oldDisplayWasStaleAfterFailure":true,"maximumCoexistingOutputs":2,"retainedOutputBytes":3120,
+            "failedRequest":{"diagnostics":[{"code":"MIX_PARAMETER_INVALID_VALUE"}]},"pixelsCheckedAfterRendererDrop":true,
+            "executions":vec![json!({"execution":{"allocations":{"liveBytes":0},"passCount":4}});3]});
+        assert!(validate_latest(&good).is_ok());
+        for (pointer, value) in [
+            ("/completed", json!(false)),
+            ("/publishedGenerations", json!([1, 2, 5])),
+            ("/displayedGeneration", json!(1)),
+            ("/oldDisplayWasStaleAfterFailure", json!(false)),
+            ("/maximumCoexistingOutputs", json!(3)),
+            ("/executions/1/execution/allocations/liveBytes", json!(16)),
+        ] {
+            let mut bad = good.clone();
+            *bad.pointer_mut(pointer).unwrap() = value;
+            assert!(validate_latest(&bad).is_err(), "accepted {pointer}");
+        }
+        let good = json!({"schemaVersion":1,"ok":true,"completed":true,"gpuExecuted":true,
+            "publishedGenerations":[1,5],"displayedGeneration":5,"obsoleteDirectoriesRemoved":[1,2,3,4],
+            "retainedDirectories":["generation-5"],"oldDisplayWasStaleAfterFailure":true,"unrelatedPreserved":true,
+            "cases":([0,0,2,1,0].map(|exit|json!({"exitCode":exit})))});
+        assert!(validate_latest_cli(&good).is_ok());
+        for (pointer, value) in [
+            ("/completed", json!(false)),
+            ("/cases", json!([])),
+            (
+                "/retainedDirectories",
+                json!(["generation-1", "generation-5"]),
+            ),
+            ("/cases/3/exitCode", json!(0)),
+        ] {
+            let mut bad = good.clone();
+            *bad.pointer_mut(pointer).unwrap() = value;
+            assert!(validate_latest_cli(&bad).is_err(), "accepted {pointer}");
+        }
+    }
 
     #[test]
     fn device_loss_receipt_rejects_skipped_or_incomplete_lifecycle_checks() {
