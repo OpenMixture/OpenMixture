@@ -11,6 +11,8 @@
 
 ## 可用命令
 
+`cargo xtask` 别名将启动程序构建到 `target/xtask-runner`。内部工作区命令仍使用正常的 target 目录，因此测试可以重新构建集成测试所需的可执行文件，而不会在 Windows 上替换正在运行的 `xtask.exe`。运行仓库检查时请使用此别名。
+
 ```bash
 cargo xtask check
 cargo xtask fmt

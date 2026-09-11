@@ -11,6 +11,8 @@ Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.tom
 
 ## Available commands
 
+The `cargo xtask` alias builds its launcher under `target/xtask-runner`. Nested workspace commands keep their normal target directory, so tests can rebuild the integration-test executable without replacing a running `xtask.exe` on Windows. Use the alias when running repository checks.
+
 ```bash
 cargo xtask check
 cargo xtask fmt
