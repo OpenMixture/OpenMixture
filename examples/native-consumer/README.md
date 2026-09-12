@@ -149,4 +149,4 @@ MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
 MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
-See [package resolution](../../docs/package-consumption.md), [compatibility](../../docs/compatibility.md) and [M4 exit/release status](../../docs/release.md). Publication is still disabled and remote platform CI is deferred.
+See [package resolution](../../docs/package-consumption.md), [compatibility](../../docs/compatibility.md) and [M4 exit/release status](../../docs/release.md). Publication is still disabled. The [remote CI record](../../docs/evidence/remote-ci/README.md) documents passing Linux/macOS/Windows CPU checks and the Linux pinned SwiftShader GPU workload; it does not certify untested hardware backends.

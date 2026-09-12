@@ -41,6 +41,8 @@ New uploaded CPU and GPU evidence artifacts request 30 days of retention. Record
 
 ## M4.1 activation and verification
 
+**Activated and verified on 2026-09-12:** default `main`, active ruleset `23016046`, and [PR #1](https://github.com/OpenMixture/OpenMixture/pull/1) merged as `cc98dc9298add5ed172e0c1752d8a768b61a0eb5` with all four required checks passing before and after merge. The [completion record](./evidence/m4-1/README.md) retains the exact revisions, runs, applied policy and evidence limits. The sequence below documents the activation procedure; use the live API to verify subsequent state.
+
 The bootstrap source is `99704e8c6a05e9e0b60e4264aa2a5901fbb391c6`, with passing [CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/34626312709) and [GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/34626312588) runs. Creating `main` from this existing commit preserves the entire accepted history. The older default branch is not used to manufacture a retrospective PR.
 
 Complete activation in this order:

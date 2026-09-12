@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current milestone:** M4 accepted; M4.1 repository maintenance in progress. M5 has not started.
+**Current milestone:** M4 accepted; [M4.1 repository maintenance accepted](./docs/evidence/m4-1/README.md), 2026-09-12. M5 has not started.
 
 **Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished; M5 has not started and requires an explicit entry decision.
 
@@ -267,6 +267,8 @@ Public docs, examples, CLI JSON, and library behavior must agree.
 ---
 
 ## M4.1 — Repository Maintenance
+
+**Accepted implementation:** `cc98dc9298add5ed172e0c1752d8a768b61a0eb5`, through [PR #1](https://github.com/OpenMixture/OpenMixture/pull/1). The [completion record](./docs/evidence/m4-1/README.md) binds the passing bootstrap/PR/main checks, active protection, default branch and retained evidence. Later documentation changes require their own PR and main checks.
 
 ### Outcome
 

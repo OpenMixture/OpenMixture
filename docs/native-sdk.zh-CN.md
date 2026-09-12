@@ -63,7 +63,7 @@ MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
 MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
-`test-consumer` 仅使用 CPU，并纳入 `check`。`gpu-smoke` 在现有棋盘、图和 GPU 回归之外，显式构建并运行同一独立应用。其环境策略转换为显式消费者参数；独立消费者命令不隐式读取该策略。[示例指南](../examples/native-consumer/README.zh-CN.md)提供直接及固定软件命令。[PR-011 证据](./evidence/pr-011/README.zh-CN.md)记录本地结果与成对 release 测量；暂缓的远端 CI 仍开放。
+`test-consumer` 仅使用 CPU，并纳入 `check`。`gpu-smoke` 在现有棋盘、图和 GPU 回归之外，显式构建并运行同一独立应用。其环境策略转换为显式消费者参数；独立消费者命令不隐式读取该策略。[示例指南](../examples/native-consumer/README.zh-CN.md)提供直接及固定软件命令。[PR-011 证据](./evidence/pr-011/README.zh-CN.md)记录本地结果与成对 release 测量；该批次当时暂缓远端 CI。后续[远端 CI 验收](./evidence/remote-ci/README.zh-CN.md)记录已通过的 CPU／软件 GPU 矩阵；硬件限制仍见[发布记录](./release.zh-CN.md)。
 
 PR-013 还使用显式测试环境变量运行独立 `device_loss` 集成测试：销毁冷／热缓存设备，验证重复失败不产生新分配，并消费另一上下文的正确输出。新建 JSON 回执由 smoke 消费者状态中的 `deviceLossEvidence` 引用。见 [PR-013 证据](./evidence/pr-013/README.zh-CN.md)。
 
