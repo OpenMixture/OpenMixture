@@ -119,7 +119,7 @@ Local [Apple M5/Metal](./evidence/pr-007-apple-m5.json) and pinned [SwiftShader/
 
 Reviewed 256×256 previews: [checker](./evidence/pr-007-checker.png), [levels roughness](./evidence/pr-007-levels.png), and [blend base color](./evidence/pr-007-blend.png). These are evidence images, not additional test goldens.
 
-The [remote GPU job](../.github/workflows/gpu-smoke.yml) now covers graph examples and all nodes, but remote Linux/macOS/Windows results remain pending. M2 is implemented and locally verified; the open remote milestone gates are not claimed complete. PR-008 now adds [protected golden tooling and glazed ceramic machine gates](./material-goldens.md), with ceramic appearance accepted and leather appearance accepted and no realistic-quality claims for these M2 examples.
+PR-007 added graph examples and all M2 nodes to the [remote GPU job](../.github/workflows/gpu-smoke.yml); its retained evidence established local M2 verification, with remote results still pending at that time. The documented [remote CI gates](./evidence/remote-ci/README.md) are now closed for the three-platform CPU matrix and Linux pinned SwiftShader workload. The [full M3 review](./m3-review.md) records acceptance of all three materials. PR-008 added [protected golden tooling and glazed ceramic machine gates](./material-goldens.md); these M2 examples make no realistic-quality claims.
 
 ## PR-009 noise-to-normal slice
 

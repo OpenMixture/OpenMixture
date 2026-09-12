@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**M4 已完成本地及远端验收，2026-09-12；软件包仍未发布。** PR-011–015 及 CI 工具修复通过已记录验收矩阵。此前暂缓的干净检出 CPU 及 Linux SwiftShader 门槛现已关闭，见[远端 CI 证据](./evidence/remote-ci/README.zh-CN.md)。全部产品包仍为 pre-alpha `0.1.0`，禁用发布。本轮已推送实现和 CI 修复，不包含合并、发布 tag、发布、安装器或二进制分发。[PR-015 证据](./evidence/pr-015/README.zh-CN.md)保留此前本地评估。
+**M4 已完成本地及远端验收，2026-09-12；软件包仍未发布。** PR-011–015 及 CI 工具修复通过已记录验收矩阵。此前暂缓的干净检出 CPU 及 Linux SwiftShader 门槛现已关闭，见[远端 CI 证据](./evidence/remote-ci/README.zh-CN.md)。全部产品包仍为 pre-alpha `0.1.0`，禁用发布。记录的 CI 修复已推送实现及修正，当时不包含合并或发布 tag。后续默认分支、PR 及检查点工作遵循 [M4.1 仓库治理](./governance.zh-CN.md)，不发布软件包、安装器或二进制分发。[PR-015 证据](./evidence/pr-015/README.zh-CN.md)保留此前本地评估。
 
 ## M4 退出条件评估
 

@@ -4,9 +4,11 @@ English | [简体中文](./README.zh-CN.md)
 
 > A small material-graph compiler and headless texture renderer built in Rust on top of `wgpu`.
 
-**Status:** greenfield, pre-alpha, no compatibility promises yet.
+**Status:** native pre-alpha; M4 accepted. Packages remain unpublished `0.1.0`, with no stable-version compatibility guarantee. The [compatibility record](./docs/compatibility.md) defines the current tested contracts.
 
-**Implemented:** PR-001 through PR-010 are locally implemented, with eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. [M4 PR-011](./M4_PRS.md) now verifies [independent public Rust consumption](./docs/native-sdk.md), including owned GPU outputs and reused-renderer measurements; PR-012 verifies [CLI reports and exit codes](./docs/cli-contract.md) and fixes human diagnostic context. PR-013 adds [GPU failure classification and loss lifetime](./docs/gpu-failures.md), including guarded readback cleanup. PR-014 now verifies [latest-result publication and bounded consumer state](./docs/stale-results.md). PR-015 verifies [isolated Cargo package consumption](./docs/package-consumption.md) and records [compatibility](./docs/compatibility.md) and the [M4 exit/release assessment](./docs/release.md). M4 acceptance now includes [three-platform CPU and Linux SwiftShader CI](./docs/evidence/remote-ci/README.md). The remote gates are closed; packages remain unpublished pre-alpha `0.1.0`, and M5 requires a separate entry decision.
+**Implemented:** PR-001 through PR-015 deliver eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). M5 has not started and requires a separate entry decision.
+
+`PR-001` through `PR-015` are historical implementation batch identifiers, not GitHub pull request numbers. New changes follow the [repository governance](./docs/governance.md) and [evidence retention](./docs/evidence-policy.md) policies.
 
 Mixture is designed to read a versioned `.mix` material document, validate and compile its directed acyclic graph, execute the resulting compute passes through one `wgpu` renderer, and return requested PBR texture channels.
 
@@ -175,7 +177,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full ownership and execution mo
 
 ## Repository layout
 
-The target layout uses three product crates plus one private tooling crate:
+The current layout uses three product crates plus one private tooling crate:
 
 ```text
 mixture/
@@ -230,9 +232,12 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 - [AGENTS.md](./AGENTS.md) — operating rules for coding agents and contributors.
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — system boundaries, invariants, data flow, and testing model.
 - [ROADMAP.md](./ROADMAP.md) — milestone outcomes, exit criteria, and stop rules.
-- [INITIAL_PRS.md](./INITIAL_PRS.md) — the first implementation train, ready to turn into issues and stacked pull requests.
+- [INITIAL_PRS.md](./INITIAL_PRS.md) — historical M0–M3 implementation batches and their acceptance requirements.
+- [M4_PRS.md](./M4_PRS.md) — completed native-consumer implementation batches and their historical evidence.
+- [Repository governance](./docs/governance.md) — integration branches, actual GitHub pull requests, and required-check policy.
+- [Evidence retention](./docs/evidence-policy.md) — accepted records, temporary run output, and artifact availability.
 - [Documentation index](./docs/README.md) — development instructions, architecture decisions, and supporting guides.
 
 ## License
 
-Licensed under either [Apache-2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT), at your option. Package publication is disabled during the foundation milestone.
+Licensed under either [Apache-2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT), at your option. Current pre-alpha packages retain `publish = false`; publication requires a separate release decision.

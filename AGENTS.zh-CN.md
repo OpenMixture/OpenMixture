@@ -4,7 +4,7 @@
 
 本文是参与 Mixture 开发的编码智能体和贡献者的操作契约。
 
-调整边界前阅读[架构文档](./ARCHITECTURE.zh-CN.md)，增加范围前阅读[路线图](./ROADMAP.zh-CN.md)，实施初始仓库时阅读[初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)。
+调整边界前阅读[架构文档](./ARCHITECTURE.zh-CN.md)，增加范围前阅读[路线图](./ROADMAP.zh-CN.md)。[初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)和 [M4 实施计划](./M4_PRS.zh-CN.md)保留已完成的实施批次。新分支、真实 GitHub PR 及必需检查遵循[仓库治理](./docs/governance.zh-CN.md)，记录结果时遵循[证据保留](./docs/evidence-policy.zh-CN.md)。仅提交规则配置文件，不代表远端保护已启用。
 
 ## 使命
 
@@ -50,9 +50,9 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 速查
 
-当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`test-format`、`test-plan`、`test-consumer`、`package-check`、`test-node <id>`、`test-material <id>`、`golden check`、受保护的 `golden update <id> --accept`、`doc`、`deps`、`links`、`trace-2k`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现纯 CPU `validate` 和 `inspect --plan`、支持 `--skip-probe` 的验证型 `doctor` 及图 `render`／`render-builtin checker`，均提供人类可读与 JSON 模式。下面其余命令是目标接口，不得声称已经实现。
+当前已实现的仓库命令见[开发指南](./docs/development.zh-CN.md)。`cargo xtask check`、`fmt`、`clippy`、`test`、`test-core`、`test-format`、`test-plan`、`test-consumer`、`package-check`、`test-node <id>`、`test-material <id>`、`golden check`、受保护的 `golden update <id> --accept`、`doc`、`deps`、`links`、`trace-2k`、`shader-check` 和显式 `gpu-smoke` 目前可用。CLI 已实现纯 CPU `validate` 和 `inspect --plan`、支持 `--skip-probe` 的验证型 `doctor` 及图 `render`／`render-builtin checker`，均提供人类可读与 JSON 模式。
 
-仓库计划提供以下命令：
+常用已实现命令如下：
 
 ```bash
 # Fast repository checks used during normal development
@@ -77,7 +77,7 @@ cargo run -p mixture-cli -- inspect <file.mix> --plan --json
 cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
 ```
 
-在第一轮实施中，命令可能直到对应 PR 落地才存在。命令一旦引入，就应保持含义稳定。不得用无关命令静默替换文档中的命令。
+保持已引入命令的含义稳定。未来命令提案在实际存在前须标记为未实现。不得用无关命令静默替换文档中的命令。
 
 ## 仓库职责地图
 
@@ -262,7 +262,7 @@ xtask/                   repository automation only
 
 ## 基准更新规则
 
-计划中的命令如下：
+已实现的命令如下：
 
 ```bash
 cargo xtask golden check
@@ -357,6 +357,7 @@ GPU 执行失败时：
 
 ## PR 规则
 
+- 新变更按照[仓库治理](./docs/governance.zh-CN.md)通过真实 GitHub PR 合入。里程碑工作项 ID 与 GitHub PR 编号分开记录；历史 `PR-001` 至 `PR-015` 标识实施批次。
 - 每个 PR 聚焦一个架构衔接点。
 - 适配层和生成的绑定保持轻量。
 - 避免无关重命名和大范围格式修改。
@@ -365,6 +366,7 @@ GPU 执行失败时：
 - 大改动按依赖顺序堆叠，并保持可独立审查。
 - 不绕过必需检查。
 - 不合并会使文档中主要命令路径失效的 PR。
+- 按[证据规则](./docs/evidence-policy.zh-CN.md)保留已接受结果及其必需审查内容；保留历史记录，普通重复输出放入 CI 产物或被忽略的本地目录。
 
 ## 完成定义
 

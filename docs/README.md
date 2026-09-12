@@ -29,6 +29,9 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 
 [Material goldens](./material-goldens.md) defines PR-008/009/010 guarded updates, fixture schema, metrics, and the ceramic/leather/wood review workflows.
 
+[Repository governance](./governance.md) defines M4.1 main/PR protection, required checks, CI triggers, and activation verification.
+[Evidence retention](./evidence-policy.md) distinguishes immutable historical acceptance, new summaries, temporary artifacts, and verified platform scope.
+
 ## Supporting documentation
 
 - [Examples](../examples/README.md)
@@ -45,4 +48,4 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 
 [Latest requests and bounded consumer state](./stale-results.md) defines PR-014 generation handling, explicit stale display, CLI directory cleanup and CPU/GPU memory boundaries.
 
-[Local package consumption](./package-consumption.md), [compatibility](./compatibility.md) and [M4 release/exit status](./release.md) define PR-015 archive verification and the remaining external gates.
+[Local package consumption](./package-consumption.md), [compatibility](./compatibility.md) and [M4 release/exit status](./release.md) define PR-015 archive verification and the remaining distribution and hardware limits.

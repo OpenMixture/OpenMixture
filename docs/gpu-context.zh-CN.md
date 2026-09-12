@@ -98,7 +98,7 @@ DYLD_LIBRARY_PATH="$PWD/tmp/swiftshader/build" \
   MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
 ```
 
-macOS 准备步骤将 `libvulkan.dylib` 指向 SwiftShader 的直接 Vulkan API 库，不安装系统驱动。[PR-003 仅获取上下文的报告](./evidence/pr-003-apple-m5.json)作为历史证据保留。当前 [Metal](./evidence/pr-004-apple-m5.json) 和 [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) 完整探针已在本地通过，棋盘格像素相同。远端 Linux SwiftShader 和 Linux／macOS／Windows 非 GPU 矩阵仍待运行；配置文件不代表远端 CI 已完成。
+macOS 准备步骤将 `libvulkan.dylib` 指向 SwiftShader 的直接 Vulkan API 库，不安装系统驱动。[PR-003 仅获取上下文的报告](./evidence/pr-003-apple-m5.json)作为历史证据保留。PR-004 的 [Metal](./evidence/pr-004-apple-m5.json) 和 [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) 完整探针已在本地通过，棋盘格像素相同。PR-004 时尚无远端结果；此后 Linux SwiftShader 和 Linux／macOS／Windows 非 GPU 门槛已通过已记录的[远端 CI 验收](./evidence/remote-ci/README.zh-CN.md)。这些历史本地报告保持不变。
 
 PR-007 将棋盘格执行与图渲染器共享，并添加全部节点／图证据，见[图渲染](./graph-rendering.zh-CN.md)。固定驱动及显式适配器策略不变。PR-004 历史报告保留旧的 16 字节棋盘格 uniform 估算，当前共享 ABI 使用 48 字节。
 

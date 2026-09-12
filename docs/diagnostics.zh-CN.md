@@ -141,7 +141,7 @@ cargo xtask check
 
 测试覆盖公共导入、JSON 快照与拒绝输入、输入排列变化时的排序、可选上下文、精确整数证据、原生源错误链、全部默认边界、显式覆盖、零上限和极端计数。公共示例与 crate 文档测试提供使用方层面的 API 验证。
 
-核心现在运行时使用 `serde`、`serde_json` 和 `sha2`。PR-006 添加 SHA-256 计划哈希；PR-005 将现有已锁定 JSON 依赖提升为运行时依赖，用于严格解码和确定性序列化。[依赖策略](./development.zh-CN.md)继续隔离 GPU、CLI 和浏览器运行时边界。PR-002 未引入 `.mix` 格式字段、图实现、GPU 依赖、着色器、CLI 运行时命令或自动修复。GPU 获取、棋盘格执行与 doctor 另有专门文档。M0 远端 CI 验收仍待完成；PR-002 不宣称关闭该验收项。
+核心现在运行时使用 `serde`、`serde_json` 和 `sha2`。PR-006 添加 SHA-256 计划哈希；PR-005 将现有已锁定 JSON 依赖提升为运行时依赖，用于严格解码和确定性序列化。[依赖策略](./development.zh-CN.md)继续隔离 GPU、CLI 和浏览器运行时边界。PR-002 未引入 `.mix` 格式字段、图实现、GPU 依赖、着色器、CLI 运行时命令或自动修复。GPU 获取、棋盘格执行与 doctor 另有专门文档。PR-002 未关闭 M0 远端 CI 门槛；此后已记录的[远端 CI 验收](./evidence/remote-ci/README.zh-CN.md)关闭了该门槛。
 
 PR-006 `inspect --plan` 编译后返回 `0`，源文件／请求无效返回 `2`，源文件／报告 I/O 失败返回 `1`。编译失败保留现有结构化诊断码并使用 `stage: "compile"`；源解码／验证阶段保持区分。JSON 在共享报告字段之外添加 `schemaVersion: 1` 和 `plan`（失败时为 null）。见[计划检查](./render-plan.zh-CN.md)。
 

@@ -109,7 +109,7 @@ Existing code spellings and stage order remain unchanged. PR-005 adds these code
 
 Existing UTF-8/JSON/version/limit/node/port/parameter/cycle codes handle their corresponding failures. Parse errors retain native source, line/column where supplied by the parser, and selected source text. Semantic diagnostics identify node, port, parameter, public ID, counts, or cycle path as applicable.
 
-[Format fixtures](../fixtures/format/README.md) include a two-node checker, all six M2 contracts, and focused invalid documents. Tests cover strict syntax/schema, duplicate escapes, deep nesting, byte/collection boundaries, explicit limits, float round trips, defaults, graph order permutations, exact cycle evidence, CLI exit codes, bounded reads, and unchanged source files. `cargo xtask test-format` runs core format/validation/registry tests and CLI validation tests; `cargo xtask test-core` runs the entire GPU-free core suite. Remote cross-platform CI still needs its actual run.
+[Format fixtures](../fixtures/format/README.md) include a two-node checker, all six M2 contracts, and focused invalid documents. Tests cover strict syntax/schema, duplicate escapes, deep nesting, byte/collection boundaries, explicit limits, float round trips, defaults, graph order permutations, exact cycle evidence, CLI exit codes, bounded reads, and unchanged source files. `cargo xtask test-format` runs core format/validation/registry tests and CLI validation tests; `cargo xtask test-core` runs the entire GPU-free core suite. Remote cross-platform CI was still pending at PR-005; the documented [three-platform CPU gate](./evidence/remote-ci/README.md) has since passed.
 
 ## Additive PR-009 catalog extension
 

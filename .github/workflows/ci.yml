@@ -2,6 +2,7 @@ name: Non-GPU checks
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -39,4 +40,5 @@ jobs:
         with:
           name: package-evidence-${{ matrix.os }}
           path: tmp/package-check/
+          retention-days: 30
           if-no-files-found: warn
