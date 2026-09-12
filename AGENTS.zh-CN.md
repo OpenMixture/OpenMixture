@@ -4,7 +4,7 @@
 
 本文是参与 Mixture 开发的编码智能体和贡献者的操作契约。
 
-调整边界前阅读[架构文档](./ARCHITECTURE.zh-CN.md)，增加范围前阅读[路线图](./ROADMAP.zh-CN.md)。[初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)和 [M4 实施计划](./M4_PRS.zh-CN.md)保留已完成的实施批次。新分支、真实 GitHub PR 及必需检查遵循[仓库治理](./docs/governance.zh-CN.md)，记录结果时遵循[证据保留](./docs/evidence-policy.zh-CN.md)。仅提交规则配置文件，不代表远端保护已启用。
+调整边界前阅读[架构文档](./ARCHITECTURE.zh-CN.md)，增加范围前阅读[路线图](./ROADMAP.zh-CN.md)。[初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)和 [M4 实施计划](./M4_PRS.zh-CN.md)保留已完成的实施批次。[M5 实施计划](./M5_PRS.zh-CN.md)与[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)定义计划中的浏览器工作；区分规划、实现和已接受证据。新分支、真实 GitHub PR 及必需检查遵循[仓库治理](./docs/governance.zh-CN.md)，记录结果时遵循[证据保留](./docs/evidence-policy.zh-CN.md)。仅提交规则配置文件，不代表远端保护已启用。
 
 ## 使命
 

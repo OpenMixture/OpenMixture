@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 **Status:** native pre-alpha; M4 accepted. Packages remain unpublished `0.1.0`, with no stable-version compatibility guarantee. The [compatibility record](./docs/compatibility.md) defines the current tested contracts.
 
-**Implemented:** PR-001 through PR-015 deliver eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). M5 has not started and requires a separate entry decision.
+**Implemented:** PR-001 through PR-015 deliver eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). The [M5-01 plan](./M5_PRS.md) now defines the intended browser runtime and independent Player; browser implementation and acceptance have not started.
 
 `PR-001` through `PR-015` are historical implementation batch identifiers, not GitHub pull request numbers. New changes follow the [repository governance](./docs/governance.md) and [evidence retention](./docs/evidence-policy.md) policies.
 
@@ -234,6 +234,8 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 - [ROADMAP.md](./ROADMAP.md) — milestone outcomes, exit criteria, and stop rules.
 - [INITIAL_PRS.md](./INITIAL_PRS.md) — historical M0–M3 implementation batches and their acceptance requirements.
 - [M4_PRS.md](./M4_PRS.md) — completed native-consumer implementation batches and their historical evidence.
+- [M5_PRS.md](./M5_PRS.md) — planned browser runtime, npm package consumption and independent Player work items.
+- [Browser SDK contract](./docs/browser-sdk.md) — intended package, initialization, input/output and lifetime behavior; not yet implemented.
 - [Repository governance](./docs/governance.md) — integration branches, actual GitHub pull requests, and required-check policy.
 - [Evidence retention](./docs/evidence-policy.md) — accepted records, temporary run output, and artifact availability.
 - [Documentation index](./docs/README.md) — development instructions, architecture decisions, and supporting guides.

@@ -2,9 +2,9 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前里程碑：** M4 已验收；[M4.1 仓库维护已验收](./docs/evidence/m4-1/README.zh-CN.md)，2026-09-12。M5 尚未启动。
+**当前里程碑：** M4 与 [M4.1 仓库维护](./docs/evidence/m4-1/README.zh-CN.md)已验收。[M5-01 规划](./M5_PRS.zh-CN.md)进行中，2026-09-12；浏览器实施与验收尚未启动。
 
-**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布；M5 尚未启动，需明确决定进入。
+**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。M5-01 编写浏览器交付契约；计划中的运行时、独立产品及浏览器验收仍未实现。
 
 本路线图按可验证的结果组织，而不是按日期、季度、节点数量或功能数量安排。只有全部退出标准在干净环境中通过，里程碑才算完成。
 
@@ -299,43 +299,53 @@ load .mix
 
 ## M5 — WebAssembly 与浏览器 WebGPU
 
+**规划进入，2026-09-12：** M4／M4.1 验收之后，[M5-01](./M5_PRS.zh-CN.md)记录选定的交付方向。本次编写成对计划与[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)，不实施绑定、不创建产品仓库、不发布软件包，也不声称浏览器验收。M5-02 至 M5-05 仍为计划工作。
+
 ### 目标结果
 
-通过轻量 WebAssembly 绑定，在浏览器中运行同一套 `.mix`、节点契约、编译器、RenderPlan 语义和 WGSL。
+独立 Player 安装一个完整浏览器运行时包，使用与原生消费者相同的 `.mix`、Rust 节点契约、编译器、RenderPlan 语义和 WGSL。
 
 ### 范围
 
-- 添加轻量绑定 crate `mixture-wasm`；
-- 将 `mixture-core` 和 `mixture-wgpu` 编译到浏览器 WebGPU 目标；
-- 生成 TypeScript 声明；
-- 显式浏览器 GPU 初始化与诊断；
-- 传输原始像素或可直接用于图像的输出；
-- 最小查看器／演示，不包含节点编辑器；
-- 三种基准材质的浏览器回归测试；
-- 首次与 `Procedural_Texture_Online` 或其他独立 Web 使用方完成真实集成。
+- 引擎与浏览器包构建保留在本仓库；增加 `mixture-wasm`，作为 `mixture-core` 与唯一 `mixture-wgpu` 执行器的轻量绑定。
+- 适配浏览器目标 features、异步执行／回读与失败交付，同时保持原生行为。
+- 交付单一软件包，暂名 `@openmixture/runtime`，包含同一构建产生的 JS 接口、TypeScript 声明和 WASM；消费者不需要 Rust 工具链。
+- 提供显式 WASM／GPU 初始化、无需 GPU 的验证与节点契约查询、现有公开参数覆盖、请求通道、自有 RGBA8 和结构化诊断。
+- 使用一个独立产品仓库，暂名 `OpenMixture/Studio`，先 Player、后 Studio。它通过公开包负责文件、控件、2D 预览、最新请求处理及导出。
+- 验证真实 tarball 安装和一种固定版本的 Vite 消费方式，包括生产静态部署和可配置 WASM 资源路径。
+- 增加三种材质的浏览器／原生回归、生命周期／失败证据及 Alpha 就绪评估。Registry 发布为单独分发动作。
+
+[实施计划](./M5_PRS.zh-CN.md)按 M5-01 契约 → M5-02 浏览器执行 → M5-03 打包消费者 → M5-04 Player MVP → M5-05 验收排序。拟议命名不代表已创建仓库或拥有包名。独立 Player 承担外部 Web 消费者验收，无需另建完整演示。
 
 ### 退出标准
 
-外部 Web 使用方可以：
+隔离的产品消费者可以完成：
 
 ```text
-load .mix bytes
--> apply parameter overrides
+install the runtime tarball
+-> load .mix bytes
+-> validate and apply exposed parameter overrides
 -> request outputs
 -> render through browser WebGPU
--> display or export textures
+-> display and export textures
 ```
 
-同时，Rust 继续负责图和节点语义。
+它必须使用软件包公开入口，不依赖生产方私有导入、源码相对资源、Rust 安装或编译型 postinstall。生产构建资源必须在静态服务下运行，包括非根 base path。JS、声明与 WASM 必须对应记录的归档／构建。
 
-原生与浏览器执行计划必须语义等价。像素比较可以采用文档规定的容差，不要求所有平台逐字节一致。
+Rust 仍为语义权威。原生与浏览器计划在相同请求下必须语义等价。三种基准材质及其现有验收变体均以 1K 运行，采用经过评审的逐通道像素容差、平铺、非退化及参数因果性检查；原生基准继续受保护。返回像素在后续渲染和运行时销毁后仍可用。无效输入、不支持的环境、并发调用、设备丢失、清理及过期结果均具有经过测试的结果。
+
+验收记录标识两个仓库、归档／锁／夹具身份、确切浏览器／OS／工具链及可观察的适配器／后端、所需 limits／features／flags、比较标准、命令及门槛结果。浏览器环境和数值容差在实施中、验收前固定；跳过 GPU 执行不算通过。现有原生必需检查保持完整，浏览器构建／回归须能在文档化 CI 环境中复现。不得只凭规划文档或原生 GPU 证据关闭 M5。
 
 ### 不在范围内
 
-- WebGL2 专用渲染器；
-- TypeScript 节点注册表；
-- 节点创作 UI；
-- 服务端渲染。
+- 其他像素执行器、WebGL2 或 CPU 回退；
+- 单独编写的 TypeScript 节点注册表／编译器；
+- 节点创作 UI、中间节点预览及 3D 预览；
+- SSR、Node.js GPU、所有打包器适配及 GPU 纹理互操作；
+- 引擎与共用产品仓库之外的独立 SDK／Player 仓库；
+- M6 资源／容器格式、新节点及未经发布决定的软件包发布。
+
+M5 验收后，可将 Studio MVP 规划为产品里程碑，输出供 Player 和原生 CLI 使用的标准 `.mix`。它不更名或启动引擎 M6。
 
 ---
 

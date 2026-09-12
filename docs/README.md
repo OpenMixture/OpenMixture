@@ -11,8 +11,10 @@ The root documents are the active project contract:
 - [Initial PR sequence](../INITIAL_PRS.md)
 - [M3 review and evidence](./m3-review.md)
 - [M4 implementation train](../M4_PRS.md)
+- [M5 browser runtime and Player plan](../M5_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
+[Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. It is an M5 planning contract, not implemented browser behavior or release evidence.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
 [Native CLI reports and exit codes](./cli-contract.md) defines PR-012 JSON presence/types, complete human context, independent process tests and partial-write behavior.
 [GPU failure reasons and context lifetime](./gpu-failures.md) defines PR-013 loss/OOM classification, first-error precedence, scoped cleanup and independent destruction checks.
