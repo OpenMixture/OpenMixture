@@ -149,4 +149,4 @@ MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 \
 MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
-见[包解析](../../docs/package-consumption.zh-CN.md)、[兼容性](../../docs/compatibility.zh-CN.md)及 [M4 退出／发布状态](../../docs/release.zh-CN.md)。发布仍禁用，远端平台 CI 仍暂缓。
+见[包解析](../../docs/package-consumption.zh-CN.md)、[兼容性](../../docs/compatibility.zh-CN.md)及 [M4 退出／发布状态](../../docs/release.zh-CN.md)。发布仍禁用。[远端 CI 记录](../../docs/evidence/remote-ci/README.zh-CN.md)记录已通过的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader GPU 工作负载，不认证未测试的硬件后端。

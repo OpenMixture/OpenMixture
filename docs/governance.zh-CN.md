@@ -41,6 +41,8 @@ GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后
 
 ## M4.1 启用与验证
 
+**已于 2026-09-12 启用并验证：** 默认分支为 `main`，规则集 `23016046` 生效，[PR #1](https://github.com/OpenMixture/OpenMixture/pull/1) 合并为 `cc98dc9298add5ed172e0c1752d8a768b61a0eb5`，合并前后四项必需检查均通过。[完成记录](./evidence/m4-1/README.zh-CN.md)保留精确版本、运行、已应用策略及证据限制。下列顺序记录启用过程；后续状态通过实时 API 验证。
+
 初始主分支来源为 `99704e8c6a05e9e0b60e4264aa2a5901fbb391c6`，其 [CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/34626312709) 和 [GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/34626312588) 运行均通过。从此既有提交创建 `main` 会保留完整验收历史，不使用旧默认分支制造追溯 PR。
 
 按以下顺序完成启用：

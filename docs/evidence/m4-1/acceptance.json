@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "milestone": "M4.1",
+  "status": "accepted",
+  "repository": "OpenMixture/OpenMixture",
+  "observedAt": "2026-09-12T06:40:42.841093+00:00",
+  "observation": "UTC receipt-generation time; inspected saved GitHub API responses, not a claim of their original fetch time.",
+  "identity": {
+    "bootstrapSha": "99704e8c6a05e9e0b60e4264aa2a5901fbb391c6",
+    "prHeadSha": "befb96b93060b7f72173a9a87e1860f3dd8e7593",
+    "implementationMergeSha": "cc98dc9298add5ed172e0c1752d8a768b61a0eb5",
+    "mergeTreeEqualsPrHeadTree": true,
+    "scope": "Accepts this governance implementation. A later documentation commit records it and needs its own CI; these runs do not certify that future commit.",
+    "runLimit": "reportedHeadSha is GitHub run metadata; no separate checkout/temporary-merge attestation is claimed."
+  },
+  "pullRequest": {
+    "number": 1,
+    "url": "https://github.com/OpenMixture/OpenMixture/pull/1",
+    "state": "MERGED",
+    "mergedAt": "2026-09-12T06:18:01Z",
+    "requiredChecksPassedBeforeMerge": true
+  },
+  "governance": {
+    "defaultBranch": "main",
+    "mainSha": "cc98dc9298add5ed172e0c1752d8a768b61a0eb5",
+    "mainProtected": true,
+    "retainedHistoricalBranches": {
+      "codex/pr-015-package-consumer": "9f6918a50f0d3047f66ccde62a1d064f73c30702",
+      "codex/remote-ci": "99704e8c6a05e9e0b60e4264aa2a5901fbb391c6"
+    },
+    "rulesetId": 23016046,
+    "enforcement": "active",
+    "ref": "refs/heads/main",
+    "config": ".github/main-ruleset.json",
+    "configSha256": "sha256:d52752dad170a5d6af3f07514fa05d07833a2770b8f21f29d952f12b19e826c6",
+    "bypassActors": [],
+    "currentUserCanBypass": "never",
+    "requiredApprovals": 0,
+    "deletionAndNonFastForwardBlocked": true,
+    "pullRequestAndResolvedConversationsRequired": true,
+    "strictRequiredChecks": [
+      "Check (ubuntu-latest)",
+      "Check (macos-latest)",
+      "Check (windows-latest)",
+      "Pinned SwiftShader Vulkan materials and packaged consumption"
+    ],
+    "checkIntegrationId": 15368,
+    "desiredAndEffectiveRulesMatch": true
+  },
+  "runs": [
+    {
+      "phase": "bootstrap",
+      "kind": "cpu",
+      "id": 34676251027,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34676251027",
+      "event": "push",
+      "reportedHeadSha": "99704e8c6a05e9e0b60e4264aa2a5901fbb391c6",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T05:48:50Z",
+      "jobs": {
+        "Check (ubuntu-latest)": 103506522912,
+        "Check (macos-latest)": 103506522944,
+        "Check (windows-latest)": 103506522935
+      },
+      "artifacts": [
+        {
+          "id": 10291798866,
+          "name": "package-evidence-macos-latest",
+          "digest": "sha256:c213b336c41f5cc40563f77b835b025a3374be1761ba5509656f52e10ffe721c",
+          "bytes": 305359,
+          "expiresAt": "2026-12-11T05:42:01Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10292517240,
+          "name": "package-evidence-ubuntu-latest",
+          "digest": "sha256:eb414fafd6f376859968e1b66d10eeb5babb33495e9d04baf988133a8763c67e",
+          "bytes": 304158,
+          "expiresAt": "2026-12-11T05:42:01Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10291978478,
+          "name": "package-evidence-windows-latest",
+          "digest": "sha256:b160e39a15920c897074ed5b6c5de0b11daa983e6e10a6cea7a814c35d1bd633",
+          "bytes": 305844,
+          "expiresAt": "2026-12-11T05:42:01Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    },
+    {
+      "phase": "bootstrap",
+      "kind": "gpu",
+      "id": 34676251035,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34676251035",
+      "event": "push",
+      "reportedHeadSha": "99704e8c6a05e9e0b60e4264aa2a5901fbb391c6",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T06:14:03Z",
+      "jobs": {
+        "Pinned SwiftShader Vulkan materials and packaged consumption": 103506522820
+      },
+      "artifacts": [
+        {
+          "id": 10292908216,
+          "name": "swiftshader-material-evidence",
+          "digest": "sha256:5062c801187e2c56e0180dedb7427416d8a072c2fd1aec9af0e5b2720d98546a",
+          "bytes": 33573771,
+          "expiresAt": "2026-12-11T05:42:01Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    },
+    {
+      "phase": "pr",
+      "kind": "cpu",
+      "id": 34676473145,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34676473145",
+      "event": "pull_request",
+      "reportedHeadSha": "befb96b93060b7f72173a9a87e1860f3dd8e7593",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T05:56:51Z",
+      "jobs": {
+        "Check (ubuntu-latest)": 103507115964,
+        "Check (macos-latest)": 103507115848,
+        "Check (windows-latest)": 103507115944
+      },
+      "artifacts": [
+        {
+          "id": 10292802273,
+          "name": "package-evidence-macos-latest",
+          "digest": "sha256:8ad2297d87c0ecc0688a40367902f5db3dcf99b0996cbb5d363e83863251d660",
+          "bytes": 305375,
+          "expiresAt": "2026-10-12T05:51:40Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10292223031,
+          "name": "package-evidence-ubuntu-latest",
+          "digest": "sha256:4c1bf26bc591636ead578783a338ab96c90eab46fe4498c3d8f1bae2d621dd10",
+          "bytes": 304180,
+          "expiresAt": "2026-10-12T05:51:51Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10292428005,
+          "name": "package-evidence-windows-latest",
+          "digest": "sha256:ebf323e804dd8011408e5c7c4aabf3562a922ce94ea2e1dfebebdde422919b38",
+          "bytes": 305552,
+          "expiresAt": "2026-10-12T05:56:44Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    },
+    {
+      "phase": "pr",
+      "kind": "gpu",
+      "id": 34676473224,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34676473224",
+      "event": "pull_request",
+      "reportedHeadSha": "befb96b93060b7f72173a9a87e1860f3dd8e7593",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T06:13:34Z",
+      "jobs": {
+        "Pinned SwiftShader Vulkan materials and packaged consumption": 103507116082
+      },
+      "artifacts": [
+        {
+          "id": 10292718749,
+          "name": "swiftshader-material-evidence",
+          "digest": "sha256:42dbcda39e2a2df6bbae85f7ddedb2b9dcd5902483cd8b0cb3e2b3a293056a1c",
+          "bytes": 33573786,
+          "expiresAt": "2026-10-12T06:13:28Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    },
+    {
+      "phase": "integration",
+      "kind": "cpu",
+      "id": 34677769615,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34677769615",
+      "event": "push",
+      "reportedHeadSha": "cc98dc9298add5ed172e0c1752d8a768b61a0eb5",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T06:24:58Z",
+      "jobs": {
+        "Check (ubuntu-latest)": 103510605463,
+        "Check (macos-latest)": 103510605552,
+        "Check (windows-latest)": 103510605553
+      },
+      "artifacts": [
+        {
+          "id": 10292579344,
+          "name": "package-evidence-macos-latest",
+          "digest": "sha256:3c3879a4162b83b6e2829248be1aaca3abc2424df0d1fb45e69bb2702e0772ba",
+          "bytes": 305375,
+          "expiresAt": "2026-10-12T06:22:25Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10293200024,
+          "name": "package-evidence-ubuntu-latest",
+          "digest": "sha256:819d85f491242443e4b140f0d57266974595edf2dd10070794539a91703006e6",
+          "bytes": 304163,
+          "expiresAt": "2026-10-12T06:23:09Z",
+          "expiredAtSnapshot": false
+        },
+        {
+          "id": 10292724205,
+          "name": "package-evidence-windows-latest",
+          "digest": "sha256:8f644c6d612fc286e04f3980c9c0c7ead5d89313d9837c6668352414d1f61bf6",
+          "bytes": 305842,
+          "expiresAt": "2026-10-12T06:24:51Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    },
+    {
+      "phase": "integration",
+      "kind": "gpu",
+      "id": 34677769619,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/34677769619",
+      "event": "push",
+      "reportedHeadSha": "cc98dc9298add5ed172e0c1752d8a768b61a0eb5",
+      "attempt": 1,
+      "conclusion": "success",
+      "updatedAt": "2026-09-12T06:39:20Z",
+      "jobs": {
+        "Pinned SwiftShader Vulkan materials and packaged consumption": 103510605431
+      },
+      "artifacts": [
+        {
+          "id": 10293535905,
+          "name": "swiftshader-material-evidence",
+          "digest": "sha256:7489fe0f659a4fddd772c958e6ebb4b23dba7ea1c71794beef5acf4229c69d23",
+          "bytes": 33573634,
+          "expiresAt": "2026-10-12T06:39:16Z",
+          "expiredAtSnapshot": false
+        }
+      ]
+    }
+  ],
+  "gateValidation": {
+    "allRunsJobsAndRequiredStepsCompletedSuccessfully": true,
+    "cpuRequiredStep": "Verify repository and isolated packages",
+    "gpuRequiredSteps": [
+      "Build pinned software adapter",
+      "Verify checker, graphs, nodes, doctor, and packaged consumers",
+      "Compare all three materials at 1K",
+      "Measure the largest material case at 2K"
+    ],
+    "evidenceUploadStepsPassed": true,
+    "limit": "Job/step results are recorded metadata. Full adapter, pixel, plan and package-provenance reports were not downloaded or independently remeasured here."
+  },
+  "apiSources": {
+    "repository": "https://api.github.com/repos/OpenMixture/OpenMixture",
+    "main": "https://api.github.com/repos/OpenMixture/OpenMixture/branches/main",
+    "pullRequest": "https://api.github.com/repos/OpenMixture/OpenMixture/pulls/1",
+    "ruleset": "https://api.github.com/repos/OpenMixture/OpenMixture/rulesets/23016046",
+    "effectiveMainRules": "https://api.github.com/repos/OpenMixture/OpenMixture/rules/branches/main",
+    "run": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/runs/{id}",
+    "jobs": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/runs/{id}/jobs?filter=all&per_page=100",
+    "artifacts": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/runs/{id}/artifacts?per_page=100",
+    "attemptNote": "Each run records the inspected attempt; later API state may differ."
+  },
+  "preservation": {
+    "baseSha": "99704e8c6a05e9e0b60e4264aa2a5901fbb391c6",
+    "implementationMergeSha": "cc98dc9298add5ed172e0c1752d8a768b61a0eb5",
+    "unchangedGitObjects": {
+      ".cargo": "b3b95f0fb0ff86165b691e77cb8f71d9467a3ad2",
+      ".github/scripts": "be0084737545df8a1e809a785d0fdceca1a68ac3",
+      "Cargo.lock": "f3eb46fc0db8fa18791d2a026f1720cd2ec64917",
+      "Cargo.toml": "b85e6d8eac31973aeff2d0f3e2b3e60bac15fd28",
+      "crates": "a0e8ab347da03af88e9f867ba1265ba9b7c4a553",
+      "docs/evidence": "e7f2ed75beaf76596fba9ad68e7a38eef84265d4",
+      "docs/reviews": "7ea4c05347b4f22318865973944218a9134a987d",
+      "examples": "cb45b069253b29f948ea6422abd83982058ce2db",
+      "fixtures/format": "160a7f151d19767880e9d2c9b9c6b36c258b42ed",
+      "fixtures/materials/acceptance.schema.json": "aedb2306ef3036002b06bdc758a95131bb31034d",
+      "fixtures/materials/glazed-ceramic/acceptance.json": "9d7d6813f94d5de783363b8870ca52d96718ce0b",
+      "fixtures/materials/glazed-ceramic/expected": "73c53dc57216733d4d195dbb24fc0ea0bf047aff",
+      "fixtures/materials/glazed-ceramic/material.mix": "02e8c9a1eb4c42c80b55b920180b8d9e5011e4eb",
+      "fixtures/materials/glazed-ceramic/reports": "37083cc16d1bb08af64f1b33767373f6412066a1",
+      "fixtures/materials/glazed-ceramic/review": "3472d0b116d0f8454df700e6d8b9e671a120f198",
+      "fixtures/materials/glazed-ceramic/variants": "f78535e31ed65314f586205e92e77afe2475fa9e",
+      "fixtures/materials/leather/acceptance.json": "43118b8e7a443bb06cc47c468da13e74594c8ec6",
+      "fixtures/materials/leather/expected": "35f83804fda64546cffe9a5d9c0865d0f8450bd9",
+      "fixtures/materials/leather/material.mix": "3da55675bcc5b5ff35e921b73f738024191e480f",
+      "fixtures/materials/leather/reports": "4ee360f4a24d59c636146e8f1bacca131d3004e7",
+      "fixtures/materials/leather/review": "92fefba1c88c9f41d04c5c65a90df4062c87c1d7",
+      "fixtures/materials/leather/variants": "f7d5f167351a39a30c6275d5da06aad8b312749b",
+      "fixtures/materials/wood/acceptance.json": "d5502f7796dc8f202d334d651c89a9f269bbc31b",
+      "fixtures/materials/wood/expected": "b5a8e879ef04b568c6230aa6c3c33745fad2a671",
+      "fixtures/materials/wood/material.mix": "db67aff86a13540f15e20bd34ad21592d5262af1",
+      "fixtures/materials/wood/reports": "c30a33e2513aa2a1fdb5538be02d0976eb18ac0e",
+      "fixtures/materials/wood/review": "f026be47ffbe6598517ed9a7fdb11a84c6b91aea",
+      "fixtures/materials/wood/variants": "ca2113f0d127e324b807ae1acd7de4541d9f45c7",
+      "fixtures/nodes": "840f23b6e7cca74279f5f3fb1d5832d9e229a2bf",
+      "mixture-greenfield-docs": "7fd4d9a16d3f7974e0b57170f0204dbba37421e9",
+      "rust-toolchain.toml": "e63004962e17190630f40b06399238fcb1bb5517",
+      "xtask": "2990905fe3867fb43f727d29626c8bc28fa6a681"
+    },
+    "protectedObjectCount": 32,
+    "changedPathCount": 47,
+    "changedScope": "Active bilingual Markdown and three governance/CI configuration files only.",
+    "boundary": "Historical goldens, human receipts and bound reports/images, source bundles, runtime/dependencies and tooling retain their original objects; no new visual acceptance is asserted."
+  },
+  "localCheck": {
+    "command": "cargo xtask check",
+    "result": "passed",
+    "checkedInputs": 47,
+    "inputHashesMatchImplementationMerge": true,
+    "basis": "Inspected the saved final success marker and matched all 47 checked-file SHA-256 values against the implementation merge. This is a summary; no retained public log or new test run is claimed."
+  },
+  "retention": {
+    "artifactDigestSource": "GitHub artifact API metadata; digests have not been checked against downloaded archives.",
+    "downloaded": false,
+    "archiveDigestOrContentsVerified": false,
+    "finiteExpiry": true,
+    "newWorkflowRetentionDays": 30,
+    "expiryNote": "Each artifact retains its reported expiry; bootstrap artifacts predate the 30-day policy.",
+    "durableArtifactArchive": null,
+    "longTermFullRunAuditabilityClaimed": false,
+    "responsibility": "The accepting maintainer retains this compact governance/source record and existing historical acceptance content in Git. Original complete CI bundles remain finite-retention artifacts; a future full-run audit claim requires actual durable content."
+  },
+  "scope": {
+    "checkpointTag": null,
+    "checkpointNote": "No checkpoint tag is asserted by this receipt; the governance guide makes a descriptive source tag optional.",
+    "excluded": "M5, package publication, runtime/material changes, historical evidence migration and baseline regeneration."
+  }
+}

@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前里程碑：** M4 已验收；M4.1 仓库维护进行中。M5 尚未启动。
+**当前里程碑：** M4 已验收；[M4.1 仓库维护已验收](./docs/evidence/m4-1/README.zh-CN.md)，2026-09-12。M5 尚未启动。
 
 **实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布；M5 尚未启动，需明确决定进入。
 
@@ -271,6 +271,8 @@ load .mix
 ---
 
 ## M4.1 — 仓库维护
+
+**已验收实现：** `cc98dc9298add5ed172e0c1752d8a768b61a0eb5`，通过 [PR #1](https://github.com/OpenMixture/OpenMixture/pull/1) 合入。[完成记录](./docs/evidence/m4-1/README.zh-CN.md)绑定已通过的初始主分支／PR／集成主分支检查、生效保护、默认分支及保留证据。后续文档修改需要独立的 PR 与主分支检查。
 
 ### 目标
 

@@ -2,7 +2,7 @@
 
 [English](./material-goldens.md) | 简体中文
 
-PR-008 实现受保护的材质比较与[釉面陶瓷夹具](../fixtures/materials/glazed-ceramic/README.zh-CN.md)。工具通过现有 CLI 验证、编译并使用 `wgpu` 渲染全部用例，再测量输出 PNG。没有新增节点、着色器、运行时 API 或像素执行器。本任务明确暂缓远端 CI 验收；PR-008 和本地通过均不关闭 M0／M1／M2 或 M3。
+PR-008 引入受保护的材质比较与[釉面陶瓷夹具](../fixtures/materials/glazed-ceramic/README.zh-CN.md)。工具通过现有 CLI 验证、编译并使用 `wgpu` 渲染全部用例，再测量输出 PNG。该批次没有新增节点、着色器、运行时 API 或像素执行器。PR-008 当时暂缓远端 CI，其本地通过未关闭 M0／M1／M2 或 M3。后续[远端 CI 验收](./evidence/remote-ci/README.zh-CN.md)及[发布记录](./release.zh-CN.md)定义已接受矩阵和当前里程碑状态。
 
 ## 命令
 
@@ -100,10 +100,10 @@ cargo xtask check
 | `normalizedGradientEnergy` | 两轴相邻红分量平方差均值（含循环）除以红方差，再取变体／默认值比；区间必须排除 1，另要求最小变化像素比。常量默认值不能通过。归一化防止纯对比度变化冒充频率变化。 |
 | `heightNormalDirection` | 比较导出高度的循环中心差分符号与法线 X／Y 符号，仅计高度差至少四字节的轴样本，中性法线分量不算一致；同时要求最小覆盖率和高于偶然的一致率。图像 v 向下、切线 Y 向上。不重建预期法线像素。 |
 
-皮革的 detail 最小／默认／最大值及更粗 grainScale 必须同时通过逐图基准、空间、法线与因果约束。受控 PBR 图只消费实际 PNG，以同一法线表达高度坡度，不叠加第二次 bump。详见[皮革观感评审](../fixtures/materials/leather/review/README.zh-CN.md)。陶瓷已获用户接受；皮革人工评审已获用户接受。PR-010 添加下述方向木纹与 2K 证据；木材人工接受已记录，远端 CI 仍开放。
+皮革的 detail 最小／默认／最大值及更粗 grainScale 必须同时通过逐图基准、空间、法线与因果约束。受控 PBR 图只消费实际 PNG，以同一法线表达高度坡度，不叠加第二次 bump。详见[皮革观感评审](../fixtures/materials/leather/review/README.zh-CN.md)。陶瓷已获用户接受；皮革人工评审已获用户接受。PR-010 添加下述方向木纹与 2K 证据；木材人工接受已记录。远端 CI 在该批次时仍开放，已在上方链接的后续验收中通过。
 
 ## PR-010 方向性与 2K 证据
 
 [木材夹具](../fixtures/materials/wood/README.zh-CN.md)添加 `directional`：全部 `spatial` 验收条件，加上声明的横向／纵向纹理轴及最小横跨纹理／沿纹理梯度能量比。能量为含循环边缘的相邻红通道差平方均值。分母下限为一个字节的平方，常量或近乎常量场不能借助无穷大比值通过。`minEnergyRatio` 必须大于一。字面测试对图像转置且保持直方图不变，验证错误方向、打乱纹理和平面像素被拒绝。木材还要求高度／法线符号一致及变体因果性。这是仓库验收契约的增量扩展；`.mix` v1 不变。
 
-`cargo xtask golden check` 现以 1024 检查陶瓷、皮革及木材。`cargo xtask trace-2k` 在 2048 下按估算峰值字节对十一组材质案例排序，并用相同的显式适配器策略实测最大项。它独立保留输入、选取、doctor、渲染及描述符分配证据，验证 512 MiB 峰值预算与未变的 1K 基准，绝不更新 golden。见[追踪语义](./development.zh-CN.md)。人工评审独立于这些机器门槛；不会自动进入 M4 范围。
+`cargo xtask golden check` 现以 1024 检查陶瓷、皮革及木材。`cargo xtask trace-2k` 在 2048 下按估算峰值字节对十一组材质案例排序，并用相同的显式适配器策略实测最大项。它独立保留输入、选取、doctor、渲染及描述符分配证据，验证 512 MiB 峰值预算与未变的 1K 基准，绝不更新 golden。见[追踪语义](./development.zh-CN.md)。人工评审独立于这些机器门槛；后续 M4 验收单独记录在发布记录中。
