@@ -5,6 +5,7 @@ use crate::{
     readback::{ReadbackLayout, read_pixels},
 };
 use mixture_core::{Stage, plan::KernelInvocation, registry::PortKind};
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 use std::time::Duration;
 
 #[derive(Default)]
@@ -170,6 +171,7 @@ pub(crate) async fn submit(
         queue.submit([commands])
     })
     .await?;
+    #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
     device
         .poll(wgpu::PollType::Wait {
             submission_index: Some(submission),
@@ -178,6 +180,26 @@ pub(crate) async fn submit(
         .map_err(|source| {
             GpuOperationError::source_error(stage, "GPU commands did not complete.", source)
         })?;
+    #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+    {
+        // WebGPU polling is a no-op. Await the browser's queue completion event,
+        // yielding the event loop; do not claim the native 30-second deadline.
+        let _ = submission;
+        let (sender, receiver) = futures_channel::oneshot::channel();
+        queue.on_submitted_work_done(move || {
+            let _ = sender.send(());
+        });
+        receiver.await.map_err(|source| {
+            GpuOperationError::source_error(
+                stage,
+                "GPU submission completion callback was dropped.",
+                source,
+            )
+        })?;
+        // wgpu invokes this callback even when the browser completion promise
+        // rejects. The executor checks its typed device-loss record before
+        // publishing success; the callback alone never proves device health.
+    }
     Ok(())
 }
 struct Staging<'a> {

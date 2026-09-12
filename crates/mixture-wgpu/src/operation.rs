@@ -1,4 +1,4 @@
-//! Stage-specific failures and scoped native GPU operations.
+//! Stage-specific failures and scoped GPU operations.
 
 use mixture_core::{Diagnostic, DiagnosticCode, Stage};
 use serde::Serialize;
@@ -111,7 +111,13 @@ impl GpuOperationError {
     fn from_wgpu(stage: Stage, operation: &str, source: wgpu::Error) -> Self {
         let out_of_memory = matches!(source, wgpu::Error::OutOfMemory { .. });
         let cause = source.source().map(ToString::to_string);
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         let mut error = Self::source_error(stage, operation, source);
+        #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+        // Browser wgpu errors may own non-Send JS objects. Keep typed OOM
+        // classification and cause evidence without putting them into core's
+        // Send + Sync native source chain or asserting unsafe Send/Sync.
+        let mut error = Self::at(stage, operation).evidence("driverMessage", source.to_string());
         if let Some(cause) = cause {
             error = error.evidence("driverCause", cause);
         }
@@ -223,8 +229,10 @@ impl Error for GpuOperationError {
     }
 }
 
-/// Pop every thread-local scope before awaiting, including on operation failure.
-/// Native wgpu validation, internal, and allocation errors must not become panics.
+/// Pop every scope before awaiting, including on operation failure.
+/// wgpu pops synchronously and returns completion futures; this also balances
+/// the browser scope stack before yielding to unrelated event-loop work.
+/// Validation, internal, and allocation errors must not become panics.
 pub(crate) async fn checked<T>(
     device: &wgpu::Device,
     stage: Stage,

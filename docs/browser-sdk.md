@@ -1,10 +1,10 @@
-# Browser SDK delivery contract — M5 proposal
+# Browser SDK delivery contract — M5
 
 English | [简体中文](./browser-sdk.zh-CN.md)
 
-**Status:** this is the proposed browser contract for [M5-01](../M5_PRS.md), not an implemented API or a browser acceptance record. M4 and M4.1 are accepted. `mixture-wasm` and `@openmixture/runtime` are not implemented or published at this checkpoint. Names below describe the intended boundary; implementation batches must add the public declarations, examples and evidence before documenting them as usable.
+**Implementation update, 2026-09-12:** `mixture-wasm` and the local `@openmixture/runtime@0.1.0-alpha.0` tarball now implement the initial checker consumer slice. [Build/API usage and remaining verification](./browser-runtime.md) describe the actual checkpoint. This contract describes the implemented public boundary and the acceptance requirements that remain open, including full material regression, browser device-loss evidence and the complete Player export workflow. No npm registry publication or full M5 acceptance is claimed.
 
-The M5 outcome is one complete browser runtime package built in the engine repository and consumed by an independent Player. `OpenMixture/Studio` is the proposed product repository name; this document does not create that repository. Player precedes Studio authoring, and the two may later share product modules. See the [roadmap](../ROADMAP.md), [native SDK](./native-sdk.md), [format](./file-format.md), [plan](./render-plan.md) and [rendering](./graph-rendering.md) contracts for existing engine behavior.
+The M5 outcome is one complete browser runtime package built in the engine repository and consumed by an independent Player. The [OpenMixture/Studio product repository](https://github.com/OpenMixture/Studio) now exists and contains the initial Player consumer. Player precedes Studio authoring, and the two may later share product modules. See the [roadmap](../ROADMAP.md), [native SDK](./native-sdk.md), [format](./file-format.md), [plan](./render-plan.md) and [rendering](./graph-rendering.md) contracts for existing engine behavior.
 
 ## Ownership and distribution
 
@@ -12,8 +12,8 @@ The M5 outcome is one complete browser runtime package built in the engine repos
 |---|---|
 | `mixture-core` | Authoritative `.mix` decoding, node/port/parameter contracts, versioned defaults, validation, exposed overrides, normalization, compilation, plan ordering and hashing. Remains GPU-free. |
 | `mixture-wgpu` | The sole pixel executor, with the same WGSL, explicit context, pipeline cache, execution, output conversion and resource cleanup. Browser completion is adapted here where it is executor behavior. |
-| Future `mixture-wasm` | A thin browser binding over normal typed Rust APIs. It owns representation conversion and the browser-facing call boundary, not a second catalog or graph implementation. |
-| Future `@openmixture/runtime` | One public package containing compatible browser ESM, TypeScript declarations, the WASM binary and loader assets from one build. JavaScript owns explicit loading, argument marshalling and owned-result transfer. |
+| `mixture-wasm` | A thin browser binding over normal typed Rust APIs. It owns representation conversion and the browser-facing call boundary, not a second catalog or graph implementation. |
+| `@openmixture/runtime` | One public package containing compatible browser ESM, TypeScript declarations, the WASM binary and loader assets from one build. JavaScript owns explicit loading, argument marshalling and owned-result transfer. |
 | Independent Player / later Studio | File selection, graph drafts, controls, debounce, result freshness, 2D preview, downloads and deployment. Later editor layout, undo/redo, camera and lighting remain product state. |
 
 The engine repository builds and versions the npm package. There is no separate JS SDK repository or mandatory family of public `core`/`wgpu`/`wasm`/`schema` packages. Publishing the Rust crates to a Cargo registry is not a prerequisite: the engine's locked source build supplies the complete npm artifact. The installed product does not require Rust, a Cargo checkout, a compilation `postinstall`, or producer-private imports.
@@ -22,20 +22,20 @@ The engine repository builds and versions the npm package. There is no separate 
 
 ## Loading and explicit GPU initialization
 
-The following names are an API sketch, not copy-and-run code or existing exports. M5-02/M5-03 must freeze the actual signatures against executable consumer tests.
+The following operations are implemented by the local package. Exact signatures and JS types are in the [public declarations](../packages/runtime/src/index.d.ts), with executable usage and build commands in the [browser start guide](./browser-runtime.md). Consumer tests must continue to verify this boundary; implemented methods alone do not satisfy the remaining M5 acceptance gates.
 
-| Proposed operation | Observable behavior |
+| Public operation | Observable behavior |
 |---|---|
 | Import the package | Loads JavaScript definitions only. Does not fetch/instantiate WASM, read a document, request an adapter/device, render, start a worker or install a frame loop. |
-| `loadRuntime` | Explicitly loads/instantiates the packaged WASM and returns a module handle. The caller may choose the package-relative WASM URL, an explicit absolute/resolved URL, or supplied bytes; URL and byte options are mutually exclusive. No GPU is requested. |
+| `loadRuntime` | Explicitly loads/instantiates the packaged WASM and returns a module handle. `loadRuntime({ wasm })` accepts a URL/string or `Uint8Array`; omitting `wasm` uses the package-relative asset URL. The single option selects either a location or supplied bytes. No GPU is requested. |
 | `getBuildInfo`, `getNodeCatalog` on the module | Read owned version/build metadata and the Rust node catalog after loading. No GPU is required. |
-| `validate` on the module | Decodes and validates source under explicit limits. Returns the shared diagnostic result and, on success, resolved public-binding/channel metadata. Invalid drafts return diagnostics; they are not repaired into renderable graphs. |
+| `validate` on the module | Decodes and validates source and compiles its request under explicit limits. Returns the shared diagnostic result and, on success, the plan and resolved public-binding/channel metadata. Invalid drafts return diagnostics; they are not repaired into renderable graphs. |
 | `inspect` on the module | Validates and compiles source plus a render request without acquiring a GPU. Returns a read-only plan description/hash and estimates for cross-target checks; it cannot manufacture an executable plan from arbitrary JS data. |
 | `createGpu` on the module | Explicitly acquires an independent browser GPU context and returns a renderer instance plus requested/actual capability evidence. Only this phase requests the adapter/device. |
 | `render` on an instance | Validates/compiles the complete source and request through core, executes the resulting immutable plan, then returns owned pixels and reports asynchronously. Invalid input performs no render allocations or submissions. |
 | `destroy` on an instance | Stops accepting renders immediately, waits for an accepted render's cleanup, releases instance-owned GPU resources and resolves asynchronously. Repeated calls are idempotent. |
 
-Loading has no implicit network retry or CDN fallback. Supplied bytes cause no loader fetch. The loader must document its package-relative URL resolution and all fetched assets; incorrect path, HTTP, CORS, MIME, compilation or instantiation failures remain actionable structured failures. No application-controlled material URL is fetched by `validate` or `render`: the product supplies document content. Successful WASM loading and successful GPU acquisition are distinct states.
+Loading has no implicit network retry or CDN fallback. Supplied bytes cause no loader fetch. The loader resolves omitted input against the packaged asset URL and supplied URL strings against the page URL. It buffers fetched bytes before WebAssembly instantiation, so it does not require the streaming API's `application/wasm` MIME. URL resolution, incorrect path, HTTP, CORS, compilation and instantiation failures remain actionable structured failures; serving requirements are documented in the [browser start guide](./browser-runtime.md). No application-controlled material URL is fetched by `validate` or `render`: the product supplies document content. Successful WASM loading and successful GPU acquisition are distinct states.
 
 M5 targets browser WebGPU in a secure serving context. GPU initialization reports an unavailable API/context or rejected acquisition without selecting a WebGL/CPU executor. Browser options expose only meaningful browser choices, such as power preference; they must not pretend that callers can force a native Metal/Vulkan backend or exact adapter name. Evidence records requested preferences, actual values available from the browser, device limits and missing capability information honestly. Unavailable/redacted adapter fields remain unavailable, not invented identities. Neither acquisition success nor a feature check counts as a successful render.
 
@@ -49,7 +49,7 @@ M5 targets browser WebGPU in a secure serving context. GPU initialization report
 | Requested channels | Omission means `baseColor`. Accept a nonempty list of unique supported case-sensitive channel IDs. Empty, unknown or duplicate entries fail. Returned channels follow material-contract order, independent of request order. |
 | Exposed overrides | A public-ID-to-value request, never direct node addressing. Capture own keys/values without executing accessors; reject unsupported JS shapes and duplicate entries if an entry-list representation is exposed. Apply all overrides together using core, including on pruned branches; do not mutate source or clamp values. |
 | JS values | Reject `undefined`, functions, symbols, cyclic objects, class instances and non-finite numbers instead of relying on JSON serialization to omit or rewrite them. Integer parameters require `Number.isSafeInteger`, nonnegative u32 range and node-specific bounds before conversion; booleans and numeric strings are not numbers. Colors have exactly four finite components in range, and enums match the Rust contract exactly. |
-| Safety limits | Use the same core defaults and explicit caller policy at both decoding and compilation. Do not silently raise a ceiling to fit a request. Rust u64 ceilings cross the proposed JS boundary as nonnegative `bigint` values checked against u64 range. Browser/device limits may reject a request already admitted by core. |
+| Safety limits | Use the same core defaults and explicit caller policy at both decoding and compilation. Do not silently raise a ceiling to fit a request. Rust u64 ceilings cross the JS boundary as nonnegative `bigint` values checked against u64 range. Browser/device limits may reject a request already admitted by core. |
 
 JavaScript numbers do not retain whether a caller wrote `8` or `8.0`; both are the same integer-valued JS number. Accepted integer overrides must therefore be marshalled into Rust integer values, not f64 JSON tokens. In a raw `.mix` file, the existing distinction remains: integer parameter/version token `8.0` is invalid. The bridge must test u32 endpoints, fractional values, negative values, unsafe integers, non-finite values and invalid object shapes without coercion. String-source validation and JS request validation are separate boundaries.
 
@@ -75,28 +75,29 @@ Results preserve the compiled plan hash/version, document version, requested dim
 
 The runtime/package version, `.mix` format version, node versions, plan version and product release version are separate contracts. A product UI release does not require a format change. Plan hashes retain the existing core semantics; package versions, adapter names, timings, URLs and product generations are not new hash inputs. Same-build Native/browser comparison uses the exact same source, overrides, dimensions, channels and policy.
 
-Rust u64 values in reports, estimates and unsigned diagnostic evidence are represented as `bigint` in proposed SDK objects; smaller typed u32 fields such as dimensions and versions remain exact JS numbers. This is a lossless JS projection, not a change to the existing native JSON schema. Plain `JSON.stringify` is not a serializer for this projection. A product that records JSON logs must explicitly encode bigint values without rounding and must not feed that product log format to the strict native diagnostic decoder. M5-03 must test these types against the actual declarations and runtime.
+Rust u64 and usize values in reports, estimates and unsigned diagnostic evidence are represented as `bigint` in SDK objects; typed u32 fields such as dimensions, versions and pipeline-cache hit/miss counts remain exact JS numbers. Empty optional diagnostic evidence may be absent, as reflected in the public declarations. This is a lossless JS projection, not a change to the existing native JSON schema. Plain `JSON.stringify` is not a serializer for this projection. A product that records JSON logs must explicitly encode bigint values without rounding and must not feed that product log format to the strict native diagnostic decoder. M5-03 must test these types against the actual declarations and runtime.
 
 ## Structured failures and asynchronous readback
 
 Core and GPU failures retain the existing `MIX_*` code, stage, severity, message, optional node/port/parameter/document context, ordered diagnostics, scalar evidence and suggestion described in [diagnostics](./diagnostics.md) and [GPU failures](./gpu-failures.md). Browser wrappers do not replace an earlier meaningful failure with a generic promise rejection. Where supplied by the caller, a document label is diagnostic context only; it does not cause file access or enter the plan hash. Available adapter, plan, device-loss and cleanup evidence survives failure.
 
-The proposed failure boundary uses a structured SDK error carrying the invoked operation, the unchanged engine diagnostic list when present, and a separate browser failure when the error occurs outside Rust's diagnostic stages. Validation returns its expected diagnostic result; failed asynchronous loading, acquisition and rendering reject with that structured error. Known failures must not require parsing driver prose. Native source objects do not cross WASM; selected browser/driver cause text may be retained as evidence without claiming it is a native typed source chain.
+The public failure boundary uses `MixtureRuntimeError`, a structured SDK error carrying the invoked operation, the unchanged engine diagnostic list when present, and a separate browser failure when the error occurs outside Rust's diagnostic stages. Validation returns its expected diagnostic result; failed asynchronous loading, acquisition and rendering reject with that structured error. Known failures must not require parsing driver prose. Native source objects do not cross WASM; selected browser/driver cause text may be retained as evidence without claiming it is a native typed source chain.
 
-The following are **proposed browser-only codes**, not additions already present in `DiagnosticCode` or promises of implemented behavior. M5-02/M5-03 must freeze their exact envelope, field presence and spelling in consumer tests. Browser failures carry `code`, `operation`, `message` and optional `evidence`/`suggestion`; they do not invent an existing core `stage` for WASM loading.
+The following **browser-only codes are implemented by the package** and are not entries in core `DiagnosticCode`. Consumer tests must preserve their exact envelope, field presence and spelling; native diagnostic codes remain unchanged. Browser failures carry `code`, `operation`, `message` and optional `evidence`/`suggestion`; they do not invent an existing core `stage` for WASM loading.
 
-| Proposed browser code | Use |
+| Browser code | Use |
 |---|---|
-| `MIX_BROWSER_WASM_LOAD_FAILED` | Fetch, compilation or instantiation failed; preserve the phase and useful URL/HTTP/cause evidence. |
+| `MIX_BROWSER_WASM_LOAD_FAILED` | URL resolution, fetch, compilation or instantiation failed; preserve the phase and useful URL/HTTP/cause evidence. |
 | `MIX_BROWSER_BUILD_MISMATCH` | JS/WASM/binding build or API identifiers disagree. |
 | `MIX_BROWSER_WEBGPU_UNAVAILABLE` | Browser preflight cannot access the required WebGPU context/API; actual adapter/device failures retain engine GPU codes where provided. |
 | `MIX_BROWSER_INVALID_ARGUMENT` | JS representation cannot be safely marshalled, before semantic core validation. |
 | `MIX_BROWSER_RUNTIME_BUSY` | Another render is already accepted by this instance. |
 | `MIX_BROWSER_RUNTIME_DESTROYED` | A render is attempted after destruction starts. |
+| `MIX_BROWSER_BINDING_FAILED` | An unexpected binding failure or trap cannot be represented by an existing engine diagnostic or a more specific browser failure; preserve its cause text. |
 
 OOM and device loss must use typed browser/wgpu signals where available; do not classify by matching driver text or pretend native callback/error-scope behavior has already been proved on browsers. A delivered loss makes an instance unusable for further renders; new GPU state requires another explicit acquisition. If OOM/readback failure was already selected and loss/cleanup failure is observed later, retain the primary failure and attach the secondary evidence. No automatic recovery or fallback is implied.
 
-Native `Device::poll(Wait)` and blocking callback retrieval are not the browser completion contract. The [wgpu WebGPU documentation](https://docs.rs/wgpu/latest/wasm32-unknown-unknown/wgpu/struct.Device.html#method.poll) states that `poll` has no effect on that backend. Browser execution must await event-loop-driven submission/map/error completion, balance error scopes and attempt cleanup on each success/failure path. It must not busy-wait or block the event loop waiting for a callback. Native 30-second individual waits do not establish a browser timeout; browser completion/timeout behavior must be measured and documented by M5-02 without silently adding a GPU cancellation promise.
+Native `Device::poll(Wait)` and blocking callback retrieval are not the browser completion contract. The [wgpu WebGPU documentation](https://docs.rs/wgpu/latest/wasm32-unknown-unknown/wgpu/struct.Device.html#method.poll) states that `poll` has no effect on that backend. Browser execution must await event-loop-driven submission/map/error completion, balance error scopes and attempt cleanup on each success/failure path. It must not busy-wait or block the event loop waiting for a callback. Native 30-second individual waits remain native-only. The implemented browser path awaits callbacks and error-scope completion without adding a hard timeout or GPU cancellation promise; tab termination and undelivered platform events may prevent settlement. M5-02 still requires observable browser failure and completion evidence.
 
 ## Instance lifetime and product scheduling
 
@@ -110,7 +111,7 @@ M5-02 must verify no outstanding render/destroy promise is abandoned by wrapper 
 
 ## Package and consumer acceptance
 
-M5-03 must choose and record one exact Node/npm/TypeScript/Vite toolchain, WASM target, Rust and binding tool versions, package exports and asset layout. Those versions are not selected or verified by this document. The first compatibility claim is that pinned Vite consumer and its production static deployment, not all bundlers or frameworks. Additional browser/platform claims require their own records.
+The [browser start guide](./browser-runtime.md) records the current Rust 1.98.1, wasm-bindgen 0.2.128, `wasm32-unknown-unknown`, Node 24.20.0 and npm 11.19.0 build recipe, package exports and asset layout. The independent product locks its TypeScript/Vite/browser-test dependencies and provides `npm run test:browser` against production assets at `/player/`. M5-03 acceptance must bind the actual archive and product lock to the recorded run; the selected recipe is not a claim of complete M5 or all-bundler compatibility. Additional browser/platform claims require their own records.
 
 | Gate | Required evidence before M5 acceptance |
 |---|---|
@@ -125,7 +126,7 @@ M5-03 must choose and record one exact Node/npm/TypeScript/Vite toolchain, WASM 
 
 Browser pixel tolerances must be measured and frozen in a reviewed acceptance specification before they become release pass/fail thresholds. Start from existing fixtures and documented native tolerances, explain any browser-specific adjustment, and retain exact checker/default/encoding sentinels where their fixture requires equality. Report measured differences as well as threshold outcomes; do not widen tolerances or reset goldens merely to pass. Semantic plan equivalence is mandatory; a hash mismatch for the same build/request must be explained and corrected or receive an explicit versioned-contract decision, not be hidden by pixel tolerance.
 
-The retained M5 receipt must bind the engine revision, package version/digest, consumer revision, pinned toolchains, browser matrix, deployment URL/base, test results and remaining limitations under the [evidence policy](./evidence-policy.md). Existing native acceptance does not certify this future matrix. npm publication is a later explicit release action; local tarball consumption does not require it. If approved, an alpha release uses an explicit prerelease tag and the product locks an exact runtime version through a reviewable dependency update. The current package remains unpublished.
+The retained M5 receipt must bind the engine revision, package version/digest, consumer revision, pinned toolchains, browser matrix, deployment URL/base, test results and remaining limitations under the [evidence policy](./evidence-policy.md). Existing native acceptance does not certify the browser matrix. npm publication is a later explicit release action; local tarball consumption does not require it. If approved, an alpha release uses an explicit prerelease tag and the product locks an exact runtime version through a reviewable dependency update. The current package remains unpublished.
 
 ## Non-goals and follow-up boundary
 

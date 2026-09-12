@@ -14,7 +14,7 @@ The root documents are the active project contract:
 - [M5 browser runtime and Player plan](../M5_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
-[Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. It is an M5 planning contract, not implemented browser behavior or release evidence.
+[Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. Its implementation guide distinguishes the initial checker slice from remaining M5 requirements and release evidence.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
 [Native CLI reports and exit codes](./cli-contract.md) defines PR-012 JSON presence/types, complete human context, independent process tests and partial-write behavior.
 [GPU failure reasons and context lifetime](./gpu-failures.md) defines PR-013 loss/OOM classification, first-error precedence, scoped cleanup and independent destruction checks.
@@ -51,3 +51,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [Latest requests and bounded consumer state](./stale-results.md) defines PR-014 generation handling, explicit stale display, CLI directory cleanup and CPU/GPU memory boundaries.
 
 [Local package consumption](./package-consumption.md), [compatibility](./compatibility.md) and [M4 release/exit status](./release.md) define PR-015 archive verification and the remaining distribution and hardware limits.
+
+[Browser runtime build and initial consumer](./browser-runtime.md) documents the implemented WASM/npm build and independent Player verification, separately from full M5 acceptance.

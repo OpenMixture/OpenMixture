@@ -1,0 +1,52 @@
+name: Browser runtime package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-runtime-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: WASM and npm package
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Install Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.20.0
+      - name: Match the recorded package manager
+        run: npm install --global npm@11.19.0
+      - name: Prepare the repository Rust target and exact binding CLI
+        run: |
+          rustup show active-toolchain
+          rustup target add wasm32-unknown-unknown
+          cargo install wasm-bindgen-cli --version 0.2.128 --locked
+      - name: Verify WASM compilation and JS boundary tests
+        run: |
+          cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
+          node --test packages/runtime/test/runtime.test.mjs
+      - name: Build the actual npm archive
+        run: node scripts/browser-runtime/build.mjs
+      - name: Retain package and build identity
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: browser-runtime-package
+          path: |
+            target/browser-runtime/*.tgz
+            target/browser-runtime/*.sha256
+            target/browser-runtime/receipt.json
+          retention-days: 30
+          if-no-files-found: error

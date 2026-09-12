@@ -2,9 +2,9 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current milestone:** M4 and [M4.1 repository maintenance](./docs/evidence/m4-1/README.md) are accepted. [M5-01 planning](./M5_PRS.md) is in progress, 2026-09-12; browser implementation and acceptance have not started.
+**Current milestone:** M4 and [M4.1 repository maintenance](./docs/evidence/m4-1/README.md) are accepted. [M5 browser execution and packaged consumption](./docs/browser-runtime.md) are in progress, 2026-09-12; full browser acceptance remains open.
 
-**Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished. M5-01 prepares the browser delivery contract; the planned runtime, independent product and browser acceptance remain unimplemented.
+**Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished. The thin browser binding and independent product repository now exist; see the browser start guide for the implemented checker slice and remaining M5 gates.
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 
@@ -295,7 +295,7 @@ The [governance guide](./docs/governance.md) defines activation order and verifi
 
 ## M5 — WebAssembly and Browser WebGPU
 
-**Planning entry, 2026-09-12:** [M5-01](./M5_PRS.md) records the selected delivery direction after M4/M4.1 acceptance. This change prepares the paired plan and [browser SDK contract](./docs/browser-sdk.md); it does not implement bindings, create the product repository, publish a package or claim browser acceptance. M5-02 through M5-05 remain planned work.
+**Planning entry, 2026-09-12:** [M5-01](./M5_PRS.md) records the selected delivery direction after M4/M4.1 acceptance. That planning item prepares the paired plan and [browser SDK contract](./docs/browser-sdk.md); it does not implement bindings, create the product repository, publish a package or claim browser acceptance. M5-02/M5-03 implementation has now started; see the [browser start guide](./docs/browser-runtime.md). M5-04/M5-05 acceptance remains open.
 
 ### Outcome
 

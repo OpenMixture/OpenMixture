@@ -144,9 +144,9 @@ It may orchestrate:
 
 `xtask` must call public or test-support APIs. It must not become a hidden second implementation of document or rendering behavior.
 
-### 3.5 Future `mixture-wasm`
+### 3.5 `mixture-wasm`
 
-`mixture-wasm` may be added only in M5.
+M5 introduces `mixture-wasm` as the browser binding crate.
 
 It must remain a thin binding that:
 
@@ -158,9 +158,9 @@ It must remain a thin binding that:
 
 It must not maintain a TypeScript node registry, graph validator, compiler, or shader implementation.
 
-The [M5 plan](./M5_PRS.md) selects one browser distribution, provisionally `@openmixture/runtime`, built here from the same JS facade, declarations and WASM build. A separate product repository consumes that package for Player first and Studio later. Product controls, request freshness, previews, file export and editor layout remain consumer-owned. No separate SDK repository or additional semantic executor is introduced.
+The [M5 plan](./M5_PRS.md) selects one browser distribution, `@openmixture/runtime`, built here from the same JS facade, declarations and WASM build. A separate product repository consumes that package for Player first and Studio later. Product controls, request freshness, previews, file export and editor layout remain consumer-owned. No separate SDK repository or additional semantic executor is introduced.
 
-The [planned browser SDK contract](./docs/browser-sdk.md) defines explicit WASM/GPU initialization, GPU-free validation/catalog access, asynchronous completion, owned RGBA8 output and disposal. Browser adapters must preserve native semantics while adapting platform waiting and error delivery; compiling a native path to WASM is not browser acceptance. These are M5 requirements, not implemented bindings or a changed native API contract.
+The [browser SDK contract](./docs/browser-sdk.md) defines explicit WASM/GPU initialization, GPU-free validation/catalog access, asynchronous completion, owned RGBA8 output and disposal. Browser adapters must preserve native semantics while adapting platform waiting and error delivery; compiling a native path to WASM is not browser acceptance. The [initial runtime implementation](./docs/browser-runtime.md) provides this binding and packaged loading path. Full M5 browser acceptance remains open; the native API contract is unchanged.
 
 ## 4. Dependency direction
 
@@ -723,3 +723,5 @@ The catalog now has eleven node types and nine kernels. Scalar `transform-2d` an
 PR-014 introduces only application-owned freshness state in the independent consumer: one active render, one replaceable pending input and one retained display, with at most two CPU outputs during replacement. It does not add a core scheduler, global worker, cancellation API or resource pool. See [consumer lifetime boundaries](./docs/stale-results.md).
 
 PR-015 adds local archive verification in repository tooling only. The independent consumer is staged with normalized public package contents in a disposable external workspace; local version patches resolve those extracted crates, never producer-private modules. Package licenses/README/unit assets are self-contained, committed locks remain unchanged and publication remains disabled. The [compatibility record](./docs/compatibility.md) consolidates existing boundaries; [M4 release status](./docs/release.md) records completed local and remote acceptance, remaining distribution decisions, and untested hardware limits.
+
+M5 browser start adds the actual `mixture-wasm` compilation boundary and keeps npm assets in this engine repository. `mixture-wgpu` now adapts browser callback completion and timing; native waiting remains separate. The [browser runtime guide](./docs/browser-runtime.md) identifies the initial implemented slice. The future-labelled diagrams above retain the foundation design; no second compiler or pixel executor is added.

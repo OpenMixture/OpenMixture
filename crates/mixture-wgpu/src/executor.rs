@@ -12,7 +12,10 @@ use mixture_core::{
     registry::PortKind,
 };
 use serde::Serialize;
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 use std::time::Instant;
+#[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+use web_time::Instant;
 
 /// Pixel transfer encoding; alpha is always linear and straight.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -224,6 +227,7 @@ pub(crate) async fn execute(
         // Deliver pending native destruction callbacks before touching the pipeline
         // cache or allocating resources. An already-recorded loss does not poll again.
         context.ensure_available(Stage::GpuExecution)?;
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         device.poll(wgpu::PollType::Poll).map_err(|source| {
             GpuOperationError::source_error(
                 Stage::GpuExecution,

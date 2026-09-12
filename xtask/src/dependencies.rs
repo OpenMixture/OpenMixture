@@ -15,6 +15,8 @@ const POLICY: &[(&str, &[&str])] = &[
             "wgpu",
             "serde",
             "half",
+            "futures-channel",
+            "web-time",
             "naga",
             "pollster",
             "serde_json",
@@ -35,6 +37,19 @@ const POLICY: &[(&str, &[&str])] = &[
         "xtask",
         &["pulldown-cmark", "serde_json", "png", "serde", "sha2"],
     ),
+    (
+        "mixture-wasm",
+        &[
+            "mixture-core",
+            "mixture-wgpu",
+            "serde",
+            "serde_json",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "js-sys",
+            "serde-wasm-bindgen",
+        ],
+    ),
 ];
 
 pub(super) fn check(root: &Path) -> TaskResult {
@@ -49,7 +64,7 @@ pub(super) fn check(root: &Path) -> TaskResult {
         .into());
     }
     validate(&serde_json::from_slice(&output.stdout)?)?;
-    println!("Dependency policy passed (four private crates, wgpu confined to mixture-wgpu).");
+    println!("Dependency policy passed (five unpublished crates, wgpu confined to mixture-wgpu).");
     Ok(())
 }
 
@@ -72,7 +87,7 @@ fn validate(metadata: &Value) -> TaskResult {
     }
     if actual.len() != POLICY.len() || members.len() != POLICY.len() {
         return Err(
-            "The initial workspace requires exactly mixture-core, mixture-wgpu, mixture-cli, and xtask".into(),
+            "The M5 workspace requires exactly mixture-core, mixture-wgpu, mixture-cli, mixture-wasm, and xtask".into(),
         );
     }
     for (name, allowed) in POLICY {
@@ -81,7 +96,7 @@ fn validate(metadata: &Value) -> TaskResult {
             .ok_or_else(|| format!("missing workspace crate: {name}"))?;
         if !package["publish"].as_array().is_some_and(Vec::is_empty) {
             return Err(format!(
-                "{name}: publication must remain disabled during the initial implementation train"
+                "{name}: Cargo publication must remain disabled during the M5 browser implementation"
             )
             .into());
         }
@@ -108,6 +123,15 @@ fn validate(metadata: &Value) -> TaskResult {
                     "{name} -> {dependency_name} is restricted to tests and examples"
                 )
                 .into());
+            }
+            if *name == "mixture-wgpu"
+                && matches!(dependency_name, "futures-channel" | "web-time")
+                && dependency["target"].as_str()
+                    != Some("cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))")
+            {
+                return Err(
+                    format!("{name} -> {dependency_name} must remain browser-target-only").into(),
+                );
             }
             if dependency_name.starts_with("mixture-")
                 && (dependency["path"].as_str().is_none() || !dependency["source"].is_null())
@@ -137,6 +161,7 @@ mod tests {
             "dependencies": allowed.iter().map(|dependency| json!({
                 "name": dependency,
                 "kind": if *name == "mixture-wgpu" && matches!(*dependency, "pollster" | "serde_json" | "naga") { Some("dev") } else { None },
+                "target": if *name == "mixture-wgpu" && matches!(*dependency, "futures-channel" | "web-time") { Some("cfg(all(target_arch = \"wasm32\", target_os = \"unknown\"))") } else { None },
                 "path": if dependency.starts_with("mixture-") { Some("../local") } else { None },
                 "source": if dependency.starts_with("mixture-") { None } else { Some("registry") },
             })).collect::<Vec<_>>()
@@ -145,8 +170,8 @@ mod tests {
     }
 
     #[test]
-    fn accepts_the_foundation_boundaries() {
-        validate(&baseline()).expect("foundation should pass");
+    fn accepts_the_m5_boundaries() {
+        validate(&baseline()).expect("M5 boundaries should pass");
     }
 
     #[test]
@@ -174,7 +199,8 @@ mod tests {
             "mixture-wgpu",
             "mixture-cli",
             "xtask",
-            "mixture-wasm"
+            "mixture-wasm",
+            "mixture-extra"
         ]);
         assert!(validate(&metadata).is_err());
     }
@@ -198,7 +224,7 @@ mod tests {
 
     #[test]
     fn rejects_gpu_dependency_outside_executor_and_blocking_executor_dependencies() {
-        for index in [0, 2, 3] {
+        for index in [0, 2, 3, 4] {
             let mut metadata = baseline();
             metadata["packages"][index]["dependencies"] = json!([{"name": "wgpu", "kind": "dev"}]);
             assert!(validate(&metadata).is_err());
@@ -207,6 +233,19 @@ mod tests {
             let mut metadata = baseline();
             metadata["packages"][1]["dependencies"] = json!([{"name": dependency, "kind": null}]);
             assert!(validate(&metadata).is_err());
+        }
+    }
+
+    #[test]
+    fn rejects_browser_helpers_on_native_targets() {
+        for dependency in ["futures-channel", "web-time"] {
+            for target in [None, Some("cfg(unix)")] {
+                let mut metadata = baseline();
+                metadata["packages"][1]["dependencies"] = json!([{
+                    "name": dependency, "kind": null, "target": target
+                }]);
+                assert!(validate(&metadata).is_err());
+            }
         }
     }
 }

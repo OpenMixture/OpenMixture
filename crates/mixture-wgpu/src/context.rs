@@ -11,7 +11,7 @@ use serde::Serialize;
 
 use crate::diagnostics::{AdapterDiagnostics, ContextReport, DeviceDiagnostics, RequestedPolicy};
 
-/// The reason supplied by the native device-loss callback, not inferred from text.
+/// The reason supplied by the wgpu device-loss callback, not inferred from text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -26,14 +26,14 @@ pub enum DeviceLossReason {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceLoss {
-    /// Native notification category; unknown messages are never parsed for a cause.
+    /// Backend notification category; unknown messages are never parsed for a cause.
     pub reason: DeviceLossReason,
     /// Original callback text, which may be empty for explicit destruction.
     pub message: String,
 }
 
 impl DeviceLoss {
-    fn from_native(reason: wgpu::DeviceLostReason, message: String) -> Self {
+    fn from_wgpu(reason: wgpu::DeviceLostReason, message: String) -> Self {
         Self {
             reason: match reason {
                 wgpu::DeviceLostReason::Unknown => DeviceLossReason::Unknown,
@@ -52,11 +52,11 @@ impl fmt::Display for DeviceLoss {
 
 impl Error for DeviceLoss {}
 
-/// Native backends permitted for this request. `None` disables GPU acquisition.
+/// Backends permitted for this request. `None` disables GPU acquisition.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum BackendPreference {
-    /// Let wgpu select among the compiled native backends.
+    /// Select compiled native backends, or browser WebGPU on wasm32-unknown-unknown.
     #[default]
     Auto,
     /// Require the Vulkan backend.
@@ -72,6 +72,9 @@ pub enum BackendPreference {
 impl BackendPreference {
     fn backends(self) -> wgpu::Backends {
         match self {
+            #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+            Self::Auto => wgpu::Backends::BROWSER_WEBGPU,
+            #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
             Self::Auto => wgpu::Backends::VULKAN | wgpu::Backends::METAL | wgpu::Backends::DX12,
             Self::Vulkan => wgpu::Backends::VULKAN,
             Self::Metal => wgpu::Backends::METAL,
@@ -142,7 +145,13 @@ impl GpuContext {
                     Stage::GpuAdapter,
                     "No compiled GPU backend is permitted by the requested policy.",
                 )
-                .with_suggestion("Select auto or a native backend available on this platform."),
+                .with_suggestion(
+                    if cfg!(all(target_arch = "wasm32", target_os = "unknown")) {
+                        "Select auto to use browser WebGPU."
+                    } else {
+                        "Select auto or a native backend available on this platform."
+                    },
+                ),
             ));
         }
         let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
@@ -216,7 +225,7 @@ impl GpuContext {
         let callback_loss = Arc::clone(&loss);
         device.set_device_lost_callback(move |reason, message| {
             // One context-owned record, no GPU handles or global state in the callback.
-            let _ = callback_loss.set(DeviceLoss::from_native(reason, message));
+            let _ = callback_loss.set(DeviceLoss::from_wgpu(reason, message));
         });
         Ok(Self {
             instance,
@@ -255,6 +264,7 @@ impl GpuContext {
 
     /// Borrow the first delivered loss notification. This does not poll or block.
     /// A native callback may require device polling; render polls before GPU work.
+    /// Browser WebGPU delivers notifications through the event loop without polling.
     /// The acquisition report remains an immutable snapshot. Replacing the raw
     /// device's loss callback disables this tracking and is outside this contract.
     pub fn device_loss(&self) -> Option<&DeviceLoss> {
@@ -347,6 +357,20 @@ fn unsupported_limits(required: &wgpu::Limits, supported: &wgpu::Limits) -> Opti
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn context_auto_permits_only_the_target_execution_backends() {
+        let auto = BackendPreference::Auto.backends();
+        #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+        assert_eq!(auto, wgpu::Backends::BROWSER_WEBGPU);
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
+        assert_eq!(
+            auto,
+            wgpu::Backends::VULKAN | wgpu::Backends::METAL | wgpu::Backends::DX12
+        );
+        assert!(!auto.intersects(wgpu::Backends::GL | wgpu::Backends::NOOP));
+        assert!(BackendPreference::None.backends().is_empty());
+    }
 
     #[test]
     fn context_limit_failures_are_typed_before_request_device_can_panic() {

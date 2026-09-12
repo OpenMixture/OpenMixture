@@ -57,7 +57,8 @@ pub struct AdapterDiagnostics {
     pub name: String,
     /// wgpu device type, such as IntegratedGpu, DiscreteGpu, or Cpu.
     pub device_type: String,
-    /// Actual native backend: Vulkan, Metal, or Dx12.
+    /// Actual backend: Vulkan, Metal, Dx12, or BrowserWebGpu. Browser adapter
+    /// identity can be redacted; empty backend-supplied fields remain empty.
     pub backend: String,
     /// Backend-specific vendor identifier.
     pub vendor: u32,

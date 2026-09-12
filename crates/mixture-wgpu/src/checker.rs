@@ -67,7 +67,9 @@ pub struct ExecutionTimings {
     pub execution_ms: f64,
     /// Mapping, row unpacking, and RGBA conversion.
     pub readback_ms: f64,
-    /// Complete render call, including allocation and validation.
+    /// Complete render call, including allocation and validation. Browser wall
+    /// timings use `performance.now()` and may have browser privacy rounding;
+    /// these are not GPU timestamp queries.
     pub total_ms: f64,
 }
 

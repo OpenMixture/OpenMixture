@@ -6,7 +6,7 @@
 
 **状态：** 原生 pre-alpha，M4 已验收。软件包仍为未发布的 `0.1.0`，尚无稳定版本兼容性保证。[兼容性记录](./docs/compatibility.zh-CN.md)定义当前已验证的契约。
 
-**已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5-01 计划](./M5_PRS.zh-CN.md)现已定义预期浏览器运行时与独立 Player；浏览器实施和验收尚未启动。
+**已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器启动](./docs/browser-runtime.zh-CN.md)现已实现轻量绑定，以及 [Studio](https://github.com/OpenMixture/Studio) 中的打包棋盘格消费者。完整 M5 浏览器／材质验收仍开放；npm 未发布。
 
 `PR-001` 至 `PR-015` 是历史实施批次标识，不是 GitHub PR 编号。新变更遵循[仓库治理](./docs/governance.zh-CN.md)和[证据保留](./docs/evidence-policy.zh-CN.md)规则。
 
@@ -235,7 +235,7 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 - [初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)：历史 M0–M3 实施批次及其验收要求。
 - [M4 实施计划](./M4_PRS.zh-CN.md)：已完成的原生消费者实施批次及其历史证据。
 - [M5 实施计划](./M5_PRS.zh-CN.md)：浏览器运行时、npm 包消费与独立 Player 的计划工作项。
-- [浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)：预期软件包、初始化、输入／输出及生命周期行为，尚未实现。
+- [浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)：软件包、初始化、输入／输出及生命周期要求，区分已实现棋盘格切片与剩余验收。
 - [仓库治理](./docs/governance.zh-CN.md)：集成分支、真实 GitHub PR 及必需检查规则。
 - [证据保留](./docs/evidence-policy.zh-CN.md)：已接受记录、临时运行输出及产物可用性。
 - [中文文档索引](./docs/README.zh-CN.md)：开发指南、架构决策和其他说明的入口。
