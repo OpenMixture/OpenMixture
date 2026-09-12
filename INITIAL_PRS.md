@@ -2,6 +2,8 @@
 
 English | [简体中文](./INITIAL_PRS.zh-CN.md)
 
+**Historical record:** `PR-001` through `PR-010` are completed implementation batch identifiers, not GitHub pull request numbers. The original sequence, acceptance requirements, and stage-specific status below are retained as history. Current acceptance is recorded in the [roadmap](./ROADMAP.md) and [release status](./docs/release.md); new work uses actual GitHub pull requests under the [governance policy](./docs/governance.md).
+
 This file defines the first implementation train for the greenfield Mixture repository. Each pull request should be independently reviewable, green, and narrow enough for a coding agent to execute without inventing adjacent scope.
 
 The sequence covers M0 through M3. M4 and later work should be scoped only after these pull requests produce real evidence.

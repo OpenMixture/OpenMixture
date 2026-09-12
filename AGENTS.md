@@ -4,7 +4,7 @@ English | [简体中文](./AGENTS.zh-CN.md)
 
 This file is the operational contract for coding agents and contributors working on Mixture.
 
-Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries, [ROADMAP.md](./ROADMAP.md) before adding scope, and [INITIAL_PRS.md](./INITIAL_PRS.md) when implementing the initial repository.
+Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
 
 ## Mission
 
@@ -50,9 +50,9 @@ Do not preserve accidental behavior solely because it exists in an old Mixture r
 
 ## Quick reference
 
-The implemented repository commands are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `test-format`, `test-plan`, `test-consumer`, `package-check`, `test-node <id>`, `test-material <id>`, `golden check`, guarded `golden update <id> --accept`, `doc`, `deps`, `links`, `trace-2k`, `shader-check`, and the explicit `gpu-smoke` work today. The CLI implements CPU-only `validate` and `inspect --plan`, verified `doctor` with `--skip-probe`, and graph `render`/`render-builtin checker`, in human and JSON modes. Other commands below are the target interface and must not be presented as already implemented.
+The implemented repository commands are listed in [docs/development.md](./docs/development.md). `cargo xtask check`, `fmt`, `clippy`, `test`, `test-core`, `test-format`, `test-plan`, `test-consumer`, `package-check`, `test-node <id>`, `test-material <id>`, `golden check`, guarded `golden update <id> --accept`, `doc`, `deps`, `links`, `trace-2k`, `shader-check`, and the explicit `gpu-smoke` work today. The CLI implements CPU-only `validate` and `inspect --plan`, verified `doctor` with `--skip-probe`, and graph `render`/`render-builtin checker`, in human and JSON modes.
 
-The intended repository commands are:
+Common implemented commands are:
 
 ```bash
 # Fast repository checks used during normal development
@@ -77,7 +77,7 @@ cargo run -p mixture-cli -- inspect <file.mix> --plan --json
 cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
 ```
 
-During the first implementation train, a command may not exist until the pull request that introduces it. Once introduced, keep its meaning stable. Do not silently replace a documented command with an unrelated one.
+Keep introduced command meanings stable. Label any future command proposal as unimplemented until it exists. Do not silently replace a documented command with an unrelated one.
 
 ## Repository map
 
@@ -262,7 +262,7 @@ Do not update a golden in the same command that renders it. The update path must
 
 ## Golden update policy
 
-The intended commands are:
+The implemented commands are:
 
 ```bash
 cargo xtask golden check
@@ -357,6 +357,7 @@ Do not introduce a general optimizer, SSA, shader AST, or precision inference sy
 
 ## Pull-request rules
 
+- Integrate new changes through actual GitHub pull requests following [repository governance](./docs/governance.md). Keep milestone work-item IDs separate from GitHub PR numbers; historical `PR-001` through `PR-015` identify implementation batches.
 - One architectural seam per pull request.
 - Keep adapters and generated bindings thin.
 - Avoid unrelated renames and formatting churn.
@@ -365,6 +366,7 @@ Do not introduce a general optimizer, SSA, shader AST, or precision inference sy
 - Large changes should be stacked in dependency order and remain independently reviewable.
 - Do not bypass required checks.
 - Do not merge a pull request that leaves the documented primary command path broken.
+- Retain accepted results and their required review content under the [evidence policy](./docs/evidence-policy.md); preserve historical records and keep ordinary repeated output in CI artifacts or ignored local directories.
 
 ## Definition of done
 

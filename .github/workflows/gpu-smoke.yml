@@ -2,6 +2,7 @@ name: GPU material acceptance
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -67,6 +68,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: swiftshader-material-evidence
+          retention-days: 30
           path: |
             tmp/gpu-smoke/
             tmp/package-check/

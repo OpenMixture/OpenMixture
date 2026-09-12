@@ -46,6 +46,6 @@ cargo xtask test-material glazed-ceramic
 
 ## 审查状态
 
-[human-review.json](./reports/human-review.json)明确区分智能体检查与人工验收。通过基准比较及 `--accept` 均不会签署该记录。现已用[受控观感对照图](./reports/pbr/comparison.png)补充平面通道色块；[输入及场景记录](./reports/pbr/review.json)绑定十二张未改动 PNG、Blender 版本／设备及脚本。默认／细格版的灯箱和样板反射比哑光版清晰。球体曲率及底座边缘属于消费端几何体；法线仍为中性，高度仍为零。这支持审查光滑釉面棋盘候选，不宣称生成了表面细节，也不能唯一确定物理材质种类。PR-008 人工验收已针对未改动的清单及 PBR 证据记录；完整 M3 保持开放。用户已暂缓远端 CI，本项工作不宣称关闭远端里程碑。
+[human-review.json](./reports/human-review.json)明确区分智能体检查与人工验收。通过基准比较及 `--accept` 均不会签署该记录。现已用[受控观感对照图](./reports/pbr/comparison.png)补充平面通道色块；[输入及场景记录](./reports/pbr/review.json)绑定十二张未改动 PNG、Blender 版本／设备及脚本。默认／细格版的灯箱和样板反射比哑光版清晰。球体曲率及底座边缘属于消费端几何体；法线仍为中性，高度仍为零。这支持审查光滑釉面棋盘候选，不宣称生成了表面细节，也不能唯一确定物理材质种类。PR-008 人工验收已针对未改动的清单及 PBR 证据记录。PR-008 时完整 M3 与远端 CI 尚未关闭；现已完成[完整 M3 评审](../../../docs/m3-review.zh-CN.md)，并关闭已记录的[远端 CI 门槛](../../../docs/evidence/remote-ci/README.zh-CN.md)。历史报告保持不变。
 
-不在范围内：新增节点、噪声、生成法线、凹凸、资源池、2K 优化、运行时查看器、浏览器与远端 CI 验收。
+PR-008 范围外：新增节点、噪声、生成法线、凹凸、资源池、2K 优化、运行时查看器、浏览器与远端 CI 验收。

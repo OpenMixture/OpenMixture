@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current milestone:** M4 accepted — next implementation train decision pending.
+**Current milestone:** M4 accepted; M4.1 repository maintenance in progress. M5 has not started.
 
 **Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished; M5 has not started and requires an explicit entry decision.
 
@@ -263,6 +263,31 @@ Public docs, examples, CLI JSON, and library behavior must agree.
 - editor UI;
 - binary packaging;
 - engine-specific exporters in core.
+
+---
+
+## M4.1 — Repository Maintenance
+
+### Outcome
+
+The accepted M4 implementation is discoverable from a protected default `main`, and subsequent changes have real PR records and durable acceptance evidence. This maintenance scope was selected on 2026-09-12; it does not reopen M4 acceptance or authorize M5 runtime work.
+
+### Scope
+
+- Establish `main` from the accepted history without force pushes or deleting historical branches, verify its CI, and make it the default branch.
+- Apply the [reviewable branch ruleset](./.github/main-ruleset.json): PR required, resolved conversations, no force push/deletion, four required GitHub Actions checks, and zero required approvals for the single-maintainer workflow.
+- Run CI for PRs, pushes to `main`, and manual dispatch, preserving GPU serial execution, driver pin/cache verification, and every acceptance gate.
+- Distinguish historical implementation identifiers `PR-001` through `PR-015` from actual GitHub PR numbers.
+- Synchronize current English/Chinese status, adopt [evidence retention](./docs/evidence-policy.md), and describe verified environments without inventing support guarantees.
+
+### Exit criteria
+
+- Live GitHub state confirms the correct default branch and active protection, and the current integrated revision has all four required checks passing.
+- A real PR integrates the workflow/documentation change through the protected path; its current checks, merge revision, and resulting main runs are recorded.
+- `cargo xtask check` passes, active documentation agrees with current evidence, and historical source bundles, goldens, human receipts, and bound visual evidence remain unchanged.
+- A compact completion receipt identifies branches, revisions, runs, applied rules, and any descriptive source checkpoint tag; no package publication is claimed.
+
+The [governance guide](./docs/governance.md) defines activation order and verification. Runtime/API changes, new nodes, M5 implementation, M6, large tooling refactors, and package distribution are out of scope.
 
 ---
 

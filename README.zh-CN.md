@@ -4,9 +4,11 @@
 
 > 基于 Rust 和 `wgpu` 的小型材质图编译器与无界面纹理渲染器。
 
-**状态：** 从零构建，处于 pre-alpha 阶段，尚不承诺兼容性。
+**状态：** 原生 pre-alpha，M4 已验收。软件包仍为未发布的 `0.1.0`，尚无稳定版本兼容性保证。[兼容性记录](./docs/compatibility.zh-CN.md)定义当前已验证的契约。
 
-**已实现：** PR-001 至 PR-010 已在本地实现，具备十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 PR-011](./M4_PRS.zh-CN.md)现已验证[独立公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)，包括自有 GPU 输出与 renderer 复用测量；PR-012 验证 [CLI 报告及退出码](./docs/cli-contract.zh-CN.md)，修复人类可读诊断上下文。PR-013 添加 [GPU 失败分类与丢失生命周期](./docs/gpu-failures.zh-CN.md)，包括受保护的回读清理。PR-014 现已验证[最新结果发布与有界消费者状态](./docs/stale-results.zh-CN.md)。PR-015 验证[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)，记录[兼容性](./docs/compatibility.zh-CN.md)及 [M4 退出／发布评估](./docs/release.zh-CN.md)。M4 验收现已包含[三平台 CPU 及 Linux SwiftShader CI](./docs/evidence/remote-ci/README.zh-CN.md)。远端门槛已关闭；软件包仍为未发布的 pre-alpha `0.1.0`，M5 需单独决定进入。
+**已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。M5 尚未启动，需单独决定进入。
+
+`PR-001` 至 `PR-015` 是历史实施批次标识，不是 GitHub PR 编号。新变更遵循[仓库治理](./docs/governance.zh-CN.md)和[证据保留](./docs/evidence-policy.zh-CN.md)规则。
 
 Mixture 的设计目标是读取带版本号的 `.mix` 材质文档，验证并编译其中的有向无环图，通过唯一的 `wgpu` 渲染器执行计算通道，返回所请求的 PBR 纹理通道。
 
@@ -175,7 +177,7 @@ cargo run -p mixture-cli -- render examples/blend.mix \
 
 ## 仓库布局
 
-目标布局由三个产品 crate 和一个私有工具 crate 组成：
+当前布局由三个产品 crate 和一个私有工具 crate 组成：
 
 ```text
 mixture/
@@ -230,9 +232,12 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 - [贡献者与智能体指南](./AGENTS.zh-CN.md)：编码智能体和贡献者的操作规则。
 - [架构文档](./ARCHITECTURE.zh-CN.md)：系统边界、不可变约束、数据流和测试模型。
 - [路线图](./ROADMAP.zh-CN.md)：里程碑目标、退出标准和停止规则。
-- [初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)：第一轮实施顺序，可据此创建 issue 和堆叠 PR。
+- [初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)：历史 M0–M3 实施批次及其验收要求。
+- [M4 实施计划](./M4_PRS.zh-CN.md)：已完成的原生消费者实施批次及其历史证据。
+- [仓库治理](./docs/governance.zh-CN.md)：集成分支、真实 GitHub PR 及必需检查规则。
+- [证据保留](./docs/evidence-policy.zh-CN.md)：已接受记录、临时运行输出及产物可用性。
 - [中文文档索引](./docs/README.zh-CN.md)：开发指南、架构决策和其他说明的入口。
 
 ## 许可证
 
-可任选 [Apache-2.0](./LICENSE-APACHE) 或 [MIT](./LICENSE-MIT) 许可证使用。基础工程里程碑期间禁用软件包发布。
+可任选 [Apache-2.0](./LICENSE-APACHE) 或 [MIT](./LICENSE-MIT) 许可证使用。当前 pre-alpha 软件包保持 `publish = false`；发布需单独决定。

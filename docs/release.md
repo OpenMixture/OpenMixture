@@ -2,7 +2,7 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**M4 accepted locally and remotely, 2026-09-12; packages remain unpublished.** PR-011–015 and the CI tooling fixes pass the documented acceptance matrix. The previously deferred clean-checkout CPU and Linux SwiftShader gates are now closed; see [remote CI evidence](./evidence/remote-ci/README.md). All product packages remain pre-alpha `0.1.0` with publication disabled. This work pushed the implementation and CI fixes; no merge, release tag, publication, installer or binary distribution is included. [PR-015 evidence](./evidence/pr-015/README.md) retains the earlier local assessment.
+**M4 accepted locally and remotely, 2026-09-12; packages remain unpublished.** PR-011–015 and the CI tooling fixes pass the documented acceptance matrix. The previously deferred clean-checkout CPU and Linux SwiftShader gates are now closed; see [remote CI evidence](./evidence/remote-ci/README.md). All product packages remain pre-alpha `0.1.0` with publication disabled. The recorded CI repair pushed the implementation and fixes without a merge or release tag. Subsequent default-branch, PR, and checkpoint work follows [M4.1 repository governance](./governance.md); it does not publish packages, installers, or binary distributions. [PR-015 evidence](./evidence/pr-015/README.md) retains the earlier local assessment.
 
 ## M4 exit assessment
 

@@ -2,6 +2,8 @@
 
 English | [简体中文](./M4_PRS.zh-CN.md)
 
+**Historical numbering:** `PR-011` through `PR-015` identify implementation batches, not GitHub pull request numbers. Their dated completion records remain unchanged; new work uses actual GitHub pull requests under the [governance policy](./docs/governance.md).
+
 **Status:** started from the [M3 review](./docs/m3-review.md) of `e9dd03b`, 2026-09-08. PR-011 through PR-015 are locally implemented and verified. The [M4 exit/release assessment](./docs/release.md) records local acceptance and the subsequently completed remote gates. This train instantiates [M4](./ROADMAP.md#m4--stable-native-sdk) without changing architecture or expanding the node vocabulary. [Remote platform CI](./docs/evidence/remote-ci/README.md) subsequently passed on `8b43c84`; the historical local completion records below remain unchanged.
 
 The consumer needs the existing decode → validate → compile → wgpu → owned-output path. Release measurements support debounced previews and show no startup blocker warranting native bindings or a daemon. The 2K descriptor peak fits the current budget without pooling. Work below stabilizes observable behavior and independently verifies consumption.

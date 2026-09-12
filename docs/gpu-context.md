@@ -98,7 +98,7 @@ DYLD_LIBRARY_PATH="$PWD/tmp/swiftshader/build" \
   MIXTURE_GPU_EXPECT_ADAPTER=SwiftShader cargo xtask gpu-smoke
 ```
 
-The macOS setup provides `libvulkan.dylib` as an alias to SwiftShader's direct Vulkan API library; no system driver is installed. The [PR-003 acquisition-only report](./evidence/pr-003-apple-m5.json) is retained as historical evidence. Current [Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) full probes passed locally, with matching checker pixels. Remote Linux SwiftShader and the Linux/macOS/Windows non-GPU matrix remain pending; their configuration is not a claim of remote CI completion.
+The macOS setup provides `libvulkan.dylib` as an alias to SwiftShader's direct Vulkan API library; no system driver is installed. The [PR-003 acquisition-only report](./evidence/pr-003-apple-m5.json) is retained as historical evidence. The PR-004 [Metal](./evidence/pr-004-apple-m5.json) and [SwiftShader Vulkan](./evidence/pr-004-swiftshader.json) full probes passed locally, with matching checker pixels. Remote results were still pending at PR-004; the Linux SwiftShader and Linux/macOS/Windows non-GPU gates have since passed in the documented [remote CI acceptance](./evidence/remote-ci/README.md). These historical local reports remain unchanged.
 
 PR-007 shares checker execution with the graph renderer and adds all-node/graph evidence; see [graph rendering](./graph-rendering.md). The pinned driver and explicit adapter policy are unchanged. Historical PR-004 reports retain their old 16-byte checker uniform estimate; the current shared ABI uses 48 bytes.
 

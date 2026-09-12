@@ -29,6 +29,9 @@
 
 [材质基准](./material-goldens.zh-CN.md)定义 PR-008／009／010 受保护更新、夹具 schema、度量与陶瓷／皮革／木材审查工作流。
 
+[仓库治理](./governance.zh-CN.md)定义 M4.1 主分支／PR 保护、必需检查、CI 触发及启用验证。
+[证据保留](./evidence-policy.zh-CN.md)区分不可改写的历史验收、新摘要、临时附件和已验证平台范围。
+
 ## 配套文档
 
 - [示例说明](../examples/README.zh-CN.md)
@@ -45,4 +48,4 @@
 
 [最新请求与有界消费者状态](./stale-results.zh-CN.md)定义 PR-014 代次处理、明确过期的展示、CLI 目录清理及 CPU／GPU 内存边界。
 
-[本地软件包消费](./package-consumption.zh-CN.md)、[兼容性](./compatibility.zh-CN.md)及 [M4 发布／退出状态](./release.zh-CN.md)定义 PR-015 归档验证与剩余外部门槛。
+[本地软件包消费](./package-consumption.zh-CN.md)、[兼容性](./compatibility.zh-CN.md)及 [M4 发布／退出状态](./release.zh-CN.md)定义 PR-015 归档验证与剩余分发及硬件限制。

@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 PR-009 adds a brown pebbled leather-like surface using nine total built-in node types. [material.mix](./material.mix) uses five compute passes: seeded cellular fractal noise → levels height → gradient-map color, height-to-normal, and inverted levels roughness. All four 1K output channels are connected. The renderer reports 50,331,792 peak estimated bytes; this is an allocation estimate, not process or driver memory.
 
-Local software/hardware machine gates and the [controlled PBR comparison](./reports/pbr/comparison.png) are complete. [Human acceptance](./reports/human-review.json) is recorded. Remote CI is deferred and M3 is open. The accepted ceramic fixture and its pixels are unchanged.
+Local software/hardware machine gates and the [controlled PBR comparison](./reports/pbr/comparison.png) are complete. [Human acceptance](./reports/human-review.json) is recorded. M3 and remote CI were still open at PR-009; the [full M3 review](../../../docs/m3-review.md) is now complete and the documented [remote CI gates](../../../docs/evidence/remote-ci/README.md) are closed. Historical reports and the accepted ceramic fixture's pixels remain unchanged.
 
 ## Parameters and causality
 
@@ -49,4 +49,4 @@ Software comparison is exact. Hardware requires max absolute error ≤1 byte, me
 
 [Review instructions](./review/README.md) reproduce four frames using Blender 4.5.13. Verified baseColor, roughness and the actual generated normal drive the same BRDF and lights in every case. Height remains a diagnostic input; applying it as a second bump would double-count the already generated normal. No additional surface noise or relief is supplied by the scene. Sphere curvature and backing edges are display geometry.
 
-The [reports](./reports/README.md) bind inputs, shader/tooling source, adapter, plan, metrics, scripts and images. The current target is pebbled leather-like appearance, not a scanned or physically calibrated hide. Out of scope: transform/warp, wood, coat, sheen, AO, curvature, scatter, 2K optimization, a runtime 3D viewer, remote CI closure and the thirteenth node.
+The [reports](./reports/README.md) bind inputs, shader/tooling source, adapter, plan, metrics, scripts and images. The current target is pebbled leather-like appearance, not a scanned or physically calibrated hide. Out of scope for PR-009: transform/warp, wood, coat, sheen, AO, curvature, scatter, 2K optimization, a runtime 3D viewer, remote CI closure and the thirteenth node.

@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 PR-010 adds a warm brown wood-like surface with elongated, gently warped grain. [material.mix](./material.mix) uses eight compute passes: explicitly seeded value fractal noise → integer repeat/rotation → a second seeded field displaces the grain → levels height → gradient-map color, height-to-normal, and inverted levels roughness. All four 1024×1024 channels are connected. The total built-in vocabulary is eleven nodes and nine kernels.
 
-The [reports](./reports/README.md) separate full-image comparisons, machine measurements, agent inspection, and [human acceptance](./reports/human-review.json). Wood human acceptance is recorded. Ceramic and leather already have user acceptance; their baseline PNGs remain unchanged. The [full M3 review](../../../docs/m3-review.md) is complete; remote CI remains deferred.
+The [reports](./reports/README.md) separate full-image comparisons, machine measurements, agent inspection, and [human acceptance](./reports/human-review.json). Wood human acceptance is recorded. Ceramic and leather already have user acceptance; their baseline PNGs remain unchanged. The [full M3 review](../../../docs/m3-review.md) is complete. Remote CI was deferred at PR-010; the documented [remote CI gates](../../../docs/evidence/remote-ci/README.md) are now closed. Historical reports remain unchanged.
 
 ## Controls and intended effects
 
@@ -49,4 +49,4 @@ cargo xtask check
 
 The optional [controlled review](./review/README.md) consumes actual verified PNGs with identical lights, camera, geometry and BRDF. Exported normal is applied once; height remains diagnostic, without a second bump or displacement. No knots, extra fibers, procedural noise or surface relief are added by the consumer. The target is a useful stylized wood-like surface, not a scanned species or physically calibrated timber.
 
-The [2K evidence](./reports/README.md) compares descriptor allocation measurements with the existing 512 MiB peak budget before any lifetime optimization. Retaining all pass textures is allowed when the measured workload fits; reuse is not added without that need. Descriptor bytes exclude driver overhead and CPU image buffers. Out of scope: new texture formats, generalized optimization, last-consumer reuse without a measured failure, M4 API stabilization, bindings, daemon, editor, embedded resources, remote CI closure, and a thirteenth node.
+The [2K evidence](./reports/README.md) compares descriptor allocation measurements with the existing 512 MiB peak budget before any lifetime optimization. Retaining all pass textures is allowed when the measured workload fits; reuse is not added without that need. Descriptor bytes exclude driver overhead and CPU image buffers. Out of scope for PR-010: new texture formats, generalized optimization, last-consumer reuse without a measured failure, M4 API stabilization, bindings, daemon, editor, embedded resources, remote CI closure, and a thirteenth node.

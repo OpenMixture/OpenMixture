@@ -4,7 +4,7 @@
 
 PR-009 添加棕色颗粒状类皮革表面，内置节点总数为九。[material.mix](./material.mix) 使用五个计算 pass：带种子的 cellular 分形噪声 → levels 高度 → gradient-map 颜色、height-to-normal，以及反向 levels 粗糙度。四个 1K 输出通道全部连接。渲染器报告估算峰值 50,331,792 字节；这是分配估算，不是进程或驱动内存。
 
-本地软件／硬件机器检查及[受控 PBR 对比](./reports/pbr/comparison.png)已完成。[人工验收](./reports/human-review.json)已获用户接受。远端 CI 暂缓，M3 保持开放。已接受的陶瓷夹具及其像素不变。
+本地软件／硬件机器检查及[受控 PBR 对比](./reports/pbr/comparison.png)已完成。[人工验收](./reports/human-review.json)已获用户接受。PR-009 时 M3 与远端 CI 尚未关闭；现已完成[完整 M3 评审](../../../docs/m3-review.zh-CN.md)，并关闭已记录的[远端 CI 门槛](../../../docs/evidence/remote-ci/README.zh-CN.md)。历史报告及已接受陶瓷夹具的像素保持不变。
 
 ## 参数与因果
 
@@ -49,4 +49,4 @@ cargo xtask check
 
 [评审说明](./review/README.zh-CN.md)使用 Blender 4.5.13 复现四帧。经过验证的 baseColor、roughness 和实际生成的法线在所有用例驱动相同 BRDF 与光照。高度保留为诊断输入；若再次用于 bump，会重复应用已生成法线的效果。场景不提供额外表面噪声或凹凸。球体曲率及底座边缘来自展示几何。
 
-[报告](./reports/README.zh-CN.md)绑定输入、着色器／工具源码、适配器、计划、指标、脚本及图像。目前目标是颗粒状类皮革观感，不是扫描或物理标定皮革。范围外：transform／warp、木纹、coat、sheen、AO、curvature、scatter、2K 优化、运行时 3D 查看器、远端 CI 闭环及第十三个节点。
+[报告](./reports/README.zh-CN.md)绑定输入、着色器／工具源码、适配器、计划、指标、脚本及图像。目前目标是颗粒状类皮革观感，不是扫描或物理标定皮革。PR-009 范围外：transform／warp、木纹、coat、sheen、AO、curvature、scatter、2K 优化、运行时 3D 查看器、远端 CI 闭环及第十三个节点。

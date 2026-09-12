@@ -109,7 +109,7 @@ fn validate_source(source: &[u8]) -> Result<ValidatedDocument, DocumentError> {
 
 现有 UTF-8／JSON／版本／限制／节点／端口／参数／环代码处理对应错误。解析错误保留原生来源、解析器提供的行列位置以及选定的来源文本。语义诊断按情况标明节点、端口、参数、公开 ID、计数或环路径。
 
-[格式夹具](../fixtures/format/README.zh-CN.md)包含双节点棋盘格、全部六个 M2 契约及针对性的无效文档。测试覆盖严格语法／字段、重复转义键、深度嵌套、字节／集合边界、显式限制、浮点往返、默认值、图输入顺序置换、精确环证据、CLI 退出码、有界读取及源文件不被修改。`cargo xtask test-format` 运行核心格式／验证／注册表测试与 CLI 验证测试；`cargo xtask test-core` 运行整个无需 GPU 的核心测试集。远端跨平台 CI 仍需实际运行。
+[格式夹具](../fixtures/format/README.zh-CN.md)包含双节点棋盘格、全部六个 M2 契约及针对性的无效文档。测试覆盖严格语法／字段、重复转义键、深度嵌套、字节／集合边界、显式限制、浮点往返、默认值、图输入顺序置换、精确环证据、CLI 退出码、有界读取及源文件不被修改。`cargo xtask test-format` 运行核心格式／验证／注册表测试与 CLI 验证测试；`cargo xtask test-core` 运行整个无需 GPU 的核心测试集。PR-005 时尚无远端跨平台 CI 结果；此后已通过已记录的[三平台 CPU 门槛](./evidence/remote-ci/README.zh-CN.md)。
 
 ## PR-009 增量目录扩展
 

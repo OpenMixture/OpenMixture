@@ -112,15 +112,15 @@ MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 cargo xtask trace-2k
 
 `RenderReport.allocations` 是公开的 [AllocationReport](../crates/mixture-wgpu/src/allocations.rs)，CLI 将其序列化为 `execution.allocations`。它统计成功创建的纹理／uniform／staging 描述符，以及累计、峰值、存活、已释放和已复用字节。跟踪任务要求这些计数与所选计划一致，所有请求通道顺序回读完成，最终 `liveBytes` 为零，`releasedBytes` 等于 `cumulativeBytes`，且 `reusedBytes` 保持为零。释放计数记录 `destroy` 调用，不代表驱动或操作系统立即归还了物理内存。驱动分配粒度、着色器／管线／绑定组内存，以及 CPU 像素／PNG 缓冲区均不计入。管线缓存仍归 renderer 所有，不属于这些逐次调用计数。分配观测不改变核心计划、其估算或哈希。
 
-成功运行后，`tmp/trace-2k/<run>/` 包含 `selection.json`、全部检查报告、`doctor.json`、`render.json`、四张 PNG 及其哈希、源码／夹具哈希、精确渲染参数与适配器设置，以及 `trace.json`。`pipelineMs`、`executionMs`、`readbackMs` 和 `totalMs` 是有限的 CPU 墙钟测量值，不声称使用 GPU 时间戳查询。任务拒绝运行期间发生变化的源码／夹具输入或 1K 基准。`latest-software.json` 或 `latest-hardware.json` 记录最近一次尝试；失败时保留已有 CLI JSON／stderr 和 `failure.json`。跟踪通过只证明该工作负载的简单调度有界。它不创建或更新 2K 像素基准，也不决定材质人工验收或关闭暂缓的远端 CI 门槛。
+成功运行后，`tmp/trace-2k/<run>/` 包含 `selection.json`、全部检查报告、`doctor.json`、`render.json`、四张 PNG 及其哈希、源码／夹具哈希、精确渲染参数与适配器设置，以及 `trace.json`。`pipelineMs`、`executionMs`、`readbackMs` 和 `totalMs` 是有限的 CPU 墙钟测量值，不声称使用 GPU 时间戳查询。任务拒绝运行期间发生变化的源码／夹具输入或 1K 基准。`latest-software.json` 或 `latest-hardware.json` 记录最近一次尝试；失败时保留已有 CLI JSON／stderr 和 `failure.json`。跟踪通过只证明该工作负载的简单调度有界。它不创建或更新 2K 像素基准，也不决定材质人工验收。远端验收由记录的 CI 运行建立，单次本地跟踪不能替代。
 
 ## CI 与里程碑证据
 
-[非 GPU CI](../.github/workflows/ci.yml)在 Linux、macOS 和 Windows 上运行相同的锁定依赖命令，不需要 GPU 或显示器。本地通过仅证明当前主机环境；只有配置的 CI 矩阵在远端仓库实际通过后，才能满足 M0 跨平台验收条件。
+[非 GPU CI](../.github/workflows/ci.yml)在 Linux、macOS 和 Windows 上运行相同的锁定依赖命令，不需要 GPU 或显示器。本地通过仅证明当前主机环境。[已接受的远端矩阵](./evidence/remote-ci/README.zh-CN.md)已在记录的版本及平台范围内关闭 M0 跨平台门槛。
 
-[独立 GPU CI](../.github/workflows/gpu-smoke.yml)构建固定 SwiftShader Vulkan 适配器并运行计算／回读、节点回归、全部三种 1K 材质比较及最大案例的 2K 追踪。失败时也保留三个证据目录；远端结果仍待获取。本地 Metal 与固定 SwiftShader Vulkan 证据记录于[棋盘格指南](./builtin-checker.zh-CN.md)。
+[独立 GPU CI](../.github/workflows/gpu-smoke.yml)构建固定 SwiftShader Vulkan 适配器并运行计算／回读、节点回归、全部三种 1K 材质比较及最大案例的 2K 追踪。失败时也保留 smoke、包、golden 和 trace 证据。[已接受的 Linux 运行](./evidence/remote-ci/README.zh-CN.md)已关闭规定的远端 GPU 门槛；本地 Metal 与固定 SwiftShader Vulkan 证据分别记录于[棋盘格指南](./builtin-checker.zh-CN.md)。两个工作流均响应 PR、推送到 `main` 及手动触发，新附件请求保留 30 天。必需检查见[仓库治理](./governance.zh-CN.md)，已接受内容的保存见[证据保留规则](./evidence-policy.zh-CN.md)。
 
-智能体指南中尚未实现的运行时模块仍是未来职责地图。当前编译根模块为 [core](../crates/mixture-core/src/lib.rs)、[wgpu](../crates/mixture-wgpu/src/lib.rs)、[CLI](../crates/mixture-cli/src/main.rs) 和 [xtask](../xtask/src/main.rs)。棋盘格已有真实 GPU 生成的夹具；[格式夹具](../fixtures/format/README.zh-CN.md)与 [checker.mix](../examples/checker.mix)现已覆盖源文件验证。三个 [M2 示例](../examples/README.zh-CN.md)现均可渲染请求通道。
+智能体指南记录模块职责及引入它们的实施批次。当前编译根模块为 [core](../crates/mixture-core/src/lib.rs)、[wgpu](../crates/mixture-wgpu/src/lib.rs)、[CLI](../crates/mixture-cli/src/main.rs) 和 [xtask](../xtask/src/main.rs)。棋盘格已有真实 GPU 生成的夹具；[格式夹具](../fixtures/format/README.zh-CN.md)与 [checker.mix](../examples/checker.mix)现已覆盖源文件验证。三个 [M2 示例](../examples/README.zh-CN.md)现均可渲染请求通道。
 
 已实现的核心模块为[文档解码](../crates/mixture-core/src/document.rs)、[验证](../crates/mixture-core/src/validation.rs)、[注册表](../crates/mixture-core/src/registry.rs)、[节点契约](../crates/mixture-core/src/nodes/)、[诊断](../crates/mixture-core/src/error.rs)和[限制](../crates/mixture-core/src/limits.rs)。[Rust 诊断示例](../crates/mixture-core/examples/diagnostics.rs)和 crate 文档测试覆盖公开 API。
 
