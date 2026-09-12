@@ -1,10 +1,10 @@
-# 浏览器 SDK 交付契约——M5 提案
+# 浏览器 SDK 交付契约——M5
 
 [English](./browser-sdk.md) | 简体中文
 
-**状态：**本文是 [M5-01](../M5_PRS.zh-CN.md) 的浏览器契约提案，不是已实现的 API 或浏览器验收记录。M4 与 M4.1 已验收。在此检查点，`mixture-wasm` 和 `@openmixture/runtime` 尚未实现或发布。下文名称描述预期边界；实施批次必须先增加公开声明、示例和证据，再将其描述为可用能力。
+**实施更新，2026-09-12：** `mixture-wasm` 与本地 `@openmixture/runtime@0.1.0-alpha.0` tarball 现已实现首个棋盘格消费者切片。[构建／API 用法与剩余验证](./browser-runtime.zh-CN.md)描述实际检查点。本契约说明已实现的公开边界，以及仍开放的验收要求，包括完整材质回归、浏览器设备丢失证据和完整 Player 导出流程。不声称 npm Registry 发布或完整 M5 验收。
 
-M5 的交付目标是由引擎仓库构建一个完整浏览器运行时包，并由独立 Player 消费。`OpenMixture/Studio` 是提议的产品仓库名；本文不创建该仓库。先交付 Player，再开展 Studio 创作功能，二者以后可以共享产品模块。已有引擎行为参见[路线图](../ROADMAP.zh-CN.md)、[原生 SDK](./native-sdk.zh-CN.md)、[格式](./file-format.zh-CN.md)、[执行计划](./render-plan.zh-CN.md)和[渲染](./graph-rendering.zh-CN.md)契约。
+M5 的交付目标是由引擎仓库构建一个完整浏览器运行时包，并由独立 Player 消费。[OpenMixture/Studio 产品仓库](https://github.com/OpenMixture/Studio)现已创建，并包含首个 Player 消费者。先交付 Player，再开展 Studio 创作功能，二者以后可以共享产品模块。已有引擎行为参见[路线图](../ROADMAP.zh-CN.md)、[原生 SDK](./native-sdk.zh-CN.md)、[格式](./file-format.zh-CN.md)、[执行计划](./render-plan.zh-CN.md)和[渲染](./graph-rendering.zh-CN.md)契约。
 
 ## 所有权与分发
 
@@ -12,8 +12,8 @@ M5 的交付目标是由引擎仓库构建一个完整浏览器运行时包，�
 |---|---|
 | `mixture-core` | 负责权威的 `.mix` 解码、节点/端口/参数契约、版本化默认值、验证、公开参数覆盖、规范化、编译、计划排序及哈希。保持不依赖 GPU。 |
 | `mixture-wgpu` | 唯一像素执行器，复用相同 WGSL、显式上下文、管线缓存、执行、输出转换与资源清理。属于执行器行为的浏览器完成机制适配放在这里。 |
-| 未来的 `mixture-wasm` | 普通强类型 Rust API 的薄浏览器绑定。负责表示转换和浏览器调用边界，不维护第二份目录或图实现。 |
-| 未来的 `@openmixture/runtime` | 一个公开包，包含同一次构建产生且相互兼容的浏览器 ESM、TypeScript 声明、WASM 二进制和加载器资源。JavaScript 负责显式加载、参数编组及独立结果传递。 |
+| `mixture-wasm` | 普通强类型 Rust API 的薄浏览器绑定。负责表示转换和浏览器调用边界，不维护第二份目录或图实现。 |
+| `@openmixture/runtime` | 一个公开包，包含同一次构建产生且相互兼容的浏览器 ESM、TypeScript 声明、WASM 二进制和加载器资源。JavaScript 负责显式加载、参数编组及独立结果传递。 |
 | 独立 Player / 后续 Studio | 负责文件选择、图草稿、控件、防抖、结果新鲜度、2D 预览、下载和部署。后续编辑器布局、撤销重做、相机及灯光继续属于产品状态。 |
 
 npm 包由引擎仓库构建并管理版本。不另设 JS SDK 仓库，也不要求公开 `core`/`wgpu`/`wasm`/`schema` 包家族。无需先将 Rust crate 发布到 Cargo registry：引擎的锁定源码构建提供完整 npm 产物。安装后的产品不要求 Rust、Cargo 检出目录、执行编译的 `postinstall`，也不导入生产者私有实现。
@@ -22,20 +22,20 @@ npm 包由引擎仓库构建并管理版本。不另设 JS SDK 仓库，也不�
 
 ## 加载与显式 GPU 初始化
 
-以下名称是 API 草图，不是可复制运行的代码或已有导出。M5-02/M5-03 必须依据可执行消费者测试冻结实际签名。
+以下操作已由本地软件包实现。确切签名与 JS 类型见[公开声明](../packages/runtime/src/index.d.ts)，可执行用法与构建命令见[浏览器启动指南](./browser-runtime.zh-CN.md)。消费者测试必须持续验证此边界；方法已经实现不代表剩余 M5 验收门槛已经满足。
 
-| 拟议操作 | 可观察行为 |
+| 公开操作 | 可观察行为 |
 |---|---|
 | 导入包 | 只加载 JavaScript 定义。不抓取/实例化 WASM，不读取文档，不申请适配器/设备，不渲染，不启动 worker，也不安装帧循环。 |
-| `loadRuntime` | 显式加载/实例化包内 WASM，返回模块句柄。调用方可选择包相对 WASM URL、显式绝对/已解析 URL 或已取得的字节；URL 与字节选项互斥。不申请 GPU。 |
+| `loadRuntime` | 显式加载/实例化包内 WASM，返回模块句柄。`loadRuntime({ wasm })` 接受 URL/字符串或 `Uint8Array`；省略 `wasm` 使用包相对资源 URL。单个选项只选择资源位置或已取得字节中的一种。不申请 GPU。 |
 | 模块上的 `getBuildInfo`、`getNodeCatalog` | 加载后读取具有独立所有权的版本/构建元数据和 Rust 节点目录。不要求 GPU。 |
-| 模块上的 `validate` | 在显式限制下解码并验证源码。返回共享诊断结果，成功时附带已解析的公开绑定/通道元数据。无效草稿返回诊断，不被修复成可渲染图。 |
+| 模块上的 `validate` | 在显式限制下解码并验证源码、编译其请求。返回共享诊断结果，成功时附带计划及已解析的公开绑定/通道元数据。无效草稿返回诊断，不被修复成可渲染图。 |
 | 模块上的 `inspect` | 不申请 GPU，验证并编译源码及渲染请求。返回只读计划描述/哈希及估算，供跨端检查使用；不能从任意 JS 数据构造可执行计划。 |
 | 模块上的 `createGpu` | 显式申请独立的浏览器 GPU 上下文，返回渲染器实例及请求/实际能力证据。仅此阶段申请适配器/设备。 |
 | 实例上的 `render` | 通过 core 验证/编译完整源码与请求，执行生成的不可变计划，再异步返回具有独立所有权的像素和报告。无效输入不进行渲染分配或提交。 |
 | 实例上的 `destroy` | 立即停止接受渲染，等待已接受渲染完成清理，释放实例拥有的 GPU 资源，然后异步完成。重复调用幂等。 |
 
-加载过程没有隐式网络重试或 CDN 回退。传入字节时加载器不抓取资源。加载器必须说明包相对 URL 的解析方式和所有抓取资源；错误路径、HTTP、CORS、MIME、编译或实例化失败仍须形成可操作的结构化错误。`validate` 或 `render` 不抓取由应用提供的材质 URL：产品传入文档内容。WASM 加载成功和 GPU 申请成功是两个独立状态。
+加载过程没有隐式网络重试或 CDN 回退。传入字节时加载器不抓取资源。省略输入时，加载器使用包内资源 URL；传入的 URL 字符串相对于页面 URL 解析。抓取后先缓存字节再实例化 WebAssembly，因此不要求流式 API 所需的 `application/wasm` MIME。URL 解析、错误路径、HTTP、CORS、编译和实例化失败仍须形成可操作的结构化错误；服务要求见[浏览器启动指南](./browser-runtime.zh-CN.md)。`validate` 或 `render` 不抓取由应用提供的材质 URL：产品传入文档内容。WASM 加载成功和 GPU 申请成功是两个独立状态。
 
 M5 面向安全服务上下文中的浏览器 WebGPU。GPU 初始化须报告 API/上下文不可用或申请被拒绝，不切换到 WebGL/CPU 执行器。浏览器选项只暴露浏览器实际可表达的选择，例如功耗偏好；不得假装调用方可以强制指定原生 Metal/Vulkan 后端或精确适配器名称。证据如实记录请求偏好、浏览器提供的实际值、设备限制及缺失的能力信息。不可用/被隐藏的适配器字段继续标记为不可用，不编造身份。申请成功或特性检查均不代表渲染成功。
 
@@ -49,7 +49,7 @@ M5 面向安全服务上下文中的浏览器 WebGPU。GPU 初始化须报告 AP
 | 请求通道 | 省略时为 `baseColor`。接受由唯一、受支持且区分大小写的通道 ID 组成的非空列表。空、未知或重复项均失败。返回通道按材质契约顺序排列，与请求顺序无关。 |
 | 公开参数覆盖 | 使用公开 ID 到值的请求，不直接寻址节点。捕获自有键/值且不执行访问器；拒绝不支持的 JS 形状，如暴露条目列表表示则拒绝重复项。由 core 一次性应用全部覆盖，包括被裁剪分支上的覆盖；不修改源码或钳制值。 |
 | JS 值 | 拒绝 `undefined`、函数、symbol、循环对象、类实例和非有限数字，不依赖 JSON 序列化静默省略或改写。整数参数在转换前必须满足 `Number.isSafeInteger`、非负 u32 范围和节点具体边界；布尔值与数字字符串不是数字。颜色恰好有四个范围内的有限分量，枚举精确匹配 Rust 契约。 |
-| 安全限制 | 在解码和编译两处使用相同的 core 默认值及显式调用方策略。不得为容纳请求而静默提高上限。Rust u64 上限在拟议 JS 边界表示为非负 `bigint`，并检查 u64 范围。已通过 core 的请求仍可能被浏览器/设备限制拒绝。 |
+| 安全限制 | 在解码和编译两处使用相同的 core 默认值及显式调用方策略。不得为容纳请求而静默提高上限。Rust u64 上限在 JS 边界表示为非负 `bigint`，并检查 u64 范围。已通过 core 的请求仍可能被浏览器/设备限制拒绝。 |
 
 JavaScript 数字不保留调用方写的是 `8` 还是 `8.0`；两者都是相同的整数值 JS 数字。因此，接受的整数覆盖必须编组为 Rust 整数值，而不是 f64 JSON token。在原始 `.mix` 文件中，已有区别保持不变：整数参数/版本 token `8.0` 无效。桥接必须测试 u32 两端、小数、负数、不安全整数、非有限值和无效对象形状，且不强制转换。字符串源码验证与 JS 请求验证是两个独立边界。
 
@@ -75,28 +75,29 @@ Promise 完成前，返回像素必须复制到 JS 自有存储，绝不作为�
 
 运行时/包版本、`.mix` 格式版本、节点版本、计划版本及产品发布版本是独立契约。产品 UI 发布不要求改变格式。计划哈希保留现有 core 语义；包版本、适配器名、耗时、URL 和产品 generation 不成为新的哈希输入。同一构建的 Native/浏览器比较必须使用完全相同的源码、覆盖、尺寸、通道与策略。
 
-报告、估算及无符号诊断 evidence 中的 Rust u64 值，在拟议 SDK 对象中表示为 `bigint`；尺寸和版本等较小的强类型 u32 字段仍为精确 JS 数字。这是无损 JS 投影，不改变已有原生 JSON schema。普通 `JSON.stringify` 不是此投影的序列化器。记录 JSON 日志的产品必须显式编码 bigint 且不舍入，也不得将这种产品日志格式交给严格的原生诊断解码器。M5-03 必须将这些类型与实际声明及运行时对照测试。
+报告、估算及无符号诊断 evidence 中的 Rust u64 和 usize 值，在 SDK 对象中表示为 `bigint`；尺寸、版本及 pipeline-cache 命中/未命中计数等强类型 u32 字段仍为精确 JS 数字。空的可选诊断 evidence 可以缺失，公开声明与此一致。这是无损 JS 投影，不改变已有原生 JSON schema。普通 `JSON.stringify` 不是此投影的序列化器。记录 JSON 日志的产品必须显式编码 bigint 且不舍入，也不得将这种产品日志格式交给严格的原生诊断解码器。M5-03 必须将这些类型与实际声明及运行时对照测试。
 
 ## 结构化失败与异步回读
 
 Core 和 GPU 失败保留[诊断](./diagnostics.zh-CN.md)与 [GPU 失败](./gpu-failures.zh-CN.md)文档规定的已有 `MIX_*` code、stage、severity、message、可选节点/端口/参数/文档上下文、有序诊断、标量 evidence 及 suggestion。浏览器包装不能用通用 Promise 拒绝替换先前有意义的失败。调用方提供的文档标签只用于诊断上下文，不触发文件访问或进入计划哈希。失败时保留可取得的适配器、计划、设备丢失及清理证据。
 
-拟议失败边界使用结构化 SDK error，携带调用操作、存在时原样保留的引擎诊断列表，以及错误发生在 Rust 诊断阶段之外时的独立浏览器失败。验证返回其预期诊断结果；异步加载、申请和渲染失败则以该结构化 error 拒绝。已知失败不得要求消费者解析驱动文本。原生 source 对象不跨越 WASM；可以将选定的浏览器/驱动 cause 文本保留为 evidence，但不能声称它是原生强类型 source chain。
+公开失败边界使用 `MixtureRuntimeError` 结构化 SDK error，携带调用操作、存在时原样保留的引擎诊断列表，以及错误发生在 Rust 诊断阶段之外时的独立浏览器失败。验证返回其预期诊断结果；异步加载、申请和渲染失败则以该结构化 error 拒绝。已知失败不得要求消费者解析驱动文本。原生 source 对象不跨越 WASM；可以将选定的浏览器/驱动 cause 文本保留为 evidence，但不能声称它是原生强类型 source chain。
 
-以下是**拟议的浏览器专用 code**，不是已经加入 `DiagnosticCode` 的条目，也不表示行为已实现。M5-02/M5-03 必须通过消费者测试冻结准确 envelope、字段存在规则与拼写。浏览器失败携带 `code`、`operation`、`message` 及可选 `evidence`/`suggestion`；不得为 WASM 加载编造一个已有 core `stage`。
+以下**浏览器专用 code 已由软件包实现**，不是 core `DiagnosticCode` 的条目。消费者测试必须保持准确 envelope、字段存在规则与拼写；原生诊断 code 不变。浏览器失败携带 `code`、`operation`、`message` 及可选 `evidence`/`suggestion`；不得为 WASM 加载编造一个已有 core `stage`。
 
-| 拟议浏览器 code | 用途 |
+| 浏览器 code | 用途 |
 |---|---|
-| `MIX_BROWSER_WASM_LOAD_FAILED` | 抓取、编译或实例化失败；保留阶段以及有用的 URL/HTTP/cause 证据。 |
+| `MIX_BROWSER_WASM_LOAD_FAILED` | URL 解析、抓取、编译或实例化失败；保留阶段以及有用的 URL/HTTP/cause 证据。 |
 | `MIX_BROWSER_BUILD_MISMATCH` | JS/WASM/绑定的构建或 API 标识不一致。 |
 | `MIX_BROWSER_WEBGPU_UNAVAILABLE` | 浏览器预检查无法访问所需 WebGPU 上下文/API；若已有引擎 GPU code，实际适配器/设备失败保留该 code。 |
 | `MIX_BROWSER_INVALID_ARGUMENT` | JS 表示在 core 语义验证前无法安全编组。 |
 | `MIX_BROWSER_RUNTIME_BUSY` | 该实例已经接受另一项渲染。 |
 | `MIX_BROWSER_RUNTIME_DESTROYED` | 销毁开始后尝试渲染。 |
+| `MIX_BROWSER_BINDING_FAILED` | 意外绑定失败或 trap 无法由已有引擎诊断或更具体的浏览器失败表达；保留 cause 文本。 |
 
 OOM 与设备丢失必须在可用时依据浏览器/wgpu 强类型信号分类；不得匹配驱动文本，也不得假装原生回调/error scope 行为已在浏览器证明。已送达的设备丢失使实例不能再接受渲染；新 GPU 状态需要另一次显式申请。若 OOM/回读失败已被选为主失败，随后才观察到丢失/清理失败，保留主失败并附加次要证据。不隐含自动恢复或回退。
 
-原生 `Device::poll(Wait)` 与阻塞回调取值不是浏览器完成契约。[wgpu WebGPU 文档](https://docs.rs/wgpu/latest/wasm32-unknown-unknown/wgpu/struct.Device.html#method.poll)明确说明 `poll` 对该后端没有作用。浏览器执行必须等待事件循环驱动的提交/map/error 完成，平衡 error scope，并在各成功/失败路径尝试清理。不得忙等，也不得阻塞事件循环等待回调。原生每次 30 秒等待不能证明浏览器超时行为；浏览器完成/超时行为必须由 M5-02 测量并说明，且不能静默引入 GPU 取消承诺。
+原生 `Device::poll(Wait)` 与阻塞回调取值不是浏览器完成契约。[wgpu WebGPU 文档](https://docs.rs/wgpu/latest/wasm32-unknown-unknown/wgpu/struct.Device.html#method.poll)明确说明 `poll` 对该后端没有作用。浏览器执行必须等待事件循环驱动的提交/map/error 完成，平衡 error scope，并在各成功/失败路径尝试清理。不得忙等，也不得阻塞事件循环等待回调。原生每次 30 秒等待仍只适用于原生平台。已实现的浏览器路径等待回调及错误作用域完成，不增加硬超时或 GPU 取消承诺；标签页终止或平台事件未送达可能阻止 Promise 完成。M5-02 仍要求可观察的浏览器失败与完成证据。
 
 ## 实例生命周期与产品调度
 
@@ -110,7 +111,7 @@ M5-02 必须验证：平台已送达完成或失败后，不会因包装逻辑�
 
 ## 包与消费者验收
 
-M5-03 必须选择并记录一个精确的 Node/npm/TypeScript/Vite 工具链、WASM target、Rust 与绑定工具版本、包 exports 及资源布局。本文尚未选择或验证这些版本。首个兼容性声明只覆盖锁定 Vite 消费者及其生产静态部署，不覆盖全部打包器或框架。其他浏览器/平台声明需要各自的记录。
+[浏览器启动指南](./browser-runtime.zh-CN.md)记录当前 Rust 1.98.1、wasm-bindgen 0.2.128、`wasm32-unknown-unknown`、Node 24.20.0 和 npm 11.19.0 构建方式、包 exports 及资源布局。独立产品锁定其 TypeScript/Vite/浏览器测试依赖，并提供针对 `/player/` 路径生产资源的 `npm run test:browser`。M5-03 验收必须将实际归档及产品锁文件绑定到所记录的运行；已选定消费方式不代表完整 M5 或全部打包器兼容性。其他浏览器/平台声明需要各自的记录。
 
 | 验收门禁 | M5 验收前所需证据 |
 |---|---|
@@ -125,7 +126,7 @@ M5-03 必须选择并记录一个精确的 Node/npm/TypeScript/Vite 工具链、
 
 浏览器像素容差必须先测量，并在评审后的验收规范中冻结，才能作为发布通过/失败阈值。从已有 fixture 和已记录原生容差开始，解释任何浏览器特有调整，并在 fixture 要求相等时保留棋盘格/默认值/编码的精确哨兵检查。既报告测量差异也报告阈值结果；不得为通过而放宽容差或重置 golden。计划语义等价是硬性要求；同一构建/请求的哈希不一致必须解释并修复，或获得明确的版本化契约决策，不能被像素容差掩盖。
 
-保留的 M5 凭据必须依据[证据策略](./evidence-policy.zh-CN.md)绑定引擎修订、包版本/摘要、消费者修订、锁定工具链、浏览器矩阵、部署 URL/base、测试结果及剩余限制。已有原生验收不证明此未来矩阵。npm 发布是后续显式发行操作；本地 tarball 消费无需先发布。若获准，alpha 发行使用显式预发布标签，产品通过可评审的依赖升级锁定精确 runtime 版本。当前包仍未发布。
+保留的 M5 凭据必须依据[证据策略](./evidence-policy.zh-CN.md)绑定引擎修订、包版本/摘要、消费者修订、锁定工具链、浏览器矩阵、部署 URL/base、测试结果及剩余限制。已有原生验收不证明浏览器矩阵。npm 发布是后续显式发行操作；本地 tarball 消费无需先发布。若获准，alpha 发行使用显式预发布标签，产品通过可评审的依赖升级锁定精确 runtime 版本。当前包仍未发布。
 
 ## 非目标与后续边界
 

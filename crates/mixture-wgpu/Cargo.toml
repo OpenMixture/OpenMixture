@@ -19,6 +19,11 @@ wgpu.workspace = true
 serde.workspace = true
 half.workspace = true
 
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
+wgpu = { workspace = true, features = ["webgpu"] }
+futures-channel.workspace = true
+web-time.workspace = true
+
 [dev-dependencies]
 naga.workspace = true
 pollster.workspace = true

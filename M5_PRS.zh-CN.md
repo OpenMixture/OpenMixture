@@ -2,9 +2,9 @@
 
 [English](./M5_PRS.md) | 简体中文
 
-**状态，2026-09-12：** M4 和 M4.1 验收之后，正在依据 `2684fd35b0b87823fb5d6fb141c777aa2920870c` 编写 M5-01 规划文档。本计划记录选定的浏览器交付方向，不声称已实现浏览器运行时、已验收浏览器矩阵、已创建产品仓库或已发布软件包。M5-02 至 M5-05 均为计划项。仅编写规划文档不会关闭 M5-01 的评审或里程碑验收门槛。
+**实施更新，2026-09-12：** 产品仓库 [OpenMixture/Studio](https://github.com/OpenMixture/Studio)已创建。首个 M5-02／M5-03 切片已实现 `mixture-wasm`、本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及消费它的最小 Player。[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录实际构建／消费命令及当前验证。完整 M5 验收仍开放，包括材质回归、浏览器设备丢失证据和完整 Player 导出流程。软件包仍未发布。
 
-`M5-01` 至 `M5-05` 是工作项标识，不是 GitHub PR 编号。实际实施提交、PR URL 及检查存在后再记录。工作遵循[仓库治理](./docs/governance.zh-CN.md)、[证据保留](./docs/evidence-policy.zh-CN.md)及现有[架构](./ARCHITECTURE.zh-CN.md)。[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)定义预期公开行为；其中的浏览器操作在所属变更落地之前均未实现。
+`M5-01` 至 `M5-05` 是工作项标识，不是 GitHub PR 编号。实际实施提交、PR URL 及检查存在后再记录。工作遵循[仓库治理](./docs/governance.zh-CN.md)、[证据保留](./docs/evidence-policy.zh-CN.md)及现有[架构](./ARCHITECTURE.zh-CN.md)。[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)记录已实现的公开方法及剩余验收要求。通过当前检查点及运行证据区分实现与已接受的门槛。
 
 ## 目标与仓库边界
 
@@ -12,11 +12,11 @@
 
 | 所有者 | M5 职责 |
 |---|---|
-| 现有 `OpenMixture/OpenMixture` | `mixture-core`、唯一的 `mixture-wgpu` 执行器、原生 CLI、未来轻量 `mixture-wasm`、浏览器 JS 接口／类型／WASM，以及运行时软件包验证。 |
-| 拟建 `OpenMixture/Studio` 产品仓库 | 先交付 Player：文件、公开参数控件、2D 通道预览、请求新鲜度和导出。后续 Studio 可共用内部 runtime-client、预览、控件和文件模块。 |
-| 拟议 `@openmixture/runtime` npm 包 | 完整浏览器运行时的公开分发边界；在引擎仓库构建和管理版本，不另建 SDK 仓库。 |
+| 现有 `OpenMixture/OpenMixture` | `mixture-core`、唯一的 `mixture-wgpu` 执行器、原生 CLI、轻量 `mixture-wasm`、浏览器 JS 接口／类型／WASM，以及运行时软件包验证。 |
+| `OpenMixture/Studio` 产品仓库 | 先交付 Player：文件、公开参数控件、2D 通道预览、请求新鲜度和导出。后续 Studio 可共用内部 runtime-client、预览、控件和文件模块。 |
+| 本地 `@openmixture/runtime` npm 包 | 完整浏览器运行时的公开分发边界；在引擎仓库构建和管理版本，不另建 SDK 仓库。 |
 
-仓库／包名称是预期命名，不代表已验证的注册占用或已发布产品；创建／发布时确认可用性。M5-01 契约评审后可建立产品仓库，其首个集成交付属于 M5-03。不在产品 Player 之外再建一个完整演示应用；引擎侧的小型自动化浏览器夹具仍然适用。
+产品仓库现已存在，并在 M5-03 中消费首个本地运行时归档。包名标识当前本地分发；npm 所有权与 Registry 发行仍是发布前的独立检查。不在产品 Player 之外再建一个完整演示应用；引擎侧的小型自动化浏览器夹具仍然适用。
 
 ```text
 Product Player (later Studio)
@@ -46,11 +46,11 @@ Product Player (later Studio)
 - 新增成对实施计划与浏览器 SDK 契约；同步当前路线图、架构引用及导航。
 - 定义显式 WASM 加载与 GPU 获取、无需 GPU 的目录／验证访问、原始源输入、公开覆盖、请求通道、自有输出、结构化失败及生命周期规则。
 - 保留现有 `.mix v1`、十一个节点契约、九个 kernel、原生 API 行为及已接受的基准输入／像素。公开参数绑定已经存在；通过 SDK 暴露其含义，不增加产品私有映射。
-- 首发消费方式选为浏览器 ESM 加 Vite，确切工具版本和浏览器环境由实施锁定。此阶段浏览器／平台支持仍未验证。
+- 首发消费方式选为浏览器 ESM 加 Vite，确切工具版本和浏览器环境由实施记录在[浏览器启动指南](./docs/browser-runtime.zh-CN.md)与产品锁文件中。单独的规划不建立浏览器／平台支持声明。
 
 **验收**
 
-两种语言包含相同范围、标识符与要求。所有本地链接可解析。拟议名称／命令可与已实现 API／工具区分。文档变更通过 `cargo xtask check`，其真实 PR 在集成之前通过现有必需检查。本项不记录浏览器通过或发布验收。
+两种语言包含相同范围、标识符与要求。所有本地链接可解析。剩余要求可与已实现 API／工具区分。文档变更通过 `cargo xtask check`，其真实 PR 在集成之前通过现有必需检查。本项不记录浏览器通过或发布验收。
 
 **不在范围内：** 运行时或依赖变更、创建产品仓库、npm 发布、节点／编辑器实现，以及修改历史证据或 `mixture-greenfield-docs/`。
 
@@ -81,7 +81,7 @@ Product Player (later Studio)
 - 实现最小 Player 页面：加载 `.mix`、显式初始化运行时、显示返回的通道。静态服务下验证 Vite 生产构建，包括非根 base path 下的 WASM 资源路径。
 - 记录生产方版本／构建／锁／归档摘要，以及消费方版本／锁。验收运行应能获得 tarball；不得将开发者的绝对本地路径提交为可复现安装步骤。
 
-预期本地流程是在生成的软件包目录运行 `npm pack`，再在产品中安装所得 tarball。本项会文档化该目录及确切构建／安装命令；这些目前尚不存在。无需先发布到 Registry。开发链接仅为可选便利方式，不能作为验收证据。
+已实现的生产方命令是 `node scripts/browser-runtime/build.mjs`：它在 `target/browser-runtime/package/` 中构建并执行 `npm pack`，将归档、摘要及凭据写到 `target/browser-runtime/`。产品从自身 `vendor/` 目录安装该确切归档并维护独立锁文件。[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录构建／安装／测试步骤。无需先发布到 Registry。开发链接仅为可选便利方式，不能作为验收证据。
 
 **验收**
 
@@ -115,7 +115,7 @@ Product Player (later Studio)
 5. **自动化与来源：** 保留可复现浏览器测试及具体固定版本的 CI 环境。记录浏览器版本、OS、可获得的适配器／后端、所需 limits／features、flags、工具版本、源／锁／夹具／归档身份和结果。不支持、不可用或跳过的浏览器 GPU 执行是开放门槛，不算通过。保留现有四项原生必需检查；新增必需浏览器检查须与实时保护政策协调。
 6. **就绪评估：** 依照现有保留政策保存成对浏览器验收／兼容性摘要及必要证据。列出已测试环境与剩余限制；Alpha 不代表广泛的稳定支持保证。
 
-本规划 PR 不虚构浏览器测试命令名称、CI 浏览器镜像或数值容差。M5-02／M5-03 选择并固定环境／命令；M5-05 在验收前冻结实测比较标准。这些字段未确定或必需运行未完成时，不得关闭 M5。
+产品现已提供 `npm run test:browser`，用于其锁定的 Chromium 消费者及非根路径生产部署；[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录当前步骤。正式接受的浏览器 CI 环境与完整材质比较容差仍开放。M5-05 必须在验收前冻结实测比较标准并保留完整矩阵证据。这些字段未确定或必需运行未完成时，不得关闭 M5。
 
 实际 npm Alpha 发布是在就绪之后进行的单独分发动作：确认包所有权，选择预发布版本和非 `latest` 标签，检查确切归档及发布说明，并通过产品精确版本依赖升级验证已发布软件包。运行时包、`.mix` 格式、节点语义和产品版本分别管理。本地 tarball 验收不得描述为 Registry 发布。
 

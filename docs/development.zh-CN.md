@@ -4,8 +4,8 @@
 
 ## 基础工程、诊断与 GPU 上下文状态
 
-仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 验收现已包含[三平台 CPU 及 Linux SwiftShader CI](./evidence/remote-ci/README.zh-CN.md)。远端门槛已关闭；软件包仍为未发布的 pre-alpha `0.1.0`，M5 需单独决定进入。
-它包含三个产品 crate 边界和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
+仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 验收现已包含[三平台 CPU 及 Linux SwiftShader CI](./evidence/remote-ci/README.zh-CN.md)。远端门槛已关闭；软件包仍为未发布的 pre-alpha `0.1.0`，现已开始[M5 浏览器链路](./browser-runtime.zh-CN.md)，增加轻量 WASM 绑定及独立打包 Player。完整 M5 验收仍开放。
+它包含四个产品 crate 边界（包括轻量 WASM 绑定）和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十一个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。所有软件包均禁用发布。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
 
@@ -67,20 +67,21 @@ cargo xtask gpu-smoke
 
 ## 依赖策略
 
-PR-015 产品／工具工作区唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
+M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关系如下，包括构建、开发、可选和特定目标依赖：
 
 | 软件包 | 允许的依赖 |
 | --- | --- |
 | `mixture-core` | 运行时使用 `serde`、启用 `float_roundtrip` 的 `serde_json` 及 `sha2` |
-| `mixture-wgpu` | 工作区内的 `mixture-core`、`wgpu`、`serde`、`half`；仅开发时使用 `pollster`、`serde_json`、`naga` |
+| `mixture-wgpu` | 工作区内的 `mixture-core`、`wgpu`、`serde`、`half`；仅浏览器目标使用 `futures-channel`、`web-time`；仅开发时使用 `pollster`、`serde_json`、`naga` |
 | `mixture-cli` | 工作区内的 `mixture-core`、`mixture-wgpu`、`pollster`、`serde`、`serde_json`、`png` |
 | `xtask` | `pulldown-cmark`、`serde_json`、`png`、`serde`、`sha2` |
+| `mixture-wasm` | 工作区内的 `mixture-core`、`mixture-wgpu`、`serde`、`serde_json`；`wasm-bindgen`、`wasm-bindgen-futures`、`js-sys`、`serde-wasm-bindgen` |
 
 核心使用 `serde` 处理类型化源数据、诊断和限制；PR-005 将已锁定的 `serde_json` 提升为运行时依赖，用于严格有界解码与确定性序列化。`float_roundtrip` 特性修复了已复现的源数据往返一位浮点偏差；不需要新增包或依赖版本。PR-006 添加 `sha2` 用于稳定 SHA-256 计划哈希，将其依赖闭包加入锁文件，不升级已有包。工具使用 `pulldown-cmark` 解析 Markdown，使用 `serde_json` 读取 Cargo 元数据。只有 `mixture-wgpu` 直接依赖 `wgpu`，其 `serde` 用于编码能力报告。`pollster` 在 CLI／测试边界驱动异步获取，`serde_json` 用于 CLI 报告和测试断言。`half` 解码 GPU 半精度回读，开发依赖 `naga` 在无 GPU 环境验证 WGSL。CLI 的 `png` 编码图像，工具的 `png` 解码图像用于基准比较。核心仍不依赖 GPU。原生后端特性策略见 [GPU 指南](./gpu-context.zh-CN.md)。PR-008 仅将现有工作区 `serde` 和 `sha2` 加为工具直接依赖，用于严格验收记录及候选完整性，没有新增或升级软件包／版本。全部已解析依赖版本记录在 [Cargo.lock](../Cargo.lock) 中。
 
-[依赖检查](../xtask/src/dependencies.rs)约束四个 crate 的边界、双许可证元数据、禁用发布，以及上述直接依赖允许列表。它检查架构和范围，不是漏洞数据库检查或传递依赖许可证审计。引入依赖时，在负责该依赖的实施 PR 中扩展策略并说明必要性，保持[架构文档](../ARCHITECTURE.zh-CN.md)要求的方向。
+[依赖检查](../xtask/src/dependencies.rs)约束五个 crate 的边界、双许可证元数据、禁用发布，以及上述直接依赖允许列表。它检查架构和范围，不是漏洞数据库检查或传递依赖许可证审计。引入依赖时，在负责该依赖的实施 PR 中扩展策略并说明必要性，保持[架构文档](../ARCHITECTURE.zh-CN.md)要求的方向。
 
-[原生消费者](../examples/native-consumer/Cargo.toml)是独立单包工作区，拥有已提交的锁文件；`test-consumer` 检查该边界，不给产品工作区增加第五个成员。它通过源码 path 使用 `mixture-core`／`mixture-wgpu`，并精确固定生产方已使用的 `pollster` 和 `serde_json` 版本。PR-012 添加仅开发时使用的 `png = "=0.18.1"`，解码 CLI 已完成输出；锁文件新增九项，版本均与产品已解析版本相同。产品锁文件及依赖策略不变。path 依赖及已构建 CLI 验证不证明软件包内容。
+[原生消费者](../examples/native-consumer/Cargo.toml)是独立单包工作区，拥有已提交的锁文件；`test-consumer` 检查该边界，不加入引擎工作区。它通过源码 path 使用 `mixture-core`／`mixture-wgpu`，并精确固定生产方已使用的 `pollster` 和 `serde_json` 版本。PR-012 添加仅开发时使用的 `png = "=0.18.1"`，解码 CLI 已完成输出；锁文件新增九项，版本均与产品已解析版本相同。产品锁文件及依赖策略不变。path 依赖及已构建 CLI 验证不证明软件包内容。
 
 ## CLI 行为与后续工作
 
@@ -135,3 +136,5 @@ PR-013 添加 CPU 分类与消费者回执守卫测试。`test-consumer` 编译�
 PR-014 将调度放在 `examples/native-consumer/src/latest.rs`，作为既有示例包内的库 target。`test-consumer` 运行六个确定性状态／生命周期测试。显式 `gpu-smoke` 添加 Rust `latest`、五次按代次隔离的 CLI 调用和九内核缓存边界 GPU 回归。消费者根状态通过 `latestEvidence` 引用证据；[复现与限制](./stale-results.zh-CN.md)说明回执与输出结构边界。
 
 PR-015 不新增直接依赖，也不修改已提交锁文件。产品包添加精确同组版本要求、显式包含清单、双语 README 及许可副本。三个小型 wgpu 单元输入改用包内 include 路径，`package-check` 对照规范夹具检查字节一致性。它要求兼容 `tar` 和仓库外 OS 临时目录，在 `tmp/package-check/` 保留原始包证据，仅在 `target/package-consumer` 使用忽略的编译产物缓存。见[完整验证方法](./package-consumption.zh-CN.md)。
+
+M5 增加 `futures-channel` 处理非阻塞浏览器回调、`web-time` 处理浏览器计时，以及 wasm-bindgen／serde 类型传输。这些是平台／绑定依赖，不进入 core，也不增加像素执行器。原生 Cargo 包检查仍覆盖三个原生软件包；浏览器 npm 验证独立执行。见[浏览器构建与验证指南](./browser-runtime.zh-CN.md)。

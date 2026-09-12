@@ -2,9 +2,9 @@
 
 English | [简体中文](./M5_PRS.zh-CN.md)
 
-**Status, 2026-09-12:** M5-01 planning documents are being prepared from `2684fd35b0b87823fb5d6fb141c777aa2920870c`, after accepted M4 and M4.1. This train records the selected browser delivery direction; it does not claim a browser implementation, accepted browser matrix, product repository creation, or package publication. M5-02 through M5-05 remain planned. Planning documentation alone does not close M5-01's review or the milestone's acceptance gates.
+**Implementation update, 2026-09-12:** the product repository [OpenMixture/Studio](https://github.com/OpenMixture/Studio) has been created. The first M5-02/M5-03 slice implements `mixture-wasm`, the local `@openmixture/runtime@0.1.0-alpha.0` tarball and a minimal Player consuming it. The [browser start guide](./docs/browser-runtime.md) records actual build/consumer commands and current verification. Full M5 acceptance remains open, including material regression, browser device-loss evidence and the complete Player export workflow. The package remains unpublished.
 
-`M5-01` through `M5-05` are work-item IDs, not GitHub PR numbers. Record actual implementation commits, PR URLs and checks when they exist. Work follows [repository governance](./docs/governance.md), [evidence retention](./docs/evidence-policy.md), and the existing [architecture](./ARCHITECTURE.md). The [browser SDK contract](./docs/browser-sdk.md) defines the intended public behavior; all browser operations in it are unimplemented until their owning change lands.
+`M5-01` through `M5-05` are work-item IDs, not GitHub PR numbers. Record actual implementation commits, PR URLs and checks when they exist. Work follows [repository governance](./docs/governance.md), [evidence retention](./docs/evidence-policy.md), and the existing [architecture](./ARCHITECTURE.md). The [browser SDK contract](./docs/browser-sdk.md) records implemented public methods and the remaining acceptance requirements. Use the current checkpoint and run evidence to distinguish implementation from accepted gates.
 
 ## Outcome and repository boundary
 
@@ -12,11 +12,11 @@ Deliver one installable browser runtime, built in this engine repository, and on
 
 | Owner | M5 responsibility |
 |---|---|
-| Existing `OpenMixture/OpenMixture` | `mixture-core`, the sole `mixture-wgpu` executor, native CLI, future thin `mixture-wasm`, browser JS facade/types/WASM, and runtime package verification. |
-| Proposed `OpenMixture/Studio` product repository | Player first: files, public parameter controls, 2D channel preview, request freshness and export. Later Studio may share internal runtime-client, preview, controls and file modules. |
-| Proposed `@openmixture/runtime` npm package | The public distribution boundary for the complete browser runtime; built and versioned in the engine repository, not a separate SDK repository. |
+| Existing `OpenMixture/OpenMixture` | `mixture-core`, the sole `mixture-wgpu` executor, native CLI, thin `mixture-wasm`, browser JS facade/types/WASM, and runtime package verification. |
+| `OpenMixture/Studio` product repository | Player first: files, public parameter controls, 2D channel preview, request freshness and export. Later Studio may share internal runtime-client, preview, controls and file modules. |
+| Local `@openmixture/runtime` npm package | The public distribution boundary for the complete browser runtime; built and versioned in the engine repository, not a separate SDK repository. |
 
-Repository/package names are intended names, not verified registry reservations or existing published products. Confirm availability at creation/release. The product repository may be bootstrapped after M5-01's contract is reviewed; its first integrated deliverable belongs to M5-03. Do not create a second full demo alongside the product Player. Small automated engine-side browser fixtures remain appropriate.
+The product repository now exists and consumes the first local runtime archive under M5-03. The package name identifies the current local distribution; npm ownership and registry release remain separate checks before publication. Do not create a second full demo alongside the product Player. Small automated engine-side browser fixtures remain appropriate.
 
 ```text
 Product Player (later Studio)
@@ -46,11 +46,11 @@ Each item may need several PRs; keep one architectural seam per PR. Engine and p
 - Add this paired plan and the paired browser SDK contract; synchronize active roadmap, architecture references and navigation.
 - Define explicit WASM loading and GPU acquisition, GPU-free catalog/validation access, raw source input, exposed overrides, requested channels, owned output, structured failures and lifetime rules.
 - Retain existing `.mix v1`, eleven node contracts, nine kernels, native API behavior and accepted golden inputs/pixels. Exposed-parameter bindings already exist; expose their meaning through the SDK instead of adding a product-only mapping.
-- Define the first consumption recipe as browser ESM plus Vite, with exact tool versions and browser environment to be locked by implementation. Browser/platform support remains unverified at this stage.
+- Define the first consumption recipe as browser ESM plus Vite, with exact tool versions and browser environment recorded by implementation in the [browser start guide](./docs/browser-runtime.md) and product lockfile. Planning alone establishes no browser/platform support.
 
 **Acceptance**
 
-Both languages contain the same scope, identifiers and requirements. Every local link resolves. Proposed names/commands are distinguishable from implemented APIs/tooling. `cargo xtask check` passes for the documentation change, and its actual PR follows the existing required checks before integration. No browser pass or release acceptance is recorded by this item.
+Both languages contain the same scope, identifiers and requirements. Every local link resolves. Remaining requirements are distinguishable from implemented APIs/tooling. `cargo xtask check` passes for the documentation change, and its actual PR follows the existing required checks before integration. No browser pass or release acceptance is recorded by this item.
 
 **Out of scope:** runtime or dependency changes, creating the product repository, npm publication, node/editor implementation, and edits to historical evidence or `mixture-greenfield-docs/`.
 
@@ -81,7 +81,7 @@ Run affected native checks, shader validation where applicable, `cargo xtask che
 - Implement the smallest Player page that loads a `.mix`, explicitly initializes the runtime and displays the returned channel. Verify the Vite production build under static serving, including WASM asset paths from a non-root base path.
 - Record producer revision/build/lock/archive digest and consumer revision/lock. Keep the tarball available to the acceptance run; do not commit a developer's absolute local path as the reproducible installation recipe.
 
-The intended local workflow is `npm pack` in the generated package directory, followed by installing the resulting tarball in the product. That directory and its exact build/install commands will be documented by this item; they do not exist yet. Registry publication is not a prerequisite. Development links are optional convenience, never acceptance evidence.
+The implemented producer command is `node scripts/browser-runtime/build.mjs`: it builds and runs `npm pack` in `target/browser-runtime/package/`, then writes the archive, digest and receipt under `target/browser-runtime/`. The product installs that exact archive from its `vendor/` directory with its own lockfile. The [browser start guide](./docs/browser-runtime.md) documents the build/install/test recipe. Registry publication is not a prerequisite. Development links are optional convenience, never acceptance evidence.
 
 **Acceptance**
 
@@ -115,7 +115,7 @@ Ceramic, leather and wood complete open → change exposed parameters → choose
 5. **Automation and provenance:** retain reproducible browser tests and a concrete pinned CI environment. Record browser version, OS, adapter/backend when exposed, required limits/features, flags, tool versions, source/lock/fixture/archive identities and results. Unsupported, unavailable or skipped browser GPU execution is an open gate, not a pass. Preserve the existing four required native checks; coordinate any new required browser check with the live protection policy.
 6. **Readiness assessment:** keep a paired browser acceptance/compatibility summary and the necessary evidence under the existing retention policy. List tested environments and remaining limitations; Alpha is not a broad stable-support guarantee.
 
-Browser test command names, CI browser image and numerical tolerance values are deliberately not invented in this planning PR. M5-02/M5-03 select and pin the environment/commands; M5-05 freezes measured comparison criteria before acceptance. M5 cannot close with these fields unresolved or its required runs incomplete.
+The product now provides `npm run test:browser` for its locked Chromium consumer and non-root production base; the [browser start guide](./docs/browser-runtime.md) records the current recipe. The accepted browser CI environment and full material comparison tolerances remain open. M5-05 must freeze measured comparison criteria and retain the complete matrix evidence before acceptance. M5 cannot close with these fields unresolved or its required runs incomplete.
 
 An actual npm Alpha publication is a separate distribution action after readiness: confirm package ownership, select a prerelease version and non-`latest` tag, inspect the exact archive and release notes, and verify the published package through an exact-version product dependency update. Runtime package, `.mix` format, node semantics and product versions remain separate. Local tarball acceptance must not be described as a registry publication.
 

@@ -17,7 +17,7 @@
 [原生 CLI 报告与退出码](./cli-contract.zh-CN.md)定义 PR-012 JSON 字段存在规则／类型、完整人类可读上下文、独立进程测试及部分写入行为。
 [GPU 失败原因与上下文生命周期](./gpu-failures.zh-CN.md)定义 PR-013 丢失／OOM 分类、首个错误优先规则、受保护清理及独立销毁检查。
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
-[浏览器 SDK 契约](./browser-sdk.zh-CN.md)定义预期的单一 npm 运行时、显式初始化、自有输出、失败及独立产品消费。这是 M5 规划契约，不代表已实现的浏览器行为或发布证据。
+[浏览器 SDK 契约](./browser-sdk.zh-CN.md)定义预期的单一 npm 运行时、显式初始化、自有输出、失败及独立产品消费。其实施指南区分首个棋盘格切片、剩余 M5 要求及发布证据。
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
 [GPU 上下文与 doctor](./gpu-context.zh-CN.md)说明 PR-003 获取流程、报告字段、退出码和固定软件适配器 CI。
 [内置棋盘格](./builtin-checker.zh-CN.md)定义 PR-004 像素、回读、PNG 输出、基准来源和执行证据。
@@ -51,3 +51,5 @@
 [最新请求与有界消费者状态](./stale-results.zh-CN.md)定义 PR-014 代次处理、明确过期的展示、CLI 目录清理及 CPU／GPU 内存边界。
 
 [本地软件包消费](./package-consumption.zh-CN.md)、[兼容性](./compatibility.zh-CN.md)及 [M4 发布／退出状态](./release.zh-CN.md)定义 PR-015 归档验证与剩余分发及硬件限制。
+
+[浏览器运行时构建与首个消费者](./browser-runtime.zh-CN.md)记录已实现的 WASM／npm 构建和独立 Player 验证，并与完整 M5 验收区分。

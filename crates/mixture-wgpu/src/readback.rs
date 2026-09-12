@@ -2,6 +2,7 @@
 
 use crate::operation::{GpuOperationError, checked};
 use mixture_core::{Stage, registry::PortKind};
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 use std::{sync::mpsc, time::Duration};
 
 #[derive(Clone, Copy, Debug)]
@@ -56,7 +57,10 @@ pub(crate) async fn read_pixels(
     kind: PortKind,
 ) -> Result<Vec<u8>, GpuOperationError> {
     let result = async {
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         let (sender, receiver) = mpsc::channel();
+        #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+        let (sender, receiver) = futures_channel::oneshot::channel();
         checked(
             device,
             Stage::Readback,
@@ -70,6 +74,7 @@ pub(crate) async fn read_pixels(
             },
         )
         .await?;
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         device
             .poll(wgpu::PollType::Wait {
                 submission_index: None,
@@ -82,24 +87,26 @@ pub(crate) async fn read_pixels(
                     source,
                 )
             })?;
-        receiver
-            .try_recv()
-            .map_err(|source| {
-                GpuOperationError::source_error(
-                    Stage::Readback,
-                    "Readback mapping callback did not complete.",
-                    source,
-                )
-            })
-            .and_then(|result| {
-                result.map_err(|source| {
-                    GpuOperationError::source_error(
-                        Stage::Readback,
-                        "Readback mapping failed.",
-                        source,
-                    )
-                })
-            })?;
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
+        let mapping = receiver.try_recv().map_err(|source| {
+            GpuOperationError::source_error(
+                Stage::Readback,
+                "Readback mapping callback did not complete.",
+                source,
+            )
+        });
+        #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
+        let mapping = receiver.await.map_err(|source| {
+            // Resolving the map callback requires returning to the event loop.
+            GpuOperationError::source_error(
+                Stage::Readback,
+                "Readback mapping callback was dropped.",
+                source,
+            )
+        });
+        mapping?.map_err(|source| {
+            GpuOperationError::source_error(Stage::Readback, "Readback mapping failed.", source)
+        })?;
         // The view is dropped before the cleanup scope, including on invalid data.
         match buffer.slice(..).get_mapped_range() {
             Ok(view) => rgba16float_to_rgba8(&view, layout, kind),

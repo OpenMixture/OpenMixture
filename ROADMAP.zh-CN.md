@@ -2,9 +2,9 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前里程碑：** M4 与 [M4.1 仓库维护](./docs/evidence/m4-1/README.zh-CN.md)已验收。[M5-01 规划](./M5_PRS.zh-CN.md)进行中，2026-09-12；浏览器实施与验收尚未启动。
+**当前里程碑：** M4 与 [M4.1 仓库维护](./docs/evidence/m4-1/README.zh-CN.md)已验收。[M5 浏览器执行与打包消费](./docs/browser-runtime.zh-CN.md)进行中，2026-09-12；完整浏览器验收仍开放。
 
-**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。M5-01 编写浏览器交付契约；计划中的运行时、独立产品及浏览器验收仍未实现。
+**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。
 
 本路线图按可验证的结果组织，而不是按日期、季度、节点数量或功能数量安排。只有全部退出标准在干净环境中通过，里程碑才算完成。
 
@@ -299,7 +299,7 @@ load .mix
 
 ## M5 — WebAssembly 与浏览器 WebGPU
 
-**规划进入，2026-09-12：** M4／M4.1 验收之后，[M5-01](./M5_PRS.zh-CN.md)记录选定的交付方向。本次编写成对计划与[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)，不实施绑定、不创建产品仓库、不发布软件包，也不声称浏览器验收。M5-02 至 M5-05 仍为计划工作。
+**规划进入，2026-09-12：** M4／M4.1 验收之后，[M5-01](./M5_PRS.zh-CN.md)记录选定的交付方向。该规划项编写成对计划与[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)，不实施绑定、不创建产品仓库、不发布软件包，也不声称浏览器验收。M5-02／M5-03 实施现已启动，见[浏览器启动指南](./docs/browser-runtime.zh-CN.md)。M5-04／M5-05 验收仍开放。
 
 ### 目标结果
 
