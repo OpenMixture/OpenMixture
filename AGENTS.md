@@ -4,7 +4,7 @@ English | [简体中文](./AGENTS.zh-CN.md)
 
 This file is the operational contract for coding agents and contributors working on Mixture.
 
-Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
+Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. [M5_PRS.md](./M5_PRS.md) and the [browser SDK contract](./docs/browser-sdk.md) define the planned browser work; distinguish planning, implementation and accepted evidence. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
 
 ## Mission
 

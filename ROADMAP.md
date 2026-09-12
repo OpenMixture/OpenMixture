@@ -2,9 +2,9 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current milestone:** M4 accepted; [M4.1 repository maintenance accepted](./docs/evidence/m4-1/README.md), 2026-09-12. M5 has not started.
+**Current milestone:** M4 and [M4.1 repository maintenance](./docs/evidence/m4-1/README.md) are accepted. [M5-01 planning](./M5_PRS.md) is in progress, 2026-09-12; browser implementation and acceptance have not started.
 
-**Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished; M5 has not started and requires an explicit entry decision.
+**Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished. M5-01 prepares the browser delivery contract; the planned runtime, independent product and browser acceptance remain unimplemented.
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 
@@ -295,43 +295,53 @@ The [governance guide](./docs/governance.md) defines activation order and verifi
 
 ## M5 — WebAssembly and Browser WebGPU
 
+**Planning entry, 2026-09-12:** [M5-01](./M5_PRS.md) records the selected delivery direction after M4/M4.1 acceptance. This change prepares the paired plan and [browser SDK contract](./docs/browser-sdk.md); it does not implement bindings, create the product repository, publish a package or claim browser acceptance. M5-02 through M5-05 remain planned work.
+
 ### Outcome
 
-The same `.mix`, node contracts, compiler, RenderPlan semantics, and WGSL run in a browser through a thin WebAssembly binding.
+An independent Player installs one complete browser runtime package and uses the same `.mix`, Rust node contracts, compiler, RenderPlan semantics and WGSL as native consumers.
 
 ### Scope
 
-- add `mixture-wasm` as a thin binding crate;
-- compile `mixture-core` and `mixture-wgpu` for the browser WebGPU target;
-- generated TypeScript declarations;
-- explicit browser GPU initialization and diagnostics;
-- raw pixel or image-ready output transfer;
-- minimal viewer/demo with no node editor;
-- browser regression for all three golden materials;
-- first real integration with `Procedural_Texture_Online` or another independent web consumer.
+- Keep the engine and browser package build in this repository; add `mixture-wasm` as a thin binding over `mixture-core` and the sole `mixture-wgpu` executor.
+- Adapt browser target features, asynchronous execution/readback and failure delivery while preserving native behavior.
+- Ship one package, provisionally `@openmixture/runtime`, containing the JS facade, TypeScript declarations and WASM from one build; consumers need no Rust toolchain.
+- Provide explicit WASM/GPU initialization, GPU-free validation and node-contract queries, existing exposed-parameter overrides, requested channels, owned RGBA8 and structured diagnostics.
+- Use one independent product repository, provisionally `OpenMixture/Studio`, with Player first and Studio deferred. It owns files, controls, 2D preview, latest-request handling and export through the public package.
+- Verify real tarball installation and one pinned Vite consumption recipe, including production static deployment and configurable WASM resource paths.
+- Add three-material browser/native regression, lifecycle/failure evidence and an Alpha readiness assessment. Registry publication is a separate distribution action.
+
+The [implementation plan](./M5_PRS.md) orders M5-01 contracts → M5-02 browser execution → M5-03 packaged consumer → M5-04 Player MVP → M5-05 acceptance. Proposed names do not establish repository creation or package ownership. The independent Player fulfills the external Web consumer criterion; another full demo is not required.
 
 ### Exit criteria
 
-An external web consumer can:
+An isolated product consumer can complete:
 
 ```text
-load .mix bytes
--> apply parameter overrides
+install the runtime tarball
+-> load .mix bytes
+-> validate and apply exposed parameter overrides
 -> request outputs
 -> render through browser WebGPU
--> display or export textures
+-> display and export textures
 ```
 
-while Rust remains the owner of graph and node semantics.
+It must use the package's public entry without producer-private imports, source-relative assets, Rust installation or compiling postinstall scripts. Production-built assets must run under static serving, including a non-root base path. JS, declarations and WASM must match the recorded archive/build.
 
-Native and browser plans must be semantically equivalent. Pixel comparison may use documented tolerances rather than universal byte identity.
+Rust remains the semantic authority. Native and browser plans must be semantically equivalent for identical requests. All three golden materials and their existing acceptance variants run at 1K, with reviewed per-channel pixel tolerances, tiling, non-degeneracy and parameter causality; native baselines remain protected. Returned pixels survive later renders and runtime destruction. Invalid input, unsupported environments, concurrent calls, device loss, cleanup and stale results have tested outcomes.
+
+Acceptance records identify both repositories, archive/lock/fixture identities, exact browser/OS/toolchain and observable adapter/backend, required limits/features/flags, comparison criteria, commands and gate results. The browser environment and numerical tolerances are fixed during implementation before acceptance; skipped GPU execution is not a pass. Existing native required checks remain intact, and browser build/regression must be reproducible in the documented CI environment. M5 cannot close on planning documents or native GPU evidence alone.
 
 ### Out of scope
 
-- WebGL2-specific renderer;
-- TypeScript node registry;
-- node authoring UI;
-- server rendering.
+- another pixel executor, WebGL2 or CPU fallback;
+- a separately authored TypeScript node registry/compiler;
+- node-authoring UI, intermediate-node preview and 3D preview;
+- SSR, Node.js GPU, all-bundler adapters and GPU texture interop;
+- separate SDK/Player repositories beyond the engine and shared product repository;
+- M6 resource/container formats, new nodes and package publication without a release decision.
+
+After M5 acceptance, Studio MVP may be planned as a product milestone with standard `.mix` output consumed by Player and the native CLI. It does not rename or start engine M6.
 
 ---
 
