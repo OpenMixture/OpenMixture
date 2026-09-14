@@ -2,6 +2,8 @@
 
 English | [简体中文](./M5_PRS.zh-CN.md)
 
+**Player update, 2026-09-14:** the M5-04 parameter/preview slice is implemented and [locally verified](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.md) in the independent product: Rust-metadata controls, channel selection, one active render plus one replaceable pending request, stale-preview diagnostics and lifecycle cleanup. The clean isolated consumer passed 23 Chromium checks and six Node tests, including three-material 128×128 previews. PNG export and full M5-04/M5-05 acceptance remain open; the runtime archive is unchanged and unpublished.
+
 **Local acceptance update, 2026-09-14:** M5-02/M5-03 initial browser execution and isolated package consumption now pass the [recorded gates](./docs/evidence/m5-02-03/README.md). The unchanged archive passes 13 Chromium checks, including controlled real-device loss, mapping cleanup and repeated independent modules/devices. M5-04/M5-05 material regression, complete Player workflows and the accepted browser CI matrix remain open; the package is unpublished.
 
 **Implementation update, 2026-09-12:** the product repository [OpenMixture/Studio](https://github.com/OpenMixture/Studio) has been created. The first M5-02/M5-03 slice implements `mixture-wasm`, the local `@openmixture/runtime@0.1.0-alpha.0` tarball and a minimal Player consuming it. The [browser start guide](./docs/browser-runtime.md) records actual build/consumer commands and current verification. Full M5 acceptance remains open, including material regression, broader browser failure/stress coverage and the complete Player export workflow. The package remains unpublished.
@@ -92,6 +94,8 @@ An isolated product checkout installs the exact archive, type-checks, builds and
 **Out of scope:** registry release, extra public packages, frontend monorepo infrastructure, all-bundler adapters and SSR/Node.js GPU support.
 
 ## M5-04 — Player MVP
+
+**Current slice:** [Studio PR #3](https://github.com/OpenMixture/Studio/pull/3) implements parameters, channel previews and latest-request handling. The export workflow and full M5-04 acceptance below remain open.
 
 **Scope**
 

@@ -2,6 +2,8 @@
 
 [English](./ROADMAP.md) | 简体中文
 
+**Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
+
 **浏览器检查点，2026-09-14：** [M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)关闭记录的 Chromium／macOS 环境内初始浏览器执行与隔离 tarball 消费门槛。接下来是 M5-04 Player MVP，再完成 M5-05 完整浏览器验收。
 
 **当前里程碑：** M4 与 [M4.1 仓库维护](./docs/evidence/m4-1/README.zh-CN.md)已验收。[M5 浏览器执行与打包消费](./docs/browser-runtime.zh-CN.md)进行中，2026-09-12；完整浏览器验收仍开放。

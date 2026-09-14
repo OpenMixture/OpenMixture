@@ -2,6 +2,8 @@
 
 [English](./M5_PRS.md) | 简体中文
 
+**Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
+
 **本地验收更新，2026-09-14：** M5-02／M5-03 初始浏览器执行与隔离软件包消费现已通过[记录的门槛](./docs/evidence/m5-02-03/README.zh-CN.md)。未变更归档通过 13 项 Chromium 检查，包括可控真实设备丢失、映射清理及重复独立模块／设备。M5-04／M5-05 材质回归、完整 Player 流程与正式浏览器 CI 矩阵仍开放；软件包未发布。
 
 **实施更新，2026-09-12：** 产品仓库 [OpenMixture/Studio](https://github.com/OpenMixture/Studio)已创建。首个 M5-02／M5-03 切片已实现 `mixture-wasm`、本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及消费它的最小 Player。[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录实际构建／消费命令及当前验证。完整 M5 验收仍开放，包括材质回归、更广浏览器失败／压力覆盖和完整 Player 导出流程。软件包仍未发布。
@@ -92,6 +94,8 @@ Product Player (later Studio)
 **不在范围内：** Registry 发布、额外公开包、前端 monorepo 基础设施、所有打包器适配，以及 SSR／Node.js GPU 支持。
 
 ## M5-04——Player MVP
+
+**当前切片：** [Studio PR #3](https://github.com/OpenMixture/Studio/pull/3)实现参数、通道预览及最新请求处理。下述导出流程及完整 M5-04 验收仍开放。
 
 **范围**
 
