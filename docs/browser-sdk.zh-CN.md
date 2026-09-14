@@ -2,7 +2,9 @@
 
 [English](./browser-sdk.md) | 简体中文
 
-**实施更新，2026-09-12：** `mixture-wasm` 与本地 `@openmixture/runtime@0.1.0-alpha.0` tarball 现已实现首个棋盘格消费者切片。[构建／API 用法与剩余验证](./browser-runtime.zh-CN.md)描述实际检查点。本契约说明已实现的公开边界，以及仍开放的验收要求，包括完整材质回归、浏览器设备丢失证据和完整 Player 导出流程。不声称 npm Registry 发布或完整 M5 验收。
+**本地验收更新，2026-09-14：** M5-02／M5-03 初始浏览器执行与隔离软件包消费现已通过[记录的门槛](./evidence/m5-02-03/README.zh-CN.md)。未变更归档通过 13 项 Chromium 检查，包括可控真实设备丢失、映射清理及重复独立模块／设备。M5-04／M5-05 材质回归、完整 Player 流程与正式浏览器 CI 矩阵仍开放；软件包未发布。
+
+**实施更新，2026-09-12：** `mixture-wasm` 与本地 `@openmixture/runtime@0.1.0-alpha.0` tarball 现已实现首个棋盘格消费者切片。[构建／API 用法与剩余验证](./browser-runtime.zh-CN.md)描述实际检查点。本契约说明已实现的公开边界，以及仍开放的验收要求，包括完整材质回归、更广浏览器失败／压力覆盖和完整 Player 导出流程。不声称 npm Registry 发布或完整 M5 验收。
 
 M5 的交付目标是由引擎仓库构建一个完整浏览器运行时包，并由独立 Player 消费。[OpenMixture/Studio 产品仓库](https://github.com/OpenMixture/Studio)现已创建，并包含首个 Player 消费者。先交付 Player，再开展 Studio 创作功能，二者以后可以共享产品模块。已有引擎行为参见[路线图](../ROADMAP.zh-CN.md)、[原生 SDK](./native-sdk.zh-CN.md)、[格式](./file-format.zh-CN.md)、[执行计划](./render-plan.zh-CN.md)和[渲染](./graph-rendering.zh-CN.md)契约。
 

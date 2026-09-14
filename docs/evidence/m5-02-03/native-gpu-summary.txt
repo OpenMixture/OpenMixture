@@ -1,0 +1,7 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/xtask-runner/debug/xtask gpu-smoke`
+Running checker GPU smoke (backend=metal, software=0)
+Independent Rust and CLI consumer GPU checks passed; evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke/native-consumer
+Verifying local Cargo packages outside the repository; evidence: /Users/krapnik/Documents/OpenMixture/tmp/package-check/gpu-35558-1789360395853623000
+Packaged Rust and CLI consumption passed (GPU)
+GPU checker and graph smoke passed: "Apple M5" ("IntegratedGpu", "Metal"); doctor healthy; golden exact. Evidence: /Users/krapnik/Documents/OpenMixture/tmp/gpu-smoke

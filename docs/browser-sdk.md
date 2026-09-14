@@ -2,7 +2,9 @@
 
 English | [简体中文](./browser-sdk.zh-CN.md)
 
-**Implementation update, 2026-09-12:** `mixture-wasm` and the local `@openmixture/runtime@0.1.0-alpha.0` tarball now implement the initial checker consumer slice. [Build/API usage and remaining verification](./browser-runtime.md) describe the actual checkpoint. This contract describes the implemented public boundary and the acceptance requirements that remain open, including full material regression, browser device-loss evidence and the complete Player export workflow. No npm registry publication or full M5 acceptance is claimed.
+**Local acceptance update, 2026-09-14:** M5-02/M5-03 initial browser execution and isolated package consumption now pass the [recorded gates](./evidence/m5-02-03/README.md). The unchanged archive passes 13 Chromium checks, including controlled real-device loss, mapping cleanup and repeated independent modules/devices. M5-04/M5-05 material regression, complete Player workflows and the accepted browser CI matrix remain open; the package is unpublished.
+
+**Implementation update, 2026-09-12:** `mixture-wasm` and the local `@openmixture/runtime@0.1.0-alpha.0` tarball now implement the initial checker consumer slice. [Build/API usage and remaining verification](./browser-runtime.md) describe the actual checkpoint. This contract describes the implemented public boundary and the acceptance requirements that remain open, including full material regression, broader browser failure/stress coverage and the complete Player export workflow. No npm registry publication or full M5 acceptance is claimed.
 
 The M5 outcome is one complete browser runtime package built in the engine repository and consumed by an independent Player. The [OpenMixture/Studio product repository](https://github.com/OpenMixture/Studio) now exists and contains the initial Player consumer. Player precedes Studio authoring, and the two may later share product modules. See the [roadmap](../ROADMAP.md), [native SDK](./native-sdk.md), [format](./file-format.md), [plan](./render-plan.md) and [rendering](./graph-rendering.md) contracts for existing engine behavior.
 

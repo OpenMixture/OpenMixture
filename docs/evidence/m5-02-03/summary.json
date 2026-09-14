@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-14",
+  "scope": "M5-02/M5-03 initial browser execution and isolated packaged consumption, local acceptance",
+  "engineRevision": "964a0784850a6993c226aae0ef894f5ed22c4fd7",
+  "engineCleanDuringRuntimeChecks": true,
+  "runtimeProducerRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+  "runtimeSourcesUnchanged": true,
+  "productTestedRevision": "d38bf68ddc470a33c608592363e3554f05887fe1",
+  "productEvidenceRevision": "523caddd845e21762a160fcc26a45fb01eb0cec4",
+  "productPullRequest": "https://github.com/OpenMixture/Studio/pull/2",
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "localChecks": [
+    {
+      "command": "cargo xtask check",
+      "exitCode": 0,
+      "originalLogSha256": "cca21b0919b4b0db1ff20af27ae7105cf65005a1c6a1a242ce10fae2721374fc"
+    },
+    {
+      "command": "cargo xtask shader-check",
+      "exitCode": 0,
+      "originalLogSha256": "5a7d79d0351cbbce4c5bc116f6106349773e26ba30ab069ec207190b6e0d471d"
+    },
+    {
+      "command": "cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown",
+      "exitCode": 0,
+      "originalLogSha256": "263ba219a931e40484939423a4fb0c3817597d049a24172dedd354ff45bfce72"
+    },
+    {
+      "command": "node --test packages/runtime/test/runtime.test.mjs",
+      "exitCode": 0,
+      "originalLogSha256": "4829e5cd07cf433fd2d099d067345cd1232fd2aeec1b36b70a890d5b971e9114"
+    },
+    {
+      "command": "MIXTURE_GPU_BACKEND=metal MIXTURE_GPU_SOFTWARE=0 cargo xtask gpu-smoke",
+      "exitCode": 0,
+      "originalLogSha256": "5b64b17da477d57213c13e8d6a3ad5f8abb32017709c0c058d537e630fe5ff4c"
+    }
+  ],
+  "browser": {
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "https://github.com/OpenMixture/Studio/tree/523caddd845e21762a160fcc26a45fb01eb0cec4/docs/evidence/m5-02-03",
+    "isolation": "macOS sandbox denies both original checkouts; Rust absent from PATH"
+  },
+  "limitations": [
+    "Controlled real device destruction; not spontaneous hardware/driver-loss coverage",
+    "Browser fields redacted; no inferred hardware identity",
+    "32 checker renders are bounded evidence, not physical GPU-memory measurement",
+    "M5-04/M5-05, accepted browser CI matrix and registry publication remain open",
+    "Full local command logs and temporary outputs are not retained in Git"
+  ],
+  "retainedFilesSha256": {
+    "native-checker-comparison.json": "777abccb179f7b3893f4d2bdfb9213b5262b596121d997ce12fa467b2756bc77",
+    "native-device-loss.json": "f9794ca8e94208f2b4d7efde618d419180c6b20618b7474ddde44bdb3710b016",
+    "native-doctor.json": "3d66e93bc89291d642c82ea78101d513c3d8b5f91738cdada4a3d42750b39d44",
+    "native-gpu-summary.txt": "5b64b17da477d57213c13e8d6a3ad5f8abb32017709c0c058d537e630fe5ff4c"
+  }
+}
