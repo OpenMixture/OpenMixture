@@ -2,6 +2,8 @@
 
 [English](./ROADMAP.md) | 简体中文
 
+**浏览器检查点，2026-09-14：** [M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)关闭记录的 Chromium／macOS 环境内初始浏览器执行与隔离 tarball 消费门槛。接下来是 M5-04 Player MVP，再完成 M5-05 完整浏览器验收。
+
 **当前里程碑：** M4 与 [M4.1 仓库维护](./docs/evidence/m4-1/README.zh-CN.md)已验收。[M5 浏览器执行与打包消费](./docs/browser-runtime.zh-CN.md)进行中，2026-09-12；完整浏览器验收仍开放。
 
 **实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。

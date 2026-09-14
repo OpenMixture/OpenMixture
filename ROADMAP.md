@@ -2,6 +2,8 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
+**Browser checkpoint, 2026-09-14:** [M5-02/M5-03 local acceptance](./docs/evidence/m5-02-03/README.md) closes initial browser execution and isolated tarball consumption on the recorded Chromium/macOS environment. Next: M5-04 Player MVP, then M5-05 full browser acceptance.
+
 **Current milestone:** M4 and [M4.1 repository maintenance](./docs/evidence/m4-1/README.md) are accepted. [M5 browser execution and packaged consumption](./docs/browser-runtime.md) are in progress, 2026-09-12; full browser acceptance remains open.
 
 **Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished. The thin browser binding and independent product repository now exist; see the browser start guide for the implemented checker slice and remaining M5 gates.

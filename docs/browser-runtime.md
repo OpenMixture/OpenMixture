@@ -2,6 +2,8 @@
 
 English | [简体中文](./browser-runtime.zh-CN.md)
 
+**Local acceptance update, 2026-09-14:** M5-02/M5-03 initial browser execution and isolated package consumption now pass the [recorded gates](./evidence/m5-02-03/README.md). The unchanged archive passes 13 Chromium checks, including controlled real-device loss, mapping cleanup and repeated independent modules/devices. M5-04/M5-05 material regression, complete Player workflows and the accepted browser CI matrix remain open; the package is unpublished.
+
 M5-02/M5-03 now provide a thin WASM binding, a complete local `@openmixture/runtime@0.1.0-alpha.0` tarball and an independent [Studio product repository](https://github.com/OpenMixture/Studio) with a minimal Player. The package has not been published to npm. This is the checker execution/consumption slice, not full M5 acceptance or a node editor. The [M5 plan](../M5_PRS.md) and [delivery contract](./browser-sdk.md) retain the remaining scope.
 
 ## Engine build
@@ -60,7 +62,7 @@ Before merging engine changes, run `cargo xtask check`, the affected shader chec
 ## Remaining acceptance
 
 - Full three-material 1K browser/native comparisons and reviewed tolerances, tiling and parameter causality.
-- Browser device-loss and unexpected platform-event evidence, broader lifecycle stress and the documented browser CI acceptance environment.
+- Spontaneous device/driver loss and unexpected platform-event coverage, broader lifecycle stress and the documented browser CI acceptance environment. Controlled real-device destruction and mapping cleanup are now covered by the M5-02/M5-03 record.
 - Complete Player parameter/channel/export workflow, including independently decoded PNG metadata.
 - Full M5 acceptance, stable support claims, registry release, Studio authoring and M6 resource packaging.
 

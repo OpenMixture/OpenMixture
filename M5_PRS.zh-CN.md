@@ -2,7 +2,9 @@
 
 [English](./M5_PRS.md) | 简体中文
 
-**实施更新，2026-09-12：** 产品仓库 [OpenMixture/Studio](https://github.com/OpenMixture/Studio)已创建。首个 M5-02／M5-03 切片已实现 `mixture-wasm`、本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及消费它的最小 Player。[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录实际构建／消费命令及当前验证。完整 M5 验收仍开放，包括材质回归、浏览器设备丢失证据和完整 Player 导出流程。软件包仍未发布。
+**本地验收更新，2026-09-14：** M5-02／M5-03 初始浏览器执行与隔离软件包消费现已通过[记录的门槛](./docs/evidence/m5-02-03/README.zh-CN.md)。未变更归档通过 13 项 Chromium 检查，包括可控真实设备丢失、映射清理及重复独立模块／设备。M5-04／M5-05 材质回归、完整 Player 流程与正式浏览器 CI 矩阵仍开放；软件包未发布。
+
+**实施更新，2026-09-12：** 产品仓库 [OpenMixture/Studio](https://github.com/OpenMixture/Studio)已创建。首个 M5-02／M5-03 切片已实现 `mixture-wasm`、本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及消费它的最小 Player。[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录实际构建／消费命令及当前验证。完整 M5 验收仍开放，包括材质回归、更广浏览器失败／压力覆盖和完整 Player 导出流程。软件包仍未发布。
 
 `M5-01` 至 `M5-05` 是工作项标识，不是 GitHub PR 编号。实际实施提交、PR URL 及检查存在后再记录。工作遵循[仓库治理](./docs/governance.zh-CN.md)、[证据保留](./docs/evidence-policy.zh-CN.md)及现有[架构](./ARCHITECTURE.zh-CN.md)。[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)记录已实现的公开方法及剩余验收要求。通过当前检查点及运行证据区分实现与已接受的门槛。
 
