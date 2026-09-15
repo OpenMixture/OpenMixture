@@ -9,6 +9,11 @@ use serde_json::{Value, json};
 use std::{collections::BTreeMap, fs, path::Path};
 
 pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> TaskResult {
+    files::write_json(
+        &browser.join("comparison.json"),
+        &json!({"schemaVersion":1,"ok":false,"status":"incomplete"}),
+    )?;
+    fs::write(browser.join("mode.txt"), "Comparison incomplete\n")?;
     let manifest: Value = files::json(&native.join("manifest.json"))?;
     let receipt: Value = files::json(&browser.join("receipt.json"))?;
     if manifest["schemaVersion"] != 1
@@ -188,5 +193,27 @@ mod tests {
             &json!({"size":[1024,1024]}),
             &json!({"size":[1024]})
         ));
+    }
+    #[test]
+    fn failed_recheck_invalidates_previous_acceptance() {
+        let directory = std::env::temp_dir().join(format!(
+            "mixture-browser-recheck-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        fs::create_dir(&directory).unwrap();
+        files::write_json(&directory.join("comparison.json"), &json!({"ok":true})).unwrap();
+        let result = run(&directory, &directory, &directory, false);
+        assert!(result.is_err());
+        let report: Value = files::json(&directory.join("comparison.json")).unwrap();
+        assert_eq!(report["ok"], false);
+        assert_eq!(
+            fs::read_to_string(directory.join("mode.txt")).unwrap(),
+            "Comparison incomplete\n"
+        );
+        fs::remove_dir_all(directory).unwrap();
     }
 }

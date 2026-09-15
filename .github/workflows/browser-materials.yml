@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: OpenMixture/Studio
-          ref: 1b24cb61c75e8228e412f8e538f04a8dc5873d41
+          ref: 56c510ab57daa1b68ef660525a648a582730a37e
           path: tmp/browser-product
           persist-credentials: false
       - name: Install the exact product and browser
@@ -75,7 +75,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Execute installed runtime against static production assets
         working-directory: tmp/browser-product
-        run: npm run test:materials -- ../browser-native ../browser-output
+        run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
       - name: Measure browser quality and differences
         run: cargo xtask browser-material-measure tmp/browser-native tmp/browser-output
       - name: Retain material qualification evidence
