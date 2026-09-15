@@ -20,3 +20,5 @@ On Linux use the existing pinned SwiftShader setup and explicit Vulkan/software 
 ## Frozen criteria
 
 [Calibration review](./evidence/m5-05/calibration.md) records local and Linux measurements, failed candidate comparisons and the frozen per-channel gates. Acceptance must run after this freeze.
+
+[Formal acceptance and complete pixels](./evidence/m5-05/README.md) retain both post-freeze results and audit commands.

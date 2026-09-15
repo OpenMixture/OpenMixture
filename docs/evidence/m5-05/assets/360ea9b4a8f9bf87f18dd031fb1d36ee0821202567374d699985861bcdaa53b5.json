@@ -1,0 +1,388 @@
+{
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      1024,
+      1024
+    ],
+    "materialOutput": {
+      "id": "out",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "grain",
+            "typeId": "fractal-noise",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "fractalNoise",
+          "seed": 271828,
+          "scale": 64,
+          "octaves": 3,
+          "persistence": 1,
+          "basis": "cellular"
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "height",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 0,
+          "inputMin": 0,
+          "inputMax": 0.6000000238418579,
+          "gamma": 1.600000023841858,
+          "outputMin": 0,
+          "outputMax": 1
+        },
+        "output": 1,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "color",
+            "typeId": "gradient-map",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "gradientMap",
+          "input": 1,
+          "colorA": [
+            0.02500000037252903,
+            0.010999999940395355,
+            0.006000000052154064,
+            1
+          ],
+          "colorB": [
+            0.09000000357627869,
+            0.039000000804662704,
+            0.01899999938905239,
+            1
+          ]
+        },
+        "output": 2,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "normal",
+            "typeId": "height-to-normal",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "heightToNormal",
+          "input": 1,
+          "strength": 0.0020000000949949026
+        },
+        "output": 3,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "normal"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 4,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "roughness",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 1,
+          "inputMin": 0,
+          "inputMax": 1,
+          "gamma": 1,
+          "outputMin": 0.7599999904632568,
+          "outputMax": 0.5199999809265137
+        },
+        "output": 4,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "baseColor",
+        "kind": "color",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "color",
+            "portId": "color"
+          }
+        },
+        "resource": 2
+      },
+      {
+        "channel": "normal",
+        "kind": "normal",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "normal",
+            "portId": "normal"
+          }
+        },
+        "resource": 3
+      },
+      {
+        "channel": "roughness",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "roughness",
+            "portId": "value"
+          }
+        },
+        "resource": 4
+      },
+      {
+        "channel": "height",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "height",
+            "portId": "value"
+          }
+        },
+        "resource": 1
+      }
+    ],
+    "estimates": {
+      "textureBytes": "41943040",
+      "uniformBytes": "144",
+      "paddedBytesPerRow": 8192,
+      "readbackBufferBytes": "8388608",
+      "readbackBytes": "33554432",
+      "cumulativeReadbackBytes": "33554432",
+      "cumulativeBytes": "75497616",
+      "peakBytes": "50331792"
+    },
+    "hash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c"
+  },
+  "report": {
+    "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+    "adapter": {
+      "name": "",
+      "deviceType": "Cpu",
+      "backend": "BrowserWebGpu",
+      "vendor": 0,
+      "device": 0,
+      "driver": "",
+      "driverInfo": "",
+      "supportedLimits": {
+        "maxTextureDimension1D": 8192,
+        "maxTextureDimension2D": 8192,
+        "maxTextureDimension3D": 2048,
+        "maxTextureArrayLayers": 256,
+        "maxBindGroups": 4,
+        "maxBindGroupsPlusVertexBuffers": 24,
+        "maxBindingsPerBindGroup": 1000,
+        "maxDynamicUniformBuffersPerPipelineLayout": 8,
+        "maxDynamicStorageBuffersPerPipelineLayout": 4,
+        "maxSampledTexturesPerShaderStage": 16,
+        "maxSamplersPerShaderStage": 16,
+        "maxStorageBuffersPerShaderStage": 10,
+        "maxStorageTexturesPerShaderStage": 4,
+        "maxUniformBuffersPerShaderStage": 12,
+        "maxBindingArrayElementsPerShaderStage": 0,
+        "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+        "maxBindingArraySamplerElementsPerShaderStage": 0,
+        "maxUniformBufferBindingSize": "65536",
+        "maxStorageBufferBindingSize": "1073741824",
+        "maxVertexBuffers": 8,
+        "maxBufferSize": "1073741824",
+        "maxVertexAttributes": 16,
+        "maxVertexBufferArrayStride": 2048,
+        "maxInterStageShaderVariables": 28,
+        "minUniformBufferOffsetAlignment": 256,
+        "minStorageBufferOffsetAlignment": 256,
+        "maxColorAttachments": 8,
+        "maxColorAttachmentBytesPerSample": 128,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxComputeInvocationsPerWorkgroup": 256,
+        "maxComputeWorkgroupSizeX": 256,
+        "maxComputeWorkgroupSizeY": 256,
+        "maxComputeWorkgroupSizeZ": 64,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxImmediateSize": 0,
+        "maxNonSamplerBindings": 1000000,
+        "maxTaskWorkgroupTotalCount": 0,
+        "maxTaskWorkgroupsPerDimension": 0,
+        "maxMeshWorkgroupTotalCount": 0,
+        "maxMeshWorkgroupsPerDimension": 0,
+        "maxTaskInvocationsPerWorkgroup": 0,
+        "maxTaskInvocationsPerDimension": 0,
+        "maxMeshInvocationsPerWorkgroup": 0,
+        "maxMeshInvocationsPerDimension": 0,
+        "maxTaskPayloadSize": 0,
+        "maxMeshOutputVertices": 0,
+        "maxMeshOutputPrimitives": 0,
+        "maxMeshOutputLayers": 0,
+        "maxMeshMultiviewViewCount": 0,
+        "maxBlasPrimitiveCount": 0,
+        "maxBlasGeometryCount": 0,
+        "maxTlasInstanceCount": 0,
+        "maxAccelerationStructuresPerShaderStage": 0,
+        "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+        "maxMultiviewViewCount": 0,
+        "maxRayDispatchCount": 0,
+        "maxRayRecursionDepth": 0
+      },
+      "supportedFeatures": [
+        "BGRA8UNORM_STORAGE",
+        "CLIP_DISTANCES",
+        "DEPTH32FLOAT_STENCIL8",
+        "DEPTH_CLIP_CONTROL",
+        "FLOAT32_BLENDABLE",
+        "FLOAT32_FILTERABLE",
+        "INDIRECT_FIRST_INSTANCE",
+        "RG11B10UFLOAT_RENDERABLE",
+        "TEXTURE_COMPRESSION_ASTC",
+        "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+        "TEXTURE_COMPRESSION_BC",
+        "TEXTURE_COMPRESSION_BC_SLICED_3D",
+        "TEXTURE_COMPRESSION_ETC2",
+        "TIMESTAMP_QUERY"
+      ]
+    },
+    "size": [
+      1024,
+      1024
+    ],
+    "passCount": "5",
+    "pipelineCache": {
+      "hits": 5,
+      "misses": 0,
+      "entries": "7"
+    },
+    "estimates": {
+      "textureBytes": "41943040",
+      "uniformBytes": "144",
+      "paddedBytesPerRow": 8192,
+      "readbackBufferBytes": "8388608",
+      "readbackBytes": "33554432",
+      "cumulativeReadbackBytes": "33554432",
+      "cumulativeBytes": "75497616",
+      "peakBytes": "50331792"
+    },
+    "allocations": {
+      "textureCount": "5",
+      "textureBytes": "41943040",
+      "uniformCount": "5",
+      "uniformBytes": "144",
+      "stagingCount": "4",
+      "stagingBytes": "33554432",
+      "peakStagingBytes": "8388608",
+      "cumulativeBytes": "75497616",
+      "peakBytes": "50331792",
+      "liveBytes": "0",
+      "releasedBytes": "75497616",
+      "reusedBytes": "0"
+    },
+    "readbackBytes": "33554432",
+    "mappedBytes": "33554432",
+    "rgbaBytes": "16777216",
+    "timings": {
+      "pipelineMs": 0,
+      "executionMs": 951.3000000000001,
+      "readbackMs": 341.1,
+      "totalMs": 1305.1
+    }
+  },
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb"
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear"
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear"
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear"
+    }
+  ]
+}

@@ -20,3 +20,5 @@ Linux 使用已有锁定 SwiftShader 设置及显式 Vulkan／软件策略。产
 ## 冻结准则
 
 [校准评审](./evidence/m5-05/calibration.zh-CN.md)记录本地与 Linux 测量、未通过的候选比较及冻结后的逐通道门槛。正式验收必须在此次冻结后运行。
+
+[正式验收与完整像素](./evidence/m5-05/README.zh-CN.md)保留冻结后的两端结果和复核命令。

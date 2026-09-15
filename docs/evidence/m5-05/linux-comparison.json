@@ -1,0 +1,3426 @@
+{
+  "browserReceiptSha256": "sha256:40462d7948680ee9a5afbb08018dd5311a590d76f258e9f5710a9967a83fe102",
+  "cases": [
+    {
+      "case": "default",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:1072c08f8a0b48fefd934bfb8676d0a5bbd9ccd7c34dc125144283e38f58e17c",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "structure": {
+            "balanceError": 0.0,
+            "contrast": 126,
+            "distinctColors": 2,
+            "expectedCells": [
+              8,
+              8
+            ],
+            "kind": "alternating",
+            "ok": true,
+            "periodMaxError": 0,
+            "seam": {
+              "interiorMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ]
+            },
+            "transitionsIncludingWrap": [
+              [
+                8,
+                8
+              ],
+              [
+                8,
+                8
+              ]
+            ]
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:a82057ef34a75f75ee1aff694893a868746232fb513d6e69b38ab6f7dd58d017",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "structure": {
+            "expected": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:6bdf1b8318402d75224f95076a2694012d02b16b0290a9ccda13017a3902c71b",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "structure": {
+            "expected": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:a93ad5f23d135b82ac722e699300358fe33c7e407c174654b0d89f79b66ab8e0",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "structure": {
+            "expected": [
+              43,
+              43,
+              43,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 1
+          }
+        }
+      },
+      "material": "glazed-ceramic",
+      "planMatches": true,
+      "relationships": []
+    },
+    {
+      "case": "fine-tiles",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:5c2607354e75db65d29bbf37cf5ae6e511845767a72fa62741102508c15496af",
+          "causality": {
+            "changedPixelRatio": 0.5,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.03125,
+              "ratio": 2.0,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0625
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.45
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+          "structure": {
+            "balanceError": 0.0,
+            "contrast": 126,
+            "distinctColors": 2,
+            "expectedCells": [
+              16,
+              16
+            ],
+            "kind": "alternating",
+            "ok": true,
+            "periodMaxError": 0,
+            "seam": {
+              "interiorMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ]
+            },
+            "transitionsIncludingWrap": [
+              [
+                16,
+                16
+              ],
+              [
+                16,
+                16
+              ]
+            ]
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:a82057ef34a75f75ee1aff694893a868746232fb513d6e69b38ab6f7dd58d017",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "structure": {
+            "expected": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:6bdf1b8318402d75224f95076a2694012d02b16b0290a9ccda13017a3902c71b",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "structure": {
+            "expected": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:a93ad5f23d135b82ac722e699300358fe33c7e407c174654b0d89f79b66ab8e0",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "structure": {
+            "expected": [
+              43,
+              43,
+              43,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 1
+          }
+        }
+      },
+      "material": "glazed-ceramic",
+      "planMatches": true,
+      "relationships": []
+    },
+    {
+      "case": "matte",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:1072c08f8a0b48fefd934bfb8676d0a5bbd9ccd7c34dc125144283e38f58e17c",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.03125,
+              "ratio": 1.0,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.03125
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "structure": {
+            "balanceError": 0.0,
+            "contrast": 126,
+            "distinctColors": 2,
+            "expectedCells": [
+              8,
+              8
+            ],
+            "kind": "alternating",
+            "ok": true,
+            "periodMaxError": 0,
+            "seam": {
+              "interiorMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                104.66666666666667,
+                104.66666666666667
+              ]
+            },
+            "transitionsIncludingWrap": [
+              [
+                8,
+                8
+              ],
+              [
+                8,
+                8
+              ]
+            ]
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:a82057ef34a75f75ee1aff694893a868746232fb513d6e69b38ab6f7dd58d017",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "structure": {
+            "expected": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:6bdf1b8318402d75224f95076a2694012d02b16b0290a9ccda13017a3902c71b",
+          "causality": {
+            "changedPixelRatio": 0.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "unchanged"
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "structure": {
+            "expected": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 0
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:96ed7fbb00fe3b9412fc03d558f0918706d2cbadab676c1a9ec9985d385b10f7",
+          "causality": {
+            "changedPixelRatio": 1.0,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.27058823529411763,
+            "redNormalizedGradientEnergy": {
+              "default": 0.0,
+              "ratio": null,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.0
+            },
+            "rule": {
+              "kind": "meanIncreases",
+              "minDelta": 0.25
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+          "structure": {
+            "expected": [
+              112,
+              112,
+              112,
+              255
+            ],
+            "kind": "uniform",
+            "maxAbsolute": 0,
+            "ok": true,
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.0,
+                0.0
+              ],
+              "maxExcess": 0,
+              "wrapMeanAbsolute": [
+                0.0,
+                0.0
+              ]
+            },
+            "tolerance": 1
+          }
+        }
+      },
+      "material": "glazed-ceramic",
+      "planMatches": true,
+      "relationships": []
+    },
+    {
+      "case": "default",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:cda9fccd30fa279c68194a6b0485a30fd2045b82818c804b8f4be13619ef605d",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 1.9073486328125e-6,
+            "changedPixelRatio": 1.9073486328125e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "meanAbsolute": 4.76837158203125e-7,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              1.9073486328125e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:f457177316916bdc6639145720e211072b04e588ad65aacfcd4c1f2569d310ab",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.8893091278843631,
+                0.8899859871670199
+              ],
+              "redSpan": 40,
+              "redStdDev": 7.663923655182087,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  1.9951114598607038,
+                  1.991260577040567
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.5257018836995324,
+                  1.6247755817615868
+                ],
+                "wrapMeanAbsolute": [
+                  3.0439453125,
+                  3.2353515625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:8012627f176ee13d45bf56f4f1b328857ed901870769c9047222d2923fc0888f",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 2.86102294921875e-6,
+            "changedPixelRatio": 2.86102294921875e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 2.1457672119140625e-6,
+            "meanByComponent": [
+              2.86102294921875e-6,
+              2.86102294921875e-6,
+              2.86102294921875e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:0d8ede05f8304f1a292ebcf48ac26506b86293f18f8c07a0fa313df84ce2b6bb",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9023964601996626,
+                0.9028241442558514
+              ],
+              "redSpan": 252,
+              "redStdDev": 53.45591713607557,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  18.511844758064516,
+                  18.48429863147605
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.413579742699612,
+                  1.5007458453285563
+                ],
+                "wrapMeanAbsolute": [
+                  26.16796875,
+                  27.740234375
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:8d57f4e8578c559a27c6734bcb7484e67f25032efb2a6b5de9a6c549b73f5c98",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 4.76837158203125e-6,
+            "changedPixelRatio": 4.76837158203125e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 1.1920928955078125e-6,
+            "meanByComponent": [
+              1.9073486328125e-6,
+              9.5367431640625e-7,
+              1.9073486328125e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:b303d7445d5e73d9a8edb0f1790aaa0d64a8ca9feb66515a6b0954a150c57c1a",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.005907491519452579,
+            "meanTilt": 0.025105330523627966,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                6.897016727252362,
+                6.889922727781851
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.5876712708600818,
+                1.7173424490121467
+              ],
+              "wrapMeanAbsolute": [
+                10.9501953125,
+                11.832356770833334
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:b1e8782d45a877f74a9692c8a71827d125d6f469e5e67270915c5bcf2e93d011",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 1.9073486328125e-6,
+            "changedPixelRatio": 1.9073486328125e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 1.430511474609375e-6,
+            "meanByComponent": [
+              1.9073486328125e-6,
+              1.9073486328125e-6,
+              1.9073486328125e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:71fa372a505cd06225c46648ca1e1c2a0617143322af560bc7fd69edef4047c1",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9016303637761232,
+                0.9020582487012202
+              ],
+              "redSpan": 60,
+              "redStdDev": 12.801386803109336,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  4.432873976661779,
+                  4.4264074718963835
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.4218167284210363,
+                  1.5090539093858557
+                ],
+                "wrapMeanAbsolute": [
+                  6.302734375,
+                  6.6796875
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "material": "leather",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.9167628288269043,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "detail-min",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:26ba2916cc83847215f6a81b94760ec7eb9aa1331e63cb5d319ccdaf19f96ad3",
+          "causality": {
+            "changedPixelRatio": 0.90521240234375,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.006119971181832107,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22070488496169124,
+              "ratio": 0.9786751297189209,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.2159983819194827
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 1.9073486328125e-6,
+            "changedPixelRatio": 1.9073486328125e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              0,
+              1,
+              0,
+              0
+            ],
+            "meanAbsolute": 4.76837158203125e-7,
+            "meanByComponent": [
+              0.0,
+              1.9073486328125e-6,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:2bb82f48d6509aff80bf2d31dde26e51cb314907d1479a0e27fc409565b1fa04",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.8920906569318063,
+                0.8919109611811514
+              ],
+              "redSpan": 41,
+              "redStdDev": 10.711218927925309,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.633485815819485,
+                  2.6383985393246987
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.7057952137107395,
+                  1.8382116361672485
+                ],
+                "wrapMeanAbsolute": [
+                  4.4921875,
+                  4.849934895833333
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:1fbff2c6f385fed0fdd7b02bd7f2258026da1749465503c004434d5aa06d1ec0",
+          "causality": {
+            "changedPixelRatio": 0.9500513076782227,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.03138826033648312,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19477939551662726,
+              "ratio": 0.8891515244893159,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.17318839646271655
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 0.95,
+              "minPixelRatio": 0.85,
+              "minRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 9.5367431640625e-7,
+            "changedPixelRatio": 9.5367431640625e-7,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 7.152557373046875e-7,
+            "meanByComponent": [
+              9.5367431640625e-7,
+              9.5367431640625e-7,
+              9.5367431640625e-7,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:fec8ddfd383209b25e5376b216ee13d552add360aeaf227e31c88a140e51e0a0",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9134640859528226,
+                0.9133475175777072
+              ],
+              "redSpan": 255,
+              "redStdDev": 71.55327782213027,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  22.7216061827957,
+                  22.76203472476784
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.651357041977536,
+                  1.7552956950296328
+                ],
+                "wrapMeanAbsolute": [
+                  37.521484375,
+                  39.9541015625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:888bcc42f6b7079b3cf5c534b610899d17f406e9505b9c6a70ad73332a01e928",
+          "causality": {
+            "changedPixelRatio": 0.9874401092529297,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00009811251771218998,
+            "redNormalizedGradientEnergy": {
+              "default": 0.41244338611023856,
+              "ratio": 0.8729757241386419,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.360053063655779
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.00001049041748046875,
+            "changedPixelRatio": 0.00001049041748046875,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 2.6226043701171875e-6,
+            "meanByComponent": [
+              5.7220458984375e-6,
+              3.814697265625e-6,
+              9.5367431640625e-7,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:5ede03d7b2282701d2edba90ed88f9f99cd4473d1c2e44b30b5776455d106364",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.005903374775555692,
+            "meanTilt": 0.039334487915484814,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                6.772048547470675,
+                6.7791940956948515
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.526504872447746,
+                1.7047699155232363
+              ],
+              "wrapMeanAbsolute": [
+                10.337565104166666,
+                11.556966145833334
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:770020fff62b538e8ed98508e70ea7d569d60ac110560ad691ee9799d18de2d3",
+          "causality": {
+            "changedPixelRatio": 0.9057817459106445,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.007653741275562953,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1963113875581766,
+              "ratio": 0.8907351795058781,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.17486145903568043
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:4e93819af7da78a087d0eab1d464de0a8b280798c5c8010c039f71c7a30f6b8b",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9126235526307973,
+                0.9125149883759203
+              ],
+              "redSpan": 61,
+              "redStdDev": 17.117371955957847,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  5.440275995845552,
+                  5.4497399651759535
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.6561228937429417,
+                  1.7636305927285987
+                ],
+                "wrapMeanAbsolute": [
+                  9.009765625,
+                  9.611328125
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "material": "leather",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.8821134567260742,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "detail-max",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:2dda17b5996860905897344e83fb706638fbf68701f24697f5600fea1439c449",
+          "causality": {
+            "changedPixelRatio": 0.9380702972412109,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0018380221198586733,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22070488496169124,
+              "ratio": 2.8343965394056045,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6255651621653298
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 2.86102294921875e-6,
+            "changedPixelRatio": 2.86102294921875e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              0,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 7.152557373046875e-7,
+            "meanByComponent": [
+              0.0,
+              1.9073486328125e-6,
+              9.5367431640625e-7,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:f7790806cab7a3ce37ea5dd58afd0390c517ec037cc9fa67a808ac4ce326f47b",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.6867239385801301,
+                0.6877108992662563
+              ],
+              "redSpan": 40,
+              "redStdDev": 6.270997826718303,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.8542662639499836,
+                  2.850101951979472
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.3960507368079094,
+                  1.5306926846260251
+                ],
+                "wrapMeanAbsolute": [
+                  3.9847005208333335,
+                  4.362630208333333
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:24a546f62d93523ccbe4224e74ef0ad42a2f4a0599a262d872ad5ea53c952884",
+          "causality": {
+            "changedPixelRatio": 0.9803133010864258,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.009052003598680747,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19477939551662726,
+              "ratio": 3.0966143981946437,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6031566806284372
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 5.0,
+              "minPixelRatio": 0.85,
+              "minRatio": 1.5
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 1.9073486328125e-6,
+            "changedPixelRatio": 1.9073486328125e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 1.430511474609375e-6,
+            "meanByComponent": [
+              1.9073486328125e-6,
+              1.9073486328125e-6,
+              1.9073486328125e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:81d9dca4e7d450a3e11806e3d8368c0138bb16f3d5f1d0319a8c453ba11cba85",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.6980901075930841,
+                0.6987532117662537
+              ],
+              "redSpan": 251,
+              "redStdDev": 43.89300084117333,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  27.36617848087732,
+                  27.33394141770528
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.2966864038870505,
+                  1.40339627484723
+                ],
+                "wrapMeanAbsolute": [
+                  35.4853515625,
+                  38.3603515625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:0a7327c438c816290bbfe3aec2fd61487dc2d660cba4b5ac5eb00a9a04c3a4af",
+          "causality": {
+            "changedPixelRatio": 0.9993200302124023,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.000026725320255049922,
+            "redNormalizedGradientEnergy": {
+              "default": 0.41244338611023856,
+              "ratio": 2.2926873221834048,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.945603722453339
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 8.58306884765625e-6,
+            "changedPixelRatio": 8.58306884765625e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 2.1457672119140625e-6,
+            "meanByComponent": [
+              4.76837158203125e-6,
+              2.86102294921875e-6,
+              9.5367431640625e-7,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:2fdbb9ed2ea24de0aec6d6fdb53493a1030be4eeaa50fb4bb002813cdbcd61f6",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.006093149935492259,
+            "meanTilt": 0.03672931147602478,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                13.691767727680027,
+                13.688391284314923
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.4488442966520154,
+                1.5306508998985422
+              ],
+              "wrapMeanAbsolute": [
+                19.837239583333332,
+                20.9521484375
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:f142e9d329ff0a7a2ab03d2cd23a17c8de940fc863ff8cc77e01e7297ff0b0ae",
+          "causality": {
+            "changedPixelRatio": 0.9423923492431641,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.0021965700037338554,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1963113875581766,
+              "ratio": 3.079509201711856,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.6045427243862271
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:bfe583ba1f13a0548f7f83b5a3e21218b468b15e2ead8340810f1ee5b4739481",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.6973811630005184,
+                0.6980761126098429
+              ],
+              "redSpan": 60,
+              "redStdDev": 10.521086007725549,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  6.557196206011731,
+                  6.549356977028348
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.2953921703932623,
+                  1.40370412045723
+                ],
+                "wrapMeanAbsolute": [
+                  8.494140625,
+                  9.193359375
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "material": "leather",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.9450435638427734,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "coarse-grain",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:4779be433bc630b3175b1637587058d096f4da7e069dc5aad6a6a1c71bea22bb",
+          "causality": {
+            "changedPixelRatio": 0.9721765518188477,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00003675947002335089,
+            "redNormalizedGradientEnergy": {
+              "default": 0.22070488496169124,
+              "ratio": 0.30304771756173,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06688411164236471
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 9.5367431640625e-7,
+            "changedPixelRatio": 9.5367431640625e-7,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 2.384185791015625e-7,
+            "meanByComponent": [
+              9.5367431640625e-7,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:93c9610a0ea7e420c8efc9899672fa7c534760a5f7c2f602b3aaa39c0487ca5a",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9665403839076115,
+                0.9665755044168977
+              ],
+              "redSpan": 39,
+              "redStdDev": 7.663865963187454,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  1.0641107394509612,
+                  1.063796037491854
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.6231520626864833,
+                  1.638014205187032
+                ],
+                "wrapMeanAbsolute": [
+                  1.7272135416666667,
+                  1.7425130208333333
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 25,
+              "minStdDev": 4.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:f26dedd2f5eff9bf640e1ac13f9647646782b99284189a055354a5413758e378",
+          "causality": {
+            "changedPixelRatio": 0.992462158203125,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.0002593171362782476,
+            "redNormalizedGradientEnergy": {
+              "default": 0.19477939551662726,
+              "ratio": 0.2866786773364998,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.055839099479109665
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 0.65,
+              "minPixelRatio": 0.85,
+              "minRatio": 0.15
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 5.7220458984375e-6,
+            "changedPixelRatio": 5.7220458984375e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 4.291534423828125e-6,
+            "meanByComponent": [
+              5.7220458984375e-6,
+              5.7220458984375e-6,
+              5.7220458984375e-6,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:15ec2a0ec849e583eae55b20aef4ac40b2d5ef1acf72ed649028bde51e234c2f",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9720686837694544,
+                0.9720922167069173
+              ],
+              "redSpan": 247,
+              "redStdDev": 53.43516179717754,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  9.813666529203324,
+                  9.813216909518573
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.4926569449256764,
+                  1.4655577340341863
+                ],
+                "wrapMeanAbsolute": [
+                  14.6484375,
+                  14.3818359375
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 140,
+              "minStdDev": 25.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:1b38ba9e23b0f131a0934861a9c5033e40553a980733c984b0cf2c36dd3d8ebc",
+          "causality": {
+            "changedPixelRatio": 0.999241828918457,
+            "ok": true,
+            "redMeanDeltaNormalized": 5.643508013575271e-6,
+            "redNormalizedGradientEnergy": {
+              "default": 0.41244338611023856,
+              "ratio": 0.5172042376345152,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.21331746708054394
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 6.67572021484375e-6,
+            "changedPixelRatio": 6.67572021484375e-6,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              0,
+              0
+            ],
+            "meanAbsolute": 1.6689300537109375e-6,
+            "meanByComponent": [
+              2.86102294921875e-6,
+              3.814697265625e-6,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:1899a557568c9c39f89532fe2b7c9809609ef7669c8f9a2d44959d5288f725a2",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.005291650887873978,
+            "meanTilt": 0.008105693143949634,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                2.6242923183447378,
+                2.628958116955849
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.7348427014684171,
+                1.8507559570661072
+              ],
+              "wrapMeanAbsolute": [
+                4.552734375,
+                4.865559895833333
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:46b968f2a8455a5dbb55989ce879333b026e4a1bdf614a7fc4411a7b25b8ad6a",
+          "causality": {
+            "changedPixelRatio": 0.9743185043334961,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0000615063835592844,
+            "redNormalizedGradientEnergy": {
+              "default": 0.1963113875581766,
+              "ratio": 0.29033335224692947,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.056995743234011575
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.75
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 9.5367431640625e-7,
+            "changedPixelRatio": 9.5367431640625e-7,
+            "maxAbsolute": 1,
+            "maxByComponent": [
+              1,
+              1,
+              1,
+              0
+            ],
+            "meanAbsolute": 7.152557373046875e-7,
+            "meanByComponent": [
+              9.5367431640625e-7,
+              9.5367431640625e-7,
+              9.5367431640625e-7,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:f20d2f17b86cd4e3ced8611f20102b26276b1e69fbaa1130c3199841cc110119",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9714913387302511,
+                0.9715129180703076
+              ],
+              "redSpan": 59,
+              "redStdDev": 12.796024705516327,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.3505668453690127,
+                  2.3505553900904204
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.5035435790574905,
+                  1.474468683916731
+                ],
+                "wrapMeanAbsolute": [
+                  3.5341796875,
+                  3.4658203125
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 35,
+              "minStdDev": 6.0
+            }
+          }
+        }
+      },
+      "material": "leather",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.8576126098632812,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.5,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "default",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:846372e7b2413454ab49031ddb39845d5231c9a723493fd8fe3c54afa5588023",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:e0d3afb5434742ee5cead0ffaf15ee7e41eacb243009ba7ea56cdd0a44fcce58",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9436975553318878,
+                0.9995322171212542
+              ],
+              "redSpan": 91,
+              "redStdDev": 17.64609412730222,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  3.722766029753177,
+                  0.21968010498126425
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.25818255388558,
+                  0.0003255208333333333
+                ],
+                "wrapMeanAbsolute": [
+                  4.683919270833333,
+                  0.0003255208333333333
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 30,
+              "minStdDev": 6.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:852bea3ab72c931cfd8b5e6d9733082229425e2d9332979bc8003d38b50211c2",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:23bf1db115c42bdf52d7689c0ae1f91cc8b5e17bc93b93d9163890d589055884",
+          "structure": {
+            "directionality": {
+              "alongEnergyFloor": 1.0,
+              "axis": "vertical",
+              "crossToAlongRatio": 209.03410671618445,
+              "gradientEnergyXY": [
+                239.61765670776367,
+                1.1463088989257812
+              ],
+              "units": "mean squared adjacent red differences in RGBA8 units, including wrap"
+            },
+            "kind": "directional",
+            "measurements": {
+              "neighborCorrelation": [
+                0.942705759312555,
+                0.9997259095979613
+              ],
+              "redSpan": 241,
+              "redStdDev": 45.72870750681121,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  12.090723897238513,
+                  0.7098568853861192
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.0309427174039543,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  12.46484375,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "axis": "vertical",
+              "kind": "directional",
+              "maxSeamRatio": 2.5,
+              "minEnergyRatio": 4.0,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 100,
+              "minStdDev": 20.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:6ea26913b1b8bc4c56d476d87b51a42d1d1e9b808b8345d28d6385697db16bcf",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:cb424b7783204640afc388b11e2895f30c01d0eeb85747109987594a7e65d22a",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.005046857081237643,
+            "meanTilt": 0.002897105497469907,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                2.1651001573191593,
+                0.13217800484685566
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.110929408678361,
+                0.016927083333333332
+              ],
+              "wrapMeanAbsolute": [
+                2.4052734375,
+                0.016927083333333332
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:6de49d9cfcfa687291fa353d4f0cefe29517a2a24ea80b36ae42d6e55939aa65",
+          "causality": null,
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:48e83939521c647b60566f2259faed5bd831a5054c3e7f4c9fccf54ec84f1533",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9417398402214161,
+                0.999148321085165
+              ],
+              "redSpan": 48,
+              "redStdDev": 9.163306016402776,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.424280608504399,
+                  0.14232038123167157
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.0247885460473467,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  2.484375,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 20,
+              "minStdDev": 4.0
+            }
+          }
+        }
+      },
+      "material": "wood",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.4844655990600586,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.2,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "coarse-grain",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:8119711d327d04a5e698aa0755974bc0458f9d19c3d3f9902fd72c6a85282afe",
+          "causality": {
+            "changedPixelRatio": 0.9821586608886719,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.000043625925101486995,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05677022753480395,
+              "ratio": 0.3132553696061422,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.017783578609039803
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:5a7a650a0030d64ba735e4b326cc29e60a8b762303fcb10ea89188bbfe8b44a4",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9825505763251602,
+                0.9996658450361001
+              ],
+              "redSpan": 92,
+              "redStdDev": 17.779338872898315,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.0679205741894755,
+                  0.16779501160801563
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.2163424023925782,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  2.5152994791666665,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 30,
+              "minStdDev": 6.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:af868ed2bcbd6db7a467c338f15a2594849ef67a1b69ca4164d972e10be1fd78",
+          "causality": {
+            "changedPixelRatio": 0.9871044158935547,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.0003857070324467249,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05756833107527452,
+              "ratio": 0.30971182216033083,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.01782959271605247
+            },
+            "rule": {
+              "kind": "normalizedGradientEnergy",
+              "maxRatio": 0.8,
+              "minPixelRatio": 0.8,
+              "minRatio": 0.15
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:d107ec5c7169d55af00f710fc0ae5d39f7348bdf09a7a6fbde623e79d3770f32",
+          "structure": {
+            "directionality": {
+              "alongEnergyFloor": 1.0,
+              "axis": "vertical",
+              "crossToAlongRatio": 75.10320091247559,
+              "gradientEnergyXY": [
+                75.10320091247559,
+                0.6758937835693359
+              ],
+              "units": "mean squared adjacent red differences in RGBA8 units, including wrap"
+            },
+            "kind": "directional",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9823294341294239,
+                0.9998409731412348
+              ],
+              "redSpan": 246,
+              "redStdDev": 46.098733845724084,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  6.721344620601173,
+                  0.546356648643695
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.0556969662366966,
+                  0.0009765625
+                ],
+                "wrapMeanAbsolute": [
+                  7.095703125,
+                  0.0009765625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "axis": "vertical",
+              "kind": "directional",
+              "maxSeamRatio": 2.5,
+              "minEnergyRatio": 4.0,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 100,
+              "minStdDev": 20.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:7c44db7a4781cc3966ae6860aa4f60d1af7d50fea817311179940997c9387c7e",
+          "causality": {
+            "changedPixelRatio": 0.9797124862670898,
+            "ok": true,
+            "redMeanDeltaNormalized": 2.6478486902514753e-6,
+            "redNormalizedGradientEnergy": {
+              "default": 0.2302464880955622,
+              "ratio": 0.6018090966017654,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.1385644309965194
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:439b41afdb86ab4cf0afef27f13a33dd95e777f6e0efa92f00f5ecae12a5d04a",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.004618324390354811,
+            "meanTilt": 0.0005018047257961689,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.0003
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.9440673748574454,
+                0.07659540210573476
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                0.8994140625,
+                0.0022786458333333335
+              ],
+              "wrapMeanAbsolute": [
+                0.8994140625,
+                0.0022786458333333335
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:fad6b65adcc6443bf10ed95002c108f7446170b96255c036497e93fad4647c21",
+          "causality": {
+            "changedPixelRatio": 0.9441738128662109,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00007393780876607803,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05911183868538877,
+              "ratio": 0.32547503057094884,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.019239427503231907
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:93b140604d2a6516465d834f180dfaafac62e1ec75b12559818a7892d5f0ae53",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9814023052419099,
+                0.9993582672340778
+              ],
+              "redSpan": 49,
+              "redStdDev": 9.235892854376008,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  1.345244913856305,
+                  0.10958310422776149
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  1.0700305276558422,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  1.439453125,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 20,
+              "minStdDev": 4.0
+            }
+          }
+        }
+      },
+      "material": "wood",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.41925716400146484,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.2,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "straight-grain",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:dc8bec49caf9bf139918c22e88466397221b467513daa52a66cc1aa5db50bd73",
+          "causality": {
+            "changedPixelRatio": 0.9709653854370117,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.000017775741277925583,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05677022753480395,
+              "ratio": 1.1160804124155386,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06336013895996796
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9368859033995972,
+                0.9997539576200917
+              ],
+              "redSpan": 91,
+              "redStdDev": 17.81927642241596,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  3.943655303030303,
+                  0.12430759204952753
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.19414095329571376,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  0.765625,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 30,
+              "minStdDev": 6.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:3274d7ff0c3629b40a85854de657f9749497c1d349ddddaeb2d35f7222f0cff4",
+          "causality": {
+            "changedPixelRatio": 0.9793424606323242,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00033283233642578125,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05756833107527452,
+              "ratio": 1.1187202680713393,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06440285877295072
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+          "structure": {
+            "directionality": {
+              "alongEnergyFloor": 1.0,
+              "axis": "vertical",
+              "crossToAlongRatio": 274.47039794921875,
+              "gradientEnergyXY": [
+                274.47039794921875,
+                0.44384765625
+              ],
+              "units": "mean squared adjacent red differences in RGBA8 units, including wrap"
+            },
+            "kind": "directional",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9357011193219021,
+                0.9998960219170979
+              ],
+              "redSpan": 241,
+              "redStdDev": 46.1988379484512,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  12.801023720063538,
+                  0.4092741935483871
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.1457097819509971,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  1.865234375,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "axis": "vertical",
+              "kind": "directional",
+              "maxSeamRatio": 2.5,
+              "minEnergyRatio": 4.0,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 100,
+              "minStdDev": 20.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:8a4bcaa257c3592743de51f7cd3760409b12f8eb4e9c3aef7d9e890077d99e45",
+          "causality": {
+            "changedPixelRatio": 0.9772939682006836,
+            "ok": true,
+            "redMeanDeltaNormalized": -1.9559673234414987e-6,
+            "redNormalizedGradientEnergy": {
+              "default": 0.2302464880955622,
+              "ratio": 1.1472825304123728,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.26415777348083885
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.004802003636974916,
+            "meanTilt": 0.003235341988355034,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                2.3392792593271423,
+                0.06682754969045292
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                1.1491364406145643,
+                0.010416666666666666
+              ],
+              "wrapMeanAbsolute": [
+                2.6881510416666665,
+                0.010416666666666666
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:1b15451662def83d0b77244f308ce46dbf18e2cc45d60f8325556032952ce271",
+          "causality": {
+            "changedPixelRatio": 0.9244413375854492,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00006848877551501875,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05911183868538877,
+              "ratio": 1.1102552892933557,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06562923156030849
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9348525057820964,
+                0.9995182626383148
+              ],
+              "redSpan": 48,
+              "redStdDev": 9.25461204830501,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  2.565225401698436,
+                  0.0826001955034213
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.1557033008621963,
+                  0.0
+                ],
+                "wrapMeanAbsolute": [
+                  0.3994140625,
+                  0.0
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 20,
+              "minStdDev": 4.0
+            }
+          }
+        }
+      },
+      "material": "wood",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.451416015625,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.2,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    },
+    {
+      "case": "horizontal-grain",
+      "channels": {
+        "baseColor": {
+          "browserPngSha256": "sha256:6ae27aac842fc796d3e9180576c7f6321ed8db923eb8754ce788fcf4a130185b",
+          "causality": {
+            "changedPixelRatio": 0.9901161193847656,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.00034542831720091316,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05677022753480395,
+              "ratio": 1.114890806659065,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06329260477049624
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9997542153730624,
+                0.9369531798642654
+              ],
+              "redSpan": 91,
+              "redStdDev": 17.827202252376644,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  0.12427354441593352,
+                  3.9421912547857607
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.0263671875,
+                  0.19363503818846325
+                ],
+                "wrapMeanAbsolute": [
+                  0.0263671875,
+                  0.7633463541666666
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 30,
+              "minStdDev": 6.0
+            }
+          }
+        },
+        "height": {
+          "browserPngSha256": "sha256:d5672ca3bbc56bec04ce33dde9a37dafc87ad0c47b15d152a368f558cf5398df",
+          "causality": {
+            "changedPixelRatio": 0.9935827255249023,
+            "ok": true,
+            "redMeanDeltaNormalized": -0.000496688543581536,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05756833107527452,
+              "ratio": 1.1166573806478146,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06428410178678223
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00001,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a",
+          "structure": {
+            "directionality": {
+              "alongEnergyFloor": 1.0,
+              "axis": "horizontal",
+              "crossToAlongRatio": 273.93441009521484,
+              "gradientEnergyXY": [
+                0.44347190856933594,
+                273.93441009521484
+              ],
+              "units": "mean squared adjacent red differences in RGBA8 units, including wrap"
+            },
+            "kind": "directional",
+            "measurements": {
+              "neighborCorrelation": [
+                0.9998960987895855,
+                0.935819799422775
+              ],
+              "redSpan": 241,
+              "redStdDev": 46.1963605034872,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  0.4091739598607038,
+                  12.78391048845308
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.0849609375,
+                  0.14628678675348689
+                ],
+                "wrapMeanAbsolute": [
+                  0.0849609375,
+                  1.8701171875
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "axis": "horizontal",
+              "kind": "directional",
+              "maxSeamRatio": 2.5,
+              "minEnergyRatio": 4.0,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 100,
+              "minStdDev": 20.0
+            }
+          }
+        },
+        "normal": {
+          "browserPngSha256": "sha256:93fa0568dc419c37ffbb581e9f683eb929404e56530671f5a43ed415b2f62459",
+          "causality": {
+            "changedPixelRatio": 0.9983911514282227,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00022924460616768894,
+            "redNormalizedGradientEnergy": {
+              "default": 0.2302464880955622,
+              "ratio": 1.94565749686439,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.4479808056898281
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.00002,
+              "meanAbsolute": 0.00001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:106f2ec5be76b97f61afde6ef8a7e30d10b57c29937fd5a35a064140fd326e30",
+          "structure": {
+            "kind": "normal",
+            "maxLengthError": 0.004802003636974916,
+            "meanTilt": 0.003230367922312648,
+            "ok": true,
+            "positiveZAndOpaque": true,
+            "rule": {
+              "kind": "normal",
+              "maxLengthError": 0.015,
+              "maxMeanTilt": 0.2,
+              "maxSeamRatio": 2.5,
+              "minMeanTilt": 0.001
+            },
+            "seam": {
+              "interiorMeanAbsolute": [
+                0.06639097629521017,
+                2.336950655751059
+              ],
+              "quantizationFloor": 1,
+              "ratio": [
+                0.048177083333333336,
+                1.1279945949419898
+              ],
+              "wrapMeanAbsolute": [
+                0.048177083333333336,
+                2.6360677083333335
+              ]
+            }
+          }
+        },
+        "roughness": {
+          "browserPngSha256": "sha256:31fa56f5bbd4fdccd8bfa70ac222f1e47c3156e900033b4476a09d4c1711cc7a",
+          "causality": {
+            "changedPixelRatio": 0.9684925079345703,
+            "ok": true,
+            "redMeanDeltaNormalized": 0.00009645948223047096,
+            "redNormalizedGradientEnergy": {
+              "default": 0.05911183868538877,
+              "ratio": 1.1083988923186445,
+              "units": "mean squared adjacent red differences including wrap, divided by red variance",
+              "variant": 0.06551949652180332
+            },
+            "rule": {
+              "kind": "changed",
+              "minPixelRatio": 0.6
+            }
+          },
+          "comparison": {
+            "aboveThresholdPixelRatio": 0.0,
+            "changedPixelRatio": 0.0,
+            "maxAbsolute": 0,
+            "maxByComponent": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "meanAbsolute": 0.0,
+            "meanByComponent": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "ok": true,
+            "status": "compared",
+            "tolerance": {
+              "maxAbsolute": 1,
+              "maxChangedPixelRatio": 0.001,
+              "meanAbsolute": 0.001,
+              "pixelThreshold": 0
+            }
+          },
+          "nativePngSha256": "sha256:cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+          "structure": {
+            "kind": "spatial",
+            "measurements": {
+              "neighborCorrelation": [
+                0.999518295147932,
+                0.934962208315001
+              ],
+              "redSpan": 48,
+              "redStdDev": 9.254924332220487,
+              "seam": {
+                "interiorMeanAbsolute": [
+                  0.08258205797898338,
+                  2.561675219941349
+                ],
+                "quantizationFloor": 1,
+                "ratio": [
+                  0.0185546875,
+                  0.15630030765928524
+                ],
+                "wrapMeanAbsolute": [
+                  0.0185546875,
+                  0.400390625
+                ]
+              }
+            },
+            "ok": true,
+            "rule": {
+              "kind": "spatial",
+              "maxSeamRatio": 2.5,
+              "minNeighborCorrelation": 0.6,
+              "minSpan": 20,
+              "minStdDev": 4.0
+            }
+          }
+        }
+      },
+      "material": "wood",
+      "planMatches": true,
+      "relationships": [
+        {
+          "convention": "image u right/v down, tangent X right/Y up",
+          "kind": "heightNormalDirection",
+          "measuredRatio": 0.4514741897583008,
+          "minimumHeightStep": 4,
+          "ok": true,
+          "rule": {
+            "kind": "heightNormalDirection",
+            "minMeasuredRatio": 0.2,
+            "minSignAgreement": 0.98
+          },
+          "signAgreement": 1.0
+        }
+      ]
+    }
+  ],
+  "mode": "acceptance",
+  "nativeManifestSha256": "sha256:f371f38752f41e446b3afb6fa9c91a3c2f25119ee8f24774e189c5eac8a12570",
+  "ok": true,
+  "schemaVersion": 1,
+  "toleranceSha256": "sha256:f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627"
+}

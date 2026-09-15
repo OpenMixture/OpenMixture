@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-15",
+  "decision": "M5 engineering acceptance and bounded Alpha readiness; unpublished",
+  "freezeCommit": "289a23bf9026c355f557c8d637784c03defb0932",
+  "toleranceSha256": "f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627",
+  "runtimeProducer": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "enginePr": "https://github.com/OpenMixture/OpenMixture/pull/8",
+  "productPr": "https://github.com/OpenMixture/Studio/pull/5",
+  "matrix": {
+    "local": {
+      "engineRevision": "289a23bf9026c355f557c8d637784c03defb0932",
+      "engineDirty": false,
+      "productRevision": "659a7ecde5217ef64911600ed49d1f48f98de3f2",
+      "startedAt": "2026-09-15T07:34:37.625Z",
+      "completedAt": "2026-09-15T07:34:43.319Z",
+      "browser": "153.0.8010.12",
+      "os": "darwin",
+      "osRelease": "25.5.0",
+      "arch": "arm64",
+      "node": "v24.20.0",
+      "runnerImage": null,
+      "args": [
+        "--enable-unsafe-webgpu",
+        "--ignore-gpu-blocklist"
+      ],
+      "adapter": {
+        "name": "",
+        "deviceType": "Other",
+        "backend": "BrowserWebGpu",
+        "vendor": 0,
+        "device": 0,
+        "driver": "",
+        "driverInfo": "",
+        "supportedFeatures": [
+          "BGRA8UNORM_STORAGE",
+          "CLIP_DISTANCES",
+          "DEPTH32FLOAT_STENCIL8",
+          "DEPTH_CLIP_CONTROL",
+          "DUAL_SOURCE_BLENDING",
+          "FLOAT32_BLENDABLE",
+          "FLOAT32_FILTERABLE",
+          "INDIRECT_FIRST_INSTANCE",
+          "RG11B10UFLOAT_RENDERABLE",
+          "SHADER_F16",
+          "TEXTURE_COMPRESSION_ASTC",
+          "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+          "TEXTURE_COMPRESSION_BC",
+          "TEXTURE_COMPRESSION_BC_SLICED_3D",
+          "TEXTURE_COMPRESSION_ETC2",
+          "TIMESTAMP_QUERY"
+        ]
+      },
+      "manifestSha256": "3e2eff25c7e093b78926b5fe89d581d58eaeda93bed547abc23a4bea93cce2b2",
+      "receiptSha256": "d45facdc1462bdd43771ba5593c124077af8f76336b28d8db69cd5ca855303d5",
+      "comparisonSha256": "fc132ad5b53f4792f7c6ce7916db1c6f96a5c500d1bc6dacf8134a97758f7f7c",
+      "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+      "cases": 11,
+      "channelsPassed": 44,
+      "exactChannels": 40,
+      "maxAbsolute": 1,
+      "maxMeanAbsolute": 0.00029754638671875,
+      "maxChangedPixelRatio": 0.000396728515625,
+      "semanticsAndQualityPassed": true,
+      "stress": {
+        "cycles": 4,
+        "renders": 12,
+        "size": [
+          1024,
+          1024
+        ],
+        "retainedChannelsPerCycle": 1,
+        "retainedBytes": 4194304,
+        "physicalGpuMemoryMeasured": false,
+        "rows": [
+          {
+            "cycle": 0,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 0,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 0,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 1,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 1,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 1,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 2,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 2,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 2,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 3,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 3,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 3,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          }
+        ]
+      }
+    },
+    "linux": {
+      "engineRevision": "2d0fb9cfc93ee943d2802adfef4a700ddd62be60",
+      "engineDirty": false,
+      "productRevision": "56c510ab57daa1b68ef660525a648a582730a37e",
+      "startedAt": "2026-09-15T07:36:27.848Z",
+      "completedAt": "2026-09-15T07:36:58.197Z",
+      "browser": "153.0.8010.12",
+      "os": "linux",
+      "osRelease": "6.17.0-1022-azure",
+      "arch": "x64",
+      "node": "v24.20.0",
+      "runnerImage": "20260907.300.1",
+      "args": [
+        "--enable-unsafe-webgpu",
+        "--ignore-gpu-blocklist",
+        "--use-angle=swiftshader",
+        "--use-webgpu-adapter=swiftshader"
+      ],
+      "adapter": {
+        "name": "",
+        "deviceType": "Cpu",
+        "backend": "BrowserWebGpu",
+        "vendor": 0,
+        "device": 0,
+        "driver": "",
+        "driverInfo": "",
+        "supportedFeatures": [
+          "BGRA8UNORM_STORAGE",
+          "CLIP_DISTANCES",
+          "DEPTH32FLOAT_STENCIL8",
+          "DEPTH_CLIP_CONTROL",
+          "FLOAT32_BLENDABLE",
+          "FLOAT32_FILTERABLE",
+          "INDIRECT_FIRST_INSTANCE",
+          "RG11B10UFLOAT_RENDERABLE",
+          "TEXTURE_COMPRESSION_ASTC",
+          "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+          "TEXTURE_COMPRESSION_BC",
+          "TEXTURE_COMPRESSION_BC_SLICED_3D",
+          "TEXTURE_COMPRESSION_ETC2",
+          "TIMESTAMP_QUERY"
+        ]
+      },
+      "manifestSha256": "f371f38752f41e446b3afb6fa9c91a3c2f25119ee8f24774e189c5eac8a12570",
+      "receiptSha256": "40462d7948680ee9a5afbb08018dd5311a590d76f258e9f5710a9967a83fe102",
+      "comparisonSha256": "e387a778f01ee1ba326b6788f37241f1169f1426f712df0da823e127bbfc9074",
+      "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+      "cases": 11,
+      "channelsPassed": 44,
+      "exactChannels": 30,
+      "maxAbsolute": 1,
+      "maxMeanAbsolute": 4.291534423828125e-06,
+      "maxChangedPixelRatio": 1.049041748046875e-05,
+      "semanticsAndQualityPassed": true,
+      "stress": {
+        "cycles": 4,
+        "renders": 12,
+        "size": [
+          1024,
+          1024
+        ],
+        "retainedChannelsPerCycle": 1,
+        "retainedBytes": 4194304,
+        "physicalGpuMemoryMeasured": false,
+        "rows": [
+          {
+            "cycle": 0,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 0,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 0,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 1,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 1,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 1,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 2,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 2,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 2,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          },
+          {
+            "cycle": 3,
+            "material": "glazed-ceramic",
+            "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+            "peakBytes": "75497648",
+            "liveBytes": "0",
+            "pipelines": "4"
+          },
+          {
+            "cycle": 3,
+            "material": "leather",
+            "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+            "peakBytes": "50331792",
+            "liveBytes": "0",
+            "pipelines": "7"
+          },
+          {
+            "cycle": 3,
+            "material": "wood",
+            "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+            "peakBytes": "75497696",
+            "liveBytes": "0",
+            "pipelines": "9"
+          }
+        ]
+      }
+    }
+  },
+  "linuxArtifact": {
+    "id": 10386545022,
+    "node_id": "MDg6QXJ0aWZhY3QxMDM4NjU0NTAyMg==",
+    "name": "chromium-material-matrix",
+    "size_in_bytes": 53651974,
+    "url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10386545022",
+    "archive_download_url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10386545022/zip",
+    "expired": false,
+    "digest": "sha256:bc6f89d73ad7b200674ce72ee891ffb96676e48c61e9be233b540bf0b28f3878",
+    "created_at": "2026-09-15T07:38:08Z",
+    "updated_at": "2026-09-15T07:38:08Z",
+    "expires_at": "2026-10-15T07:38:05Z",
+    "workflow_run": {
+      "id": 34942244839,
+      "repository_id": 1341360232,
+      "head_repository_id": 1341360232,
+      "head_branch": "codex/m5-05-browser-acceptance",
+      "head_sha": "289a23bf9026c355f557c8d637784c03defb0932"
+    }
+  },
+  "linuxRun": "https://github.com/OpenMixture/OpenMixture/actions/runs/34942244839",
+  "productMainRun": "https://github.com/OpenMixture/Studio/actions/runs/34941633999",
+  "retention": {
+    "index": "evidence-index.json",
+    "files": 250,
+    "uniqueAssetBytes": 83834404,
+    "integrityVerifiedAtUtc": "2026-09-15",
+    "calibrationPixelsAlsoRetained": true,
+    "ordinaryLogs": "Local temporary paths and finite 30-day CI artifacts; no permanent full-log retention claim"
+  }
+}

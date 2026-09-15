@@ -2,6 +2,8 @@
 
 [English](./M5_PRS.md) | 简体中文
 
+**M5 验收，2026-09-15：** [浏览器验收记录](./docs/evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
+
 **Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。
 
 **Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
@@ -123,7 +125,7 @@ Product Player (later Studio)
 5. **自动化与来源：** 保留可复现浏览器测试及具体固定版本的 CI 环境。记录浏览器版本、OS、可获得的适配器／后端、所需 limits／features、flags、工具版本、源／锁／夹具／归档身份和结果。不支持、不可用或跳过的浏览器 GPU 执行是开放门槛，不算通过。保留现有四项原生必需检查；新增必需浏览器检查须与实时保护政策协调。
 6. **就绪评估：** 依照现有保留政策保存成对浏览器验收／兼容性摘要及必要证据。列出已测试环境与剩余限制；Alpha 不代表广泛的稳定支持保证。
 
-产品现已提供 `npm run test:browser`，用于其锁定的 Chromium 消费者及非根路径生产部署；[浏览器启动指南](./docs/browser-runtime.zh-CN.md)记录当前步骤。正式接受的浏览器 CI 环境与完整材质比较容差仍开放。M5-05 必须在验收前冻结实测比较标准并保留完整矩阵证据。这些字段未确定或必需运行未完成时，不得关闭 M5。
+产品提供 `npm run test:browser`、`npm run test:materials` 和 `npm run test:deployment`；[比较指南](./docs/browser-materials.zh-CN.md)记录引擎命令。[M5-05 验收](./docs/evidence/m5-05/README.zh-CN.md)保留固定 CI 环境、先冻结后验收的门槛、全部矩阵像素与限制。该实测范围内门槛已通过；未测试环境仍无验收结论。
 
 实际 npm Alpha 发布是在就绪之后进行的单独分发动作：确认包所有权，选择预发布版本和非 `latest` 标签，检查确切归档及发布说明，并通过产品精确版本依赖升级验证已发布软件包。运行时包、`.mix` 格式、节点语义和产品版本分别管理。本地 tarball 验收不得描述为 Registry 发布。
 
