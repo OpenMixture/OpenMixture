@@ -2,6 +2,8 @@
 
 English | [简体中文](./browser-runtime.zh-CN.md)
 
+**Player export update, 2026-09-15:** the M5-04 open → edit → channel preview → PNG download workflow now passes local acceptance in the independent product. The clean isolated consumer passed 28 Chromium checks and nine Node tests. Twelve 128×128 channel PNGs from three materials decode to the exact public-runtime bytes with correct sRGB/linear metadata. Additional checks cover eight-channel 65×3 downloads, stale-export suppression and encoding failure. [Product evidence](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.md) binds the exact source and unchanged runtime archive. M5-05 1K cross-runtime quality, stress, formal browser CI and deployment/compatibility qualification remain open; nothing is published.
+
 **Player update, 2026-09-14:** the M5-04 parameter/preview slice is implemented and [locally verified](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.md) in the independent product: Rust-metadata controls, channel selection, one active render plus one replaceable pending request, stale-preview diagnostics and lifecycle cleanup. The clean isolated consumer passed 23 Chromium checks and six Node tests, including three-material 128×128 previews. PNG export and full M5-04/M5-05 acceptance remain open; the runtime archive is unchanged and unpublished.
 
 **Local acceptance update, 2026-09-14:** M5-02/M5-03 initial browser execution and isolated package consumption now pass the [recorded gates](./evidence/m5-02-03/README.md). The unchanged archive passes 13 Chromium checks, including controlled real-device loss, mapping cleanup and repeated independent modules/devices. M5-04/M5-05 material regression, complete Player workflows and the accepted browser CI matrix remain open; the package is unpublished.
@@ -65,7 +67,6 @@ Before merging engine changes, run `cargo xtask check`, the affected shader chec
 
 - Full three-material 1K browser/native comparisons and reviewed tolerances, tiling and parameter causality.
 - Spontaneous device/driver loss and unexpected platform-event coverage, broader lifecycle stress and the documented browser CI acceptance environment. Controlled real-device destruction and mapping cleanup are now covered by the M5-02/M5-03 record.
-- Complete the Player PNG export workflow, including independently decoded bytes and metadata. Parameters, channel selection and latest-request previews are covered by the M5-04 first-slice record above.
 - Full M5 acceptance, stable support claims, registry release, Studio authoring and M6 resource packaging.
 
 Record exact tested sources, archive identity, browser/OS/adapter, commands and limitations under the existing [evidence policy](./evidence-policy.md). A successful native run, WASM compile, archive build or development server does not substitute for browser execution.

@@ -2,6 +2,8 @@
 
 [English](./browser-sdk.md) | 简体中文
 
+**Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。
+
 **本地验收更新，2026-09-14：** M5-02／M5-03 初始浏览器执行与隔离软件包消费现已通过[记录的门槛](./evidence/m5-02-03/README.zh-CN.md)。未变更归档通过 13 项 Chromium 检查，包括可控真实设备丢失、映射清理及重复独立模块／设备。M5-04／M5-05 材质回归、完整 Player 流程与正式浏览器 CI 矩阵仍开放；软件包未发布。
 
 **实施更新，2026-09-12：** `mixture-wasm` 与本地 `@openmixture/runtime@0.1.0-alpha.0` tarball 现已实现首个棋盘格消费者切片。[构建／API 用法与剩余验证](./browser-runtime.zh-CN.md)描述实际检查点。本契约说明已实现的公开边界，以及仍开放的验收要求，包括完整材质回归、更广浏览器失败／压力覆盖和完整 Player 导出流程。不声称 npm Registry 发布或完整 M5 验收。
