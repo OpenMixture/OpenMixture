@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "productRevision": "659a7ecde5217ef64911600ed49d1f48f98de3f2",
+  "clean": true,
+  "producerDenied": "/Users/krapnik/Documents/OpenMixture",
+  "productCheckoutDenied": "/Users/krapnik/Documents/OpenMixtureStudio",
+  "sourceArchiveSha256": "147712d185352c37dd0cd0e86232ac0b468a7c29bc41a6a30cc70132f9f44b4d",
+  "lockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "fixtureSha256": "296c9d92e06211e8583ce0810f49562e0d36a68b6d795268b80dd19d8fda03b0",
+  "node": "v24.20.0",
+  "startedAt": "2026-09-15T07:34:09.735Z",
+  "consumer": "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-browser-consumer-kryfHf/consumer",
+  "checks": [
+    {
+      "label": "isolation",
+      "command": [
+        "/Users/krapnik/.local/share/fnm/node-versions/v24.20.0/installation/bin/node",
+        "--input-type=module",
+        "-e",
+        "\nimport { readFileSync } from 'node:fs';\nimport { spawnSync } from 'node:child_process';\nfor (const path of [\"/Users/krapnik/Documents/OpenMixtureStudio/package.json\",\"/Users/krapnik/Documents/OpenMixture/Cargo.toml\"]) {\n  let denied = false;\n  try { readFileSync(path); } catch (error) { denied = ['EPERM', 'EACCES'].includes(error.code); }\n  if (!denied) throw new Error('Checkout access was not denied: ' + path);\n}\nfor (const tool of ['cargo', 'rustc']) {\n  if (spawnSync(tool, ['--version']).error?.code !== 'ENOENT') throw new Error(tool + ' is available');\n}\nconsole.log('Both working checkouts denied; cargo and rustc absent from PATH');\n"
+      ],
+      "startedAt": "2026-09-15T07:34:09.736Z",
+      "endedAt": "2026-09-15T07:34:09.765Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "install",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "ci"
+      ],
+      "startedAt": "2026-09-15T07:34:09.766Z",
+      "endedAt": "2026-09-15T07:34:10.590Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "check",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-09-15T07:34:10.590Z",
+      "endedAt": "2026-09-15T07:34:12.789Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "browser",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "test:browser"
+      ],
+      "startedAt": "2026-09-15T07:34:12.789Z",
+      "endedAt": "2026-09-15T07:34:35.032Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "deployment",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "test:deployment"
+      ],
+      "startedAt": "2026-09-15T07:34:35.032Z",
+      "endedAt": "2026-09-15T07:34:36.290Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "label": "materials",
+      "command": [
+        "/usr/bin/env",
+        "npm",
+        "run",
+        "test:materials",
+        "--",
+        "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-browser-consumer-kryfHf/native-reference",
+        "/private/var/folders/bc/yfkbtm095gx181gwtmswdl_m0000gn/T/mixture-browser-consumer-kryfHf/browser-materials"
+      ],
+      "startedAt": "2026-09-15T07:34:36.306Z",
+      "endedAt": "2026-09-15T07:34:43.382Z",
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "nativeManifestSha256": "3e2eff25c7e093b78926b5fe89d581d58eaeda93bed547abc23a4bea93cce2b2"
+}

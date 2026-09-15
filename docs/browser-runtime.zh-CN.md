@@ -2,13 +2,15 @@
 
 [English](./browser-runtime.md) | 简体中文
 
+**M5 验收，2026-09-15：** [浏览器验收记录](./evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
+
 **Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。
 
 **Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
 
 **本地验收更新，2026-09-14：** M5-02／M5-03 初始浏览器执行与隔离软件包消费现已通过[记录的门槛](./evidence/m5-02-03/README.zh-CN.md)。未变更归档通过 13 项 Chromium 检查，包括可控真实设备丢失、映射清理及重复独立模块／设备。M5-04／M5-05 材质回归、完整 Player 流程与正式浏览器 CI 矩阵仍开放；软件包未发布。
 
-M5-02／M5-03 现已提供轻量 WASM 绑定、完整本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及带最小 Player 的独立 [Studio 产品仓库](https://github.com/OpenMixture/Studio)。软件包未发布到 npm。这是棋盘格执行／消费切片，不代表完整 M5 验收或节点编辑器。[M5 计划](../M5_PRS.zh-CN.md)和[交付契约](./browser-sdk.zh-CN.md)保留剩余范围。
+M5-02／M5-03 现已提供轻量 WASM 绑定、完整本地 `@openmixture/runtime@0.1.0-alpha.0` tarball，以及带最小 Player 的独立 [Studio 产品仓库](https://github.com/OpenMixture/Studio)。软件包未发布到 npm。初始棋盘格切片已推进至上述有界 M5 验收；不包含节点编辑器。[M5 计划](../M5_PRS.zh-CN.md)和[交付契约](./browser-sdk.zh-CN.md)定义已验收边界。
 
 ## 引擎构建
 
@@ -63,10 +65,8 @@ Core／GPU 诊断保留其代码和上下文。`MIX_BROWSER_BINDING_FAILED` 独�
 
 合并引擎变更前，依照现有必需 CI 政策运行 `cargo xtask check`、受影响的 shader 检查及显式原生 GPU 回归。[浏览器构建工作流](../.github/workflows/browser-runtime.yml)独立验证 WASM 编译、JS 包装测试和归档生成，不声称真实浏览器 GPU 执行。独立真实浏览器测试由产品负责。
 
-## 剩余验收
+## 已验收范围与限制
 
-- 完整三种材质的 1K 浏览器／原生比较，以及已评审的容差、平铺和参数因果性。
-- 自发设备／驱动丢失与意外平台事件覆盖、更广生命周期压力验证，以及文档化的浏览器 CI 验收环境。可控真实设备销毁与映射清理已由 M5-02／M5-03 记录覆盖。
-- 完整 M5 验收、稳定支持声明、Registry 发布、Studio 创作及 M6 资源打包。
+[M5-05 记录](./evidence/m5-05/README.zh-CN.md)保留三种材质全部 1K 变体、冻结容差、结构／因果检查、重复模块／设备工作负载，以及真实浏览器 CI 和隔离生产部署。新的[材料工作流](../.github/workflows/browser-materials.yml)运行已安装包的真实 WebGPU；构建工作流继续只负责 WASM／包构建。使用[比较指南](./browser-materials.zh-CN.md)复现。
 
-按现有[证据政策](./evidence-policy.zh-CN.md)记录确切已测源、归档身份、浏览器／OS／适配器、命令和限制。原生运行、WASM 编译、归档构建或开发服务器成功均不能替代浏览器执行。
+范围限于记录的 Chromium 153.0.8010.12 环境与显式 flags。自发驱动丢失、未交付平台事件、长期压力、其他浏览器／硬件仍无验收证据。物理 GPU 内存未测量。稳定支持、Registry 发布、Studio 创作与 M6 资源打包仍需独立决策。

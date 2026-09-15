@@ -1,5 +1,6 @@
 //! Guarded material goldens, orchestrated through the existing public CLI.
 
+pub(crate) mod browser;
 mod files;
 mod model;
 mod pixels;

@@ -53,3 +53,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [Local package consumption](./package-consumption.md), [compatibility](./compatibility.md) and [M4 release/exit status](./release.md) define PR-015 archive verification and the remaining distribution and hardware limits.
 
 [Browser runtime build and initial consumer](./browser-runtime.md) documents the implemented WASM/npm build and independent Player verification, separately from full M5 acceptance.
+
+[M5 browser acceptance](./evidence/m5-05/README.md) records bounded Alpha readiness, complete 1K pixels, pinned CI environments and unpublished status; [material comparison](./browser-materials.md) describes reproduction.

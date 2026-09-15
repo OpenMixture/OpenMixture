@@ -53,3 +53,5 @@
 [本地软件包消费](./package-consumption.zh-CN.md)、[兼容性](./compatibility.zh-CN.md)及 [M4 发布／退出状态](./release.zh-CN.md)定义 PR-015 归档验证与剩余分发及硬件限制。
 
 [浏览器运行时构建与首个消费者](./browser-runtime.zh-CN.md)记录已实现的 WASM／npm 构建和独立 Player 验证，并与完整 M5 验收区分。
+
+[M5 浏览器验收](./evidence/m5-05/README.zh-CN.md)记录有界 Alpha 就绪、完整 1K 像素、固定 CI 环境与未发布状态；[材料比较](./browser-materials.zh-CN.md)说明复现步骤。

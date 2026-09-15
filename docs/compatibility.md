@@ -2,6 +2,8 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+**M5 acceptance, 2026-09-15:** [Browser acceptance](./evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
+
 This records the tested pre-alpha `0.1.0` boundaries after PR-011–015. It consolidates existing contracts and their review requirements; it does not introduce a 1.0 support guarantee, a binary ABI, an older-format migration promise or automatic GPU recovery. All packages remain unpublished. Several local implementation commits share version `0.1.0`, so retain the implementing commit, lockfile and archive hashes when identifying a build. [PR-015 evidence](./evidence/pr-015/README.md) identifies this one.
 
 ## Version and data boundaries

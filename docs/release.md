@@ -2,6 +2,8 @@
 
 English | [简体中文](./release.zh-CN.md)
 
+**M5 acceptance, 2026-09-15:** [Browser acceptance](./evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
+
 **M4 accepted locally and remotely, 2026-09-12; packages remain unpublished.** PR-011–015 and the CI tooling fixes pass the documented acceptance matrix. The previously deferred clean-checkout CPU and Linux SwiftShader gates are now closed; see [remote CI evidence](./evidence/remote-ci/README.md). All product packages remain pre-alpha `0.1.0` with publication disabled. The recorded CI repair pushed the implementation and fixes without a merge or release tag. Subsequent default-branch, PR, and checkpoint work follows [M4.1 repository governance](./governance.md); it does not publish packages, installers, or binary distributions. [PR-015 evidence](./evidence/pr-015/README.md) retains the earlier local assessment.
 
 ## M4 exit assessment

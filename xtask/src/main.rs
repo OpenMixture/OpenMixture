@@ -32,6 +32,8 @@ Available repository commands:
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
+  browser-material-measure <native> <browser> Measure a supplied browser matrix; no acceptance
+  browser-material-check <native> <browser> Check browser pixels against frozen gates
   trace-2k    Rank all M3 material cases and measure the largest at 2048 on a GPU
   gpu-smoke   Run checker golden, graph examples, native consumer, and GPU regressions
   shader-check Validate every built-in WGSL kernel and its uniform ABI without a GPU
@@ -53,6 +55,16 @@ fn main() -> ExitCode {
 
 fn run() -> TaskResult {
     let args: Vec<_> = env::args_os().skip(1).collect();
+    if let [command, native, browser] = args.as_slice()
+        && (command == "browser-material-measure" || command == "browser-material-check")
+    {
+        return golden::browser::run(
+            &workspace_root()?,
+            Path::new(native),
+            Path::new(browser),
+            command == "browser-material-measure",
+        );
+    }
     if args
         .first()
         .is_some_and(|arg| arg == "golden" || arg == "test-material")

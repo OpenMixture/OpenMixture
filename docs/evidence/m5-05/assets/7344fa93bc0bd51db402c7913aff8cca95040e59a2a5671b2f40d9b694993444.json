@@ -1,0 +1,500 @@
+{
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      1024,
+      1024
+    ],
+    "materialOutput": {
+      "id": "out",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "glaze",
+            "typeId": "constant-color",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            0.8199999928474426,
+            0.8999999761581421,
+            1,
+            1
+          ]
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "roughness",
+            "typeId": "constant-scalar",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            0.6499999761581421,
+            0,
+            0,
+            1
+          ]
+        },
+        "output": 1,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "gloss-range",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 1,
+          "inputMin": 0,
+          "inputMax": 1,
+          "gamma": 1,
+          "outputMin": 0.05000000074505806,
+          "outputMax": 0.6499999761581421
+        },
+        "output": 2,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "tiles",
+            "typeId": "checker",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "checker",
+          "cells": [
+            8,
+            8
+          ],
+          "colorA": [
+            0.7200000286102295,
+            0.7799999713897705,
+            0.7300000190734863,
+            1
+          ],
+          "colorB": [
+            0.02500000037252903,
+            0.11999999731779099,
+            0.17000000178813934,
+            1
+          ]
+        },
+        "output": 3,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 4,
+        "origin": {
+          "source": "inputDefault",
+          "node": {
+            "id": "finish",
+            "typeId": "blend",
+            "version": 1
+          },
+          "port": "mask"
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            1,
+            0,
+            0,
+            1
+          ]
+        },
+        "output": 4,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 5,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "finish",
+            "typeId": "blend",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "blend",
+          "a": 3,
+          "b": 0,
+          "mask": 4,
+          "mode": "screen",
+          "opacity": 0.11999999731779099
+        },
+        "output": 5,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 6,
+        "origin": {
+          "source": "inputDefault",
+          "node": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "port": "normal"
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            0.5,
+            0.5,
+            1,
+            1
+          ]
+        },
+        "output": 6,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "normal"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 7,
+        "origin": {
+          "source": "inputDefault",
+          "node": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "port": "height"
+        },
+        "kernel": {
+          "id": "constant",
+          "value": [
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        "output": 7,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "baseColor",
+        "kind": "color",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "finish",
+            "portId": "color"
+          }
+        },
+        "resource": 5
+      },
+      {
+        "channel": "normal",
+        "kind": "normal",
+        "input": {
+          "source": "default",
+          "value": {
+            "kind": "normal",
+            "value": [
+              0.5,
+              0.5,
+              1
+            ]
+          }
+        },
+        "resource": 6
+      },
+      {
+        "channel": "roughness",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "gloss-range",
+            "portId": "value"
+          }
+        },
+        "resource": 2
+      },
+      {
+        "channel": "height",
+        "kind": "scalar",
+        "input": {
+          "source": "default",
+          "value": {
+            "kind": "scalar",
+            "value": 0
+          }
+        },
+        "resource": 7
+      }
+    ],
+    "estimates": {
+      "textureBytes": "67108864",
+      "uniformBytes": "176",
+      "paddedBytesPerRow": 8192,
+      "readbackBufferBytes": "8388608",
+      "readbackBytes": "33554432",
+      "cumulativeReadbackBytes": "33554432",
+      "cumulativeBytes": "100663472",
+      "peakBytes": "75497648"
+    },
+    "hash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887"
+  },
+  "report": {
+    "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+    "adapter": {
+      "name": "",
+      "deviceType": "Other",
+      "backend": "BrowserWebGpu",
+      "vendor": 0,
+      "device": 0,
+      "driver": "",
+      "driverInfo": "",
+      "supportedLimits": {
+        "maxTextureDimension1D": 16384,
+        "maxTextureDimension2D": 16384,
+        "maxTextureDimension3D": 2048,
+        "maxTextureArrayLayers": 2048,
+        "maxBindGroups": 4,
+        "maxBindGroupsPlusVertexBuffers": 24,
+        "maxBindingsPerBindGroup": 1000,
+        "maxDynamicUniformBuffersPerPipelineLayout": 10,
+        "maxDynamicStorageBuffersPerPipelineLayout": 8,
+        "maxSampledTexturesPerShaderStage": 48,
+        "maxSamplersPerShaderStage": 16,
+        "maxStorageBuffersPerShaderStage": 10,
+        "maxStorageTexturesPerShaderStage": 8,
+        "maxUniformBuffersPerShaderStage": 12,
+        "maxBindingArrayElementsPerShaderStage": 0,
+        "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+        "maxBindingArraySamplerElementsPerShaderStage": 0,
+        "maxUniformBufferBindingSize": "65536",
+        "maxStorageBufferBindingSize": "4294967292",
+        "maxVertexBuffers": 8,
+        "maxBufferSize": "4294967292",
+        "maxVertexAttributes": 30,
+        "maxVertexBufferArrayStride": 2048,
+        "maxInterStageShaderVariables": 28,
+        "minUniformBufferOffsetAlignment": 256,
+        "minStorageBufferOffsetAlignment": 256,
+        "maxColorAttachments": 8,
+        "maxColorAttachmentBytesPerSample": 128,
+        "maxComputeWorkgroupStorageSize": 32768,
+        "maxComputeInvocationsPerWorkgroup": 1024,
+        "maxComputeWorkgroupSizeX": 1024,
+        "maxComputeWorkgroupSizeY": 1024,
+        "maxComputeWorkgroupSizeZ": 64,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxImmediateSize": 0,
+        "maxNonSamplerBindings": 1000000,
+        "maxTaskWorkgroupTotalCount": 0,
+        "maxTaskWorkgroupsPerDimension": 0,
+        "maxMeshWorkgroupTotalCount": 0,
+        "maxMeshWorkgroupsPerDimension": 0,
+        "maxTaskInvocationsPerWorkgroup": 0,
+        "maxTaskInvocationsPerDimension": 0,
+        "maxMeshInvocationsPerWorkgroup": 0,
+        "maxMeshInvocationsPerDimension": 0,
+        "maxTaskPayloadSize": 0,
+        "maxMeshOutputVertices": 0,
+        "maxMeshOutputPrimitives": 0,
+        "maxMeshOutputLayers": 0,
+        "maxMeshMultiviewViewCount": 0,
+        "maxBlasPrimitiveCount": 0,
+        "maxBlasGeometryCount": 0,
+        "maxTlasInstanceCount": 0,
+        "maxAccelerationStructuresPerShaderStage": 0,
+        "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+        "maxMultiviewViewCount": 0,
+        "maxRayDispatchCount": 0,
+        "maxRayRecursionDepth": 0
+      },
+      "supportedFeatures": [
+        "BGRA8UNORM_STORAGE",
+        "CLIP_DISTANCES",
+        "DEPTH32FLOAT_STENCIL8",
+        "DEPTH_CLIP_CONTROL",
+        "DUAL_SOURCE_BLENDING",
+        "FLOAT32_BLENDABLE",
+        "FLOAT32_FILTERABLE",
+        "INDIRECT_FIRST_INSTANCE",
+        "RG11B10UFLOAT_RENDERABLE",
+        "SHADER_F16",
+        "TEXTURE_COMPRESSION_ASTC",
+        "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+        "TEXTURE_COMPRESSION_BC",
+        "TEXTURE_COMPRESSION_BC_SLICED_3D",
+        "TEXTURE_COMPRESSION_ETC2",
+        "TIMESTAMP_QUERY"
+      ]
+    },
+    "size": [
+      1024,
+      1024
+    ],
+    "passCount": "8",
+    "pipelineCache": {
+      "hits": 8,
+      "misses": 0,
+      "entries": "4"
+    },
+    "estimates": {
+      "textureBytes": "67108864",
+      "uniformBytes": "176",
+      "paddedBytesPerRow": 8192,
+      "readbackBufferBytes": "8388608",
+      "readbackBytes": "33554432",
+      "cumulativeReadbackBytes": "33554432",
+      "cumulativeBytes": "100663472",
+      "peakBytes": "75497648"
+    },
+    "allocations": {
+      "textureCount": "8",
+      "textureBytes": "67108864",
+      "uniformCount": "8",
+      "uniformBytes": "176",
+      "stagingCount": "4",
+      "stagingBytes": "33554432",
+      "peakStagingBytes": "8388608",
+      "cumulativeBytes": "100663472",
+      "peakBytes": "75497648",
+      "liveBytes": "0",
+      "releasedBytes": "100663472",
+      "reusedBytes": "0"
+    },
+    "readbackBytes": "33554432",
+    "mappedBytes": "33554432",
+    "rgbaBytes": "16777216",
+    "timings": {
+      "pipelineMs": 0,
+      "executionMs": 6.5,
+      "readbackMs": 86.2,
+      "totalMs": 94.2
+    }
+  },
+  "channels": [
+    {
+      "channel": "baseColor",
+      "encoding": "rgba8-srgb"
+    },
+    {
+      "channel": "normal",
+      "encoding": "rgba8-linear"
+    },
+    {
+      "channel": "roughness",
+      "encoding": "rgba8-linear"
+    },
+    {
+      "channel": "height",
+      "encoding": "rgba8-linear"
+    }
+  ]
+}

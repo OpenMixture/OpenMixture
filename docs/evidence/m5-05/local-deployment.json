@@ -1,0 +1,44 @@
+{
+  "browser": "153.0.8010.12",
+  "args": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "assets": [
+    {
+      "url": "http://127.0.0.1:4173/player/",
+      "status": 200,
+      "type": "text/html"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/index-DyVTljJd.css",
+      "status": 200,
+      "type": "text/css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/index-DPd0nNmA.js",
+      "status": 200,
+      "type": "text/javascript"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/samples/checker.mix",
+      "status": 200,
+      "type": "application/json"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/bindings-CB4mzvib.js",
+      "status": 200,
+      "type": "text/javascript"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/mixture_wasm_bg-DFFsGYHH.wasm",
+      "status": 200,
+      "type": "application/wasm"
+    }
+  ],
+  "archiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "htmlSha256": "675b90cd12abb400ffbabc530eab93d1d3d3764d645242dd159a592c41babcef",
+  "pngSha256": "ffca77b541d61251a3905d4974d02808c8c1d4d3c2215e4965689288c1232c55",
+  "testHarnessAbsent": true,
+  "result": "passed"
+}

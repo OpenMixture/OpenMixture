@@ -138,3 +138,5 @@ PR-014 将调度放在 `examples/native-consumer/src/latest.rs`，作为既有�
 PR-015 不新增直接依赖，也不修改已提交锁文件。产品包添加精确同组版本要求、显式包含清单、双语 README 及许可副本。三个小型 wgpu 单元输入改用包内 include 路径，`package-check` 对照规范夹具检查字节一致性。它要求兼容 `tar` 和仓库外 OS 临时目录，在 `tmp/package-check/` 保留原始包证据，仅在 `target/package-consumer` 使用忽略的编译产物缓存。见[完整验证方法](./package-consumption.zh-CN.md)。
 
 M5 增加 `futures-channel` 处理非阻塞浏览器回调、`web-time` 处理浏览器计时，以及 wasm-bindgen／serde 类型传输。这些是平台／绑定依赖，不进入 core，也不增加像素执行器。原生 Cargo 包检查仍覆盖三个原生软件包；浏览器 npm 验证独立执行。见[浏览器构建与验证指南](./browser-runtime.zh-CN.md)。
+
+[浏览器材质测量与比较](./browser-materials.zh-CN.md) 说明 `browser-material-measure` 和 `browser-material-check`。

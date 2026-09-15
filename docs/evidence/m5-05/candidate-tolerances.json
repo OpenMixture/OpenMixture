@@ -1,0 +1,26 @@
+{
+  "baseColor": {
+    "maxAbsolute": 0,
+    "meanAbsolute": 0,
+    "pixelThreshold": 0,
+    "maxChangedPixelRatio": 0
+  },
+  "normal": {
+    "maxAbsolute": 0,
+    "meanAbsolute": 0,
+    "pixelThreshold": 0,
+    "maxChangedPixelRatio": 0
+  },
+  "roughness": {
+    "maxAbsolute": 1,
+    "meanAbsolute": 0.001,
+    "pixelThreshold": 0,
+    "maxChangedPixelRatio": 0.001
+  },
+  "height": {
+    "maxAbsolute": 0,
+    "meanAbsolute": 0,
+    "pixelThreshold": 0,
+    "maxChangedPixelRatio": 0
+  }
+}

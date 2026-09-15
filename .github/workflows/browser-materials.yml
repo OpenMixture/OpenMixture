@@ -1,0 +1,90 @@
+name: Browser material qualification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: browser-materials-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  materials:
+    name: Chromium WebGPU material matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CC: clang-18
+      CXX: clang++-18
+      MIXTURE_GPU_BACKEND: vulkan
+      MIXTURE_GPU_SOFTWARE: '1'
+      MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+      MIXTURE_BROWSER_ARGS: '["--use-angle=swiftshader","--use-webgpu-adapter=swiftshader"]'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install build tools and Vulkan loader
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y cmake ninja-build clang-18 libvulkan1
+      - name: Fingerprint software adapter build tools
+        id: swiftshader-tools
+        run: |
+          fingerprint=$({ clang++-18 --version; cmake --version; ninja --version; ldd --version; } | sha256sum | cut -d ' ' -f 1)
+          echo "fingerprint=$fingerprint" >> "$GITHUB_OUTPUT"
+      - name: Restore pinned software adapter build
+        id: swiftshader-cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: tmp/swiftshader/
+          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh', '.github/workflows/gpu-smoke.yml') }}
+      - name: Build pinned software adapter
+        # Always verify the source revision, configure/build and export the ICD,
+        # including after a cache hit. Cache contents never stand in for tests.
+        run: bash .github/scripts/setup-swiftshader.sh
+      - name: Save verified software adapter build
+        if: steps.swiftshader-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: tmp/swiftshader/
+          key: ${{ steps.swiftshader-cache.outputs.cache-primary-key }}
+      - name: Install repository Rust toolchain
+        run: rustup show active-toolchain
+      - name: Install Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.20.0
+      - run: npm install --global npm@11.19.0
+      - name: Prepare detached native material inputs
+        run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native 4b914feb9f3365d292b27ea60c5e0b6004f745e8
+      - name: Check out pinned independent product
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: OpenMixture/Studio
+          ref: 56c510ab57daa1b68ef660525a648a582730a37e
+          path: tmp/browser-product
+          persist-credentials: false
+      - name: Install the exact product and browser
+        working-directory: tmp/browser-product
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Execute installed runtime against static production assets
+        working-directory: tmp/browser-product
+        run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
+      - name: Check frozen browser quality and differences
+        run: cargo xtask browser-material-check tmp/browser-native tmp/browser-output
+      - name: Retain material qualification evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: chromium-material-matrix
+          path: |
+            tmp/browser-native/
+            tmp/browser-output/
+          retention-days: 30
+          if-no-files-found: error

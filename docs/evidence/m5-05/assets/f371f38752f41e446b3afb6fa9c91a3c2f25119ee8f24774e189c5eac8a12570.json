@@ -1,0 +1,3526 @@
+{
+  "schemaVersion": 1,
+  "engineRevision": "2d0fb9cfc93ee943d2802adfef4a700ddd62be60",
+  "engineDirty": false,
+  "runtimeRevision": "4b914feb9f3365d292b27ea60c5e0b6004f745e8",
+  "startedAt": "2026-09-15T07:34:26.670Z",
+  "nativeBinarySha256": "4471687c5af8661c37c1260cd4d1429fe7915756267576e2010bf26f942b36d2",
+  "cases": [
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJ0aWxlcyIsCiAgICAgICJ0eXBlIjogImNoZWNrZXIiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJjZWxsc1giOiA4LAogICAgICAgICJjZWxsc1kiOiA4LAogICAgICAgICJjb2xvckEiOiBbCiAgICAgICAgICAwLjcyLAogICAgICAgICAgMC43OCwKICAgICAgICAgIDAuNzMsCiAgICAgICAgICAxLjAKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjAyNSwKICAgICAgICAgIDAuMTIsCiAgICAgICAgICAwLjE3LAogICAgICAgICAgMS4wCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAidHlwZSI6ICJjb25zdGFudC1jb2xvciIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInZhbHVlIjogWwogICAgICAgICAgMC44MiwKICAgICAgICAgIDAuOSwKICAgICAgICAgIDEuMCwKICAgICAgICAgIDEuMAogICAgICAgIF0KICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImZpbmlzaCIsCiAgICAgICJ0eXBlIjogImJsZW5kIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAibW9kZSI6ICJzY3JlZW4iLAogICAgICAgICJvcGFjaXR5IjogMC4xMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAiY29uc3RhbnQtc2NhbGFyIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAidmFsdWUiOiAwLjIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImdsb3NzLXJhbmdlIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC4wNSwKICAgICAgICAib3V0cHV0TWF4IjogMC42NQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAidGlsZXMiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICAgInBvcnRJZCI6ICJhIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdsYXplIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiYiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAidGlsZXNYIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1giCiAgICB9LAogICAgewogICAgICAiaWQiOiAidGlsZXNZIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1kiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJvcGFjaXR5IgogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgInBhcmFtZXRlcklkIjogInZhbHVlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "overrides": {},
+      "acceptanceSha256": "6b96f8b064e78824bd8f46f4760858dc72193ad66229a870302363932ba5ae0d",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "glaze",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.82,
+                0.9,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "constant-scalar",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.2,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "gloss-range",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.05,
+              "outputMax": 0.65
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "tiles",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                8,
+                8
+              ],
+              "colorA": [
+                0.72,
+                0.78,
+                0.73,
+                1
+              ],
+              "colorB": [
+                0.025,
+                0.12,
+                0.17,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              },
+              "port": "mask"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "blend",
+              "a": 3,
+              "b": 0,
+              "mask": 4,
+              "mode": "screen",
+              "opacity": 0.12
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "finish",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "gloss-range",
+                "portId": "value"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 7
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 176,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663472,
+          "peakBytes": 75497648
+        },
+        "hash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025"
+      },
+      "nativePixels": {
+        "baseColor": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJ0aWxlcyIsCiAgICAgICJ0eXBlIjogImNoZWNrZXIiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJjZWxsc1giOiA4LAogICAgICAgICJjZWxsc1kiOiA4LAogICAgICAgICJjb2xvckEiOiBbCiAgICAgICAgICAwLjcyLAogICAgICAgICAgMC43OCwKICAgICAgICAgIDAuNzMsCiAgICAgICAgICAxLjAKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjAyNSwKICAgICAgICAgIDAuMTIsCiAgICAgICAgICAwLjE3LAogICAgICAgICAgMS4wCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAidHlwZSI6ICJjb25zdGFudC1jb2xvciIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInZhbHVlIjogWwogICAgICAgICAgMC44MiwKICAgICAgICAgIDAuOSwKICAgICAgICAgIDEuMCwKICAgICAgICAgIDEuMAogICAgICAgIF0KICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImZpbmlzaCIsCiAgICAgICJ0eXBlIjogImJsZW5kIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAibW9kZSI6ICJzY3JlZW4iLAogICAgICAgICJvcGFjaXR5IjogMC4xMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAiY29uc3RhbnQtc2NhbGFyIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAidmFsdWUiOiAwLjIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImdsb3NzLXJhbmdlIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC4wNSwKICAgICAgICAib3V0cHV0TWF4IjogMC42NQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAidGlsZXMiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICAgInBvcnRJZCI6ICJhIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdsYXplIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiYiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAidGlsZXNYIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1giCiAgICB9LAogICAgewogICAgICAiaWQiOiAidGlsZXNZIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1kiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJvcGFjaXR5IgogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgInBhcmFtZXRlcklkIjogInZhbHVlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "acceptanceSha256": "6b96f8b064e78824bd8f46f4760858dc72193ad66229a870302363932ba5ae0d",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "glaze",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.82,
+                0.9,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "constant-scalar",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.2,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "gloss-range",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.05,
+              "outputMax": 0.65
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "tiles",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                16,
+                16
+              ],
+              "colorA": [
+                0.72,
+                0.78,
+                0.73,
+                1
+              ],
+              "colorB": [
+                0.025,
+                0.12,
+                0.17,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              },
+              "port": "mask"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "blend",
+              "a": 3,
+              "b": 0,
+              "mask": 4,
+              "mode": "screen",
+              "opacity": 0.12
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "finish",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "gloss-range",
+                "portId": "value"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 7
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 176,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663472,
+          "peakBytes": 75497648
+        },
+        "hash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913"
+      },
+      "nativePixels": {
+        "baseColor": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJ0aWxlcyIsCiAgICAgICJ0eXBlIjogImNoZWNrZXIiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJjZWxsc1giOiA4LAogICAgICAgICJjZWxsc1kiOiA4LAogICAgICAgICJjb2xvckEiOiBbCiAgICAgICAgICAwLjcyLAogICAgICAgICAgMC43OCwKICAgICAgICAgIDAuNzMsCiAgICAgICAgICAxLjAKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjAyNSwKICAgICAgICAgIDAuMTIsCiAgICAgICAgICAwLjE3LAogICAgICAgICAgMS4wCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAidHlwZSI6ICJjb25zdGFudC1jb2xvciIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInZhbHVlIjogWwogICAgICAgICAgMC44MiwKICAgICAgICAgIDAuOSwKICAgICAgICAgIDEuMCwKICAgICAgICAgIDEuMAogICAgICAgIF0KICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImZpbmlzaCIsCiAgICAgICJ0eXBlIjogImJsZW5kIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAibW9kZSI6ICJzY3JlZW4iLAogICAgICAgICJvcGFjaXR5IjogMC4xMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAiY29uc3RhbnQtc2NhbGFyIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAidmFsdWUiOiAwLjIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImdsb3NzLXJhbmdlIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC4wNSwKICAgICAgICAib3V0cHV0TWF4IjogMC42NQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAidGlsZXMiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICAgInBvcnRJZCI6ICJhIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdsYXplIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiYiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAidGlsZXNYIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1giCiAgICB9LAogICAgewogICAgICAiaWQiOiAidGlsZXNZIiwKICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1kiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ2xhemUiLAogICAgICAibm9kZUlkIjogImZpbmlzaCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJvcGFjaXR5IgogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgInBhcmFtZXRlcklkIjogInZhbHVlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "acceptanceSha256": "6b96f8b064e78824bd8f46f4760858dc72193ad66229a870302363932ba5ae0d",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "glaze",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.82,
+                0.9,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "constant-scalar",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.65,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "gloss-range",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.05,
+              "outputMax": 0.65
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "tiles",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                8,
+                8
+              ],
+              "colorA": [
+                0.72,
+                0.78,
+                0.73,
+                1
+              ],
+              "colorB": [
+                0.025,
+                0.12,
+                0.17,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              },
+              "port": "mask"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "blend",
+              "a": 3,
+              "b": 0,
+              "mask": 4,
+              "mode": "screen",
+              "opacity": 0.12
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "finish",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "gloss-range",
+                "portId": "value"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 7
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 176,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663472,
+          "peakBytes": 75497648
+        },
+        "hash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887"
+      },
+      "nativePixels": {
+        "baseColor": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMjcxODI4LAogICAgICAgICJzY2FsZSI6IDY0LAogICAgICAgICJvY3RhdmVzIjogMywKICAgICAgICAicGVyc2lzdGVuY2UiOiAwLjM1LAogICAgICAgICJiYXNpcyI6ICJjZWxsdWxhciIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImhlaWdodCIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImlucHV0TWluIjogMCwKICAgICAgICAiaW5wdXRNYXgiOiAwLjYsCiAgICAgICAgImdhbW1hIjogMS42CiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb2xvciIsCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImNvbG9yQSI6IFsKICAgICAgICAgIDAuMDI1LAogICAgICAgICAgMC4wMTEsCiAgICAgICAgICAwLjAwNiwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjA5LAogICAgICAgICAgMC4wMzksCiAgICAgICAgICAwLjAxOSwKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC43NiwKICAgICAgICAib3V0cHV0TWF4IjogMC41MgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiYmFzZUNvbG9yIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogImhlaWdodCIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInJvdWdobmVzcyIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAic2VlZCIsCiAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAicGFyYW1ldGVySWQiOiAic2VlZCIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNjYWxlIiwKICAgICAgIm5vZGVJZCI6ICJncmFpbiIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzY2FsZSIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkZXRhaWwiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInBlcnNpc3RlbmNlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+      "overrides": {},
+      "acceptanceSha256": "9b7a8ca88be6321fd43ef0696d693a26edc4353883babfc7d937a2071ae4ceb8",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 64,
+              "octaves": 3,
+              "persistence": 0.35,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355"
+      },
+      "nativePixels": {
+        "baseColor": "f457177316916bdc6639145720e211072b04e588ad65aacfcd4c1f2569d310ab",
+        "normal": "b303d7445d5e73d9a8edb0f1790aaa0d64a8ca9feb66515a6b0954a150c57c1a",
+        "roughness": "71fa372a505cd06225c46648ca1e1c2a0617143322af560bc7fd69edef4047c1",
+        "height": "0d8ede05f8304f1a292ebcf48ac26506b86293f18f8c07a0fa313df84ce2b6bb"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMjcxODI4LAogICAgICAgICJzY2FsZSI6IDY0LAogICAgICAgICJvY3RhdmVzIjogMywKICAgICAgICAicGVyc2lzdGVuY2UiOiAwLjM1LAogICAgICAgICJiYXNpcyI6ICJjZWxsdWxhciIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImhlaWdodCIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImlucHV0TWluIjogMCwKICAgICAgICAiaW5wdXRNYXgiOiAwLjYsCiAgICAgICAgImdhbW1hIjogMS42CiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb2xvciIsCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImNvbG9yQSI6IFsKICAgICAgICAgIDAuMDI1LAogICAgICAgICAgMC4wMTEsCiAgICAgICAgICAwLjAwNiwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjA5LAogICAgICAgICAgMC4wMzksCiAgICAgICAgICAwLjAxOSwKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC43NiwKICAgICAgICAib3V0cHV0TWF4IjogMC41MgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiYmFzZUNvbG9yIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogImhlaWdodCIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInJvdWdobmVzcyIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAic2VlZCIsCiAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAicGFyYW1ldGVySWQiOiAic2VlZCIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNjYWxlIiwKICAgICAgIm5vZGVJZCI6ICJncmFpbiIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzY2FsZSIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkZXRhaWwiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInBlcnNpc3RlbmNlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+      "overrides": {
+        "detail": 0
+      },
+      "acceptanceSha256": "9b7a8ca88be6321fd43ef0696d693a26edc4353883babfc7d937a2071ae4ceb8",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 64,
+              "octaves": 3,
+              "persistence": 0,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f"
+      },
+      "nativePixels": {
+        "baseColor": "2bb82f48d6509aff80bf2d31dde26e51cb314907d1479a0e27fc409565b1fa04",
+        "normal": "5ede03d7b2282701d2edba90ed88f9f99cd4473d1c2e44b30b5776455d106364",
+        "roughness": "4e93819af7da78a087d0eab1d464de0a8b280798c5c8010c039f71c7a30f6b8b",
+        "height": "fec8ddfd383209b25e5376b216ee13d552add360aeaf227e31c88a140e51e0a0"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMjcxODI4LAogICAgICAgICJzY2FsZSI6IDY0LAogICAgICAgICJvY3RhdmVzIjogMywKICAgICAgICAicGVyc2lzdGVuY2UiOiAwLjM1LAogICAgICAgICJiYXNpcyI6ICJjZWxsdWxhciIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImhlaWdodCIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImlucHV0TWluIjogMCwKICAgICAgICAiaW5wdXRNYXgiOiAwLjYsCiAgICAgICAgImdhbW1hIjogMS42CiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb2xvciIsCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImNvbG9yQSI6IFsKICAgICAgICAgIDAuMDI1LAogICAgICAgICAgMC4wMTEsCiAgICAgICAgICAwLjAwNiwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjA5LAogICAgICAgICAgMC4wMzksCiAgICAgICAgICAwLjAxOSwKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC43NiwKICAgICAgICAib3V0cHV0TWF4IjogMC41MgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiYmFzZUNvbG9yIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogImhlaWdodCIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInJvdWdobmVzcyIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAic2VlZCIsCiAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAicGFyYW1ldGVySWQiOiAic2VlZCIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNjYWxlIiwKICAgICAgIm5vZGVJZCI6ICJncmFpbiIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzY2FsZSIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkZXRhaWwiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInBlcnNpc3RlbmNlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+      "overrides": {
+        "detail": 1
+      },
+      "acceptanceSha256": "9b7a8ca88be6321fd43ef0696d693a26edc4353883babfc7d937a2071ae4ceb8",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 64,
+              "octaves": 3,
+              "persistence": 1,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c"
+      },
+      "nativePixels": {
+        "baseColor": "f7790806cab7a3ce37ea5dd58afd0390c517ec037cc9fa67a808ac4ce326f47b",
+        "normal": "2fdbb9ed2ea24de0aec6d6fdb53493a1030be4eeaa50fb4bb002813cdbcd61f6",
+        "roughness": "bfe583ba1f13a0548f7f83b5a3e21218b468b15e2ead8340810f1ee5b4739481",
+        "height": "81d9dca4e7d450a3e11806e3d8368c0138bb16f3d5f1d0319a8c453ba11cba85"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMjcxODI4LAogICAgICAgICJzY2FsZSI6IDY0LAogICAgICAgICJvY3RhdmVzIjogMywKICAgICAgICAicGVyc2lzdGVuY2UiOiAwLjM1LAogICAgICAgICJiYXNpcyI6ICJjZWxsdWxhciIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImhlaWdodCIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImlucHV0TWluIjogMCwKICAgICAgICAiaW5wdXRNYXgiOiAwLjYsCiAgICAgICAgImdhbW1hIjogMS42CiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb2xvciIsCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgImNvbG9yQSI6IFsKICAgICAgICAgIDAuMDI1LAogICAgICAgICAgMC4wMTEsCiAgICAgICAgICAwLjAwNiwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgICJjb2xvckIiOiBbCiAgICAgICAgICAwLjA5LAogICAgICAgICAgMC4wMzksCiAgICAgICAgICAwLjAxOSwKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAicm91Z2huZXNzIiwKICAgICAgInR5cGUiOiAibGV2ZWxzIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAib3V0cHV0TWluIjogMC43NiwKICAgICAgICAib3V0cHV0TWF4IjogMC41MgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAib3V0IiwKICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiZWRnZXMiOiBbCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJpbiIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImNvbG9yIiwKICAgICAgICAicG9ydElkIjogImNvbG9yIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiYmFzZUNvbG9yIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogImhlaWdodCIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImZyb20iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInJvdWdobmVzcyIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAib3V0IiwKICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyIKICAgICAgfQogICAgfQogIF0sCiAgImV4cG9zZWRQYXJhbWV0ZXJzIjogWwogICAgewogICAgICAiaWQiOiAic2VlZCIsCiAgICAgICJub2RlSWQiOiAiZ3JhaW4iLAogICAgICAicGFyYW1ldGVySWQiOiAic2VlZCIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNjYWxlIiwKICAgICAgIm5vZGVJZCI6ICJncmFpbiIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzY2FsZSIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkZXRhaWwiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInBlcnNpc3RlbmNlIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153",
+      "overrides": {
+        "grainScale": 32
+      },
+      "acceptanceSha256": "9b7a8ca88be6321fd43ef0696d693a26edc4353883babfc7d937a2071ae4ceb8",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 32,
+              "octaves": 3,
+              "persistence": 0.35,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e"
+      },
+      "nativePixels": {
+        "baseColor": "93c9610a0ea7e420c8efc9899672fa7c534760a5f7c2f602b3aaa39c0487ca5a",
+        "normal": "1899a557568c9c39f89532fe2b7c9809609ef7669c8f9a2d44959d5288f725a2",
+        "roughness": "f20d2f17b86cd4e3ced8611f20102b26276b1e69fbaa1130c3199841cc110119",
+        "height": "15ec2a0ec849e583eae55b20aef4ac40b2d5ef1acf72ed649028bde51e234c2f"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMTYxODAzLAogICAgICAgICJzY2FsZSI6IDQsCiAgICAgICAgIm9jdGF2ZXMiOiA0LAogICAgICAgICJwZXJzaXN0ZW5jZSI6IDAuNDUsCiAgICAgICAgImJhc2lzIjogInZhbHVlIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAic3RyZXRjaCIsCiAgICAgICJ0eXBlIjogInRyYW5zZm9ybS0yZCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNjYWxlWCI6IDMyLAogICAgICAgICJzY2FsZVkiOiAxLAogICAgICAgICJxdWFydGVyVHVybnMiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkaXN0b3J0aW9uIiwKICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNlZWQiOiAzMTQxNTksCiAgICAgICAgInNjYWxlIjogMywKICAgICAgICAib2N0YXZlcyI6IDMsCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwKICAgICAgICAiYmFzaXMiOiAidmFsdWUiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJ3YXJwIiwKICAgICAgInR5cGUiOiAid2FycCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInN0cmVuZ3RoWCI6IDAuMDE4LAogICAgICAgICJzdHJlbmd0aFkiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoZWlnaHQiLAogICAgICAidHlwZSI6ICJsZXZlbHMiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJpbnB1dE1pbiI6IDAuMTIsCiAgICAgICAgImlucHV0TWF4IjogMC44OCwKICAgICAgICAiZ2FtbWEiOiAwLjcKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImNvbG9yIiwKICAgICAgInR5cGUiOiAiZ3JhZGllbnQtbWFwIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAiY29sb3JBIjogWwogICAgICAgICAgMC4wNSwKICAgICAgICAgIDAuMDE3LAogICAgICAgICAgMC4wMDYsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICAiY29sb3JCIjogWwogICAgICAgICAgMC4zNCwKICAgICAgICAgIDAuMTcsCiAgICAgICAgICAwLjA2MywKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMTUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgIm91dHB1dE1pbiI6IDAuNjUsCiAgICAgICAgIm91dHB1dE1heCI6IDAuNDUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogIm91dCIsCiAgICAgICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsCiAgICAgICJ2ZXJzaW9uIjogMQogICAgfQogIF0sCiAgImVkZ2VzIjogWwogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJzdHJldGNoIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIndhcnAiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZGlzdG9ydGlvbiIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAicm91Z2huZXNzIgogICAgICB9CiAgICB9CiAgXSwKICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNlZWQiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInNlZWQiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ3JhaW5SZXBlYXQiLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAic2NhbGVYIgogICAgfSwKICAgIHsKICAgICAgImlkIjogIndhcnBTdHJlbmd0aCIsCiAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzdHJlbmd0aFgiCiAgICB9LAogICAgewogICAgICAiaWQiOiAib3JpZW50YXRpb24iLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAicXVhcnRlclR1cm5zIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+      "overrides": {},
+      "acceptanceSha256": "4bca7957355f598fa765e86655fc5c8a01280f08b94ade5d2c10a0575d1fb8cc",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                32,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.018,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e"
+      },
+      "nativePixels": {
+        "baseColor": "e0d3afb5434742ee5cead0ffaf15ee7e41eacb243009ba7ea56cdd0a44fcce58",
+        "normal": "cb424b7783204640afc388b11e2895f30c01d0eeb85747109987594a7e65d22a",
+        "roughness": "48e83939521c647b60566f2259faed5bd831a5054c3e7f4c9fccf54ec84f1533",
+        "height": "23bf1db115c42bdf52d7689c0ae1f91cc8b5e17bc93b93d9163890d589055884"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMTYxODAzLAogICAgICAgICJzY2FsZSI6IDQsCiAgICAgICAgIm9jdGF2ZXMiOiA0LAogICAgICAgICJwZXJzaXN0ZW5jZSI6IDAuNDUsCiAgICAgICAgImJhc2lzIjogInZhbHVlIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAic3RyZXRjaCIsCiAgICAgICJ0eXBlIjogInRyYW5zZm9ybS0yZCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNjYWxlWCI6IDMyLAogICAgICAgICJzY2FsZVkiOiAxLAogICAgICAgICJxdWFydGVyVHVybnMiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkaXN0b3J0aW9uIiwKICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNlZWQiOiAzMTQxNTksCiAgICAgICAgInNjYWxlIjogMywKICAgICAgICAib2N0YXZlcyI6IDMsCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwKICAgICAgICAiYmFzaXMiOiAidmFsdWUiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJ3YXJwIiwKICAgICAgInR5cGUiOiAid2FycCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInN0cmVuZ3RoWCI6IDAuMDE4LAogICAgICAgICJzdHJlbmd0aFkiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoZWlnaHQiLAogICAgICAidHlwZSI6ICJsZXZlbHMiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJpbnB1dE1pbiI6IDAuMTIsCiAgICAgICAgImlucHV0TWF4IjogMC44OCwKICAgICAgICAiZ2FtbWEiOiAwLjcKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImNvbG9yIiwKICAgICAgInR5cGUiOiAiZ3JhZGllbnQtbWFwIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAiY29sb3JBIjogWwogICAgICAgICAgMC4wNSwKICAgICAgICAgIDAuMDE3LAogICAgICAgICAgMC4wMDYsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICAiY29sb3JCIjogWwogICAgICAgICAgMC4zNCwKICAgICAgICAgIDAuMTcsCiAgICAgICAgICAwLjA2MywKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMTUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgIm91dHB1dE1pbiI6IDAuNjUsCiAgICAgICAgIm91dHB1dE1heCI6IDAuNDUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogIm91dCIsCiAgICAgICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsCiAgICAgICJ2ZXJzaW9uIjogMQogICAgfQogIF0sCiAgImVkZ2VzIjogWwogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJzdHJldGNoIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIndhcnAiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZGlzdG9ydGlvbiIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAicm91Z2huZXNzIgogICAgICB9CiAgICB9CiAgXSwKICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNlZWQiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInNlZWQiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ3JhaW5SZXBlYXQiLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAic2NhbGVYIgogICAgfSwKICAgIHsKICAgICAgImlkIjogIndhcnBTdHJlbmd0aCIsCiAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzdHJlbmd0aFgiCiAgICB9LAogICAgewogICAgICAiaWQiOiAib3JpZW50YXRpb24iLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAicXVhcnRlclR1cm5zIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "acceptanceSha256": "4bca7957355f598fa765e86655fc5c8a01280f08b94ade5d2c10a0575d1fb8cc",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.018,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563"
+      },
+      "nativePixels": {
+        "baseColor": "5a7a650a0030d64ba735e4b326cc29e60a8b762303fcb10ea89188bbfe8b44a4",
+        "normal": "439b41afdb86ab4cf0afef27f13a33dd95e777f6e0efa92f00f5ecae12a5d04a",
+        "roughness": "93b140604d2a6516465d834f180dfaafac62e1ec75b12559818a7892d5f0ae53",
+        "height": "d107ec5c7169d55af00f710fc0ae5d39f7348bdf09a7a6fbde623e79d3770f32"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMTYxODAzLAogICAgICAgICJzY2FsZSI6IDQsCiAgICAgICAgIm9jdGF2ZXMiOiA0LAogICAgICAgICJwZXJzaXN0ZW5jZSI6IDAuNDUsCiAgICAgICAgImJhc2lzIjogInZhbHVlIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAic3RyZXRjaCIsCiAgICAgICJ0eXBlIjogInRyYW5zZm9ybS0yZCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNjYWxlWCI6IDMyLAogICAgICAgICJzY2FsZVkiOiAxLAogICAgICAgICJxdWFydGVyVHVybnMiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkaXN0b3J0aW9uIiwKICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNlZWQiOiAzMTQxNTksCiAgICAgICAgInNjYWxlIjogMywKICAgICAgICAib2N0YXZlcyI6IDMsCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwKICAgICAgICAiYmFzaXMiOiAidmFsdWUiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJ3YXJwIiwKICAgICAgInR5cGUiOiAid2FycCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInN0cmVuZ3RoWCI6IDAuMDE4LAogICAgICAgICJzdHJlbmd0aFkiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoZWlnaHQiLAogICAgICAidHlwZSI6ICJsZXZlbHMiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJpbnB1dE1pbiI6IDAuMTIsCiAgICAgICAgImlucHV0TWF4IjogMC44OCwKICAgICAgICAiZ2FtbWEiOiAwLjcKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImNvbG9yIiwKICAgICAgInR5cGUiOiAiZ3JhZGllbnQtbWFwIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAiY29sb3JBIjogWwogICAgICAgICAgMC4wNSwKICAgICAgICAgIDAuMDE3LAogICAgICAgICAgMC4wMDYsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICAiY29sb3JCIjogWwogICAgICAgICAgMC4zNCwKICAgICAgICAgIDAuMTcsCiAgICAgICAgICAwLjA2MywKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMTUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgIm91dHB1dE1pbiI6IDAuNjUsCiAgICAgICAgIm91dHB1dE1heCI6IDAuNDUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogIm91dCIsCiAgICAgICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsCiAgICAgICJ2ZXJzaW9uIjogMQogICAgfQogIF0sCiAgImVkZ2VzIjogWwogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJzdHJldGNoIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIndhcnAiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZGlzdG9ydGlvbiIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAicm91Z2huZXNzIgogICAgICB9CiAgICB9CiAgXSwKICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNlZWQiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInNlZWQiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ3JhaW5SZXBlYXQiLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAic2NhbGVYIgogICAgfSwKICAgIHsKICAgICAgImlkIjogIndhcnBTdHJlbmd0aCIsCiAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzdHJlbmd0aFgiCiAgICB9LAogICAgewogICAgICAiaWQiOiAib3JpZW50YXRpb24iLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAicXVhcnRlclR1cm5zIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "acceptanceSha256": "4bca7957355f598fa765e86655fc5c8a01280f08b94ade5d2c10a0575d1fb8cc",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                32,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662"
+      },
+      "nativePixels": {
+        "baseColor": "48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+        "normal": "97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+        "roughness": "d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+        "height": "2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "sourceBase64": "ewogICJ2ZXJzaW9uIjogMSwKICAibm9kZXMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpbiIsCiAgICAgICJ0eXBlIjogImZyYWN0YWwtbm9pc2UiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJzZWVkIjogMTYxODAzLAogICAgICAgICJzY2FsZSI6IDQsCiAgICAgICAgIm9jdGF2ZXMiOiA0LAogICAgICAgICJwZXJzaXN0ZW5jZSI6IDAuNDUsCiAgICAgICAgImJhc2lzIjogInZhbHVlIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAic3RyZXRjaCIsCiAgICAgICJ0eXBlIjogInRyYW5zZm9ybS0yZCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNjYWxlWCI6IDMyLAogICAgICAgICJzY2FsZVkiOiAxLAogICAgICAgICJxdWFydGVyVHVybnMiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJkaXN0b3J0aW9uIiwKICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInNlZWQiOiAzMTQxNTksCiAgICAgICAgInNjYWxlIjogMywKICAgICAgICAib2N0YXZlcyI6IDMsCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwKICAgICAgICAiYmFzaXMiOiAidmFsdWUiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJ3YXJwIiwKICAgICAgInR5cGUiOiAid2FycCIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgInN0cmVuZ3RoWCI6IDAuMDE4LAogICAgICAgICJzdHJlbmd0aFkiOiAwCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJoZWlnaHQiLAogICAgICAidHlwZSI6ICJsZXZlbHMiLAogICAgICAidmVyc2lvbiI6IDEsCiAgICAgICJwYXJhbWV0ZXJzIjogewogICAgICAgICJpbnB1dE1pbiI6IDAuMTIsCiAgICAgICAgImlucHV0TWF4IjogMC44OCwKICAgICAgICAiZ2FtbWEiOiAwLjcKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImNvbG9yIiwKICAgICAgInR5cGUiOiAiZ3JhZGllbnQtbWFwIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAiY29sb3JBIjogWwogICAgICAgICAgMC4wNSwKICAgICAgICAgIDAuMDE3LAogICAgICAgICAgMC4wMDYsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICAiY29sb3JCIjogWwogICAgICAgICAgMC4zNCwKICAgICAgICAgIDAuMTcsCiAgICAgICAgICAwLjA2MywKICAgICAgICAgIDEKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJub3JtYWwiLAogICAgICAidHlwZSI6ICJoZWlnaHQtdG8tbm9ybWFsIiwKICAgICAgInZlcnNpb24iOiAxLAogICAgICAicGFyYW1ldGVycyI6IHsKICAgICAgICAic3RyZW5ndGgiOiAwLjAwMTUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogInJvdWdobmVzcyIsCiAgICAgICJ0eXBlIjogImxldmVscyIsCiAgICAgICJ2ZXJzaW9uIjogMSwKICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgIm91dHB1dE1pbiI6IDAuNjUsCiAgICAgICAgIm91dHB1dE1heCI6IDAuNDUKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogIm91dCIsCiAgICAgICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsCiAgICAgICJ2ZXJzaW9uIjogMQogICAgfQogIF0sCiAgImVkZ2VzIjogWwogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJzdHJldGNoIiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAgICJwb3J0SWQiOiAidmFsdWUiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIndhcnAiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiZGlzdG9ydGlvbiIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogImluIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogImhlaWdodCIsCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSIKICAgICAgfSwKICAgICAgInRvIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJub3JtYWwiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLAogICAgICAgICJwb3J0SWQiOiAiaW4iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiY29sb3IiLAogICAgICAgICJwb3J0SWQiOiAiY29sb3IiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJiYXNlQ29sb3IiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZnJvbSI6IHsKICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0sCiAgICAgICJ0byI6IHsKICAgICAgICAibm9kZUlkIjogIm91dCIsCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJmcm9tIjogewogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwKICAgICAgICAicG9ydElkIjogInZhbHVlIgogICAgICB9LAogICAgICAidG8iOiB7CiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLAogICAgICAgICJwb3J0SWQiOiAicm91Z2huZXNzIgogICAgICB9CiAgICB9CiAgXSwKICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbCiAgICB7CiAgICAgICJpZCI6ICJncmFpblNlZWQiLAogICAgICAibm9kZUlkIjogImdyYWluIiwKICAgICAgInBhcmFtZXRlcklkIjogInNlZWQiCiAgICB9LAogICAgewogICAgICAiaWQiOiAiZ3JhaW5SZXBlYXQiLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAic2NhbGVYIgogICAgfSwKICAgIHsKICAgICAgImlkIjogIndhcnBTdHJlbmd0aCIsCiAgICAgICJub2RlSWQiOiAid2FycCIsCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzdHJlbmd0aFgiCiAgICB9LAogICAgewogICAgICAiaWQiOiAib3JpZW50YXRpb24iLAogICAgICAibm9kZUlkIjogInN0cmV0Y2giLAogICAgICAicGFyYW1ldGVySWQiOiAicXVhcnRlclR1cm5zIgogICAgfQogIF0KfQo=",
+      "sourceSha256": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+      "overrides": {
+        "orientation": 1
+      },
+      "acceptanceSha256": "4bca7957355f598fa765e86655fc5c8a01280f08b94ade5d2c10a0575d1fb8cc",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                32,
+                1
+              ],
+              "quarterTurns": 1,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.018,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a"
+      },
+      "nativePixels": {
+        "baseColor": "9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+        "normal": "106f2ec5be76b97f61afde6ef8a7e30d10b57c29937fd5a35a064140fd326e30",
+        "roughness": "cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+        "height": "d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a"
+      }
+    }
+  ],
+  "completedAt": "2026-09-15T07:36:04.586Z"
+}
