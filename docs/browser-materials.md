@@ -17,8 +17,6 @@ On Linux use the existing pinned SwiftShader setup and explicit Vulkan/software 
 
 `browser-material-measure` records differences and checks structural/semantic gates, but explicitly does not accept pixel tolerances. `browser-material-check` also enforces [per-channel tolerances](./browser-tolerances.json). Both write `comparison.json` and per-case native/browser/difference contact sheets in the browser output directory. The plan comparison preserves integers exactly, normalizes f32 JSON projection, and requires identical semantic hashes. The original manifest and PNG digests are checked before comparison.
 
-## Calibration in progress
+## Frozen criteria
 
-The first local Metal/Chromium measurement produced identical hashes for all 11 cases. Forty of 44 channels were byte-identical. Four wood roughness outputs differed by at most one RGBA8 unit, with changed-pixel ratios from 0.0001783371 to 0.0003967285. The current candidate gates require exact baseColor/normal/height and roughness max absolute 1, mean absolute 0.001, pixel threshold 0 and changed ratio 0.001. These are provisional until the pinned Linux browser matrix is measured and the calibration record is reviewed. No complete M5-05 acceptance is claimed by this tooling commit.
-
-The new CI matrix pins an independent product commit and preserves all existing native required checks. Native SwiftShader and Chromium's bundled SwiftShader have separate provenance. A passing measurement job does not freeze tolerances or establish broad hardware compatibility. Publication, public website hosting, Studio editing and M6 are outside scope.
+[Calibration review](./evidence/m5-05/calibration.md) records local and Linux measurements, failed candidate comparisons and the frozen per-channel gates. Acceptance must run after this freeze.

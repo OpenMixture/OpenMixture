@@ -76,8 +76,8 @@ jobs:
       - name: Execute installed runtime against static production assets
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
-      - name: Measure browser quality and differences
-        run: cargo xtask browser-material-measure tmp/browser-native tmp/browser-output
+      - name: Check frozen browser quality and differences
+        run: cargo xtask browser-material-check tmp/browser-native tmp/browser-output
       - name: Retain material qualification evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()

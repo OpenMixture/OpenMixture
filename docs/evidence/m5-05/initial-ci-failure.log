@@ -1,0 +1,45 @@
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	﻿2026-09-15T07:17:57.2296361Z ##[group]Run npm run test:materials -- ../browser-native ../browser-output
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2296778Z ^[[36;1mnpm run test:materials -- ../browser-native ../browser-output^[[0m
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2329238Z shell: /usr/bin/bash -e {0}
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2329454Z env:
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2329617Z   CC: clang-18
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2329786Z   CXX: clang++-18
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2329962Z   MIXTURE_GPU_BACKEND: vulkan
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2330157Z   MIXTURE_GPU_SOFTWARE: 1
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2330354Z   MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2330692Z   MIXTURE_BROWSER_ARGS: ["--use-angle=swiftshader","--use-webgpu-adapter=swiftshader"]
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2331374Z   VK_ICD_FILENAMES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2331954Z   VK_DRIVER_FILES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.2332342Z ##[endgroup]
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3139384Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3139857Z > @openmixture/studio@0.1.0-alpha.0 test:materials
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3140687Z > npm run typecheck && vite build --mode browser-test && node scripts/verify-materials.mjs ../browser-native ../browser-output
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3141080Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3892108Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3892775Z > @openmixture/studio@0.1.0-alpha.0 typecheck
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3893150Z > tsc --noEmit
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:57.3893262Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.7715652Z ^[[36mvite v8.3.0 ^[[32mbuilding client environment for browser-test...^[[36m^[[39m
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.7790473Z transforming...
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8086563Z ✓ 18 modules transformed.
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8186321Z rendering chunks...
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8287357Z computing gzip size...
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8407924Z dist/tests/contract.html                       0.40 kB │ gzip:   0.28 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8408731Z dist/index.html                                4.17 kB │ gzip:   1.47 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8409491Z dist/assets/mixture_wasm_bg-DFFsGYHH.wasm  1,208.12 kB │ gzip: 323.25 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8410313Z dist/assets/player-DyVTljJd.css                5.28 kB │ gzip:   1.75 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8411093Z dist/assets/contract-Bm7AuIof.js               0.09 kB │ gzip:   0.10 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8412349Z dist/assets/player-CgWhJno1.js                 8.94 kB │ gzip:   3.61 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8413119Z dist/assets/png-CPh4nFIa.js                   10.85 kB │ gzip:   4.77 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8413873Z dist/assets/bindings-CB4mzvib.js              28.39 kB │ gzip:   8.72 kB
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8414235Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:58.8414950Z ^[[32m✓ built in 69ms^[[39m
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7004547Z file:///home/runner/work/OpenMixture/OpenMixture/tmp/browser-product/scripts/verify-materials.mjs:26
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7005658Z  assert.equal(context.build.engineRevision,manifest.runtimeRevision);
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7006444Z                       ^
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7006712Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7007135Z TypeError: Cannot read properties of undefined (reading 'build')
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7007985Z     at file:///home/runner/work/OpenMixture/OpenMixture/tmp/browser-product/scripts/verify-materials.mjs:26:23
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7008499Z 
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7008620Z Node.js v24.20.0
+Chromium WebGPU material matrix	Execute installed runtime against static production assets	2026-09-15T07:17:59.7165093Z ##[error]Process completed with exit code 1.
