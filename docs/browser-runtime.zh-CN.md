@@ -2,6 +2,10 @@
 
 [English](./browser-runtime.md) | 简体中文
 
+**当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
+
+以下带日期的检查点保留当时状态，不作为当前未完成项清单。
+
 **M5 验收，2026-09-15：** [浏览器验收记录](./evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
 
 **Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。

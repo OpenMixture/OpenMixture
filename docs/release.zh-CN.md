@@ -2,6 +2,10 @@
 
 [English](./release.md) | 简体中文
 
+**当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
+
+以下带日期的检查点保留当时状态，不作为当前未完成项清单。
+
 **M5 验收，2026-09-15：** [浏览器验收记录](./evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
 
 **M4 已完成本地及远端验收，2026-09-12；软件包仍未发布。** PR-011–015 及 CI 工具修复通过已记录验收矩阵。此前暂缓的干净检出 CPU 及 Linux SwiftShader 门槛现已关闭，见[远端 CI 证据](./evidence/remote-ci/README.zh-CN.md)。全部产品包仍为 pre-alpha `0.1.0`，禁用发布。记录的 CI 修复已推送实现及修正，当时不包含合并或发布 tag。后续默认分支、PR 及检查点工作遵循 [M4.1 仓库治理](./governance.zh-CN.md)，不发布软件包、安装器或二进制分发。[PR-015 证据](./evidence/pr-015/README.zh-CN.md)保留此前本地评估。

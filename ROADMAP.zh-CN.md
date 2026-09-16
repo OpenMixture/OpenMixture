@@ -2,19 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**Studio MVP，2026-09-16：** 独立产品已在记录的 macOS 矩阵内通过[保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。此处引擎工作仅增加分离的 CLI 参考／比较工具；运行时语义与原生 golden 不变。PR 集成、发布和 M6 仍单独处理。
-
-**M5 验收，2026-09-15：** [浏览器验收记录](./docs/evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
-
-**Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。
-
-**Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
-
-**浏览器检查点，2026-09-14：** [M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)关闭记录的 Chromium／macOS 环境内初始浏览器执行与隔离 tarball 消费门槛。接下来是 M5-04 Player MVP，再完成 M5-05 完整浏览器验收。
-
-**当前里程碑：** M4、M4.1 与 [M5 的有界浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成。Studio MVP 已在记录环境内验收；npm 发布和引擎 M6 尚未启动。
-
-**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。
+**当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./docs/browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
 
 本路线图按可验证的结果组织，而不是按日期、季度、节点数量或功能数量安排。只有全部退出标准在干净环境中通过，里程碑才算完成。
 
@@ -424,3 +412,21 @@ M5 验收后，可将 Studio MVP 规划为产品里程碑，输出供 Player 和
 10. 任何功能都不能仅因生成非空像素而宣称成功。
 11. 特定引擎关注点不得进入 `mixture-core`，除非它属于通用材质语义。
 12. 文档中的主要命令路径或必需 CI 未通过时，不关闭里程碑。
+
+## 历史检查点（保留当时状态）
+
+以下段落保留原有日期与当时的下一步判断；当前状态与认领顺序以上方交付收尾计划为准。
+
+**Studio MVP，2026-09-16：** 独立产品已在记录的 macOS 矩阵内通过[保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。此处引擎工作仅增加分离的 CLI 参考／比较工具；运行时语义与原生 golden 不变。PR 集成、发布和 M6 仍单独处理。
+
+**M5 验收，2026-09-15：** [浏览器验收记录](./docs/evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
+
+**Player 导出更新，2026-09-15：** M5-04 的打开 → 调参 → 通道预览 → PNG 下载流程已在独立产品完成本地验收。干净隔离消费者通过 28 项 Chromium 检查及九项 Node 测试；三种材质的 12 份 128×128 通道 PNG 经独立解码，像素与公开运行时结果逐字节一致，sRGB／线性元数据正确。另验证八通道 65×3 下载、过期导出抑制和编码失败。[产品证据](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.zh-CN.md)绑定确切源码及未变更运行时归档。M5-05 的 1K 跨端质量、压力、正式浏览器 CI 和部署／兼容性验收仍开放；未执行发布。
+
+**Player 更新，2026-09-14：** 独立产品已实现并[完成本地验证](https://github.com/OpenMixture/Studio/blob/7370e482e2dcacb9911f5663f8ec4f9e8da6a4cc/docs/evidence/m5-04-parameters/README.zh-CN.md) M5-04 参数／预览切片：Rust 元数据控件、通道选择、一个活动渲染加一个可替换待处理请求、过期预览诊断及生命周期清理。干净隔离消费者通过 23 项 Chromium 检查和六项 Node 测试，包括三材质 128×128 预览。PNG 导出和完整 M5-04／M5-05 验收仍开放；运行时归档未变，仍未发布。
+
+**浏览器检查点，2026-09-14：** [M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)关闭记录的 Chromium／macOS 环境内初始浏览器执行与隔离 tarball 消费门槛。接下来是 M5-04 Player MVP，再完成 M5-05 完整浏览器验收。
+
+**当前里程碑：** M4、M4.1 与 [M5 的有界浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成。Studio MVP 已在记录环境内验收；npm 发布和引擎 M6 尚未启动。
+
+**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。

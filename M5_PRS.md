@@ -2,6 +2,10 @@
 
 English | [简体中文](./M5_PRS.zh-CN.md)
 
+**Current status (2026-09-16):** Native M4/M4.1, bounded M5 and the independent Studio MVP are accepted. Cargo packages and the npm Alpha archive remain unpublished; ordinary browser configurations still need qualification. Next is [Browser Runtime Alpha delivery closeout](./docs/browser-alpha.md), the shared current-status and engine-ownership plan; M6 does not start.
+
+The dated checkpoints below retain their status at the time; they are not the current backlog.
+
 **M5 acceptance, 2026-09-15:** [Browser acceptance](./docs/evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
 
 **Player export update, 2026-09-15:** the M5-04 open → edit → channel preview → PNG download workflow now passes local acceptance in the independent product. The clean isolated consumer passed 28 Chromium checks and nine Node tests. Twelve 128×128 channel PNGs from three materials decode to the exact public-runtime bytes with correct sRGB/linear metadata. Additional checks cover eight-channel 65×3 downloads, stale-export suppression and encoding failure. [Product evidence](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.md) binds the exact source and unchanged runtime archive. M5-05 1K cross-runtime quality, stress, formal browser CI and deployment/compatibility qualification remain open; nothing is published.
