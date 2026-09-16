@@ -154,7 +154,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
 
 // The JS bridge widens f32 values and transports u64 as bigint strings in receipts.
 // Preserve every integer exactly; only actual floating-point fields use f32 semantics.
-fn plan_equivalent(native: &Value, browser: &Value) -> bool {
+pub(super) fn plan_equivalent(native: &Value, browser: &Value) -> bool {
     match (native, browser) {
         (Value::Object(a), Value::Object(b)) => {
             a.len() == b.len()

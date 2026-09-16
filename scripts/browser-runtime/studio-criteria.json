@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 1,
+  "size": 1024,
+  "channels": [
+    "baseColor",
+    "normal",
+    "roughness",
+    "height"
+  ],
+  "cases": [
+    {
+      "material": "checker",
+      "id": "authored",
+      "rules": {
+        "id": "authored",
+        "variant": null,
+        "checks": {
+          "baseColor": {
+            "kind": "alternating",
+            "cells": [
+              4,
+              8
+            ],
+            "minContrast": 255,
+            "maxBalanceError": 0
+          },
+          "normal": {
+            "kind": "uniform",
+            "rgba": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "tolerance": 0
+          },
+          "roughness": {
+            "kind": "uniform",
+            "rgba": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "tolerance": 0
+          },
+          "height": {
+            "kind": "uniform",
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "tolerance": 0
+          }
+        },
+        "changes": {},
+        "relationships": []
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "rules": {
+        "id": "default",
+        "variant": null,
+        "checks": {
+          "baseColor": {
+            "kind": "alternating",
+            "cells": [
+              8,
+              8
+            ],
+            "minContrast": 80,
+            "maxBalanceError": 0.0
+          },
+          "normal": {
+            "kind": "uniform",
+            "rgba": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "tolerance": 0
+          },
+          "roughness": {
+            "kind": "uniform",
+            "rgba": [
+              43,
+              43,
+              43,
+              255
+            ],
+            "tolerance": 1
+          },
+          "height": {
+            "kind": "uniform",
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "tolerance": 0
+          }
+        },
+        "changes": {}
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "authored",
+      "rules": {
+        "id": "fine-tiles",
+        "variant": "fine-tiles",
+        "checks": {
+          "baseColor": {
+            "kind": "alternating",
+            "cells": [
+              16,
+              16
+            ],
+            "minContrast": 80,
+            "maxBalanceError": 0.0
+          },
+          "normal": {
+            "kind": "uniform",
+            "rgba": [
+              128,
+              128,
+              255,
+              255
+            ],
+            "tolerance": 0
+          },
+          "roughness": {
+            "kind": "uniform",
+            "rgba": [
+              43,
+              43,
+              43,
+              255
+            ],
+            "tolerance": 1
+          },
+          "height": {
+            "kind": "uniform",
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "tolerance": 0
+          }
+        },
+        "changes": {
+          "baseColor": {
+            "kind": "changed",
+            "minPixelRatio": 0.45
+          },
+          "normal": {
+            "kind": "unchanged"
+          },
+          "roughness": {
+            "kind": "unchanged"
+          },
+          "height": {
+            "kind": "unchanged"
+          }
+        }
+      }
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "rules": {
+        "id": "default",
+        "variant": null,
+        "checks": {
+          "baseColor": {
+            "kind": "spatial",
+            "minSpan": 25,
+            "minStdDev": 4,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "height": {
+            "kind": "spatial",
+            "minSpan": 140,
+            "minStdDev": 25,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "roughness": {
+            "kind": "spatial",
+            "minSpan": 35,
+            "minStdDev": 6,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "normal": {
+            "kind": "normal",
+            "maxLengthError": 0.015,
+            "minMeanTilt": 0.001,
+            "maxMeanTilt": 0.2,
+            "maxSeamRatio": 2.5
+          }
+        },
+        "changes": {},
+        "relationships": [
+          {
+            "kind": "heightNormalDirection",
+            "minSignAgreement": 0.98,
+            "minMeasuredRatio": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "material": "leather",
+      "id": "authored",
+      "rules": {
+        "id": "detail-max",
+        "variant": "detail-max",
+        "checks": {
+          "baseColor": {
+            "kind": "spatial",
+            "minSpan": 25,
+            "minStdDev": 4,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "height": {
+            "kind": "spatial",
+            "minSpan": 140,
+            "minStdDev": 25,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "roughness": {
+            "kind": "spatial",
+            "minSpan": 35,
+            "minStdDev": 6,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "normal": {
+            "kind": "normal",
+            "maxLengthError": 0.015,
+            "minMeanTilt": 0.001,
+            "maxMeanTilt": 0.2,
+            "maxSeamRatio": 2.5
+          }
+        },
+        "changes": {
+          "baseColor": {
+            "kind": "changed",
+            "minPixelRatio": 0.75
+          },
+          "normal": {
+            "kind": "changed",
+            "minPixelRatio": 0.75
+          },
+          "roughness": {
+            "kind": "changed",
+            "minPixelRatio": 0.75
+          },
+          "height": {
+            "kind": "normalizedGradientEnergy",
+            "minRatio": 1.5,
+            "maxRatio": 5,
+            "minPixelRatio": 0.85
+          }
+        },
+        "relationships": [
+          {
+            "kind": "heightNormalDirection",
+            "minSignAgreement": 0.98,
+            "minMeasuredRatio": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "rules": {
+        "id": "default",
+        "variant": null,
+        "checks": {
+          "baseColor": {
+            "kind": "spatial",
+            "minSpan": 30,
+            "minStdDev": 6,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "height": {
+            "kind": "directional",
+            "minSpan": 100,
+            "minStdDev": 20,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5,
+            "axis": "vertical",
+            "minEnergyRatio": 4
+          },
+          "roughness": {
+            "kind": "spatial",
+            "minSpan": 20,
+            "minStdDev": 4,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "normal": {
+            "kind": "normal",
+            "maxLengthError": 0.015,
+            "minMeanTilt": 0.001,
+            "maxMeanTilt": 0.2,
+            "maxSeamRatio": 2.5
+          }
+        },
+        "changes": {},
+        "relationships": [
+          {
+            "kind": "heightNormalDirection",
+            "minSignAgreement": 0.98,
+            "minMeasuredRatio": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "material": "wood",
+      "id": "authored",
+      "rules": {
+        "id": "coarse-grain",
+        "variant": "coarse-grain",
+        "checks": {
+          "baseColor": {
+            "kind": "spatial",
+            "minSpan": 30,
+            "minStdDev": 6,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "height": {
+            "kind": "directional",
+            "minSpan": 100,
+            "minStdDev": 20,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5,
+            "axis": "vertical",
+            "minEnergyRatio": 4
+          },
+          "roughness": {
+            "kind": "spatial",
+            "minSpan": 20,
+            "minStdDev": 4,
+            "minNeighborCorrelation": 0.6,
+            "maxSeamRatio": 2.5
+          },
+          "normal": {
+            "kind": "normal",
+            "maxLengthError": 0.015,
+            "minMeanTilt": 0.0003,
+            "maxMeanTilt": 0.2,
+            "maxSeamRatio": 2.5
+          }
+        },
+        "changes": {
+          "baseColor": {
+            "kind": "changed",
+            "minPixelRatio": 0.6
+          },
+          "height": {
+            "kind": "normalizedGradientEnergy",
+            "minRatio": 0.15,
+            "maxRatio": 0.8,
+            "minPixelRatio": 0.8
+          },
+          "roughness": {
+            "kind": "changed",
+            "minPixelRatio": 0.6
+          },
+          "normal": {
+            "kind": "changed",
+            "minPixelRatio": 0.6
+          }
+        },
+        "relationships": [
+          {
+            "kind": "heightNormalDirection",
+            "minSignAgreement": 0.98,
+            "minMeasuredRatio": 0.2
+          }
+        ]
+      }
+    }
+  ]
+}
