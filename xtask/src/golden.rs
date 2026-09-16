@@ -4,6 +4,7 @@ pub(crate) mod browser;
 mod files;
 mod model;
 mod pixels;
+pub(crate) mod studio;
 #[cfg(test)]
 mod tests;
 pub(super) mod trace;

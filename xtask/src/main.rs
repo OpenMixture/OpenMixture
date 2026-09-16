@@ -34,6 +34,7 @@ Available repository commands:
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   browser-material-measure <native> <browser> Measure a supplied browser matrix; no acceptance
   browser-material-check <native> <browser> Check browser pixels against frozen gates
+  studio-material-check <native> <browser> Check detached Studio saved-file matrix
   trace-2k    Rank all M3 material cases and measure the largest at 2048 on a GPU
   gpu-smoke   Run checker golden, graph examples, native consumer, and GPU regressions
   shader-check Validate every built-in WGSL kernel and its uniform ABI without a GPU
@@ -64,6 +65,11 @@ fn run() -> TaskResult {
             Path::new(browser),
             command == "browser-material-measure",
         );
+    }
+    if let [command, native, browser] = args.as_slice()
+        && command == "studio-material-check"
+    {
+        return golden::studio::run(&workspace_root()?, Path::new(native), Path::new(browser));
     }
     if args
         .first()
