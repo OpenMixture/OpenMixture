@@ -12,19 +12,19 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 
 ## 引擎认领工作
 
-以下是工作项 ID，不是 GitHub PR 编号。下列实现与验收均待完成；ALPHA-02 的文档修改已在本规划分支起草，尚待 PR 集成。后续每个实施 PR 按[治理规则](./governance.zh-CN.md)记录确切源码、真实 PR URL、检查与明确排除项。
+以下是工作项 ID，不是 GitHub PR 编号。ALPHA-01 已有[候选验收工具](./browser-materials.zh-CN.md)，每个候选均须有通过的 CI 回执。ALPHA-02 文档已通过 [PR #10](https://github.com/OpenMixture/OpenMixture/pull/10) 合并；其余实现与验收仍待完成。后续每个实施 PR 按[治理规则](./governance.zh-CN.md)记录确切源码、真实 PR URL、检查与明确排除项。
 
 | 工作项 | 优先级／状态 | 范围与完成标准 |
 |---|---|---|
-| ALPHA-01 — 当前候选包浏览器验收 | P1／已认领，待实现 | 构建当前引擎版本的真实 `.tgz`，由固定版本的独立消费者安装；通过公开声明检查、生产构建／部署、浏览器契约及既有 11 用例／44 通道材质比较。断言浏览器实际 `getBuildInfo()` 与候选身份一致。旧归档和混用 JS／WASM 必须失败。 |
-| ALPHA-02 — 当前状态统一 | P2／本次已起草文档 | README、Roadmap、SDK／构建指南、发布状态与导航指向本页，一致说明 M5／Studio 有界完成、软件包未发布、默认浏览器覆盖尚未验证。保留历史证据与带日期检查点。必须同步双语并运行仓库检查。 |
+| ALPHA-01 — 当前候选包浏览器验收 | P1／已实现；每个候选须分别验收 | 构建当前引擎版本的真实 `.tgz`，由固定版本的独立消费者安装；通过公开声明检查、生产构建／部署、浏览器契约及既有 11 用例／44 通道材质比较。断言浏览器实际 `getBuildInfo()` 与候选身份一致。旧归档和混用 JS／WASM 必须失败。 |
+| ALPHA-02 — 当前状态统一 | P2／已由 PR #10 合并 | README、Roadmap、SDK／构建指南、发布状态与导航指向本页，一致说明 M5／Studio 有界完成、软件包未发布、默认浏览器覆盖尚未验证。保留历史证据与带日期检查点。必须同步双语并运行仓库检查。 |
 | ALPHA-03 — 默认桌面浏览器验收 | P1／已认领，待执行；依赖 ALPHA-01 | 至少选择并记录一组目标桌面 OS／浏览器／版本，使用普通用户设置，不带 unsafe-WebGPU、忽略 blocklist 或强制软件适配器参数。同一候选完成加载、显式 GPU 初始化、渲染、自有输出及销毁，并验证结构化不支持／获取失败诊断。失败环境不能算作已支持：修复或收窄目标并记录失败。 |
 | ALPHA-04 — 可发布 npm Alpha 候选 | P2／已认领，待执行；依赖 ALPHA-01／03 | 干净构建带明确版本的候选，包含完整 JS／声明／WASM、构建身份、归档摘要、变更说明、服务要求和实测支持范围。交付 Studio 做精确候选升级验收。发布单独执行；发布后独立安装注册表精确版本，复核身份及消费后才能宣称交付完成。 |
 | ALPHA-05 — 浏览器必需检查决策 | P2／已认领，等待 ALPHA-01 | 候选链通过后读取实时分支保护／rulesets，评审是否将 `WASM and npm package`、`Chromium WebGPU material matrix` 与既有四项 Native 检查一起设为必需。若采纳，通过 PR 更新期望配置，应用并回读，保留实时证据。受跟踪的规则文件或通过的可选检查不能证明强制保护。 |
 
 ### ALPHA-01 实施边界
 
-当前[打包工作流](../.github/workflows/browser-runtime.yml)构建新归档，[材质工作流](../.github/workflows/browser-materials.yml)却安装 Studio `56c510ab57daa1b68ef660525a648a582730a37e` 及其历史 vendor 归档。[原生准备脚本](../scripts/browser-runtime/prepare-materials.mjs)已有对 `crates`、`Cargo.lock` 和 `Cargo.toml` 相对归档运行时版本的漂移拒绝，必须保留。尚未覆盖的输入包括公开 JS 接口、声明与打包工具；两条工作流通过不代表本次完整包已在浏览器中运行。
+审查快照 c41fcfb 中，[打包工作流](../.github/workflows/browser-runtime.yml)构建新归档，[材质工作流](../.github/workflows/browser-materials.yml)却安装 Studio `56c510ab57daa1b68ef660525a648a582730a37e` 及其历史 vendor 归档。[原生准备脚本](../scripts/browser-runtime/prepare-materials.mjs)已有对 `crates`、`Cargo.lock` 和 `Cargo.toml` 相对归档运行时版本的漂移拒绝，必须保留。尚未覆盖的输入包括公开 JS 接口、声明与打包工具；两条工作流通过不代表本次完整包已在浏览器中运行。
 
 通过绑定版本的 job 依赖连接生产与消费，或在同一工作流构建并消费候选。不能仅按“最近成功运行”选择 artifact。记录实际测试引擎 SHA（使用 PR 合并 SHA 时记录该 SHA）、干净源码状态、消费者提交／lock 身份、归档 SHA-256、build ID、JS／WASM 身份、原生参考身份和运行／attempt。独立比较浏览器实测构建信息与生产者 receipt。仅检查声明不足：实际返回值须与公开类型共同验证，包括 bigint 和自有像素结果。保留小型手写声明，不将代码生成作为前置条件。
 
