@@ -2,6 +2,8 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
+**Studio MVP, 2026-09-16:** the independent product now passes its [saved-file qualification](./docs/evidence/studio-qualification/README.md) in the recorded macOS matrix. Engine work here adds detached CLI reference/comparison tooling only; runtime semantics and native goldens are unchanged. PR integration, publication and M6 remain separate.
+
 **M5 acceptance, 2026-09-15:** [Browser acceptance](./docs/evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
 
 **Player export update, 2026-09-15:** the M5-04 open → edit → channel preview → PNG download workflow now passes local acceptance in the independent product. The clean isolated consumer passed 28 Chromium checks and nine Node tests. Twelve 128×128 channel PNGs from three materials decode to the exact public-runtime bytes with correct sRGB/linear metadata. Additional checks cover eight-channel 65×3 downloads, stale-export suppression and encoding failure. [Product evidence](https://github.com/OpenMixture/Studio/blob/77f00deb5410b73140220fabe31f4f8599b3279d/docs/evidence/m5-04-export/README.md) binds the exact source and unchanged runtime archive. M5-05 1K cross-runtime quality, stress, formal browser CI and deployment/compatibility qualification remain open; nothing is published.
@@ -10,7 +12,7 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Browser checkpoint, 2026-09-14:** [M5-02/M5-03 local acceptance](./docs/evidence/m5-02-03/README.md) closes initial browser execution and isolated tarball consumption on the recorded Chromium/macOS environment. Next: M5-04 Player MVP, then M5-05 full browser acceptance.
 
-**Current milestone:** M4, M4.1 and [bounded M5 browser acceptance](./docs/evidence/m5-05/README.md) are complete. npm publication, the Studio product milestone and engine M6 have not started.
+**Current milestone:** M4, M4.1 and [bounded M5 browser acceptance](./docs/evidence/m5-05/README.md) are complete. The Studio MVP is accepted in its recorded environment; npm publication and engine M6 have not started.
 
 **Implementation status:** PR-001 through PR-015 are implemented. The `.mix` graph path, eleven nodes and three accepted 1K materials have local Metal and pinned SwiftShader evidence; the [M3 review](./docs/m3-review.md) records quality, release measurements and bounded 2K allocation. The [M4 train](./M4_PRS.md) verifies public Rust/CLI contracts, failures, stale results, bounded retention and actual package consumption. [Remote CI acceptance](./docs/evidence/remote-ci/README.md), completed on `8b43c84`, now adds clean-checkout Linux/macOS/Windows CPU checks and Linux pinned SwiftShader smoke, packaged consumers, three 1K materials and 2K trace. The previously deferred M0/M1 platform gates are closed for this matrix. See [release status](./docs/release.md) for compatibility and untested hardware limits. Packages remain unpublished. The thin browser binding and independent product repository now exist; see the browser start guide for the implemented checker slice and remaining M5 gates.
 

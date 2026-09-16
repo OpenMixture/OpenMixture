@@ -1,0 +1,16 @@
+[
+  {
+    "probe": "manifest",
+    "exitCode": 1,
+    "accepted": false,
+    "stderr": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s\n     Running `target/xtask-runner/debug/xtask studio-material-check /tmp/studio05-native-20260916 /Users/krapnik/Documents/OpenMixture/tmp/studio05-probe-manifest`\nxtask: Studio provenance mismatch\n",
+    "mode": "Comparison incomplete\n"
+  },
+  {
+    "probe": "plan",
+    "exitCode": 1,
+    "accepted": false,
+    "stderr": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s\n     Running `target/xtask-runner/debug/xtask studio-material-check /tmp/studio05-native-20260916 /Users/krapnik/Documents/OpenMixture/tmp/studio05-probe-plan`\nxtask: Studio comparison failed; no criteria or golden changed\n",
+    "mode": "Comparison incomplete\n"
+  }
+]
