@@ -13,7 +13,7 @@ jobs:
   materials:
     name: Chromium WebGPU material matrix
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 50
     env:
       CC: clang-18
       CXX: clang++-18
@@ -59,8 +59,16 @@ jobs:
         with:
           node-version: 24.20.0
       - run: npm install --global npm@11.19.0
+      - name: Prepare exact browser binding toolchain
+        run: |
+          rustup target add wasm32-unknown-unknown
+          cargo install wasm-bindgen-cli --version 0.2.128 --locked
+      - name: Test candidate guards and build this revision's archive
+        run: |
+          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs
+          node scripts/browser-runtime/build.mjs
       - name: Prepare detached native material inputs
-        run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native 4b914feb9f3365d292b27ea60c5e0b6004f745e8
+        run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
       - name: Check out pinned independent product
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
@@ -68,23 +76,53 @@ jobs:
           ref: 56c510ab57daa1b68ef660525a648a582730a37e
           path: tmp/browser-product
           persist-credentials: false
+      - name: Substitute only the candidate archive and its locked identity
+        run: >-
+          node scripts/browser-runtime/candidate.mjs stage
+          target/browser-runtime tmp/browser-product tmp/browser-candidate
+          "$(git rev-parse HEAD)" 56c510ab57daa1b68ef660525a648a582730a37e
       - name: Install the exact product and browser
         working-directory: tmp/browser-product
         run: |
           npm ci
           npx playwright install --with-deps chromium
+      - name: Verify installed bytes and public types, then run browser contracts
+        run: |
+          node scripts/browser-runtime/candidate.mjs installed tmp/browser-product tmp/browser-candidate
+          cd tmp/browser-product
+          npm run check
+          env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:browser
+      - name: Assert actual candidate identity and reject historical WASM
+        working-directory: tmp/browser-product
+        run: >-
+          env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES
+          node "$GITHUB_WORKSPACE/scripts/browser-runtime/candidate.mjs" probe
+          "$GITHUB_WORKSPACE/tmp/browser-product" "$GITHUB_WORKSPACE/tmp/browser-candidate"
       - name: Execute installed runtime against static production assets
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
       - name: Check frozen browser quality and differences
         run: cargo xtask browser-material-check tmp/browser-native tmp/browser-output
+      - name: Verify normal production deployment
+        working-directory: tmp/browser-product
+        run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:deployment
+      - name: Bind all acceptance gates to this candidate
+        run: >-
+          node scripts/browser-runtime/candidate.mjs verify
+          tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output
       - name: Retain material qualification evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: chromium-material-matrix
           path: |
+            target/browser-runtime/*.tgz
+            target/browser-runtime/*.sha256
+            target/browser-runtime/receipt.json
+            tmp/browser-candidate/
             tmp/browser-native/
             tmp/browser-output/
+            tmp/browser-product/package-lock.json
+            tmp/browser-product/test-results/
           retention-days: 30
           if-no-files-found: error
