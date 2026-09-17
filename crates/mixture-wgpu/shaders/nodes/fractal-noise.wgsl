@@ -43,7 +43,7 @@ fn cellular_noise(uv: vec2<f32>, period: u32, seed: u32) -> f32 {
             let neighbor = cell + vec2<i32>(x, y);
             let wrapped = vec2<u32>((neighbor + vec2<i32>(i32(period))) % vec2<i32>(i32(period)));
             let jitter = vec2<f32>(lattice(wrapped, period, seed), lattice(wrapped, period, seed ^ 0x68bc21ebu));
-            let delta = vec2<f32>(neighbor) + vec2<f32>(0.2) + 0.6 * jitter - p;
+            let delta = vec2<f32>(vec2<i32>(x, y)) + vec2<f32>(0.2) + 0.6 * jitter - fract(p);
             let distance = dot(delta, delta);
             if distance < nearest {
                 second = nearest;
