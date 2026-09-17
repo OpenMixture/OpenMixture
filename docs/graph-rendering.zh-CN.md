@@ -80,6 +80,8 @@ renderer.clear_pipeline_cache();
 
 源文档保留 f64，编译调用记录 f32，每个 pass 在 `rgba16float` 中存储 f16 分量。回读拒绝非有限或越界分量，去除 256 字节行填充。返回数据为紧密排列、左上角原点的 RGBA8。
 
+每个 kernel 在纹理写入前调用共享的 [WGSL 存储转换](../crates/mixture-wgpu/shaders/precision.wgsl)：舍入到最近的 binary16，平局取偶数，并保留可精确表示的 f32 值。整数位运算使转换独立于隐式纹理写入舍入及后端 `quantizeToF16` 实现；两者在记录中的 NVIDIA 主机均发生截断。不要求可选 shader-f16 特性。算术仍使用 f32，不承诺跨驱动字节完全一致，冻结材质比较仍必须通过。零容差 constant-color `half-storage-boundary` 夹具检查导出回归；其 GPU 探针对 [-1,1] 的所有半精度区间、精确值、中点及相邻 f32 值，与独立 `half` crate 转换比较。
+
 | 逻辑类型 | RGBA8 转换 | PNG 元数据 |
 | --- | --- | --- |
 | Color（`baseColor`、`emissive`） | 线性 RGB → sRGB；alpha 保持线性；乘 255 后舍入 | sRGB intent |

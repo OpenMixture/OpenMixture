@@ -24,10 +24,10 @@ fn warp(@builtin(global_invocation_id) id: vec3<u32>) {
     if any(id.xy >= size) { return; }
     let field = clamp(textureLoad(displacement, vec2<i32>(id.xy), 0).r, 0.0, 1.0);
     if field == 0.5 || all(parameters.strength == vec2<f32>(0.0)) {
-        textureStore(output, vec2<i32>(id.xy), vec4<f32>(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 0.0, 1.0));
+        textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 0.0, 1.0)));
         return;
     }
     let uv = (vec2<f32>(id.xy) + vec2<f32>(0.5)) / vec2<f32>(size);
     let sample_uv = uv + (2.0 * field - 1.0) * parameters.strength;
-    textureStore(output, vec2<i32>(id.xy), vec4<f32>(repeat_bilinear(sample_uv), 0.0, 0.0, 1.0));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(repeat_bilinear(sample_uv), 0.0, 0.0, 1.0)));
 }

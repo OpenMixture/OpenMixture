@@ -11,5 +11,5 @@ fn checker(@builtin(global_invocation_id) id: vec3<u32>) {
     if any(id.xy >= size) { return; }
     let cell = id.xy * parameters.cells / size;
     let value = select(parameters.color_a, parameters.color_b, (cell.x + cell.y) % 2u == 1u);
-    textureStore(output, vec2<i32>(id.xy), value);
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(value));
 }

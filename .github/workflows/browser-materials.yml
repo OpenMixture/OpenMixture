@@ -65,7 +65,7 @@ jobs:
           cargo install wasm-bindgen-cli --version 0.2.128 --locked
       - name: Test candidate guards and build this revision's archive
         run: |
-          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs
+          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs
           node scripts/browser-runtime/build.mjs
       - name: Prepare detached native material inputs
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"

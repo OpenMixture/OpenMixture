@@ -2,7 +2,7 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**Current status (2026-09-16):** Native M4/M4.1, bounded M5 and the independent Studio MVP are accepted. Cargo packages and the npm Alpha archive remain unpublished; ordinary browser configurations still need qualification. Next is [Browser Runtime Alpha delivery closeout](./browser-alpha.md), the shared current-status and engine-ownership plan; M6 does not start.
+**Current status (2026-09-17):** Native M4/M4.1, bounded M5 and the independent Studio MVP are accepted. Cargo packages and the npm Alpha archive remain unpublished; the recorded Windows/Firefox configuration passed the [full ALPHA-03 runtime gate](./evidence/alpha-03-configured/README.md). Other ordinary configurations remain unqualified. Next is [Browser Runtime Alpha delivery closeout](./browser-alpha.md), the shared current-status and engine-ownership plan; M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

@@ -1,0 +1,106 @@
+[
+  {
+    "material": "wood",
+    "node": "grain",
+    "type": "fractal-noise",
+    "channel": "height",
+    "changed": 5,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "stretch",
+    "type": "transform-2d",
+    "channel": "height",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "wood",
+    "node": "distortion",
+    "type": "fractal-noise",
+    "channel": "height",
+    "changed": 9,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "warp",
+    "type": "warp",
+    "channel": "height",
+    "changed": 8,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "height",
+    "type": "levels",
+    "channel": "height",
+    "changed": 18,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "color",
+    "type": "gradient-map",
+    "channel": "baseColor",
+    "changed": 740,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "normal",
+    "type": "height-to-normal",
+    "channel": "normal",
+    "changed": 30,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "node": "roughness",
+    "type": "levels",
+    "channel": "height",
+    "changed": 9,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "node": "grain",
+    "type": "fractal-noise",
+    "channel": "height",
+    "changed": 6,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "node": "height",
+    "type": "levels",
+    "channel": "height",
+    "changed": 9,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "node": "color",
+    "type": "gradient-map",
+    "channel": "baseColor",
+    "changed": 4,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "node": "normal",
+    "type": "height-to-normal",
+    "channel": "normal",
+    "changed": 21,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "node": "roughness",
+    "type": "levels",
+    "channel": "height",
+    "changed": 3,
+    "max": 1
+  }
+]

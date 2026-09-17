@@ -8,27 +8,78 @@ use serde::Serialize;
 
 pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
     match id {
-        KernelId::Constant => (include_str!("../shaders/nodes/constant.wgsl"), "constant"),
-        KernelId::Checker => (include_str!("../shaders/nodes/checker.wgsl"), "checker"),
-        KernelId::Levels => (include_str!("../shaders/nodes/levels.wgsl"), "levels"),
-        KernelId::Blend => (include_str!("../shaders/nodes/blend.wgsl"), "blend"),
+        KernelId::Constant => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/constant.wgsl")
+            ),
+            "constant",
+        ),
+        KernelId::Checker => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/checker.wgsl")
+            ),
+            "checker",
+        ),
+        KernelId::Levels => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/levels.wgsl")
+            ),
+            "levels",
+        ),
+        KernelId::Blend => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/blend.wgsl")
+            ),
+            "blend",
+        ),
         KernelId::FractalNoise => (
-            include_str!("../shaders/nodes/fractal-noise.wgsl"),
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/fractal-noise.wgsl")
+            ),
             "fractal_noise",
         ),
         KernelId::GradientMap => (
-            include_str!("../shaders/nodes/gradient-map.wgsl"),
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/gradient-map.wgsl")
+            ),
             "gradient_map",
         ),
         KernelId::HeightToNormal => (
-            include_str!("../shaders/nodes/height-to-normal.wgsl"),
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/height-to-normal.wgsl")
+            ),
             "height_to_normal",
         ),
         KernelId::Transform2d => (
-            include_str!("../shaders/nodes/transform-2d.wgsl"),
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/transform-2d.wgsl")
+            ),
             "transform_2d",
         ),
-        KernelId::Warp => (include_str!("../shaders/nodes/warp.wgsl"), "warp"),
+        KernelId::Warp => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/warp.wgsl")
+            ),
+            "warp",
+        ),
     }
 }
 

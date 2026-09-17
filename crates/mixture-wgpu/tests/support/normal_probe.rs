@@ -147,7 +147,12 @@ fn render(context: &GpuContext, size: [u32; 2], heights: &[f32], strength: f32) 
     let module = device.create_shader_module(wgpu::ShaderModuleDescriptor {
         label: Some("production height-to-normal"),
         source: wgpu::ShaderSource::Wgsl(
-            include_str!("../../shaders/nodes/height-to-normal.wgsl").into(),
+            concat!(
+                include_str!("../../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../../shaders/nodes/height-to-normal.wgsl")
+            )
+            .into(),
         ),
     });
     let pipeline = device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {

@@ -25,7 +25,7 @@ fn transform_2d(@builtin(global_invocation_id) id: vec3<u32>) {
     let size = textureDimensions(output);
     if any(id.xy >= size) { return; }
     if all(parameters.scale == vec2<u32>(1u)) && parameters.quarter_turns == 0u && all(parameters.offset == vec2<f32>(0.0)) {
-        textureStore(output, vec2<i32>(id.xy), vec4<f32>(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 0.0, 1.0));
+        textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 0.0, 1.0)));
         return;
     }
     let uv = (vec2<f32>(id.xy) + vec2<f32>(0.5)) / vec2<f32>(size);
@@ -38,5 +38,5 @@ fn transform_2d(@builtin(global_invocation_id) id: vec3<u32>) {
         default: {}
     }
     let sample_uv = rotated * vec2<f32>(parameters.scale) + vec2<f32>(0.5) + parameters.offset;
-    textureStore(output, vec2<i32>(id.xy), vec4<f32>(repeat_bilinear(sample_uv), 0.0, 0.0, 1.0));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(repeat_bilinear(sample_uv), 0.0, 0.0, 1.0)));
 }

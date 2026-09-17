@@ -1,0 +1,114 @@
+[
+  {
+    "material": "leather",
+    "browser": "fixed-run",
+    "channel": "baseColor",
+    "changed": 83,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "browser": "fixed-run",
+    "channel": "height",
+    "changed": 312,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "browser": "fixed-run",
+    "channel": "normal",
+    "changed": 726,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "browser": "fixed-run",
+    "channel": "roughness",
+    "changed": 96,
+    "max": 1
+  },
+  {
+    "material": "leather",
+    "browser": "firefox-fixed-run",
+    "channel": "baseColor",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "leather",
+    "browser": "firefox-fixed-run",
+    "channel": "height",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "leather",
+    "browser": "firefox-fixed-run",
+    "channel": "normal",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "leather",
+    "browser": "firefox-fixed-run",
+    "channel": "roughness",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "wood",
+    "browser": "fixed-run",
+    "channel": "baseColor",
+    "changed": 28,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "browser": "fixed-run",
+    "channel": "height",
+    "changed": 37,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "browser": "fixed-run",
+    "channel": "normal",
+    "changed": 30,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "browser": "fixed-run",
+    "channel": "roughness",
+    "changed": 8,
+    "max": 1
+  },
+  {
+    "material": "wood",
+    "browser": "firefox-fixed-run",
+    "channel": "baseColor",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "wood",
+    "browser": "firefox-fixed-run",
+    "channel": "height",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "wood",
+    "browser": "firefox-fixed-run",
+    "channel": "normal",
+    "changed": 0,
+    "max": 0
+  },
+  {
+    "material": "wood",
+    "browser": "firefox-fixed-run",
+    "channel": "roughness",
+    "changed": 0,
+    "max": 0
+  }
+]

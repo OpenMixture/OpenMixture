@@ -4,6 +4,8 @@
 
 PR-007 的 [input.mix](./input.mix) 和 [cases.json](./cases.json)覆盖 `constant-color` 图契约。用例：`defaults`, `lower-bound`, `linear-rgba`。清单包含 3 个有效 GPU 用例和 3 个无效源文件／覆盖用例。样本为固定预期 RGBA8 哨点，显式使用 0／1 码值容差，不通过 CPU 图求值器生成。无效用例必须在获取 GPU 前失败。
 
+ALPHA-03 增加第四个有效用例 `half-storage-boundary`：接近半精度 `0.232666015625` 的三个 f32 值，显式半精度量化后必须导出 `[133,133,133,255]`。记录中的 NVIDIA 隐式存储路径输出 `[132,132,133,255]`。该回归使用零容差，不替换任何现有 golden。
+
 [契约](../../../docs/node-contracts.zh-CN.md)定义参数／默认值／公式；[图渲染](../../../docs/graph-rendering.zh-CN.md)定义 f32／f16 精度、通道编码及证据。像素路径使用 [constant.wgsl](../../../crates/mixture-wgpu/shaders/nodes/constant.wgsl)。`material-output` 自身仅映射资源，生成的默认值使用常量 kernel。
 
 ```bash
