@@ -37,7 +37,7 @@ jobs:
       - name: Verify WASM compilation and JS boundary tests
         run: |
           cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
-          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs
+          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs
       - name: Build the actual npm archive
         run: node scripts/browser-runtime/build.mjs
       - name: Retain package and build identity

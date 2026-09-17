@@ -17,7 +17,7 @@ export function assertOrdinaryLaunch(launch) {
   assert.match(launch.arguments[1], /^--remote-debugging-port=\d+$/);
   assert.equal(launch.arguments[2], 'about:blank');
   assert.equal(launch.endpoint, `http://127.0.0.1:${launch.arguments[1].split('=')[1]}`);
-  assert.equal(launch.observedCommandLine, `"${launch.executable}" ${launch.arguments.join(' ')}`);
+  assert.equal(launch.observedCommandLine.trim(), `"${launch.executable}" ${launch.arguments.join(' ')}`);
   assert.match(launch.executableSha256, /^[a-f0-9]{64}$/);
 }
 
@@ -59,14 +59,28 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
   try {
     const system = await browser.newBrowserCDPSession();
     receipt.browserSystemInfo = await system.send('SystemInfo.getInfo');
-    assert.equal(receipt.browserSystemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', ''), launch.observedCommandLine);
+    assert.equal(receipt.browserSystemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
     const page = await newPage();
     page.on('pageerror', error => errors.push(error.message));
+    await page.addInitScript(() => {
+      const original = navigator.gpu.requestAdapter;
+      navigator.gpu.requestAdapter = async function (options) {
+        const adapter = await original.call(this, options);
+        // Observe the exact returned adapter without changing options or the
+        // object delivered to wgpu. Redacted/unavailable fields stay explicit.
+        const info = adapter?.info;
+        window.selectedAdapter = { options, info: info ? {
+          vendor: info.vendor, architecture: info.architecture, device: info.device,
+          description: info.description, isFallbackAdapter: info.isFallbackAdapter ?? adapter.isFallbackAdapter ?? null,
+        } : null };
+        return adapter;
+      };
+    });
     await page.goto('http://127.0.0.1:4173/player/tests/contract.html');
     const identity = await page.evaluate(async () => {
       window.runtime = await window.mixtureContract.loadRuntime();
       window.gpu = await window.runtime.createGpu();
-      return JSON.parse(JSON.stringify({ secure: isSecureContext, build: window.runtime.getBuildInfo(), context: window.gpu.context },
+      return JSON.parse(JSON.stringify({ secure: isSecureContext, build: window.runtime.getBuildInfo(), context: window.gpu.context, selectedAdapter: window.selectedAdapter },
         (_, value) => typeof value === 'bigint' ? value.toString() : value));
     });
     assert.equal(identity.secure, true);
@@ -161,7 +175,7 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
     await save(join(output, 'ordinary.json'), { schemaVersion: 1, ok: true,
       receiptSha256: hash(await readFile(join(output, 'receipt.json'))), comparisonSha256: hash(await readFile(join(output, 'comparison.json'))),
       verifierSha256: hash(await readFile(import.meta.filename)), finishedAt: new Date().toISOString(),
-      scope: 'Recorded Chrome/Windows fresh desktop profile only; failure paths are separately injected; production Player verification is separate.' });
+      scope: 'Recorded desktop browser/Windows fresh profile only; failure paths are separately injected; production Player verification is separate.' });
   } catch (error) {
     await save(join(output, 'failure.json'), { message: error.message, stack: error.stack, receipt });
     throw error;
@@ -184,7 +198,7 @@ export async function production(product, candidateDirectory, launchFile, output
   assert.equal(browser.version(), launch.version);
   const system = await browser.newBrowserCDPSession();
   const info = await system.send('SystemInfo.getInfo');
-  assert.equal(info.commandLine.replace(' --flag-switches-begin --flag-switches-end', ''), launch.observedCommandLine);
+  assert.equal(info.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
   const page = await browser.contexts()[0].newPage();
   try {
     await page.goto('http://127.0.0.1:4173/player/');

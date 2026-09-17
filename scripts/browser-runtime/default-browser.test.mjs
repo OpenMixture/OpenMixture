@@ -11,6 +11,7 @@ const launch = {
 
 test('ordinary-profile evidence rejects reused profiles and GPU/headless/security overrides', () => {
   assertOrdinaryLaunch(launch);
+  assertOrdinaryLaunch({ ...launch, observedCommandLine: `${launch.observedCommandLine} ` });
   assert.throws(() => assertOrdinaryLaunch({ ...launch, freshProfile: false }));
   for (const flag of ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist', '--use-angle=swiftshader', '--disable-gpu', '--headless', '--no-sandbox']) {
     assert.throws(() => assertOrdinaryLaunch({ ...launch, arguments: [...launch.arguments, flag] }));
