@@ -193,6 +193,8 @@ PR-010 添加 `transform-2d` 和 `warp`，使目录达到十一个节点，渲�
 
 中性场纹素或零强度向量直接读取输入，精确保留该标量像素。即使强度为零，也仍验证并编译必填位移场连接。周期源与周期位移输入保持平铺契约，因为跨越一个输出图块会增加整数源 UV 步长。大位移可能折叠采样图案；不承诺单调性或抗锯齿。
 
+Warp 使用等价的局部纹素坐标：`delta=(2*clamp(field,0,1)-1)*strength*dimensions`，整数基址为环绕后的 `pixel+floor(delta)`，插值权重为 `fract(delta)`。同一渲染计划的全部纹理使用同一分辨率。避免将整数像素位置加入 f32 插值坐标，可在较大坐标保留微小位移。实数采样语义不变，但浮点像素可能改变；现有 golden 仍有约束力。
+
 ```bash
 cargo test --locked -p mixture-core --test resampling --test registry
 cargo xtask shader-check
