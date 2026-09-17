@@ -17,8 +17,8 @@ fn repeat_bilinear(uv: vec2<f32>) -> f32 {
     let b = (base + vec2<i32>(1, 0) + size) % size;
     let c = (base + vec2<i32>(0, 1) + size) % size;
     let d = (base + vec2<i32>(1, 1) + size) % size;
-    return mixture_mix(mixture_mix(textureLoad(input, a, 0).r, textureLoad(input, b, 0).r, t.x),
-               mixture_mix(textureLoad(input, c, 0).r, textureLoad(input, d, 0).r, t.x), t.y);
+    return mix(mix(textureLoad(input, a, 0).r, textureLoad(input, b, 0).r, t.x),
+               mix(textureLoad(input, c, 0).r, textureLoad(input, d, 0).r, t.x), t.y);
 }
 @compute @workgroup_size(8, 8, 1)
 fn transform_2d(@builtin(global_invocation_id) id: vec3<u32>) {

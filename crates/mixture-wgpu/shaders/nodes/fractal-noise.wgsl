@@ -29,7 +29,7 @@ fn value_noise(uv: vec2<f32>, period: u32, seed: u32) -> f32 {
     let b = lattice(cell + vec2<u32>(1u, 0u), period, seed);
     let c = lattice(cell + vec2<u32>(0u, 1u), period, seed);
     let d = lattice(cell + vec2<u32>(1u, 1u), period, seed);
-    return mixture_mix(mixture_mix(a, b, fade.x), mixture_mix(c, d, fade.x), fade.y);
+    return mix(mix(a, b, fade.x), mix(c, d, fade.x), fade.y);
 }
 fn cellular_noise(uv: vec2<f32>, period: u32, seed: u32) -> f32 {
     let p = uv * f32(period);

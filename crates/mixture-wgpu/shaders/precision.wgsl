@@ -20,6 +20,3 @@ fn mixture_half(value: f32) -> f32 {
 fn mixture_half4(value: vec4<f32>) -> vec4<f32> {
     return vec4<f32>(mixture_half(value.x), mixture_half(value.y), mixture_half(value.z), mixture_half(value.w));
 }
-
-// Use the same explicit interpolation expression in every backend.
-fn mixture_mix(a: f32, b: f32, t: f32) -> f32 { return fma(t, b - a, a); }
