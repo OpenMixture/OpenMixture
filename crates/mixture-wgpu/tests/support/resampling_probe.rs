@@ -23,8 +23,8 @@ pub(super) fn run(context: &GpuContext, node: &str) -> Value {
         let actual = render(context, node, &probe);
         assert_eq!(actual.len(), probe.expected.len());
         for (index, (rgba, scalar)) in actual.iter().zip(&probe.expected).enumerate() {
-            // Every input, UV and expected result in these power-of-two fixtures
-            // is dyadic and exactly representable in f16, including interpolation.
+            // Literal expectations specify the binary16 result analytically;
+            // no tolerance or CPU resampler is used.
             assert_eq!(
                 *rgba,
                 [*scalar, 0.0, 0.0, 1.0],
@@ -328,6 +328,45 @@ fn warp_probes() -> Vec<Probe> {
             vec![1.0; 4],
             [0.375, 0.125],
             vec![0.125, 0.375, 0.75, 0.5],
+        ),
+        // A positive 2^-26 UV shift is 2^-16 texels here. It must not vanish
+        // when added to a large absolute UV. Low samples are exactly 2^-16;
+        // high samples round from 1-2^-16 to 1 in binary16.
+        (
+            "sub-ulp-uv-displacement-keeps-local-weight",
+            [1024, 1],
+            (0..1024)
+                .map(|i| if i % 2 == 0 { 0.0 } else { 1.0 })
+                .collect(),
+            vec![1.0; 1024],
+            [1.0 / 67108864.0, 0.0],
+            (0..1024)
+                .map(|i| if i % 2 == 0 { 1.0 / 65536.0 } else { 1.0 })
+                .collect(),
+        ),
+        (
+            "odd-width-positive-three-quarter-texel",
+            [3, 1],
+            vec![0.0, 0.25, 1.0],
+            vec![1.0; 3],
+            [0.25, 0.0],
+            vec![0.1875, 0.8125, 0.25],
+        ),
+        (
+            "odd-height-negative-three-quarter-texel",
+            [1, 3],
+            vec![0.0, 0.25, 1.0],
+            vec![1.0; 3],
+            [0.0, -0.25],
+            vec![0.75, 0.0625, 0.4375],
+        ),
+        (
+            "odd-width-negative-full-period",
+            [3, 1],
+            vec![0.0, 0.25, 1.0],
+            vec![1.0; 3],
+            [-1.0, 1.0],
+            vec![0.0, 0.25, 1.0],
         ),
         (
             "single-texel-all-neighbors-wrap",

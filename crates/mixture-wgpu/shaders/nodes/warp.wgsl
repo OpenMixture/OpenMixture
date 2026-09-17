@@ -5,12 +5,14 @@ struct Parameters { strength: vec2<f32>, _pad: vec2<f32>, }
 @group(0) @binding(2) var input: texture_2d<f32>;
 @group(0) @binding(3) var displacement: texture_2d<f32>;
 
-fn repeat_bilinear(uv: vec2<f32>) -> f32 {
+fn repeat_bilinear(pixel: vec2<i32>, delta_texels: vec2<f32>) -> f32 {
     let size = vec2<i32>(textureDimensions(input));
-    let p = fract(uv) * vec2<f32>(size) - vec2<f32>(0.5);
-    let base = vec2<i32>(floor(p));
-    let t = fract(p);
-    // fract bounds base to [-1, size-1]; adding size makes each modulo nonnegative.
+    // Plan textures share a resolution: pixel-center sampling is pixel + delta.
+    // Keep the integer pixel out of f32 arithmetic so small weights survive.
+    let base = pixel + vec2<i32>(floor(delta_texels));
+    let t = fract(delta_texels);
+    // Clamped field and strength in [-1,1] bound delta to [-size,size].
+    // Thus base >= -size; adding size makes every neighbor modulo nonnegative.
     let a = (base + size) % size;
     let b = (base + vec2<i32>(1, 0) + size) % size;
     let c = (base + vec2<i32>(0, 1) + size) % size;
@@ -27,7 +29,6 @@ fn warp(@builtin(global_invocation_id) id: vec3<u32>) {
         textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 0.0, 1.0)));
         return;
     }
-    let uv = (vec2<f32>(id.xy) + vec2<f32>(0.5)) / vec2<f32>(size);
-    let sample_uv = uv + (2.0 * field - 1.0) * parameters.strength;
-    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(repeat_bilinear(sample_uv), 0.0, 0.0, 1.0)));
+    let delta_texels = (2.0 * field - 1.0) * parameters.strength * vec2<f32>(size);
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(repeat_bilinear(vec2<i32>(id.xy), delta_texels), 0.0, 0.0, 1.0)));
 }

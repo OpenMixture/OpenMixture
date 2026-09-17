@@ -193,6 +193,8 @@ Read the displacement scalar at the current output texel, set `d=2*clamp(field,0
 
 A neutral field texel or a zero strength vector uses a direct input load and preserves its scalar pixel exactly. The required field connection is still validated and compiled when strength is zero. Periodic source and displacement inputs preserve the tile contract because an output-tile step adds an integer source-UV step. Large displacements can fold the sampled pattern; no monotonicity or antialiasing is promised.
 
+Warp evaluates the equivalent sample in local texel coordinates: `delta=(2*clamp(field,0,1)-1)*strength*dimensions`, wrapped integer base `pixel+floor(delta)`, and interpolation weight `fract(delta)`. All textures in a render plan share its resolution. Keeping the integer pixel out of f32 interpolation preserves small displacements at large coordinates. Real-valued sampling semantics are unchanged, but floating-point pixels can change; existing goldens remain binding.
+
 ```bash
 cargo test --locked -p mixture-core --test resampling --test registry
 cargo xtask shader-check

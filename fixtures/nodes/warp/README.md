@@ -17,3 +17,5 @@ cargo xtask test-node warp
 ```
 
 Use the explicit adapter policy in the [GPU guide](../../../docs/gpu-context.md). Evidence is written under `tmp/node-tests/<backend>/`, including `warp-literal-probes.json`. See the [contract](../../../docs/node-contracts.md) and sole [WGSL implementation](../../../crates/mixture-wgpu/shaders/nodes/warp.wgsl). The wood material combines a transformed grain source with a separately seeded periodic displacement field.
+
+The implementation evaluates the equivalent coordinate using integer output pixels plus local texel displacement. Wrapped neighbors use `pixel+floor(delta)` and weights use `fract(delta)`; it does not round an absolute UV before recovering texel coordinates. All plan textures share the render resolution. Literal probes also cover an analytically specified 2^-26 UV displacement across 1024 pixels, odd-size positive/negative shifts, and a negative full period. No golden or tolerance changes accompany this numerical correction.
