@@ -4,6 +4,8 @@ English | [简体中文](./README.zh-CN.md)
 
 **Result: blocked, not accepted.** Both ordinary browsers complete the runtime lifecycle and diagnostic probes, but neither passes the frozen full material comparison. ALPHA-03 and the dependent ALPHA-04 release gate remain open. No tolerance, shader, native golden or runtime implementation was changed. No general Windows/NVIDIA support claim follows from this run.
 
+Delivery: [draft PR #12](https://github.com/OpenMixture/OpenMixture/pull/12). The 11 focused Node tests and full local `cargo xtask check` passed on 2026-09-17; the earlier check during document assembly failed on the then-missing record links and was rerun after those files existed. Remote PR CI was pending when this record was written. Local tooling checks do not convert the browser material failures into passes.
+
 ## Bound inputs and environment
 
 - Runtime: clean engine `7b1cec4ad1d42d6269ef6a9912c2e8ba3a2dfdd9`, unpublished `0.1.0-alpha.0`; [producer receipt](./package-receipt.json), [retained archive](./openmixture-runtime-0.1.0-alpha.0.tgz). SHA-256: `88f22ac295c3a1cc6bee2e995ed1e4683ca6669026167e4731ee10564f30d48c`.

@@ -8,7 +8,7 @@
 
 使用已经通过 ALPHA-01 的确切归档、生产者回执及 SHA-256。按[候选验证流程](./browser-materials.zh-CN.md)安装到固定的独立消费者，执行 `npm ci` 并核对安装字节。产品原始提交和其他 lock 条目保持不变。保留的候选可能早于后续文档或验证工具提交，不能将后者称为已测运行时。
 
-Windows [启动器](../scripts/browser-runtime/launch-default-browser.ps1)使用新的临时配置目录启动已安装的桌面浏览器，只增加 `--user-data-dir`、回环 CDP 端口及 `about:blank`。不添加 headless、unsafe-WebGPU、忽略黑名单、ANGLE／软件适配器、沙箱或功能覆盖参数，不修改个人配置、驱动或浏览器设置。CDP 只是测试通信方式，不是最终用户的前置条件。[验证器](../scripts/browser-runtime/default-browser.mjs)同时核对 OS 实测命令行和浏览器自身报告的命令行，只规范化 Chrome 的空 flag-switch 标记。额外参数或复用启动目录都会被拒绝。
+Windows [启动器](../scripts/browser-runtime/launch-default-browser.ps1)使用新的临时配置目录启动已安装的桌面浏览器，只增加 `--user-data-dir`、回环 CDP 端口及 `about:blank`。不添加 headless、unsafe-WebGPU、忽略黑名单、ANGLE／软件适配器、沙箱或功能覆盖参数，不修改个人配置、驱动或浏览器设置。CDP 只是测试通信方式，不是最终用户的前置条件。[验证器](../scripts/browser-runtime/default-browser.mjs)同时核对 OS 实测命令行和浏览器自身报告的命令行，只规范化 Chromium 的空 flag-switch 标记和首尾空白。额外参数或复用启动目录都会被拒绝。
 
 记录 OS／构建、已安装浏览器版本／可执行文件摘要、完整启动参数、浏览器 GPU 信息及运行时可见的适配器证据。被隐藏或不可用的字段保持原样。观察用 `requestAdapter` 包装器原样转发选项并返回原适配器；失败注入仅发生在独立页面，并明确标为合成情形。
 

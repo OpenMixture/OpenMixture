@@ -4,6 +4,8 @@
 
 **结果：阻塞，未验收通过。** 两个普通浏览器均完成运行时生命周期和诊断探针，但均未通过冻结的完整材质比较。ALPHA-03 及依赖它的 ALPHA-04 发布门槛保持未完成。没有修改容差、着色器、原生 golden 或运行时实现，也不据此声明普遍支持 Windows/NVIDIA。
 
+交付：[草稿 PR #12](https://github.com/OpenMixture/OpenMixture/pull/12)。11 项定向 Node 测试和完整本地 `cargo xtask check` 于 2026-09-17 通过；文档组装期间首次检查因记录链接尚不存在而失败，文件补齐后已重跑通过。记录撰写时远程 PR CI 仍待完成。本地工具检查通过不改变浏览器材质失败结论。
+
 ## 输入与环境
 
 - 运行时：干净引擎 `7b1cec4ad1d42d6269ef6a9912c2e8ba3a2dfdd9`，未发布的 `0.1.0-alpha.0`；[生产回执](./package-receipt.json)、[保留归档](./openmixture-runtime-0.1.0-alpha.0.tgz)。SHA-256：`88f22ac295c3a1cc6bee2e995ed1e4683ca6669026167e4731ee10564f30d48c`。
