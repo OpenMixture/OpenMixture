@@ -2,7 +2,7 @@
 
 English | [简体中文](./default-browser.zh-CN.md)
 
-This procedure qualifies a specific browser/OS/driver and runtime archive with ordinary GPU settings. It is separate from controlled Chromium CI and from publishing an Alpha. The [recorded result](./evidence/alpha-03/README.md) defines the actual supported scope; a browser version alone is not a universal hardware guarantee.
+This procedure qualifies a specific browser/OS/driver and runtime archive with ordinary GPU settings. It is separate from controlled Chromium CI and from publishing an Alpha. The [recorded result](./evidence/alpha-03-configured/README.md) defines the actual supported scope; a browser version alone is not a universal hardware guarantee.
 
 ## Inputs and launch policy
 
@@ -44,10 +44,24 @@ node scripts/browser-runtime/default-browser.mjs production /absolute/product /a
 
 This checks explicit Player initialization/render/disposal, download of a 65×3 checker with exact independently decoded RGBA bytes and sRGB metadata, and absence of the test harness from production. It retains the PNG, a screenshot and a receipt. Close only the qualification browser/profile after collecting evidence; never close a personal browser session.
 
+## Firefox and native reference configuration
+
+Launch Firefox with `-Family firefox -BrowserPath <firefox.exe>`. Only a fresh profile, loopback BiDi port and blank page are added. The verifier binds version, headed state, profile and actual child-process PID/command line to the launch record. `run` supports Firefox; the actual download check in `production` currently requires Chromium and does not certify Firefox Player downloads.
+
+Successful GPU acquisition/rendering followed by a pixel comparison failure does not mean WebGPU is unsupported. Native references also depend on build profile and the actual shader compiler. `prepare-materials.mjs` keeps `debug` as its default; set `MIXTURE_NATIVE_PROFILE=release` explicitly when needed. On Windows DX12, `MIXTURE_DX12_COMPILER_DIRECTORY` prepends a directory containing `dxcompiler.dll` only to the native child PATH. The manifest records profile, requested DLL path/digest, script and executable digests. Separately record the actual loaded process module; PATH configuration alone is not loading evidence. These are developer reference-tool settings; browser users do not need Rust or DXC configuration.
+
+```powershell
+$env:MIXTURE_NATIVE_PROFILE = 'release'
+$env:MIXTURE_DX12_COMPILER_DIRECTORY = '<verified Firefox directory>'
+node scripts/browser-runtime/prepare-materials.mjs tmp/configured-native <full-candidate-engine-revision>
+```
+
+Keep existing backend/adapter requirements and the source-drift check, and use fresh reference/browser output directories. Preserve previous failures, goldens and tolerances. A result certifies the recorded configuration pair, not bitwise agreement across every compiler.
+
 ## Failures and evidence boundaries
 
 The negative pages separately inject absent WebGPU, a null adapter and rejected device creation. They must retain `MIX_BROWSER_WEBGPU_UNAVAILABLE`, `MIX_GPU_ADAPTER_UNAVAILABLE`/`gpuAdapter`, and `MIX_GPU_DEVICE_REQUEST_FAILED`/`gpuDevice`, respectively. Engine failures keep actionable suggestions and CPU document validation remains usable. These are controlled diagnostic probes, not natural unsupported-host coverage or a fallback pixel executor.
 
 Keep failed runs intact. Comparing a hardware browser to references from a different software/hardware adapter is a distinct portability experiment; it must not silently redefine the same-host browser/native acceptance. Retain any such failed comparison and use fresh, source-matched references/output directories for the intended host pair. Never widen tolerances to close this gate.
 
-The two Node guard tests run in browser CI; they do not launch or certify an ordinary desktop browser there. Run `node --test scripts/browser-runtime/default-browser.test.mjs` and `cargo xtask check` for verifier changes. A later candidate, OS/browser/driver change, different browser, custom profile/extension/policy, public deployment or full Studio saved-file workflow needs its own evidence. Follow [evidence retention](./evidence-policy.md) for accepted records, temporary full outputs and archive expiry.
+The three Node guard tests run in browser CI; they do not launch or certify an ordinary desktop browser there. Run `node --test scripts/browser-runtime/default-browser.test.mjs` and `cargo xtask check` for verifier changes. A later candidate, OS/browser/driver change, different browser, custom profile/extension/policy, public deployment or full Studio saved-file workflow needs its own evidence. Follow [evidence retention](./evidence-policy.md) for accepted records, temporary full outputs and archive expiry.

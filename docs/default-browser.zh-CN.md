@@ -2,7 +2,7 @@
 
 [English](./default-browser.md) | 简体中文
 
-本流程在普通 GPU 设置下验证特定浏览器／OS／驱动与运行时归档，独立于受控 Chromium CI 和 Alpha 发布。[验收记录](./evidence/alpha-03/README.zh-CN.md)定义实际支持范围；浏览器版本本身不代表通用硬件支持保证。
+本流程在普通 GPU 设置下验证特定浏览器／OS／驱动与运行时归档，独立于受控 Chromium CI 和 Alpha 发布。[验收记录](./evidence/alpha-03-configured/README.zh-CN.md)定义实际支持范围；浏览器版本本身不代表通用硬件支持保证。
 
 ## 输入与启动规则
 
@@ -44,10 +44,24 @@ node scripts/browser-runtime/default-browser.mjs production /absolute/product /a
 
 此步骤检查 Player 显式初始化／渲染／销毁、65×3 棋盘格 PNG 下载的独立解码 RGBA 精确字节和 sRGB 元数据，以及生产构建不包含测试入口。保留 PNG、截图和回执。收集证据后只关闭验收专用的浏览器／配置，不关闭个人浏览器会话。
 
+## Firefox 与原生参照配置
+
+启动 Firefox 时传入 `-Family firefox -BrowserPath <firefox.exe>`，只增加新配置目录、回环 BiDi 端口和空白页。验证器将版本、非 headless 状态、配置目录及实际子进程 PID／命令行与启动记录绑定。`run` 支持 Firefox；`production` 的实际下载检查目前仅支持 Chromium，不能据此声称 Firefox Player 下载已验收。
+
+成功获取 GPU 并渲染，但逐像素比较失败，不等于设备不支持 WebGPU。原生参照还依赖构建模式及实际着色器编译器。`prepare-materials.mjs` 默认保留 `debug`；可显式设置 `MIXTURE_NATIVE_PROFILE=release`。Windows DX12 可用 `MIXTURE_DX12_COMPILER_DIRECTORY` 指定包含 `dxcompiler.dll` 的目录，仅前置到原生子进程 PATH。清单记录构建模式、DLL 请求路径／摘要、脚本及可执行文件摘要；另需记录实际加载的模块，不能把 PATH 配置本身当作加载证明。这些是开发验收参照工具设置，浏览器用户无需配置 Rust 或 DXC。
+
+```powershell
+$env:MIXTURE_NATIVE_PROFILE = 'release'
+$env:MIXTURE_DX12_COMPILER_DIRECTORY = '<经核验的 Firefox 目录>'
+node scripts/browser-runtime/prepare-materials.mjs tmp/configured-native <候选引擎完整提交>
+```
+
+继续使用原有后端／适配器要求和源码漂移检查，为每次参照与浏览器运行创建新目录。保留先前失败、golden 和容差。结果仅证明记录的配置配对，不能推导所有编译器逐位一致。
+
 ## 失败与证据边界
 
 负向页面分别注入 WebGPU 缺失、适配器返回 null、设备创建拒绝，必须保留 `MIX_BROWSER_WEBGPU_UNAVAILABLE`、`MIX_GPU_ADAPTER_UNAVAILABLE`／`gpuAdapter`、`MIX_GPU_DEVICE_REQUEST_FAILED`／`gpuDevice`。引擎失败保留可操作建议，CPU 文档验证仍可使用。这些是受控诊断探针，不是自然不支持主机的覆盖，也不是备用像素执行器。
 
 失败运行保持原样。将硬件浏览器与不同软件／硬件适配器生成的参考比较，是独立的可移植性实验，不能悄悄重新定义同机浏览器／原生验收。保留这类失败比较，并为目标主机配对使用新的、源码匹配的参考与输出目录。不能通过放宽容差关闭门槛。
 
-两项 Node 守卫测试在浏览器 CI 中运行，但不在那里启动或认证普通桌面浏览器。修改验证器后运行 `node --test scripts/browser-runtime/default-browser.test.mjs` 和 `cargo xtask check`。后续候选、OS／浏览器／驱动变化、其他浏览器、自定义配置／扩展／策略、公共部署及完整 Studio 保存文件流程，均需单独证据。已接受记录、临时完整输出及归档过期遵循[证据保留政策](./evidence-policy.zh-CN.md)。
+三项 Node 守卫测试在浏览器 CI 中运行，但不在那里启动或认证普通桌面浏览器。修改验证器后运行 `node --test scripts/browser-runtime/default-browser.test.mjs` 和 `cargo xtask check`。后续候选、OS／浏览器／驱动变化、其他浏览器、自定义配置／扩展／策略、公共部署及完整 Studio 保存文件流程，均需单独证据。已接受记录、临时完整输出及归档过期遵循[证据保留政策](./evidence-policy.zh-CN.md)。

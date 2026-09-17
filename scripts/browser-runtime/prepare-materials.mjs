@@ -9,17 +9,32 @@ if (!destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Err
 const out = resolve(destination);
 if (existsSync(out)) throw new Error('Reference directory already exists; select a fresh run directory');
 const git = (...args) => execFileSync('git', args, {cwd:root,encoding:'utf8'}).trim();
+const profile = process.env.MIXTURE_NATIVE_PROFILE ?? 'debug';
+if (!['debug', 'release'].includes(profile)) throw new Error('MIXTURE_NATIVE_PROFILE must be debug or release');
+const compilerDirectory = process.env.MIXTURE_DX12_COMPILER_DIRECTORY;
+if (compilerDirectory && (process.platform !== 'win32' || process.env.MIXTURE_GPU_BACKEND !== 'dx12')) {
+ throw new Error('MIXTURE_DX12_COMPILER_DIRECTORY requires Windows DX12');
+}
+const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+const compiler = compilerDirectory ? {requestedPath:join(resolve(compilerDirectory),'dxcompiler.dll'),
+ sha256:sha(readFileSync(join(resolve(compilerDirectory),'dxcompiler.dll'))),
+ selection:'Prepended to native child PATH; verify actual loaded module separately'} : undefined;
+const nativeEnv = {...process.env};
+if (compilerDirectory) {
+ const pathKey = Object.keys(nativeEnv).find(key => key.toLowerCase() === 'path') ?? 'PATH';
+ nativeEnv[pathKey] = `${resolve(compilerDirectory)};${nativeEnv[pathKey] ?? ''}`;
+}
 // A plan hash alone cannot certify an implementation. Require matching runtime inputs.
 git('diff','--exit-code',runtimeRevision,'--','crates','Cargo.lock','Cargo.toml');
-execFileSync('cargo',['build','--locked','-p','mixture-cli'],{cwd:root,stdio:'inherit'});
+execFileSync('cargo',['build','--locked',...(profile === 'release' ? ['--release'] : []),'-p','mixture-cli'],{cwd:root,stdio:'inherit'});
 mkdirSync(out,{recursive:true});
-const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const cli=join(root,'target/debug',process.platform==='win32'?'mixture.exe':'mixture');
+const cli=join(root,'target',profile,process.platform==='win32'?'mixture.exe':'mixture');
 const backend=process.env.MIXTURE_GPU_BACKEND;
 if(!['metal','vulkan','dx12'].includes(backend))throw new Error('Set MIXTURE_GPU_BACKEND explicitly');
 const policy=['--backend',backend,...(process.env.MIXTURE_GPU_SOFTWARE==='1'?['--software']:[])];
 const manifest={schemaVersion:1,engineRevision:git('rev-parse','HEAD'),engineDirty:Boolean(git('status','--porcelain')),runtimeRevision,
- startedAt:new Date().toISOString(),nativeBinarySha256:sha(readFileSync(cli)),cases:[]};
+ startedAt:new Date().toISOString(),nativeProfile:profile,configuredDx12Compiler:compiler,
+ preparationSha256:sha(readFileSync(import.meta.filename)),nativeBinarySha256:sha(readFileSync(cli)),cases:[]};
 for(const material of ['glazed-ceramic','leather','wood']){
  const fixture=join(root,'fixtures/materials',material), source=readFileSync(join(fixture,'material.mix'));
  const acceptance=JSON.parse(readFileSync(join(fixture,'acceptance.json')));
@@ -28,7 +43,7 @@ for(const material of ['glazed-ceramic','leather','wood']){
   const folder=join(out,material,item.id);mkdirSync(folder,{recursive:true});
   const options=['--size','1024','--output','baseColor,normal,roughness,height'];
   for(const [id,value] of Object.entries(overrides))options.push('--set',`${id}=${JSON.stringify(value)}`);
-  const run=(args)=>JSON.parse(execFileSync(cli,args,{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024}));
+  const run=(args)=>JSON.parse(execFileSync(cli,args,{cwd:root,env:nativeEnv,encoding:'utf8',maxBuffer:8*1024*1024}));
   const inspection=run(['inspect',join(fixture,'material.mix'),'--plan','--json',...options]);
   const render=run(['render',join(fixture,'material.mix'),'--out',folder,'--json',...policy,...options]);
   if(process.env.MIXTURE_GPU_EXPECT_ADAPTER && !JSON.stringify(render.context.adapter).includes(process.env.MIXTURE_GPU_EXPECT_ADAPTER))throw new Error('Unexpected native adapter');

@@ -6,19 +6,38 @@ import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { assertBuild, hash, installed } from './candidate.mjs';
+import { connectFirefox } from './firefox-transport.mjs';
 
 const json = async path => JSON.parse((await readFile(path, 'utf8')).replace(/^\uFEFF/, ''));
 const save = (path, value) => writeFile(path, JSON.stringify(value, null, 2) + '\n');
 
 export function assertOrdinaryLaunch(launch) {
   assert.equal(launch.freshProfile, true);
-  assert.equal(launch.arguments.length, 3);
-  assert.match(launch.arguments[0], /^--user-data-dir="[^"\r\n]+"$/);
-  assert.match(launch.arguments[1], /^--remote-debugging-port=\d+$/);
-  assert.equal(launch.arguments[2], 'about:blank');
-  assert.equal(launch.endpoint, `http://127.0.0.1:${launch.arguments[1].split('=')[1]}`);
+  assert.ok([undefined, 'chromium', 'firefox'].includes(launch.browserFamily));
+  const firefox = launch.browserFamily === 'firefox';
+  assert.equal(launch.arguments.length, firefox ? 4 : 3);
+  if (firefox) {
+    assert.equal(launch.arguments[0], '-profile');
+    assert.match(launch.arguments[1], /^"[^"\r\n]+"$/);
+  } else assert.match(launch.arguments[0], /^--user-data-dir="[^"\r\n]+"$/);
+  const debugging = launch.arguments[firefox ? 2 : 1];
+  assert.match(debugging, /^--remote-debugging-port=\d+$/);
+  assert.equal(launch.arguments.at(-1), 'about:blank');
+  assert.equal(launch.endpoint, firefox ? `ws://127.0.0.1:${debugging.split('=')[1]}/session` : `http://127.0.0.1:${debugging.split('=')[1]}`);
   assert.equal(launch.observedCommandLine.trim(), `"${launch.executable}" ${launch.arguments.join(' ')}`);
   assert.match(launch.executableSha256, /^[a-f0-9]{64}$/);
+}
+
+export function assertFirefoxProcess(launch, capabilities) {
+  assert.equal(capabilities.browserName, 'firefox');
+  assert.equal(capabilities.browserVersion, launch.version);
+  const process = launch.browserProcess;
+  assert.equal(process.parentProcessId, launch.processId);
+  assert.equal(capabilities['moz:processID'], process.processId);
+  assert.equal(capabilities['moz:headless'], false);
+  assert.equal(capabilities['moz:profile'], launch.arguments[1].slice(1, -1));
+  const tokens = process.commandLine.match(/"[^"]*"|[^\s]+/g).map(value => value.replace(/^"|"$/g, ''));
+  assert.deepEqual(tokens, [launch.executable, ...launch.arguments.map(value => value.replace(/^"|"$/g, ''))]);
 }
 
 export function assertFailure(value, code, stage) {
@@ -44,9 +63,11 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
   assert.equal(manifest.runtimeRevision, candidate.receipt.engineRevision);
   assert.equal(manifest.cases.length, 11);
   const { chromium } = await import(pathToFileURL(join(product, 'node_modules/@playwright/test/index.mjs')));
-  const browser = await chromium.connectOverCDP(launch.endpoint);
+  const browser = launch.browserFamily === 'firefox' ? await connectFirefox(launch.endpoint) : await chromium.connectOverCDP(launch.endpoint);
   const pages = [];
   const receipt = { schemaVersion: 1, archiveSha256: candidate.receipt.sha256, lockSha256: candidate.lockSha256,
+    verifierSha256: hash(await readFile(import.meta.filename)),
+    firefoxTransportSha256: launch.browserFamily === 'firefox' ? hash(await readFile(new URL('./firefox-transport.mjs', import.meta.url))) : undefined,
     manifestSha256: hash(manifestBytes), browser: browser.version(), startedAt: new Date().toISOString(),
     args: launch.arguments, launch, consumerRevision: candidate.consumerRevision, cases: [] };
   assert.equal(receipt.browser, launch.version);
@@ -57,12 +78,18 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
     return page;
   };
   try {
-    const system = await browser.newBrowserCDPSession();
-    receipt.browserSystemInfo = await system.send('SystemInfo.getInfo');
-    assert.equal(receipt.browserSystemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
+    if (launch.browserFamily === 'firefox') {
+      receipt.browserSystemInfo = browser.capabilities;
+      assertFirefoxProcess(launch, browser.capabilities);
+    } else {
+      const system = await browser.newBrowserCDPSession();
+      receipt.browserSystemInfo = await system.send('SystemInfo.getInfo');
+      assert.equal(receipt.browserSystemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
+    }
     const page = await newPage();
     page.on('pageerror', error => errors.push(error.message));
     await page.addInitScript(() => {
+      if (!navigator.gpu) return; // BiDi may run preloads in the initial about:blank realm.
       const original = navigator.gpu.requestAdapter;
       navigator.gpu.requestAdapter = async function (options) {
         const adapter = await original.call(this, options);
@@ -190,6 +217,7 @@ export async function production(product, candidateDirectory, launchFile, output
   await save(join(output, 'receipt.json'), { ok: false, status: 'incomplete' });
   const launch = await json(launchFile);
   assertOrdinaryLaunch(launch);
+  assert.notEqual(launch.browserFamily, 'firefox', 'The production download verifier currently requires Chromium; use run for Firefox runtime qualification');
   await installed(product, candidateDirectory);
   const candidate = await json(join(candidateDirectory, 'candidate.json'));
   const { chromium, expect } = await import(pathToFileURL(join(product, 'node_modules/@playwright/test/index.mjs')));
