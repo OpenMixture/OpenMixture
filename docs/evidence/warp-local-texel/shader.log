@@ -1,0 +1,33 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running `target/xtask-runner\debug\xtask.exe shader-check`
+cargo test --locked -p mixture-wgpu shader_validates_without_a_gpu
+   Compiling wgpu-core v30.0.1
+   Compiling wgpu v30.0.1
+   Compiling mixture-wgpu v0.1.0 (D:\Coding\OpenMixture\tmp\warp-local-engine\crates\mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.76s
+     Running unittests src\lib.rs (target\debug\deps\mixture_wgpu-8f2f95b2a55bc49e.exe)
+
+running 2 tests
+test checker::shader_tests::checker_shader_validates_without_a_gpu ... ok
+test kernels::tests::graph_shader_validates_without_a_gpu_and_matches_uniform_abi ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.03s
+
+     Running tests\checker.rs (target\debug\deps\checker-7603c4ea72983be8.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests\context.rs (target\debug\deps\context-d52f53c6dfe4ee8e.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests\nodes.rs (target\debug\deps\nodes-780f22c687f0c668.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+

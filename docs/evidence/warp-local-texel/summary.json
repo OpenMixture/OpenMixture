@@ -1,0 +1,2198 @@
+{
+  "candidateRevision": "91015e02255f20105586145db23bbd23b3c93546",
+  "baseRevision": "2cc36863eb5cb4a0f419722b172fb5aceaec239f",
+  "status": "implemented, not mergeable under frozen golden gate",
+  "browser": {
+    "chrome": {
+      "pass": 27,
+      "exact": 19,
+      "channels": [
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 83,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 312,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 726,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 96,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 159,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 414,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 943,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 96,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 157,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 534,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 1116,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 109,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 50,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 166,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 350,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 37,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 24,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 36,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 29,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 8,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 10,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 12,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 22,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 2,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 1,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        }
+      ]
+    },
+    "edge": {
+      "pass": 27,
+      "exact": 19,
+      "channels": [
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 83,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 312,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 726,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 96,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 159,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 414,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 943,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 96,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 157,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 534,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 1116,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 109,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 50,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 166,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 350,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 37,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 24,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 36,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 29,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 8,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 10,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 12,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 22,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 2,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 1,
+          "maxAbsolute": 1
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        }
+      ]
+    },
+    "firefox": {
+      "pass": 44,
+      "exact": 44,
+      "channels": [
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "fine-tiles",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "glazed-ceramic",
+          "case": "matte",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-min",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "detail-max",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "leather",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "straight-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "material": "wood",
+          "case": "horizontal-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        }
+      ]
+    }
+  },
+  "software": {
+    "glazed-ceramic": {
+      "ok": true,
+      "structurePassed": true,
+      "channels": [
+        {
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "fine-tiles",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "fine-tiles",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "fine-tiles",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "fine-tiles",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "matte",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "matte",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "matte",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "matte",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        }
+      ]
+    },
+    "leather": {
+      "ok": true,
+      "structurePassed": true,
+      "channels": [
+        {
+          "case": "default",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "default",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-min",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-min",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-min",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-min",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-max",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-max",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-max",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "detail-max",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        }
+      ]
+    },
+    "wood": {
+      "ok": false,
+      "structurePassed": true,
+      "channels": [
+        {
+          "case": "default",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 242,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "default",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 253,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "default",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 380,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "default",
+          "channel": "roughness",
+          "ok": false,
+          "changedPixels": 62,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 142,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 163,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 255,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "coarse-grain",
+          "channel": "roughness",
+          "ok": false,
+          "changedPixels": 40,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "straight-grain",
+          "channel": "baseColor",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "straight-grain",
+          "channel": "height",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "straight-grain",
+          "channel": "normal",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "straight-grain",
+          "channel": "roughness",
+          "ok": true,
+          "changedPixels": 0,
+          "maxAbsolute": 0
+        },
+        {
+          "case": "horizontal-grain",
+          "channel": "baseColor",
+          "ok": false,
+          "changedPixels": 9,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "horizontal-grain",
+          "channel": "height",
+          "ok": false,
+          "changedPixels": 16,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "horizontal-grain",
+          "channel": "normal",
+          "ok": false,
+          "changedPixels": 7,
+          "maxAbsolute": 1
+        },
+        {
+          "case": "horizontal-grain",
+          "channel": "roughness",
+          "ok": false,
+          "changedPixels": 1,
+          "maxAbsolute": 1
+        }
+      ]
+    }
+  },
+  "compatibility": [
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "channel": "baseColor",
+      "changedPixels": 144,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "channel": "height",
+      "changedPixels": 166,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "channel": "normal",
+      "changedPixels": 258,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "channel": "roughness",
+      "changedPixels": 40,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "channel": "baseColor",
+      "changedPixels": 244,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "channel": "height",
+      "changedPixels": 256,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "channel": "normal",
+      "changedPixels": 384,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "channel": "roughness",
+      "changedPixels": 62,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "channel": "baseColor",
+      "changedPixels": 9,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "channel": "height",
+      "changedPixels": 16,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "channel": "normal",
+      "changedPixels": 7,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "channel": "roughness",
+      "changedPixels": 1,
+      "maxAbsolute": 1
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "channel": "baseColor",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "channel": "height",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "channel": "normal",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "channel": "roughness",
+      "changedPixels": 0,
+      "maxAbsolute": 0
+    }
+  ],
+  "fixedInputWarp": {
+    "sameNativeInputHalfMismatches": 26,
+    "priorMismatches": 54,
+    "pixelCount": 1048576,
+    "readbackSha256": {
+      "native": "bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329",
+      "chrome-fixed": "871edcb19bf082534c8e1dc6949df01de3d5c17fc50277c56e83a76e11ae57f3"
+    },
+    "witnesses": [
+      {
+        "xy": [
+          922,
+          23
+        ],
+        "nativeBits": [
+          13695,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13694,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          744,
+          27
+        ],
+        "nativeBits": [
+          14169,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14168,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          871,
+          90
+        ],
+        "nativeBits": [
+          13939,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13938,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          718,
+          320
+        ],
+        "nativeBits": [
+          14687,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14686,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          384,
+          333
+        ],
+        "nativeBits": [
+          13973,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13974,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          476,
+          337
+        ],
+        "nativeBits": [
+          13241,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13240,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          431,
+          364
+        ],
+        "nativeBits": [
+          13967,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13968,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          350,
+          426
+        ],
+        "nativeBits": [
+          12841,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          12842,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          653,
+          471
+        ],
+        "nativeBits": [
+          14097,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14096,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          238,
+          477
+        ],
+        "nativeBits": [
+          13971,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13972,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          443,
+          526
+        ],
+        "nativeBits": [
+          12949,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          12948,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          156,
+          619
+        ],
+        "nativeBits": [
+          14059,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14060,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          669,
+          620
+        ],
+        "nativeBits": [
+          13955,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13956,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          362,
+          642
+        ],
+        "nativeBits": [
+          14197,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14198,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          55,
+          655
+        ],
+        "nativeBits": [
+          13675,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13674,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          866,
+          717
+        ],
+        "nativeBits": [
+          14319,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14320,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          489,
+          735
+        ],
+        "nativeBits": [
+          14173,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14174,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          489,
+          736
+        ],
+        "nativeBits": [
+          14179,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14180,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          639,
+          755
+        ],
+        "nativeBits": [
+          13799,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13798,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          671,
+          755
+        ],
+        "nativeBits": [
+          13799,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13798,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          195,
+          756
+        ],
+        "nativeBits": [
+          13197,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13196,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          902,
+          780
+        ],
+        "nativeBits": [
+          14327,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14328,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          421,
+          883
+        ],
+        "nativeBits": [
+          13951,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13950,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          293,
+          921
+        ],
+        "nativeBits": [
+          14037,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14036,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          715,
+          960
+        ],
+        "nativeBits": [
+          14341,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          14340,
+          0,
+          0,
+          15360
+        ]
+      },
+      {
+        "xy": [
+          922,
+          1002
+        ],
+        "nativeBits": [
+          13737,
+          0,
+          0,
+          15360
+        ],
+        "chromeBits": [
+          13736,
+          0,
+          0,
+          15360
+        ]
+      }
+    ]
+  }
+}
