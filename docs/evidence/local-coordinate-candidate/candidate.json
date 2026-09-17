@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "receipt": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "e41410859c457c13739198c580bc1e1e2af45ed9",
+    "engineDirty": false,
+    "buildId": "sha256:1b2ae86ef1e2893ade8b2babb3c0102362e9336ee4235af5ec220109e8a619b5",
+    "tarball": "target\\browser-runtime\\openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "8e4ed1dc82e1a34bbd269bf04fdfe7a0719e78f2b1c49415835cddc4441047b2",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.21.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "README.md": "693614fa2eb43407a3a782332ff0123947e5ae0f1b122a4e92a7b17f1cdb8bb8",
+    "README.zh-CN.md": "72d8bb8ead6060f1aef9e215c35e92488acc6c9b58f5f3e1859a50b73ecbab73",
+    "build-info.json": "f994d31bcc616093ca286a8c657c43dcabf0df7293f6fa4ed1daa6e1b02e30ca",
+    "package.json": "be087b06139057d42bb95bb7a11530a523e0b4c0539de9293071466887e89633",
+    "src/build-info.mjs": "68728a7e1d7d6c020cb3946f44367368c440f65bec0f04120750db3113bdc5c6",
+    "src/index.d.ts": "1c91bcba92fd9d4825a4f6441d977d11c1a5348026d8aa431dbd10c5540889d7",
+    "src/index.mjs": "19705526f3c3384a194a52d5f50514633fca0fce9f189167394b512b50e94f33",
+    "src/runtime.mjs": "8e543e010c859f785cad3558ed2c5ad5f67f9db662001dcc8915092bf649d932",
+    "wasm/bindings.mjs": "62bb63709df100ad20edd8c37fadc20fb9536bb1673dfa0c93d8e49b44addf65",
+    "wasm/mixture_wasm_bg.wasm": "9aad64e127a246074b790dee36e0637d33cd8f200d123a7b90f006e2a83379a8"
+  },
+  "consumerRevision": "56c510ab57daa1b68ef660525a648a582730a37e",
+  "originalLockSha256": "56279b55c052349d04c3a977b785eb7598366f63c14070afe5c8f53a2c6436bd",
+  "lockSha256": "73b02dbdc79b1a959a669e9417201c160ad751ec5c466a1ac8f79a051fa29dcd",
+  "originalArchiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+  "historicalWasmSha256": "fe09b40f00764ce8964ac2f4ad2a350bd69872f8a13e14a602f8aa57579620fb",
+  "run": null,
+  "attempt": null,
+  "startedAt": "2026-09-17T08:42:39.661Z"
+}
