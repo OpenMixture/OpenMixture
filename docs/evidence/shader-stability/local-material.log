@@ -1,0 +1,4 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running `target/xtask-runner\debug\xtask.exe test-material leather`
+Rendering leather on dx12 (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: D:\Coding\OpenMixture\tmp\stability-engine\tmp\golden\leather\hardware-1789626854218424000-4948\report.json

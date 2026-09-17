@@ -1,0 +1,60 @@
+{
+  "diagnosticOnly": true,
+  "samplesPerCase": 256,
+  "cases": [
+    {
+      "name": "leather",
+      "width": 1024,
+      "height": 1024,
+      "seed": 271828,
+      "scale": 64,
+      "octaves": 3,
+      "persistence": 0.35
+    },
+    {
+      "name": "max-period-odd-size",
+      "width": 129,
+      "height": 65,
+      "seed": 4294967295,
+      "scale": 128,
+      "octaves": 6,
+      "persistence": 1
+    },
+    {
+      "name": "min-period",
+      "width": 129,
+      "height": 65,
+      "seed": 0,
+      "scale": 1,
+      "octaves": 1,
+      "persistence": 0
+    },
+    {
+      "name": "zero-persistence",
+      "width": 129,
+      "height": 65,
+      "seed": 271828,
+      "scale": 128,
+      "octaves": 6,
+      "persistence": 0
+    },
+    {
+      "name": "max-period-2k",
+      "width": 2048,
+      "height": 2048,
+      "seed": 1,
+      "scale": 128,
+      "octaves": 6,
+      "persistence": 1
+    },
+    {
+      "name": "low-persistence",
+      "width": 1024,
+      "height": 1024,
+      "seed": 4294967295,
+      "scale": 128,
+      "octaves": 6,
+      "persistence": 0.01
+    }
+  ]
+}

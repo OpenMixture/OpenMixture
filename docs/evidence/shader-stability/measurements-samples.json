@@ -1,0 +1,1259 @@
+{
+  "diagnosticOnly": true,
+  "reference": "Binary64 scalar estimate from reference f32 UV division; shader UV division may differ, so this includes coordinate-generation error.",
+  "grid": [
+    {
+      "variant": "original",
+      "samples": 1048576,
+      "rawChanged": 1032165,
+      "halfChanged": 6298,
+      "maxIncludingHalf": 0.00048828125,
+      "nonFinite": 0,
+      "outOfRange": 0
+    },
+    {
+      "variant": "local",
+      "samples": 1048576,
+      "rawChanged": 730400,
+      "halfChanged": 223,
+      "maxIncludingHalf": 0.00048828125,
+      "nonFinite": 0,
+      "outOfRange": 0
+    },
+    {
+      "variant": "local_rational",
+      "samples": 1048576,
+      "rawChanged": 735397,
+      "halfChanged": 202,
+      "maxIncludingHalf": 0.00048828125,
+      "nonFinite": 0,
+      "outOfRange": 0
+    }
+  ],
+  "samples": [
+    {
+      "variant": "original",
+      "case": "leather",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.0000033955431068266595,
+          "meanAbsolute": 9.752115001599793e-7,
+          "worst": {
+            "slot": 94,
+            "x": 892,
+            "y": 976,
+            "value": 0.21248430205821153,
+            "actual": 0.21248769760131836
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.000004558009868371737,
+          "meanAbsolute": 0.0000012374562291822967,
+          "worst": {
+            "slot": 123,
+            "x": 549,
+            "y": 781,
+            "value": 0.2372951192090566,
+            "actual": 0.23729056119918823
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.000004558009868371737,
+          "meanAbsolute": 0.0000012374562291822967,
+          "worst": {
+            "slot": 123,
+            "x": 549,
+            "y": 781,
+            "value": 0.2372951192090566,
+            "actual": 0.23729056119918823
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.000004558009868371737,
+          "meanAbsolute": 0.0000012374562291822967,
+          "worst": {
+            "slot": 123,
+            "x": 549,
+            "y": 781,
+            "value": 0.2372951192090566,
+            "actual": 0.23729056119918823
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 255,
+          "halfChanged": 1,
+          "maxRawAbsolute": 0.000004723668098449707
+        },
+        "chrome": {
+          "rawChanged": 255,
+          "halfChanged": 1,
+          "maxRawAbsolute": 0.000004723668098449707
+        },
+        "edge": {
+          "rawChanged": 255,
+          "halfChanged": 1,
+          "maxRawAbsolute": 0.000004723668098449707
+        }
+      }
+    },
+    {
+      "variant": "original",
+      "case": "max-period-odd-size",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.00014222053857670947,
+          "meanAbsolute": 0.000015865055081659013,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.2647289037704468
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.00013277320237981005,
+          "meanAbsolute": 0.000020003993982690147,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.2647194564342499
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.00013277320237981005,
+          "meanAbsolute": 0.000020003993982690147,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.2647194564342499
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.00013277320237981005,
+          "meanAbsolute": 0.000020003993982690147,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.2647194564342499
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 256,
+          "halfChanged": 21,
+          "maxRawAbsolute": 0.0000374913215637207
+        },
+        "chrome": {
+          "rawChanged": 256,
+          "halfChanged": 21,
+          "maxRawAbsolute": 0.0000374913215637207
+        },
+        "edge": {
+          "rawChanged": 256,
+          "halfChanged": 21,
+          "maxRawAbsolute": 0.0000374913215637207
+        }
+      }
+    },
+    {
+      "variant": "original",
+      "case": "min-period",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 1.679292904177565e-7,
+          "meanAbsolute": 4.042617612735368e-8,
+          "worst": {
+            "slot": 139,
+            "x": 100,
+            "y": 64,
+            "value": 0.11714450613343846,
+            "actual": 0.11714467406272888
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 210,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "chrome": {
+          "rawChanged": 210,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "edge": {
+          "rawChanged": 210,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        }
+      }
+    },
+    {
+      "variant": "original",
+      "case": "zero-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.00002114055171537066,
+          "meanAbsolute": 0.0000033597488919471325,
+          "worst": {
+            "slot": 2,
+            "x": 0,
+            "y": 64,
+            "value": 0.15921836020931673,
+            "actual": 0.1592395007610321
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.00002106604590940142,
+          "meanAbsolute": 0.0000036113986297137005,
+          "worst": {
+            "slot": 2,
+            "x": 0,
+            "y": 64,
+            "value": 0.15921836020931673,
+            "actual": 0.15923942625522614
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.00002106604590940142,
+          "meanAbsolute": 0.0000036113986297137005,
+          "worst": {
+            "slot": 2,
+            "x": 0,
+            "y": 64,
+            "value": 0.15921836020931673,
+            "actual": 0.15923942625522614
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.00002106604590940142,
+          "meanAbsolute": 0.0000036113986297137005,
+          "worst": {
+            "slot": 2,
+            "x": 0,
+            "y": 64,
+            "value": 0.15921836020931673,
+            "actual": 0.15923942625522614
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 253,
+          "halfChanged": 11,
+          "maxRawAbsolute": 0.00000813603401184082
+        },
+        "chrome": {
+          "rawChanged": 253,
+          "halfChanged": 11,
+          "maxRawAbsolute": 0.00000813603401184082
+        },
+        "edge": {
+          "rawChanged": 253,
+          "halfChanged": 11,
+          "maxRawAbsolute": 0.00000813603401184082
+        }
+      }
+    },
+    {
+      "variant": "original",
+      "case": "max-period-2k",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.0000443896803759003,
+          "meanAbsolute": 0.00001126422403289497,
+          "worst": {
+            "slot": 73,
+            "x": 1159,
+            "y": 931,
+            "value": 0.4518349328484632,
+            "actual": 0.4518793225288391
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.00006292705753274674,
+          "meanAbsolute": 0.00001726648124100326,
+          "worst": {
+            "slot": 130,
+            "x": 1507,
+            "y": 1261,
+            "value": 0.3520978843667226,
+            "actual": 0.35216081142425537
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.00006292705753274674,
+          "meanAbsolute": 0.00001726648124100326,
+          "worst": {
+            "slot": 130,
+            "x": 1507,
+            "y": 1261,
+            "value": 0.3520978843667226,
+            "actual": 0.35216081142425537
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.00006292705753274674,
+          "meanAbsolute": 0.00001726648124100326,
+          "worst": {
+            "slot": 130,
+            "x": 1507,
+            "y": 1261,
+            "value": 0.3520978843667226,
+            "actual": 0.35216081142425537
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 255,
+          "halfChanged": 19,
+          "maxRawAbsolute": 0.000051587820053100586
+        },
+        "chrome": {
+          "rawChanged": 255,
+          "halfChanged": 19,
+          "maxRawAbsolute": 0.000051587820053100586
+        },
+        "edge": {
+          "rawChanged": 255,
+          "halfChanged": 19,
+          "maxRawAbsolute": 0.000051587820053100586
+        }
+      }
+    },
+    {
+      "variant": "original",
+      "case": "low-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.000008022195014778521,
+          "meanAbsolute": 0.0000030896291215063996,
+          "worst": {
+            "slot": 127,
+            "x": 811,
+            "y": 974,
+            "value": 0.47078440130344373,
+            "actual": 0.47077637910842896
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.000014487291349563058,
+          "meanAbsolute": 0.0000034387511287337793,
+          "worst": {
+            "slot": 224,
+            "x": 532,
+            "y": 712,
+            "value": 0.42738750240706047,
+            "actual": 0.42740198969841003
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.000014487291349563058,
+          "meanAbsolute": 0.0000034387511287337793,
+          "worst": {
+            "slot": 224,
+            "x": 532,
+            "y": 712,
+            "value": 0.42738750240706047,
+            "actual": 0.42740198969841003
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.000014487291349563058,
+          "meanAbsolute": 0.0000034387511287337793,
+          "worst": {
+            "slot": 224,
+            "x": 532,
+            "y": 712,
+            "value": 0.42738750240706047,
+            "actual": 0.42740198969841003
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 254,
+          "halfChanged": 10,
+          "maxRawAbsolute": 0.000008165836334228516
+        },
+        "chrome": {
+          "rawChanged": 254,
+          "halfChanged": 10,
+          "maxRawAbsolute": 0.000008165836334228516
+        },
+        "edge": {
+          "rawChanged": 254,
+          "halfChanged": 10,
+          "maxRawAbsolute": 0.000008165836334228516
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "leather",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 1.0608869183137415e-7,
+          "meanAbsolute": 2.9160991656687835e-8,
+          "worst": {
+            "slot": 208,
+            "x": 680,
+            "y": 840,
+            "value": 0.5143394935055314,
+            "actual": 0.5143393874168396
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.3070712856499966e-7,
+          "meanAbsolute": 3.526071362265604e-8,
+          "worst": {
+            "slot": 219,
+            "x": 316,
+            "y": 14,
+            "value": 0.35128738326420017,
+            "actual": 0.35128751397132874
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.3070712856499966e-7,
+          "meanAbsolute": 3.526071362265604e-8,
+          "worst": {
+            "slot": 219,
+            "x": 316,
+            "y": 14,
+            "value": 0.35128738326420017,
+            "actual": 0.35128751397132874
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.3070712856499966e-7,
+          "meanAbsolute": 3.526071362265604e-8,
+          "worst": {
+            "slot": 219,
+            "x": 316,
+            "y": 14,
+            "value": 0.35128738326420017,
+            "actual": 0.35128751397132874
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 188,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "chrome": {
+          "rawChanged": 188,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "edge": {
+          "rawChanged": 188,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "max-period-odd-size",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.00011879591317998095,
+          "meanAbsolute": 0.000002913352363818954,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470547914505005
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.000002922020540143571,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.000002922020540143571,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.000002922020540143571,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 147,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 147,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 147,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "min-period",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 1.5406039416410167e-7,
+          "meanAbsolute": 3.437201258056459e-8,
+          "worst": {
+            "slot": 153,
+            "x": 120,
+            "y": 37,
+            "value": 0.29255797954174817,
+            "actual": 0.29255813360214233
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.9669927042720303e-7,
+          "meanAbsolute": 4.0368270590651276e-8,
+          "worst": {
+            "slot": 188,
+            "x": 88,
+            "y": 31,
+            "value": 0.7896355211695345,
+            "actual": 0.7896357178688049
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 163,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        },
+        "chrome": {
+          "rawChanged": 163,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        },
+        "edge": {
+          "rawChanged": 163,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "zero-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.000015169424271210818,
+          "meanAbsolute": 5.939687814827824e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121753811836243
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.000015169424271210818,
+          "meanAbsolute": 5.97250610706525e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121753811836243
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.000015169424271210818,
+          "meanAbsolute": 5.97250610706525e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121753811836243
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.000015169424271210818,
+          "meanAbsolute": 5.97250610706525e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121753811836243
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 154,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 154,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 154,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "max-period-2k",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 8.573281098933627e-8,
+          "meanAbsolute": 2.2049979038940744e-8,
+          "worst": {
+            "slot": 60,
+            "x": 337,
+            "y": 1066,
+            "value": 0.2451740540052719,
+            "actual": 0.24517413973808289
+          }
+        },
+        "strict": {
+          "maxAbsolute": 8.573281098933627e-8,
+          "meanAbsolute": 2.9348188860145626e-8,
+          "worst": {
+            "slot": 60,
+            "x": 337,
+            "y": 1066,
+            "value": 0.2451740540052719,
+            "actual": 0.24517413973808289
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 8.573281098933627e-8,
+          "meanAbsolute": 2.9348188860145626e-8,
+          "worst": {
+            "slot": 60,
+            "x": 337,
+            "y": 1066,
+            "value": 0.2451740540052719,
+            "actual": 0.24517413973808289
+          }
+        },
+        "edge": {
+          "maxAbsolute": 8.573281098933627e-8,
+          "meanAbsolute": 2.9348188860145626e-8,
+          "worst": {
+            "slot": 60,
+            "x": 337,
+            "y": 1066,
+            "value": 0.2451740540052719,
+            "actual": 0.24517413973808289
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local",
+      "case": "low-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 2.14601856507457e-7,
+          "meanAbsolute": 4.1470457044288206e-8,
+          "worst": {
+            "slot": 246,
+            "x": 972,
+            "y": 645,
+            "value": 0.8934458732353627,
+            "actual": 0.8934460878372192
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.8084253217143242e-7,
+          "meanAbsolute": 5.480065375493127e-8,
+          "worst": {
+            "slot": 203,
+            "x": 410,
+            "y": 836,
+            "value": 0.6003801802376375,
+            "actual": 0.6003803610801697
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.8084253217143242e-7,
+          "meanAbsolute": 5.480065375493127e-8,
+          "worst": {
+            "slot": 203,
+            "x": 410,
+            "y": 836,
+            "value": 0.6003801802376375,
+            "actual": 0.6003803610801697
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.8084253217143242e-7,
+          "meanAbsolute": 5.480065375493127e-8,
+          "worst": {
+            "slot": 203,
+            "x": 410,
+            "y": 836,
+            "value": 0.6003801802376375,
+            "actual": 0.6003803610801697
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "chrome": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "edge": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "leather",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 9.768228548256985e-8,
+          "meanAbsolute": 2.7424292257217193e-8,
+          "worst": {
+            "slot": 240,
+            "x": 147,
+            "y": 792,
+            "value": 0.572410740783024,
+            "actual": 0.5724106431007385
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.6445430328637656e-7,
+          "meanAbsolute": 3.5184096070997465e-8,
+          "worst": {
+            "slot": 87,
+            "x": 586,
+            "y": 294,
+            "value": 0.5816916370937009,
+            "actual": 0.5816918015480042
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.6445430328637656e-7,
+          "meanAbsolute": 3.5184096070997465e-8,
+          "worst": {
+            "slot": 87,
+            "x": 586,
+            "y": 294,
+            "value": 0.5816916370937009,
+            "actual": 0.5816918015480042
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.6445430328637656e-7,
+          "meanAbsolute": 3.5184096070997465e-8,
+          "worst": {
+            "slot": 87,
+            "x": 586,
+            "y": 294,
+            "value": 0.5816916370937009,
+            "actual": 0.5816918015480042
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 186,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 186,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 186,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "max-period-odd-size",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.00011879591317998095,
+          "meanAbsolute": 0.0000029143742381445626,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470547914505005
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.0000029260742914766625,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.0000029260742914766625,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.00011882571550236865,
+          "meanAbsolute": 0.0000029260742914766625,
+          "worst": {
+            "slot": 35,
+            "x": 70,
+            "y": 64,
+            "value": 0.26458668323187007,
+            "actual": 0.26470550894737244
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 142,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "min-period",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 1.5406039416410167e-7,
+          "meanAbsolute": 3.688558009007879e-8,
+          "worst": {
+            "slot": 153,
+            "x": 120,
+            "y": 37,
+            "value": 0.29255797954174817,
+            "actual": 0.29255813360214233
+          }
+        },
+        "strict": {
+          "maxAbsolute": 2.398445194673471e-7,
+          "meanAbsolute": 4.282207079534493e-8,
+          "worst": {
+            "slot": 105,
+            "x": 88,
+            "y": 29,
+            "value": 0.7996489391372615,
+            "actual": 0.799649178981781
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 2.398445194673471e-7,
+          "meanAbsolute": 4.282207079534493e-8,
+          "worst": {
+            "slot": 105,
+            "x": 88,
+            "y": 29,
+            "value": 0.7996489391372615,
+            "actual": 0.799649178981781
+          }
+        },
+        "edge": {
+          "maxAbsolute": 2.398445194673471e-7,
+          "meanAbsolute": 4.282207079534493e-8,
+          "worst": {
+            "slot": 105,
+            "x": 88,
+            "y": 29,
+            "value": 0.7996489391372615,
+            "actual": 0.799649178981781
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "chrome": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "edge": {
+          "rawChanged": 173,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "zero-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 0.000015176874851807742,
+          "meanAbsolute": 5.937168000769892e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121754556894302
+          }
+        },
+        "strict": {
+          "maxAbsolute": 0.000015176874851807742,
+          "meanAbsolute": 5.963998654584047e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121754556894302
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 0.000015176874851807742,
+          "meanAbsolute": 5.963998654584047e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121754556894302
+          }
+        },
+        "edge": {
+          "maxAbsolute": 0.000015176874851807742,
+          "meanAbsolute": 5.963998654584047e-7,
+          "worst": {
+            "slot": 3,
+            "x": 128,
+            "y": 64,
+            "value": 0.10120236869409122,
+            "actual": 0.10121754556894302
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 162,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        },
+        "chrome": {
+          "rawChanged": 162,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        },
+        "edge": {
+          "rawChanged": 162,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.4901161193847656e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "max-period-2k",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 9.072280432453894e-8,
+          "meanAbsolute": 2.348175176948141e-8,
+          "worst": {
+            "slot": 220,
+            "x": 1040,
+            "y": 1863,
+            "value": 0.391041188116307,
+            "actual": 0.39104127883911133
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.1576707753535587e-7,
+          "meanAbsolute": 3.276255700166309e-8,
+          "worst": {
+            "slot": 120,
+            "x": 1021,
+            "y": 1268,
+            "value": 0.4781748686880311,
+            "actual": 0.47817498445510864
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.1576707753535587e-7,
+          "meanAbsolute": 3.276255700166309e-8,
+          "worst": {
+            "slot": 120,
+            "x": 1021,
+            "y": 1268,
+            "value": 0.4781748686880311,
+            "actual": 0.47817498445510864
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.1576707753535587e-7,
+          "meanAbsolute": 3.276255700166309e-8,
+          "worst": {
+            "slot": 120,
+            "x": 1021,
+            "y": 1268,
+            "value": 0.4781748686880311,
+            "actual": 0.47817498445510864
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 149,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "chrome": {
+          "rawChanged": 149,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        },
+        "edge": {
+          "rawChanged": 149,
+          "halfChanged": 0,
+          "maxRawAbsolute": 1.1920928955078125e-7
+        }
+      }
+    },
+    {
+      "variant": "local_rational",
+      "case": "low-persistence",
+      "count": 256,
+      "accuracy": {
+        "regular": {
+          "maxAbsolute": 1.7424227682916182e-7,
+          "meanAbsolute": 4.0789021790255884e-8,
+          "worst": {
+            "slot": 157,
+            "x": 656,
+            "y": 177,
+            "value": 0.5774305508553794,
+            "actual": 0.5774307250976562
+          }
+        },
+        "strict": {
+          "maxAbsolute": 1.8994479961120803e-7,
+          "meanAbsolute": 5.5638547197538364e-8,
+          "worst": {
+            "slot": 34,
+            "x": 326,
+            "y": 903,
+            "value": 0.42117567737430744,
+            "actual": 0.42117586731910706
+          }
+        },
+        "chrome": {
+          "maxAbsolute": 1.8994479961120803e-7,
+          "meanAbsolute": 5.5638547197538364e-8,
+          "worst": {
+            "slot": 34,
+            "x": 326,
+            "y": 903,
+            "value": 0.42117567737430744,
+            "actual": 0.42117586731910706
+          }
+        },
+        "edge": {
+          "maxAbsolute": 1.8994479961120803e-7,
+          "meanAbsolute": 5.5638547197538364e-8,
+          "worst": {
+            "slot": 34,
+            "x": 326,
+            "y": 903,
+            "value": 0.42117567737430744,
+            "actual": 0.42117586731910706
+          }
+        }
+      },
+      "crossCompiler": {
+        "strict": {
+          "rawChanged": 182,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "chrome": {
+          "rawChanged": 182,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        },
+        "edge": {
+          "rawChanged": 182,
+          "halfChanged": 1,
+          "maxRawAbsolute": 1.7881393432617188e-7
+        }
+      }
+    }
+  ]
+}

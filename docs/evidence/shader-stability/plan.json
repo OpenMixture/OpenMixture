@@ -1,0 +1,19 @@
+{
+  "diagnosticOnly": true,
+  "variants": [
+    "original",
+    "local",
+    "local_rational"
+  ],
+  "grid": {
+    "size": [
+      1024,
+      1024
+    ],
+    "seed": 271828,
+    "scale": 64,
+    "octaves": 3,
+    "persistence": 0.35
+  },
+  "selection": "Fixed before execution. Compare original, local coordinates only, and local coordinates plus rationalized sqrt difference. No quantization or threshold changes."
+}

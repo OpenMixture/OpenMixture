@@ -22,7 +22,7 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 | ALPHA-04 — 可发布 npm Alpha 候选 | P2／已认领，待执行；依赖 ALPHA-01／03 | 干净构建带明确版本的候选，包含完整 JS／声明／WASM、构建身份、归档摘要、变更说明、服务要求和实测支持范围。交付 Studio 做精确候选升级验收。发布单独执行；发布后独立安装注册表精确版本，复核身份及消费后才能宣称交付完成。 |
 | ALPHA-05 — 浏览器必需检查决策 | P2／已认领，等待 ALPHA-01 | 候选链通过后读取实时分支保护／rulesets，评审是否将 `WASM and npm package`、`Chromium WebGPU material matrix` 与既有四项 Native 检查一起设为必需。若采纳，通过 PR 更新期望配置，应用并回读，保留实时证据。受跟踪的规则文件或通过的可选检查不能证明强制保护。 |
 
-**ALPHA-03 后续调查，2026-09-17：** Chrome／Edge 完整材质认证仍待完成。[算术缩减与契约复核](./evidence/chromium-arithmetic-reduction/README.zh-CN.md)复现了 WGSL 允许的乘加差异，并追踪到半精度舍入的传播。它取代此前提出的依赖维护路线：保留现有参照与门槛，先评估数值稳定性，再决定着色器或编译策略改动；诊断像素相同不能作为认证通过。
+**ALPHA-03 后续调查，2026-09-17：** Chrome／Edge 完整材质认证仍待完成。[算术缩减与契约复核](./evidence/chromium-arithmetic-reduction/README.zh-CN.md)复现了 WGSL 允许的乘加差异，并追踪到半精度舍入的传播。后续[稳定性评估](./evidence/shader-stability/README.zh-CN.md)确认局部蜂窝坐标减少差异频率，但改变现有皮革像素，也不保证逐位一致。它保留为待审查候选，不作为生产修复或维护依赖分支的决策；现有参照与门槛不变。
 
 ### ALPHA-01 实施边界
 

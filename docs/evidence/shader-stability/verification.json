@@ -1,0 +1,29 @@
+{
+  "diagnosticOnly": true,
+  "checkedAt": "2026-09-17T06:49:30.884Z",
+  "checks": {
+    "originalDx12Node": 0,
+    "originalDx12Leather": 0,
+    "isolatedLocalShaderValidation": 0,
+    "isolatedLocalDx12Node": 0,
+    "isolatedLocalDx12Leather": 0,
+    "fullMaterialCases": 11,
+    "fullMaterialChannels": 44,
+    "allPlanHashesEqual": true,
+    "sampledSummaryReproduction": true,
+    "sourceAndInputBindings": true,
+    "originalProductionReleaseRestored": true,
+    "repository": {
+      "command": "cargo xtask check",
+      "exitCode": 0,
+      "logSha256": "25fe46f236fc62b4901e7a6487a7008f26b124cd146354819797c7cdc7fc5794",
+      "logRetention": "ignored local tmp/shader-stability/repository-check.log"
+    }
+  },
+  "notRun": [
+    "Pinned SwiftShader exact goldens for the proposed shader",
+    "Changed runtime package full browser qualification",
+    "Performance benchmark"
+  ],
+  "productionChanges": false
+}
