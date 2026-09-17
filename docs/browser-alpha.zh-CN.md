@@ -24,6 +24,8 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 
 **ALPHA-03 后续调查，2026-09-17：** Chrome／Edge 完整材质认证仍待完成。[算术缩减与契约复核](./evidence/chromium-arithmetic-reduction/README.zh-CN.md)复现了 WGSL 允许的乘加差异，并追踪到半精度舍入的传播。后续[稳定性评估](./evidence/shader-stability/README.zh-CN.md)确认局部蜂窝坐标减少差异频率，但改变现有皮革像素，也不保证逐位一致。后续[完整候选评估](./evidence/local-coordinate-candidate/README.zh-CN.md)确认该一行改动不能单独作为正式修复：普通 Chrome/Edge 为 33/44 通道通过，Firefox 为 44/44；固定 SwiftShader 的皮革旧基线失败。现有参照与门槛不变，PR #14 保持草稿。
 
+2026-09-17 后续：[残余路径缩减](./evidence/residual-path-reduction/README.zh-CN.md)已定位 cellular 偏移、value-noise mix 和 warp UV 乘加；下一修复候选应独立评估 warp 局部 texel 坐标。
+
 ### ALPHA-01 实施边界
 
 审查快照 c41fcfb 中，[打包工作流](../.github/workflows/browser-runtime.yml)构建新归档，[材质工作流](../.github/workflows/browser-materials.yml)却安装 Studio `56c510ab57daa1b68ef660525a648a582730a37e` 及其历史 vendor 归档。[原生准备脚本](../scripts/browser-runtime/prepare-materials.mjs)已有对 `crates`、`Cargo.lock` 和 `Cargo.toml` 相对归档运行时版本的漂移拒绝，必须保留。尚未覆盖的输入包括公开 JS 接口、声明与打包工具；两条工作流通过不代表本次完整包已在浏览器中运行。

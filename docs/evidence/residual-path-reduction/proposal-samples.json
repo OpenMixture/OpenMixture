@@ -1,0 +1,18 @@
+{
+  "original": {
+    "rawDifferent": 4,
+    "halfDifferent": 4,
+    "maxAbsoluteError": {
+      "native": 4.244320734869689e-06,
+      "chrome": 4.244320734869689e-06
+    }
+  },
+  "localTexel": {
+    "rawDifferent": 1,
+    "halfDifferent": 0,
+    "maxAbsoluteError": {
+      "native": 6.489608495030552e-08,
+      "chrome": 6.489608495030552e-08
+    }
+  }
+}

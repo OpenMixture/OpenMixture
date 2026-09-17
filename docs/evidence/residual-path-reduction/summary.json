@@ -1,0 +1,204 @@
+{
+  "source": "e41410859c457c13739198c580bc1e1e2af45ed9",
+  "scope": "default leather and default wood, 1024x1024; diagnostic kernels, not new runtime qualification",
+  "stages": {
+    "leather-grain": {
+      "nativeVsChromeHalfPixels": 223,
+      "fixedNativeInputsVsChromeHalfPixels": 223,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.0006051063537597656,
+        0.94189453125
+      ]
+    },
+    "leather-height": {
+      "nativeVsChromeHalfPixels": 127,
+      "fixedNativeInputsVsChromeHalfPixels": 0,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.01340484619140625,
+        1.0
+      ]
+    },
+    "wood-distortion": {
+      "nativeVsChromeHalfPixels": 134,
+      "fixedNativeInputsVsChromeHalfPixels": 134,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.135009765625,
+        0.85400390625
+      ]
+    },
+    "wood-grain": {
+      "nativeVsChromeHalfPixels": 54,
+      "fixedNativeInputsVsChromeHalfPixels": 54,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.11895751953125,
+        0.86279296875
+      ]
+    },
+    "wood-height": {
+      "nativeVsChromeHalfPixels": 176,
+      "fixedNativeInputsVsChromeHalfPixels": 0,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.0008177757263183594,
+        0.9443359375
+      ]
+    },
+    "wood-stretch": {
+      "nativeVsChromeHalfPixels": 32,
+      "fixedNativeInputsVsChromeHalfPixels": 0,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.125244140625,
+        0.85009765625
+      ]
+    },
+    "wood-warp": {
+      "nativeVsChromeHalfPixels": 176,
+      "fixedNativeInputsVsChromeHalfPixels": 54,
+      "edgeEqualsChrome": true,
+      "finite": true,
+      "rangeR": [
+        0.125244140625,
+        0.85009765625
+      ]
+    }
+  },
+  "minimal": {
+    "cellular": {
+      "inputF32": [
+        0.0,
+        0.22351199388504028,
+        0.84375,
+        0.0
+      ],
+      "exactRational": "-71725846977327/140737488355328",
+      "results": {
+        "native": {
+          "value": -0.5096428394317627,
+          "bits": "0xbf0277f4",
+          "signedExactError": -4.407196030342675e-08
+        },
+        "chrome": {
+          "value": -0.5096427798271179,
+          "bits": "0xbf0277f3",
+          "signedExactError": 1.5532684471963876e-08
+        },
+        "edge": {
+          "value": -0.5096427798271179,
+          "bits": "0xbf0277f3",
+          "signedExactError": 1.5532684471963876e-08
+        }
+      }
+    },
+    "mix": {
+      "inputF32": [
+        0.09506094455718994,
+        0.5717524290084839,
+        0.8831931352615356,
+        0.0
+      ],
+      "exactRational": "18157654891445/35184372088832",
+      "results": {
+        "native": {
+          "value": 0.516071617603302,
+          "bits": "0x3f041d45",
+          "signedExactError": 2.6341098191551282e-08
+        },
+        "chrome": {
+          "value": 0.5160715579986572,
+          "bits": "0x3f041d44",
+          "signedExactError": -3.326354658383934e-08
+        },
+        "edge": {
+          "value": 0.5160715579986572,
+          "bits": "0x3f041d44",
+          "signedExactError": -3.326354658383934e-08
+        }
+      }
+    },
+    "warp": {
+      "inputF32": [
+        0.81201171875,
+        0.2462158203125,
+        0.017999999225139618,
+        0.0
+      ],
+      "exactRational": "441385467727/549755813888",
+      "results": {
+        "native": {
+          "value": 0.8028754591941833,
+          "bits": "0x3f4d893f",
+          "signedExactError": -2.9480361263267696e-08
+        },
+        "chrome": {
+          "value": 0.8028755187988281,
+          "bits": "0x3f4d8940",
+          "signedExactError": 3.012428351212293e-08
+        },
+        "edge": {
+          "value": 0.8028755187988281,
+          "bits": "0x3f4d8940",
+          "signedExactError": 3.012428351212293e-08
+        }
+      }
+    }
+  },
+  "fullReadbacks": {
+    "native/leather-grain.bin": "4ade51d83653a8b39e70741b289f3bda52cff66e09ea1b932e0429764f330a57",
+    "native/leather-height.bin": "0022272decb3877aefd619c292f9f0ca135c687e5dd309922132873a9789f77d",
+    "native/wood-distortion.bin": "967cf3bdac90dc6ce59821d990b973a590cbe8f52e05682318f136a5299c3bbe",
+    "native/wood-grain.bin": "7787c7332caab15d0485fada1e0f0ace93a5436a0fe025642c239f5c0306b8d9",
+    "native/wood-height.bin": "47a1b70d49913a1a0098d710e545255e1122c953a9c5d43052aefab6bcb26488",
+    "native/wood-stretch.bin": "515c8db924c3dd3960b38be13d490c1853e5a0833a1441db78e85000d14c6be0",
+    "native/wood-warp.bin": "e671169930f72cc58f67aeeefd6a7f5f13715faecbf80ecf4038f021c349cac3",
+    "chrome/leather-grain.bin": "a58b67867f2fbf64116e5e13fcea6ebca7c4e6ba5e45250839a7a1befc627fcd",
+    "chrome/leather-height.bin": "ec624e672fd0d36f9664f5c31115edeb3997c998ee58bea547d1b28b56988dd9",
+    "chrome/wood-distortion.bin": "d7bd2ea37fb51e8d4573937e2c049c3b4a29aa323d093ddf7e98f1fcb7488a6b",
+    "chrome/wood-grain.bin": "06d2458efde51f5bd28bf135d45256745949ae1bf1f0d08e8e19976941199e00",
+    "chrome/wood-height.bin": "50337d5638ea1b9dc2f9a20a883e5fe20ee3cbce83afaed8a32724e1edb742cf",
+    "chrome/wood-stretch.bin": "3a3913d528a4cbd97866f51dc68a096c7cc0e469a3448179507300a5eacb55ec",
+    "chrome/wood-warp.bin": "e3b6ae18e9bd4ab60ca1f55e83b457ac02dea600cf3cf699c9aebb9923bb6b31",
+    "edge/leather-grain.bin": "a58b67867f2fbf64116e5e13fcea6ebca7c4e6ba5e45250839a7a1befc627fcd",
+    "edge/leather-height.bin": "ec624e672fd0d36f9664f5c31115edeb3997c998ee58bea547d1b28b56988dd9",
+    "edge/wood-distortion.bin": "d7bd2ea37fb51e8d4573937e2c049c3b4a29aa323d093ddf7e98f1fcb7488a6b",
+    "edge/wood-grain.bin": "06d2458efde51f5bd28bf135d45256745949ae1bf1f0d08e8e19976941199e00",
+    "edge/wood-height.bin": "50337d5638ea1b9dc2f9a20a883e5fe20ee3cbce83afaed8a32724e1edb742cf",
+    "edge/wood-stretch.bin": "3a3913d528a4cbd97866f51dc68a096c7cc0e469a3448179507300a5eacb55ec",
+    "edge/wood-warp.bin": "e3b6ae18e9bd4ab60ca1f55e83b457ac02dea600cf3cf699c9aebb9923bb6b31",
+    "chrome-fixed/leather-grain.bin": "a58b67867f2fbf64116e5e13fcea6ebca7c4e6ba5e45250839a7a1befc627fcd",
+    "chrome-fixed/leather-height.bin": "0022272decb3877aefd619c292f9f0ca135c687e5dd309922132873a9789f77d",
+    "chrome-fixed/wood-distortion.bin": "d7bd2ea37fb51e8d4573937e2c049c3b4a29aa323d093ddf7e98f1fcb7488a6b",
+    "chrome-fixed/wood-grain.bin": "06d2458efde51f5bd28bf135d45256745949ae1bf1f0d08e8e19976941199e00",
+    "chrome-fixed/wood-height.bin": "47a1b70d49913a1a0098d710e545255e1122c953a9c5d43052aefab6bcb26488",
+    "chrome-fixed/wood-stretch.bin": "515c8db924c3dd3960b38be13d490c1853e5a0833a1441db78e85000d14c6be0",
+    "chrome-fixed/wood-warp.bin": "cd33a1bb256970ba16950a32d1a39f9291c3abe76c53b063aa63040c07d0986b"
+  },
+  "proposal": {
+    "original": {
+      "rawDifferent": 4,
+      "halfDifferent": 4,
+      "maxAbsoluteError": {
+        "native": 4.244320734869689e-06,
+        "chrome": 4.244320734869689e-06
+      }
+    },
+    "localTexel": {
+      "rawDifferent": 1,
+      "halfDifferent": 0,
+      "maxAbsoluteError": {
+        "native": 6.489608495030552e-08,
+        "chrome": 6.489608495030552e-08
+      }
+    }
+  }
+}
