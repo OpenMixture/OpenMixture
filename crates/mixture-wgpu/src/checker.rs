@@ -8,7 +8,11 @@ use mixture_core::{plan::KernelInvocation, registry::PortKind};
 use serde::Serialize;
 
 #[cfg(test)]
-const SHADER: &str = include_str!("../shaders/nodes/checker.wgsl");
+const SHADER: &str = concat!(
+    include_str!("../shaders/precision.wgsl"),
+    "\n",
+    include_str!("../shaders/nodes/checker.wgsl")
+);
 
 /// Output dimensions for an opaque, eight-by-eight black/white checker.
 #[derive(Clone, Copy, Debug, Serialize)]

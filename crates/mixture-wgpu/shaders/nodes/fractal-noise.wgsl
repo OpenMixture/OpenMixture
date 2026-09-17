@@ -77,5 +77,5 @@ fn fractal_noise(@builtin(global_invocation_id) id: vec3<u32>) {
         weight *= parameters.persistence;
         period *= 2u;
     }
-    textureStore(output, vec2<i32>(id.xy), vec4<f32>(clamp(sum / weights, 0.0, 1.0), 0.0, 0.0, 1.0));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(clamp(sum / weights, 0.0, 1.0), 0.0, 0.0, 1.0)));
 }

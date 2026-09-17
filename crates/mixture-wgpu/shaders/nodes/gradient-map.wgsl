@@ -6,5 +6,5 @@ struct Parameters { color_a: vec4<f32>, color_b: vec4<f32>, }
 fn gradient_map(@builtin(global_invocation_id) id: vec3<u32>) {
     if any(id.xy >= textureDimensions(output)) { return; }
     let t = clamp(textureLoad(input, vec2<i32>(id.xy), 0).r, 0.0, 1.0);
-    textureStore(output, vec2<i32>(id.xy), mix(parameters.color_a, parameters.color_b, t));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(mix(parameters.color_a, parameters.color_b, t)));
 }

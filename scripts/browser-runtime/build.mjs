@@ -10,6 +10,12 @@ const destination = join(root, 'target/browser-runtime');
 const staging = join(destination, 'package');
 const bindgen = process.env.WASM_BINDGEN ?? 'wasm-bindgen';
 function command(program, args, options = {}) {
+  // Windows cannot spawn npm.cmd without a shell. Invoke the npm CLI shipped
+  // with the selected Node installation directly, preserving literal paths.
+  if (process.platform === 'win32' && program === 'npm') {
+    args = [join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js'), ...args];
+    program = process.execPath;
+  }
   const result = spawnSync(program, args, { cwd: root, encoding: 'utf8', ...options });
   if (result.error) throw result.error;
   if (result.status !== 0) throw new Error(`${program} failed (${result.status}):\n${result.stderr}\n${result.stdout}`);

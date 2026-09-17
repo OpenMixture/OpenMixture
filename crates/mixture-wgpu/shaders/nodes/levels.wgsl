@@ -20,5 +20,5 @@ fn levels(@builtin(global_invocation_id) id: vec3<u32>) {
         let t = clamp((value - parameters.input_min) / (parameters.input_max - parameters.input_min), 0.0, 1.0);
         result = parameters.output_min + pow(t, 1.0 / parameters.gamma) * (parameters.output_max - parameters.output_min);
     }
-    textureStore(output, vec2<i32>(id.xy), vec4<f32>(result, 0.0, 0.0, 1.0));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(result, 0.0, 0.0, 1.0)));
 }

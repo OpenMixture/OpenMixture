@@ -14,5 +14,5 @@ fn height_to_normal(@builtin(global_invocation_id) id: vec3<u32>) {
     let du = (textureLoad(input, vec2<i32>(right), 0).r - textureLoad(input, vec2<i32>(left), 0).r) * (0.5 * f32(size.x));
     let dv = (textureLoad(input, vec2<i32>(down), 0).r - textureLoad(input, vec2<i32>(up), 0).r) * (0.5 * f32(size.y));
     let normal = normalize(vec3<f32>(-du * parameters.strength, dv * parameters.strength, 1.0));
-    textureStore(output, vec2<i32>(id.xy), vec4<f32>(normal * 0.5 + vec3<f32>(0.5), 1.0));
+    textureStore(output, vec2<i32>(id.xy), mixture_half4(vec4<f32>(normal * 0.5 + vec3<f32>(0.5), 1.0)));
 }

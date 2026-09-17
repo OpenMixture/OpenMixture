@@ -14,5 +14,5 @@ fn blend(@builtin(global_invocation_id) id: vec3<u32>) {
     var mode_rgb = b.rgb;
     if parameters.mode == 1u { mode_rgb = a.rgb * b.rgb; }
     if parameters.mode == 2u { mode_rgb = vec3<f32>(1.0) - (vec3<f32>(1.0) - a.rgb) * (vec3<f32>(1.0) - b.rgb); }
-    textureStore(output, position, vec4<f32>(mix(a.rgb, mode_rgb, t), mix(a.a, b.a, t)));
+    textureStore(output, position, mixture_half4(vec4<f32>(mix(a.rgb, mode_rgb, t), mix(a.a, b.a, t))));
 }

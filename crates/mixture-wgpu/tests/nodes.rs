@@ -22,6 +22,8 @@ const NODES: [&str; 11] = [
 ];
 #[path = "support/normal_probe.rs"]
 mod normal_probe;
+#[path = "support/precision_probe.rs"]
+mod precision_probe;
 #[path = "support/resampling_probe.rs"]
 mod resampling_probe;
 #[derive(Deserialize)]
@@ -160,6 +162,9 @@ fn node_fixtures_validate_defaults_boundaries_invalid_values_without_gpu() {
 fn run_node(name: &str) {
     let fixture = fixture(name);
     let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    if name == "constant-color" {
+        precision_probe::run(&context);
+    }
     if let Ok(expected) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
         assert!(context.report().adapter().unwrap().name.contains(&expected));
     }

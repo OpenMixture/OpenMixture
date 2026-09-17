@@ -80,6 +80,8 @@ Before allocation, the executor checks actual device texture dimensions, maximum
 
 The source retains f64, the compiled invocation records f32, and every pass stores f16 components in `rgba16float`. Readback rejects non-finite or out-of-range components and removes 256-byte row padding. Returned data is tightly packed RGBA8, top-left origin.
 
+Each kernel applies the shared [WGSL storage conversion](../crates/mixture-wgpu/shaders/precision.wgsl) before texture storage: round to nearest binary16, ties to even, retaining an exactly representable f32 value. Integer bit operations make this conversion independent of implicit texture-store rounding and backend implementations of `quantizeToF16`, both of which truncated on the recorded NVIDIA host. No optional shader-f16 feature is required. Arithmetic remains f32 and is not universally byte-identical across drivers; frozen material comparisons remain required. The zero-tolerance constant-color `half-storage-boundary` fixture checks the observed export regression. Its GPU probe compares every half interval in [-1,1], exact values, midpoints and adjacent f32 values against the independent `half` crate conversion.
+
 | Logical kind | RGBA8 conversion | PNG metadata |
 | --- | --- | --- |
 | Color (`baseColor`, `emissive`) | linear RGB → sRGB; alpha stays linear; round × 255 | sRGB intent |

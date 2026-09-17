@@ -430,10 +430,21 @@ fn render(context: &GpuContext, node: &str, probe: &Probe) -> Vec<[f32; 4]> {
     uniform.unmap();
     let (source, entry_point) = match node {
         "transform-2d" => (
-            include_str!("../../shaders/nodes/transform-2d.wgsl"),
+            concat!(
+                include_str!("../../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../../shaders/nodes/transform-2d.wgsl")
+            ),
             "transform_2d",
         ),
-        "warp" => (include_str!("../../shaders/nodes/warp.wgsl"), "warp"),
+        "warp" => (
+            concat!(
+                include_str!("../../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../../shaders/nodes/warp.wgsl")
+            ),
+            "warp",
+        ),
         _ => panic!("unknown resampling shader {node}"),
     };
     let module = device.create_shader_module(wgpu::ShaderModuleDescriptor {
