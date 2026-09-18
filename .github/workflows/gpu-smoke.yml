@@ -59,6 +59,14 @@ jobs:
         run: rustup show active-toolchain
       - name: Verify checker, graphs, nodes, doctor, and packaged consumers
         run: cargo xtask gpu-smoke
+      - name: Capture bounded warp rounding diagnostics
+        run: |
+          mkdir -p crates/mixture-wgpu/examples
+          cp docs/evidence/warp-rounding-audit/texture_probe.rs crates/mixture-wgpu/examples/rounding_texture_probe.rs
+          cp docs/evidence/warp-rounding-audit/buffer_probe.rs crates/mixture-wgpu/examples/rounding_buffer_probe.rs
+          cargo build --locked --release -p mixture-wgpu --features software-vulkan --example rounding_texture_probe --example rounding_buffer_probe
+          python3 docs/evidence/warp-rounding-audit/run.py
+          rm crates/mixture-wgpu/examples/rounding_texture_probe.rs crates/mixture-wgpu/examples/rounding_buffer_probe.rs
       - name: Compare all three materials at 1K
         run: cargo xtask golden check
       - name: Measure the largest material case at 2K
@@ -74,4 +82,5 @@ jobs:
             tmp/package-check/
             tmp/golden/
             tmp/trace-2k/
+            tmp/warp-rounding-audit/
           if-no-files-found: error
