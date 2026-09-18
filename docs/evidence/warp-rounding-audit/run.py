@@ -13,3 +13,5 @@ for plan in sorted(out.glob('*.json')):
 (out/'execution.json').write_text(json.dumps({'platform':platform.platform(),
     'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),
     'backend':os.environ.get('MIXTURE_GPU_BACKEND','dx12')},indent=2)+'\n')
+
+subprocess.run([sys.executable,str(here/"analyze.py")],check=True)
