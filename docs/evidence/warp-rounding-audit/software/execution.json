@@ -1,0 +1,5 @@
+{
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "revision": "a200b127defe66deec2dd76e70eeae6c8652023d",
+  "backend": "vulkan"
+}

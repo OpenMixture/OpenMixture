@@ -1,0 +1,174 @@
+{
+  "default": {
+    "changedWarpTexels": 26,
+    "comparisons": {
+      "A": {
+        "beforeMatches": 0,
+        "afterMatches": 26,
+        "closer": 26,
+        "farther": 0,
+        "equalError": 0
+      },
+      "A_frozen_weight": {
+        "beforeMatches": 0,
+        "afterMatches": 26,
+        "closer": 26,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B": {
+        "beforeMatches": 0,
+        "afterMatches": 26,
+        "closer": 26,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_unfused": {
+        "beforeMatches": 26,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 26
+      },
+      "B_weighted": {
+        "beforeMatches": 14,
+        "afterMatches": 12,
+        "closer": 12,
+        "farther": 0,
+        "equalError": 14
+      }
+    },
+    "coordinateProbeMismatches": 0,
+    "productionHalfProbeMismatches": 0,
+    "neighborSelectionChanges": 0
+  },
+  "coarse-grain": {
+    "changedWarpTexels": 15,
+    "comparisons": {
+      "A": {
+        "beforeMatches": 0,
+        "afterMatches": 15,
+        "closer": 15,
+        "farther": 0,
+        "equalError": 0
+      },
+      "A_frozen_weight": {
+        "beforeMatches": 0,
+        "afterMatches": 15,
+        "closer": 15,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B": {
+        "beforeMatches": 0,
+        "afterMatches": 15,
+        "closer": 15,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_unfused": {
+        "beforeMatches": 15,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 15
+      },
+      "B_weighted": {
+        "beforeMatches": 12,
+        "afterMatches": 3,
+        "closer": 3,
+        "farther": 0,
+        "equalError": 12
+      }
+    },
+    "coordinateProbeMismatches": 0,
+    "productionHalfProbeMismatches": 0,
+    "neighborSelectionChanges": 0
+  },
+  "horizontal-grain": {
+    "changedWarpTexels": 0,
+    "comparisons": {
+      "A": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "A_frozen_weight": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_unfused": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_weighted": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      }
+    },
+    "coordinateProbeMismatches": 0,
+    "productionHalfProbeMismatches": 0,
+    "neighborSelectionChanges": 0
+  },
+  "straight-grain": {
+    "changedWarpTexels": 0,
+    "comparisons": {
+      "A": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "A_frozen_weight": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_unfused": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      },
+      "B_weighted": {
+        "beforeMatches": 0,
+        "afterMatches": 0,
+        "closer": 0,
+        "farther": 0,
+        "equalError": 0
+      }
+    },
+    "coordinateProbeMismatches": 0,
+    "productionHalfProbeMismatches": 0,
+    "neighborSelectionChanges": 0
+  }
+}

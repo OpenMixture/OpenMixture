@@ -43,6 +43,8 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 
 ## 验证与停止规则
 
+[2026-09-18 warp 双参考审计](./evidence/warp-rounding-audit/README.zh-CN.md)分别判定 PR15／16 候选的精确采样／half 舍入、分阶段 f32 舍入和旧像素兼容性。诊断结果不等于接受任一候选，也不改变普通浏览器支持范围。在决定数值契约或兼容变更时，继续保留现有金图和浏览器门槛。
+
 本次文档修改运行 `cargo xtask links` 和 `cargo xtask check`；缺少前置条件应报告为检查未完成。后续工作流／工具修改先跑针对性测试及 `cargo xtask check`，再要求实际测试版本的候选浏览器 CI 通过。既有构建与材质命令见[运行时指南](./browser-runtime.zh-CN.md)和[材质指南](./browser-materials.zh-CN.md)；本计划不增加任何已实现命令或新的已验收运行。
 
 候选、独立消费者、普通浏览器支持声明与所需证据一致后，才可关闭交付收尾；必须明确发布状态。打包成功不能关闭浏览器验收，这些新增交付门槛也不重开历史 M5 验收。

@@ -1,0 +1,23 @@
+{
+  "cases.json": "b974bdc109e1dd6755685f563f76795a4892c1940ad37dd0938f0708b30619d5",
+  "coarse-grain-fma.json": "52fb3e7038fc7b0b4d343ba71c6c3441f76b413231a2cd8c982d203c2c60ec9e",
+  "coarse-grain-local.json": "af6c89fb60fdaf6e57ecace3a5c4fe0ae8b1adfb7888e92be056e92ab2ea2d1f",
+  "default-fma.json": "2109cfe60de731d57a469a3550ca4ac9d06b105821d0216d27cc19cfa2589ce2",
+  "default-local.json": "4da39f7e31571aa8c625d0aca0dcf906399c8eb635996296d0627a6efe44e90e",
+  "double-rounding-fma.json": "709baf7701b7a2846887a22e3188c190d58a2c2672518c41bf3a093768418f40",
+  "double-rounding-local.json": "4fda97266ddc732dfbc933dc5e90dff2feaf08c463e37a6a2dc00609cc28c087",
+  "double-rounding-original.json": "07980aed69784c51d070c5d6903b1dfe5b99a1ffd8cfd32377bec62c1e95ce04",
+  "half-boundary-fma.json": "c14ff43eefe4bbf99f0bcc940f937cc823b3c192260998f9c163966be78c41d6",
+  "half-boundary-local.json": "a6a6e359d8624aac23854eead8b046a59b66a10551e7f5894728f250f77619ae",
+  "half-boundary-original.json": "26bd8fe307eaa0880b0535ba027e7022f19664c9e798ce39dffd178d404bbeab",
+  "horizontal-grain-fma.json": "88e8a9d32b3e696b3a5c2feb8b6688a7b9f4b3593566a100f84821ab97a9edab",
+  "horizontal-grain-local.json": "e6f6f7ffc2967276c1797109c5267695bee9ed4156687f7b920fb909fcfd275c",
+  "straight-grain-fma.json": "4165e46911fb3db983b7687226967ce6735c5660b410ede45e37d4faf5ef842e",
+  "straight-grain-local.json": "58dcc3c8ba008777fd915b77022924d0104146d3962bdb3d763b6f203c266c14",
+  "tiny-normal-fma.json": "2429047fd797e6d182ab4fb0595a64de6f170409237077860db8d882ed97d0fe",
+  "tiny-normal-local.json": "1484eeab30557365c09eb1c73eeb7e4d05c45e1917535ade0baf99aea456a479",
+  "tiny-normal-original.json": "cd08efabf4449f0d50fa770de13ee59573b393fcc72dbf41e431626b7912de32",
+  "tiny-subnormal-fma.json": "68bf672542c829a876350610fd36ca514be201f12cb1b850cb23b074bf17621e",
+  "tiny-subnormal-local.json": "80c2a0e4c0106a36ad8fa3ac17b6f39c06b34398875036fca913345912015536",
+  "tiny-subnormal-original.json": "c1d84277eaca1e4986b99817dd35cd594b4cc5687843bcbfc3b4e23d8126bca5"
+}

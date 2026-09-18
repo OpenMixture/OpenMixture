@@ -1,0 +1,24 @@
+{
+  "runtimeBase": "2cc36863eb5cb4a0f419722b172fb5aceaec239f",
+  "PR15": "91015e02255f20105586145db23bbd23b3c93546",
+  "PR16": "1c65e8631c2e2bdba8fe3aaf8b7c5762c1c215f3",
+  "textHashConvention": "UTF-8 with LF; Python read_text newline normalization",
+  "inputs": {
+    "Cargo.lock": "f5ec5de2f3430f16ad189070a7d78c184a46c0e0b90d1951b0a2d8e887f00b38",
+    "crates/mixture-wgpu/shaders/precision.wgsl": "66c080227428e58dace7532577c88246425f59db7397fb62fa5a01edb703dd90",
+    "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl": "34790324819fc194c4f7610dea7fa0839dfe73100d975e62ed897f256468b83f",
+    "crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl": "b863119ee39924f5a57eb42b55e32af449a23dbcb82f5ca2effcd6d9a3fc39af",
+    "crates/mixture-wgpu/shaders/nodes/levels.wgsl": "335bcc1f9dc9d7cde13846286d0113baa620d4a3555c141bf352a6e1cc838290",
+    "crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl": "b07a154743c869d92d43f918571e0efb2743128448ccdddbf948b9b0d214023a",
+    "crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl": "4900048ccd35c9be51395c2bdf2a90c2be7b0582338dbde21b9167aa539c8e89",
+    "fixtures/materials/wood/material.mix": "204e1952105d51a369a8549ee11c0f4bf06c22afd78b4a43daa765623b86b21d",
+    "fixtures/materials/wood/variants/coarse-grain.json": "af64046504ce553feed8b61b51a42c7d173ab7f05313c5db376e0bfa8e67832a",
+    "fixtures/materials/wood/variants/horizontal-grain.json": "c85248cee7245b2ed21fa29395dac8f0d8cbdc3ba0ff569c28e66ac1eef980a2",
+    "fixtures/materials/wood/variants/straight-grain.json": "2aba7616964a664677ccc1fbe96b023ac79a5c510da3b235d93260cc3bfcaf5e"
+  },
+  "warpSources": {
+    "original": "0cfc85b503de8a595e43a06cf25f2b670c392da7dae4cf4801b9251a0203e5ba",
+    "local": "46cd22e073fc32e732c7beb784b5229235ac16be4fc861f22c78e99d43b5d6f2",
+    "fma": "7d655cba2a35aa9bd8ff25a6ec6b7c3796095a7c6c940c509285f1350f35f061"
+  }
+}

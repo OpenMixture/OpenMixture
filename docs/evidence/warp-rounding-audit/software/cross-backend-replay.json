@@ -1,0 +1,46 @@
+{
+  "native": {
+    "delta": {
+      "differentFromSoftware": 0
+    },
+    "weight": {
+      "differentFromSoftware": 0
+    },
+    "mix": {
+      "differentFromSoftware": 41
+    },
+    "fma": {
+      "differentFromSoftware": 0
+    },
+    "mix-half": {
+      "differentFromSoftware": 41,
+      "matchesA": 41
+    },
+    "fma-half": {
+      "differentFromSoftware": 0,
+      "matchesA": 41
+    }
+  },
+  "chrome": {
+    "delta": {
+      "differentFromSoftware": 0
+    },
+    "weight": {
+      "differentFromSoftware": 0
+    },
+    "mix": {
+      "differentFromSoftware": 0
+    },
+    "fma": {
+      "differentFromSoftware": 0
+    },
+    "mix-half": {
+      "differentFromSoftware": 0,
+      "matchesA": 0
+    },
+    "fma-half": {
+      "differentFromSoftware": 0,
+      "matchesA": 41
+    }
+  }
+}

@@ -43,6 +43,8 @@ Execution order: ALPHA-02 documentation can land first; ALPHA-01 closes candidat
 
 ## Verification and stop rules
 
+The [2026-09-18 warp dual-reference audit](./evidence/warp-rounding-audit/README.md) separates exact sampling/half rounding, staged f32 rounding, and old-pixel compatibility for the PR15/16 candidates. Its diagnostic results do not accept either candidate or change the ordinary-browser support boundary. Preserve existing goldens and browser thresholds while deciding any numerical-contract or compatibility change.
+
 For this documentation change, run `cargo xtask links` and `cargo xtask check`; report missing prerequisites as incomplete checks. For later workflow/tooling changes, run their focused tests and `cargo xtask check`, then require actual candidate browser CI on the tested revision. Existing build and material commands are documented in the [runtime guide](./browser-runtime.md) and [material guide](./browser-materials.md); this plan introduces no implemented command or new accepted run.
 
 Closeout is complete only when the candidate, independent consumer, ordinary-browser support statement and required evidence agree; publication status must remain explicit. Packaging success alone cannot close browser qualification, and historical M5 acceptance is not reopened by these new delivery gates.

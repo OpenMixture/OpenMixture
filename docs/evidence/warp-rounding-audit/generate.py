@@ -10,6 +10,12 @@ SRC = ROOT / 'crates/mixture-wgpu/shaders'
 bits = lambda x: struct.unpack('<I', struct.pack('<f', x))[0]
 fp = lambda b: struct.unpack('<f', struct.pack('<I', b))[0]
 precision = (SRC / 'precision.wgsl').read_text()
+plans = []
+identities=json.loads((HERE/'source-identities.json').read_text())
+for name,expected in identities['inputs'].items():
+    assert hashlib.sha256((ROOT/name).read_text().encode()).hexdigest()==expected, name
+for mode,expected in identities['warpSources'].items():
+    assert hashlib.sha256((HERE/f'warp-{mode}.wgsl').read_text().encode()).hexdigest()==expected, mode
 
 def node(id, kernel, params, inputs=(), size=(1024, 1024), code=None):
     return dict(id=id, entry=kernel.replace('-', '_'), params=params, inputs=list(inputs),
@@ -17,6 +23,7 @@ def node(id, kernel, params, inputs=(), size=(1024, 1024), code=None):
 
 def save(name, nodes):
     (OUT/f'{name}.json').write_text(json.dumps(nodes, indent=2)+'\n')
+    plans.append(name+'.json')
 
 for variant, repeat, rotation, strength in [('default',32,0,.018),('coarse-grain',16,0,.018),
                                            ('horizontal-grain',32,1,.018),('straight-grain',32,0,0)]:
@@ -53,5 +60,5 @@ for case in cases:
             node('warp','warp',[bits(case['strength']),0,0,0],[0,1],size,
                  (HERE/f'warp-{mode}.wgsl').read_text())])
 (OUT/'cases.json').write_text(json.dumps(cases,indent=2)+'\n')
-(OUT/'plans-sha256.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest()
-    for p in sorted(OUT.glob('*.json')) if p.name!='plans-sha256.json'},indent=2)+'\n')
+(OUT/'plans-sha256.json').write_text(json.dumps({name:hashlib.sha256((OUT/name).read_bytes()).hexdigest()
+    for name in sorted(plans)},indent=2)+'\n')
