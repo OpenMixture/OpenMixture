@@ -28,6 +28,8 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 
 独立的 [warp 实现](./evidence/warp-local-texel/README.zh-CN.md)已修复微小位移丢失并通过新增回归，但软件木材旧 golden 失败，且同输入全图仍有差异，因此保持草稿。
 
+后续[插值缩减](./evidence/warp-interpolation-reduction/README.zh-CN.md)将这 26 个差异定位到 mix。诊断版显式 fma 在已测 Chrome/Edge 全图消除了差异，原生像素不变；尚不是正式产品修复或材质验收通过。
+
 ### ALPHA-01 实施边界
 
 审查快照 c41fcfb 中，[打包工作流](../.github/workflows/browser-runtime.yml)构建新归档，[材质工作流](../.github/workflows/browser-materials.yml)却安装 Studio `56c510ab57daa1b68ef660525a648a582730a37e` 及其历史 vendor 归档。[原生准备脚本](../scripts/browser-runtime/prepare-materials.mjs)已有对 `crates`、`Cargo.lock` 和 `Cargo.toml` 相对归档运行时版本的漂移拒绝，必须保留。尚未覆盖的输入包括公开 JS 接口、声明与打包工具；两条工作流通过不代表本次完整包已在浏览器中运行。

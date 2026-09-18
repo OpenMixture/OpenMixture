@@ -28,6 +28,8 @@ Follow-up, 2026-09-17: [Residual path reduction](./evidence/residual-path-reduct
 
 The independent [warp implementation](./evidence/warp-local-texel/README.md) fixes small-displacement loss and passes its new regression, but remains draft because old software wood goldens fail and fixed-input full-grid differences remain.
 
+The subsequent [interpolation reduction](./evidence/warp-interpolation-reduction/README.md) localizes those 26 differences to mix. Diagnostic explicit fma removes them on the tested Chrome/Edge full grid without changing native pixels; it is not yet a production fix or material acceptance.
+
 ### ALPHA-01 implementation boundary
 
 At the reviewed c41fcfb checkpoint, the [package workflow](../.github/workflows/browser-runtime.yml) builds a new archive, while the [material workflow](../.github/workflows/browser-materials.yml) installs Studio `56c510ab57daa1b68ef660525a648a582730a37e` and its historical vendor archive. [Native preparation](../scripts/browser-runtime/prepare-materials.mjs) already rejects changes to `crates`, `Cargo.lock` and `Cargo.toml` relative to the archived runtime revision. Preserve that protection. The uncovered inputs include the public JS facade, declarations and package tooling; two passing workflows do not prove that today's full package ran in a browser.

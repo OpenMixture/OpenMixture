@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-18",
+  "repositoryBase": "78cf96ca2ae5f42c6abb938b44a12052c8b555f0",
+  "change": "new paired diagnostic evidence and browser-alpha navigation only",
+  "checks": {
+    "python verify.py": "pass",
+    "node --check browser-grid.mjs": "pass",
+    "retained browser grid runner GPU replay": "pass; output identical",
+    "git diff --cached --check": "pass",
+    "cargo xtask check": "pass; 191 Markdown documents checked"
+  },
+  "log": "ignored tmp/warp-residual/repository-check.log",
+  "softwareMaterialGate": "not rerun; PR15 remains failed",
+  "runtimeSourceChanged": false
+}

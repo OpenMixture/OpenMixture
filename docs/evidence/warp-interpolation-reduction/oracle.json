@@ -1,0 +1,1448 @@
+{
+  "rows": [
+    {
+      "xy": [
+        922,
+        23
+      ],
+      "a": 0.42626953125,
+      "b": 0.3408203125,
+      "t": 0.9699997901916504,
+      "exact": "1474822221/4294967296",
+      "correctHalfBits": 13695,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.3433838188648224,
+            "signedError": "51/4294967296",
+            "halfBits": 13695,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3433837890625,
+            "signedError": "-77/4294967296",
+            "halfBits": 13694,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.3433838188648224,
+            "signedError": "51/4294967296",
+            "halfBits": 13695,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3433837890625,
+            "signedError": "-77/4294967296",
+            "halfBits": 13694,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.3433838188648224,
+            "signedError": "51/4294967296",
+            "halfBits": 13695,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3433838188648224,
+            "signedError": "51/4294967296",
+            "halfBits": 13695,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        744,
+        27
+      ],
+      "a": 0.420654296875,
+      "b": 0.4755859375,
+      "t": 0.7000002861022949,
+      "exact": "3943694471/8589934592",
+      "correctHalfBits": 14169,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4591064751148224,
+            "signedError": "121/8589934592",
+            "halfBits": 14169,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4591064453125,
+            "signedError": "-135/8589934592",
+            "halfBits": 14168,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4591064751148224,
+            "signedError": "121/8589934592",
+            "halfBits": 14169,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4591064453125,
+            "signedError": "-135/8589934592",
+            "halfBits": 14168,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4591064751148224,
+            "signedError": "121/8589934592",
+            "halfBits": 14169,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4591064751148224,
+            "signedError": "121/8589934592",
+            "halfBits": 14169,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        871,
+        90
+      ],
+      "a": 0.3662109375,
+      "b": 0.418701171875,
+      "t": 0.7000002861022949,
+      "exact": "3461349505/8589934592",
+      "correctHalfBits": 13939,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4029541313648224,
+            "signedError": "127/8589934592",
+            "halfBits": 13939,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4029541015625,
+            "signedError": "-129/8589934592",
+            "halfBits": 13938,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4029541313648224,
+            "signedError": "127/8589934592",
+            "halfBits": 13939,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4029541015625,
+            "signedError": "-129/8589934592",
+            "halfBits": 13938,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4029541313648224,
+            "signedError": "127/8589934592",
+            "halfBits": 13939,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4029541313648224,
+            "signedError": "127/8589934592",
+            "halfBits": 13939,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        718,
+        320
+      ],
+      "a": 0.625,
+      "b": 0.673828125,
+      "t": 0.9450006484985352,
+      "exact": "360316945/536870912",
+      "correctHalfBits": 14687,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.6711426377296448,
+            "signedError": "15/536870912",
+            "halfBits": 14687,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.671142578125,
+            "signedError": "-17/536870912",
+            "halfBits": 14686,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.6711426377296448,
+            "signedError": "15/536870912",
+            "halfBits": 14687,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.671142578125,
+            "signedError": "-17/536870912",
+            "halfBits": 14686,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.6711426377296448,
+            "signedError": "15/536870912",
+            "halfBits": 14687,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.6711426377296448,
+            "signedError": "15/536870912",
+            "halfBits": 14687,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        384,
+        333
+      ],
+      "a": 0.350830078125,
+      "b": 0.4375,
+      "t": 0.6999998092651367,
+      "exact": "1767374777/4294967296",
+      "correctHalfBits": 13973,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4114989936351776,
+            "signedError": "-57/4294967296",
+            "halfBits": 13973,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4114990234375,
+            "signedError": "71/4294967296",
+            "halfBits": 13974,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4114989936351776,
+            "signedError": "-57/4294967296",
+            "halfBits": 13973,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4114990234375,
+            "signedError": "71/4294967296",
+            "halfBits": 13974,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4114989936351776,
+            "signedError": "-57/4294967296",
+            "halfBits": 13973,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4114989936351776,
+            "signedError": "-57/4294967296",
+            "halfBits": 13973,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        476,
+        337
+      ],
+      "a": 0.301025390625,
+      "b": 0.23388671875,
+      "t": 0.8899998664855957,
+      "exact": "2072510541/8589934592",
+      "correctHalfBits": 13241,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.2412719875574112,
+            "signedError": "51/8589934592",
+            "halfBits": 13241,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.24127197265625,
+            "signedError": "-77/8589934592",
+            "halfBits": 13240,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.2412719875574112,
+            "signedError": "51/8589934592",
+            "halfBits": 13241,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.24127197265625,
+            "signedError": "-77/8589934592",
+            "halfBits": 13240,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.2412719875574112,
+            "signedError": "51/8589934592",
+            "halfBits": 13241,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.2412719875574112,
+            "signedError": "51/8589934592",
+            "halfBits": 13241,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        431,
+        364
+      ],
+      "a": 0.37890625,
+      "b": 0.43994140625,
+      "t": 0.5099997520446777,
+      "exact": "1761083327/4294967296",
+      "correctHalfBits": 13967,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4100341498851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 13967,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4100341796875,
+            "signedError": "65/4294967296",
+            "halfBits": 13968,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4100341498851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 13967,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4100341796875,
+            "signedError": "65/4294967296",
+            "halfBits": 13968,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4100341498851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 13967,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4100341498851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 13967,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        350,
+        426
+      ],
+      "a": 0.15966796875,
+      "b": 0.2066650390625,
+      "t": 0.6999998092651367,
+      "exact": "1654128563/8589934592",
+      "correctHalfBits": 12841,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.1925659030675888,
+            "signedError": "-51/8589934592",
+            "halfBits": 12841,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.19256591796875,
+            "signedError": "77/8589934592",
+            "halfBits": 12842,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.1925659030675888,
+            "signedError": "-51/8589934592",
+            "halfBits": 12841,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.19256591796875,
+            "signedError": "77/8589934592",
+            "halfBits": 12842,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.1925659030675888,
+            "signedError": "-51/8589934592",
+            "halfBits": 12841,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.1925659030675888,
+            "signedError": "-51/8589934592",
+            "halfBits": 12841,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        653,
+        471
+      ],
+      "a": 0.40185546875,
+      "b": 0.46533203125,
+      "t": 0.6250002384185791,
+      "exact": "1896349761/4294967296",
+      "correctHalfBits": 14097,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4415283501148224,
+            "signedError": "63/4294967296",
+            "halfBits": 14097,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4415283203125,
+            "signedError": "-65/4294967296",
+            "halfBits": 14096,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4415283501148224,
+            "signedError": "63/4294967296",
+            "halfBits": 14097,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4415283203125,
+            "signedError": "-65/4294967296",
+            "halfBits": 14096,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4415283501148224,
+            "signedError": "63/4294967296",
+            "halfBits": 14097,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4415283501148224,
+            "signedError": "63/4294967296",
+            "halfBits": 14097,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        238,
+        477
+      ],
+      "a": 0.395263671875,
+      "b": 0.44775390625,
+      "t": 0.2999997138977051,
+      "exact": "3530555263/8589934592",
+      "correctHalfBits": 13971,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4110107123851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 13971,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4110107421875,
+            "signedError": "129/8589934592",
+            "halfBits": 13972,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4110107123851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 13971,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4110107421875,
+            "signedError": "129/8589934592",
+            "halfBits": 13972,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4110107123851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 13971,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4110107123851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 13971,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        443,
+        526
+      ],
+      "a": 0.2333984375,
+      "b": 0.1937255859375,
+      "t": 0.6999998092651367,
+      "exact": "1766326337/8589934592",
+      "correctHalfBits": 12949,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.2056274563074112,
+            "signedError": "63/8589934592",
+            "halfBits": 12949,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.20562744140625,
+            "signedError": "-65/8589934592",
+            "halfBits": 12948,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.2056274563074112,
+            "signedError": "63/8589934592",
+            "halfBits": 12949,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.20562744140625,
+            "signedError": "-65/8589934592",
+            "halfBits": 12948,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.2056274563074112,
+            "signedError": "63/8589934592",
+            "halfBits": 12949,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.2056274563074112,
+            "signedError": "63/8589934592",
+            "halfBits": 12949,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        156,
+        619
+      ],
+      "a": 0.40869140625,
+      "b": 0.4404296875,
+      "t": 0.7499995231628418,
+      "exact": "1857552319/4294967296",
+      "correctHalfBits": 14059,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4324950873851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14059,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4324951171875,
+            "signedError": "65/4294967296",
+            "halfBits": 14060,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4324950873851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14059,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4324951171875,
+            "signedError": "65/4294967296",
+            "halfBits": 14060,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4324950873851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14059,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4324950873851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14059,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        669,
+        620
+      ],
+      "a": 0.33056640625,
+      "b": 0.4111328125,
+      "t": 0.9499998092651367,
+      "exact": "874250207/2147483648",
+      "correctHalfBits": 13955,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4071044623851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 13955,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4071044921875,
+            "signedError": "33/2147483648",
+            "halfBits": 13956,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4071044623851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 13955,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4071044921875,
+            "signedError": "33/2147483648",
+            "halfBits": 13956,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4071044623851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 13955,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4071044623851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 13955,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        362,
+        642
+      ],
+      "a": 0.412353515625,
+      "b": 0.50390625,
+      "t": 0.5879998207092285,
+      "exact": "4004511603/8589934592",
+      "correctHalfBits": 14197,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4661864936351776,
+            "signedError": "-115/8589934592",
+            "halfBits": 14197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4661865234375,
+            "signedError": "141/8589934592",
+            "halfBits": 14198,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4661864936351776,
+            "signedError": "-115/8589934592",
+            "halfBits": 14197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4661865234375,
+            "signedError": "141/8589934592",
+            "halfBits": 14198,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4661864936351776,
+            "signedError": "-115/8589934592",
+            "halfBits": 14197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4661864936351776,
+            "signedError": "-115/8589934592",
+            "halfBits": 14197,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        55,
+        655
+      ],
+      "a": 0.3623046875,
+      "b": 0.33056640625,
+      "t": 0.7499995231628418,
+      "exact": "1453850689/4294967296",
+      "correctHalfBits": 13675,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.3385010063648224,
+            "signedError": "63/4294967296",
+            "halfBits": 13675,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3385009765625,
+            "signedError": "-65/4294967296",
+            "halfBits": 13674,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.3385010063648224,
+            "signedError": "63/4294967296",
+            "halfBits": 13675,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3385009765625,
+            "signedError": "-65/4294967296",
+            "halfBits": 13674,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.3385010063648224,
+            "signedError": "63/4294967296",
+            "halfBits": 13675,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3385010063648224,
+            "signedError": "63/4294967296",
+            "halfBits": 13675,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        866,
+        717
+      ],
+      "a": 0.452392578125,
+      "b": 0.5439453125,
+      "t": 0.4759998321533203,
+      "exact": "1065091039/2147483648",
+      "correctHalfBits": 14319,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4959716498851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 14319,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4959716796875,
+            "signedError": "33/2147483648",
+            "halfBits": 14320,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4959716498851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 14319,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4959716796875,
+            "signedError": "33/2147483648",
+            "halfBits": 14320,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4959716498851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 14319,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4959716498851776,
+            "signedError": "-31/2147483648",
+            "halfBits": 14319,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        489,
+        735
+      ],
+      "a": 0.40478515625,
+      "b": 0.484130859375,
+      "t": 0.6999998092651367,
+      "exact": "1977089983/4294967296",
+      "correctHalfBits": 14173,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4603271186351776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14173,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4603271484375,
+            "signedError": "65/4294967296",
+            "halfBits": 14174,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4603271186351776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14173,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4603271484375,
+            "signedError": "65/4294967296",
+            "halfBits": 14174,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4603271186351776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14173,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4603271186351776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14173,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        489,
+        736
+      ],
+      "a": 0.40625,
+      "b": 0.485595703125,
+      "t": 0.6999998092651367,
+      "exact": "1983381439/4294967296",
+      "correctHalfBits": 14179,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4617919623851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14179,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4617919921875,
+            "signedError": "65/4294967296",
+            "halfBits": 14180,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4617919623851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14179,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4617919921875,
+            "signedError": "65/4294967296",
+            "halfBits": 14180,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4617919623851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14179,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4617919623851776,
+            "signedError": "-63/4294967296",
+            "halfBits": 14179,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        639,
+        755
+      ],
+      "a": 0.41357421875,
+      "b": 0.3525390625,
+      "t": 0.7339997291564941,
+      "exact": "1583874119/4294967296",
+      "correctHalfBits": 13799,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744140625,
+            "signedError": "-71/4294967296",
+            "halfBits": 13798,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744140625,
+            "signedError": "-71/4294967296",
+            "halfBits": 13798,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        671,
+        755
+      ],
+      "a": 0.41357421875,
+      "b": 0.3525390625,
+      "t": 0.7339997291564941,
+      "exact": "1583874119/4294967296",
+      "correctHalfBits": 13799,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744140625,
+            "signedError": "-71/4294967296",
+            "halfBits": 13798,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744140625,
+            "signedError": "-71/4294967296",
+            "halfBits": 13798,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3687744438648224,
+            "signedError": "57/4294967296",
+            "halfBits": 13799,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        195,
+        756
+      ],
+      "a": 0.27734375,
+      "b": 0.234619140625,
+      "t": 0.9699997901916504,
+      "exact": "2026373197/8589934592",
+      "correctHalfBits": 13197,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.2359008938074112,
+            "signedError": "51/8589934592",
+            "halfBits": 13197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.23590087890625,
+            "signedError": "-77/8589934592",
+            "halfBits": 13196,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.2359008938074112,
+            "signedError": "51/8589934592",
+            "halfBits": 13197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.23590087890625,
+            "signedError": "-77/8589934592",
+            "halfBits": 13196,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.2359008938074112,
+            "signedError": "51/8589934592",
+            "halfBits": 13197,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.2359008938074112,
+            "signedError": "51/8589934592",
+            "halfBits": 13197,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        902,
+        780
+      ],
+      "a": 0.482177734375,
+      "b": 0.53466796875,
+      "t": 0.2999997138977051,
+      "exact": "4277141375/8589934592",
+      "correctHalfBits": 14327,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4979247748851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 14327,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4979248046875,
+            "signedError": "129/8589934592",
+            "halfBits": 14328,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4979247748851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 14327,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4979248046875,
+            "signedError": "129/8589934592",
+            "halfBits": 14328,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4979247748851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 14327,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4979247748851776,
+            "signedError": "-127/8589934592",
+            "halfBits": 14327,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        421,
+        883
+      ],
+      "a": 0.3828125,
+      "b": 0.44384765625,
+      "t": 0.37800025939941406,
+      "exact": "435814417/1073741824",
+      "correctHalfBits": 13951,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4058838188648224,
+            "signedError": "15/1073741824",
+            "halfBits": 13951,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4058837890625,
+            "signedError": "-17/1073741824",
+            "halfBits": 13950,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4058838188648224,
+            "signedError": "15/1073741824",
+            "halfBits": 13951,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4058837890625,
+            "signedError": "-17/1073741824",
+            "halfBits": 13950,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4058838188648224,
+            "signedError": "15/1073741824",
+            "halfBits": 13951,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4058838188648224,
+            "signedError": "15/1073741824",
+            "halfBits": 13951,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        293,
+        921
+      ],
+      "a": 0.40380859375,
+      "b": 0.42822265625,
+      "t": 0.9450006484985352,
+      "exact": "458358801/1073741824",
+      "correctHalfBits": 14037,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.4268799126148224,
+            "signedError": "15/1073741824",
+            "halfBits": 14037,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4268798828125,
+            "signedError": "-17/1073741824",
+            "halfBits": 14036,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.4268799126148224,
+            "signedError": "15/1073741824",
+            "halfBits": 14037,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4268798828125,
+            "signedError": "-17/1073741824",
+            "halfBits": 14036,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.4268799126148224,
+            "signedError": "15/1073741824",
+            "halfBits": 14037,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.4268799126148224,
+            "signedError": "15/1073741824",
+            "halfBits": 14037,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        715,
+        960
+      ],
+      "a": 0.486328125,
+      "b": 0.5498046875,
+      "t": 0.2500004768371582,
+      "exact": "1078460481/2147483648",
+      "correctHalfBits": 14341,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.5021973252296448,
+            "signedError": "63/2147483648",
+            "halfBits": 14341,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.502197265625,
+            "signedError": "-65/2147483648",
+            "halfBits": 14340,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.5021973252296448,
+            "signedError": "63/2147483648",
+            "halfBits": 14341,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.502197265625,
+            "signedError": "-65/2147483648",
+            "halfBits": 14340,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.5021973252296448,
+            "signedError": "63/2147483648",
+            "halfBits": 14341,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.5021973252296448,
+            "signedError": "63/2147483648",
+            "halfBits": 14341,
+            "correctHalf": true
+          }
+        }
+      }
+    },
+    {
+      "xy": [
+        922,
+        1002
+      ],
+      "a": 0.4365234375,
+      "b": 0.35107421875,
+      "t": 0.9699997901916504,
+      "exact": "1518862413/4294967296",
+      "correctHalfBits": 13737,
+      "results": {
+        "fixed-mix": {
+          "native": {
+            "value": 0.3536377251148224,
+            "signedError": "51/4294967296",
+            "halfBits": 13737,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3536376953125,
+            "signedError": "-77/4294967296",
+            "halfBits": 13736,
+            "correctHalf": false
+          }
+        },
+        "difference": {
+          "native": {
+            "value": 0.3536377251148224,
+            "signedError": "51/4294967296",
+            "halfBits": 13737,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3536376953125,
+            "signedError": "-77/4294967296",
+            "halfBits": 13736,
+            "correctHalf": false
+          }
+        },
+        "fma": {
+          "native": {
+            "value": 0.3536377251148224,
+            "signedError": "51/4294967296",
+            "halfBits": 13737,
+            "correctHalf": true
+          },
+          "chrome": {
+            "value": 0.3536377251148224,
+            "signedError": "51/4294967296",
+            "halfBits": 13737,
+            "correctHalf": true
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "fixed-mix": {
+      "native": 26,
+      "chrome": 0
+    },
+    "difference": {
+      "native": 26,
+      "chrome": 0
+    },
+    "fma": {
+      "native": 26,
+      "chrome": 26
+    }
+  }
+}
