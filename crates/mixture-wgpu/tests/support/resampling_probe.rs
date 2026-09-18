@@ -368,6 +368,58 @@ fn warp_probes() -> Vec<Probe> {
             [-1.0, 1.0],
             vec![0.0, 0.25, 1.0],
         ),
+        // Exact dyadic weights, four distinct neighbors, both axes active.
+        (
+            "both-axes-unequal-weights-odd-rectangle",
+            [3, 2],
+            vec![0.0, 0.25, 1.0, 0.5, 0.75, 0.125],
+            vec![1.0; 6],
+            [0.25, 0.125],
+            vec![0.3125, 0.6796875, 0.2890625, 0.5625, 0.4140625, 0.3671875],
+        ),
+        (
+            "both-axes-mixed-sign-seam-wrap",
+            [3, 2],
+            vec![0.0, 0.25, 1.0, 0.5, 0.75, 0.125],
+            vec![1.0; 6],
+            [-0.25, 0.125],
+            vec![0.6171875, 0.1875, 0.4765625, 0.3515625, 0.4375, 0.5546875],
+        ),
+        (
+            "both-axes-large-opposite-shifts",
+            [3, 2],
+            vec![0.0, 0.25, 1.0, 0.5, 0.75, 0.125],
+            vec![1.0; 6],
+            [0.875, -0.75],
+            vec![0.3671875, 0.40625, 0.5390625, 0.3671875, 0.40625, 0.5390625],
+        ),
+        (
+            "both-axes-full-period-odd-rectangle",
+            [3, 2],
+            vec![0.0, 0.25, 1.0, 0.5, 0.75, 0.125],
+            vec![1.0; 6],
+            [-1.0, 1.0],
+            vec![0.0, 0.25, 1.0, 0.5, 0.75, 0.125],
+        ),
+        (
+            "thin-odd-height-both-strengths-active",
+            [1, 3],
+            vec![0.0, 0.25, 1.0],
+            vec![1.0; 3],
+            [0.375, -0.25],
+            vec![0.75, 0.0625, 0.4375],
+        ),
+        // Fixed-input reduction of wood (922,23). Exact rational first result:
+        // 1474822221 / 4294967296, nearest binary16 is 0.343505859375.
+        // This checks the observed half-boundary failure without a CPU sampler.
+        (
+            "interpolation-half-boundary-witness",
+            [2, 1],
+            vec![873.0 / 2048.0, 349.0 / 1024.0],
+            vec![1.0; 2],
+            [f32::from_bits(0x3ef851e8), 0.0],
+            vec![1407.0 / 4096.0, 1735.0 / 4096.0],
+        ),
         (
             "single-texel-all-neighbors-wrap",
             [1, 1],
