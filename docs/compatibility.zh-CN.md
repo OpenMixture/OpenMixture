@@ -2,6 +2,8 @@
 
 [English](./compatibility.md) | 简体中文
 
+**提议中，2026-09-18：** [ADR 0005](./decisions/0005-warp-numerical-compatibility.zh-CN.md)记录双参考诊断之后有条件的 warp 准确性/兼容路线。它不接受任一候选或改变门槛；main 到局部坐标的变化仍需独立裁决。
+
 **ALPHA-03，2026-09-17：** [Windows／Firefox 156.0 的确切候选](./evidence/alpha-03-configured/README.zh-CN.md)通过普通配置的 11 案例／44 通道门槛，使用已记录的同源 Release／DXC 原生参照。该结果不扩展为所有浏览器／驱动的兼容承诺；npm 仍未发布。
 
 **M5 验收，2026-09-15：** [浏览器验收记录](./evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
