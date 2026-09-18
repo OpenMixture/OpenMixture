@@ -2,6 +2,8 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+**Proposed, 2026-09-18:** [ADR 0005](./decisions/0005-warp-numerical-compatibility.md) records the conditional warp accuracy/compatibility route after the dual-reference audit. It does not accept either candidate or alter the gates; main-to-local-coordinate changes still require their own adjudication.
+
 **ALPHA-03, 2026-09-17:** The [exact Windows/Firefox 156.0 candidate](./evidence/alpha-03-configured/README.md) passed the ordinary-profile 11-case/44-channel gate against recorded same-source Release/DXC references. This does not promise compatibility across all browsers/drivers; npm remains unpublished.
 
 **M5 acceptance, 2026-09-15:** [Browser acceptance](./evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
