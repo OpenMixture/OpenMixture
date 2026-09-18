@@ -1,0 +1,230 @@
+[
+  {
+    "id": "half-boundary",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1474822221/4294967296",
+        "rawFloat": 0.34338380699045956,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      },
+      "B": {
+        "raw": "11522049/33554432",
+        "rawFloat": 0.3433838188648224,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      },
+      "B_unfused": {
+        "raw": "2813/8192",
+        "rawFloat": 0.3433837890625,
+        "halfBits": 13694,
+        "halfFloat": 0.34326171875
+      },
+      "B_weighted": {
+        "raw": "11522049/33554432",
+        "rawFloat": 0.3433838188648224,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      }
+    },
+    "textureHalfBits": {
+      "original": 13694,
+      "local": 13694,
+      "fma": 13695
+    }
+  },
+  {
+    "id": "double-rounding",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "17188257793/34359738368",
+        "rawFloat": 0.5002441406541038,
+        "halfBits": 14337,
+        "halfFloat": 0.50048828125
+      },
+      "B": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      },
+      "B_unfused": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      },
+      "B_weighted": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      }
+    },
+    "textureHalfBits": {
+      "original": 14336,
+      "local": 14336,
+      "fma": 14336
+    }
+  },
+  {
+    "id": "tiny-subnormal",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_unfused": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_weighted": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 256,
+      "local": 256,
+      "fma": 256
+    }
+  },
+  {
+    "id": "tiny-subnormal",
+    "xy": [
+      256,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_unfused": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_weighted": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 0,
+      "local": 256,
+      "fma": 256
+    }
+  },
+  {
+    "id": "tiny-normal",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_unfused": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_weighted": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 1280,
+      "local": 1280,
+      "fma": 1280
+    }
+  },
+  {
+    "id": "tiny-normal",
+    "xy": [
+      256,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_unfused": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_weighted": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 1024,
+      "local": 1280,
+      "fma": 1280
+    }
+  }
+]

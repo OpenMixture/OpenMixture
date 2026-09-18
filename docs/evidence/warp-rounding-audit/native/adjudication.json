@@ -1,0 +1,90 @@
+{
+  "models": "Exact rational scalar diagnostics, never a CPU material renderer.\n\nPredeclared references (all roundings below use nearest, ties-to-even):\nA: exact field/strength displacement, exact wrapped bilinear interpolation -> half.\nB: separately rounded binary32 field multiply/subtract, strength multiply, size\nmultiply and fract; separately rounded differences; fused x/y interpolation -> half.\nB_unfused: same coordinates, multiply/add instead of fused interpolation.\nB_weighted: same coordinates, separate (1-t)*a + t*b stages.\nThese are hypothetical specified models, not WGSL's universal requirements.\n",
+  "summary": [
+    {
+      "variant": "default",
+      "warpChangedTexels": 0,
+      "matches": {
+        "before": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        },
+        "after": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        }
+      },
+      "probeTextureMismatch": 0
+    },
+    {
+      "variant": "coarse-grain",
+      "warpChangedTexels": 0,
+      "matches": {
+        "before": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        },
+        "after": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        }
+      },
+      "probeTextureMismatch": 0
+    },
+    {
+      "variant": "horizontal-grain",
+      "warpChangedTexels": 0,
+      "matches": {
+        "before": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        },
+        "after": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        }
+      },
+      "probeTextureMismatch": 0
+    },
+    {
+      "variant": "straight-grain",
+      "warpChangedTexels": 0,
+      "matches": {
+        "before": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        },
+        "after": {
+          "A": 0,
+          "A_frozen_weight": 0,
+          "B": 0,
+          "B_unfused": 0,
+          "B_weighted": 0
+        }
+      },
+      "probeTextureMismatch": 0
+    }
+  ],
+  "rows": []
+}

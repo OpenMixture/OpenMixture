@@ -1,0 +1,410 @@
+[
+  {
+    "id": "half-boundary",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1474822221/4294967296",
+        "rawFloat": 0.34338380699045956,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      },
+      "B": {
+        "raw": "11522049/33554432",
+        "rawFloat": 0.3433838188648224,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      },
+      "B_unfused": {
+        "raw": "2813/8192",
+        "rawFloat": 0.3433837890625,
+        "halfBits": 13694,
+        "halfFloat": 0.34326171875
+      },
+      "B_weighted": {
+        "raw": "11522049/33554432",
+        "rawFloat": 0.3433838188648224,
+        "halfBits": 13695,
+        "halfFloat": 0.343505859375
+      }
+    },
+    "textureHalfBits": {
+      "original": 13695,
+      "local": 13695,
+      "fma": 13695
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 1064849896,
+        "value": 0.9699997901916504
+      },
+      "weight": {
+        "f32Bits": 1064849896,
+        "value": 0.9699997901916504
+      },
+      "old-weight": {
+        "f32Bits": 1064849896,
+        "value": 0.9699997901916504
+      },
+      "mix": {
+        "f32Bits": 1051709441,
+        "value": 0.3433838188648224
+      },
+      "fma": {
+        "f32Bits": 1051709441,
+        "value": 0.3433838188648224
+      },
+      "mix-half": {
+        "f32Bits": 1051713536,
+        "value": 0.343505859375
+      },
+      "fma-half": {
+        "f32Bits": 1051713536,
+        "value": 0.343505859375
+      }
+    }
+  },
+  {
+    "id": "double-rounding",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "17188257793/34359738368",
+        "rawFloat": 0.5002441406541038,
+        "halfBits": 14337,
+        "halfFloat": 0.50048828125
+      },
+      "B": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      },
+      "B_unfused": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      },
+      "B_weighted": {
+        "raw": "2049/4096",
+        "rawFloat": 0.500244140625,
+        "halfBits": 14336,
+        "halfFloat": 0.5
+      }
+    },
+    "textureHalfBits": {
+      "original": 14336,
+      "local": 14336,
+      "fma": 14336
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 973078529,
+        "value": 0.0004882813082076609
+      },
+      "weight": {
+        "f32Bits": 973078529,
+        "value": 0.0004882813082076609
+      },
+      "old-weight": {
+        "f32Bits": 973078528,
+        "value": 0.00048828125
+      },
+      "mix": {
+        "f32Bits": 1056968704,
+        "value": 0.500244140625
+      },
+      "fma": {
+        "f32Bits": 1056968704,
+        "value": 0.500244140625
+      },
+      "mix-half": {
+        "f32Bits": 1056964608,
+        "value": 0.5
+      },
+      "fma-half": {
+        "f32Bits": 1056964608,
+        "value": 0.5
+      }
+    }
+  },
+  {
+    "id": "tiny-subnormal",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_unfused": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_weighted": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 256,
+      "local": 256,
+      "fma": 256
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "old-weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "mix": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "fma": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "mix-half": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "fma-half": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      }
+    }
+  },
+  {
+    "id": "tiny-subnormal",
+    "xy": [
+      256,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_unfused": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      },
+      "B_weighted": {
+        "raw": "1/65536",
+        "rawFloat": 1.52587890625e-05,
+        "halfBits": 256,
+        "halfFloat": 1.52587890625e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 0,
+      "local": 256,
+      "fma": 256
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "old-weight": {
+        "f32Bits": 0,
+        "value": 0.0
+      },
+      "mix": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "fma": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "mix-half": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "fma-half": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      }
+    }
+  },
+  {
+    "id": "tiny-normal",
+    "xy": [
+      0,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_unfused": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_weighted": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 1280,
+      "local": 1280,
+      "fma": 1280
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "old-weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "mix": {
+        "f32Bits": 950009728,
+        "value": 7.629301398992538e-05
+      },
+      "fma": {
+        "f32Bits": 950009728,
+        "value": 7.629301398992538e-05
+      },
+      "mix-half": {
+        "f32Bits": 950009856,
+        "value": 7.62939453125e-05
+      },
+      "fma-half": {
+        "f32Bits": 950009856,
+        "value": 7.62939453125e-05
+      }
+    }
+  },
+  {
+    "id": "tiny-normal",
+    "xy": [
+      256,
+      0
+    ],
+    "references": {
+      "A": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_unfused": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      },
+      "B_weighted": {
+        "raw": "81919/1073741824",
+        "rawFloat": 7.629301398992538e-05,
+        "halfBits": 1280,
+        "halfFloat": 7.62939453125e-05
+      }
+    },
+    "textureHalfBits": {
+      "original": 1024,
+      "local": 1280,
+      "fma": 1280
+    },
+    "probes": {
+      "delta": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "weight": {
+        "f32Bits": 931135488,
+        "value": 1.52587890625e-05
+      },
+      "old-weight": {
+        "f32Bits": 0,
+        "value": 0.0
+      },
+      "mix": {
+        "f32Bits": 950009728,
+        "value": 7.629301398992538e-05
+      },
+      "fma": {
+        "f32Bits": 950009728,
+        "value": 7.629301398992538e-05
+      },
+      "mix-half": {
+        "f32Bits": 950009856,
+        "value": 7.62939453125e-05
+      },
+      "fma-half": {
+        "f32Bits": 950009856,
+        "value": 7.62939453125e-05
+      }
+    }
+  }
+]

@@ -1,0 +1,580 @@
+[
+  {
+    "case": "neutral-displacement-exact-identity",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "zero-strength-exact-identity",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "positive-half-texel-x-wrap",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "negative-half-texel-x-wrap",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "negative-strength-reverses-polarity",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "displacement-clamps-before-centering",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "spatial-displacement-loaded-at-output-texel",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "maximum-strength-full-period-identity",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "positive-half-texel-y-rectangular",
+    "models": {
+      "A": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "negative-half-texel-y-rectangular",
+    "models": {
+      "A": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 8,
+        "pixels": 8,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "four-neighbor-interpolation",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "one-texel-x-axis",
+    "models": {
+      "A": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 4,
+        "pixels": 4,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "sub-ulp-uv-displacement-keeps-local-weight",
+    "models": {
+      "A": {
+        "expectedMatches": 1024,
+        "pixels": 1024,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 1024,
+        "pixels": 1024,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 1024,
+        "pixels": 1024,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 1024,
+        "pixels": 1024,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "odd-width-positive-three-quarter-texel",
+    "models": {
+      "A": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "odd-height-negative-three-quarter-texel",
+    "models": {
+      "A": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "odd-width-negative-full-period",
+    "models": {
+      "A": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "both-axes-unequal-weights-odd-rectangle",
+    "models": {
+      "A": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "both-axes-mixed-sign-seam-wrap",
+    "models": {
+      "A": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "both-axes-large-opposite-shifts",
+    "models": {
+      "A": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "both-axes-full-period-odd-rectangle",
+    "models": {
+      "A": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 6,
+        "pixels": 6,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "thin-odd-height-both-strengths-active",
+    "models": {
+      "A": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 3,
+        "pixels": 3,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "interpolation-half-boundary-witness",
+    "models": {
+      "A": {
+        "expectedMatches": 2,
+        "pixels": 2,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 2,
+        "pixels": 2,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 0,
+        "pixels": 2,
+        "differentPixels": [
+          0,
+          1
+        ]
+      },
+      "B_weighted": {
+        "expectedMatches": 2,
+        "pixels": 2,
+        "differentPixels": []
+      }
+    }
+  },
+  {
+    "case": "single-texel-all-neighbors-wrap",
+    "models": {
+      "A": {
+        "expectedMatches": 1,
+        "pixels": 1,
+        "differentPixels": []
+      },
+      "B": {
+        "expectedMatches": 1,
+        "pixels": 1,
+        "differentPixels": []
+      },
+      "B_unfused": {
+        "expectedMatches": 1,
+        "pixels": 1,
+        "differentPixels": []
+      },
+      "B_weighted": {
+        "expectedMatches": 1,
+        "pixels": 1,
+        "differentPixels": []
+      }
+    }
+  }
+]

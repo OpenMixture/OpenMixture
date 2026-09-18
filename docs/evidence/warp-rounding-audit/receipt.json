@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-18",
+  "scope": "ALPHA-03 diagnostic; no candidate acceptance",
+  "experimentHead": "8e7b3b0592368d7aad0fb3fa316b9d09fd6aa880",
+  "actualSoftwareCheckout": "a200b127defe66deec2dd76e70eeae6c8652023d",
+  "softwareRun": 35321683099,
+  "attempt": 1,
+  "softwareConclusion": "success",
+  "swiftshaderRevision": "694585a05946e1ed49b6bd577ca6537cbb57f025",
+  "artifactId": 10538370576,
+  "retrievedUtc": "2026-09-18T08:26:37.532080+00:00",
+  "oldSoftwareSources": {
+    "PR15": "91015e02255f20105586145db23bbd23b3c93546",
+    "PR16": "1c65e8631c2e2bdba8fe3aaf8b7c5762c1c215f3"
+  },
+  "changedWarpTexels": 41,
+  "all41CloserToExactA": true,
+  "all41MatchB": true,
+  "finalPngWitnesses": 14,
+  "uniqueCausalWarpTexels": 11,
+  "softwareProductBindings": 32,
+  "nativeProductBindings": 32,
+  "nativeChangedWarpTexels": 0,
+  "literalGpuCases": 4,
+  "literalExactRecomputedCases": 23,
+  "nativeHardware": "NVIDIA GeForce GT 1030 / DX12 / driver 32.0.15.8266",
+  "chrome": "153.0.8010.48 / NVIDIA Pascal",
+  "ordinaryBrowserQualification": false,
+  "localCheck": "cargo xtask check passed; full log ignored at tmp/rounding-check.log",
+  "retention": "Critical warp inputs/outputs, source plans, scalar probes, literal textures, references and dependency links retained in Git; full ordinary material captures and original 32-channel PNG sets stay in local/expiring CI evidence. Hash bindings are not a promise of perpetual full-PNG re-audit."
+}
