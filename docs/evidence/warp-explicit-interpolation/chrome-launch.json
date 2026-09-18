@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "browserFamily": "chromium",
+  "startedAt": "2026-09-18T14:41:06.2439010+08:00",
+  "freshProfile": true,
+  "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "executableSha256": "392dec76f7d4a54f6bc9c360e8d21a56c428173b6c6a90f2be38a2714d606227",
+  "product": "Google Chrome",
+  "version": "153.0.8010.48",
+  "processId": 26524,
+  "arguments": [
+    "--user-data-dir=\"D:\\Coding\\OpenMixture\\tmp\\warp-fma-evaluation\\chrome-launch\\profile\"",
+    "--remote-debugging-port=9395",
+    "about:blank"
+  ],
+  "observedCommandLine": "\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --user-data-dir=\"D:\\Coding\\OpenMixture\\tmp\\warp-fma-evaluation\\chrome-launch\\profile\" --remote-debugging-port=9395 about:blank",
+  "endpoint": "http://127.0.0.1:9395",
+  "os": {
+    "Caption": "Microsoft Windows 11 IoT 企业版 LTSC",
+    "Version": "10.0.26100",
+    "BuildNumber": "26100",
+    "OSArchitecture": "64 位"
+  },
+  "hostVideoControllers": [
+    {
+      "Name": "GameViewer Virtual Display Adapter",
+      "DriverVersion": "15.6.5.199"
+    },
+    {
+      "Name": "NVIDIA GeForce GT 1030",
+      "DriverVersion": "32.0.15.8266"
+    }
+  ],
+  "scope": "Fresh ordinary desktop profile; only profile isolation and loopback CDP/BiDi transport switches. Host GPUs are not inferred runtime adapter identities."
+}

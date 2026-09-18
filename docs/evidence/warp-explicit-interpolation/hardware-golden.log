@@ -1,0 +1,8 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running `target/xtask-runner\debug\xtask.exe golden check`
+Rendering glazed-ceramic on dx12 (hardware), 1024x1024, 3 cases
+Material machine checks: true; golden comparisons: true. Review: D:\Coding\OpenMixture\tmp\warp-fma-engine\tmp\golden\glazed-ceramic\hardware-1789713947698787600-40360\report.json
+Rendering leather on dx12 (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: D:\Coding\OpenMixture\tmp\warp-fma-engine\tmp\golden\leather\hardware-1789714011867735600-40360\report.json
+Rendering wood on dx12 (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: D:\Coding\OpenMixture\tmp\warp-fma-engine\tmp\golden\wood\hardware-1789714120887973100-40360\report.json

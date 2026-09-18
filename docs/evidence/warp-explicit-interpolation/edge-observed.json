@@ -1,0 +1,5 @@
+{
+  "ProcessId": 42612,
+  "ExecutablePath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+  "CommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --user-data-dir=\"D:\\Coding\\OpenMixture\\tmp\\warp-fma-evaluation\\edge-launch\\profile\" --remote-debugging-port=9396 --edge-skip-compat-layer-relaunch about:blank"
+}
