@@ -19,3 +19,7 @@ cargo xtask test-node warp
 按 [GPU 指南](../../../docs/gpu-context.zh-CN.md) 显式选择适配器。证据写入 `tmp/node-tests/<backend>/`，包括 `warp-literal-probes.json`。参阅[契约](../../../docs/node-contracts.zh-CN.md)和唯一 [WGSL 实现](../../../crates/mixture-wgpu/shaders/nodes/warp.wgsl)。木纹材质将变换后的纹理源与单独显式设种子的周期位移场组合。
 
 实现使用整数输出像素加局部纹素位移来计算等价坐标：环绕邻居来自 `pixel+floor(delta)`，权重为 `fract(delta)`，避免先舍入绝对 UV 再恢复纹素坐标。同一计划的全部纹理使用渲染分辨率。新增字面值探针以解析预期覆盖 1024 像素上的 2^-26 UV 位移、奇数尺寸正负位移和负整周期。本次数值修正不修改 golden 或容差。
+
+warp 插值在每行及两行之间使用显式 `fma(b-a,t,a)`，以减少已测后端的中间舍入。WGSL 允许非融合 fma，因此这不保证跨后端逐位一致。候选仍需满足冻结材质 golden，不修改容差或基线。字面值回归覆盖双轴不同权重、正负方向跨接缝、3x2 纹理的大位移及完整周期、细长奇数高度纹理和固定的 half 舍入临界点。
+
+显式插值候选的验证结果保留于[日期化证据](../../../docs/evidence/warp-explicit-interpolation/README.zh-CN.md)。字面值回归通过不能替代仍失败的软件材质门槛。

@@ -202,4 +202,6 @@ cargo xtask test-node transform-2d
 cargo xtask test-node warp
 ```
 
-[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖默认值、类型化输入顺序、重复绑定、精确种类、必填连接、依赖裁剪与参数／哈希行为。[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)包含 17 个变换和 13 个扭曲用例，以手工指定的半精度输入和精确预期输出，经生产 WGSL 验证 X／Y 接缝插值、负偏移、全部旋转、先旋转后缩放、单纹素尺寸、位移极性／钳制及输出坐标场读取。节点图用例只读引用已有噪声恒等基准，并检查有意义的参数变化与热缓存重复性。节点证据保存于 `tmp/node-tests/<backend>/`，包括 `<node>-literal-probes.json`。
+[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖默认值、类型化输入顺序、重复绑定、精确种类、必填连接、依赖裁剪与参数／哈希行为。[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)包含 17 个变换和 23 个扭曲用例，以手工指定的半精度输入和精确预期输出，经生产 WGSL 验证 X／Y 接缝插值、负偏移、全部旋转、先旋转后缩放、单纹素尺寸、位移极性／钳制及输出坐标场读取。节点图用例只读引用已有噪声恒等基准，并检查有意义的参数变化与热缓存重复性。节点证据保存于 `tmp/node-tests/<backend>/`，包括 `<node>-literal-probes.json`。
+
+warp 插值在每行及两行之间使用显式 `fma(b-a,t,a)`，以减少已测后端的中间舍入。WGSL 允许非融合 fma，因此这不保证跨后端逐位一致。候选仍需满足冻结材质 golden，不修改容差或基线。字面值回归覆盖双轴不同权重、正负方向跨接缝、3x2 纹理的大位移及完整周期、细长奇数高度纹理和固定的 half 舍入临界点。

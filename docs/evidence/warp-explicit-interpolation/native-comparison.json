@@ -1,0 +1,222 @@
+[
+  {
+    "path": "glazed-ceramic/default/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/default/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/default/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/default/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/fine-tiles/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/fine-tiles/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/fine-tiles/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/fine-tiles/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/matte/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/matte/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/matte/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "glazed-ceramic/matte/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/coarse-grain/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/coarse-grain/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/coarse-grain/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/coarse-grain/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/default/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/default/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/default/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/default/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-max/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-max/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-max/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-max/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-min/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-min/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-min/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "leather/detail-min/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/coarse-grain/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/coarse-grain/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/coarse-grain/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/coarse-grain/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/default/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/default/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/default/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/default/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/horizontal-grain/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/horizontal-grain/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/horizontal-grain/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/horizontal-grain/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/straight-grain/baseColor.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/straight-grain/height.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/straight-grain/normal.png",
+    "max": 0,
+    "changedPixels": 0
+  },
+  {
+    "path": "wood/straight-grain/roughness.png",
+    "max": 0,
+    "changedPixels": 0
+  }
+]

@@ -17,8 +17,15 @@ fn repeat_bilinear(pixel: vec2<i32>, delta_texels: vec2<f32>) -> f32 {
     let b = (base + vec2<i32>(1, 0) + size) % size;
     let c = (base + vec2<i32>(0, 1) + size) % size;
     let d = (base + vec2<i32>(1, 1) + size) % size;
-    return mix(mix(textureLoad(input, a, 0).r, textureLoad(input, b, 0).r, t.x),
-               mix(textureLoad(input, c, 0).r, textureLoad(input, d, 0).r, t.x), t.y);
+    let va = textureLoad(input, a, 0).r;
+    let vb = textureLoad(input, b, 0).r;
+    let vc = textureLoad(input, c, 0).r;
+    let vd = textureLoad(input, d, 0).r;
+    // Request multiply-add interpolation to reduce intermediate rounding.
+    // WGSL permits unfused fma; this does not promise backend bit identity.
+    let top = fma(vb - va, t.x, va);
+    let bottom = fma(vd - vc, t.x, vc);
+    return fma(bottom - top, t.y, top);
 }
 @compute @workgroup_size(8, 8, 1)
 fn warp(@builtin(global_invocation_id) id: vec3<u32>) {

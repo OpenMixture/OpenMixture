@@ -1,0 +1,113 @@
+{
+  "source": "1c65e8631c2e2bdba8fe3aaf8b7c5762c1c215f3",
+  "parent": "91015e02255f20105586145db23bbd23b3c93546",
+  "pr": 16,
+  "gpuRun": 35316278778,
+  "literalCases": 23,
+  "nativeLiteralPass": true,
+  "softwareLiteralPass": true,
+  "chromeBeforeFailed": [
+    "interpolation-half-boundary-witness"
+  ],
+  "chromeAfterPass": true,
+  "edgeAfterPass": true,
+  "nativeMaterialChannelsUnchanged": 44,
+  "chromeMaterialPass": 27,
+  "chromeMaterialExact": 19,
+  "software": {
+    "relativeToPr15": [
+      {
+        "path": "coarse-grain/baseColor.png",
+        "max": 1,
+        "changedPixels": 2
+      },
+      {
+        "path": "coarse-grain/height.png",
+        "max": 1,
+        "changedPixels": 1
+      },
+      {
+        "path": "coarse-grain/normal.png",
+        "max": 1,
+        "changedPixels": 1
+      },
+      {
+        "path": "coarse-grain/roughness.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "default/baseColor.png",
+        "max": 1,
+        "changedPixels": 2
+      },
+      {
+        "path": "default/height.png",
+        "max": 1,
+        "changedPixels": 3
+      },
+      {
+        "path": "default/normal.png",
+        "max": 1,
+        "changedPixels": 4
+      },
+      {
+        "path": "default/roughness.png",
+        "max": 1,
+        "changedPixels": 1
+      },
+      {
+        "path": "horizontal-grain/baseColor.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "horizontal-grain/height.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "horizontal-grain/normal.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "horizontal-grain/roughness.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "straight-grain/baseColor.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "straight-grain/height.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "straight-grain/normal.png",
+        "max": 0,
+        "changedPixels": 0
+      },
+      {
+        "path": "straight-grain/roughness.png",
+        "max": 0,
+        "changedPixels": 0
+      }
+    ],
+    "failedChannels": 12,
+    "defaultAgainstFrozen": {
+      "baseColor": 244,
+      "height": 254,
+      "normal": 380,
+      "roughness": 61
+    },
+    "machineChecks": true
+  },
+  "accepted": false,
+  "baselineOrToleranceChanged": false,
+  "check": "cargo xtask check passed on source head; 177 Markdown files",
+  "scope": "No new compiler policy; no noise changes; no merge. Installed Chrome is tested; Edge direct literals only, launcher parent observation failed. No new Firefox run."
+}
