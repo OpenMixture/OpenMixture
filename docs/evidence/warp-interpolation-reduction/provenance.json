@@ -1,0 +1,22 @@
+{
+  "files": {
+    "tmp/arithmetic-regular.exe": "643cf72c57c7a77a447d0d83f614a9d197fe8dbd1b64ad840a8420a508be908c",
+    "tmp/local-coordinate-engine/target/release/examples/texture_probe.exe": "70bbf5bfe84cf814552cc09b40ff1e8435ac23f9a7b9fc2dad8cf80f8df96280",
+    "docs/evidence/chromium-arithmetic-reduction/native-probe.rs": "0dcd4bfc332783ad8a67ee9def2663f680c5c478776cc521168f9a840ed2e818",
+    "docs/evidence/residual-path-reduction/texture_probe.rs": "dbf1d8f4380a40f265e009b6e66f43d5ff9169745a4dfe07d01e4cc03945ff48",
+    "Cargo.lock": "f5ec5de2f3430f16ad189070a7d78c184a46c0e0b90d1951b0a2d8e887f00b38",
+    "docs/browser-tolerances.json": "f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627"
+  },
+  "scalarInputsSha256": "3f6dad70a8c0288e52fcfa706bd040899603aaa5e853c7f86de8b56c68df6c7b",
+  "gridArchiveSha256": "498393cbeb185be3721cf4b436b2ceed5ced8f207cb14bce6567d2e09298f0a5",
+  "scalarRunner": "arithmetic-regular.exe <shader.wgsl> <output.bin> 832 <inputs.bin>",
+  "textureRunner": "texture_probe.exe tmp/warp-residual-grid/pipeline.json tmp/warp-residual-grid/native-fma",
+  "nativeCompiler": "ordinary registry dependencies; no strict diagnostic compiler patch",
+  "edgeScalarVariants": [
+    "fixed-mix",
+    "fixed-mix-half",
+    "fma",
+    "fma-half"
+  ],
+  "browserGridValidation": "Retained adapted browser-grid.mjs rerun matched bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329"
+}

@@ -1,0 +1,4 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running `target/xtask-runner\debug\xtask.exe test-material wood`
+Rendering wood on dx12 (hardware), 1024x1024, 4 cases
+Material machine checks: true; golden comparisons: true. Review: D:\Coding\OpenMixture\tmp\golden\wood\hardware-1789637906981572700-16992\report.json

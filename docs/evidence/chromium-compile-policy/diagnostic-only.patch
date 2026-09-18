@@ -1,0 +1,21 @@
+diff --git a/wgpu-hal/src/dx12/shader_compilation.rs b/wgpu-hal/src/dx12/shader_compilation.rs
+index ff41e50..c722767 100644
+--- a/wgpu-hal/src/dx12/shader_compilation.rs
++++ b/wgpu-hal/src/dx12/shader_compilation.rs
+@@ -229,7 +229,7 @@ fn compile_fxc(
+     fxc: &FxcLib,
+ ) -> Result<super::CompiledShader, crate::PipelineError> {
+     profiling::scope!("compile_fxc");
+-    let mut compile_flags = Fxc::D3DCOMPILE_ENABLE_STRICTNESS;
++    let mut compile_flags = Fxc::D3DCOMPILE_ENABLE_STRICTNESS | Fxc::D3DCOMPILE_IEEE_STRICTNESS;
+     if device
+         .shared
+         .private_caps
+@@ -394,6 +394,7 @@ fn compile_dxc(
+         windows::core::w!("2018"), // Use HLSL 2018, Naga doesn't supported 2021 yet.
+         windows::core::w!("-no-warnings"),
+         Dxc::DXC_ARG_ENABLE_STRICTNESS,
++        windows::core::w!("-Gis"),
+     ]);
+ 
+     if device

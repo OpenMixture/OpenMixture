@@ -1,0 +1,690 @@
+{
+  "diagnosticOnly": true,
+  "comparison": "Original native versus isolated local-coordinate native; this is not browser certification.",
+  "channels": [
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+      "localPngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+      "localPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+      "localPngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+      "localPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+      "localPngSha256": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+      "localPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+      "localPngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+      "localPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+      "localPngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+      "localPngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+      "localPngSha256": "adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+      "localPngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+      "channel": "baseColor",
+      "maxAbsolute": 1,
+      "meanAbsolute": 2.3603439331054688e-05,
+      "changedPixels": 97,
+      "changedPixelRatio": 9.250640869140625e-05,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "6833b1543c074adac5c47c584886a0322f159d1a6c39745c6d796d0f42f7ffd3",
+      "localPngSha256": "6ed01c69ac6ea9bf05546519c17f3157581908d22dcaac6d1de262d1f01044df"
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+      "channel": "normal",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.0002117156982421875,
+      "changedPixels": 885,
+      "changedPixelRatio": 0.0008440017700195312,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "cf587d449690e7cab3747d211cd4815fa5a56e29b8552d43e94f95acf0e3cfd1",
+      "localPngSha256": "9a2d2357c12fe5325c09ec5a9391179d4b41667d3f237b07cf9b8b3f582ff9c2"
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+      "channel": "roughness",
+      "maxAbsolute": 1,
+      "meanAbsolute": 7.152557373046875e-05,
+      "changedPixels": 100,
+      "changedPixelRatio": 9.5367431640625e-05,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "25df79ea51760da6616c66f0bfa375d8286d6ba0ef5ce2013b85887f9867536d",
+      "localPngSha256": "a23ec46f9c985dcac7517588fb68c1ba3fe9c06635bdba2dcb9d250170bdfb5c"
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355",
+      "channel": "height",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00025963783264160156,
+      "changedPixels": 363,
+      "changedPixelRatio": 0.00034618377685546875,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "51b4c2fe6775629c7355da7a5542c7fc5a5235d9beebe0eb974a7821f0dbcf0e",
+      "localPngSha256": "722a59209055d733cc7c717205fc0710138f898d3a95a43cf4779b6eb69463a6"
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+      "channel": "baseColor",
+      "maxAbsolute": 1,
+      "meanAbsolute": 4.100799560546875e-05,
+      "changedPixels": 170,
+      "changedPixelRatio": 0.0001621246337890625,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "3a7c07f8b789da564eec59e608148f3e0c21887e413099474ab1791d8b0fad68",
+      "localPngSha256": "601b86eb1b65c514eafa4634a1e52a30ebaf9e00be67b5717f838eedb769f72a"
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+      "channel": "normal",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.0002491474151611328,
+      "changedPixels": 1040,
+      "changedPixelRatio": 0.0009918212890625,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "4fbba4084ccc75b471d13c5fbcf1af8abdc7506b52633767fb178e81d9e6a0bb",
+      "localPngSha256": "00146257b7c3b49fa77b4b749fe2913b54cc89950e5d5e660f7870e12b9d9032"
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+      "channel": "roughness",
+      "maxAbsolute": 1,
+      "meanAbsolute": 7.009506225585938e-05,
+      "changedPixels": 98,
+      "changedPixelRatio": 9.34600830078125e-05,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "246921fc93dcc36211f91c2e288d81f1fe625266e3fd083948683c06b75f3b3d",
+      "localPngSha256": "6f781fae95d5384fc11bc5aa08e8ea9ca089497df9b4f336476a5c95b99ef63f"
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f",
+      "channel": "height",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00032258033752441406,
+      "changedPixels": 451,
+      "changedPixelRatio": 0.00043010711669921875,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "ee3f40c8b9c51f4e7b4ad07fd59100923d4b97c4aa0cc4bd0597451f1923d7f5",
+      "localPngSha256": "72af51fc16eb4b968528cf0d61a96718fac14c2c9918ff85ddf492da71301b78"
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+      "channel": "baseColor",
+      "maxAbsolute": 1,
+      "meanAbsolute": 4.5299530029296875e-05,
+      "changedPixels": 188,
+      "changedPixelRatio": 0.000179290771484375,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "5ae997643feb12ed8e059301431305239be1632334fb0f4cacca69588d03a5a6",
+      "localPngSha256": "017068fbf3b0e499e5b32ca3b14408a319cb31ef31c9bf5b01fb16c66921b7d8"
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+      "channel": "normal",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00031256675720214844,
+      "changedPixels": 1299,
+      "changedPixelRatio": 0.0012388229370117188,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "f749b278517bce79ecf0a3c94fd9268d26ce74e113d1185f2b88a684492534e1",
+      "localPngSha256": "a65e0248fe11f141d0f0764e117ef6b60389d43ec90c343b3423eb6f61920f3f"
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+      "channel": "roughness",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00010156631469726562,
+      "changedPixels": 142,
+      "changedPixelRatio": 0.0001354217529296875,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "08d7cb46d46e592874205d2f8673c3050c32a26ed4fb82b1bc22fd3903252005",
+      "localPngSha256": "1f7a4ad81d035f4d552383c6b9c7c910b919dc6904880f22525cb8e049e5b071"
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c",
+      "channel": "height",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00046634674072265625,
+      "changedPixels": 652,
+      "changedPixelRatio": 0.000621795654296875,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "71b29e526f5cc61c7f82afa2e1c2664bf97b08ae51165090a4cb1f52fe884439",
+      "localPngSha256": "2f5afaf43158684abbdf07e18a82df2fdd7848fa1ac89a983b8371604536472a"
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+      "channel": "baseColor",
+      "maxAbsolute": 1,
+      "meanAbsolute": 1.9073486328125e-05,
+      "changedPixels": 76,
+      "changedPixelRatio": 7.2479248046875e-05,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "dadb64d929b384527c87a938b5d0f94d355a4afc5a13c7bac12b23939f84aae7",
+      "localPngSha256": "9dc2959d2119ed3c884cabf3c1b2444f006c9c7c8371d07bd6f0b2156f8d0eaf"
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+      "channel": "normal",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00011968612670898438,
+      "changedPixels": 499,
+      "changedPixelRatio": 0.00047588348388671875,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "8641eed999de30916e5071acf9655f847a5238f3c2222f9529b00cf272672b6f",
+      "localPngSha256": "fc39e5fe73dd0cbdf49e4b3da7983a4b1d326193dcaf0086b803763774a7c059"
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+      "channel": "roughness",
+      "maxAbsolute": 1,
+      "meanAbsolute": 3.8623809814453125e-05,
+      "changedPixels": 54,
+      "changedPixelRatio": 5.14984130859375e-05,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "0ad5721dff1332db6f177fe8b234c2d42434e465114e2933fac76fc4c5ed2c54",
+      "localPngSha256": "53dd5819ece0f25b8530228125c8e409c3700fa43f6b0921988b500cf4db321d"
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e",
+      "channel": "height",
+      "maxAbsolute": 1,
+      "meanAbsolute": 0.00017023086547851562,
+      "changedPixels": 238,
+      "changedPixelRatio": 0.0002269744873046875,
+      "withinFrozenBrowserEnvelope": false,
+      "originalPngSha256": "8260f196bd42bef0832298457d5d6e362ddcde249a2c3c8a90248141a457866d",
+      "localPngSha256": "acffc2267597fa3585a088eff814e6cbfa5ef6a970c0d54d0cae89000d7a3213"
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "33cf57e7df6df8e58122433014099a7696410837bff8e3e24f242c59292d060d",
+      "localPngSha256": "33cf57e7df6df8e58122433014099a7696410837bff8e3e24f242c59292d060d"
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "672036a7e89cae8e14c680a561bf038279e0ff207d329908aae1262f946cdf5a",
+      "localPngSha256": "672036a7e89cae8e14c680a561bf038279e0ff207d329908aae1262f946cdf5a"
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "2ad781114eb1c5731a502c757a576e16f7517adc3b3f059229f06ded802306d8",
+      "localPngSha256": "2ad781114eb1c5731a502c757a576e16f7517adc3b3f059229f06ded802306d8"
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "4220a093995ff7ea4c3a976baebbe8e675fda891debe29d20be9d56ce17e9547",
+      "localPngSha256": "4220a093995ff7ea4c3a976baebbe8e675fda891debe29d20be9d56ce17e9547"
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "61237ffa3c9e2887bc0e93dab770d0f577c8b89bb5b830ba1142c9e0ca3fd19e",
+      "localPngSha256": "61237ffa3c9e2887bc0e93dab770d0f577c8b89bb5b830ba1142c9e0ca3fd19e"
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "5e917a672b7c68dc82439f9d506edb73f3a6dae3ebd77804deba8624e5586c9d",
+      "localPngSha256": "5e917a672b7c68dc82439f9d506edb73f3a6dae3ebd77804deba8624e5586c9d"
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "86a867101a1737e3399c51658a25f3b34d7fd1cae16bbc44de8c5e42329064a0",
+      "localPngSha256": "86a867101a1737e3399c51658a25f3b34d7fd1cae16bbc44de8c5e42329064a0"
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "d3589cce28ad92e3839d410531d9ac60971959456ef0f1ce1f7d3b0752507d32",
+      "localPngSha256": "d3589cce28ad92e3839d410531d9ac60971959456ef0f1ce1f7d3b0752507d32"
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+      "localPngSha256": "48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb"
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+      "localPngSha256": "97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c"
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+      "localPngSha256": "d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162"
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+      "localPngSha256": "2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb"
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "overrides": {
+        "orientation": 1
+      },
+      "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+      "channel": "baseColor",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+      "localPngSha256": "9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31"
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "overrides": {
+        "orientation": 1
+      },
+      "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+      "channel": "normal",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "b81532b6311228cf74d5791d15cf44ab78b0641451cb0f405bdbcb495d82721e",
+      "localPngSha256": "b81532b6311228cf74d5791d15cf44ab78b0641451cb0f405bdbcb495d82721e"
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "overrides": {
+        "orientation": 1
+      },
+      "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+      "channel": "roughness",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+      "localPngSha256": "cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c"
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "overrides": {
+        "orientation": 1
+      },
+      "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a",
+      "channel": "height",
+      "maxAbsolute": 0,
+      "meanAbsolute": 0.0,
+      "changedPixels": 0,
+      "changedPixelRatio": 0.0,
+      "withinFrozenBrowserEnvelope": true,
+      "originalPngSha256": "d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a",
+      "localPngSha256": "d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a"
+    }
+  ]
+}

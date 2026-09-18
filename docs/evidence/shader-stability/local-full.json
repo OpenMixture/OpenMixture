@@ -1,0 +1,90 @@
+{
+  "diagnosticOnly": true,
+  "variant": "local",
+  "binarySha256": "2e83f70501752230105ecd2cb920d4d9daea99dfc5a0f8aeaf30fe4766313b0f",
+  "cases": [
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "fine-tiles",
+      "overrides": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "planHash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913"
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "matte",
+      "overrides": {
+        "roughness": 0.65
+      },
+      "planHash": "sha256:351f9956a41685d59463b0342e5a5b3e1eb7cab64d9dc7d7edc69bb48c241887"
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355"
+    },
+    {
+      "material": "leather",
+      "id": "detail-min",
+      "overrides": {
+        "detail": 0
+      },
+      "planHash": "sha256:b7d23901b8b9398789d87ce43b2ab9702803895b512ed7e5e0ef8702c2af381f"
+    },
+    {
+      "material": "leather",
+      "id": "detail-max",
+      "overrides": {
+        "detail": 1
+      },
+      "planHash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c"
+    },
+    {
+      "material": "leather",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainScale": 32
+      },
+      "planHash": "sha256:0de58bbfb023dc836ff6828b4798f287ed6664344093b3a05435938613bdf76e"
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "overrides": {},
+      "planHash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e"
+    },
+    {
+      "material": "wood",
+      "id": "coarse-grain",
+      "overrides": {
+        "grainRepeat": 16
+      },
+      "planHash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563"
+    },
+    {
+      "material": "wood",
+      "id": "straight-grain",
+      "overrides": {
+        "warpStrength": 0
+      },
+      "planHash": "sha256:2ebbc6442df8986670c36d11ddfac204990c1d74ecd065625da634ca6a793662"
+    },
+    {
+      "material": "wood",
+      "id": "horizontal-grain",
+      "overrides": {
+        "orientation": 1
+      },
+      "planHash": "sha256:5a30612b69affac3ca9516938789b5d5556dd6ddd2acf6b2de470cbb7a1f643a"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "diagnosticOnly": true,
+  "pixels": 1048576,
+  "rows": [
+    {
+      "variant": "original",
+      "browser": "chrome",
+      "rawChanged": 1032165,
+      "halfChanged": 6298,
+      "maxRaw": 0.000009097158908843994,
+      "maxHalf": 0.00048828125
+    },
+    {
+      "variant": "original",
+      "browser": "edge",
+      "rawChanged": 1032165,
+      "halfChanged": 6298,
+      "maxRaw": 0.000009097158908843994,
+      "maxHalf": 0.00048828125
+    },
+    {
+      "variant": "local",
+      "browser": "chrome",
+      "rawChanged": 730400,
+      "halfChanged": 223,
+      "maxRaw": 2.980232238769531e-7,
+      "maxHalf": 0.00048828125
+    },
+    {
+      "variant": "local",
+      "browser": "edge",
+      "rawChanged": 730400,
+      "halfChanged": 223,
+      "maxRaw": 2.980232238769531e-7,
+      "maxHalf": 0.00048828125
+    }
+  ]
+}

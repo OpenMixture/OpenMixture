@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-18",
+  "sourceCommit": "91015e02255f20105586145db23bbd23b3c93546",
+  "kind": "diagnostic-only; external WGSL; production sources unchanged",
+  "resolution": [
+    1024,
+    1024
+  ],
+  "scalarCount": 26,
+  "deltaMismatches": 0,
+  "weightMismatches": 0,
+  "mixHalfMismatches": 26,
+  "fmaHalfMismatches": 0,
+  "gridBeforeNativeChrome": 26,
+  "gridAfterNativeChrome": 0,
+  "gridAfterNativeEdge": 0,
+  "nativeBeforeAfter": 0,
+  "textureSha256": {
+    "wood-stretch.bin": "515c8db924c3dd3960b38be13d490c1853e5a0833a1441db78e85000d14c6be0",
+    "wood-distortion.bin": "967cf3bdac90dc6ce59821d990b973a590cbe8f52e05682318f136a5299c3bbe",
+    "warp-before-native.bin": "bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329",
+    "warp-before-chrome.bin": "871edcb19bf082534c8e1dc6949df01de3d5c17fc50277c56e83a76e11ae57f3",
+    "warp-after-native.bin": "bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329",
+    "warp-after-chrome.bin": "bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329",
+    "warp-after-edge.bin": "bc894715d9083896a52ee519f45734432b896398c049e78643b53f6bbd2d3329"
+  },
+  "unchangedUpstreamNative": {
+    "wood-stretch.bin": true,
+    "wood-distortion.bin": true
+  },
+  "edgeLaunchLimitation": "Launcher failed to observe transient parent; connected to surviving owned profile at port 9392, actual root process recorded. Not an ordinary-browser qualification receipt.",
+  "acceptance": "not accepted; frozen software wood golden remains failed; no baseline/tolerance changes",
+  "sourceCommitScope": "Warp shader only; diagnostic pipeline inherited from residual-path-reduction with value-noise wood stages (basis=0). Local cellular candidate spelling in unused basis branch is retained in pipeline.json; not a PR15 package execution."
+}

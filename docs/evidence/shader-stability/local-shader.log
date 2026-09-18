@@ -1,0 +1,63 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling simd-adler32 v0.3.10
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling crc32fast v1.5.1
+   Compiling adler2 v2.0.1
+   Compiling cfg-if v1.0.4
+   Compiling zmij v1.0.23
+   Compiling memchr v2.8.3
+   Compiling pulldown-cmark v0.13.4
+   Compiling serde_json v1.0.151
+   Compiling bitflags v2.13.1
+   Compiling serde v1.0.229
+   Compiling unicase v2.9.0
+   Compiling cpufeatures v0.3.1
+   Compiling itoa v1.0.18
+   Compiling miniz_oxide v0.9.1
+   Compiling fdeflate v0.3.7
+   Compiling hybrid-array v0.4.14
+   Compiling miniz_oxide v0.8.9
+   Compiling block-buffer v0.12.1
+   Compiling crypto-common v0.2.2
+   Compiling flate2 v1.1.10
+   Compiling png v0.18.1
+   Compiling syn v3.0.5
+   Compiling digest v0.11.3
+   Compiling sha2 v0.11.0
+   Compiling serde_derive v1.0.229
+   Compiling xtask v0.1.0 (D:\Coding\OpenMixture\tmp\stability-engine\xtask)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 38.84s
+     Running `target/xtask-runner\debug\xtask.exe shader-check`
+cargo test --locked -p mixture-wgpu shader_validates_without_a_gpu
+   Compiling mixture-core v0.1.0 (D:\Coding\OpenMixture\tmp\stability-engine\crates\mixture-core)
+   Compiling mixture-wgpu v0.1.0 (D:\Coding\OpenMixture\tmp\stability-engine\crates\mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.84s
+     Running unittests src\lib.rs (D:\Coding\OpenMixture\target\debug\deps\mixture_wgpu-8f2f95b2a55bc49e.exe)
+
+running 2 tests
+test checker::shader_tests::checker_shader_validates_without_a_gpu ... ok
+test kernels::tests::graph_shader_validates_without_a_gpu_and_matches_uniform_abi ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.02s
+
+     Running tests\checker.rs (D:\Coding\OpenMixture\target\debug\deps\checker-7603c4ea72983be8.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests\context.rs (D:\Coding\OpenMixture\target\debug\deps\context-d52f53c6dfe4ee8e.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests\nodes.rs (D:\Coding\OpenMixture\target\debug\deps\nodes-780f22c687f0c668.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+

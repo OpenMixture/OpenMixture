@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "browser": "153.0.4234.32",
+  "launch": {
+    "schemaVersion": 1,
+    "browserFamily": "chromium",
+    "startedAt": "2026-09-17T16:46:38.1611616+08:00",
+    "freshProfile": true,
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "executableSha256": "81ee5ff42fcec883312170606b10ebbb2b01f5b4cddc2cf485290e40c15b027d",
+    "product": "Microsoft Edge",
+    "version": "153.0.4234.32",
+    "processId": 19972,
+    "arguments": [
+      "--user-data-dir=\"D:\\Coding\\OpenMixture\\tmp\\local-coordinate-edge-launch\\profile\"",
+      "--remote-debugging-port=9362",
+      "about:blank"
+    ],
+    "observedCommandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --user-data-dir=\"D:\\Coding\\OpenMixture\\tmp\\local-coordinate-edge-launch\\profile\" --remote-debugging-port=9362 about:blank",
+    "endpoint": "http://127.0.0.1:9362",
+    "os": {
+      "Caption": "Microsoft Windows 11 IoT 企业版 LTSC",
+      "Version": "10.0.26100",
+      "BuildNumber": "26100",
+      "OSArchitecture": "64 位"
+    },
+    "hostVideoControllers": [
+      {
+        "Name": "GameViewer Virtual Display Adapter",
+        "DriverVersion": "15.6.5.199"
+      },
+      {
+        "Name": "NVIDIA GeForce GT 1030",
+        "DriverVersion": "32.0.15.8266"
+      }
+    ],
+    "scope": "Fresh ordinary desktop profile; only profile isolation and loopback CDP/BiDi transport switches. Host GPUs are not inferred runtime adapter identities."
+  },
+  "archiveSha256": "8e4ed1dc82e1a34bbd269bf04fdfe7a0719e78f2b1c49415835cddc4441047b2",
+  "htmlSha256": "75c0abe266647d05ec98a623fb62397fc6c8821b20854b1783cdae0dd37925ee",
+  "pngSha256": "ffca77b541d61251a3905d4974d02808c8c1d4d3c2215e4965689288c1232c55",
+  "pixelsExact": true,
+  "testHarnessAbsent": true,
+  "disposed": true,
+  "completedAt": "2026-09-17T08:53:26.006Z"
+}

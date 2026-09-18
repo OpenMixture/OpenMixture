@@ -1,0 +1,979 @@
+{
+  "diagnosticOnly": true,
+  "date": "2026-09-17",
+  "sourceRevision": "ed07716f61bce9771f8492f1999cc737ecc891c3",
+  "nativeBaseRevision": "2cc36863eb5cb4a0f419722b172fb5aceaec239f",
+  "inputsUnchanged": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f5ec5de2f3430f16ad189070a7d78c184a46c0e0b90d1951b0a2d8e887f00b38"
+    },
+    {
+      "path": "docs/browser-tolerances.json",
+      "sha256": "f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627"
+    },
+    {
+      "path": "fixtures/materials/leather/material.mix",
+      "sha256": "8f74e407d0b7359c74149adc2440d39dbc0d64e821655404310939e5c5be9153"
+    },
+    {
+      "path": "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl",
+      "sha256": "34790324819fc194c4f7610dea7fa0839dfe73100d975e62ed897f256468b83f"
+    },
+    {
+      "path": "crates/mixture-wgpu/shaders/precision.wgsl",
+      "sha256": "66c080227428e58dace7532577c88246425f59db7397fb62fa5a01edb703dd90"
+    }
+  ],
+  "native": {
+    "regular": {
+      "executableSha256": "643cf72c57c7a77a447d0d83f614a9d197fe8dbd1b64ad840a8420a508be908c",
+      "context": "regular-context.json",
+      "loadedCompiler": {
+        "FileName": "C:\\Program Files\\Google\\Chrome\\Application\\153.0.8010.48\\dxcompiler.dll",
+        "ModuleName": "dxcompiler.dll"
+      },
+      "compilerSha256": "f56b7d9a7366d925a075bdfbe7c2c4d24511725baa2afb8b8972702a1d088ea1",
+      "dependencyPolicy": "original registry lock"
+    },
+    "strict": {
+      "executableSha256": "b4904584d306405082c19c9e878468d8b3fb0aff143ba5995fadfc5e98bcce56",
+      "context": "strict-context.json",
+      "loadedCompiler": {
+        "FileName": "C:\\Program Files\\Google\\Chrome\\Application\\153.0.8010.48\\dxcompiler.dll",
+        "ModuleName": "dxcompiler.dll"
+      },
+      "compilerSha256": "f56b7d9a7366d925a075bdfbe7c2c4d24511725baa2afb8b8972702a1d088ea1",
+      "dependencyPolicy": "isolated local wgpu-hal patch: ../chromium-compile-policy/diagnostic-only.patch"
+    }
+  },
+  "minimal": {
+    "regular": [
+      {
+        "bits": "0x3eb07fc5",
+        "value": 0.3447248041629791
+      },
+      {
+        "bits": "0x3eb07fc5",
+        "value": 0.3447248041629791
+      },
+      {
+        "bits": "0x3eb07fc5",
+        "value": 0.3447248041629791
+      },
+      {
+        "bits": "0x3eb07fc5",
+        "value": 0.3447248041629791
+      }
+    ],
+    "strict": [
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      }
+    ],
+    "chrome": [
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      }
+    ],
+    "edge": [
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      },
+      {
+        "bits": "0x3eb07fc6",
+        "value": 0.3447248339653015
+      }
+    ]
+  },
+  "operations": [
+    {
+      "expression": "neighbor + 0.2 + 0.6 * jitter - p",
+      "samples": 65536,
+      "changed": 62584,
+      "first": {
+        "sample": 1,
+        "regular": 0.4137594401836395,
+        "strict": 0.4137594699859619
+      }
+    },
+    {
+      "expression": "0.2 + 0.6 * jitter",
+      "samples": 65536,
+      "changed": 8843,
+      "first": {
+        "sample": 13,
+        "regular": 0.3447248041629791,
+        "strict": 0.3447248339653015
+      }
+    },
+    {
+      "expression": "t*t*t*(t*(t*6-15)+10)",
+      "samples": 65536,
+      "changed": 0,
+      "first": null
+    },
+    {
+      "expression": "mix(0.025,0.09,jitter)",
+      "samples": 65536,
+      "changed": 9318,
+      "first": {
+        "sample": 1,
+        "regular": 0.05154268816113472,
+        "strict": 0.05154269188642502
+      }
+    },
+    {
+      "expression": "fma(0.6,jitter,0.2)",
+      "samples": 65536,
+      "changed": 0,
+      "first": null
+    },
+    {
+      "expression": "jitter/0.6",
+      "samples": 65536,
+      "changed": 0,
+      "first": null
+    },
+    {
+      "expression": "dot(vec2(jitter,t),vec2(jitter,t))",
+      "samples": 65536,
+      "changed": 0,
+      "first": null
+    },
+    {
+      "expression": "0.76+jitter*(0.52-0.76)",
+      "samples": 65536,
+      "changed": 4796,
+      "first": {
+        "sample": 7,
+        "regular": 0.620738685131073,
+        "strict": 0.6207386255264282
+      }
+    }
+  ],
+  "noiseGrid": {
+    "rawF32": {
+      "samples": 1048576,
+      "changed": 1032165,
+      "first": {
+        "x": 0,
+        "y": 0,
+        "regular": 0.13724230229854584,
+        "strict": 0.13724228739738464
+      }
+    },
+    "halfRounded": {
+      "samples": 1048576,
+      "changed": 6298,
+      "first": {
+        "x": 270,
+        "y": 0,
+        "regular": 0.10687255859375,
+        "strict": 0.10693359375
+      }
+    },
+    "hashes": {
+      "regular": "4850ce4cc745e20b0395eb38b8c1e9727b97eb0b6400a520d9ba2b40c1ad52f1",
+      "strict": "c321430d97e3038a65cbd22e11f82629958bab405775f3dd957e4f9264b4f1ee"
+    }
+  },
+  "noisePoint": {
+    "regular": [
+      {
+        "bits": "0x3ddaeffc",
+        "value": 0.10690304636955261
+      },
+      {
+        "bits": "0x3ddae000",
+        "value": 0.10687255859375
+      }
+    ],
+    "strict": [
+      {
+        "bits": "0x3ddaf05c",
+        "value": 0.10690376162528992
+      },
+      {
+        "bits": "0x3ddb0000",
+        "value": 0.10693359375
+      }
+    ],
+    "chrome": [
+      {
+        "bits": "0x3ddaf062",
+        "value": 0.1069038063287735
+      },
+      {
+        "bits": "0x3ddb0000",
+        "value": 0.10693359375
+      }
+    ],
+    "edge": [
+      {
+        "bits": "0x3ddaf062",
+        "value": 0.1069038063287735
+      },
+      {
+        "bits": "0x3ddb0000",
+        "value": 0.10693359375
+      }
+    ]
+  },
+  "cellTrace": [
+    {
+      "octave": 0,
+      "neighbor": 0,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbfda5346",
+        "value": -1.7056663036346436
+      },
+      "strict": {
+        "bits": "0xbfda5350",
+        "value": -1.705667495727539
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 0,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x404152d6",
+        "value": 3.0206809043884277
+      },
+      "strict": {
+        "bits": "0x404152e7",
+        "value": 3.0206849575042725
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 1,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbea3759a",
+        "value": -0.31925660371780396
+      },
+      "strict": {
+        "bits": "0xbea37580",
+        "value": -0.3192558288574219
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 1,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3eeb24b9",
+        "value": 0.4592645466327667
+      },
+      "strict": {
+        "bits": "0x3eeb24a9",
+        "value": 0.4592640697956085
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 2,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3ef126ef",
+        "value": 0.47100016474723816
+      },
+      "strict": {
+        "bits": "0x3ef12700",
+        "value": 0.47100067138671875
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 2,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3ed066b6",
+        "value": 0.40703362226486206
+      },
+      "strict": {
+        "bits": "0x3ed066c6",
+        "value": 0.40703409910202026
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 3,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbfd55359",
+        "value": -1.666606068611145
+      },
+      "strict": {
+        "bits": "0xbfd55360",
+        "value": -1.6666069030761719
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 3,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x403d6882",
+        "value": 2.959503650665283
+      },
+      "strict": {
+        "bits": "0x403d688e",
+        "value": 2.9595065116882324
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 4,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbec41afe",
+        "value": -0.383018434047699
+      },
+      "strict": {
+        "bits": "0xbec41b00",
+        "value": -0.38301849365234375
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 4,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3e71d1cc",
+        "value": 0.23615187406539917
+      },
+      "strict": {
+        "bits": "0x3e71d1cf",
+        "value": 0.23615191876888275
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 5,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f04db3d",
+        "value": 0.5189703106880188
+      },
+      "strict": {
+        "bits": "0x3f04db40",
+        "value": 0.5189704895019531
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 5,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f2b08da",
+        "value": 0.668103814125061
+      },
+      "strict": {
+        "bits": "0x3f2b08de",
+        "value": 0.6681040525436401
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 6,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbfbfb5d9",
+        "value": -1.4977370500564575
+      },
+      "strict": {
+        "bits": "0xbfbfb5e0",
+        "value": -1.4977378845214844
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 6,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x408e7cdd",
+        "value": 4.452742099761963
+      },
+      "strict": {
+        "bits": "0x408e7ce2",
+        "value": 4.452744483947754
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 7,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbeffdfeb",
+        "value": -0.49975523352622986
+      },
+      "strict": {
+        "bits": "0xbeffe000",
+        "value": -0.499755859375
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 7,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x4055bf49",
+        "value": 3.3398001194000244
+      },
+      "strict": {
+        "bits": "0x4055bf4b",
+        "value": 3.3398005962371826
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 8,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f06caac",
+        "value": 0.5265300273895264
+      },
+      "strict": {
+        "bits": "0x3f06caa0",
+        "value": 0.5265293121337891
+      }
+    },
+    {
+      "octave": 0,
+      "neighbor": 8,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x4000a7d0",
+        "value": 2.010242462158203
+      },
+      "strict": {
+        "bits": "0x4000a7cd",
+        "value": 2.010241746902466
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 0,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbfb7a1ae",
+        "value": -1.4346215724945068
+      },
+      "strict": {
+        "bits": "0xbfb7a1a0",
+        "value": -1.4346199035644531
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 0,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x400ce7fd",
+        "value": 2.2016594409942627
+      },
+      "strict": {
+        "bits": "0x400ce7e9",
+        "value": 2.2016546726226807
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 1,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbee6a94f",
+        "value": -0.4505104720592499
+      },
+      "strict": {
+        "bits": "0xbee6a980",
+        "value": -0.4505119323730469
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 1,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f124991",
+        "value": 0.5714350342750549
+      },
+      "strict": {
+        "bits": "0x3f1249a7",
+        "value": 0.57143634557724
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 2,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f19a4df",
+        "value": 0.6001719832420349
+      },
+      "strict": {
+        "bits": "0x3f19a4c0",
+        "value": 0.6001701354980469
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 2,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f104cf3",
+        "value": 0.5636741518974304
+      },
+      "strict": {
+        "bits": "0x3f104cce",
+        "value": 0.5636719465255737
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 3,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbfc60e5c",
+        "value": -1.5473132133483887
+      },
+      "strict": {
+        "bits": "0xbfc60e60",
+        "value": -1.5473136901855469
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 3,
+      "component": "deltaY",
+      "regular": {
+        "bits": "0x3e629c4d",
+        "value": 0.22129936516284943
+      },
+      "strict": {
+        "bits": "0x3e629c4c",
+        "value": 0.22129935026168823
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 3,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x401c5c98",
+        "value": 2.4431514739990234
+      },
+      "strict": {
+        "bits": "0x401c5c9e",
+        "value": 2.443152904510498
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 4,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbeab0e32",
+        "value": -0.3340926766395569
+      },
+      "strict": {
+        "bits": "0xbeab0e00",
+        "value": -0.3340911865234375
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 4,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f23d5a4",
+        "value": 0.6399786472320557
+      },
+      "strict": {
+        "bits": "0x3f23d593",
+        "value": 0.6399776339530945
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 5,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f43eb9a",
+        "value": 0.7653137445449829
+      },
+      "strict": {
+        "bits": "0x3f43eb80",
+        "value": 0.7653121948242188
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 5,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f89b690",
+        "value": 1.0758838653564453
+      },
+      "strict": {
+        "bits": "0x3f89b67c",
+        "value": 1.0758814811706543
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 6,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbf83a22a",
+        "value": -1.0283863544464111
+      },
+      "strict": {
+        "bits": "0xbf83a220",
+        "value": -1.0283851623535156
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 6,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x40259391",
+        "value": 2.5871317386627197
+      },
+      "strict": {
+        "bits": "0x40259387",
+        "value": 2.5871293544769287
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 7,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbdbf0daa",
+        "value": -0.09328778088092804
+      },
+      "strict": {
+        "bits": "0xbdbf0e00",
+        "value": -0.09328842163085938
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 7,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3fbcf47d",
+        "value": 1.4762111902236938
+      },
+      "strict": {
+        "bits": "0x3fbcf47e",
+        "value": 1.4762113094329834
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 8,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3ecb0a96",
+        "value": 0.39656513929367065
+      },
+      "strict": {
+        "bits": "0x3ecb0a80",
+        "value": 0.3965644836425781
+      }
+    },
+    {
+      "octave": 1,
+      "neighbor": 8,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x402c6185",
+        "value": 2.6934521198272705
+      },
+      "strict": {
+        "bits": "0x402c6183",
+        "value": 2.6934516429901123
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 0,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbf9f4e8a",
+        "value": -1.244584321975708
+      },
+      "strict": {
+        "bits": "0xbf9f4e80",
+        "value": -1.2445831298828125
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 0,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x40159e04",
+        "value": 2.3377695083618164
+      },
+      "strict": {
+        "bits": "0x40159df8",
+        "value": 2.337766647338867
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 1,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbdd4f61b",
+        "value": -0.10398503392934799
+      },
+      "strict": {
+        "bits": "0xbdd4f800",
+        "value": -0.1039886474609375
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 1,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3e74feb3",
+        "value": 0.23925285041332245
+      },
+      "strict": {
+        "bits": "0x3e74fee6",
+        "value": 0.23925361037254333
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 2,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f88caf0",
+        "value": 1.0686931610107422
+      },
+      "strict": {
+        "bits": "0x3f88cb00",
+        "value": 1.068695068359375
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 2,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3fc3fd34",
+        "value": 1.5311646461486816
+      },
+      "strict": {
+        "bits": "0x3fc3fd56",
+        "value": 1.5311686992645264
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 3,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbf8ac33e",
+        "value": -1.0840833187103271
+      },
+      "strict": {
+        "bits": "0xbf8ac340",
+        "value": -1.0840835571289062
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 3,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3fb6be64",
+        "value": 1.427685260772705
+      },
+      "strict": {
+        "bits": "0x3fb6be69",
+        "value": 1.4276858568191528
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 4,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbe2b5fd3",
+        "value": -0.16735772788524628
+      },
+      "strict": {
+        "bits": "0xbe2b6000",
+        "value": -0.1673583984375
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 4,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3e898cad",
+        "value": 0.26865139603614807
+      },
+      "strict": {
+        "bits": "0x3e898cb5",
+        "value": 0.2686516344547272
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 5,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f639746",
+        "value": 0.8890269994735718
+      },
+      "strict": {
+        "bits": "0x3f639780",
+        "value": 0.8890304565429688
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 5,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x3f4bf917",
+        "value": 0.7967695593833923
+      },
+      "strict": {
+        "bits": "0x3f4bf97e",
+        "value": 0.7967756986618042
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 6,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0xbf748aaa",
+        "value": -0.9552408456802368
+      },
+      "strict": {
+        "bits": "0xbf748a80",
+        "value": -0.9552383422851562
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 6,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x40305e63",
+        "value": 2.755760908126831
+      },
+      "strict": {
+        "bits": "0x40305e4f",
+        "value": 2.755756139755249
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 7,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3e2049dc",
+        "value": 0.15653175115585327
+      },
+      "strict": {
+        "bits": "0x3e204a00",
+        "value": 0.15653228759765625
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 8,
+      "component": "deltaX",
+      "regular": {
+        "bits": "0x3f37baf1",
+        "value": 0.7176962494850159
+      },
+      "strict": {
+        "bits": "0x3f37bb00",
+        "value": 0.7176971435546875
+      }
+    },
+    {
+      "octave": 2,
+      "neighbor": 8,
+      "component": "distanceSquared",
+      "regular": {
+        "bits": "0x402d65f0",
+        "value": 2.7093467712402344
+      },
+      "strict": {
+        "bits": "0x402d65f5",
+        "value": 2.70934796333313
+      }
+    }
+  ],
+  "retention": "Small inputs/results, source, context and summaries in Git; sweep binaries, executables and complete logs in ignored tmp only.",
+  "sweepHashes": {
+    "regular": "f28786b9b2db74a7b47d59eaaf2eafe80585ebdd4f61772728c175c5cc3dc252",
+    "strict": "0d15b13ececc6a0ebbe54f4edcbd82aa0a7028c0004d3f8f7935a13a600f5f8a",
+    "chrome": "0d15b13ececc6a0ebbe54f4edcbd82aa0a7028c0004d3f8f7935a13a600f5f8a",
+    "edge": "0d15b13ececc6a0ebbe54f4edcbd82aa0a7028c0004d3f8f7935a13a600f5f8a"
+  },
+  "sourceHashes": {
+    "minimal.wgsl": "3f71aae349dff86af256d2a83f6982e3f78dc56fd61928c0683ef63c4ee75115",
+    "minimal-input.bin": "10d30efa89bb132a651eb242df84a42ced691af58530b6c391a1e3ca5b55826b",
+    "operations.wgsl": "66d43b2adf27fb8fc89990622afe33b42a45fb758a7a4f61722c604264828042",
+    "noise-grid.wgsl": "3b3954230b96d855e9b177506627ae421134dd5bd92915c565f6e2ed7ce98f19",
+    "noise-point.wgsl": "58437c883ba24885a3b8ad406766f47310f3cdd6b2dcf00bf95a97b6ade9a149",
+    "cell-trace.wgsl": "27254f8190d1af63d83cc74d9d5421f9ec5636998a07cd92f79b1d5fa74d9fd7",
+    "native-probe.rs": "0dcd4bfc332783ad8a67ee9def2663f680c5c478776cc521168f9a840ed2e818",
+    "browser-probe.mjs": "56a556bb2b8b6f882d21f5823d40a26dcc4d1d67853307f7f63ff9c3952cd9bb"
+  }
+}

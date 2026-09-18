@@ -22,6 +22,16 @@ Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md
 | ALPHA-04 — 可发布 npm Alpha 候选 | P2／已认领，待执行；依赖 ALPHA-01／03 | 干净构建带明确版本的候选，包含完整 JS／声明／WASM、构建身份、归档摘要、变更说明、服务要求和实测支持范围。交付 Studio 做精确候选升级验收。发布单独执行；发布后独立安装注册表精确版本，复核身份及消费后才能宣称交付完成。 |
 | ALPHA-05 — 浏览器必需检查决策 | P2／已认领，等待 ALPHA-01 | 候选链通过后读取实时分支保护／rulesets，评审是否将 `WASM and npm package`、`Chromium WebGPU material matrix` 与既有四项 Native 检查一起设为必需。若采纳，通过 PR 更新期望配置，应用并回读，保留实时证据。受跟踪的规则文件或通过的可选检查不能证明强制保护。 |
 
+**ALPHA-03 后续调查，2026-09-17：** Chrome／Edge 完整材质认证仍待完成。[算术缩减与契约复核](./evidence/chromium-arithmetic-reduction/README.zh-CN.md)复现了 WGSL 允许的乘加差异，并追踪到半精度舍入的传播。后续[稳定性评估](./evidence/shader-stability/README.zh-CN.md)确认局部蜂窝坐标减少差异频率，但改变现有皮革像素，也不保证逐位一致。后续[完整候选评估](./evidence/local-coordinate-candidate/README.zh-CN.md)确认该一行改动不能单独作为正式修复：普通 Chrome/Edge 为 33/44 通道通过，Firefox 为 44/44；固定 SwiftShader 的皮革旧基线失败。现有参照与门槛不变，PR #14 保持草稿。
+
+2026-09-17 后续：[残余路径缩减](./evidence/residual-path-reduction/README.zh-CN.md)已定位 cellular 偏移、value-noise mix 和 warp UV 乘加；下一修复候选应独立评估 warp 局部 texel 坐标。
+
+独立的 [warp 实现](./evidence/warp-local-texel/README.zh-CN.md)已修复微小位移丢失并通过新增回归，但软件木材旧 golden 失败，且同输入全图仍有差异，因此保持草稿。
+
+后续[插值缩减](./evidence/warp-interpolation-reduction/README.zh-CN.md)将这 26 个差异定位到 mix。诊断版显式 fma 在已测 Chrome/Edge 全图消除了差异，原生像素不变；尚不是正式产品修复或材质验收通过。
+
+[2026-09-18 契约审查](./reviews/numerical-contract-2026-09-18.zh-CN.md)记录 PR16 独立验证，并维持两个 warp 候选未获接受的状态。下一步是在冻结输入和不变门槛下审计位移／插值误差及量化边界，不能把标量结果更接近真值直接视为兼容批准。
+
 ### ALPHA-01 实施边界
 
 审查快照 c41fcfb 中，[打包工作流](../.github/workflows/browser-runtime.yml)构建新归档，[材质工作流](../.github/workflows/browser-materials.yml)却安装 Studio `56c510ab57daa1b68ef660525a648a582730a37e` 及其历史 vendor 归档。[原生准备脚本](../scripts/browser-runtime/prepare-materials.mjs)已有对 `crates`、`Cargo.lock` 和 `Cargo.toml` 相对归档运行时版本的漂移拒绝，必须保留。尚未覆盖的输入包括公开 JS 接口、声明与打包工具；两条工作流通过不代表本次完整包已在浏览器中运行。

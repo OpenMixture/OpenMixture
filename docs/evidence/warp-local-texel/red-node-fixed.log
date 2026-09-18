@@ -1,0 +1,34 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/xtask-runner\debug\xtask.exe test-node warp`
+cargo test --locked --all-features -p mixture-wgpu --test nodes node_fixtures_validate_defaults_boundaries_invalid_values_without_gpu
+   Compiling mixture-wgpu v0.1.0 (D:\Coding\OpenMixture\tmp\warp-local-engine\crates\mixture-wgpu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.51s
+     Running tests\nodes.rs (target\debug\deps\nodes-5f99117977bca86a.exe)
+
+running 1 test
+test node_fixtures_validate_defaults_boundaries_invalid_values_without_gpu ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.06s
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests\nodes.rs (target\debug\deps\nodes-5f99117977bca86a.exe)
+
+running 1 test
+
+thread 'node_warp_gpu' (34984) panicked at crates\mixture-wgpu\tests\support\resampling_probe.rs:28:13:
+assertion `left == right` failed: warp/sub-ulp-uv-displacement-keeps-local-weight pixel 256
+  left: [0.0, 0.0, 0.0, 1.0]
+ right: [1.5258789e-5, 0.0, 0.0, 1.0]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test node_warp_gpu ... FAILED
+
+failures:
+
+failures:
+    node_warp_gpu
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 16 filtered out; finished in 1.31s
+
+error: test failed, to rerun pass `-p mixture-wgpu --test nodes`
+xtask: warp GPU test failed (exit code: 101)
+error: process didn't exit successfully: `target/xtask-runner\debug\xtask.exe test-node warp` (exit code: 1)
