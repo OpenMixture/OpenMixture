@@ -59,3 +59,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [M5 browser acceptance](./evidence/m5-05/README.md) records bounded Alpha readiness, complete 1K pixels, pinned CI environments and unpublished status; [material comparison](./browser-materials.md) describes reproduction.
 
 [Independent browser SDK consumption](../examples/browser-consumer/README.md) documents ENG-03’s minimal public-package example, separate candidate/registry checks and the coverage retained in the pinned Studio host.
+
+[ENG-03 consumer evidence](./evidence/eng-03/README.md) retains separate candidate/registry identities, local browser results and the inspected example screenshot.
