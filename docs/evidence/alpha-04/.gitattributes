@@ -1,5 +1,6 @@
 # Receipts bind original bytes, including platform-specific line endings.
 *.json -text
 *.sh -text
+*.mix -text
 *.tgz binary
 *.gz binary
