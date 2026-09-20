@@ -48,3 +48,5 @@ cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/l
 首次本地 capture 因默认 Playwright 缓存的 Windows 并行配置错误无法启动，换用已有同版本 Chromium 后成功。首次仓库总检查到达打包 rustdoc 时以 OS `STATUS_IN_PAGE_ERROR` 退出；最终重跑结果单独记录于整合验证。两次失败均未当作通过。完整例行日志／编译产物及原始 55 MB CI 下载仍位于忽略的 `tmp/alpha04-*`。CI artifact `10598493452` 到期时间为 `2026-10-20T04:42:43Z`；保留的关键内容不依赖其期限，但完整 CI 像素／日志审计依赖该制品。Git 保留完整的新 Studio 比较，不保留整份重复 CI 数据包。
 
 [本地最终检查](./local-check.json)：移走旧打包缓存后，完整 `cargo xtask check` 通过（含独立包消费、Rustdoc 和 185 份文档链接）。[缓存失败原文](./cached-rustdoc-failure.txt)保留 OS 错误，未修改源码规避检查。PR 的当前远端检查另行验证。
+
+[npm 发布 dry-run](./publish-dry-run.txt)以 `--access public --tag alpha` 成功检查准确归档（12 文件，348066 字节），没有发布。npm 提示实际发布需登录；注册表权限、版本可用性及实际发布均未验证，须由独立发行决策处理。
