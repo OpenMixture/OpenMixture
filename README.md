@@ -202,7 +202,7 @@ Do not add a new crate merely to create a conceptual boundary. A new crate requi
 
 ## Golden materials
 
-Before the built-in node vocabulary can exceed twelve node types, Mixture must produce and preserve three accepted materials:
+M3 accepted these three materials; their evidence and regression gates remain required as the catalog evolves under the [node admission rules](./ARCHITECTURE.md#72-reviewed-node-catalog-and-admission):
 
 - a glazed ceramic/checker material for graph and tiling fundamentals;
 - a leather-like material for micro-height, roughness, and normal behavior;

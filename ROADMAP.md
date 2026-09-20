@@ -10,12 +10,12 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
-The next outcome is an independently usable and verifiable SDK, followed by one bounded material-expression increment. Maintain one main feature increment plus necessary maintenance. This batch implements ENG-01 and then ENG-02 only; ENG-03/04 remain planned, not implemented or accepted.
+The next outcome is an independently usable and verifiable SDK, followed by one bounded material-expression increment. Maintain one main feature increment plus necessary maintenance. This batch implements ENG-01 followed by ENG-02; their documentation and rule/test changes are in place. ENG-03/04 remain planned, not implemented or accepted, and require separate implementation work.
 
 | Item | Scope and sequence | Exit criteria |
 |---|---|---|
-| ENG-01 — Post-Alpha roadmap | Current plan, paired navigation and first-Alpha closeout; separate completed history from future work. | One current planning entry; no downstream product task controls engine progress; resource input and packaging have independent entry conditions. |
-| ENG-02 — Graduate stage rules | After ENG-01, update the agent/architecture guidance and node-catalog tests. | Replace the expired M3 count gate with explicit use-case admission; retain reviewed catalog identities, contract checks, explicit seeds and all material gates. No node added. |
+| ENG-01 — Post-Alpha roadmap | Implemented: current plan, paired navigation and first-Alpha closeout; separate completed history from future work. | One current planning entry; no downstream product task controls engine progress; resource input and packaging have independent entry conditions. |
+| ENG-02 — Graduate stage rules | Implemented after ENG-01: agent/architecture guidance and node-catalog tests. | Replace the expired M3 count gate with explicit use-case admission; retain reviewed catalog identities, contract checks, explicit seeds and all material gates. No node added. |
 | ENG-03 — Independent browser SDK entry | Later implementation: a small engine-owned browser consumer, public-package examples and candidate identity checks. | Load .mix, override parameters, select channels, render, diagnose and destroy through public APIs without Studio knowledge. Verify exact published-version consumption separately from the current candidate tarball, recording each identity. |
 | ENG-04 — One material-expression increment | Later design and implementation: evaluate two Scalar height fields combined before height-to-normal. Contract design may overlap ENG-03; complete host migration is not a prerequisite. | Approve a concrete use case and input/weight/range/precision/version contract before adding a minimal scalar-blend. Native/browser execution, boundary/tiling/causality tests and existing material regressions pass. |
 
@@ -49,7 +49,7 @@ Subgraphs, presets, custom shaders/plugins, specialized formats, GPU interop, en
 
 ## Stop rules
 
-1. No thirteenth node before all M3 golden-material gates pass. ENG-02 will graduate this historical stage rule without changing the catalog in that item.
+1. New nodes require an approved bounded engine use case, explicit catalog/version review, complete vertical-slice evidence and existing material regressions. ENG-02 graduates the completed M3 count gate; it adds no node.
 2. New scope requires an approved milestone or bounded engine use case with acceptance criteria; defects and measured blockers also remain valid work sources.
 3. No binary format before a real packaging or loading problem is measured.
 4. No second pixel backend or implicit semantic fallback.

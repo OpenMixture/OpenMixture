@@ -333,7 +333,7 @@ A built-in node contract defines:
 - tiling and coordinate expectations;
 - precision and range notes.
 
-The initial implementation should use explicit Rust modules and static data. Avoid procedure macros until the first twelve nodes expose real, stable repetition.
+Use explicit Rust modules and static data. Propose procedure macros only after demonstrating real, stable repetition; catalog size alone is insufficient.
 
 PR-005 registers the six [M2 contracts](./docs/node-contracts.md) in small static modules, without pixel executors or speculative KernelId stubs. `ValidatedDocument` resolves versioned defaults and exposes connected/default input sources without changing the source. PR-006 implements overrides and typed kernel lowering. PR-007 implements the exhaustive WGSL mapping and all six node pixel fixtures through the shared [graph executor](./docs/graph-rendering.md). The fixed checker and graph checker use one shader and dispatch path.
 
@@ -345,9 +345,11 @@ For each pixel-producing `KernelId`, `mixture-wgpu` contains exactly one WGSL im
 
 Tests, fixtures, and golden materials are the behavioral contract between Rust node definitions and WGSL kernels.
 
-### 7.2 Initial node budget
+### 7.2 Reviewed node catalog and admission
 
-The graph MVP and material MVP may introduce at most twelve built-in node types before M3 acceptance:
+ENG-02 graduates the pre-M3 twelve-node budget after the [M3 material review](./docs/m3-review.md) and [subsequent remote acceptance](./docs/evidence/remote-ci/README.md). This explicitly supersedes the review's historical decision to retain that gate; it does not change accepted pixels or runtime semantics.
+
+The current reviewed catalog remains:
 
 1. `constant-scalar`
 2. `constant-color`
@@ -360,9 +362,8 @@ The graph MVP and material MVP may introduce at most twelve built-in node types 
 9. `transform-2d`
 10. `warp`
 11. `height-to-normal`
-12. one reserved slot, only if a golden material proves it necessary
 
-The reserved slot is not permission to add a speculative node. It exists to avoid redesigning the stop rule for one demonstrated blocker.
+Node count is neither an expansion target nor a permanent ceiling. A new type requires an approved bounded engine use case, version/compatibility decision, contract, exactly one WGSL implementation where pixels are produced, focused fixtures, paired documentation and Native/browser evidence as applicable. Existing material regressions remain required. Update the explicit type/version expectations in the [registry tests](./crates/mixture-core/tests/registry.rs) in the same reviewed PR; do not bypass catalog review by deleting these assertions. The [roadmap](./ROADMAP.md) and [node workflow](./AGENTS.md#adding-a-built-in-node) govern admission. ENG-02 adds no node and does not authorize ENG-04 implementation.
 
 PR-009 extends the catalog additively to nine node types with `fractal-noise`, `gradient-map` and `height-to-normal`. Source shape and document/node version 1 remain unchanged. The noise seed is required explicitly: `ParameterContract::default: Option<ParameterDefault>` uses `None` for required parameters. A missing seed fails source validation even on an unused branch. Typed plans preserve all u32 seed bits; the sole WGSL mapping owns each new pixel formula. [Node conventions](./docs/node-contracts.md) and the [leather fixture](./fixtures/materials/leather/README.md) define coordinates, precision and consumer evidence.
 

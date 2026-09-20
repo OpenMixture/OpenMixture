@@ -145,7 +145,7 @@ The normal tests feed literal half-float horizontal/vertical ramps directly thro
 
 ## PR-010 scalar resampling additions
 
-PR-010 adds `transform-2d` and `warp`, bringing the catalog to eleven nodes and the renderer cache bound to nine pipelines. The source JSON shape, document/node version 1, prior node contracts and existing pixel/plan/hash baselines are unchanged. These are additive catalog entries; existing documents need no migration. The [registry test](../crates/mixture-core/tests/registry.rs), included in `cargo xtask check`, enforces the twelve-node ceiling before M3 acceptance.
+PR-010 adds `transform-2d` and `warp`, bringing the catalog to eleven nodes and the renderer cache bound to nine pipelines. The source JSON shape, document/node version 1, prior node contracts and existing pixel/plan/hash baselines are unchanged. These are additive catalog entries; existing documents need no migration. ENG-02 graduates that historical pre-M3 count gate. The [registry tests](../crates/mixture-core/tests/registry.rs), included in `cargo xtask check`, retain explicit reviewed type/version identities and contract/default/seed checks. Future additions follow [node admission](../ARCHITECTURE.md#72-reviewed-node-catalog-and-admission); this update adds no node or pipeline.
 
 Both nodes operate on `Scalar` input and output. Derive colors and tangent normals after transforming or warping height; neither node implicitly accepts `Color` or `Normal`. They introduce no random operation and require no additional seed. Input periodicity comes from their source graphs, whose randomized nodes retain the explicit-seed requirement.
 
