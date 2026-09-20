@@ -22,6 +22,12 @@ Compared with Studio's original `4b914fe` archive, this candidate includes the a
 
 There is no `.mix` migration, API schema change, new node or alternate renderer. Preserve saved bytes, replace the entire archive, update only the runtime lock integrity, reinstall with `npm ci`, and check actual `getBuildInfo()` before accepting an upgrade. Never mix JS, declarations or WASM from different builds. Studio demonstrates existing samples and newly authored files through save, independent Player reopen and PNG export; the full qualification is mandatory for later archive changes too.
 
+## Known precision limitation
+
+The production [warp shader](../crates/mixture-wgpu/shaders/nodes/warp.wgsl) still adds displacement in normalized f32 UV coordinates and uses nested `mix()` interpolation. Very small displacement can be lost to coordinate rounding; local-texel and explicit-FMA research was not adopted. This limitation remains tracked here, not fixed by closing the research PRs. Reopen numerical implementation work only for a reproducible current-contract failure or concrete consumer defect.
+
+[ADR 0006](./decisions/0006-browser-quality-gates.md) changed the browser acceptance contract to bounded material agreement. Passing v2 does not show that old near-byte differences disappeared. In the ALPHA-04 Studio runs, each 28-channel group has 12 byte-identical channels and 16 with differences of at most one component level that pass v2. Native goldens and exact checker constraints remain unchanged.
+
 ## Qualified scope and remaining delivery actions
 
 This candidate's recorded coverage comprises controlled Linux Chromium package/contracts/material/lifecycle/deployment CI, Windows Chromium Studio saved-file/native comparisons, ordinary Windows Chrome product editing/export, and a separate Linux/WSL filesystem-isolated consumer. Exact browsers, flags, adapters and results are in the evidence. Earlier ordinary Chrome/Edge/Firefox material results concern their recorded older archive and do not independently certify this archive.

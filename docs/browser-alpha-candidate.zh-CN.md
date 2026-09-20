@@ -22,6 +22,12 @@ ALPHA-04 固定一个 `@openmixture/runtime@0.1.0-alpha.0` 交付归档。它最
 
 不需要 `.mix` 迁移，API schema 未改变，也未增加节点或替代渲染器。升级须保留保存字节，替换完整归档，仅更新 runtime 锁完整性，通过 `npm ci` 重装，并在验收前核对实际 `getBuildInfo()`。禁止混用不同构建的 JS、声明或 WASM。Studio 验证已有样例和新创作文件的保存、独立 Player 重开及 PNG 导出；后续归档变化也必须执行完整验收。
 
+## 已知精度限制
+
+生产 [warp 着色器](../crates/mixture-wgpu/shaders/nodes/warp.wgsl)仍在归一化 f32 UV 坐标中叠加位移，使用嵌套 `mix()` 插值。极小位移可能在坐标舍入中丢失；局部纹素坐标和显式 FMA 研究未被采用。本页继续追踪该限制，研究 PR 关闭不表示修复。只有可复现的当前契约失败或具体消费者缺陷才重新启动数值实现工作。
+
+[ADR 0006](./decisions/0006-browser-quality-gates.zh-CN.md)将浏览器验收契约调整为有界材质一致性。v2 通过不证明旧的近逐字节差异已消失。ALPHA-04 Studio 运行中，每组 28 通道有 12 个逐字节一致，另 16 个存在最多一个分量等级的差异并通过 v2。原生金图和精确棋盘格约束保持不变。
+
 ## 已验收范围与剩余交付动作
 
 本候选记录覆盖受控 Linux Chromium 包／契约／材质／生命周期／部署 CI、Windows Chromium Studio 保存文件与原生比较、普通 Windows Chrome 产品编辑／导出，以及独立 Linux／WSL 文件系统隔离消费者。准确浏览器、参数、适配器及结果见证据。此前普通 Chrome／Edge／Firefox 材质结果属于其记录中的旧归档，不能独立认证本归档。

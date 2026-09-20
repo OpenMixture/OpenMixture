@@ -172,6 +172,14 @@ Owns only:
 
 Keep command modules thin. If logic is useful outside the CLI or needs direct unit tests, move it into the appropriate library crate.
 
+## Cross-project task boundary
+
+An OpenMixture task owns engine code, public runtime contracts, packages, producer-side qualification and release documentation. Studio owns its dependency upgrades, product acceptance, deployment and user trials. A dependency, shared evidence or access to another checkout does not authorize taking over that project's work. Unless the user explicitly assigns cross-project work, do not edit Studio, run its product delivery tasks, or manage its issues/PRs from an engine task.
+
+Studio reports suspected runtime defects by opening an upstream issue in OpenMixture. The issue should include the exact package version/build identity, a minimal `.mix`, request/overrides, browser/OS/adapter, reproduction steps, expected versus actual behavior and the first structured error or failed current gate. Triage ownership before implementation; reproduce engine defects here, add focused regression coverage and deliver the fix through an engine PR and qualified release. Report the fix/version and engine verification in the upstream issue; Studio independently upgrades and accepts the product. A product-only failure stays with Studio. Locally discovered engine regressions and failing engine checks remain valid work triggers without a Studio issue.
+
+Existing producer-owned CI may use a pinned, disposable Studio consumer as its test host. This does not authorize changes to the Studio repository or hosted product. Preserve required checks and historical cross-repository evidence; their scope is qualification, not cross-project task ownership.
+
 ## Standard workflow
 
 For every task:
