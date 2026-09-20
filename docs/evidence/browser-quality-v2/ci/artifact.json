@@ -1,0 +1,13 @@
+{
+  "runId": 35485669447,
+  "attempt": 1,
+  "head": "c85972e23ad684d267af59c9c607d1306a9ffed0",
+  "testedMerge": "3f0939d1dc925a484b483fc2c5fca9817b089332",
+  "artifactId": 10596624416,
+  "size": 55240531,
+  "digest": "sha256:de0f388183f8d47284a79d115e8d1f900b7f2f2a24f0b2a63862ac0f4e902020",
+  "createdAt": "2026-09-20T03:12:30Z",
+  "expiresAt": "2026-10-20T03:12:27Z",
+  "retrieved": true,
+  "retention": "Selected receipts in Git; full Linux artifact and PNGs temporary. Windows decoded full matrix retained losslessly."
+}

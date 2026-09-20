@@ -35,3 +35,5 @@ Runtime acquisition/execution failures remain structured failures, separate from
 Stop chasing last-bit alignment once the recorded scope meets every required gate and differences have no unexplained structural consequence. Investigate failed amplitude, bias, response or semantic checks. Keep the source/reference fixed; do not select another Native implementation to obtain a pass.
 
 The GGX distribution and alpha=r² convention follow [Filament’s material model](https://google.github.io/filament/main/filament.html); peak normalization, sampling points, floor and error budget here are our diagnostic choices, not Filament acceptance criteria.
+
+[Post-freeze results and complete decoded textures](./evidence/browser-quality-v2/README.md) record the independent controls, fresh ordinary-browser comparisons, current-candidate CI, failed attempts and offline replay.

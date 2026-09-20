@@ -1,0 +1,46 @@
+{
+  "browser": "153.0.8010.12",
+  "args": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist",
+    "--use-angle=swiftshader",
+    "--use-webgpu-adapter=swiftshader"
+  ],
+  "assets": [
+    {
+      "url": "http://127.0.0.1:4173/player/",
+      "status": 200,
+      "type": "text/html"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/index-DyVTljJd.css",
+      "status": 200,
+      "type": "text/css"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/index-st7fngIX.js",
+      "status": 200,
+      "type": "text/javascript"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/samples/checker.mix",
+      "status": 200,
+      "type": "application/json"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/bindings-DlTC8ZjZ.js",
+      "status": 200,
+      "type": "text/javascript"
+    },
+    {
+      "url": "http://127.0.0.1:4173/player/assets/mixture_wasm_bg-tQ9j06Vo.wasm",
+      "status": 200,
+      "type": "application/wasm"
+    }
+  ],
+  "archiveSha256": "0dfa42bf849fd0cfc7f91eab730edb6f92b167f74b0552f01212d0dd241f16ed",
+  "htmlSha256": "29612c0c5ea1346835e8dde3e831fe280a9b2298a76719bf3b74922bcd769211",
+  "pngSha256": "ffca77b541d61251a3905d4974d02808c8c1d4d3c2215e4965689288c1232c55",
+  "testHarnessAbsent": true,
+  "result": "passed"
+}

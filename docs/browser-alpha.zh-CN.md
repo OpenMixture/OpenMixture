@@ -4,6 +4,8 @@
 
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。原稀疏像素判定保留为诊断；历史接受、原生金图及 Studio 保存文件门槛不变。新浏览器支持仍需绑定源码的资格证据。
 
+**v2 实测记录：** [2026-09-20 结果](./evidence/browser-quality-v2/README.zh-CN.md)保留确切已有归档在普通 Chrome/Edge/Firefox 全新运行中的 44/44 比较，以及独立当前候选 Linux CI。本证据有明确范围，不代表接受待审的 warp 着色器候选。
+
 ## 当前状态与决定——2026-09-16
 
 Native M4／M4.1 和 [M5 有界浏览器验收](./evidence/m5-05/README.zh-CN.md)已完成。独立 Studio MVP 也已通过[记录的 macOS 保存文件验收](./evidence/studio-qualification/README.zh-CN.md)。这些结果只认证记录的源码、归档及环境，不认证此后每次构建或默认浏览器配置。Cargo 包仍为未发布的 `0.1.0`；浏览器归档为未发布的 `@openmixture/runtime@0.1.0-alpha.0`。

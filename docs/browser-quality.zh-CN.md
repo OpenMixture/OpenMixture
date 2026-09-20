@@ -35,3 +35,5 @@
 当记录范围内所有必要门槛通过，且差异没有未解释的结构后果时，停止追逐末位对齐。幅度、偏移、响应或语义门槛失败时继续诊断。固定源码/参照，不能通过选择另一 Native 实现获得通过。
 
 GGX 分布与 alpha=r² 约定参考 [Filament 材质模型](https://google.github.io/filament/main/filament.html)；本文的峰值归一化、采样点、下限与误差预算是本项目的诊断选择，不是 Filament 接受标准。
+
+[冻结后结果与完整解码纹理](./evidence/browser-quality-v2/README.zh-CN.md)记录独立控制、全新普通浏览器比较、当前候选 CI、失败尝试及离线重放。

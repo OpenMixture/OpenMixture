@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assertOrdinaryLaunch, assertFailure, assertFirefoxProcess } from './default-browser.mjs';
+import { assertOrdinaryLaunch, assertFailure, assertFirefoxProcess, assertChromiumProcess } from './default-browser.mjs';
 
 const launch = {
   freshProfile: true, executable: 'C:\\Chrome\\chrome.exe', executableSha256: 'a'.repeat(64),
@@ -8,6 +8,33 @@ const launch = {
   observedCommandLine: '"C:\\Chrome\\chrome.exe" --user-data-dir="C:\\fresh-profile" --remote-debugging-port=9334 about:blank',
   endpoint: 'http://127.0.0.1:9334',
 };
+
+test('Chromium PID binding and observed Edge child relaunch cannot conceal extra switches', () => {
+  const chrome = { ...launch, processId: 10 };
+  assertChromiumProcess(chrome, {commandLine: chrome.observedCommandLine}, {processInfo:[{type:'browser',id:10}]});
+  assert.throws(() => assertChromiumProcess(chrome, {commandLine: chrome.observedCommandLine}, {processInfo:[{type:'browser',id:11}]}));
+  const commandLine = launch.observedCommandLine.replace(' about:blank', ' --edge-skip-compat-layer-relaunch about:blank');
+  const edge = {...chrome, product:'Microsoft Edge', browserProcess:{processId:11,parentProcessId:10,executable:launch.executable,commandLine}};
+  const info = {commandLine}, processes = {processInfo:[{type:'browser',id:11}]};
+  assertOrdinaryLaunch(edge);
+  assertChromiumProcess(edge,info,processes);
+  assertOrdinaryLaunch({...edge,observedCommandLine:null,launcherProcessObserved:false});
+  assert.throws(() => assertOrdinaryLaunch({...chrome,observedCommandLine:null,launcherProcessObserved:false}));
+  assert.throws(() => assertOrdinaryLaunch({...edge,observedCommandLine:null,launcherProcessObserved:false,browserProcess:undefined}));
+  for (const mutate of [
+    v => {v.browserProcess.parentProcessId=12;},
+    v => {v.browserProcess.processId=12;},
+    v => {v.browserProcess.executable='different.exe';},
+    v => {delete v.browserProcess;},
+  ]) {
+    const changed=structuredClone(edge); mutate(changed);
+    assert.throws(() => assertChromiumProcess(changed,info,processes));
+  }
+  for (const flag of ['--enable-unsafe-webgpu','--use-angle=swiftshader','--headless','--no-sandbox']) {
+    const changed=structuredClone(edge); changed.browserProcess.commandLine += ` ${flag}`;
+    assert.throws(() => assertChromiumProcess(changed,{commandLine:changed.browserProcess.commandLine},processes));
+  }
+});
 
 test('ordinary-profile evidence rejects reused profiles and GPU/headless/security overrides', () => {
   assertOrdinaryLaunch(launch);
