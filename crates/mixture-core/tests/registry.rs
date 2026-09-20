@@ -3,26 +3,31 @@ use mixture_core::registry::{BUILT_INS, ParameterKind, PortKind, node_contract};
 use serde_json::json;
 use std::collections::BTreeSet;
 #[test]
-fn registry_has_exactly_eleven_version_one_contracts_with_valid_defaults_and_explicit_seed() {
-    let names: Vec<_> = BUILT_INS.iter().map(|c| c.type_id).collect();
+fn registry_matches_reviewed_type_versions() {
+    // This explicit list is a review gate, not a permanent node-count budget.
+    // New types or versions must update it alongside their approved use case.
+    let identities: Vec<_> = BUILT_INS.iter().map(|c| (c.type_id, c.version)).collect();
     assert_eq!(
-        names,
+        identities,
         [
-            "blend",
-            "checker",
-            "constant-color",
-            "constant-scalar",
-            "fractal-noise",
-            "gradient-map",
-            "height-to-normal",
-            "levels",
-            "material-output",
-            "transform-2d",
-            "warp"
+            ("blend", 1),
+            ("checker", 1),
+            ("constant-color", 1),
+            ("constant-scalar", 1),
+            ("fractal-noise", 1),
+            ("gradient-map", 1),
+            ("height-to-normal", 1),
+            ("levels", 1),
+            ("material-output", 1),
+            ("transform-2d", 1),
+            ("warp", 1)
         ]
     );
+}
+
+#[test]
+fn registry_contracts_have_valid_defaults_and_explicit_seed() {
     for contract in BUILT_INS {
-        assert_eq!(contract.version, 1);
         assert_eq!(
             contract
                 .parameters
@@ -97,12 +102,4 @@ fn registry_has_exactly_eleven_version_one_contracts_with_valid_defaults_and_exp
     );
     assert!(node_contract("checker").unwrap().input("color").is_none());
     assert!(node_contract("material-output").unwrap().outputs.is_empty());
-}
-
-#[test]
-fn m3_node_budget_stops_before_a_thirteenth_builtin() {
-    assert!(
-        BUILT_INS.len() <= 12,
-        "M3 acceptance must precede a thirteenth built-in node"
-    );
 }

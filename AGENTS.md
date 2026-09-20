@@ -4,7 +4,7 @@ English | [简体中文](./AGENTS.zh-CN.md)
 
 This file is the operational contract for coding agents and contributors working on Mixture.
 
-Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. [M5_PRS.md](./M5_PRS.md) and the [browser SDK contract](./docs/browser-sdk.md) define the planned browser work; distinguish planning, implementation and accepted evidence. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
+Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. [M5_PRS.md](./M5_PRS.md) retains the completed browser implementation train; the [browser SDK contract](./docs/browser-sdk.md) defines its public contract. Current work follows the Post-Alpha roadmap; distinguish planning, implementation and accepted evidence. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
 
 ## Mission
 
@@ -33,7 +33,7 @@ Do not violate these rules without an accepted architecture decision record and 
 9. Golden outputs may not be overwritten merely to make a failing test pass.
 10. Generated bindings and adapters must remain thin. Runtime behavior belongs in normal typed Rust modules.
 11. Do not add a new crate unless an actual compilation, publication, runtime, or dependency boundary requires it.
-12. Do not add the thirteenth built-in node before all three golden materials pass the M3 acceptance gates.
+12. Every new built-in node requires an approved, bounded engine use case and explicit catalog/version review. M3 acceptance graduated the initial count gate under ENG-02; node count is neither a goal nor a permanent ceiling. Existing material gates remain required.
 
 ## Authority order
 
@@ -180,6 +180,8 @@ Studio reports suspected runtime defects by opening an upstream issue in OpenMix
 
 Existing producer-owned CI may use a pinned, disposable Studio consumer as its test host. This does not authorize changes to the Studio repository or hosted product. Preserve required checks and historical cross-repository evidence; their scope is qualification, not cross-project task ownership.
 
+Work may also originate from approved milestones, maintainer-defined engine use cases and measurements under the [roadmap](./ROADMAP.md). External issues are one planning input; OpenMixture owns prioritization and acceptance. This does not expand authority to edit consumer projects.
+
 ## Standard workflow
 
 For every task:
@@ -222,19 +224,19 @@ A node addition is a vertical slice, not only a registry entry.
 
 Required steps:
 
-1. Confirm the node is permitted by the current roadmap and node-count stop rule.
+1. Link an approved roadmap item or bounded engine use case with acceptance criteria. Define compatibility and version behavior before changing the reviewed catalog; downstream product work is not a prerequisite.
 2. Add a small node contract module under `mixture-core/src/nodes/`.
 3. Define stable type ID, node version, ports, parameter types, defaults, ranges, and validation.
 4. Add or extend the exhaustive `KernelId` mapping.
 5. Add exactly one WGSL implementation under `mixture-wgpu/shaders/nodes/`.
 6. Add focused fixtures for defaults, boundaries, invalid parameters, and at least one non-trivial case.
 7. Add an agent-readable node document describing inputs, outputs, parameters, tiling behavior, and known precision limits.
-8. Run shader validation and node tests on the pinned software adapter.
-9. Verify that the node changes a real material or solves a documented consumer failure.
+8. Run shader validation and node tests on the pinned software adapter, existing material regressions, and relevant Native/browser public-consumer checks.
+9. Verify that the node solves the approved material-expression use case or documented consumer failure. Update the explicit type/version catalog expectation in the same PR; do not replace it with a count-only or self-derived assertion.
 
 A node is not complete when it compiles. It is complete when the contract, shader, fixtures, diagnostics, and visual evidence agree.
 
-Do not introduce a procedure macro for node declarations during the initial twelve-node vocabulary. Prefer obvious static Rust data and explicit matches until repetition is proven.
+Prefer obvious static Rust data and explicit matches. A larger catalog alone does not justify a procedure macro; require demonstrated repetition before proposing abstraction.
 
 ## Changing `.mix`
 

@@ -145,7 +145,7 @@ cargo xtask test-node height-to-normal
 
 ## PR-010 标量重采样扩展
 
-PR-010 添加 `transform-2d` 和 `warp`，使目录达到十一个节点，渲染器缓存上限达到九条管线。源 JSON 结构、文档／节点版本 1、原有节点契约以及已有像素／计划／哈希基准保持不变。这是增量目录扩展，现有文档无需迁移。[注册表测试](../crates/mixture-core/tests/registry.rs)随 `cargo xtask check` 执行，在 M3 验收前强制十二节点上限。
+PR-010 添加 `transform-2d` 和 `warp`，使目录达到十一个节点，渲染器缓存上限达到九条管线。源 JSON 结构、文档／节点版本 1、原有节点契约以及已有像素／计划／哈希基准保持不变。这是增量目录扩展，现有文档无需迁移。ENG-02 结束这条历史 M3 前数量门槛。[注册表测试](../crates/mixture-core/tests/registry.rs)随 `cargo xtask check` 执行，保留显式经审查的类型／版本身份及契约／默认值／种子检查。后续新增遵循[节点准入](../ARCHITECTURE.zh-CN.md#72-经审查的节点目录与准入)；本次更新不增加节点或管线。
 
 两个节点的输入和输出均为 `Scalar`。应先变换或扭曲高度，再派生颜色和切线法线；它们不隐式接受 `Color` 或 `Normal`。两者不引入随机运算，也无需额外种子。输入周期性来自源图，其中的随机节点仍须显式种子。
 

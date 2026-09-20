@@ -333,7 +333,7 @@ v1 不支持内嵌资源，因此其预算为零。
 - 平铺与坐标约定；
 - 精度和范围说明。
 
-初始实现应使用显式 Rust 模块和静态数据。在前十二个节点暴露出真实、稳定的重复模式前，避免过程宏。
+使用显式 Rust 模块和静态数据。证明存在真实、稳定的重复模式后才提出过程宏；目录规模本身不足以作为理由。
 
 PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh-CN.md)，不添加像素执行器或推测性的 KernelId 桩。`ValidatedDocument` 解析版本化默认值，并提供连接／默认输入来源，不修改源文档。PR-006 实现参数覆盖及类型化 kernel 降级。PR-007 通过共享[图执行器](./docs/graph-rendering.zh-CN.md)实现穷尽 WGSL 映射及六个节点的像素夹具。固定棋盘格与图棋盘格使用同一着色器及分发路径。
 
@@ -345,9 +345,11 @@ PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh
 
 测试、夹具和基准材质构成 Rust 节点定义与 WGSL 内核之间的行为契约。
 
-### 7.2 初始节点预算
+### 7.2 经审查的节点目录与准入
 
-在 M3 验收之前，图 MVP 与材质 MVP 最多可以引入十二种内置节点：
+ENG-02 依据 [M3 材质评审](./docs/m3-review.zh-CN.md)及[后续远端验收](./docs/evidence/remote-ci/README.zh-CN.md)，结束 M3 前的十二节点预算。这明确替代评审中保留门槛的历史决定，不改变已接受像素或运行时语义。
+
+当前经审查的目录保持如下：
 
 1. `constant-scalar`
 2. `constant-color`
@@ -360,9 +362,8 @@ PR-005 通过小型静态模块注册六个 [M2 契约](./docs/node-contracts.zh
 9. `transform-2d`
 10. `warp`
 11. `height-to-normal`
-12. 一个预留名额，仅当基准材质证明有必要时使用
 
-预留名额不代表允许加入推测性节点。它只是为了在一个已经证实的阻塞问题出现时，无需重新设计停止规则。
+节点数量既不是扩张目标，也不是永久上限。新增类型需要批准的有界引擎用例、版本／兼容性决定、契约、产生像素时唯一的 WGSL 实现、聚焦夹具、配对文档及适用的 Native／浏览器证据。已有材质回归继续必需。在同一经审查 PR 中更新[注册表测试](./crates/mixture-core/tests/registry.rs)的显式类型／版本预期，不得通过删除这些断言绕过目录审查。[路线图](./ROADMAP.zh-CN.md)和[节点工作流](./AGENTS.zh-CN.md#添加内置节点)约束准入。ENG-02 不添加节点，也不授权 ENG-04 实现。
 
 PR-009 以 `fractal-noise`、`gradient-map` 和 `height-to-normal` 将目录增量扩展到九种节点。源结构及文档／节点版本 1 不变。噪声种子必须显式填写：`ParameterContract::default: Option<ParameterDefault>` 以 `None` 表示必填参数。未使用分支缺失种子也会导致源验证失败。类型化计划保留全部 u32 种子位；唯一 WGSL 映射拥有各新增像素公式。[节点约定](./docs/node-contracts.zh-CN.md)及[皮革夹具](./fixtures/materials/leather/README.zh-CN.md)定义坐标、精度和消费者证据。
 
