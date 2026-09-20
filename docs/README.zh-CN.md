@@ -61,3 +61,5 @@
 [独立浏览器 SDK 消费](../examples/browser-consumer/README.zh-CN.md)记录 ENG-03 的最小公开包示例、独立候选／注册表检查及固定 Studio 宿主保留的覆盖。
 
 [ENG-03 消费者证据](./evidence/eng-03/README.zh-CN.md)保留候选／注册表的独立身份、本地浏览器结果及已检查的示例截图。
+
+[ENG-04 Scalar 场组合设计](./eng-04-scalar-blend.zh-CN.md)记录用例、拟议契约及后续验收计划；该节点尚未实现或发布。
