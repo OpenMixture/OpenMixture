@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-09-20T05:19:50.313Z",
+  "command": "cargo xtask check",
+  "ok": true,
+  "documentationRevisionAtCompletion": "9521ca307af0a405059806fc1c0177ba4e8ade5b",
+  "runtimeSourceRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+  "note": "Check began with documentation work present; no runtime/tooling/fixture source changes. Documentation commits and byte-preservation attributes were completed during the run.",
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "logSha256": "f8894151b2d773e6cb2b28f4ba996aba9802e8ba61051829f6ddc04e837ffb99",
+  "logRetention": "ignored tmp/alpha04-check-clean.log",
+  "recovery": "Two attempts using the existing target/package-consumer cache failed in packaged rustdoc with STATUS_IN_PAGE_ERROR. That cache was moved into ignored tmp/alpha04-package-cache-failed; the complete check passed with a fresh package-consumer cache.",
+  "retainedBytes": "verify.mjs restored and hashed all 152 bundle files; every summary-bound file was also read from its committed Git blob and matched its original SHA-256."
+}
