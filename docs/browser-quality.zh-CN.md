@@ -2,7 +2,7 @@
 
 [English](./browser-quality.md) | 简体中文
 
-[决策](./decisions/0006-browser-quality-gates.zh-CN.md)适用于 `browser-material-check` 与 `browser-material-measure`，只测量已渲染纹理，不增加像素执行器。[JSON 规则](./browser-quality-v2.json)与比较器共同版本化，当前资格收据必须标识其确切字节。历史 [M5-05 校准](./evidence/m5-05/calibration.zh-CN.md)和 `browser-tolerances.json` 保持不变，用于旧门槛诊断。原生金图及 Studio 独立的保存文件比较器保持不变。
+[决策](./decisions/0006-browser-quality-gates.zh-CN.md)适用于运行时浏览器比较与 Studio 保存文件材质比较。两者共用冻结的 [JSON 规则](./browser-quality-v2.json)，并绑定确切摘要。工具只测量已渲染纹理，不增加像素执行器。原生金图及 Studio 精确棋盘格检查保持不变。已替代的稀疏像素规则不再执行；原报告可从记录的 Git 历史查阅。
 
 ## 预算与用途
 
@@ -28,7 +28,7 @@
 
 ## 报告与停止条件
 
-报告 schema 2 包含 `profile`、`profileSha256` 及 `gates`：`semantics`、`materialStructure`、`numericalAgreement`、`legacyPixelRegression`。每通道 `comparison` 为 v2 指标，`legacyComparison` 保留原幅度/平均/变化像素指标及原判定。接受要求全矩阵前三项门槛通过；旧门槛失败继续显示，但不覆盖它们。`measurement only` 只保留测量，不接受数值一致性，包资格验证会拒绝它。
+浏览器报告 schema 3 包含 `profile`、`profileSha256` 及三项验收门槛：`semantics`、`materialStructure`、`numericalAgreement`。每通道 `comparison` 为 v2 指标，全矩阵必须通过全部三项。Studio 报告 schema 2 绑定相同规则及独立的保存文件标准。当前报告不再计算或要求旧判定。本次报告清理不改变规则及任何数值预算。`measurement only` 只保留测量，不接受数值一致性，包资格验证会拒绝它。
 
 运行时获取/执行失败继续作为结构化失败，和比较结果分开。输入为历史记录时，完成矩阵和通过响应预算不代表新浏览器执行。回溯比较应在新目录使用副本并绑定原 PNG/收据/源码身份。新的浏览器支持声明仍需安装候选、实际普通配置执行、全部已有生命周期/失败测试和适当范围的视觉审查。
 

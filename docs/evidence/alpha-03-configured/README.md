@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-**The ordinary Firefox runtime gate passed: 11 cases, 44 channels, zero pixel differences.** Windows 11 build 26100 with host NVIDIA GeForce GT 1030 / driver `32.0.15.8266` supports the recorded WebGPU workload. This supplements the preserved [initial failures](../alpha-03/README.md) and [numerical investigation](../alpha-03-investigation/README.md). It does not broaden Chrome/Edge material coverage or publish an Alpha.
+**The ordinary Firefox runtime gate passed: 11 cases, 44 channels, zero pixel differences.** Windows 11 build 26100 with host NVIDIA GeForce GT 1030 / driver `32.0.15.8266` supports the recorded WebGPU workload. This supplements the preserved [initial failures](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/evidence/alpha-03/README.md) and [numerical investigation](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/evidence/alpha-03-investigation/README.md). It does not broaden Chrome/Edge material coverage or publish an Alpha.
 
 ## Identity and scope
 

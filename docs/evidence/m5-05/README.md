@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Sources and ordering
 
-[Calibration](./calibration.md) measured both environments, retained failing candidate comparisons, and froze the [tolerances](../../browser-tolerances.json) in `289a23bf9026c355f557c8d637784c03defb0932`. Both accepted runs started afterward and bind tolerance SHA-256 `f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627`. Acceptance did not widen those gates or update native golden files.
+[Calibration](./calibration.md) measured both environments, retained failing candidate comparisons, and froze the [tolerances](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/browser-tolerances.json) in `289a23bf9026c355f557c8d637784c03defb0932`. Both accepted runs started afterward and bind tolerance SHA-256 `f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627`. Acceptance did not widen those gates or update native golden files.
 
 The [machine summary](./summary.json) binds exact source/lock/archive/tool/browser identities, metrics and CI artifact metadata. Local native preparation used clean engine `289a23bf9026c355f557c8d637784c03defb0932`; isolated product execution used clean merged main `659a7ecde5217ef64911600ed49d1f48f98de3f2`. Linux tested PR merge ref `2d0fb9cfc93ee943d2802adfef4a700ddd62be60` for that engine head and product code `56c510ab57daa1b68ef660525a648a582730a37e`. Later evidence commits are not presented as these tested sources.
 

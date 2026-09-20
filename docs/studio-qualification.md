@@ -6,7 +6,7 @@ This engine-owned verification accepts detached Studio download bytes; the produ
 
 ## Frozen gates
 
-Before measuring pixels, [studio-criteria.json](../scripts/browser-runtime/studio-criteria.json) fixes seven 1024 × 1024 cases: an authored 4 × 8 checker; default and authored ceramic (16 × 16 tiles), leather (detail 1), and wood (repeat 16). The three material pairs reuse the existing default/fine-tiles/detail-max/coarse-grain structure, seam, non-degeneracy, causality and height/normal rules verbatim. The checker has exact black/white alternation and exact default normal/roughness/height. All four channels also use the unchanged [M5 browser tolerances](./browser-tolerances.json). These criteria are frozen before acceptance; a failure must not relax them or update native goldens.
+Before measuring pixels, [studio-criteria.json](../scripts/browser-runtime/studio-criteria.json) fixes seven 1024 × 1024 cases: an authored 4 × 8 checker; default and authored ceramic (16 × 16 tiles), leather (detail 1), and wood (repeat 16). The three material pairs reuse the existing default/fine-tiles/detail-max/coarse-grain structure, seam, non-degeneracy, causality and height/normal rules verbatim. The checker has exact black/white alternation and exact default normal/roughness/height. Material comparisons use the shared frozen [v2 profile](./browser-quality.md). Report schema 2 binds that profile and the unchanged saved-file criteria; checker, source/plan identity, structure, native structure, causality and relationships remain required. This policy migration does not retroactively recertify old Studio runs or qualify a new package. A failure must not trigger threshold tuning or native golden replacement.
 
 ## Commands
 

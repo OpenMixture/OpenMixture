@@ -46,11 +46,11 @@ function evidence() {
     { receipt, lockSha256: 'lock' },
     { engineRevision: receipt.engineRevision, runtimeRevision: receipt.engineRevision, engineDirty: false },
     { build: receipt, archiveSha256: receipt.sha256, lockSha256: 'lock', cases: Array(11).fill({}), stress: { renders: 12 } },
-    { schemaVersion: 2, ok: true, mode: 'acceptance', profile: qualityProfile, profileSha256: qualityProfileSha256,
-      gates: { semantics: true, materialStructure: true, numericalAgreement: true, legacyPixelRegression: false },
+    { schemaVersion: 3, ok: true, mode: 'acceptance', profile: qualityProfile, profileSha256: qualityProfileSha256,
+      gates: { semantics: true, materialStructure: true, numericalAgreement: true },
       cases: Object.entries({'glazed-ceramic':['default','fine-tiles','matte'], leather:['default','detail-min','detail-max','coarse-grain'], wood:['default','coarse-grain','straight-grain','horizontal-grain']}).flatMap(([material, cases]) => cases.map(caseId => ({
         material, case:caseId, planMatches:true, relationships:[], channels:Object.fromEntries(['baseColor','normal','roughness','height'].map(channel => [channel, {
-          comparison:{ok:true,profile:qualityProfile.id},legacyComparison:{ok:false},structure:{ok:true},causality:caseId==='default'?null:{ok:true},
+          comparison:{ok:true,profile:qualityProfile.id},structure:{ok:true},causality:caseId==='default'?null:{ok:true},
         }])),
       }))) },
     { stats: { expected: 28, unexpected: 0, skipped: 0, flaky: 0 } },
@@ -72,6 +72,7 @@ test('qualification cannot substitute old browser identity, skip gates or accept
     v => { v[3].ok = false; },
     v => { v[3].mode = 'measurement only'; },
     v => { v[3].schemaVersion = 1; },
+    v => { v[3].schemaVersion = 2; },
     v => { v[3].profileSha256 = 'different rules'; },
     v => { v[3].profile.maxComponentDelta = 255; },
     v => { delete v[3].gates; },
@@ -94,12 +95,15 @@ test('qualification cannot substitute old browser identity, skip gates or accept
   }
 });
 
-test('old sparse-pixel failure remains visible without overriding independent quality gates', () => {
+test('current qualification uses only the three quality gates', () => {
   const comparison = structuredClone(evidence()[3]);
-  assert.equal(comparison.gates.legacyPixelRegression, false);
+  assert.deepEqual(Object.keys(comparison.gates).sort(), ['materialStructure', 'numericalAgreement', 'semantics']);
   assertComparison(comparison);
-  delete comparison.gates.legacyPixelRegression;
-  assert.throws(() => assertComparison(comparison));
+  for (const gate of Object.keys(comparison.gates)) {
+    const changed = structuredClone(comparison);
+    delete changed.gates[gate];
+    assert.throws(() => assertComparison(changed));
+  }
 });
 
 test('installed byte verification catches mixed components and a failed recheck invalidates success', async () => {

@@ -2,7 +2,7 @@
 
 [English](./browser-materials.md) | 简体中文
 
-**2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。原稀疏像素判定保留为诊断；历史接受、原生金图及 Studio 保存文件门槛不变。新浏览器支持仍需绑定源码的资格证据。
+**2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。同一规则也用于 Studio 材质比较；原生金图及精确棋盘格检查不变，当前报告移除已替代的稀疏像素判定。新浏览器支持仍需绑定源码的资格证据。
 
 原生参考生产者通过公开 CLI 执行全部 11 个既有验收用例，尺寸为 1024 × 1024，请求 baseColor／normal／roughness／height，保留原始源码字节和公开覆盖。准备步骤要求显式后端及新目录；相对归档生产者修订存在运行时实现漂移时拒绝继续。源码、夹具和构建身份与计划哈希分开记录。
 
@@ -17,7 +17,7 @@ cargo xtask browser-material-check tmp/browser-native /absolute/new-browser-outp
 
 Linux 使用已有锁定 SwiftShader 设置及显式 Vulkan／软件策略。产品只消费独立参考清单和已安装 tarball。生产资源在 `/player/` 下静态提供；缺失 WASM 或不可用 WebGPU 均失败。引擎比较解码浏览器 PNG，复用既有材质结构、接缝、非退化、因果性和高度／法线关系检查，不改变原生 golden。
 
-`browser-material-measure` 记录差异并检查结构／语义门槛，但明确不接受像素容差。`browser-material-check` 执行 [v2 规则](./browser-quality.zh-CN.md)，原逐通道容差判定保留为诊断。两者在浏览器输出目录写入 `comparison.json` 及逐用例的原生／浏览器／差异接触表。计划比较保持整数精确，规范化 f32 JSON 投影，并要求语义哈希一致。比较前检查原始清单及 PNG 摘要。
+`browser-material-measure` 记录差异并检查结构／语义门槛，但明确不接受像素容差。`browser-material-check` 执行 [v2 规则](./browser-quality.zh-CN.md)。两者在浏览器输出目录写入 `comparison.json` 及逐用例的原生／浏览器／差异接触表。计划比较保持整数精确，规范化 f32 JSON 投影，并要求语义哈希一致。比较前检查原始清单及 PNG 摘要。
 
 ## 当前候选验收——ALPHA-01
 
@@ -47,7 +47,7 @@ node /absolute/engine/scripts/browser-runtime/candidate.mjs verify /absolute/pro
 
 Linux 浏览器命令须取消 `VK_ICD_FILENAMES` 和 `VK_DRIVER_FILES`，并使用工作流中的显式 Chromium SwiftShader 参数。`probe` 必须先于部署步骤执行，后者会重建不带测试入口的资源。`verify` 在检查前撤销旧验收成功状态，绑定实测构建信息、归档／lock／原生身份、浏览器／部署结果及比较摘要，拒绝跳过或缺失的门槛。`qualification.json` 为最终回执；`candidate.json` 保留原始及替换后的 lock／归档身份、产品版本和 CI run／attempt。工作流上传这些记录、候选归档、原生／浏览器像素、测试报告和部署证据，保留 30 天。已接受结果仍须遵守[证据保留政策](./evidence-policy.zh-CN.md)。
 
-此 job 使用独立软件包消费者，但不宣称通过 OS 沙箱禁止读取引擎检出，也不代表默认浏览器支持。Chromium 仍使用受控测试参数；普通用户配置、npm 发布与 Studio 完整保存文件升级验收仍为独立 Alpha 门槛。原生 golden 和浏览器容差不变。
+此 job 使用独立软件包消费者，但不宣称通过 OS 沙箱禁止读取引擎检出，也不代表默认浏览器支持。Chromium 仍使用受控测试参数；普通用户配置、npm 发布与 Studio 完整保存文件升级验收仍为独立 Alpha 门槛。原生金图及冻结的 v2 数值预算不变。
 
 ## 冻结准则
 
