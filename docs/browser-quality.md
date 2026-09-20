@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-quality.zh-CN.md)
 
-The [decision](./decisions/0006-browser-quality-gates.md) applies to `browser-material-check` and `browser-material-measure`. It measures already-rendered textures; it adds no pixel executor. The [JSON profile](./browser-quality-v2.json) is versioned with the comparator, and current qualification receipts must identify its exact bytes. Historical [M5-05 calibration](./evidence/m5-05/calibration.md) and `browser-tolerances.json` remain unchanged for legacy diagnostics. Native goldens and Studio's separate saved-file comparator are unchanged.
+The [decision](./decisions/0006-browser-quality-gates.md) applies to runtime browser comparisons and Studio saved-file material comparisons. Both use the same frozen [JSON profile](./browser-quality-v2.json), identified by its exact digest. The tools measure already-rendered textures and add no pixel executor. Native goldens and exact Studio checker checks remain unchanged. Superseded sparse-pixel rules are no longer executed; their original reports belong to the recorded Git history.
 
 ## Budgets and intended use
 
@@ -28,7 +28,7 @@ Unit tests add independent analytic cases and encoding/normal checks. Review con
 
 ## Reports and stopping
 
-Report schema 2 includes `profile`, `profileSha256` and `gates`: `semantics`, `materialStructure`, `numericalAgreement`, `legacyPixelRegression`. Each channel's `comparison` holds v2 metrics; `legacyComparison` holds the original amplitude/mean/changed-pixel metrics and original verdict. The full matrix must satisfy the first three gates for acceptance. Legacy failure remains visible but does not override them. `measurement only` retains measurements without accepting numerical agreement and is rejected by package qualification.
+Browser report schema 3 includes `profile`, `profileSha256` and exactly three acceptance gates: `semantics`, `materialStructure`, `numericalAgreement`. Each channel's `comparison` holds v2 metrics. The full matrix must satisfy all three gates. Studio report schema 2 binds the same profile and its separate saved-file criteria. No current report computes or requires legacy verdicts. The profile and all numeric budgets are unchanged by this report cleanup. `measurement only` retains measurements without accepting numerical agreement and is rejected by package qualification.
 
 Runtime acquisition/execution failures remain structured failures, separate from comparison. A completed matrix and passing response budget do not imply a new browser execution if the inputs are historical. Retrospective comparisons must use copies in fresh directories and bind their original PNG/receipt/source identities. New browser support claims require an installed candidate, actual ordinary-profile execution, all existing lifecycle and failure tests, and appropriately scoped visual review.
 

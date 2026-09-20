@@ -2,7 +2,7 @@
 
 English | [简体中文](./calibration.zh-CN.md)
 
-This record freezes [browser-only per-channel tolerances](../../browser-tolerances.json) after measurement and agent review, before an acceptance run. It does not update or loosen native goldens.
+This record freezes [browser-only per-channel tolerances](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/browser-tolerances.json) after measurement and agent review, before an acceptance run. It does not update or loosen native goldens.
 
 [Local calibration](./local-calibration.json) uses clean native producer `3c851ca` and isolated product `56c510a`, Chromium 153.0.8010.12 on macOS arm64. All 11 semantic hashes and normalized plans agree; all quality/relationship gates pass. Forty of 44 channels are exact. The four wood roughness cases differ by at most 1/255; worst mean absolute error is 0.0002975464 RGBA8 units and worst changed-pixel ratio is 0.0003967286.
 

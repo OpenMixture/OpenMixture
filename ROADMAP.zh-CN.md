@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./docs/browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。软件包未发布。下一步是准确 Alpha 候选、Studio 升级验收及浏览器必需检查决策。[浏览器运行时 Alpha 收口](./docs/browser-alpha.zh-CN.md)负责这些工作；不启动 M6。
 
 ALPHA-03 浏览器比较现遵循 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md)；全部已有材质、变体及语义/结构检查继续必需。本变更调整比较规则，不改变里程碑范围或原生金图接受。
 

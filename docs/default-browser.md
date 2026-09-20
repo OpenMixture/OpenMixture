@@ -2,13 +2,13 @@
 
 English | [简体中文](./default-browser.zh-CN.md)
 
-This procedure qualifies a specific browser/OS/driver and runtime archive with ordinary GPU settings. It is separate from controlled Chromium CI and from publishing an Alpha. The [recorded result](./evidence/alpha-03-configured/README.md) defines the actual supported scope; a browser version alone is not a universal hardware guarantee.
+This procedure qualifies a specific browser/OS/driver and runtime archive with ordinary GPU settings. It is separate from controlled Chromium CI and from publishing an Alpha. The [recorded result](./evidence/browser-quality-v2/README.md) defines the actual supported scope; a browser version alone is not a universal hardware guarantee.
 
 ## Inputs and launch policy
 
 Use the exact archive already qualified by ALPHA-01, including its producer receipt and SHA-256. Stage it in the pinned independent consumer with [candidate verification](./browser-materials.md), use `npm ci`, and verify installed bytes. Keep the original product commit and every unrelated lock entry fixed. The retained candidate may be older than a later documentation or verification-tool commit; do not identify those as the tested runtime.
 
-The Windows [launcher](../scripts/browser-runtime/launch-default-browser.ps1) starts the installed desktop browser in a new disposable profile. It adds only `--user-data-dir` and a loopback CDP port, plus `about:blank`. It does not add headless, unsafe-WebGPU, blocklist, ANGLE/software, sandbox or feature overrides, and does not change a personal profile, driver or browser setting. CDP is test transport, not an end-user prerequisite. The [verifier](../scripts/browser-runtime/default-browser.mjs) checks both the observed OS command line and the browser's own command line; only empty Chromium flag-switch markers and surrounding whitespace are normalized. Extra flags or a reused launch directory fail the guard.
+The Windows [launcher](../scripts/browser-runtime/launch-default-browser.ps1) starts the installed desktop browser in a new disposable profile. It adds only `--user-data-dir` and a loopback CDP port, plus `about:blank`. It does not add headless, unsafe-WebGPU, blocklist, ANGLE/software, sandbox or feature overrides, and does not change a personal profile, driver or browser setting. CDP is test transport, not an end-user prerequisite. The [verifier](../scripts/browser-runtime/default-browser.mjs) checks both the observed OS command line and the browser's own command line; only empty Chromium flag-switch markers and surrounding whitespace are normalized. For Edge's internal relaunch, the verifier additionally binds the directly observed child executable/parent PID and the CDP browser PID; only its observed `--edge-skip-compat-layer-relaunch` marker is accepted, never injected. Other extra flags or a reused launch directory fail the guard.
 
 Record the OS/build, installed browser version/executable digest, complete launch arguments, browser GPU information and exposed runtime adapter evidence. Unavailable/redacted fields remain unavailable. The observational `requestAdapter` wrapper forwards unchanged options and the original adapter; failure injection happens only in separate pages and is labeled synthetic.
 
@@ -23,7 +23,7 @@ The consumer needs its pinned Node/npm/Playwright dependencies. A real desktop b
 $env:MIXTURE_GPU_BACKEND = 'dx12'
 $env:MIXTURE_GPU_SOFTWARE = '0'
 $env:MIXTURE_GPU_EXPECT_ADAPTER = 'NVIDIA GeForce GT 1030'
-node scripts/browser-runtime/prepare-materials.mjs tmp/default-native 7b1cec4ad1d42d6269ef6a9912c2e8ba3a2dfdd9
+node scripts/browser-runtime/prepare-materials.mjs tmp/default-native ec571816026a945a706067769fef76e24c8398b0
 ./scripts/browser-runtime/launch-default-browser.ps1 -OutputDirectory tmp/default-launch
 ```
 

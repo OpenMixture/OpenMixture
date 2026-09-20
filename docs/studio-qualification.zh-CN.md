@@ -6,7 +6,7 @@
 
 ## 冻结门槛
 
-像素测量前，[studio-criteria.json](../scripts/browser-runtime/studio-criteria.json)固定七个 1024 × 1024 用例：创作的 4 × 8 棋盘格；默认与创作后的陶瓷（16 × 16 砖块）、皮革（细节 1）和木材（重复 16）。三组材质逐字复用既有 default/fine-tiles/detail-max/coarse-grain 的结构、接缝、非退化、因果及高度／法线规则。棋盘格要求精确黑白交替和精确的默认法线／粗糙度／高度。四个通道同时使用不变的 [M5 浏览器容差](./browser-tolerances.json)。这些标准在验收前冻结；失败不得通过放宽门槛或更新原生 golden 解决。
+像素测量前，[studio-criteria.json](../scripts/browser-runtime/studio-criteria.json)固定七个 1024 × 1024 用例：创作的 4 × 8 棋盘格；默认与创作后的陶瓷（16 × 16 砖块）、皮革（细节 1）和木材（重复 16）。三组材质逐字复用既有 default/fine-tiles/detail-max/coarse-grain 的结构、接缝、非退化、因果及高度／法线规则。棋盘格要求精确黑白交替和精确的默认法线／粗糙度／高度。材质比较使用共用的冻结 [v2 规则](./browser-quality.zh-CN.md)。报告 schema 2 绑定该规则及不变的保存文件标准；棋盘格、来源／计划身份、结构、原生结构、因果及关联检查仍全部要求通过。本次规则迁移不追溯认证旧 Studio 执行，也不认证新包。失败不得通过调整阈值或替换原生金图解决。
 
 ## 命令
 

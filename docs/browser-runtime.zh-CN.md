@@ -2,7 +2,7 @@
 
 [English](./browser-runtime.md) | 简体中文
 
-**当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。软件包未发布。下一步是准确 Alpha 候选、Studio 升级验收及浏览器必需检查决策。[Alpha 收口](./browser-alpha.zh-CN.md)负责当前工作；不启动 M6。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 

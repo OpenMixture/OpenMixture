@@ -6,7 +6,7 @@
 
 ## 来源与先后顺序
 
-[校准记录](./calibration.zh-CN.md)测量两个环境、保留失败候选比较，并在 `289a23bf9026c355f557c8d637784c03defb0932` 冻结[容差](../../browser-tolerances.json)。两次正式验收均在此后开始，绑定容差 SHA-256 `f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627`；验收未放宽门槛或更新原生 golden。
+[校准记录](./calibration.zh-CN.md)测量两个环境、保留失败候选比较，并在 `289a23bf9026c355f557c8d637784c03defb0932` 冻结[容差](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/browser-tolerances.json)。两次正式验收均在此后开始，绑定容差 SHA-256 `f01533c2311e32319c37338126a20f8089957e770e221424c46b10263c40b627`；验收未放宽门槛或更新原生 golden。
 
 [机器摘要](./summary.json)绑定确切源码／锁文件／归档／工具／浏览器身份、测量与 CI 产物信息。本地原生准备使用干净引擎 `289a23bf9026c355f557c8d637784c03defb0932`，隔离产品使用干净已合并 main `659a7ecde5217ef64911600ed49d1f48f98de3f2`。Linux 测试该引擎 head 的 PR 合并引用 `2d0fb9cfc93ee943d2802adfef4a700ddd62be60` 与产品代码 `56c510ab57daa1b68ef660525a648a582730a37e`；后续证据提交不冒充这些已测源码。
 

@@ -19,7 +19,7 @@ export const qualityProfile = JSON.parse(qualityBytes);
 export const qualityProfileSha256 = `sha256:${hash(qualityBytes)}`;
 
 export function assertComparison(comparison) {
-  assert.equal(comparison.schemaVersion, 2, 'current browser comparison schema required');
+  assert.equal(comparison.schemaVersion, 3, 'current browser comparison schema required');
   assert.equal(comparison.mode, 'acceptance');
   assert.equal(comparison.ok, true);
   assert.deepEqual(comparison.profile, qualityProfile);
@@ -27,7 +27,6 @@ export function assertComparison(comparison) {
   for (const gate of ['semantics', 'materialStructure', 'numericalAgreement']) {
     assert.equal(comparison.gates?.[gate], true, `missing/failed ${gate}`);
   }
-  assert.equal(typeof comparison.gates.legacyPixelRegression, 'boolean');
   assert.equal(comparison.cases.length, 11);
   const seen = new Set();
   for (const record of comparison.cases) {
@@ -39,7 +38,6 @@ export function assertComparison(comparison) {
     for (const channel of Object.values(record.channels)) {
       assert.equal(channel.comparison?.ok, true);
       assert.equal(channel.comparison.profile, qualityProfile.id);
-      assert.equal(typeof channel.legacyComparison?.ok, 'boolean');
       assert.equal(channel.structure?.ok, true);
       if (record.case !== 'default') assert.equal(channel.causality?.ok, true);
     }

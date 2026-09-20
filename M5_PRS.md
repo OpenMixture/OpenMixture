@@ -2,7 +2,7 @@
 
 English | [简体中文](./M5_PRS.zh-CN.md)
 
-**Current status (2026-09-16):** Native M4/M4.1, bounded M5 and the independent Studio MVP are accepted. Cargo packages and the npm Alpha archive remain unpublished; ordinary browser configurations still need qualification. Next is [Browser Runtime Alpha delivery closeout](./docs/browser-alpha.md), the shared current-status and engine-ownership plan; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. Packages remain unpublished. Next: an exact Alpha candidate, Studio upgrade acceptance and the browser required-check decision. [Alpha closeout](./docs/browser-alpha.md) owns current work; M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

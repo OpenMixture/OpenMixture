@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-20",
+  "scope": "offline comparator migration verification; no new GPU or package qualification",
+  "profileSha256": "sha256:c67034e89c502973659589744ed007d720425a8bb06a01ddd1bb49d1b7b4ce88",
+  "profileAndMetricImplementationChanged": false,
+  "browserSchema": 3,
+  "browserChannelsReproducedExactly": 132,
+  "studioSchema": 2,
+  "studioCases": 7,
+  "studioChannelsPassed": 28,
+  "sourceBrowserIndexSha256": "81873f9f7fe03914662955e604421a8b929bbac5dcbeb38c2576b3e73880a3d4",
+  "sourceStudioIndexSha256": "e937a77e5130cc8e575051d6aa2e369432ae2d4233121b2ab5c6212f719b2d9e",
+  "shaderOrNativeGoldenChanges": false,
+  "researchPullRequestsClosed": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ]
+}

@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-**普通 Firefox 运行时门槛已通过：11 个案例、44 个通道，像素差异为零。** Windows 11 build 26100、主机 NVIDIA GeForce GT 1030／驱动 `32.0.15.8266` 支持本次记录的 WebGPU 工作负载。此记录补充保留的[初始失败](../alpha-03/README.zh-CN.md)和[数值排查](../alpha-03-investigation/README.zh-CN.md)，不扩展 Chrome／Edge 材质支持或发布 Alpha。
+**普通 Firefox 运行时门槛已通过：11 个案例、44 个通道，像素差异为零。** Windows 11 build 26100、主机 NVIDIA GeForce GT 1030／驱动 `32.0.15.8266` 支持本次记录的 WebGPU 工作负载。此记录补充保留的[初始失败](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/evidence/alpha-03/README.zh-CN.md)和[数值排查](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/evidence/alpha-03-investigation/README.zh-CN.md)，不扩展 Chrome／Edge 材质支持或发布 Alpha。
 
 ## 身份与范围
 

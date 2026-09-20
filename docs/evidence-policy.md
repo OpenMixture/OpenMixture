@@ -2,11 +2,11 @@
 
 English | [简体中文](./evidence-policy.zh-CN.md)
 
-This policy governs evidence added from M4.1 onward. It keeps acceptance reviewable while avoiding a new copy of every successful run in Git. It does not migrate or rewrite historical evidence, alter material gates, or add a runtime or verification framework. [Release status](./release.md), [compatibility](./compatibility.md), and the [native SDK contract](./native-sdk.md) remain the sources for product readiness and public behavior.
+This policy governs evidence added from M4.1 onward. It keeps acceptance reviewable while avoiding a new copy of every successful run in Git. It does not rewrite historical execution outcomes, alter material gates, or add a runtime or verification framework. [Release status](./release.md), [compatibility](./compatibility.md), and the [native SDK contract](./native-sdk.md) remain the sources for product readiness and public behavior.
 
 ## Historical records and current guidance
 
-Keep existing golden pixels and manifests, human acceptance receipts, their bound reports/images, and retained failure evidence at their recorded paths with their original bytes. This includes the historical material `reports/`, `docs/reviews/`, and `docs/evidence/` records. Do not rewrite a historical `pending`, `deferred`, or failed result to describe a later successful run. The original `mixture-greenfield-docs/` bundle also remains unchanged.
+Keep executable golden pixels/manifests and the source-bound content that supports current acceptance. Superseded research, rejected experiments and duplicate diagnostics may be removed from the current tree once the maintainer chooses a direction; Git history and closed PRs retain their original outcomes. Remove obsolete navigation and executable dependencies at the same time. Link a specific historical commit when a retained record needs an old file. Do not rewrite a failed result as a successful run, alter a bound receipt, or delete inputs still required by current verification. The original `mixture-greenfield-docs/` source bundle is independent reference material.
 
 Current navigation and explanatory guides may be updated in both languages to point to a newer accepted revision and explain which older statements are historical. A correction to a historical finding belongs in a new dated record that links to the original; it must not replace the original result or claim the old run tested new sources. See the [remote CI record](./evidence/remote-ci/README.md) for separate failed and accepted runs.
 
@@ -45,7 +45,7 @@ The maintainer recording an acceptance owns its retention decision. Before relyi
 
 When no usable durable archive is available, keep the minimum necessary acceptance content in Git and state which complete logs or incidental outputs will expire. If the intended audit requires the original full bundle, retain that bundle or narrow the claim; hashes and run IDs alone cannot support a claim of long-term full-run auditability. Expiry does not turn a previously recorded pass into a failure, but it limits later inspection of the original run. Record that limitation honestly.
 
-No external archive service or automatic preservation job is introduced by this policy. Existing historical records are not moved as a consequence of adopting it.
+No external archive service or automatic preservation job is introduced by this policy. Superseded research may be pruned under the current-guidance rules above.
 
 ## Preserve verification and ownership
 

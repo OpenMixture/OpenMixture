@@ -2,7 +2,7 @@
 
 [English](./calibration.md) | 简体中文
 
-本记录在测量及代理评审之后、正式验收运行之前，冻结[仅供浏览器比较的逐通道容差](../../browser-tolerances.json)，不更新或放宽原生 golden。
+本记录在测量及代理评审之后、正式验收运行之前，冻结[仅供浏览器比较的逐通道容差](https://github.com/OpenMixture/OpenMixture/blob/efdac411198bfa87b7eba7ff9e588330ec08baf9/docs/browser-tolerances.json)，不更新或放宽原生 golden。
 
 [本地校准](./local-calibration.json)使用干净原生生产者 `3c851ca`、隔离产品 `56c510a`，环境为 macOS arm64 上的 Chromium 153.0.8010.12。11 个语义哈希和规范化计划全部一致，所有质量／关系门槛通过。44 个通道中 40 个精确一致；四个木材粗糙度用例最多相差 1/255，最差平均绝对误差为 0.0002975464 个 RGBA8 单位，最差变化像素比例为 0.0003967286。
 

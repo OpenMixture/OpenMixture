@@ -1,8 +1,8 @@
 //! Detached Studio downloads checked with the existing engine-owned pixel rules.
 use super::{
     browser::plan_equivalent,
-    files,
-    model::{CHANNELS, Case, Tolerance},
+    browser_quality, files,
+    model::{CHANNELS, Case},
     pixels::{self, Image},
 };
 use crate::TaskResult;
@@ -36,8 +36,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path) -> TaskResult {
     if inputs.len() != 7 || runs.len() != 7 || specs.len() != 7 {
         return Err("wrong Studio matrix cardinality".into());
     }
-    let tolerances: BTreeMap<String, Tolerance> =
-        files::json(&root.join("docs/browser-tolerances.json"))?;
+    let policy = browser_quality::Policy::load(root)?;
     let mut defaults = BTreeMap::new();
     let mut records = Vec::new();
     let mut ok = true;
@@ -99,7 +98,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path) -> TaskResult {
                     && input["channelPlans"][channel]["hash"] == channel_result[0]["plan"]["hash"];
             let before = Image::read(&before_path, 1024, encoding)?;
             let image = Image::read(&after_path, 1024, encoding)?;
-            let comparison = pixels::compare(&before, &image, tolerances[channel]);
+            let comparison = browser_quality::compare(&before, &image, channel, &policy);
             let structure = pixels::structure(&image, &rules.checks[channel]);
             let native_structure = pixels::structure(&before, &rules.checks[channel]);
             let cause = if rules.changes.is_empty() {
@@ -150,7 +149,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path) -> TaskResult {
     }
     files::write_json(
         &browser.join("comparison.json"),
-        &json!({"schemaVersion":1,"ok":ok,"criteriaSha256":files::digest(&criteria_path)?,"toleranceSha256":files::digest(&root.join("docs/browser-tolerances.json"))?,"cases":records}),
+        &json!({"schemaVersion":2,"ok":ok,"criteriaSha256":files::digest(&criteria_path)?,"profile":policy,"profileSha256":files::digest(&root.join("docs/browser-quality-v2.json"))?,"cases":records}),
     )?;
     if !ok {
         return Err("Studio comparison failed; no criteria or golden changed".into());
@@ -162,6 +161,57 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path) -> TaskResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn checker_exactness_is_independent_of_material_rounding_budget() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
+        let policy = browser_quality::Policy::load(root).unwrap();
+        let criteria: Value =
+            files::json(&root.join("scripts/browser-runtime/studio-criteria.json")).unwrap();
+        let rules: Case = serde_json::from_value(criteria["cases"][0]["rules"].clone()).unwrap();
+        for channel in CHANNELS {
+            let mut pixels = Vec::new();
+            for y in 0..32 {
+                for x in 0..32 {
+                    let pixel = match channel {
+                        "baseColor" => {
+                            let c = if (x / 8 + y / 4) % 2 == 0 { 0 } else { 255 };
+                            [c, c, c, 255]
+                        }
+                        "normal" => [128, 128, 255, 255],
+                        "roughness" => [255, 255, 255, 255],
+                        "height" => [0, 0, 0, 255],
+                        _ => unreachable!(),
+                    };
+                    pixels.extend_from_slice(&pixel);
+                }
+            }
+            let before = Image { size: 32, pixels };
+            let mut after = before.clone();
+            if channel == "normal" {
+                after.pixels[0] += 1;
+            } else {
+                for c in 0..3 {
+                    after.pixels[c] = if after.pixels[c] == 0 { 1 } else { 254 };
+                }
+            }
+            assert_eq!(
+                pixels::structure(&before, &rules.checks[channel])["ok"],
+                true,
+                "{channel}"
+            );
+            assert_eq!(
+                browser_quality::compare(&before, &after, channel, &policy)["ok"],
+                true,
+                "{channel}"
+            );
+            assert_eq!(
+                pixels::structure(&after, &rules.checks[channel])["ok"],
+                false,
+                "{channel}"
+            );
+        }
+    }
+
     #[test]
     fn failed_recheck_invalidates_previous_acceptance() {
         let path = std::env::temp_dir().join(format!("studio-recheck-{}", std::process::id()));
