@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-alpha-candidate.zh-CN.md)
 
-ALPHA-04 selects one delivery archive of `@openmixture/runtime@0.1.0-alpha.0`. It is an unpublished npm candidate, not a registry release. The same version text was used by earlier local archives: consumers must identify this candidate by its digest and build identity, not its filename alone.
+ALPHA-04 selects one delivery archive of `@openmixture/runtime@0.1.0-alpha.0`. It was selected as an unpublished candidate and subsequently [published unchanged to npm](./evidence/npm-alpha/README.md); that record also verifies exact registry consumption. The same version text was used by earlier local archives: consumers must identify this candidate by its digest and build identity, not its filename alone.
 
 | Identity | Value |
 |---|---|
@@ -28,4 +28,4 @@ This candidate's recorded coverage comprises controlled Linux Chromium package/c
 
 The supported recipe is the pinned Studio/Vite consumer in a secure browser context with WebGPU. GPU-free validation/editing remains useful when acquisition fails; rendering then returns a structured error. Safari, mobile, arbitrary bundlers, untested hardware and universal browser support are not certified. Node GPU, CPU/WebGL fallback, new resources, advanced Studio features and M6 remain outside this delivery.
 
-[ALPHA-05](./evidence/alpha-05/README.md) has activated and read back both browser required checks alongside the four native checks. Registry publication and trial deployment are separate actions. Before publication, recheck the registry namespace/version and release policy; publish these exact reviewed bytes only after the distribution decision. A clean consumer must subsequently install the exact registry version and verify integrity/build identity plus the upgrade gates. A successful local tarball install does not close that registry-consumption gate. No Rust crates, release tag or hosted trial are published by ALPHA-04.
+[ALPHA-05](./evidence/alpha-05/README.md) has activated and read back both browser required checks alongside the four native checks. Registry publication and exact-version consumption are now complete in the [publication record](./evidence/npm-alpha/README.md). Future releases must recheck namespace/version and policy, publish exact reviewed bytes, and repeat clean registry integrity/build identity and upgrade gates. Trial deployment remains separate. No Rust crates, release tag or hosted trial are published by ALPHA-04.

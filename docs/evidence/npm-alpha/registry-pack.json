@@ -1,0 +1,76 @@
+[
+  {
+    "id": "@openmixture/runtime@0.1.0-alpha.0",
+    "name": "@openmixture/runtime",
+    "version": "0.1.0-alpha.0",
+    "size": 348066,
+    "unpackedSize": 1343048,
+    "shasum": "206e25f6d0f1ccdd189d54664848a987c8c99639",
+    "integrity": "sha512-VgovS/VAM5qDikntmM6a/TGc/s66qL8v4kbyJLs1fSFMJtT0lW4Tskb5WXwhLmezZjk+beCWWzPgRzErzQ/jqg==",
+    "filename": "openmixture-runtime-0.1.0-alpha.0.tgz",
+    "files": [
+      {
+        "path": "LICENSE-APACHE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE-MIT",
+        "size": 1077,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 6347,
+        "mode": 420
+      },
+      {
+        "path": "README.zh-CN.md",
+        "size": 5802,
+        "mode": 420
+      },
+      {
+        "path": "build-info.json",
+        "size": 269,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 590,
+        "mode": 420
+      },
+      {
+        "path": "src/build-info.mjs",
+        "size": 285,
+        "mode": 420
+      },
+      {
+        "path": "src/index.d.ts",
+        "size": 5165,
+        "mode": 420
+      },
+      {
+        "path": "src/index.mjs",
+        "size": 1847,
+        "mode": 420
+      },
+      {
+        "path": "src/runtime.mjs",
+        "size": 11538,
+        "mode": 420
+      },
+      {
+        "path": "wasm/bindings.mjs",
+        "size": 67012,
+        "mode": 420
+      },
+      {
+        "path": "wasm/mixture_wasm_bg.wasm",
+        "size": 1231758,
+        "mode": 420
+      }
+    ],
+    "entryCount": 12,
+    "bundled": []
+  }
+]

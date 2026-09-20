@@ -2,7 +2,7 @@
 
 [English](./browser-alpha-candidate.md) | 简体中文
 
-ALPHA-04 固定一个 `@openmixture/runtime@0.1.0-alpha.0` 交付归档。它是未发布的 npm 候选，不是注册表发行版。此前本地归档也使用同一版本文本，因此消费者必须通过摘要与构建身份识别本候选，不能只看文件名。
+ALPHA-04 固定一个 `@openmixture/runtime@0.1.0-alpha.0` 交付归档。它最初作为未发布候选被选定，随后[原样发布到 npm](./evidence/npm-alpha/README.zh-CN.md)；该记录也验证准确注册表消费。此前本地归档也使用同一版本文本，因此消费者必须通过摘要与构建身份识别本候选，不能只看文件名。
 
 | 身份 | 值 |
 |---|---|
@@ -28,4 +28,4 @@ ALPHA-04 固定一个 `@openmixture/runtime@0.1.0-alpha.0` 交付归档。它是
 
 支持路径为固定 Studio／Vite 消费者，在安全浏览器上下文中使用 WebGPU。GPU 获取失败时，无 GPU 的验证／编辑仍可使用，渲染返回结构化错误。未认证 Safari、移动端、任意打包器、未测硬件或普遍浏览器支持。Node GPU、CPU／WebGL 回退、新资源、高级 Studio 能力及 M6 不属于此次交付。
 
-[ALPHA-05](./evidence/alpha-05/README.zh-CN.md) 已将两项浏览器检查加入四项原生必需检查，并回读确认远端生效。注册表发布和试用部署属于独立动作。发布前须重新核对注册表命名空间／版本与发行策略；只有分发决策完成后才能发布这份准确的已审查字节。之后，干净消费者须安装准确注册表版本，验证完整性／构建身份并重跑升级门槛。本地 tarball 安装成功不能关闭注册表消费门槛。ALPHA-04 不发布 Rust crate、发行标签或托管试用。
+[ALPHA-05](./evidence/alpha-05/README.zh-CN.md) 已将两项浏览器检查加入四项原生必需检查，并回读确认远端生效。[发布记录](./evidence/npm-alpha/README.zh-CN.md)现已完成注册表发布及准确版本消费。后续发行仍须重新核对命名空间／版本及策略，发布准确已审查字节，并重做干净注册表完整性／构建身份及升级门槛。试用部署仍属独立动作。ALPHA-04 不发布 Rust crate、发行标签或托管试用。

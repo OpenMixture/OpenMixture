@@ -2,7 +2,7 @@
 
 [English](./browser-runtime.md) | 简体中文
 
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。软件包未发布。准确 Alpha 候选与 Studio 升级已通过记录范围内的验收；两项浏览器检查现已成为 main 必需检查。发布及准确注册表版本消费仍是独立交付动作。[Alpha 收口](./browser-alpha.zh-CN.md)负责当前工作；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Alpha 收口](./browser-alpha.zh-CN.md)负责当前工作；不启动 M6。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 

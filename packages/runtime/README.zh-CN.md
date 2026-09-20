@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的未发布浏览器 ESM 运行时。初版包实现 M5 浏览器链路；完整 M5 材质、部署和发布验收另行进行。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
+这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.1.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.1.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';

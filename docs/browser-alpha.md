@@ -6,7 +6,7 @@ English | [简体中文](./browser-alpha.zh-CN.md)
 
 Browser runtime and Studio material comparisons use one frozen [v2 quality profile](./browser-quality.md). Current reports contain only current acceptance checks. The native software goldens and exact checker contract are unchanged. PR #19 integrated the gate redesign; the follow-up removes old sparse-pixel execution and unadopted research from the active workflow.
 
-Native M4/M4.1, bounded M5 and the recorded Studio MVP are complete. Packages remain unpublished. M6 and new nodes are not the next step.
+Native M4/M4.1, bounded M5 and the recorded Studio MVP are complete. The [npm Alpha and exact registry consumer](./evidence/npm-alpha/README.md) are delivered; Rust crates remain unpublished. M6 and new nodes are not the next step.
 
 ## Engine-owned work
 
@@ -15,7 +15,7 @@ Native M4/M4.1, bounded M5 and the recorded Studio MVP are complete. Packages re
 | ALPHA-01 — Current candidate qualification | Implemented and exercised by PR #19 CI | Every delivery candidate must independently install its exact archive and pass build identity, public contracts, materials, lifecycle and deployment. A prior candidate does not certify a new package. |
 | ALPHA-02 — Status alignment | Updated | This page owns current work; historical run records describe their own sources and environments. |
 | ALPHA-03 — Ordinary desktop browser qualification | Complete for the recorded Windows 11 / GT 1030 scope | [Chrome, Edge and Firefox each passed 11 cases / 44 channels under v2](./evidence/browser-quality-v2/README.md), with source/adapter identity and lifecycle evidence. Windows used the recorded existing archive; fresh PR packages are separately tested in Linux CI. This is not universal hardware support. |
-| ALPHA-04 — Publishable npm Alpha candidate | Exact candidate and recorded Studio upgrade gates passed | [Candidate release notes](./browser-alpha-candidate.md) fix the archive and support scope; [new execution evidence](./evidence/alpha-04/README.md) records 7 cases / 28 channels and 52 contracts on Windows and isolated Linux, plus ordinary Chrome save/Player/export. Registry publication and exact registry-version consumption remain separate actions. |
+| ALPHA-04 — Publishable npm Alpha candidate | Exact candidate and recorded Studio upgrade gates passed | [Candidate release notes](./browser-alpha-candidate.md) fix the archive and support scope; [new execution evidence](./evidence/alpha-04/README.md) records 7 cases / 28 channels and 52 contracts on Windows and isolated Linux, plus ordinary Chrome save/Player/export. [Subsequent publication and registry consumption](./evidence/npm-alpha/README.md) passed against these same bytes. |
 | ALPHA-05 — Browser required checks | Active and verified | [Live enforcement evidence](./evidence/alpha-05/README.md) records both browser checks alongside the four native checks in active ruleset 23016046, effective main rules and PR required-check readback. Strict base synchronization, GitHub Actions source binding and no bypass actors are preserved. |
 
 ## Product handoff

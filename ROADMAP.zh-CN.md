@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。软件包未发布。准确 Alpha 候选与 Studio 升级已通过记录范围内的验收；两项浏览器检查现已成为 main 必需检查。发布及准确注册表版本消费仍是独立交付动作。[浏览器运行时 Alpha 收口](./docs/browser-alpha.zh-CN.md)负责这些工作；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[浏览器运行时 Alpha 收口](./docs/browser-alpha.zh-CN.md)负责这些工作；不启动 M6。
 
 ALPHA-03 浏览器比较现遵循 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md)；全部已有材质、变体及语义/结构检查继续必需。本变更调整比较规则，不改变里程碑范围或原生金图接受。
 
