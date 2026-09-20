@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-20T05:07:48.661Z",
+  "producer": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+    "engineDirty": false,
+    "buildId": "sha256:94f9cc455fcd5f805942b0196b39a276782ce0e504772c3a140ea8ad85814a28",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz",
+    "sha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/build-info.mjs",
+      "src/index.d.ts",
+      "src/index.mjs",
+      "src/runtime.mjs",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "studioRevision": "6b2d53e3de16b21725b2a4359a2263f98671a6f9",
+  "comparisons": {
+    "windows": {
+      "ok": true,
+      "cases": 7,
+      "channels": 28,
+      "exactChannels": 12,
+      "maxComponentDelta": 1,
+      "maxWindowBias": 0.0078125
+    },
+    "linux": {
+      "ok": true,
+      "cases": 7,
+      "channels": 28,
+      "exactChannels": 12,
+      "maxComponentDelta": 1,
+      "maxWindowBias": 0.0078125
+    }
+  },
+  "ci": {
+    "run": 35489430243,
+    "attempt": 1,
+    "artifactId": 10598493452,
+    "artifactBytes": 55239430,
+    "expiresAt": "2026-10-20T04:42:43Z",
+    "retrievedAt": "2026-09-20T05:07:48.662Z"
+  },
+  "scope": "Unpublished exact candidate and Studio upgrade; no registry publication, hosting or ALPHA-05 enforcement",
+  "localInitialFailures": [
+    {
+      "step": "capture:studio",
+      "reason": "Default Windows Playwright cache failed to launch (side-by-side configuration). Retried successfully with existing Playwright Chromium 153.0.8010.12 in Studio work/p1/browsers."
+    },
+    {
+      "step": "cargo xtask check",
+      "reason": "Packaged rustdoc process exited STATUS_IN_PAGE_ERROR (0xc0000006); repository checks before packaged docs passed. Final retry recorded separately."
+    }
+  ],
+  "files": {
+    "authored.json": {
+      "bytes": 2815,
+      "sha256": "30a5bbbbeb942fd28ecd1071ccc4526ea26d98481a18887353fdf0a12f7610a5"
+    },
+    "build-probe.json": {
+      "bytes": 463,
+      "sha256": "15b50940607d84db092f8cf25e98d45184d96dc9d4cf0e83a889d3826a2a0c1c"
+    },
+    "candidate.json": {
+      "bytes": 2703,
+      "sha256": "4bf7bb0abb591c55f58906b45fdfd419a1be4d19c23d84e3d1252f6eb54588ae"
+    },
+    "checker.png": {
+      "bytes": 5890,
+      "sha256": "6a89241ef73a48645e763e62728d1c818d4054650b4134585df27f44cc3da5f5"
+    },
+    "ci-comparison.json": {
+      "bytes": 96985,
+      "sha256": "b73876a22fd1b154b40ade48bb0e7f197d0d4534db87fb7d4c41d4b9abfa92ab"
+    },
+    "ci-material-receipt.json": {
+      "bytes": 15904,
+      "sha256": "cccfe71292425c5fd59e016369e686274ebad686c4cf13ee01a915c071485b28"
+    },
+    "ci-qualification.json": {
+      "bytes": 4109,
+      "sha256": "faeccbb3e6142e8464994b59b90d8edc779a8a714cc1752ff6b3e428d163811f"
+    },
+    "evidence-index.json": {
+      "bytes": 26584,
+      "sha256": "59faa42e3afcf8ad55b1ef48fa09f5c0af3fc7c7fefb6226f27973e081913fd1"
+    },
+    "glazed-ceramic.png": {
+      "bytes": 6010,
+      "sha256": "156efbdc1b551ddc3be757046244f5f1db5a42aeb69b437fc8552548b40da560"
+    },
+    "installed.json": {
+      "bytes": 104,
+      "sha256": "0473533485eee085aaf107872539e54fc3bdfa4c94a961e7f4faf3f4a8ba2928"
+    },
+    "isolation-checks.sh": {
+      "bytes": 1505,
+      "sha256": "9868ebf6abde967a5e4b077d9cb7f59ce0a61ef82fc9462bd7b9f42c13f6c601"
+    },
+    "isolation-recipe.sh": {
+      "bytes": 4125,
+      "sha256": "4bfc97c43713e0f1632063bb6882ed986d3ceb083dbf0cdba1cd2e5e7d647ee6"
+    },
+    "isolation.json": {
+      "bytes": 4130,
+      "sha256": "534b312bb2f7846de29ef8c61733df79d619aaf133019a53005f96a0a5ba04c4"
+    },
+    "leather.png": {
+      "bytes": 293672,
+      "sha256": "30cda8f168b978388973e834d7a7a458be29f3728b87c748b1a2a78ba7a1eb8c"
+    },
+    "linux-browser-summary.json": {
+      "bytes": 138,
+      "sha256": "3bf26cddf1e229cfaf99a463747d5b77da48a5735438b6aede200ca34d2f0475"
+    },
+    "linux-comparison.json": {
+      "bytes": 75595,
+      "sha256": "076ffe9e748716d781278e0dab158dbe87669358b7a53d861bb5c70c2c86241c"
+    },
+    "linux-deployment.json": {
+      "bytes": 12929,
+      "sha256": "e89412c58d878905434cd7111ae9d69b24376d3b3b6807beea854cd52559848b"
+    },
+    "linux-lock.json": {
+      "bytes": 29499,
+      "sha256": "4ce50e162f3ad8dc9c63731dc54fe478f332ee1ae2a01d9164923825eff56b7a"
+    },
+    "linux-player.json": {
+      "bytes": 11463,
+      "sha256": "5b4319431f4ec6dd3a006063649f9661fa97843292fadb0e6edc5ce9408d6a28"
+    },
+    "native-manifest.json": {
+      "bytes": 183591,
+      "sha256": "72c1e5032a3e0b15da283e13e77aabeed374e7134696a68ca6d21673b1b4f5bf"
+    },
+    "openmixture-runtime-0.1.0-alpha.0.tgz": {
+      "bytes": 348066,
+      "sha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae"
+    },
+    "producer.json": {
+      "bytes": 982,
+      "sha256": "f0458e23c9f72c3668f466f313ed9e7c4fd9e5eea110b2c651c12a40fc9cd0bc"
+    },
+    "saved-file-bundles.tar.gz": {
+      "bytes": 52029263,
+      "sha256": "7a66c7e12a2cc2ec59d9ab3b586835b86db4baadcf050f20b14f214b973c1649"
+    },
+    "windows-browser-summary.json": {
+      "bytes": 139,
+      "sha256": "65d44b501494b594d23b14ddaf47380c2140a725b4cd8ae093f1598de2d9536f"
+    },
+    "windows-comparison.json": {
+      "bytes": 75597,
+      "sha256": "15bc3cb3961fb00db16ac35c84174daac5e5d23a4c48058c5dd35836146222d9"
+    },
+    "windows-deployment.json": {
+      "bytes": 12773,
+      "sha256": "93df8e84386097137e20554ccbbf35097067b74c5fde46d6b47644220883d849"
+    },
+    "windows-lock.json": {
+      "bytes": 28578,
+      "sha256": "206aea099b086dd837a995be4264525321d1747b3c4ba0cdc5ba36182c9d3a4d"
+    },
+    "windows-player.json": {
+      "bytes": 11292,
+      "sha256": "9ad819d24b550fad65a28244667970046f7a5a11a4691f2eae057fda3d27f41e"
+    },
+    "wood.png": {
+      "bytes": 124592,
+      "sha256": "5e3d3d15df30df796afbb94d45335116a0baa88c16071d1f36a8903975525cc5"
+    },
+    "ordinary/original.mix": {
+      "bytes": 545,
+      "sha256": "9f81587120fcf6ec523c9f2f9f19958bf1d3bed2284cfe86ec81e9e1b3bc3880"
+    },
+    "ordinary/player-baseColor.png": {
+      "bytes": 732,
+      "sha256": "700934cab560df55835c4cf3e6442af90ae40c266bd3ca283f89b63b328aee53"
+    },
+    "ordinary/player-height.png": {
+      "bytes": 310,
+      "sha256": "869e3e4b45f98482d7645101309fcc569168822a4cc25c66e9a0b0f396c5f3e6"
+    },
+    "ordinary/player-normal.png": {
+      "bytes": 373,
+      "sha256": "7f3229bc40584c29e47b66494332840524a702495757b6efde64aef563d644ec"
+    },
+    "ordinary/player-roughness.png": {
+      "bytes": 403,
+      "sha256": "314dd29061d5e85e2bbc33ee7ff953dc83afc6e7ebaaa753cb01a9deada16456"
+    },
+    "ordinary/player.png": {
+      "bytes": 69716,
+      "sha256": "15571858aa9a24b151c724e81076ef198c37c36bbbe50694a49729acacfc253f"
+    },
+    "ordinary/receipt.json": {
+      "bytes": 31560,
+      "sha256": "4069beb8305fe4d2182bb019fabb6abd8f6942e1275c2a330ee1842dd21c79fd"
+    },
+    "ordinary/reopened.mix": {
+      "bytes": 273,
+      "sha256": "5e5a2733b7b9f7750c1a77846cfe6ab526f78a68d50b15a992431fa95a211c74"
+    },
+    "ordinary/saved.mix": {
+      "bytes": 273,
+      "sha256": "5e5a2733b7b9f7750c1a77846cfe6ab526f78a68d50b15a992431fa95a211c74"
+    },
+    "ordinary/studio-baseColor.png": {
+      "bytes": 732,
+      "sha256": "700934cab560df55835c4cf3e6442af90ae40c266bd3ca283f89b63b328aee53"
+    },
+    "ordinary/studio-height.png": {
+      "bytes": 310,
+      "sha256": "869e3e4b45f98482d7645101309fcc569168822a4cc25c66e9a0b0f396c5f3e6"
+    },
+    "ordinary/studio-normal.png": {
+      "bytes": 373,
+      "sha256": "7f3229bc40584c29e47b66494332840524a702495757b6efde64aef563d644ec"
+    },
+    "ordinary/studio-roughness.png": {
+      "bytes": 403,
+      "sha256": "314dd29061d5e85e2bbc33ee7ff953dc83afc6e7ebaaa753cb01a9deada16456"
+    },
+    "ordinary/studio.png": {
+      "bytes": 185784,
+      "sha256": "000084def8e5a03dbc7dda0829b82db099345c0f858bb02949944d7f95be4946"
+    },
+    "ordinary/unsupported.png": {
+      "bytes": 186597,
+      "sha256": "cb5d08fce09ff52376053125fc3e35ac4abd263d0d0d7d048ef93e9784c07305"
+    }
+  }
+}

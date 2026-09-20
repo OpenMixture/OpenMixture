@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-runtime.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. Packages remain unpublished. Next: an exact Alpha candidate, Studio upgrade acceptance and the browser required-check decision. [Alpha closeout](./browser-alpha.md) owns current work; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. Packages remain unpublished. The exact Alpha candidate and Studio upgrade pass the recorded acceptance; next are the browser required-check and separate publication decisions. [Alpha closeout](./browser-alpha.md) owns current work; M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

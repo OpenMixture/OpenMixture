@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "productRevision": "6b2d53e3de16b21725b2a4359a2263f98671a6f9",
+  "archiveSha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+  "cases": [
+    {
+      "material": "checker",
+      "id": "authored",
+      "sourceSha256": "7c2247918e39238023a04df6f8a863eb070d83949ce14a506a4d9eff3ede46ef",
+      "actions": [
+        "New checker material",
+        "checker.cellsX=4",
+        "Add rows -> checker.cellsY"
+      ]
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "sourceSha256": "f121ff29b3fee1c1d6bb466ca692c0f5b39be7d099b34d6158fe909c76f545c4",
+      "sampleSha256": "f121ff29b3fee1c1d6bb466ca692c0f5b39be7d099b34d6158fe909c76f545c4",
+      "actions": [
+        "Open sample",
+        "Save unchanged"
+      ]
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "authored",
+      "sourceSha256": "9e38113db2c6bd987f9304f1c81abe5bd2c17cd7ba24069ba3d91d205e86cfe2",
+      "sampleSha256": "f121ff29b3fee1c1d6bb466ca692c0f5b39be7d099b34d6158fe909c76f545c4",
+      "authoredFromPublicBindings": {
+        "tilesX": 16,
+        "tilesY": 16
+      },
+      "addedBinding": {
+        "id": "studioParameter",
+        "nodeId": "tiles",
+        "parameterId": "colorA"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "sourceSha256": "6a556e30e94f34928afeab9d3bf0cd3a5b6caccaad4234b42699cd376c093ee4",
+      "sampleSha256": "6a556e30e94f34928afeab9d3bf0cd3a5b6caccaad4234b42699cd376c093ee4",
+      "actions": [
+        "Open sample",
+        "Save unchanged"
+      ]
+    },
+    {
+      "material": "leather",
+      "id": "authored",
+      "sourceSha256": "8a99608a086e9f531e557822f454fe7a508d0c709d860629c4acdb35659c7a41",
+      "sampleSha256": "6a556e30e94f34928afeab9d3bf0cd3a5b6caccaad4234b42699cd376c093ee4",
+      "authoredFromPublicBindings": {
+        "detail": 1
+      },
+      "addedBinding": {
+        "id": "studioParameter",
+        "nodeId": "grain",
+        "parameterId": "octaves"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "sourceSha256": "b0af118c2a7c6f6eb7e17f0b859cff0c49af046658021b5e9700e90739b951d9",
+      "sampleSha256": "b0af118c2a7c6f6eb7e17f0b859cff0c49af046658021b5e9700e90739b951d9",
+      "actions": [
+        "Open sample",
+        "Save unchanged"
+      ]
+    },
+    {
+      "material": "wood",
+      "id": "authored",
+      "sourceSha256": "44578bb90e85e90d39d5ccf8e32b66a2daf0db503f9f45273d07886197f90428",
+      "sampleSha256": "b0af118c2a7c6f6eb7e17f0b859cff0c49af046658021b5e9700e90739b951d9",
+      "authoredFromPublicBindings": {
+        "grainRepeat": 16
+      },
+      "addedBinding": {
+        "id": "studioParameter",
+        "nodeId": "stretch",
+        "parameterId": "scaleY"
+      }
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

@@ -1,0 +1,28 @@
+npm notice
+npm notice 📦  @openmixture/runtime@0.1.0-alpha.0
+npm notice Tarball Contents
+npm notice 11.4kB LICENSE-APACHE
+npm notice 1.1kB LICENSE-MIT
+npm notice 6.3kB README.md
+npm notice 5.8kB README.zh-CN.md
+npm notice 269B build-info.json
+npm notice 590B package.json
+npm notice 285B src/build-info.mjs
+npm notice 5.2kB src/index.d.ts
+npm notice 1.8kB src/index.mjs
+npm notice 11.5kB src/runtime.mjs
+npm notice 67.0kB wasm/bindings.mjs
+npm notice 1.2MB wasm/mixture_wasm_bg.wasm
+npm notice Tarball Details
+npm notice name: @openmixture/runtime
+npm notice version: 0.1.0-alpha.0
+npm notice filename: openmixture-runtime-0.1.0-alpha.0.tgz
+npm notice package size: 348.1 kB
+npm notice unpacked size: 1.3 MB
+npm notice shasum: 206e25f6d0f1ccdd189d54664848a987c8c99639
+npm notice integrity: sha512-VgovS/VAM5qDi[...]zPgRzErzQ/jqg==
+npm notice total files: 12
+npm notice
+npm warn publish This command requires you to be logged in to https://registry.npmjs.org/ (dry-run)
+npm notice Publishing to https://registry.npmjs.org/ with tag alpha and public access (dry-run)
++ @openmixture/runtime@0.1.0-alpha.0
