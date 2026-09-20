@@ -3,11 +3,11 @@ import test from 'node:test';
 import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { assertBuild, assertComparison, qualityProfile, qualityProfileSha256, validateCandidate, candidateLock, validateEvidence, installed, verify, hash } from './candidate.mjs';
+import { consumerCompatibility, assertBuild, assertComparison, qualityProfile, qualityProfileSha256, validateCandidate, candidateLock, validateEvidence, installed, verify, hash } from './candidate.mjs';
 
 const bytes = Buffer.from('new candidate archive');
 const receipt = {
-  runtimeVersion: '0.1.0-alpha.0', apiSchemaVersion: 1, engineVersion: '0.1.0',
+  runtimeVersion: '0.2.0-alpha.0', apiSchemaVersion: 1, engineVersion: '0.1.0',
   engineRevision: 'a'.repeat(40), engineDirty: false, buildId: `sha256:${'b'.repeat(64)}`, sha256: hash(bytes),
   files: ['package.json', 'build-info.json', 'src/build-info.mjs', 'src/index.d.ts', 'src/index.mjs',
     'src/runtime.mjs', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm'],
@@ -129,4 +129,11 @@ test('installed byte verification catches mixed components and a failed recheck 
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test('ENG-04 disposable host compatibility preserves all other test assertions', () => {
+ const before = "expect(result.catalogSize).toBe(11);\nexpect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');\nkeepLifecycleAndPixels();";
+ const after = consumerCompatibility(before);
+ assert.equal(after, "expect(result.catalogSize).toBe(12);\nexpect(explicit.runtimeVersion).toBe('0.2.0-alpha.0');\nkeepLifecycleAndPixels();");
+ assert.throws(()=>consumerCompatibility(after)); assert.throws(()=>consumerCompatibility(before+before));
 });

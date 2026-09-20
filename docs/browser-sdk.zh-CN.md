@@ -145,3 +145,8 @@ M5 不实现节点编辑器、中间节点预览协议、自定义 shader、新�
 Player／Studio 产品工作仍归消费者。引擎能力工作也可由维护者定义的用例和测量驱动，遵循 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)。[M6](../ROADMAP.zh-CN.md#m6--资源与可移植打包)现将外部图像输入与便携打包分开，各需独立进入决策；ENG-01／02 不启动它们。
 
 ENG-03 新增使用本公开契约的[独立浏览器 SDK 示例与验收入口](../examples/browser-consumer/README.zh-CN.md)。候选和精确注册表构建分别验证，固定 Studio 材质及更广泛契约覆盖继续必需。
+
+## ENG-04 兼容性与未发布版本
+
+源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。
+

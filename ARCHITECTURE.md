@@ -728,3 +728,7 @@ PR-015 adds local archive verification in repository tooling only. The independe
 M5 browser start adds the actual `mixture-wasm` compilation boundary and keeps npm assets in this engine repository. `mixture-wgpu` now adapts browser callback completion and timing; native waiting remains separate. The [browser runtime guide](./docs/browser-runtime.md) identifies the initial implemented slice. The diagrams above include the implemented browser boundary; no second compiler or pixel executor is added.
 
 Browser runtime qualification uses the bounded texture-agreement profile defined by [ADR 0006](./docs/decisions/0006-browser-quality-gates.md). Native pinned-software goldens remain exact regression evidence; cross-browser near-byte identity is not a support promise. Current comparator receipts separate semantic, structural, numerical and historical regression verdicts.
+
+## ENG-04 catalog extension
+
+ENG-04 adds scalar-blend v1: twelve node types map to ten WGSL kernels. Renderer-owned cache capacity is now ten kernel identities. Existing source semantics and serialized plans remain unchanged. See [the contract](./docs/eng-04-scalar-blend.md).

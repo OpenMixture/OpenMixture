@@ -77,6 +77,18 @@ pub(super) fn check(root: &Path) -> TaskResult {
         "clippy",
     )?;
     captured(&mut compile_command(root, "test"), &directory, "tests")?;
+    captured(
+        compile_command(root, "test")
+            .args(["--test", "scalar_blend", "--", "--ignored", "--nocapture"])
+            .env("MIXTURE_GPU_BACKEND", backend)
+            .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" })
+            .env(
+                "MIXTURE_SCALAR_EVIDENCE",
+                directory.join("scalar-blend.json"),
+            ),
+        &directory,
+        "scalar-blend",
+    )?;
     captured(&mut compile_command(root, "build"), &directory, "build")?;
     let report = captured(binary(root).arg("check"), &directory, "cpu")?;
     let report: Value = serde_json::from_slice(&report)?;
@@ -105,6 +117,7 @@ pub(super) fn gpu(
     expected_adapter: Option<&str>,
 ) -> TaskResult {
     let directory = directory.join("native-consumer");
+    fs::create_dir_all(&directory)?;
     fs::create_dir_all(&directory)?;
     fs::write(
         directory.join("status.json"),

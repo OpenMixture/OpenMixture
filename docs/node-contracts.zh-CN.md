@@ -2,11 +2,11 @@
 
 [English](./node-contracts.md) | 简体中文
 
-[mixture-core](../crates/mixture-core/src/registry.rs)中的十一个版本 1 契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十二个版本 1 契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 
-十一个节点类型都要求 `version: 1`。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+十二个节点类型都要求 `version: 1`。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -105,7 +105,7 @@ PR-006 [类型化降级](./render-plan.zh-CN.md)将上述源契约映射为 Cons
 
 ## PR-009 新增节点
 
-PR-009 添加三个契约和三个 WGSL kernel，目录共九个节点，渲染器缓存上限为七条管线。原六个契约、M2 计划快照及棋盘格基准不变。`ParameterContract::default` 现在为 `Option<ParameterDefault>`，`None` 表示源文档必填。这是发布前有意进行的 Rust API 变更，下游调用者须处理 `None`；已有默认值仍为 `Some`。缺失种子报告 `MIX_PARAMETER_INVALID_VALUE`，包含节点／参数证据。`.mix v1` 结构不变，新增版本化节点类型属于增量扩展。
+PR-009 添加三个契约和三个 WGSL kernel，目录共十个节点，渲染器缓存上限为七条管线。原六个契约、M2 计划快照及棋盘格基准不变。`ParameterContract::default` 现在为 `Option<ParameterDefault>`，`None` 表示源文档必填。这是发布前有意进行的 Rust API 变更，下游调用者须处理 `None`；已有默认值仍为 `Some`。缺失种子报告 `MIX_PARAMETER_INVALID_VALUE`，包含节点／参数证据。`.mix v1` 结构不变，新增版本化节点类型属于增量扩展。
 
 ### fractal-noise
 
@@ -145,7 +145,7 @@ cargo xtask test-node height-to-normal
 
 ## PR-010 标量重采样扩展
 
-PR-010 添加 `transform-2d` 和 `warp`，使目录达到十一个节点，渲染器缓存上限达到九条管线。源 JSON 结构、文档／节点版本 1、原有节点契约以及已有像素／计划／哈希基准保持不变。这是增量目录扩展，现有文档无需迁移。ENG-02 结束这条历史 M3 前数量门槛。[注册表测试](../crates/mixture-core/tests/registry.rs)随 `cargo xtask check` 执行，保留显式经审查的类型／版本身份及契约／默认值／种子检查。后续新增遵循[节点准入](../ARCHITECTURE.zh-CN.md#72-经审查的节点目录与准入)；本次更新不增加节点或管线。
+PR-010 添加 `transform-2d` 和 `warp`，使目录达到十二个节点，渲染器缓存上限达到九条管线。源 JSON 结构、文档／节点版本 1、原有节点契约以及已有像素／计划／哈希基准保持不变。这是增量目录扩展，现有文档无需迁移。ENG-02 结束这条历史 M3 前数量门槛。[注册表测试](../crates/mixture-core/tests/registry.rs)随 `cargo xtask check` 执行，保留显式经审查的类型／版本身份及契约／默认值／种子检查。后续新增遵循[节点准入](../ARCHITECTURE.zh-CN.md#72-经审查的节点目录与准入)；本次更新不增加节点或管线。
 
 两个节点的输入和输出均为 `Scalar`。应先变换或扭曲高度，再派生颜色和切线法线；它们不隐式接受 `Color` 或 `Normal`。两者不引入随机运算，也无需额外种子。输入周期性来自源图，其中的随机节点仍须显式种子。
 
@@ -201,3 +201,9 @@ cargo xtask test-node warp
 ```
 
 [重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖默认值、类型化输入顺序、重复绑定、精确种类、必填连接、依赖裁剪与参数／哈希行为。[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)包含 17 个变换和 13 个扭曲用例，以手工指定的半精度输入和精确预期输出，经生产 WGSL 验证 X／Y 接缝插值、负偏移、全部旋转、先旋转后缩放、单纹素尺寸、位移极性／钳制及输出坐标场读取。节点图用例只读引用已有噪声恒等基准，并检查有意义的参数变化与热缓存重复性。节点证据保存于 `tmp/node-tests/<backend>/`，包括 `<node>-literal-probes.json`。
+
+## scalar-blend
+
+[契约](../crates/mixture-core/src/nodes/scalar_blend.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl)、[夹具](../fixtures/nodes/scalar-blend/README.zh-CN.md)。
+
+必需输入 `a: Scalar`、`b: Scalar`，输出 `value: Scalar`。有限 Float 参数 `weight` 范围 [0, 1]，默认 0.5。两个有限样本先钳制到 [0, 1]；有效 f32 权重为 0／1 时精确选择相应端点，否则计算 `clamp(a + (b-a)*weight, 0, 1)`。按现有半精度约定存储 (value, 0, 0, 1)。逐点线性混合保持兼容平铺，但不修复接缝。端点仍要求并验证两个输入。无随机性、重采样、遮罩或颜色转换。兼容性和验收见 [ENG-04](./eng-04-scalar-blend.zh-CN.md)。

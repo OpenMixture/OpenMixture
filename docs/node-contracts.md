@@ -2,11 +2,11 @@
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
-The eleven version-1 contracts in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
+The twelve version-1 contracts in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
 
 ## Common rules
 
-All eleven node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
+All twelve node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
@@ -145,7 +145,7 @@ The normal tests feed literal half-float horizontal/vertical ramps directly thro
 
 ## PR-010 scalar resampling additions
 
-PR-010 adds `transform-2d` and `warp`, bringing the catalog to eleven nodes and the renderer cache bound to nine pipelines. The source JSON shape, document/node version 1, prior node contracts and existing pixel/plan/hash baselines are unchanged. These are additive catalog entries; existing documents need no migration. ENG-02 graduates that historical pre-M3 count gate. The [registry tests](../crates/mixture-core/tests/registry.rs), included in `cargo xtask check`, retain explicit reviewed type/version identities and contract/default/seed checks. Future additions follow [node admission](../ARCHITECTURE.md#72-reviewed-node-catalog-and-admission); this update adds no node or pipeline.
+PR-010 adds `transform-2d` and `warp`, bringing the catalog to twelve nodes and the renderer cache bound to nine pipelines. The source JSON shape, document/node version 1, prior node contracts and existing pixel/plan/hash baselines are unchanged. These are additive catalog entries; existing documents need no migration. ENG-02 graduates that historical pre-M3 count gate. The [registry tests](../crates/mixture-core/tests/registry.rs), included in `cargo xtask check`, retain explicit reviewed type/version identities and contract/default/seed checks. Future additions follow [node admission](../ARCHITECTURE.md#72-reviewed-node-catalog-and-admission); this update adds no node or pipeline.
 
 Both nodes operate on `Scalar` input and output. Derive colors and tangent normals after transforming or warping height; neither node implicitly accepts `Color` or `Normal`. They introduce no random operation and require no additional seed. Input periodicity comes from their source graphs, whose randomized nodes retain the explicit-seed requirement.
 
@@ -201,3 +201,9 @@ cargo xtask test-node warp
 ```
 
 The [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover defaults, typed input order, repeated bindings, exact kinds, required connections, dependency slicing and parameter/hash behavior. The [literal GPU probes](../crates/mixture-wgpu/tests/support/resampling_probe.rs) use 17 transform and 13 warp cases with hand-specified half-float inputs and exact expected outputs. They establish interpolation across X/Y seams, negative offsets, all rotations, rotation-before-scale order, single-texel dimensions, displacement polarity/clamping and output-coordinate field reads through the production WGSL. Node graph cases reference the existing noise identity baseline without changing it, and check meaningful parameter changes and warm-cache repeatability. Node evidence is saved under `tmp/node-tests/<backend>/`, including `<node>-literal-probes.json`.
+
+## scalar-blend
+
+[Contract](../crates/mixture-core/src/nodes/scalar_blend.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl), [fixtures](../fixtures/nodes/scalar-blend/README.md).
+
+Required inputs `a: Scalar`, `b: Scalar`; output `value: Scalar`. Finite Float `weight` in [0, 1], default 0.5. Clamp both finite samples to [0, 1], select the exact clamped endpoint at effective f32 weights 0 and 1, otherwise compute `clamp(a + (b-a)*weight, 0, 1)`. Store (value, 0, 0, 1) using the existing half-precision convention. This pointwise crossfade preserves compatible tiling but cannot repair seams. Both inputs remain required and validated at endpoints. No randomness, resampling, mask or color conversion. See [ENG-04](./eng-04-scalar-blend.md) for compatibility and acceptance.

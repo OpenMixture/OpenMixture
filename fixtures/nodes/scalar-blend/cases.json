@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "node": "scalar-blend",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            64,
+            2
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "zero",
+      "overrides": {
+        "weight": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "one",
+      "overrides": {
+        "weight": 1
+      },
+      "size": [
+        1,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            191,
+            191,
+            191,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            2
+          ],
+          "rgba": [
+            191,
+            191,
+            191,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "reverse",
+      "overrides": {
+        "a": 0.75,
+        "b": 0.25,
+        "weight": 0.25
+      },
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            159,
+            159,
+            159,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            64,
+            2
+          ],
+          "rgba": [
+            159,
+            159,
+            159,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "equal",
+      "overrides": {
+        "a": 0.25,
+        "b": 0.25
+      },
+      "size": [
+        3,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            2,
+            0
+          ],
+          "rgba": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "bounds",
+      "overrides": {
+        "a": 0,
+        "b": 1,
+        "weight": 1
+      },
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            64,
+            2
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "quarter",
+      "overrides": {
+        "weight": 0.25
+      },
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            96,
+            96,
+            96,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            64,
+            2
+          ],
+          "rgba": [
+            96,
+            96,
+            96,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "weight": -0.01
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "weight": 1.01
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

@@ -171,3 +171,48 @@ test('normal build excludes the qualification host', async () => {
   expect(existsSync(new URL('../dist/index.html', import.meta.url))).toBe(true);
   expect(existsSync(new URL('../dist/tests/contracts.html', import.meta.url))).toBe(false);
 });
+
+test('scalar composition executes in the candidate and fails explicitly in the published runtime', async ({ page, browser }, testInfo) => {
+  test.setTimeout(120000);
+  await openHost(page);
+  const source = await readFile(new URL('../public/scalar-blend.mix', import.meta.url), 'utf8');
+  const result = await page.evaluate(async source => {
+    const runtime = await window.sdk.loadRuntime();
+    const build = runtime.getBuildInfo();
+    if (build.runtimeVersion === '0.1.0-alpha.0') return { build, validation: runtime.validate(source) };
+    const rows = [], outputs = [];
+    for (const weight of [0, 0.25, 0.5, 1]) {
+      const request = { size: [1024, 1024], channels: ['height', 'normal'], overrides: { detailWeight: weight } };
+      const { inspection, result } = await window.sdk.renderMaterial(runtime, source, request);
+      if (weight === 0 || weight === 1) {
+        const direct = JSON.parse(source);
+        for (const edge of direct.edges) if (edge.from.nodeId === 'combine') edge.from.nodeId = weight === 0 ? 'a' : 'b';
+        const reference = (await window.sdk.renderMaterial(runtime, JSON.stringify(direct), request)).result;
+        for (let c = 0; c < 2; c++) if (result.channels[c].pixels.some((v,i) => v !== reference.channels[c].pixels[i])) throw Error('endpoint mismatch');
+      }
+      const pixels = result.channels.find(c=>c.channel==='height').pixels;
+      let min = 255, max = 0, interior = 0, seam = 0;
+      for (let y=0;y<1024;y++) { for(let x=0;x<1024;x++) {
+        const offset=(y*1024+x)*4, v=pixels[offset];min=Math.min(min,v);max=Math.max(max,v);
+        if(x>0)interior+=Math.abs(v-pixels[offset-4]); if(y>0)interior+=Math.abs(v-pixels[offset-4096]);
+      } seam+=Math.abs(pixels[y*4096]-pixels[y*4096+4092])+Math.abs(pixels[y*4]-pixels[1023*4096+y*4]); }
+      const seamRatio=(seam/2048)/(interior/(2*1024*1023));
+      const changed = outputs.length ? pixels.reduce((n,v,i)=>n+(v!==outputs.at(-1)[i]),0)/pixels.length : null;
+      outputs.push(pixels);
+      rows.push({weight,planHash:inspection.plan.hash,range:[min,max],seamRatio,changed,adapter:result.report.adapter,
+        hashes:await Promise.all(result.channels.map(async c=>({channel:c.channel,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',c.pixels))].map(v=>v.toString(16).padStart(2,'0')).join('')})))});
+    }
+    return {build, rows, owned: outputs.every(p=>p.length===1024*1024*4)};
+  }, source);
+  expect(result.build).toEqual(expectedBuild);
+  if(expectedBuild.runtimeVersion==='0.1.0-alpha.0') {
+    expect(result.validation.ok).toBe(false);
+    expect(result.validation.diagnostics.map(d=>d.code)).toContain('MIX_NODE_UNKNOWN_TYPE');
+  } else {
+    expect(expectedBuild.runtimeVersion).toBe('0.2.0-alpha.0');
+    expect(result.owned).toBe(true); expect(result.rows).toHaveLength(4);
+    for(const row of result.rows) { expect(row.range[1]-row.range[0]).toBeGreaterThan(20);expect(row.seamRatio).toBeLessThan(2);if(row.changed!==null)expect(row.changed).toBeGreaterThan(0.1); }
+    expect(new Set(result.rows.map(r=>r.planHash)).size).toBe(4);
+  }
+  await testInfo.attach('scalar-evidence', {body:JSON.stringify({...result,browser:browser.version()},null,2),contentType:'application/json'});
+});

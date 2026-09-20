@@ -68,3 +68,8 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 PR-013 additionally runs the independent `device_loss` integration test with explicit harness environment variables. It destroys cold/warm devices, verifies repeated failures without new allocations and consumes another context's correct outputs. Its fresh JSON receipt is linked by `deviceLossEvidence` in the smoke consumer status. See [PR-013 evidence](./evidence/pr-013/README.md).
 
 [PR-014 freshness state](./stale-results.md) lives entirely in the independent consumer. It accepts generations before compilation, limits active/pending work and retains at most displayed pixels plus a current completion. A stale display stays labeled stale after newer failure. The host still owns responsive worker scheduling.
+
+## ENG-04 compatibility and unpublished versions
+
+The source packages advance to Rust 0.2.0 because adding ScalarBlend to the exhaustive public KernelId/KernelInvocation enums may break downstream exhaustive matches. No non_exhaustive retrofit or other API redesign is made. The browser candidate advances to 0.2.0-alpha.0; API schema 1, .mix version 1 and plan version/hash domain remain unchanged. Serialized existing variants and old plan hash snapshots remain unchanged. Public npm 0.1.0-alpha.0 stays pinned in the registry consumer and must reject scalar-blend with MIX_NODE_UNKNOWN_TYPE. Candidate installation changes only the staged runtime archive/version/integrity; frozen tool dependencies and the pinned disposable Studio source remain intact. Rust packages and the new browser candidate are unpublished; this work does not authorize publication.
+

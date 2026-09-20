@@ -1,82 +1,33 @@
-# ENG-04 — Scalar field composition design
+# ENG-04 — Scalar field composition
 
 English | [简体中文](./eng-04-scalar-blend.zh-CN.md)
 
-**Status (2026-09-20): design only.** This defines the bounded engine use case, proposed v1 contract and implementation acceptance plan requested after ENG-01/02. `scalar-blend` is not registered, executable or released. No shader, fixture baseline, format migration or new node is added here. The [roadmap](../ROADMAP.md) separates this design from a later implementation PR.
+ENG-04 implements `scalar-blend` v1. The [approved design PR](https://github.com/OpenMixture/OpenMixture/pull/27) retains the original proposal; this page describes the implementation. Acceptance is recorded with the implementation PR and its source-bound evidence.
 
-## Use case and decision
+## Use case and contract
 
-An engine consumer needs one height field combining independently seeded, low-frequency structure and high-frequency detail, with one exposed control. The same graph must execute through native CLI/Rust and the browser SDK without requiring Studio UI work.
+Combine independently seeded low-frequency structure (seed 11, scale 4) and high-frequency detail (seed 29, scale 32), then derive height and normal from the combined field. The [complete fixture](../fixtures/nodes/scalar-blend/two-noise.mix) exposes `detailWeight`. Existing Color `blend` and unary Scalar `levels` cannot express this two-Scalar operation.
 
-```text
-fractal-noise (seed 11, scale 4, octaves 1) ─ a ─┐
-                                               scalar-blend ─ value ─ material-output.height
-fractal-noise (seed 29, scale 32, octaves 1) ─ b ┘      │
-                                                  height-to-normal ─ material-output.normal
-constant-color ───────────────────────────────────────────────────── material-output.baseColor
-```
+Required Scalar inputs `a` and `b`; output `value: Scalar`. Finite Float `weight` in [0,1], default 0.5. Clamp each finite input sample to [0,1]. After existing f64→f32 parameter lowering, weight 0 selects a exactly and weight 1 selects b exactly; otherwise compute `clamp(a + (b-a)*weight, 0, 1)`. Store `(value,0,0,1)` with `mixture_half4` in rgba16float. RGBA8 readback is not lossless. No cross-adapter last-bit guarantee is added.
 
-Expose `detailWeight` → `combine.weight`; request height/normal for the primary comparison. `weight = 0` selects the low-frequency field, `1` selects the detail field, and interior values interpolate. This is a crossfade, not additive displacement: increasing detail also attenuates the low-frequency contribution. If the demonstrated need is additive relief instead, revisit the use case before implementation rather than silently changing this contract.
+This is a crossfade: increasing detail attenuates the low-frequency contribution. It is not additive displacement. Both inputs remain required and validated at endpoints. Integer texel reads preserve compatible tiling but do not repair input seams. No random state, masks, new sampling, color conversions, CPU pixel executor or new crate is introduced.
 
-The existing [blend contract](../crates/mixture-core/src/nodes/blend.rs) requires Color `a`/`b` and returns Color; [levels](../crates/mixture-core/src/nodes/levels.rs) remaps only one Scalar input. The current catalog has no Color-to-Scalar conversion, so these nodes cannot directly express the proposed two-Scalar output. A single dedicated node is preferable to changing `blend` port kinds, implicit conversions or a general math-node family. No claim is made that this design has already passed pixel or human material acceptance.
+## Compatibility and delivery
 
-## Proposed node contract
+The source packages advance to Rust 0.2.0: new variants in exhaustive public `KernelId`/`KernelInvocation` can break downstream exhaustive matches. Consumers must handle `ScalarBlend`. No incidental `non_exhaustive` retrofit is made. The independent Rust consumer compiles against the new API.
 
-| Field | Proposed value |
-|---|---|
-| Type / version | `scalar-blend`, node version `1` |
-| Input `a` | Required `Scalar`, no default |
-| Input `b` | Required `Scalar`, no default |
-| Output `value` | `Scalar` |
-| Parameter `weight` | Finite Float in `[0, 1]`, default `0.5`, exposable through the existing binding mechanism |
-| Randomness | None; upstream random nodes keep their own required explicit seeds |
-| Sampling | Read both inputs at the current integer texel coordinate; no resampling or neighborhood access |
-| Normalized range | Clamp each finite input sample to `[0, 1]`; output remains `[0, 1]` |
+The browser candidate advances to 0.2.0-alpha.0. API schema 1, `.mix` version 1, plan version/hash domain and existing serialized variants remain unchanged. Old plan hash snapshots remain regression tests. Published npm 0.1.0-alpha.0 stays immutable and its separate registry test requires `MIX_NODE_UNKNOWN_TYPE` for this new graph. Unsupported node versions, input kinds and weights retain structured errors.
 
-Define `a0 = clamp(a.r, 0, 1)` and `b0 = clamp(b.r, 0, 1)`. Lower the validated source weight from f64 to f32 using the existing compiler convention. At effective f32 weight `0`, return `a0`; at `1`, return `b0`. Otherwise compute `clamp(a0 + (b0 - a0) * weight, 0, 1)` in WGSL f32, then apply the existing `mixture_half4` storage convention to `(value, 0, 0, 1)` in rgba16float. Endpoint branches preserve exact endpoint selection; they do not prune source validation or introduce a compiler optimization.
+Candidate qualification substitutes only the runtime dependency/version/integrity in the independent host. The pinned disposable Studio CI host has two explicit producer-owned compatibility adjustments: catalog size 11→12 and runtime version 0.1.0-alpha.0→0.2.0-alpha.0. The staging script fails if either exact original assertion changes, retains original/adapted test source and digests, and preserves all lifecycle, pixel, material and deployment checks. No Studio repository, product upgrade or deployment is changed. This is a reviewed version-contract update, not permanent compatibility with old catalog counts.
 
-Finite out-of-range texels are saturated, not extrapolated. Current public Scalar producers already provide normalized finite values; the focused shader harness must also exercise saturation with injected finite values. NaN/infinite source parameters remain rejected by existing decoding/validation. This does not add a promise to sanitize non-finite GPU data or accept arbitrary injected textures through the public SDK.
+Rust packages and the new browser candidate remain unpublished. Publication and downstream upgrades are separate work.
 
-The node is pointwise: it preserves periodicity when both fields have compatible tile boundaries, but does not repair seams in a non-periodic input. No color transfer function is involved. Height readback continues to use the existing linear RGBA8 projection; it is not a lossless representation of half-precision intermediates. Interior results retain documented f32/half precision limits and do not promise cross-adapter last-bit equality.
+## Verification
 
-## Source shape and compatibility
+- `cargo xtask test-core` and `test-plan`: defaults, bounds, missing/wrong inputs, versions, unused-branch overrides, deterministic ordering/defaults/hashes and output slicing.
+- `cargo xtask shader-check` and `test-node scalar-blend`: literal endpoints/midpoint, equal/reversed inputs, 65×3 and single-pixel axes; injected finite out-of-range texels verify saturation through the production WGSL.
+- `cargo xtask test-consumer` and `gpu-smoke`: independent Rust API consumption, 1K two-noise weights 0/0.25/0.5/1, exact direct-field endpoint height/normal equivalence, non-degenerate output, weight causality, periodic boundary metrics and owned data after renderer destruction.
+- Independent browser candidate consumption runs the same fixture and structural gates; registry consumption explicitly rejects it. All nine browser tests must execute without skips/flakiness. Existing three-material/v2 comparisons and pinned software-GPU checks remain required.
+- `cargo xtask check` and six protected CI checks gate integration. Existing golden pixels are not updated. Visual review uses 1K height/normal variants and tiled contact sheets; [fixture gates](../fixtures/nodes/scalar-blend/README.md) are fixed before acceptance.
 
-The following fragment is **illustrative and unsupported by the current runtime**; it is not a runnable fixture or a new document field:
-
-```json
-{
-  "id": "combine",
-  "type": "scalar-blend",
-  "version": 1,
-  "parameters": { "weight": 0.5 }
-}
-```
-
-Connect `low.value` to `combine.a`, `detail.value` to `combine.b`, and `combine.value` to height and height-to-normal. Keep a connected baseColor producer because v1 material-output still requires it. The implementation PR must add the complete graph and its parameter variants as executable fixtures, including explicit noise seeds; this design does not place unimplemented documents in existing accepted fixture directories.
-
-This is an additive node type, with `.mix` document version `1` unchanged. Existing nodes, source fields, defaults and document behavior remain unchanged. Old runtimes must report `MIX_NODE_UNKNOWN_TYPE` for documents containing `scalar-blend`; a new runtime must reject unsupported node versions and wrong port kinds through existing structured errors. No silent graph repair or approximate Color-based substitute is allowed.
-
-The proposed compiler adds a typed invocation and exhaustive KernelId mapping to one new WGSL implementation. It uses the existing one-pass allocation/scheduling model; no new crate, JavaScript semantics, cache policy or serialization framework is needed. Review the additive RenderPlan invocation schema explicitly: preserve current plan version/hash domain and old-document hash snapshots if the existing schema permits the addition without changing any old bytes. If implementation requires changing existing serialized layout, lowering or resource semantics, stop and make a separate plan-version decision before proceeding. New plans include the new kernel/ports and effective weight in their deterministic hash; adapter identities and timing stay excluded.
-
-An additive graph type is not a blanket Rust source-compatibility claim. The current public `KernelId` and `KernelInvocation` enums are exhaustive; adding variants can break downstream exhaustive matches. The implementation PR must explicitly document this native API impact, choose the appropriate package/version policy and compile an independent consumer with the updated API. Do not add `non_exhaustive` or redesign the public plan API incidentally. Browser catalog access remains driven by Rust metadata, without a second TypeScript catalog.
-
-The explicit reviewed registry expectation changes from eleven to twelve types only in the implementation PR. Twelve is a resulting count, not a target or a new ceiling. A changed runtime package needs a new release version and qualification; the published `0.1.0-alpha.0` is immutable. No release version or publication is authorized by this design.
-
-## Implementation and acceptance plan
-
-| Layer | Required evidence before implementation can close |
-|---|---|
-| Core contract | Defaults and weights `0`, `0.5`, `1`; reject missing inputs, wrong kinds, unsupported version, invalid/unknown parameters and out-of-range/non-finite weight. Exercise exposed override validation, including invalid values on unused branches. |
-| Compiler | Deterministic order/serialization/hash across source permutations and equivalent defaults; changed effective weight changes a retained plan; unused output slices omit the node; old hash snapshots unchanged. Endpoint weights still validate both inputs. |
-| Focused GPU fixtures | Literal `a=0.25`, `b=0.75` at weights `0`, `0.5`, `1` produce `0.25`, `0.5`, `0.75`; equal inputs, reversed endpoints, saturation, zero/one bounds, rectangular `65×3` and one-pixel dimensions. Use independent literal expectations, not a CPU renderer. |
-| Real graph | Deterministic two-noise fixture at weights `0`, `0.25`, `0.5`, `1`; endpoint height bytes match separately rendered source fields, interior output is non-degenerate and responds causally to weight. Inspect tiled contact sheets and height/normal relationship at 1K. |
-| Native/browser public consumption | Execute the same fixture, overrides and channels using public Rust/CLI and a candidate browser package. Record plan hashes, build/archive identity, adapter/backend and owned output after destruction. Existing exact checker and browser v2 gates remain intact; define focused tolerances before accepting new pixels. |
-| Regression | Existing three material goldens and all variants remain unchanged and pass; registry expectations, node documentation and package declarations/catalog agree. Do not reset existing goldens to accept this feature. |
-
-Start with CPU contract/plan tests, then shader validation, focused GPU tests on the pinned software adapter, material review and Native/browser consumption. Use existing commands: `cargo xtask test-core`, `cargo xtask test-plan`, `cargo xtask shader-check`, `cargo xtask golden check`, and `cargo xtask check`. `cargo xtask test-node scalar-blend` is an **implementation acceptance target, not a working test today**: it becomes valid only when the node and fixtures exist. Add any new browser fixture execution to ENG-03's independent host without removing the retained Studio coverage.
-
-An implementation PR may start after this bounded contract and use case are accepted; it need not wait for all historical consumer tests to migrate. Close that PR only with linked source-bound execution and visual evidence under the [evidence policy](./evidence-policy.md). Design approval, successful compilation and non-empty pixels are not material acceptance.
-
-## Out of scope
-
-Spatial masks, blend modes, addition/multiplication node families, signed/HDR scalar domains, graph rewrites/pass fusion, image resources, `.mixpack`, subgraphs, UI authoring, another pixel executor and changes to existing node precision are excluded. Performance work requires a measured bottleneck; the known warp precision limitation remains separate.
+Spatial masks, blend-mode/math families, additive relief, HDR domains, graph rewrites, image resources, portable packaging, UI authoring and publication are out of scope.

@@ -62,4 +62,4 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 
 [ENG-03 consumer evidence](./evidence/eng-03/README.md) retains separate candidate/registry identities, local browser results and the inspected example screenshot.
 
-[ENG-04 Scalar composition design](./eng-04-scalar-blend.md) records the use case, proposed contract and future acceptance plan; the node is not implemented or released.
+[ENG-04 Scalar composition](./eng-04-scalar-blend.md) documents the implemented node, versioned compatibility and native/browser acceptance; new packages remain unpublished.

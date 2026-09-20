@@ -19,6 +19,7 @@ fn registry_matches_reviewed_type_versions() {
             ("height-to-normal", 1),
             ("levels", 1),
             ("material-output", 1),
+            ("scalar-blend", 1),
             ("transform-2d", 1),
             ("warp", 1)
         ]

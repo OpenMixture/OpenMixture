@@ -64,12 +64,23 @@ export function validateCandidate(receipt, bytes, revision) {
   assert.equal(receipt.engineDirty, false, 'candidate requires clean sources');
   assert.match(receipt.buildId, /^sha256:[a-f0-9]{64}$/);
   assert.equal(receipt.sha256, hash(bytes), 'candidate archive digest mismatch');
-  assert.equal(receipt.runtimeVersion, '0.1.0-alpha.0', 'update the pinned consumer contract for a new version');
+  assert.equal(receipt.runtimeVersion, '0.2.0-alpha.0', 'update the pinned consumer contract for a new version');
   assert.equal(receipt.apiSchemaVersion, 1);
   for (const file of ['package.json', 'build-info.json', 'src/build-info.mjs', 'src/index.d.ts',
     'src/index.mjs', 'src/runtime.mjs', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm']) {
     assert.ok(receipt.files.includes(file), `missing candidate file: ${file}`);
   }
+}
+
+// Versioned expectations in the pinned disposable CI host only. Its repository is not edited.
+export function consumerCompatibility(source) {
+  const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(12);"],
+    ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.2.0-alpha.0');"]];
+  for (const [before, after] of changes) {
+    assert.equal(source.split(before).length, 2, 'pinned compatibility assertion changed; review host contract');
+    source = source.replace(before, after);
+  }
+  return source;
 }
 
 export function candidateLock(lock, receipt, bytes) {
@@ -88,12 +99,20 @@ export async function stage(packageDirectory, product, output, revision, consume
   await mkdir(output); // Fresh evidence directory: never reuse prior success.
   await save(join(output, 'qualification.json'), { ok: false, status: 'incomplete' });
   const receipt = await json(join(packageDirectory, 'receipt.json'));
-  assert.equal(basename(receipt.tarball), basename(vendor));
+  assert.equal(basename(receipt.tarball), `openmixture-runtime-${receipt.runtimeVersion}.tgz`);
   const archive = join(packageDirectory, basename(receipt.tarball));
   const bytes = await readFile(archive);
   validateCandidate(receipt, bytes, revision);
   assert.equal(git(product, 'rev-parse', 'HEAD'), consumerRevision, 'unexpected consumer revision');
   assert.equal(git(product, 'status', '--porcelain'), '', 'consumer must start clean');
+  const testPath = join(product, 'tests/browser.spec.ts');
+  const originalTest = await readFile(testPath, 'utf8');
+  const adaptedTest = consumerCompatibility(originalTest);
+  await writeFile(testPath, adaptedTest);
+  await save(join(output, 'consumer-compatibility.json'), { consumerRevision,
+    originalSha256: hash(Buffer.from(originalTest)), adaptedSha256: hash(Buffer.from(adaptedTest)),
+    reason: 'ENG-04: twelve nodes and unpublished runtime 0.2.0-alpha.0; only two exact assertions updated',
+    original: originalTest, adapted: adaptedTest });
   const lockBytes = await readFile(join(product, 'package-lock.json'));
   const originalArchive = await readFile(join(product, vendor));
   assert.notEqual(hash(originalArchive), receipt.sha256, 'historical archive is not a new candidate');

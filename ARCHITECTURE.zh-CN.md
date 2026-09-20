@@ -728,3 +728,7 @@ PR-015 仅在仓库工具中添加本地归档验证。独立消费者与规范�
 M5 浏览器启动增加实际的 `mixture-wasm` 编译边界，npm 资源留在本引擎仓库。`mixture-wgpu` 现已适配浏览器回调完成和计时；原生等待保持独立。[浏览器运行时指南](./docs/browser-runtime.zh-CN.md)标识首个已实现切片。上方图已包含实现的浏览器边界；未增加第二套编译器或像素执行器。
 
 浏览器运行时资格采用 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md) 定义的有界纹理一致性规则。原生固定软件金图继续作为精确回归证据；跨浏览器接近逐字节一致不是支持承诺。当前比较收据分开语义、结构、数值和历史回归判定。
+
+## ENG-04 目录扩展
+
+ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Renderer 自有缓存现有十种 kernel 身份。既有源码语义和计划序列化不变。见[契约](./docs/eng-04-scalar-blend.zh-CN.md)。
