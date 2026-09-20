@@ -3,10 +3,7 @@ use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, compile, pla
 use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions, Renderer};
 use serde_json::{Value, json};
 fn source() -> Value {
-    serde_json::from_slice(include_bytes!(
-        "../../../fixtures/nodes/scalar-blend/two-noise.mix"
-    ))
-    .unwrap()
+    serde_json::from_slice(include_bytes!("scalar-blend.mix")).unwrap()
 }
 fn compile_source(v: &Value, weight: f64) -> mixture_core::RenderPlan {
     let req = CompileRequest {
