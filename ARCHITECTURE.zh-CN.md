@@ -51,7 +51,7 @@ untrusted .mix bytes
 | PNG encoding      | <--- | RenderPlan       | <--- | metrics / outputs    |
 +-------------------+      +------------------+      +----------------------+
 
-Future:
+Browser:
 +-------------------+
 | mixture-wasm      |  thin browser binding over the same core and wgpu crates
 +-------------------+
@@ -160,7 +160,7 @@ M5 引入 `mixture-wasm`，作为浏览器绑定 crate。
 
 [M5 计划](./M5_PRS.zh-CN.md)选择单一浏览器分发包 `@openmixture/runtime`，在本仓库由同一次 JS 接口、声明及 WASM 构建生成。独立产品仓库消费该包，先实现 Player，后实现 Studio。产品控件、请求新鲜度、预览、文件导出及编辑器布局仍归消费者。不引入独立 SDK 仓库或额外语义执行器。
 
-[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)定义显式 WASM／GPU 初始化、无需 GPU 的验证／目录访问、异步完成、自有 RGBA8 输出及销毁。浏览器适配必须保持原生语义，并适配平台等待和错误交付；把原生路径编译成 WASM 不代表浏览器验收。[首个运行时实现](./docs/browser-runtime.zh-CN.md)已提供该绑定和打包加载路径。完整 M5 浏览器验收仍未关闭；原生 API 契约不变。
+[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)定义显式 WASM／GPU 初始化、无需 GPU 的验证／目录访问、异步完成、自有 RGBA8 输出及销毁。浏览器适配必须保持原生语义，并适配平台等待和错误交付；把原生路径编译成 WASM 不代表浏览器验收。[首个运行时实现](./docs/browser-runtime.zh-CN.md)已提供该绑定和打包加载路径。[有界 M5 浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成；原生 API 契约不变。当前工作遵循 [Post-Alpha 路线图](./ROADMAP.zh-CN.md)。
 
 ## 4. 依赖方向
 
@@ -174,7 +174,7 @@ mixture-wgpu
 mixture-cli
 
 xtask -> public/test-support APIs from all three crates
-future mixture-wasm -> mixture-core + mixture-wgpu
+mixture-wasm -> mixture-core + mixture-wgpu
 ```
 
 具体规则如下：
@@ -724,6 +724,6 @@ PR-014 仅在独立消费者中引入应用自有新鲜度状态：一个活跃�
 
 PR-015 仅在仓库工具中添加本地归档验证。独立消费者与规范化公开包内容暂存于一次性外部工作区，本地版本 patch 解析到解包 crate，不解析到生产方私有模块。包许可／README／单元资源自包含，已提交锁不变，发布仍禁用。[兼容性记录](./docs/compatibility.zh-CN.md)汇总既有边界；[M4 发布状态](./docs/release.zh-CN.md)记录已完成的本地及远端验收、剩余分发决策和未测试硬件限制。
 
-M5 浏览器启动增加实际的 `mixture-wasm` 编译边界，npm 资源留在本引擎仓库。`mixture-wgpu` 现已适配浏览器回调完成和计时；原生等待保持独立。[浏览器运行时指南](./docs/browser-runtime.zh-CN.md)标识首个已实现切片。上方标为未来的图保留基础设计；未增加第二套编译器或像素执行器。
+M5 浏览器启动增加实际的 `mixture-wasm` 编译边界，npm 资源留在本引擎仓库。`mixture-wgpu` 现已适配浏览器回调完成和计时；原生等待保持独立。[浏览器运行时指南](./docs/browser-runtime.zh-CN.md)标识首个已实现切片。上方图已包含实现的浏览器边界；未增加第二套编译器或像素执行器。
 
 浏览器运行时资格采用 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md) 定义的有界纹理一致性规则。原生固定软件金图继续作为精确回归证据；跨浏览器接近逐字节一致不是支持承诺。当前比较收据分开语义、结构、数值和历史回归判定。

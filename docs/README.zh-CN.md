@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-[Browser Runtime Alpha 交付收尾](./browser-alpha.zh-CN.md)统一当前状态、引擎认领工作、验收标准及 Studio 交接；带日期的 M5 记录保留历史状态。
+[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前引擎工作与验收标准。[浏览器运行时 Alpha 收尾](./browser-alpha.zh-CN.md)保留首次交付证据、支持限制和缺陷交接；带日期的 M5 记录保留历史状态。
 
 根目录文档是当前项目契约：
 
@@ -19,7 +19,7 @@
 [原生 CLI 报告与退出码](./cli-contract.zh-CN.md)定义 PR-012 JSON 字段存在规则／类型、完整人类可读上下文、独立进程测试及部分写入行为。
 [GPU 失败原因与上下文生命周期](./gpu-failures.zh-CN.md)定义 PR-013 丢失／OOM 分类、首个错误优先规则、受保护清理及独立销毁检查。
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
-[浏览器 SDK 契约](./browser-sdk.zh-CN.md)定义预期的单一 npm 运行时、显式初始化、自有输出、失败及独立产品消费。其实施指南区分历史检查点、M5 有界验收与待完成的 Alpha 交付门槛。
+[浏览器 SDK 契约](./browser-sdk.zh-CN.md)定义单一 npm 运行时、显式初始化、自有输出、失败及独立产品消费。实现指南与 Alpha 收尾区分历史检查点、有界 M5 验收及已完成的首次交付。
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
 [GPU 上下文与 doctor](./gpu-context.zh-CN.md)说明 PR-003 获取流程、报告字段、退出码和固定软件适配器 CI。
 [内置棋盘格](./builtin-checker.zh-CN.md)定义 PR-004 像素、回读、PNG 输出、基准来源和执行证据。

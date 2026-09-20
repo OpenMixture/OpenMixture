@@ -51,7 +51,7 @@ It does not optimize for editor features, maximum node count, multiple rendering
 | PNG encoding      | <--- | RenderPlan       | <--- | metrics / outputs    |
 +-------------------+      +------------------+      +----------------------+
 
-Future:
+Browser:
 +-------------------+
 | mixture-wasm      |  thin browser binding over the same core and wgpu crates
 +-------------------+
@@ -160,7 +160,7 @@ It must not maintain a TypeScript node registry, graph validator, compiler, or s
 
 The [M5 plan](./M5_PRS.md) selects one browser distribution, `@openmixture/runtime`, built here from the same JS facade, declarations and WASM build. A separate product repository consumes that package for Player first and Studio later. Product controls, request freshness, previews, file export and editor layout remain consumer-owned. No separate SDK repository or additional semantic executor is introduced.
 
-The [browser SDK contract](./docs/browser-sdk.md) defines explicit WASM/GPU initialization, GPU-free validation/catalog access, asynchronous completion, owned RGBA8 output and disposal. Browser adapters must preserve native semantics while adapting platform waiting and error delivery; compiling a native path to WASM is not browser acceptance. The [initial runtime implementation](./docs/browser-runtime.md) provides this binding and packaged loading path. Full M5 browser acceptance remains open; the native API contract is unchanged.
+The [browser SDK contract](./docs/browser-sdk.md) defines explicit WASM/GPU initialization, GPU-free validation/catalog access, asynchronous completion, owned RGBA8 output and disposal. Browser adapters must preserve native semantics while adapting platform waiting and error delivery; compiling a native path to WASM is not browser acceptance. The [initial runtime implementation](./docs/browser-runtime.md) provides this binding and packaged loading path. [Bounded M5 browser acceptance](./docs/evidence/m5-05/README.md) is complete; the native API contract is unchanged. Current work follows the [Post-Alpha roadmap](./ROADMAP.md).
 
 ## 4. Dependency direction
 
@@ -174,7 +174,7 @@ mixture-wgpu
 mixture-cli
 
 xtask -> public/test-support APIs from all three crates
-future mixture-wasm -> mixture-core + mixture-wgpu
+mixture-wasm -> mixture-core + mixture-wgpu
 ```
 
 More precisely:
@@ -724,6 +724,6 @@ PR-014 introduces only application-owned freshness state in the independent cons
 
 PR-015 adds local archive verification in repository tooling only. The independent consumer is staged with normalized public package contents in a disposable external workspace; local version patches resolve those extracted crates, never producer-private modules. Package licenses/README/unit assets are self-contained, committed locks remain unchanged and publication remains disabled. The [compatibility record](./docs/compatibility.md) consolidates existing boundaries; [M4 release status](./docs/release.md) records completed local and remote acceptance, remaining distribution decisions, and untested hardware limits.
 
-M5 browser start adds the actual `mixture-wasm` compilation boundary and keeps npm assets in this engine repository. `mixture-wgpu` now adapts browser callback completion and timing; native waiting remains separate. The [browser runtime guide](./docs/browser-runtime.md) identifies the initial implemented slice. The future-labelled diagrams above retain the foundation design; no second compiler or pixel executor is added.
+M5 browser start adds the actual `mixture-wasm` compilation boundary and keeps npm assets in this engine repository. `mixture-wgpu` now adapts browser callback completion and timing; native waiting remains separate. The [browser runtime guide](./docs/browser-runtime.md) identifies the initial implemented slice. The diagrams above include the implemented browser boundary; no second compiler or pixel executor is added.
 
 Browser runtime qualification uses the bounded texture-agreement profile defined by [ADR 0006](./docs/decisions/0006-browser-quality-gates.md). Native pinned-software goldens remain exact regression evidence; cross-browser near-byte identity is not a support promise. Current comparator receipts separate semantic, structural, numerical and historical regression verdicts.

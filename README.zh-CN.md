@@ -4,7 +4,7 @@
 
 > 基于 Rust 和 `wgpu` 的小型材质图编译器与无界面纹理渲染器。
 
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Alpha 收口](./docs/browser-alpha.zh-CN.md)负责当前工作；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](./ROADMAP.zh-CN.md)负责当前工作；[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付证据。ENG-01／02 更新规划和阶段规则，后续实现单独安排。
 
 **已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器运行时](./docs/browser-runtime.zh-CN.md)已完成[记录的 macOS／Linux Chromium 材质验收](./docs/evidence/m5-05/README.zh-CN.md)，独立 [Studio](https://github.com/OpenMixture/Studio) 的 MVP 也已通过[记录的 macOS 保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。当前候选 CI 已独立构建并安装新包完成浏览器验收；每个交付候选仍须绑定自身的源码和归档结果。
 
