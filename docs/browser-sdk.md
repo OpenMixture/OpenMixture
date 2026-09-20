@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-sdk.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. [Alpha closeout](./browser-alpha.md) owns current work; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](../ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 
@@ -142,4 +142,4 @@ The retained M5 receipt must bind the engine revision, package version/digest, c
 
 M5 does not implement a node editor, intermediate-node preview protocol, custom shaders, new material nodes, image resources, `.mixpack`, a second TypeScript/WebGL/CPU renderer, GPUTexture sharing, zero-copy results, 3D preview, all-bundler adapters, Node.js GPU or SSR rendering. npm is the distribution channel, not a claim that every JavaScript host can execute the runtime.
 
-After the independent Player satisfies M5, the product may plan Studio under its own milestone: graph drafts, node/edge editing, undo/redo, exposed binding authoring and standard `.mix` saves that both Player and Native CLI can consume. Only proven missing engine capabilities justify follow-up API work. Engine M6 remains [resources and portable packaging](../ROADMAP.md#m6--resources-and-portable-packaging), with its existing consumer-driven entry condition.
+Player/Studio product work remains consumer-owned. Engine capability work may also originate from maintainer-defined use cases and measurements under the [Post-Alpha roadmap](../ROADMAP.md). [M6](../ROADMAP.md#m6--resources-and-portable-packaging) now separates external image input from portable packaging; each needs its own entry decision, and neither starts in ENG-01/02.

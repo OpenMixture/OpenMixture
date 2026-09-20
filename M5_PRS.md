@@ -2,7 +2,7 @@
 
 English | [简体中文](./M5_PRS.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. [Alpha closeout](./docs/browser-alpha.md) owns current work; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](./ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

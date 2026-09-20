@@ -2,7 +2,7 @@
 
 [English](./browser-sdk.md) | 简体中文
 
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Alpha 收口](./browser-alpha.zh-CN.md)负责当前工作；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 
@@ -142,4 +142,4 @@ M5-02 必须验证：平台已送达完成或失败后，不会因包装逻辑�
 
 M5 不实现节点编辑器、中间节点预览协议、自定义 shader、新材质节点、图像资源、`.mixpack`、第二套 TypeScript/WebGL/CPU 渲染器、GPUTexture 共享、零拷贝结果、3D 预览、全部打包器适配、Node.js GPU 或 SSR 渲染。npm 是分发渠道，不代表每个 JavaScript 宿主都可以执行运行时。
 
-独立 Player 满足 M5 后，产品可以用自己的里程碑规划 Studio：图草稿、节点/边编辑、撤销重做、公开绑定编写，以及保存 Player 与 Native CLI 都能消费的标准 `.mix`。只有已证明缺失的引擎能力才支持后续 API 工作。引擎 M6 仍是[资源与可移植打包](../ROADMAP.zh-CN.md)，遵守现有由消费者需求驱动的进入条件。
+Player／Studio 产品工作仍归消费者。引擎能力工作也可由维护者定义的用例和测量驱动，遵循 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)。[M6](../ROADMAP.zh-CN.md#m6--资源与可移植打包)现将外部图像输入与便携打包分开，各需独立进入决策；ENG-01／02 不启动它们。

@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-[Browser Runtime Alpha delivery closeout](./browser-alpha.md) owns current status, engine work items, acceptance gates and Studio handoffs; dated M5 records retain historical status.
+The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
 The root documents are the active project contract:
 
@@ -16,7 +16,7 @@ The root documents are the active project contract:
 - [M5 browser runtime and Player plan](../M5_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
-[Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. Its implementation guide separates historical checkpoints from bounded M5 acceptance and pending Alpha delivery gates.
+[Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. Its implementation guide and Alpha closeout distinguish historical checkpoints, bounded M5 acceptance and the completed first delivery.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
 [Native CLI reports and exit codes](./cli-contract.md) defines PR-012 JSON presence/types, complete human context, independent process tests and partial-write behavior.
 [GPU failure reasons and context lifetime](./gpu-failures.md) defines PR-013 loss/OOM classification, first-error precedence, scoped cleanup and independent destruction checks.
