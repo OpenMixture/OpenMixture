@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "nodes": [
+    { "id": "pattern", "type": "checker", "version": 1,
+      "parameters": { "cellsX": 2, "cellsY": 1 } },
+    { "id": "finish", "type": "constant-scalar", "version": 1,
+      "parameters": { "value": 0.25 } },
+    { "id": "surface", "type": "material-output", "version": 1 }
+  ],
+  "edges": [
+    { "from": { "nodeId": "pattern", "portId": "color" }, "to": { "nodeId": "surface", "portId": "baseColor" } },
+    { "from": { "nodeId": "finish", "portId": "value" }, "to": { "nodeId": "surface", "portId": "roughness" } }
+  ],
+  "exposedParameters": [
+    { "id": "frequency", "nodeId": "pattern", "parameterId": "cellsX" },
+    { "id": "roughness", "nodeId": "finish", "parameterId": "value" }
+  ]
+}

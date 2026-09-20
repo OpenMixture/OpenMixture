@@ -1,0 +1,30 @@
+{
+  "candidate-lock.json": {
+    "sha256": "a34a439c8f90dd6b0200fa1bebd28cb78a2e34e5944ec9061feef07d5829061e",
+    "bytes": 27685
+  },
+  "candidate-render.json": {
+    "sha256": "f1858cade82c3f49e954367dae650fc96a8f0f2a7ee74280c17cf623c7fba036",
+    "bytes": 23589
+  },
+  "candidate.json": {
+    "sha256": "084f9b5b80eb81f27e942df2bf16699f8d6fb01f19941152f923e93489a1314e",
+    "bytes": 4061
+  },
+  "example.png": {
+    "sha256": "f9a2bd5d5da3b5836b842fa1405ebd6b4d09a250a09f3c52cd23cbeb7f5fbeba",
+    "bytes": 35866
+  },
+  "registry-lock.json": {
+    "sha256": "2a6bf50442343df25a78e7dfb0325bff7d9003d68abdd5dc204d443396dd28e4",
+    "bytes": 27727
+  },
+  "registry-render.json": {
+    "sha256": "fbf7958144ab3d80ef91d8cf4b1e9688dbfa1043d748f78718f9b9dfc33962fa",
+    "bytes": 23589
+  },
+  "registry.json": {
+    "sha256": "8c3703b8a8936b8b6c9f2938529b5be273fd4e686bb2d0482012f6d54650eae2",
+    "bytes": 4068
+  }
+}

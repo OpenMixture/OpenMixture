@@ -27,3 +27,5 @@ The separate `render-builtin checker`/doctor probe does not read a `.mix`; it sh
 The [independent Rust consumer](./native-consumer/README.md) owns a separate Cargo workspace and input. Run `cargo xtask test-consumer` for CPU/public-API checks; `gpu-smoke` also executes its explicit GPU path and consumes returned pixels after renderer drop.
 
 PR-012 extends that consumer fixture with a [CLI process contract test](./native-consumer/tests/cli_contract.rs) using owned sources and decoded PNGs. CPU cases run through `test-consumer`; actual GPU and partial-write cases remain explicit in `gpu-smoke`.
+
+The [independent browser consumer](./browser-consumer/README.md) installs the exact public npm runtime, demonstrates explicit loading/rendering/destruction, and qualifies candidate and registry packages separately without Studio.

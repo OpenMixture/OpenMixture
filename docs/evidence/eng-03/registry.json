@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "mode": "registry",
+  "ok": true,
+  "startedAt": "2026-09-20T10:25:27.762Z",
+  "finishedAt": "2026-09-20T10:26:18.541Z",
+  "consumerRevision": "20ad93c2cfcc6e64d9acc1349275d76403972ca8",
+  "consumerDirty": false,
+  "verifierSha256": "459ed4ef678e58378308c5010d26f156bd005f98878c8d9e19f909ea5db8b4b7",
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "2a6bf50442343df25a78e7dfb0325bff7d9003d68abdd5dc204d443396dd28e4",
+    "package.json": "1911693f6b8ed513a18178a47afeb8a3392c49fa8e0aa737eaeee612f17b2f3e",
+    "playwright.config.mjs": "6653c314b2605f6a7edfea222fc8dafb1d957092eac21dac5a14a3534ba4750c",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "README.md": "bf1547463c6908867684b8acdda1d57bde3ca96ff09a76dd693dd219c6964cfc",
+    "README.zh-CN.md": "7cf828267cb1e8e543b10ad963062b0aa119e41c56c54850ee58c851023ee1f3",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/sdk.spec.mjs": "845033263c5eb558e15cf90ef041244119b77d33a26cdfcc6aab68e2c781793f",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.21.0",
+  "build": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+    "engineDirty": false,
+    "buildId": "sha256:94f9cc455fcd5f805942b0196b39a276782ce0e504772c3a140ea8ad85814a28"
+  },
+  "archiveSha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+  "archiveIntegrity": "sha512-VgovS/VAM5qDikntmM6a/TGc/s66qL8v4kbyJLs1fSFMJtT0lW4Tskb5WXwhLmezZjk+beCWWzPgRzErzQ/jqg==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "build-info.json": "d2d58fa2ffc102d80d8a171fa99d8441d036817b5f8c7e20c7fc173c306e09d8",
+    "package.json": "be087b06139057d42bb95bb7a11530a523e0b4c0539de9293071466887e89633",
+    "README.md": "693614fa2eb43407a3a782332ff0123947e5ae0f1b122a4e92a7b17f1cdb8bb8",
+    "README.zh-CN.md": "72d8bb8ead6060f1aef9e215c35e92488acc6c9b58f5f3e1859a50b73ecbab73",
+    "wasm/bindings.mjs": "3e010017aeccbb0abbe6f72715ea4d735c89db595420a9ec3e397f1f35df600e",
+    "src/build-info.mjs": "f7e26fa615436ae94742e840af10ea006bb528daf1f813446aaebe6c946b51cd",
+    "src/index.mjs": "19705526f3c3384a194a52d5f50514633fca0fce9f189167394b512b50e94f33",
+    "src/runtime.mjs": "8e543e010c859f785cad3558ed2c5ad5f67f9db662001dcc8915092bf649d932",
+    "src/index.d.ts": "4f0a89b7284753fd839581b22723a1fe094d2b6e908302e05d722bf8d45fee83",
+    "wasm/mixture_wasm_bg.wasm": "a8fa8a84ebaa60ba40e20c0a5c1971edda65d57259043096d0517abbe7d79bbf"
+  },
+  "lockSha256": "2a6bf50442343df25a78e7dfb0325bff7d9003d68abdd5dc204d443396dd28e4",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "browserChannel": "chrome",
+  "browserTests": {
+    "startTime": "2026-09-20T10:26:12.809Z",
+    "duration": 5674.579000000001,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "host": {
+    "release": "10.0.26100",
+    "version": "Windows 11 IoT Enterprise LTSC 2024"
+  }
+}

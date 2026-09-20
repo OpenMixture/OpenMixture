@@ -67,8 +67,12 @@ jobs:
           cargo install wasm-bindgen-cli --version 0.2.128 --locked
       - name: Test candidate guards and build this revision's archive
         run: |
-          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs
+          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs
           node scripts/browser-runtime/build.mjs
+      - name: Qualify the candidate in the independent SDK consumer
+        run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
+      - name: Qualify the exact published version separately
+        run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
       - name: Check out pinned independent product
@@ -127,5 +131,7 @@ jobs:
             tmp/browser-quality-controls/
             tmp/browser-product/package-lock.json
             tmp/browser-product/test-results/
+            tmp/sdk-candidate/
+            tmp/sdk-registry/
           retention-days: 30
           if-no-files-found: error
