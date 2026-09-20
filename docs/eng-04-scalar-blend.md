@@ -31,3 +31,5 @@ Rust packages and the new browser candidate remain unpublished. Publication and 
 - `cargo xtask check` and six protected CI checks gate integration. Existing golden pixels are not updated. Visual review uses 1K height/normal variants and tiled contact sheets; [fixture gates](../fixtures/nodes/scalar-blend/README.md) are fixed before acceptance.
 
 Spatial masks, blend-mode/math families, additive relief, HDR domains, graph rewrites, image resources, portable packaging, UI authoring and publication are out of scope.
+
+[Acceptance evidence](./evidence/eng-04/README.md) retains full 1K native/browser images, four plans and direct pixel comparisons. `node scripts/browser-runtime/check-scalar.mjs <candidate-qualification> <fresh-output>` compares both channels under an explicit GPU policy, retaining the existing maximum component delta of 1; required browser CI runs it.

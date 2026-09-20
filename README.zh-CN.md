@@ -6,6 +6,8 @@
 
 **当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](./ROADMAP.zh-CN.md)负责当前工作；[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付证据。ENG-01／02 更新规划和阶段规则，后续实现单独安排。
 
+[ENG-04 Scalar 组合](./docs/eng-04-scalar-blend.zh-CN.md)现增加第十二种节点；Rust 0.2.0 和浏览器 0.2.0-alpha.0 候选仍未发布。
+
 **已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器运行时](./docs/browser-runtime.zh-CN.md)已完成[记录的 macOS／Linux Chromium 材质验收](./docs/evidence/m5-05/README.zh-CN.md)，独立 [Studio](https://github.com/OpenMixture/Studio) 的 MVP 也已通过[记录的 macOS 保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。当前候选 CI 已独立构建并安装新包完成浏览器验收；每个交付候选仍须绑定自身的源码和归档结果。
 
 `PR-001` 至 `PR-015` 是历史实施批次标识，不是 GitHub PR 编号。新变更遵循[仓库治理](./docs/governance.zh-CN.md)和[证据保留](./docs/evidence-policy.zh-CN.md)规则。
@@ -31,7 +33,7 @@ cargo run --locked -p mixture-cli -- --help
 
 可运行[内置棋盘格](./docs/builtin-checker.zh-CN.md)：`cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`。Doctor 默认运行计算／回读探针；仅获取上下文时使用 `--skip-probe`。
 
-无需 GPU 即可验证[棋盘格文档](./examples/checker.mix)：`cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`。参阅[严格文件格式](./docs/file-format.zh-CN.md)和[十一个节点契约](./docs/node-contracts.zh-CN.md)。
+无需 GPU 即可验证[棋盘格文档](./examples/checker.mix)：`cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`。参阅[严格文件格式](./docs/file-format.zh-CN.md)和[十二个节点契约](./docs/node-contracts.zh-CN.md)。
 
 ## 使命
 

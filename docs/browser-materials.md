@@ -55,4 +55,4 @@ This job uses an independent package consumer, but does not claim OS sandbox den
 
 [Formal acceptance and complete pixels](./evidence/m5-05/README.md) retain both post-freeze results and audit commands.
 
-ENG-03 adds [independent SDK candidate and exact registry consumption](../examples/browser-consumer/README.md) before the pinned Studio qualification. Its eight small public-API tests supplement the material matrix; they do not replace any material, lifecycle, deployment or product test. Both mode receipts and browser reports are retained in the existing job artifact.
+ENG-03 adds [independent SDK candidate and exact registry consumption](../examples/browser-consumer/README.md) before the pinned Studio qualification. Its nine small public-API tests supplement the material matrix; they do not replace any material, lifecycle, deployment or product test. Both mode receipts and browser reports are retained in the existing job artifact.

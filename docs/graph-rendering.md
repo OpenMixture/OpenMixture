@@ -1,8 +1,8 @@
-# Eleven-node graph rendering
+# Twelve-node graph rendering
 
 English | [简体中文](./graph-rendering.zh-CN.md)
 
-The local `.mix → validate → RenderPlan → wgpu → PNG` path executes eleven built-in contracts. PR-007 established the six M2 contracts; PR-009 added noise/color/normal kernels, and PR-010 adds scalar transform/warp. [Renderer](../crates/mixture-wgpu/src/executor.rs) accepts only an immutable compiler-produced plan. It owns one explicitly acquired context and a small pipeline cache. The GPU crate does not parse documents, resolve node defaults, or interpret parameter overrides. [The CLI](../crates/mixture-cli/src/commands/render.rs) handles file I/O, arguments, PNG encoding, and reports.
+The local `.mix → validate → RenderPlan → wgpu → PNG` path executes twelve built-in contracts. PR-007 established the six M2 contracts; PR-009 added noise/color/normal kernels, and PR-010 adds scalar transform/warp. [Renderer](../crates/mixture-wgpu/src/executor.rs) accepts only an immutable compiler-produced plan. It owns one explicitly acquired context and a small pipeline cache. The GPU crate does not parse documents, resolve node defaults, or interpret parameter overrides. [The CLI](../crates/mixture-cli/src/commands/render.rs) handles file I/O, arguments, PNG encoding, and reports.
 
 ## Run the examples
 
@@ -115,7 +115,7 @@ cargo xtask check
 
 `shader-check` validates all WGSL entry points/workgroup sizes and uniform struct spans without a GPU. `test-node` first validates [all node fixture families](../fixtures/nodes/README.md), including invalid overrides/source, without a GPU, then runs exactly the named node's GPU cases. It uses the same `MIXTURE_GPU_BACKEND`, `MIXTURE_GPU_SOFTWARE`, and optional expected-adapter policy as smoke. Reports go to `tmp/node-tests/<backend>/<node>.json`. Unknown nodes and invalid policies fail before running Cargo/GPU work.
 
-`gpu-smoke` retains the fixed checker/doctor golden gate, renders all three graph examples, verifies the graph checker against the same golden, and runs every ignored library/CLI GPU regression. It includes all eleven node families, odd dimensions, nontrivial colors/alpha, all blend modes, levels extremes, defaults/aliases, executed slicing, cache reuse/clear, device rejection/recovery, invalid shader/pipeline/map/device paths, PNG metadata, file names, and partial-output failure reports. Evidence is saved under `tmp/gpu-smoke/`, including per-node case reports. Ordinary `check`/workspace tests never initialize a GPU.
+`gpu-smoke` retains the fixed checker/doctor golden gate, renders all three graph examples, verifies the graph checker against the same golden, and runs every ignored library/CLI GPU regression. It includes all twelve node families, odd dimensions, nontrivial colors/alpha, all blend modes, levels extremes, defaults/aliases, executed slicing, cache reuse/clear, device rejection/recovery, invalid shader/pipeline/map/device paths, PNG metadata, file names, and partial-output failure reports. Evidence is saved under `tmp/gpu-smoke/`, including per-node case reports. Ordinary `check`/workspace tests never initialize a GPU.
 
 Local [Apple M5/Metal](./evidence/pr-007-apple-m5.json) and pinned [SwiftShader/Vulkan](./evidence/pr-007-swiftshader.json) pass. Three 256×256 examples were visually inspected. The fixed checker remains byte-identical to its protected golden; no pixel golden was overwritten. No dependency or lockfile version changed.
 

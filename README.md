@@ -6,6 +6,8 @@ English | [简体中文](./README.zh-CN.md)
 
 **Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](./ROADMAP.md) owns current work; [Alpha closeout](./docs/browser-alpha.md) retains first-delivery evidence. ENG-01/02 update planning and stage rules; later implementation remains separate.
 
+[ENG-04 Scalar composition](./docs/eng-04-scalar-blend.md) now adds the twelfth node; Rust 0.2.0 and browser 0.2.0-alpha.0 candidates remain unpublished.
+
 **Implemented:** PR-001 through PR-015 deliver eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). The [M5 browser runtime](./docs/browser-runtime.md) passed the [recorded macOS/Linux Chromium material matrix](./docs/evidence/m5-05/README.md); the independent [Studio](https://github.com/OpenMixture/Studio) MVP passed its [recorded macOS saved-file qualification](./docs/evidence/studio-qualification/README.md). Current-candidate CI independently builds and installs a fresh package for browser qualification; every delivery candidate must still bind its own source and archive results.
 
 `PR-001` through `PR-015` are historical implementation batch identifiers, not GitHub pull request numbers. New changes follow the [repository governance](./docs/governance.md) and [evidence retention](./docs/evidence-policy.md) policies.
@@ -31,7 +33,7 @@ The [GPU context and doctor guide](./docs/gpu-context.md) documents adapter sele
 
 Try [the built-in checker](./docs/builtin-checker.md): `cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out checker.png`. Doctor runs its compute/readback probe by default; use `--skip-probe` for acquisition only.
 
-Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [eleven node contracts](./docs/node-contracts.md).
+Validate the [checker document](./examples/checker.mix) without a GPU: `cargo run --locked -p mixture-cli -- validate examples/checker.mix --json`. See the [strict file format](./docs/file-format.md) and [twelve node contracts](./docs/node-contracts.md).
 
 ## Mission
 

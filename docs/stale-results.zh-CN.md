@@ -35,7 +35,7 @@ PR-014 在[独立原生消费者](../examples/native-consumer/README.zh-CN.md)�
 
 逐次 `SafetyLimits::transient_bytes` 和 `AllocationReport` 描述 GPU 描述符，不包含上述 CPU 聚合保留。宿主还需预算输入／计划、readback 转换、PNG 编码、分配器开销、驱动及管线状态。待执行输入按数量有界；若接受任意数据，宿主还必须限制其字节数。本示例只为有界自有输入排队整数覆盖值。只存在一个活跃 renderer 调用，没有输出历史、纹理池或隐藏全局缓存。
 
-专项 [GPU 回归](../crates/mixture-wgpu/tests/nodes.rs) 对十一种节点契约各取前两个可用用例，以 33×3 渲染并重复验证像素一致和逐次计数，覆盖全部九种像素内核。缓存项等于已遇到的不同内核数，始终不超过九，在不同 renderer 间独立，并可显式清除或在观察到丢失后清除。drop 释放所有权；成功／失败后的描述符报告均为 `liveBytes == 0`，复用仍为零。这些是所有权／计数断言，不是物理 VRAM 立即回收的测量。既有后期 readback 失败测试继续纳入 smoke。
+专项 [GPU 回归](../crates/mixture-wgpu/tests/nodes.rs) 对十二种节点契约各取前两个可用用例，以 33×3 渲染并重复验证像素一致和逐次计数，覆盖全部十种像素内核。缓存项等于已遇到的不同内核数，始终不超过十，在不同 renderer 间独立，并可显式清除或在观察到丢失后清除。drop 释放所有权；成功／失败后的描述符报告均为 `liveBytes == 0`，复用仍为零。这些是所有权／计数断言，不是物理 VRAM 立即回收的测量。既有后期 readback 失败测试继续纳入 smoke。
 
 ## 验证
 

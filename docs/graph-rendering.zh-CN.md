@@ -1,8 +1,8 @@
-# 十一节点材质图渲染
+# 十二节点材质图渲染
 
 [English](./graph-rendering.md) | 简体中文
 
-本地 `.mix → validate → RenderPlan → wgpu → PNG` 路径执行十一个内置契约。PR-007 建立六个 M2 契约，PR-009 添加噪声／颜色／法线 kernel，PR-010 添加标量变换／扭曲。[Renderer](../crates/mixture-wgpu/src/executor.rs)只接受编译器生成的不可变计划，持有一个显式获取的上下文及小型管线缓存。GPU crate 不解析文档、不解析节点默认值、不解释参数覆盖。[CLI](../crates/mixture-cli/src/commands/render.rs)负责文件 I/O、参数、PNG 编码和报告。
+本地 `.mix → validate → RenderPlan → wgpu → PNG` 路径执行十二个内置契约。PR-007 建立六个 M2 契约，PR-009 添加噪声／颜色／法线 kernel，PR-010 添加标量变换／扭曲。[Renderer](../crates/mixture-wgpu/src/executor.rs)只接受编译器生成的不可变计划，持有一个显式获取的上下文及小型管线缓存。GPU crate 不解析文档、不解析节点默认值、不解释参数覆盖。[CLI](../crates/mixture-cli/src/commands/render.rs)负责文件 I/O、参数、PNG 编码和报告。
 
 ## 运行示例
 
@@ -115,7 +115,7 @@ cargo xtask check
 
 `shader-check` 无需 GPU 即可验证全部 WGSL 入口／工作组尺寸和 uniform 结构大小。`test-node` 先在无 GPU 环境验证[全部节点夹具](../fixtures/nodes/README.zh-CN.md)，包括无效覆盖／源文件，再精确运行指定节点的 GPU 用例。它使用与冒烟相同的 `MIXTURE_GPU_BACKEND`、`MIXTURE_GPU_SOFTWARE` 及可选预期适配器策略。报告位于 `tmp/node-tests/<backend>/<node>.json`。未知节点和无效策略在 Cargo／GPU 工作开始前失败。
 
-`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部十一个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
+`gpu-smoke` 保留固定棋盘格／doctor 基准验收，渲染三个图示例，将图棋盘格与同一基准比较，并运行所有忽略的库／CLI GPU 回归。覆盖全部十二个节点、非对齐尺寸、非平凡颜色／alpha、全部混合模式、levels 极值、默认值／别名、执行裁剪、缓存复用／清理、设备拒绝／恢复、无效着色器／管线／映射／设备路径、PNG 元数据、文件名及部分输出失败报告。证据保存在 `tmp/gpu-smoke/`，包括各节点用例报告。普通 `check`／工作区测试不初始化 GPU。
 
 本地 [Apple M5／Metal](./evidence/pr-007-apple-m5.json) 和固定 [SwiftShader／Vulkan](./evidence/pr-007-swiftshader.json)通过验证。已查看三个 256×256 示例。固定棋盘格与受保护基准逐字节一致，未覆盖任何像素基准。没有变更依赖或锁文件版本。
 

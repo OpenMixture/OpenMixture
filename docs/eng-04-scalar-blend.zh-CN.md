@@ -31,3 +31,5 @@ Rust 包和新浏览器候选均未发布。发布和下游升级属于后续工
 - `cargo xtask check` 和 6 项受保护 CI 检查控制集成。已有 golden 像素不更新。视觉检查使用 1K 高度／法线变体及平铺接触表；[夹具门槛](../fixtures/nodes/scalar-blend/README.zh-CN.md)在验收前固定。
 
 空间遮罩、混合模式／数学节点族、叠加位移、HDR 域、图重写、图像资源、便携打包、UI 编辑及发布均不在范围内。
+
+[验收证据](./evidence/eng-04/README.zh-CN.md)保留完整 1K 原生／浏览器图像、四组计划和直接像素比较。`node scripts/browser-runtime/check-scalar.mjs <候选验收目录> <新输出目录>` 在显式 GPU 策略下比较两个通道，沿用单分量差值上限 1；已纳入必需浏览器 CI。
