@@ -1,0 +1,13 @@
+{
+  "cargoXtaskCheck": {
+    "ok": true,
+    "logSha256": "5027abbe870ea05b8edbaf6396e6cc870be3cf829540820a59aef30fa26a9cb2",
+    "scope": "CPU repository, independent consumers, isolated packages, docs/links; no new local GPU claim"
+  },
+  "focusedRustTests": 6,
+  "javascriptTests": 9,
+  "independentControls": 40,
+  "offlineDecodedTexturesVerified": 176,
+  "offlineBrowserChannelMetricsReproduced": 132,
+  "nativeShadersFixturesAndLegacyTolerancesChanged": false
+}

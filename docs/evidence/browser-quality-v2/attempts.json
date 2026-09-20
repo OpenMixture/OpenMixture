@@ -1,0 +1,68 @@
+{
+  "invalidHistoricalFiles": [
+    {
+      "originalDirectory": "chromium-cert-chrome-baseline",
+      "path": "leather/detail-min/baseColor.png",
+      "size": 830278,
+      "observedSha256": "739fa4162eb180753f7ec5d0fe0ff5f4a3549e4a60876367a1535f6656aca313",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/default/height.png",
+      "size": 1368696,
+      "observedSha256": "3aff2de52216a5a6f5e23c5b5f1dcf0f1c071b198d8a66f0956f896a8b4fba12",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/default/roughness.png",
+      "size": 912956,
+      "observedSha256": "88132004fd448a38c4582f08db86077652ac8b81a3efc1495a0f0e3f03b7f88d",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/detail-min/baseColor.png",
+      "size": 830278,
+      "observedSha256": "7a040d69be7604787aad50c94b4b9ddbfe4e1df427f4b23579d3ba3706e6e16b",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/detail-min/height.png",
+      "size": 1319919,
+      "observedSha256": "f08d0ff484cdd3d1e91642623c6321dad008669547c7bcc339feb8aae1222454",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/detail-min/normal.png",
+      "size": 2461021,
+      "observedSha256": "6518d9af25329f41f22111f925011ba8242ac22e845ede1db20d740414666458",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "leather/detail-min/roughness.png",
+      "size": 742592,
+      "observedSha256": "8f560d66102e6a10c9384e2514cc69cdfd441334a92e097aef67259fb59434ad",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    },
+    {
+      "originalDirectory": "chromium-cert-edge-baseline",
+      "path": "wood/coarse-grain/height.png",
+      "size": 669524,
+      "observedSha256": "beee547056c970f9af24ff8dcf1d90f2c1054d9fa7a7f309558086e42d62a85b",
+      "reason": "invalid PNG signature; rejected without evaluation"
+    }
+  ],
+  "warpFmaRetrospective": "Rejected: native pixels changed since preparation; not used for v2 decision",
+  "toolingAttempts": [
+    "Initial local Clippy style errors corrected before freeze",
+    "Windows running xtask executable blocked rebuild during first retrospective/Chrome attempt; retried after checks completed",
+    "Edge first run rejected because OS launched a direct child with an internal marker; explicit parent/executable/CDP PID guard added and new fresh profile rerun",
+    "Vite preview SPA fallback made production harness URL return 200; switched to unchanged product strict static server and reran production successfully"
+  ],
+  "historicalRecordsRewritten": false
+}

@@ -1,0 +1,864 @@
+{
+  "cases": [
+    {
+      "case": "identity",
+      "channel": "baseColor",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "balanced-one-code",
+      "channel": "baseColor",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "sparse-one-code",
+      "channel": "baseColor",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.00390625,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "uniform-bias",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "local-bias",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.66015625,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "wrap-bias",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "two-code-spike",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 2,
+        "maxWindowBias": 0.0078125,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "seam-stripe",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.5,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "lost-detail",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 4,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "invalid-alpha",
+      "channel": "baseColor",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": false,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "identity",
+      "channel": "normal",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": {
+          "maxAngleDegrees": 0.0,
+          "maxDiffuseDelta": 0.0,
+          "maxHighlightDelta": 0.0,
+          "maxLengthDelta": 0.0
+        },
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "balanced-one-code",
+      "channel": "normal",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.0,
+        "normal": {
+          "maxAngleDegrees": 0.44937290391245893,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "sparse-one-code",
+      "channel": "normal",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.00390625,
+        "normal": {
+          "maxAngleDegrees": 0.4493452636604512,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "uniform-bias",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": {
+          "maxAngleDegrees": 0.4493452636604512,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "local-bias",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.66015625,
+        "normal": {
+          "maxAngleDegrees": 0.4493452636604512,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "wrap-bias",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": {
+          "maxAngleDegrees": 0.4493452636604512,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "two-code-spike",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 2,
+        "maxWindowBias": 0.0078125,
+        "normal": {
+          "maxAngleDegrees": 0.8986076269647232,
+          "maxDiffuseDelta": 0.009557037420257042,
+          "maxHighlightDelta": 0.011727307454218017,
+          "maxLengthDelta": 0.00018452454361828075
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "seam-stripe",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.5,
+        "normal": {
+          "maxAngleDegrees": 0.4493452636604512,
+          "maxDiffuseDelta": 0.004754580853389312,
+          "maxHighlightDelta": 0.0039249809527182045,
+          "maxLengthDelta": 0.00006151196417159
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "lost-detail",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 4,
+        "maxWindowBias": 0.0,
+        "normal": {
+          "maxAngleDegrees": 1.7971047948708105,
+          "maxDiffuseDelta": 0.019301868004655942,
+          "maxHighlightDelta": 0.03854218662826692,
+          "maxLengthDelta": 0.000614949481508642
+        },
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": false,
+        "roughness": null
+      }
+    },
+    {
+      "case": "invalid-alpha",
+      "channel": "normal",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": false,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": {
+          "maxAngleDegrees": 0.0,
+          "maxDiffuseDelta": 0.0,
+          "maxHighlightDelta": 0.0,
+          "maxLengthDelta": 0.0
+        },
+        "numericalOk": true,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "identity",
+      "channel": "height",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.0,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "balanced-one-code",
+      "channel": "height",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00784313725490196,
+          "maxSeamGradientDelta": 0.00784313725490196,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "sparse-one-code",
+      "channel": "height",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00392156862745098,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.00390625,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "uniform-bias",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.0,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "local-bias",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00392156862745098,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.66015625,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "wrap-bias",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00392156862745098,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "two-code-spike",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00784313725490196,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 2,
+        "maxWindowBias": 0.0078125,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "seam-stripe",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.00392156862745098,
+          "maxSeamGradientDelta": 0.00392156862745098,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.5,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "lost-detail",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": {
+          "maxGradientDelta": 0.03137254901960784,
+          "maxSeamGradientDelta": 0.03137254901960784,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 4,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": false,
+        "roughness": null
+      }
+    },
+    {
+      "case": "invalid-alpha",
+      "channel": "height",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": false,
+        "height": {
+          "maxGradientDelta": 0.0,
+          "maxSeamGradientDelta": 0.0,
+          "units": "normalized height per texel; no world-space displacement promise"
+        },
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": null
+      }
+    },
+    {
+      "case": "identity",
+      "channel": "roughness",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.0,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "balanced-one-code",
+      "channel": "roughness",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.009124815934843156,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "sparse-one-code",
+      "channel": "roughness",
+      "expectedPass": true,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.00390625,
+        "normal": null,
+        "numericalOk": true,
+        "ok": true,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.008976902560530742,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "uniform-bias",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.008976902560530742,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "local-bias",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.66015625,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.008976902560530742,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "wrap-bias",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 1.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.008976902560530742,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "two-code-spike",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 2,
+        "maxWindowBias": 0.0078125,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.01780475104893231,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "seam-stripe",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 1,
+        "maxWindowBias": 0.5,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.008976902560530742,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "lost-detail",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": true,
+        "height": null,
+        "maxComponentDelta": 4,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": false,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.037370472407446176,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    },
+    {
+      "case": "invalid-alpha",
+      "channel": "roughness",
+      "expectedPass": false,
+      "matched": true,
+      "metrics": {
+        "encodingOk": false,
+        "height": null,
+        "maxComponentDelta": 0,
+        "maxWindowBias": 0.0,
+        "normal": null,
+        "numericalOk": true,
+        "ok": false,
+        "profile": "bounded-rgba8-material-v2",
+        "responseOk": true,
+        "roughness": {
+          "maxResponseDelta": 0.0,
+          "response": "peak-normalized GGX NDF samples; not a complete BRDF"
+        }
+      }
+    }
+  ],
+  "ok": true,
+  "profile": {
+    "id": "bounded-rgba8-material-v2",
+    "maxComponentDelta": 1,
+    "maxHeightGradientDelta": 0.00784313725490196,
+    "maxNormalAngleDegrees": 1.0,
+    "maxNormalDiffuseDelta": 0.02,
+    "maxNormalHighlightDelta": 0.08,
+    "maxNormalLengthDelta": 0.02,
+    "maxRoughnessResponseDelta": 0.05,
+    "maxWindowBias": 0.25,
+    "normalHighlightExponent": 64,
+    "roughnessFloor": 0.04,
+    "schemaVersion": 2,
+    "windowSize": 16,
+    "windowStride": 8
+  },
+  "profileSha256": "sha256:c67034e89c502973659589744ed007d720425a8bb06a01ddd1bb49d1b7b4ce88",
+  "schemaVersion": 1,
+  "source": "procedural texture perturbations; no browser output inputs"
+}

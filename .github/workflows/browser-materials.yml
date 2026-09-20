@@ -54,6 +54,8 @@ jobs:
           key: ${{ steps.swiftshader-cache.outputs.cache-primary-key }}
       - name: Install repository Rust toolchain
         run: rustup show active-toolchain
+      - name: Verify independent browser quality controls before material execution
+        run: cargo xtask browser-quality-calibrate tmp/browser-quality-controls
       - name: Install Node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
@@ -122,6 +124,7 @@ jobs:
             tmp/browser-candidate/
             tmp/browser-native/
             tmp/browser-output/
+            tmp/browser-quality-controls/
             tmp/browser-product/package-lock.json
             tmp/browser-product/test-results/
           retention-days: 30

@@ -2,6 +2,10 @@
 
 English | [简体中文](./browser-alpha.zh-CN.md)
 
+**2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Original sparse-pixel verdicts remain diagnostic; historical acceptance, native goldens and Studio saved-file gates remain unchanged. New browser support still needs source-bound qualification.
+
+**Recorded v2 validation:** [2026-09-20 results](./evidence/browser-quality-v2/README.md) retain fresh ordinary Chrome/Edge/Firefox 44/44 comparisons for the exact existing archive, plus separate current-candidate Linux CI. This is scoped evidence, not acceptance of the pending warp shader candidates.
+
 ## Current status and decision — 2026-09-16
 
 Native M4/M4.1 and [bounded M5 browser acceptance](./evidence/m5-05/README.md) are complete. The independent Studio MVP also passed its [recorded macOS saved-file qualification](./evidence/studio-qualification/README.md). These results certify their recorded sources, archives and environments, not every later build or default browser configuration. Cargo packages remain unpublished `0.1.0`; the browser archive is unpublished `@openmixture/runtime@0.1.0-alpha.0`.

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 2,
+  "id": "bounded-rgba8-material-v2",
+  "maxComponentDelta": 1,
+  "windowSize": 16,
+  "windowStride": 8,
+  "maxWindowBias": 0.25,
+  "maxNormalAngleDegrees": 1.0,
+  "maxNormalLengthDelta": 0.02,
+  "maxNormalDiffuseDelta": 0.02,
+  "maxNormalHighlightDelta": 0.08,
+  "normalHighlightExponent": 64,
+  "maxHeightGradientDelta": 0.00784313725490196,
+  "maxRoughnessResponseDelta": 0.05,
+  "roughnessFloor": 0.04
+}

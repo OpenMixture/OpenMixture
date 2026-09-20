@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "freezeCommit": "c85972e23ad684d267af59c9c607d1306a9ffed0",
+  "runtimeRevision": "ec571816026a945a706067769fef76e24c8398b0",
+  "archiveSha256": "08cdce838500343b34d775a62058d6adfd5c6035f109d86e03e5ac1ff11f1ec2",
+  "profileSha256": "c67034e89c502973659589744ed007d720425a8bb06a01ddd1bb49d1b7b4ce88",
+  "ordinaryBrowserResults": {
+    "chrome": {
+      "browser": "153.0.8010.48",
+      "v2Passed": 44,
+      "legacyPassed": 27,
+      "channels": 44,
+      "gates": {
+        "legacyPixelRegression": false,
+        "materialStructure": true,
+        "numericalAgreement": true,
+        "semantics": true
+      },
+      "maxComponentDelta": 1,
+      "maxWindowBias": 0.01171875,
+      "maxNormalAngleDegrees": 0.5953195122435492,
+      "maxHeightGradientDelta": 0.00392156862745098,
+      "maxRoughnessResponseDelta": 0.00875639734842093,
+      "adapter": {
+        "options": {
+          "powerPreference": "high-performance"
+        },
+        "info": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        }
+      },
+      "verifierSha256": "1f1152b8a815cf4e9b08e93b42a599f80062da5c7bef82846b11526edaaba1b3"
+    },
+    "edge": {
+      "browser": "153.0.4234.32",
+      "v2Passed": 44,
+      "legacyPassed": 27,
+      "channels": 44,
+      "gates": {
+        "legacyPixelRegression": false,
+        "materialStructure": true,
+        "numericalAgreement": true,
+        "semantics": true
+      },
+      "maxComponentDelta": 1,
+      "maxWindowBias": 0.01171875,
+      "maxNormalAngleDegrees": 0.5953195122435492,
+      "maxHeightGradientDelta": 0.00392156862745098,
+      "maxRoughnessResponseDelta": 0.00875639734842093,
+      "adapter": {
+        "options": {
+          "powerPreference": "high-performance"
+        },
+        "info": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        }
+      },
+      "verifierSha256": "362eb345182a8fec3f445fdb725a0c6c74e47ffb2192afc41b6f5bce40b58f8d"
+    },
+    "firefox": {
+      "browser": "156.0",
+      "v2Passed": 44,
+      "legacyPassed": 44,
+      "channels": 44,
+      "gates": {
+        "legacyPixelRegression": true,
+        "materialStructure": true,
+        "numericalAgreement": true,
+        "semantics": true
+      },
+      "maxComponentDelta": 0,
+      "maxWindowBias": 0.0,
+      "maxNormalAngleDegrees": 1.7075472925031877e-06,
+      "maxHeightGradientDelta": 0.0,
+      "maxRoughnessResponseDelta": 0.0,
+      "adapter": {
+        "options": {
+          "powerPreference": "high-performance"
+        },
+        "info": {
+          "vendor": "",
+          "architecture": "",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        }
+      },
+      "verifierSha256": "1f1152b8a815cf4e9b08e93b42a599f80062da5c7bef82846b11526edaaba1b3"
+    }
+  },
+  "offlineReplay": {
+    "decodedTextures": 176,
+    "channelMetricsExactlyReproduced": 132,
+    "gpuExecuted": false
+  },
+  "production": {
+    "chrome": true,
+    "edge": true,
+    "firefox": "not executed; current production download verifier is Chromium-only"
+  },
+  "scope": "v2 acceptance of this exact installed historical package in fresh ordinary Windows profiles; separate CI covers fresh package at PR merge revision; no universal support or shader candidate acceptance"
+}

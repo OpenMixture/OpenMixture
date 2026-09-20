@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "receiptSha256": "60f37e8e974c4f2bad718569d027ed5810f30b0fa22b5f0b58d177a7a0b4d786",
+  "comparisonSha256": "fd9cffd1b6de09cfcb09baf0df09c31491cc5b55dcc6eb20d0c7ea8955ccff31",
+  "verifierSha256": "1f1152b8a815cf4e9b08e93b42a599f80062da5c7bef82846b11526edaaba1b3",
+  "finishedAt": "2026-09-20T03:17:14.093Z",
+  "scope": "Recorded desktop browser/Windows fresh profile only; failure paths are separately injected; production Player verification is separate."
+}

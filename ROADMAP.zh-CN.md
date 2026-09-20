@@ -4,6 +4,8 @@
 
 **当前状态（2026-09-16）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，默认用户浏览器配置尚待验证。下一阶段是 [Browser Runtime Alpha 交付收尾](./docs/browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
 
+ALPHA-03 浏览器比较现遵循 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md)；全部已有材质、变体及语义/结构检查继续必需。本变更调整比较规则，不改变里程碑范围或原生金图接受。
+
 本路线图按可验证的结果组织，而不是按日期、季度、节点数量或功能数量安排。只有全部退出标准在干净环境中通过，里程碑才算完成。
 
 ## 路线图规则

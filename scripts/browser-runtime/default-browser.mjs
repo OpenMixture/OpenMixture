@@ -5,7 +5,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { assertBuild, hash, installed } from './candidate.mjs';
+import { assertBuild, assertComparison, hash, installed } from './candidate.mjs';
 import { connectFirefox } from './firefox-transport.mjs';
 
 const json = async path => JSON.parse((await readFile(path, 'utf8')).replace(/^\uFEFF/, ''));
@@ -24,7 +24,15 @@ export function assertOrdinaryLaunch(launch) {
   assert.match(debugging, /^--remote-debugging-port=\d+$/);
   assert.equal(launch.arguments.at(-1), 'about:blank');
   assert.equal(launch.endpoint, firefox ? `ws://127.0.0.1:${debugging.split('=')[1]}/session` : `http://127.0.0.1:${debugging.split('=')[1]}`);
-  assert.equal(launch.observedCommandLine.trim(), `"${launch.executable}" ${launch.arguments.join(' ')}`);
+  if (launch.observedCommandLine === null && launch.launcherProcessObserved === false) {
+    // A fast Edge relaunch can exit before the OS query. Never fabricate an
+    // observed launcher command; require the actual direct child and CDP PID.
+    assert.equal(launch.product, 'Microsoft Edge');
+    assert.equal(launch.browserProcess?.parentProcessId, launch.processId);
+    assert.equal(launch.browserProcess?.executable, launch.executable);
+  } else {
+    assert.equal(launch.observedCommandLine.trim(), `"${launch.executable}" ${launch.arguments.join(' ')}`);
+  }
   assert.match(launch.executableSha256, /^[a-f0-9]{64}$/);
 }
 
@@ -38,6 +46,25 @@ export function assertFirefoxProcess(launch, capabilities) {
   assert.equal(capabilities['moz:profile'], launch.arguments[1].slice(1, -1));
   const tokens = process.commandLine.match(/"[^"]*"|[^\s]+/g).map(value => value.replace(/^"|"$/g, ''));
   assert.deepEqual(tokens, [launch.executable, ...launch.arguments.map(value => value.replace(/^"|"$/g, ''))]);
+}
+
+export function assertChromiumProcess(launch, systemInfo, processInfo) {
+  const commandLine = systemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim();
+  const actual = processInfo.processInfo.filter(process => process.type === 'browser');
+  assert.equal(actual.length, 1);
+  if (launch.product === 'Microsoft Edge' && launch.browserProcess) {
+    const child = launch.browserProcess;
+    assert.equal(child.parentProcessId, launch.processId);
+    assert.equal(child.executable, launch.executable);
+    assert.equal(actual[0].id, child.processId);
+    assert.equal(commandLine, child.commandLine.trim());
+    const tokens = commandLine.match(/"[^"]*"|[^\s]+/g).map(value => value.replace(/^"|"$/g, ''));
+    assert.deepEqual(tokens, [launch.executable, ...launch.arguments.slice(0, -1).map(value => value.replace(/^"|"$/g, '')),
+      '--edge-skip-compat-layer-relaunch', 'about:blank']);
+  } else {
+    assert.equal(actual[0].id, launch.processId);
+    assert.equal(commandLine, launch.observedCommandLine.trim());
+  }
 }
 
 export function assertFailure(value, code, stage) {
@@ -84,7 +111,8 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
     } else {
       const system = await browser.newBrowserCDPSession();
       receipt.browserSystemInfo = await system.send('SystemInfo.getInfo');
-      assert.equal(receipt.browserSystemInfo.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
+      receipt.browserProcessInfo = await system.send('SystemInfo.getProcessInfo');
+      assertChromiumProcess(launch, receipt.browserSystemInfo, receipt.browserProcessInfo);
     }
     const page = await newPage();
     page.on('pageerror', error => errors.push(error.message));
@@ -198,7 +226,7 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
       cwd: resolve(import.meta.dirname, '../..'), stdio: 'inherit',
     });
     const comparison = await json(join(output, 'comparison.json'));
-    assert.equal(comparison.ok, true);
+    assertComparison(comparison);
     await save(join(output, 'ordinary.json'), { schemaVersion: 1, ok: true,
       receiptSha256: hash(await readFile(join(output, 'receipt.json'))), comparisonSha256: hash(await readFile(join(output, 'comparison.json'))),
       verifierSha256: hash(await readFile(import.meta.filename)), finishedAt: new Date().toISOString(),
@@ -226,7 +254,7 @@ export async function production(product, candidateDirectory, launchFile, output
   assert.equal(browser.version(), launch.version);
   const system = await browser.newBrowserCDPSession();
   const info = await system.send('SystemInfo.getInfo');
-  assert.equal(info.commandLine.replace(' --flag-switches-begin --flag-switches-end', '').trim(), launch.observedCommandLine.trim());
+    assertChromiumProcess(launch, info, await system.send('SystemInfo.getProcessInfo'));
   const page = await browser.contexts()[0].newPage();
   try {
     await page.goto('http://127.0.0.1:4173/player/');

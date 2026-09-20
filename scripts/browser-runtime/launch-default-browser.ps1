@@ -20,7 +20,7 @@ if ($Family -eq 'firefox') {
 }
 $browserProcess = Start-Process -FilePath $browserFile.FullName -ArgumentList $launchArguments -WindowStyle Hidden -PassThru
 $observed = Get-CimInstance Win32_Process -Filter "ProcessId=$($browserProcess.Id)"
-if (-not $observed) { throw 'Could not observe the launched browser process.' }
+if (-not $observed -and $browserFile.VersionInfo.ProductName -ne 'Microsoft Edge') { throw 'Could not observe the launched browser process.' }
 $record = [ordered]@{
     schemaVersion = 1
     browserFamily = $Family
@@ -31,6 +31,7 @@ $record = [ordered]@{
     product = $browserFile.VersionInfo.ProductName
     version = $browserFile.VersionInfo.ProductVersion
     processId = $browserProcess.Id
+    launcherProcessObserved = [bool]$observed
     arguments = $launchArguments
     observedCommandLine = $observed.CommandLine
     endpoint = "http://127.0.0.1:$Port"
@@ -48,6 +49,20 @@ if ($Family -eq 'firefox') {
     if (-not $child) { throw 'Could not observe Firefox browser parent process.' }
     $record.browserProcess = @{ processId = $child.ProcessId; parentProcessId = $child.ParentProcessId; commandLine = $child.CommandLine }
     $record.endpoint = "ws://127.0.0.1:$Port/session"
+}
+if ($Family -eq 'chromium' -and $browserFile.VersionInfo.ProductName -eq 'Microsoft Edge') {
+    # Some installed Edge builds relaunch themselves. Observe the OS child, never
+    # supply its internal switch or accept arbitrary extra user launch arguments.
+    for ($attempt = 0; $attempt -lt 30; $attempt++) {
+        $edgeChild = Get-CimInstance Win32_Process -Filter "ParentProcessId=$($browserProcess.Id) AND Name='msedge.exe'" |
+            Where-Object { $_.ExecutablePath -eq $browserFile.FullName -and $_.CommandLine.Contains('--edge-skip-compat-layer-relaunch') -and -not $_.CommandLine.Contains('--type=') } | Select-Object -First 1
+        if ($edgeChild) {
+            $record.browserProcess = @{ processId = $edgeChild.ProcessId; parentProcessId = $edgeChild.ParentProcessId; executable = $edgeChild.ExecutablePath; commandLine = $edgeChild.CommandLine }
+            break
+        }
+        Start-Sleep -Milliseconds 100
+    }
+    if (-not $observed -and -not $record.browserProcess) { throw 'Neither Edge launcher nor its direct browser child was observed.' }
 }
 $record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $outputPath 'launch.json') -Encoding utf8
 Write-Output "Launch record: $(Join-Path $outputPath 'launch.json')"

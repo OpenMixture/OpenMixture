@@ -1,6 +1,6 @@
 //! Compare independently supplied browser PNGs using existing material quality rules.
 use super::{
-    files, material,
+    browser_quality, files, material,
     model::{CHANNELS, Tolerance, Variant},
     pixels::{self, Image},
 };
@@ -26,7 +26,12 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
     }
     let tolerances: BTreeMap<String, Tolerance> =
         files::json(&root.join("docs/browser-tolerances.json"))?;
+    let policy = browser_quality::Policy::load(root)?;
     let mut records = Vec::new();
+    let mut numerical_ok = true;
+    let mut semantics_ok = true;
+    let mut quality_ok = true;
+    let mut legacy_ok = true;
     let mut all_ok = true;
     for id in ["glazed-ceramic", "leather", "wood"] {
         let (directory, acceptance) = material(root, id)?;
@@ -82,6 +87,8 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
                     &image,
                     *tolerances.get(channel).ok_or("missing channel tolerance")?,
                 );
+                let quality_comparison =
+                    browser_quality::compare(&before, &image, channel, &policy);
                 let structure = pixels::structure(&image, &case.checks[channel]);
                 let cause = if case.id == "default" {
                     None
@@ -92,11 +99,16 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
                         &case.changes[channel],
                     ))
                 };
+                numerical_ok &= quality_comparison["ok"] == true;
+                legacy_ok &= comparison["ok"] == true;
+                semantics_ok &= plan_ok;
+                quality_ok &=
+                    structure["ok"] == true && cause.as_ref().is_none_or(|c| c["ok"] == true);
                 all_ok &= plan_ok
                     && structure["ok"] == true
                     && cause.as_ref().is_none_or(|c| c["ok"] == true)
-                    && (measure || comparison["ok"] == true);
-                channels.insert(channel, json!({"comparison":comparison,"structure":structure,"causality":cause,
+                    && (measure || quality_comparison["ok"] == true);
+                channels.insert(channel, json!({"comparison":quality_comparison,"legacyComparison":comparison,"structure":structure,"causality":cause,
                     "nativePngSha256":files::digest(&native_dir.join(&name))?,"browserPngSha256":files::digest(&browser_dir.join(&name))?}));
                 rows.push((
                     channel.to_owned(),
@@ -116,6 +128,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
                 .iter()
                 .map(|rule| pixels::relationship(&images, rule))
                 .collect();
+            quality_ok &= relationships.iter().all(|r| r["ok"] == true);
             all_ok &= relationships.iter().all(|r| r["ok"] == true);
             pixels::sheet(&browser_dir.join("comparison.png"), &rows)?;
             records.push(json!({"material":id,"case":case.id,"planMatches":plan_ok,"channels":channels,"relationships":relationships}));
@@ -126,8 +139,10 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
     {
         return Err("unexpected material matrix cardinality".into());
     }
-    let report = json!({"schemaVersion":1,"mode":if measure {"measurement only"}else{"acceptance"},"ok":all_ok,
+    let report = json!({"schemaVersion":2,"mode":if measure {"measurement only"}else{"acceptance"},"ok":all_ok,
         "nativeManifestSha256":files::digest(&native.join("manifest.json"))?,"browserReceiptSha256":files::digest(&browser.join("receipt.json"))?,
+        "profile":policy,"profileSha256":files::digest(&root.join("docs/browser-quality-v2.json"))?,
+        "gates":{"semantics":semantics_ok,"materialStructure":quality_ok,"numericalAgreement":numerical_ok,"legacyPixelRegression":legacy_ok},
         "toleranceSha256":files::digest(&root.join("docs/browser-tolerances.json"))?,"cases":records});
     files::write_json(&browser.join("comparison.json"), &report)?;
     if !all_ok {
