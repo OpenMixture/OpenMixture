@@ -142,3 +142,16 @@ M5 adds `futures-channel` for nonblocking browser callbacks, `web-time` for brow
 [Browser material measurement and comparison](./browser-materials.md) documents `browser-material-measure` and `browser-material-check`.
 
 `cargo xtask browser-quality-calibrate <fresh-output>` verifies 40 independent perturbation controls and writes comparison sheets plus a policy-bound report; see [browser quality](./browser-quality.md). It does not execute a material graph or qualify a browser.
+
+## Independent browser SDK consumer — ENG-03
+
+The [browser consumer](../examples/browser-consumer/README.md) is a separate npm project with its own exact lock. These producer commands run from the engine root; each output directory must be new:
+
+```sh
+node --test scripts/browser-runtime/consumer.test.mjs
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
+node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
+```
+
+Candidate qualification requires a clean-source archive for HEAD. Registry qualification uses the example's committed exact version, not the candidate's build identity. Each stages outside the checkout, verifies installed bytes and types, builds static assets, and runs eight real browser tests. Automated Chromium must have working WebGPU; unavailable GPU execution is a failure. The example README defines explicit local Chrome/adapter overrides and evidence limits. These Node/browser checks are additional to `cargo xtask check`; the existing browser package/material CI jobs run them without removing pinned Studio coverage. No package is published by these commands.

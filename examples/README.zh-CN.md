@@ -27,3 +27,5 @@ cargo run --locked -p mixture-cli -- render examples/blend.mix --size 256 \
 [独立 Rust 消费者](./native-consumer/README.zh-CN.md)拥有单独 Cargo 工作区及输入。运行 `cargo xtask test-consumer` 检查 CPU／公开 API；`gpu-smoke` 还会执行其显式 GPU 路径，在 renderer 销毁后消费返回像素。
 
 PR-012 为该消费者夹具增加 [CLI 进程契约测试](./native-consumer/tests/cli_contract.rs)，使用自有源码并解码 PNG。CPU 用例通过 `test-consumer` 运行；真实 GPU 及部分写入用例仍在 `gpu-smoke` 中显式执行。
+
+[独立浏览器消费者](./browser-consumer/README.zh-CN.md)安装精确公开 npm 运行时，演示显式加载／渲染／销毁，并在不依赖 Studio 的情况下分别验收候选包和注册表包。

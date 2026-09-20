@@ -143,3 +143,5 @@ The retained M5 receipt must bind the engine revision, package version/digest, c
 M5 does not implement a node editor, intermediate-node preview protocol, custom shaders, new material nodes, image resources, `.mixpack`, a second TypeScript/WebGL/CPU renderer, GPUTexture sharing, zero-copy results, 3D preview, all-bundler adapters, Node.js GPU or SSR rendering. npm is the distribution channel, not a claim that every JavaScript host can execute the runtime.
 
 Player/Studio product work remains consumer-owned. Engine capability work may also originate from maintainer-defined use cases and measurements under the [Post-Alpha roadmap](../ROADMAP.md). [M6](../ROADMAP.md#m6--resources-and-portable-packaging) now separates external image input from portable packaging; each needs its own entry decision, and neither starts in ENG-01/02.
+
+ENG-03 adds an [independent browser SDK example and qualification entry](../examples/browser-consumer/README.md) using this public contract. Candidate and exact registry builds are verified separately; the pinned Studio material and wider contract coverage remain required.

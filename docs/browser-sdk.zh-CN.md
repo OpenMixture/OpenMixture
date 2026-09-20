@@ -143,3 +143,5 @@ M5-02 必须验证：平台已送达完成或失败后，不会因包装逻辑�
 M5 不实现节点编辑器、中间节点预览协议、自定义 shader、新材质节点、图像资源、`.mixpack`、第二套 TypeScript/WebGL/CPU 渲染器、GPUTexture 共享、零拷贝结果、3D 预览、全部打包器适配、Node.js GPU 或 SSR 渲染。npm 是分发渠道，不代表每个 JavaScript 宿主都可以执行运行时。
 
 Player／Studio 产品工作仍归消费者。引擎能力工作也可由维护者定义的用例和测量驱动，遵循 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)。[M6](../ROADMAP.zh-CN.md#m6--资源与可移植打包)现将外部图像输入与便携打包分开，各需独立进入决策；ENG-01／02 不启动它们。
+
+ENG-03 新增使用本公开契约的[独立浏览器 SDK 示例与验收入口](../examples/browser-consumer/README.zh-CN.md)。候选和精确注册表构建分别验证，固定 Studio 材质及更广泛契约覆盖继续必需。

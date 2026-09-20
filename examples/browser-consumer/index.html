@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenMixture · Browser SDK example</title>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">OPENMIXTURE / SDK EXAMPLE</p>
+      <h1>From a material graph to pixels</h1>
+      <p>Load the included <a href="./input.mix">input.mix</a>, override its exposed parameters,
+        render selected channels through WebGPU, then release the runtime.</p>
+      <form id="controls">
+        <label>Horizontal cells <input name="frequency" type="number" min="1" max="1024" value="4" required></label>
+        <label>Roughness <input name="roughness" type="number" min="0" max="1" step="0.05" value="0.25" required></label>
+        <fieldset>
+          <legend>Channels</legend>
+          <label><input name="channel" type="checkbox" value="baseColor" checked> Base color</label>
+          <label><input name="channel" type="checkbox" value="roughness" checked> Roughness</label>
+        </fieldset>
+        <button type="submit">Render material</button>
+      </form>
+      <p id="status" role="status">Ready. Rendering requires a browser with WebGPU in a secure context.</p>
+      <section id="outputs" aria-label="Rendered channels"></section>
+      <details>
+        <summary>Build, plan and adapter report</summary>
+        <pre id="report">No render yet.</pre>
+      </details>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

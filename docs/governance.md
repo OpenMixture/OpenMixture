@@ -29,7 +29,7 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 | `Check (windows-latest)` | The same CPU checks on Windows |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux pinned software GPU smoke, source and packaged consumers, all three 1K materials, and largest-case 2K trace |
 | `WASM and npm package` | Locked WASM build, JavaScript/package contracts and exact npm archive generation |
-| `Chromium WebGPU material matrix` | Exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
+| `Chromium WebGPU material matrix` | Independent SDK candidate/registry consumption plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
 
 Keep these check names stable. A renamed job or changed check source requires coordinated ruleset verification; never remove a required check to merge a failing change. Do not apply workflow path filters that can prevent a required check from being reported. Rule changes are themselves reviewed changes, with the live result recorded after application.
 

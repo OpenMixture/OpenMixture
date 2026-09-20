@@ -29,7 +29,7 @@ M4.1 在原生 M4 验收后建立长期使用的集成分支、真实 GitHub PR�
 | `Check (windows-latest)` | Windows 上相同的 CPU 检查 |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux 固定软件 GPU smoke、源码及打包消费者、全部三种 1K 材质及最大案例的 2K 跟踪 |
 | `WASM and npm package` | 锁定依赖的 WASM 构建、JavaScript／包契约及准确 npm 归档生成 |
-| `Chromium WebGPU material matrix` | 在固定 Studio 中安装准确归档、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
+| `Chromium WebGPU material matrix` | 独立 SDK 候选／注册表消费，以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
 
 保持检查名称稳定。任务改名或检查来源变化时，必须协调验证规则；不得通过删除必需检查合并失败的变更。不要添加可能导致必需检查不报告结果的工作流路径过滤。规则修改本身也应经过审查，并在应用后记录实时结果。
 
