@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join, dirname, basename, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { assertBrowserReport, candidateManifests, safePackagePath, verifyInstalled } from './consumer.mjs';
@@ -13,7 +13,7 @@ test('candidate substitution preserves the frozen dependency graph and does not 
     'node_modules/@openmixture/runtime': { version: '0.1.0-alpha.0', resolved: 'https://registry.npmjs.org/runtime.tgz', integrity: 'old' },
     'node_modules/vite': { version: '8.3.0', integrity: 'unchanged' },
   } };
-  const result = candidateManifests(manifest, lock, '0.1.0-alpha.0', Buffer.from('candidate'));
+  const result = candidateManifests(manifest, lock, '0.2.0-alpha.0', Buffer.from('candidate'));
   assert.equal(result.manifest.dependencies['@openmixture/runtime'], 'file:vendor/runtime.tgz');
   assert.equal(result.lock.packages['node_modules/@openmixture/runtime'].resolved, 'file:vendor/runtime.tgz');
   assert.match(result.lock.packages['node_modules/@openmixture/runtime'].integrity, /^sha512-/);
@@ -30,7 +30,7 @@ test('archive paths cannot escape the installed package', () => {
 });
 
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
-  const report = { stats: { expected: 8, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
+  const report = { stats: { expected: 9, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
@@ -58,4 +58,11 @@ test('installed verification rejects changed WASM and mismatched build metadata'
     assert.ok(basename(directory).startsWith('mixture-consumer-test-'));
     await rm(directory, { recursive: true });
   }
+});
+
+test('ENG-04 native and browser hosts consume the same source fixture', async () => {
+ const fixture = await readFile(new URL('../../fixtures/nodes/scalar-blend/two-noise.mix', import.meta.url));
+ for(const path of ['../../examples/native-consumer/tests/scalar-blend.mix','../../examples/browser-consumer/public/scalar-blend.mix']) {
+  assert.deepEqual(await readFile(new URL(path,import.meta.url)),fixture);
+ }
 });

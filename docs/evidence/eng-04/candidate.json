@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "mode": "candidate",
+  "ok": true,
+  "startedAt": "2026-09-20T13:26:52.222Z",
+  "verifierSha256": "71dbce53e59ca11e183c5563a76244626739417c0c113036a96908f41f8f0cfb",
+  "consumerRevision": "4eb8f215e14821ac700574b649fb6ff3ad919530",
+  "consumerDirty": false,
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.21.0",
+  "run": null,
+  "attempt": null,
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "2a6bf50442343df25a78e7dfb0325bff7d9003d68abdd5dc204d443396dd28e4",
+    "package.json": "1911693f6b8ed513a18178a47afeb8a3392c49fa8e0aa737eaeee612f17b2f3e",
+    "playwright.config.mjs": "6653c314b2605f6a7edfea222fc8dafb1d957092eac21dac5a14a3534ba4750c",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "public/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+    "README.md": "e20b284e22a3f03079529211bb7037ec437d87ad4b9e345c5d39a3f34570f400",
+    "README.zh-CN.md": "105c3da14c25917fb63be812744e323ab7578900308f0375bc766d5f109cb849",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/sdk.spec.mjs": "468c974ec1043adc7a4a06eec0126f9eec6e5dc977eb0a60585b5e603af7cabd",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "build": {
+    "runtimeVersion": "0.2.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.2.0",
+    "engineRevision": "4eb8f215e14821ac700574b649fb6ff3ad919530",
+    "engineDirty": false,
+    "buildId": "sha256:18941c739a3abc4b56aeb187dfd369658d1afbe4214ba4debbb586c4e38f458c"
+  },
+  "archiveSha256": "33b92359fd9341c57e9c97e2ed91decb98c7f98494ad9c7cd61c8dd42fc9b920",
+  "archiveIntegrity": "sha512-6hhdV56bUQfVQBVaeeDQaIbIymnY0UGLhNRHDIBnayTH/aSAw1CPMv0gxilJnhFujCJHlYSBfkWz+g2XLZ3lGQ==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "build-info.json": "e17121e7f3edb6ba92cf8c71ca8de2a7259052170f4a3e017d1d5587d79d1543",
+    "package.json": "1b290e5b9e7493a240e0024f05e765764ae3c1530944d288dbbb1f4cf2be95ab",
+    "README.md": "f868a07a034325e7afb40475ccc86c175de83d393106dee099659ca1826961ec",
+    "README.zh-CN.md": "e427daf0dcac6a309b9d8c30a60f0f50e5708ed09a6cb3fc934de3e66113f2aa",
+    "wasm/bindings.mjs": "d5522ef1cba1971c2657e87a4540854d0e6bba1f5e416ec13f4a77ed90214cbc",
+    "src/build-info.mjs": "b47af1f4d5f8e54ef8ed998464aec421f88c30ecc83f591605c4d43e2bb2d500",
+    "src/index.mjs": "19705526f3c3384a194a52d5f50514633fca0fce9f189167394b512b50e94f33",
+    "src/runtime.mjs": "8e543e010c859f785cad3558ed2c5ad5f67f9db662001dcc8915092bf649d932",
+    "src/index.d.ts": "c2679beff22816f447487de1a5291f18686ad84bc2c39fb8a2ff1d11c26c829b",
+    "wasm/mixture_wasm_bg.wasm": "36423ae995c6905c96697e431da4cf6df79b48d2b9838e0acd8a687348131aab"
+  },
+  "lockSha256": "02972c4a26f1ce186f0dcb6ec0064c0d26a4715a3017e233fc4e040d5f024d66",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "browserChannel": "chrome",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserTests": {
+    "startTime": "2026-09-20T13:27:32.525Z",
+    "duration": 6925.908,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "finishedAt": "2026-09-20T13:27:39.492Z"
+}

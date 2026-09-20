@@ -116,3 +116,7 @@ PR-006 在固定工具链上的本地定向检查与工作区检查通过，当�
 PR-009 添加类型化 `FractalNoise`、`GradientMap` 和 `HeightToNormal` 调用，不改变计划版本 1 或原计划／哈希快照。噪声上传全部 u32 种子位，哈希包含种子、基底、scale、octave 及 persistence 语义；编译器保留 Scalar／Color／Normal 类型化连接并正常裁剪新分支。公共 [M3 API 测试](../crates/mixture-core/tests/m3_nodes.rs)验证默认值、必填种子、降级、分支裁剪及哈希敏感性。
 
 PR-010 添加类型化 `Transform2d` 和 `Warp` 调用，作为 v1 源节点目录的兼容新增扩展。文档版本和计划版本仍为 `1`；现有哈希前缀、原计划／哈希快照以及现有材质像素基准保持不变。新调用沿用相同的类型化序列化、有效参数哈希及依赖裁剪规则。公共[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖降级后的默认值、整数字段、有序及重复的标量绑定、uniform 大小、未请求分支裁剪、参数哈希敏感性、源顺序等价性，以及缺失连接或连接类型错误的拒绝行为。
+
+## ENG-04 兼容性与未发布版本
+
+源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。

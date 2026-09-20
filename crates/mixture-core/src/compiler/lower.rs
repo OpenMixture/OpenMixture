@@ -258,6 +258,11 @@ impl Builder<'_> {
                     output_max: number(node, "outputMax")?,
                 }
             }
+            "scalar-blend" => KernelInvocation::ScalarBlend {
+                a: binding("a")?,
+                b: binding("b")?,
+                weight: number(node, "weight")?,
+            },
             "blend" => {
                 let mode = match parameter(node, "mode")?.as_str() {
                     Some("normal") => BlendMode::Normal,

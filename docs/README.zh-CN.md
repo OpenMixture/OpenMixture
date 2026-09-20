@@ -62,4 +62,4 @@
 
 [ENG-03 消费者证据](./evidence/eng-03/README.zh-CN.md)保留候选／注册表的独立身份、本地浏览器结果及已检查的示例截图。
 
-[ENG-04 Scalar 场组合设计](./eng-04-scalar-blend.zh-CN.md)记录用例、拟议契约及后续验收计划；该节点尚未实现或发布。
+[ENG-04 Scalar 场组合](./eng-04-scalar-blend.zh-CN.md)记录已实现节点、版本化兼容性和原生／浏览器验收；新包尚未发布。

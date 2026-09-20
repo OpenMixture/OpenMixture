@@ -68,3 +68,7 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 PR-013 还使用显式测试环境变量运行独立 `device_loss` 集成测试：销毁冷／热缓存设备，验证重复失败不产生新分配，并消费另一上下文的正确输出。新建 JSON 回执由 smoke 消费者状态中的 `deviceLossEvidence` 引用。见 [PR-013 证据](./evidence/pr-013/README.zh-CN.md)。
 
 [PR-014 新鲜度状态](./stale-results.zh-CN.md)完全位于独立消费者中。它在编译前登记代次，限制活跃／待执行工作，最多保留展示像素加当前完成输出。较新失败后，旧展示仍标为过期。响应性 worker 调度仍由宿主负责。
+
+## ENG-04 兼容性与未发布版本
+
+源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。

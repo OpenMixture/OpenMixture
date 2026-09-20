@@ -55,4 +55,4 @@ Linux 浏览器命令须取消 `VK_ICD_FILENAMES` 和 `VK_DRIVER_FILES`，并使
 
 [正式验收与完整像素](./evidence/m5-05/README.zh-CN.md)保留冻结后的两端结果和复核命令。
 
-ENG-03 在固定 Studio 验收前增加[独立 SDK 候选与精确注册表消费](../examples/browser-consumer/README.zh-CN.md)。其八项小型公开 API 测试补充材质矩阵，不替代任何材质、生命周期、部署或产品测试。两种模式的回执和浏览器报告均由已有 job artifact 保留。
+ENG-03 在固定 Studio 验收前增加[独立 SDK 候选与精确注册表消费](../examples/browser-consumer/README.zh-CN.md)。其九项小型公开 API 测试补充材质矩阵，不替代任何材质、生命周期、部署或产品测试。两种模式的回执和浏览器报告均由已有 job artifact 保留。

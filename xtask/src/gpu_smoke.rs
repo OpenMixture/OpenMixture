@@ -221,6 +221,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             | "checker"
             | "levels"
             | "blend"
+            | "scalar-blend"
             | "material-output"
             | "fractal-noise"
             | "gradient-map"

@@ -32,6 +32,14 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
             ),
             "levels",
         ),
+        KernelId::ScalarBlend => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/scalar-blend.wgsl")
+            ),
+            "scalar_blend",
+        ),
         KernelId::Blend => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -122,6 +130,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             0.,
             0.,
         ]),
+        KernelInvocation::ScalarBlend { weight, .. } => floats(&[*weight, 0., 0., 0.]),
         KernelInvocation::Blend { mode, opacity, .. } => {
             let mode: u32 = match mode {
                 BlendMode::Normal => 0,
@@ -173,7 +182,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most nine entries.
+/// Pipeline lookups for one render call. The cache has at most ten entries.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -255,6 +264,7 @@ mod tests {
             (KernelId::Checker, 48),
             (KernelId::Levels, 32),
             (KernelId::Blend, 16),
+            (KernelId::ScalarBlend, 16),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
             (KernelId::HeightToNormal, 16),

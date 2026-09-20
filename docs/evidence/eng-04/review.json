@@ -1,0 +1,22 @@
+{
+  "reviewer": "implementing Codex agent",
+  "reviewedAt": "2026-09-20T13:29:38.447Z",
+  "visualSourceRevision": "a4588f2946861e8f3f2d4b84ff9c7439e43d5276",
+  "visualSourceDirty": false,
+  "qualificationRevision": "4eb8f215e14821ac700574b649fb6ff3ad919530",
+  "fixtureSha256": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+  "shaderSha256": "2f2d3eebbaf56f0ddf9cbe0735f18cbbd2317b04119856d8cdead6d6bd010a78",
+  "reviewedContact": {
+    "file": "contact.png",
+    "sha256": "04cb7908d2479f27c5f7a867b444f9dacc84157c91ee20c93a6884373ef4b379"
+  },
+  "decision": "Accepted bounded scalar crossfade: increasing fine structure with attenuated low-frequency contribution, normals respond, no visible tile seam. Agent inspection, not an independent human material review.",
+  "existingGoldensChanged": false,
+  "limits": "Local Windows DX12 and automated Chrome only; browser hardware identity redacted; cross-backend differences <=1 are measured, not exact equality or universal support.",
+  "host": {
+    "platform": "win32",
+    "release": "10.0.26100",
+    "version": "Windows 11 IoT Enterprise LTSC 2024",
+    "arch": "x64"
+  }
+}

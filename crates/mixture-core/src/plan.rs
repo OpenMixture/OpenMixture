@@ -151,6 +151,8 @@ pub enum KernelId {
     Levels,
     /// Component color blending.
     Blend,
+    /// Normalized scalar interpolation.
+    ScalarBlend,
     /// Periodic explicitly seeded scalar noise.
     FractalNoise,
     /// Scalar-to-color linear gradient.
@@ -215,6 +217,15 @@ pub enum KernelInvocation {
         output_min: f32,
         /// Output at one.
         output_max: f32,
+    },
+    /// Pointwise interpolation of two normalized scalar textures.
+    ScalarBlend {
+        /// First scalar texture.
+        a: ResourceId,
+        /// Second scalar texture.
+        b: ResourceId,
+        /// Effective f32 weight in [0, 1].
+        weight: f32,
     },
     /// Color blend with two color textures and one scalar mask.
     Blend {
@@ -287,6 +298,7 @@ impl KernelInvocation {
             Self::Checker { .. } => KernelId::Checker,
             Self::Levels { .. } => KernelId::Levels,
             Self::Blend { .. } => KernelId::Blend,
+            Self::ScalarBlend { .. } => KernelId::ScalarBlend,
             Self::FractalNoise { .. } => KernelId::FractalNoise,
             Self::GradientMap { .. } => KernelId::GradientMap,
             Self::HeightToNormal { .. } => KernelId::HeightToNormal,
@@ -309,6 +321,7 @@ impl KernelInvocation {
                 displacement,
                 ..
             } => [Some(*input), Some(*displacement), None],
+            Self::ScalarBlend { a, b, .. } => [Some(*a), Some(*b), None],
             Self::Blend { a, b, mask, .. } => [Some(*a), Some(*b), Some(*mask)],
         }
         .into_iter()
@@ -318,6 +331,7 @@ impl KernelInvocation {
     pub fn uniform_bytes(&self) -> u64 {
         match self {
             Self::Constant { .. }
+            | Self::ScalarBlend { .. }
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,

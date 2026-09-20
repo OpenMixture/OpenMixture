@@ -110,6 +110,18 @@ pub(super) fn gpu(
         directory.join("status.json"),
         br#"{"ok":false,"completed":false}"#,
     )?;
+    captured(
+        compile_command(root, "test")
+            .args(["--test", "scalar_blend", "--", "--ignored", "--nocapture"])
+            .env("MIXTURE_GPU_BACKEND", backend)
+            .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" })
+            .env(
+                "MIXTURE_SCALAR_EVIDENCE",
+                directory.join("scalar-blend.json"),
+            ),
+        &directory,
+        "scalar-blend",
+    )?;
     captured(&mut compile_command(root, "build"), &directory, "build")?;
     let mut command = binary(root);
     command.args([

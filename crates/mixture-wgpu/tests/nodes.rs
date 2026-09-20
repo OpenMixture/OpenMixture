@@ -7,12 +7,13 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 11] = [
+const NODES: [&str; 12] = [
     "constant-scalar",
     "constant-color",
     "checker",
     "levels",
     "blend",
+    "scalar-blend",
     "material-output",
     "fractal-noise",
     "gradient-map",
@@ -26,6 +27,8 @@ mod normal_probe;
 mod precision_probe;
 #[path = "support/resampling_probe.rs"]
 mod resampling_probe;
+#[path = "support/scalar_probe.rs"]
+mod scalar_probe;
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Fixture {
@@ -648,7 +651,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 seen.insert(format!("{:?}", pass.kernel.id()));
             }
             assert_eq!(renderer.cached_pipeline_count(), seen.len());
-            assert!(seen.len() <= 9);
+            assert!(seen.len() <= 10);
             assert_eq!(report.allocations.live_bytes, 0);
             assert_eq!(
                 report.allocations.released_bytes,
@@ -670,7 +673,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
             rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
         }
     }
-    assert_eq!(seen.len(), 9);
+    assert_eq!(seen.len(), 10);
     renderer.clear_pipeline_cache();
     assert_eq!(renderer.cached_pipeline_count(), 0);
     let plan = plan(
@@ -700,4 +703,19 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
         "cache-bound-evidence: {}",
         json!({"kernelCount":seen.len(),"cases":rows,"failure":failed.diagnostic(),"independentExecution":independent.report(),"outputsSurviveDrop":true})
     );
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node scalar-blend"]
+fn node_scalar_blend_gpu() {
+    run_node("scalar-blend");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = scalar_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::write(
+            Path::new(&directory).join("scalar-blend-saturation.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
 }

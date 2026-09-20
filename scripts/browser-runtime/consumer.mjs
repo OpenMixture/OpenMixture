@@ -18,13 +18,16 @@ const archiveFile = (archive, file) => execFileSync('tar', ['-xOf', archive, `pa
 const integrity = bytes => `sha512-${createHash('sha512').update(bytes).digest('base64')}`;
 
 export function candidateManifests(manifest, lock, version, bytes) {
-  assert.equal(manifest.dependencies['@openmixture/runtime'], version, 'example must pin the exact runtime version');
+  const published = '0.1.0-alpha.0';
+  assert.equal(version, '0.2.0-alpha.0', 'review the candidate compatibility contract before upgrading');
+  assert.equal(manifest.dependencies['@openmixture/runtime'], published, 'example must pin the exact published version');
   assert.equal(lock.lockfileVersion, 3);
-  assert.equal(lock.packages[''].dependencies['@openmixture/runtime'], version);
-  assert.equal(lock.packages[runtime].version, version);
+  assert.equal(lock.packages[''].dependencies['@openmixture/runtime'], published);
+  assert.equal(lock.packages[runtime].version, published);
   const nextManifest = structuredClone(manifest), nextLock = structuredClone(lock);
   nextManifest.dependencies['@openmixture/runtime'] = `file:${vendor}`;
   nextLock.packages[''].dependencies['@openmixture/runtime'] = `file:${vendor}`;
+  nextLock.packages[runtime].version = version;
   nextLock.packages[runtime].resolved = `file:${vendor}`;
   nextLock.packages[runtime].integrity = integrity(bytes);
   return { manifest: nextManifest, lock: nextLock };
@@ -44,7 +47,7 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 }
 
 export function assertBrowserReport(report) {
-  assert.equal(report.stats.expected, 8, 'all eight public-consumer tests must execute');
+  assert.equal(report.stats.expected, 9, 'all nine public-consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -103,14 +106,14 @@ export async function qualify(mode, packageDirectory, output) {
     }
     const manifest = await json(join(staging, 'package.json'));
     const lock = await json(join(staging, 'package-lock.json'));
-    const version = manifest.dependencies['@openmixture/runtime'];
+    let version = manifest.dependencies['@openmixture/runtime'];
     assert.match(version, /^\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?$/, 'exact version required');
     let archive, expected;
     if (mode === 'candidate') {
       expected = await json(join(packageDirectory, 'receipt.json'));
       archive = join(packageDirectory, basename(expected.tarball.replaceAll('\\', '/')));
       validateCandidate(expected, await readFile(archive), record.consumerRevision);
-      assert.equal(expected.runtimeVersion, version);
+      version = expected.runtimeVersion;
       await mkdir(join(staging, 'vendor'));
       await cp(archive, join(staging, vendor));
       const next = candidateManifests(manifest, lock, version, await readFile(archive));

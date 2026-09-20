@@ -30,7 +30,7 @@ npm run test:browser
 
 On Linux CI, install browser system dependencies with `npx playwright install --with-deps chromium`. The automated default uses the pinned Playwright Chromium and explicit `--enable-unsafe-webgpu --ignore-gpu-blocklist` flags. `MIXTURE_BROWSER_ARGS` may specify a JSON array of additional launch flags; CI uses its existing explicit Chromium SwiftShader policy. For an intentional local Chrome run, set `MIXTURE_BROWSER_CHANNEL=chrome` (PowerShell: `$env:MIXTURE_BROWSER_CHANNEL = 'chrome'`). No channel is silently retried or substituted. These are automated test profiles, not ordinary-browser or universal hardware qualification.
 
-All eight tests must pass with zero skips/retries: inert import/GPU-free APIs and bundled identity; structured invalid-input diagnostics; exact 65×3 checker/scalar pixels; owned outputs through later renders/destruction; busy/closing lifecycle; explicit GPU-unavailable errors; static non-root UI rendering; and exclusion of the test host from the normal build. `test:browser` builds a separate `test-dist` containing the qualification host; the ordinary `dist` contains only the example. The analytic checker/constant expectations are test oracles, not a second material executor. Tests exercise real WASM and WebGPU; no mock pixel backend is used.
+All nine tests must pass with zero skips/retries: inert import/GPU-free APIs and bundled identity; structured invalid-input diagnostics; exact 65×3 checker/scalar pixels; owned outputs through later renders/destruction; busy/closing lifecycle; explicit GPU-unavailable errors; static non-root UI rendering; and exclusion of the test host from the normal build. `test:browser` builds a separate `test-dist` containing the qualification host; the ordinary `dist` contains only the example. The analytic checker/constant expectations are test oracles, not a second material executor. Tests exercise real WASM and WebGPU; no mock pixel backend is used.
 
 ## Candidate and registry qualification
 
@@ -54,7 +54,7 @@ Registry mode keeps the committed manifest/lock unchanged, fetches the exact ver
 | Coverage | This consumer | Retained existing qualification |
 |---|---|---|
 | Exact package installation/build identity and public types | Candidate and registry, independently | Pinned Studio candidate/archive/lock checks remain |
-| Basic SDK lifecycle, errors, channels, overrides and ownership | Eight direct tests, tiny checker/scalar workload | Existing wider browser contract and lifecycle tests remain |
+| Basic SDK lifecycle, errors, channels, overrides and ownership | Nine direct tests, tiny checker/scalar workload | Existing wider browser contract and lifecycle tests remain |
 | Pixel/material quality | Exact checker/constant expectations | Three materials, 11 cases, 44 channels, v2 gates, stress and native comparisons remain in the existing workflow |
 | Deployment | Static Vite assets at `/consumer/`; test host excluded from normal build | Existing pinned product deployment/export checks remain |
 | Product UX / upgrades / trials | Not covered | Owned by Studio; not assigned to this engine task |
@@ -62,3 +62,5 @@ Registry mode keeps the committed manifest/lock unchanged, fetches the exact ver
 The existing `Chromium WebGPU material matrix` job runs both independent modes **in addition to** its pinned Studio qualification. No existing check, material case or required-check name is removed. This is an SDK acceptance entry, not replacement evidence for the full supported material/browser matrix.
 
 The npm Alpha is published within its recorded scope. Public Rust APIs are consumable from source/local Cargo archives; Rust crates remain unpublished, and this example does not introduce CLI binary distribution. A future browser release needs a new version and archive identity, engine qualification, explicit publication, then clean exact-version registry consumption. Studio may choose its own upgrade/deployment schedule. A version change requires updating this fixture's exact package/lock and compatibility expectations in a reviewed change.
+
+ENG-04 adds a ninth test: the 0.2.0-alpha.0 candidate renders the two-Scalar fixture at four 1K weights; the still-pinned registry 0.1.0-alpha.0 explicitly rejects the new type. Only staged runtime version/archive/integrity change for candidate installation. No new package is published. See [ENG-04](../../docs/eng-04-scalar-blend.md).
