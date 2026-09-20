@@ -8,7 +8,7 @@ ALPHA-03 browser comparisons now follow [ADR 0006](./docs/decisions/0006-browser
 
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 
-The [review ownership plan](./docs/browser-alpha.md) records ALPHA-06/07 delivery as complete, ALPHA-08 support/precision documentation, and conditional ALPHA-09 consumer defect response. Studio owns the remaining traceable trial deployment and external-user feedback. New engine implementation requires a concrete current-contract failure or consumer need; numerical acceptance changed under ADR 0006, not through adoption of the closed warp experiments.
+The [review ownership plan](./docs/browser-alpha.md) records ALPHA-06/07 delivery evidence as complete, ALPHA-08 support/precision documentation, and upstream-issue-triggered ALPHA-09 consumer defect triage. Studio manages its own upgrades, product acceptance, deployment and user feedback; these are not engine tasks. Follow the [agent project boundary](./AGENTS.md): reproduce and fix engine defects here, return a verified fix/version through the upstream issue, and leave product upgrade acceptance to Studio. Locally discovered engine regressions and failing engine checks also trigger work. No new engine implementation is currently scheduled; numerical acceptance changed under ADR 0006, not through adoption of the closed warp experiments.
 
 ## Roadmap rules
 

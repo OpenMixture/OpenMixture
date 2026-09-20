@@ -25,11 +25,11 @@ The supplied review used engine `f824cbf` and Studio `dcb2be7`. Engine main subs
 | Priority / item | Owner and state | Acceptance / next action |
 |---|---|---|
 | P1 / ALPHA-06 — Exact npm delivery | Engine; complete in PR #23 | Published `0.1.0-alpha.0` retains the ALPHA-04 digest and build identity in the candidate notes. Authorization and registry receipts are retained. Do not rebuild or republish this identity. |
-| P1 / ALPHA-07 — Registry consumer handoff | Joint; recorded execution complete | Studio execution `87ded9351e1c426e03aa7fb2b4c641f32399b85b` binds exact version, lock integrity, installed files and `getBuildInfo()`. Windows and isolated Linux each pass 52 contracts and 28 channel comparisons, plus recorded ordinary Chrome product gates. This does not certify the hosted trial. |
+| P1 / ALPHA-07 — Registry consumer evidence | Historical recorded execution complete | Studio execution `87ded9351e1c426e03aa7fb2b4c641f32399b85b` binds exact version, lock integrity, installed files and `getBuildInfo()`. Windows and isolated Linux each pass 52 contracts and 28 channel comparisons, plus recorded ordinary Chrome product gates. This does not certify the hosted trial or assign future Studio work to the engine. |
 | P2 / ALPHA-08 — Support and precision scope | Engine; documented in this change | [Candidate notes](./browser-alpha-candidate.md) distinguish historical three-browser coverage, published archive coverage and untested environments. Keep the warp precision limitation visible; do not mark it fixed. |
-| On a concrete failure / ALPHA-09 — Consumer defect response | Engine; conditional, no implementation scheduled | Require package/build identity, `.mix`, request, browser/adapter and first structured error or failed current gate. Reproduce the smallest case, add focused independent expectations and qualify any changed archive before handoff. |
+| On an upstream issue / ALPHA-09 — Consumer defect triage | Engine; issue-triggered, no implementation scheduled | Studio submits an OpenMixture issue with exact identity, minimal input/request, environment, expected/actual behavior and failure evidence. Triage ownership, reproduce engine defects here, add focused regression coverage and deliver a qualified fix/version through the issue. Studio owns its upgrade and product acceptance. |
 
-Studio owns the next delivery sequence: confirm registry dependency integration, update the trial's allowed runtime identity and scope, build `trial.json`, deploy, verify online `getBuildInfo()` and ordinary-browser workflows, then observe 3–5 non-developer desktop users. It also owns correcting `docs/external-trial.md` to distinguish historical PR #12 failure, accepted main and the hosted version. The review identified the old digest guard in `scripts/prepare-trial.mjs`; update it with the qualified identity and scope rather than deleting it. These are handoff requirements, not completed work in this repository. Registry acceptance proves neither redeployment nor human trial results.
+Studio dependency upgrades, product acceptance, deployment, trial documentation and user feedback belong to Studio's own plan. They are not engine backlog items or execution instructions. Registry acceptance proves neither redeployment nor human trial results. Cross-project dependencies are communicated through upstream issues under the [agent task boundary](../AGENTS.md); shared evidence does not authorize taking over Studio work.
 
 Future engine releases advance the version when content changes, freeze a new archive identity, repeat qualification, then publish and verify clean exact-version registry consumption. Changed versions or bytes cannot inherit this release's acceptance. Preserve the recorded `alpha`/`latest` dist-tag caveat and use exact versions; Alpha is not a stable release.
 
@@ -37,7 +37,9 @@ Do not restart completed M4/M5 acceptance, browser required-check setup, Studio 
 
 ## Product handoff
 
-OpenMixture owns the runtime candidate, declarations, diagnostics and package identity. Studio owns open/edit/save/Player reopen/export behavior, including useful CPU editing when GPU acquisition fails. Joint upgrade evidence must bind both revisions and the same archive; changing the comparator alone is not a new Studio execution.
+OpenMixture owns the runtime candidate, declarations, diagnostics, package identity and producer-side qualification. Studio owns open/edit/save/Player reopen/export behavior, including useful CPU editing when GPU acquisition fails, and independently verifies its upgrades. Evidence spanning both projects must bind their revisions and the same archive; changing the comparator alone is not a new Studio execution. Existing engine CI may exercise its pinned disposable consumer host without modifying Studio or managing product delivery.
+
+No new engine implementation is scheduled after this planning closeout. The next concrete task comes from a triaged upstream issue, a locally discovered engine regression or a failing engine check. An issue is an input to triage, not automatic permission to expand scope or begin M6.
 
 ## Research closeout
 
