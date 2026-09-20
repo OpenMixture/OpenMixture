@@ -19,7 +19,7 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 - Match only `refs/heads/main`; block deletion and non-fast-forward updates.
 - Require an actual pull request and resolution of review conversations.
 - Require zero approving reviews while this repository has a single-maintainer workflow. This preserves PR review records without requiring an unavailable second person. There is no CODEOWNERS or latest-push approval requirement.
-- Require the branch to be up to date with its base and all four checks below to pass.
+- Require the branch to be up to date with its base and all six checks below to pass.
 - Accept those checks only from GitHub Actions (`integration_id: 15368`), with no configured bypass actors.
 
 | Required check | Coverage |
@@ -28,16 +28,30 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 | `Check (macos-latest)` | The same CPU checks on macOS |
 | `Check (windows-latest)` | The same CPU checks on Windows |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux pinned software GPU smoke, source and packaged consumers, all three 1K materials, and largest-case 2K trace |
+| `WASM and npm package` | Locked WASM build, JavaScript/package contracts and exact npm archive generation |
+| `Chromium WebGPU material matrix` | Exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
 
 Keep these check names stable. A renamed job or changed check source requires coordinated ruleset verification; never remove a required check to merge a failing change. Do not apply workflow path filters that can prevent a required check from being reported. Rule changes are themselves reviewed changes, with the live result recorded after application.
 
 ## CI triggers and retention
 
-Both the [CPU workflow](../.github/workflows/ci.yml) and [GPU workflow](../.github/workflows/gpu-smoke.yml) run on pull requests, pushes to `main`, and manual dispatch. A normal push to a feature branch does not also start a branch-push run. A merged change still runs on `main`, verifying the integrated state. Existing per-workflow/ref concurrency cancels superseded runs without cancelling unrelated branches or PRs.
+The [CPU](../.github/workflows/ci.yml), [GPU](../.github/workflows/gpu-smoke.yml), [browser package](../.github/workflows/browser-runtime.yml) and [browser material](../.github/workflows/browser-materials.yml) workflows all run on pull requests, pushes to `main`, and manual dispatch. A normal push to a feature branch does not also start a branch-push run. A merged change still runs on `main`, verifying the integrated state. Existing per-workflow/ref concurrency cancels superseded runs without cancelling unrelated branches or PRs.
 
 The GPU job retains serial test execution and the pinned SwiftShader build cache. A cache hit still verifies the source revision, configures/builds the driver, and executes every acceptance gate. Cache state is not proof of a passing test.
 
-New uploaded CPU and GPU evidence artifacts request 30 days of retention. Record the service-reported expiry for accepted runs; repository or service limits may shorten availability. This setting does not change existing artifacts retroactively. Ordinary run output stays in CI artifacts or ignored local directories. Accepted visual content, critical failure evidence, and summaries follow the [evidence retention policy](./evidence-policy.md); do not rely on expiring artifacts as the only long-term acceptance record.
+New uploaded CPU, GPU and browser evidence artifacts request 30 days of retention. Record the service-reported expiry for accepted runs; repository or service limits may shorten availability. This setting does not change existing artifacts retroactively. Ordinary run output stays in CI artifacts or ignored local directories. Accepted visual content, critical failure evidence, and summaries follow the [evidence retention policy](./evidence-policy.md); do not rely on expiring artifacts as the only long-term acceptance record.
+
+## ALPHA-05 browser enforcement — 2026-09-20
+
+[PR #22](https://github.com/OpenMixture/OpenMixture/pull/22) adds the two existing browser jobs to active ruleset `23016046`. [Retained API evidence](./evidence/alpha-05/README.md) includes the prior policy, exact update, live ruleset, effective main rules and six required checks on the PR. All other protection settings are preserved. The classic protection summary from the branch endpoint can show empty contexts even when rulesets enforce checks; verify the ruleset and effective rules instead.
+
+```bash
+gh api repos/OpenMixture/OpenMixture/rulesets/23016046
+gh api repos/OpenMixture/OpenMixture/rules/branches/main
+gh pr checks 22 --repo OpenMixture/OpenMixture --required
+```
+
+The four-check M4.1 record below remains historical. Browser CI enforcement does not publish or independently certify the frozen ALPHA-04 archive.
 
 ## M4.1 activation and verification
 

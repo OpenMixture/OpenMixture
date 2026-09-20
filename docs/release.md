@@ -2,7 +2,7 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5 and the recorded Studio MVP are accepted. Ordinary Windows Chrome/Edge/Firefox each pass the [v2 material matrix](./evidence/browser-quality-v2/README.md) for the recorded existing archive. Packages remain unpublished. [The exact candidate and Studio upgrade](./browser-alpha-candidate.md) pass the recorded acceptance. [Alpha closeout](./browser-alpha.md) next covers browser required checks and the separate publication decision; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5 and the recorded Studio MVP are accepted. Ordinary Windows Chrome/Edge/Firefox each pass the [v2 material matrix](./evidence/browser-quality-v2/README.md) for the recorded existing archive. Packages remain unpublished. [The exact candidate and Studio upgrade](./browser-alpha-candidate.md) pass the recorded acceptance. [Alpha closeout](./browser-alpha.md) records enforced browser required checks; publication and exact registry-version consumption remain separate actions; M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

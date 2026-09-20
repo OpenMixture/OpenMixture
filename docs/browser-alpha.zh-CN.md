@@ -16,7 +16,7 @@
 | ALPHA-02 — 状态对齐 | 已更新 | 本页定义当前工作；历史运行记录只描述自身来源及环境。 |
 | ALPHA-03 — 普通桌面浏览器资格 | 记录的 Windows 11／GT 1030 范围内完成 | [Chrome、Edge、Firefox 均通过 v2 的 11 案例／44 通道](./evidence/browser-quality-v2/README.zh-CN.md)，包含来源／适配器身份及生命周期证据。Windows 使用记录中的已有归档；新 PR 包另经 Linux CI 验证，不代表普遍硬件支持。 |
 | ALPHA-04 — 可交付 npm Alpha 候选 | 准确候选及记录范围内的 Studio 升级验收通过 | [候选发布说明](./browser-alpha-candidate.zh-CN.md)固定归档与支持范围；[新执行证据](./evidence/alpha-04/README.zh-CN.md)记录 Windows 和隔离 Linux 各 7 用例／28 通道、52 项契约及普通 Chrome 保存／Player／导出。注册表发布和准确注册表版本消费仍属独立动作。 |
-| ALPHA-05 — 浏览器必需检查 | 下一项治理任务 | 决定并将两项浏览器检查加入现有四项原生检查，再回读远端实际执行规则。可选检查通过不等于分支保护已强制执行。 |
+| ALPHA-05 — 浏览器必需检查 | 已生效并验证 | [远端执行证据](./evidence/alpha-05/README.zh-CN.md)记录活动规则集 23016046 中的两项浏览器及四项原生必需检查，以及 main 有效规则和 PR 必需检查回读。保留严格基分支同步、GitHub Actions 来源绑定及无绕过主体设置。 |
 
 ## 产品交接
 
