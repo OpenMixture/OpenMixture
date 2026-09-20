@@ -214,5 +214,5 @@ test('scalar composition executes in the candidate and fails explicitly in the p
     for(const row of result.rows) { expect(row.range[1]-row.range[0]).toBeGreaterThan(20);expect(row.seamRatio).toBeLessThan(2);if(row.changed!==null)expect(row.changed).toBeGreaterThan(0.1); }
     expect(new Set(result.rows.map(r=>r.planHash)).size).toBe(4);
   }
-  await testInfo.attach('scalar-evidence', {body:JSON.stringify({...result,browser:browser.version()},null,2),contentType:'application/json'});
+  await testInfo.attach('scalar-evidence', {body:JSON.stringify({...result,browser:browser.version()},(_key,value)=>typeof value==='bigint'?value.toString():value,2),contentType:'application/json'});
 });

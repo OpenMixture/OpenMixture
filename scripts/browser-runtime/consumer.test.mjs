@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join, dirname, basename, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { assertBrowserReport, candidateManifests, safePackagePath, verifyInstalled } from './consumer.mjs';
@@ -58,4 +58,11 @@ test('installed verification rejects changed WASM and mismatched build metadata'
     assert.ok(basename(directory).startsWith('mixture-consumer-test-'));
     await rm(directory, { recursive: true });
   }
+});
+
+test('ENG-04 native and browser hosts consume the same source fixture', async () => {
+ const fixture = await readFile(new URL('../../fixtures/nodes/scalar-blend/two-noise.mix', import.meta.url));
+ for(const path of ['../../examples/native-consumer/tests/scalar-blend.mix','../../examples/browser-consumer/public/scalar-blend.mix']) {
+  assert.deepEqual(await readFile(new URL(path,import.meta.url)),fixture);
+ }
 });
