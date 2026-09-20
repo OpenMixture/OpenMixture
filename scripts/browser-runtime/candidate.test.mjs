@@ -3,7 +3,7 @@ import test from 'node:test';
 import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { assertBuild, validateCandidate, candidateLock, validateEvidence, installed, verify, hash } from './candidate.mjs';
+import { assertBuild, assertComparison, qualityProfile, qualityProfileSha256, validateCandidate, candidateLock, validateEvidence, installed, verify, hash } from './candidate.mjs';
 
 const bytes = Buffer.from('new candidate archive');
 const receipt = {
@@ -46,7 +46,13 @@ function evidence() {
     { receipt, lockSha256: 'lock' },
     { engineRevision: receipt.engineRevision, runtimeRevision: receipt.engineRevision, engineDirty: false },
     { build: receipt, archiveSha256: receipt.sha256, lockSha256: 'lock', cases: Array(11).fill({}), stress: { renders: 12 } },
-    { ok: true, mode: 'acceptance', cases: Array(11).fill({}) },
+    { schemaVersion: 2, ok: true, mode: 'acceptance', profile: qualityProfile, profileSha256: qualityProfileSha256,
+      gates: { semantics: true, materialStructure: true, numericalAgreement: true, legacyPixelRegression: false },
+      cases: Object.entries({'glazed-ceramic':['default','fine-tiles','matte'], leather:['default','detail-min','detail-max','coarse-grain'], wood:['default','coarse-grain','straight-grain','horizontal-grain']}).flatMap(([material, cases]) => cases.map(caseId => ({
+        material, case:caseId, planMatches:true, relationships:[], channels:Object.fromEntries(['baseColor','normal','roughness','height'].map(channel => [channel, {
+          comparison:{ok:true,profile:qualityProfile.id},legacyComparison:{ok:false},structure:{ok:true},causality:caseId==='default'?null:{ok:true},
+        }])),
+      }))) },
     { stats: { expected: 28, unexpected: 0, skipped: 0, flaky: 0 } },
     { result: 'passed', testHarnessAbsent: true, archiveSha256: receipt.sha256 },
     { ok: true, archiveSha256: receipt.sha256 },
@@ -65,6 +71,15 @@ test('qualification cannot substitute old browser identity, skip gates or accept
     v => { v[2].stress.renders = 0; },
     v => { v[3].ok = false; },
     v => { v[3].mode = 'measurement only'; },
+    v => { v[3].schemaVersion = 1; },
+    v => { v[3].profileSha256 = 'different rules'; },
+    v => { v[3].profile.maxComponentDelta = 255; },
+    v => { delete v[3].gates; },
+    v => { v[3].gates.numericalAgreement = false; },
+    v => { v[3].gates.materialStructure = false; },
+    v => { v[3].cases[1] = v[3].cases[0]; },
+    v => { delete v[3].cases[0].channels.height; },
+    v => { v[3].cases[0].channels.height.comparison.ok = false; },
     v => { v[4].stats.expected = 0; },
     v => { v[4].stats.skipped = 1; },
     v => { v[4].stats.unexpected = 1; },
@@ -77,6 +92,14 @@ test('qualification cannot substitute old browser identity, skip gates or accept
     mutate(changed);
     assert.throws(() => validateEvidence(...changed));
   }
+});
+
+test('old sparse-pixel failure remains visible without overriding independent quality gates', () => {
+  const comparison = structuredClone(evidence()[3]);
+  assert.equal(comparison.gates.legacyPixelRegression, false);
+  assertComparison(comparison);
+  delete comparison.gates.legacyPixelRegression;
+  assert.throws(() => assertComparison(comparison));
 });
 
 test('installed byte verification catches mixed components and a failed recheck invalidates success', async () => {

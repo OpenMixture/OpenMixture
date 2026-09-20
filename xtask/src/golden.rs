@@ -1,6 +1,7 @@
 //! Guarded material goldens, orchestrated through the existing public CLI.
 
 pub(crate) mod browser;
+pub(crate) mod browser_quality;
 mod files;
 mod model;
 mod pixels;

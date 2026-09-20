@@ -2,6 +2,8 @@
 
 English | [简体中文](./browser-materials.zh-CN.md)
 
+**2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Original sparse-pixel verdicts remain diagnostic; historical acceptance, native goldens and Studio saved-file gates remain unchanged. New browser support still needs source-bound qualification.
+
 The native reference producer calls the public CLI on all 11 existing acceptance cases, at 1024 × 1024 with baseColor/normal/roughness/height. It preserves original source bytes and public overrides. Preparation requires an explicit backend and a fresh directory; it rejects runtime implementation drift relative to the archive's producer revision. Ordinary source, fixture and build identities are separate from plan hashes.
 
 ```bash
@@ -15,7 +17,7 @@ cargo xtask browser-material-check tmp/browser-native /absolute/new-browser-outp
 
 On Linux use the existing pinned SwiftShader setup and explicit Vulkan/software policy. The product consumes only the detached reference manifest and installed tarball. Its production assets are statically served under `/player/`; missing WASM or unavailable WebGPU is a failure. The engine comparison decodes browser PNGs and reuses existing material structure, seam, non-degeneracy, causality and height/normal relationship checks without changing native goldens.
 
-`browser-material-measure` records differences and checks structural/semantic gates, but explicitly does not accept pixel tolerances. `browser-material-check` also enforces [per-channel tolerances](./browser-tolerances.json). Both write `comparison.json` and per-case native/browser/difference contact sheets in the browser output directory. The plan comparison preserves integers exactly, normalizes f32 JSON projection, and requires identical semantic hashes. The original manifest and PNG digests are checked before comparison.
+`browser-material-measure` records differences and checks structural/semantic gates, but explicitly does not accept pixel tolerances. `browser-material-check` enforces [profile v2](./browser-quality.md), retaining the original per-channel tolerance verdict as a diagnostic. Both write `comparison.json` and per-case native/browser/difference contact sheets in the browser output directory. The plan comparison preserves integers exactly, normalizes f32 JSON projection, and requires identical semantic hashes. The original manifest and PNG digests are checked before comparison.
 
 ## Current-candidate qualification — ALPHA-01
 
@@ -47,7 +49,7 @@ On Linux, unset `VK_ICD_FILENAMES` and `VK_DRIVER_FILES` for browser commands an
 
 This job uses an independent package consumer, but does not claim OS sandbox denial of the engine checkout or default-browser support. Chromium still uses controlled test flags; ordinary user configuration, npm publication and Studio's full saved-file upgrade qualification remain separate Alpha gates. Native goldens and browser tolerances are unchanged.
 
-## Frozen criteria
+## Historical v1 frozen criteria
 
 [Calibration review](./evidence/m5-05/calibration.md) records local and Linux measurements, failed candidate comparisons and the frozen per-channel gates. Acceptance must run after this freeze.
 

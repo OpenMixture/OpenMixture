@@ -34,6 +34,7 @@ Available repository commands:
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   browser-material-measure <native> <browser> Measure a supplied browser matrix; no acceptance
   browser-material-check <native> <browser> Check browser pixels against frozen gates
+  browser-quality-calibrate <fresh-output> Verify independent texture perturbation controls
   studio-material-check <native> <browser> Check detached Studio saved-file matrix
   trace-2k    Rank all M3 material cases and measure the largest at 2048 on a GPU
   gpu-smoke   Run checker golden, graph examples, native consumer, and GPU regressions
@@ -56,6 +57,11 @@ fn main() -> ExitCode {
 
 fn run() -> TaskResult {
     let args: Vec<_> = env::args_os().skip(1).collect();
+    if let [command, output] = args.as_slice()
+        && command == "browser-quality-calibrate"
+    {
+        return golden::browser_quality::calibrate(&workspace_root()?, Path::new(output));
+    }
     if let [command, native, browser] = args.as_slice()
         && (command == "browser-material-measure" || command == "browser-material-check")
     {

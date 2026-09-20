@@ -140,3 +140,5 @@ PR-015 不新增直接依赖，也不修改已提交锁文件。产品包添加�
 M5 增加 `futures-channel` 处理非阻塞浏览器回调、`web-time` 处理浏览器计时，以及 wasm-bindgen／serde 类型传输。这些是平台／绑定依赖，不进入 core，也不增加像素执行器。原生 Cargo 包检查仍覆盖三个原生软件包；浏览器 npm 验证独立执行。见[浏览器构建与验证指南](./browser-runtime.zh-CN.md)。
 
 [浏览器材质测量与比较](./browser-materials.zh-CN.md) 说明 `browser-material-measure` 和 `browser-material-check`。
+
+`cargo xtask browser-quality-calibrate <fresh-output>` 验证 40 项独立扰动控制，输出对照图和绑定规则的报告，见[浏览器质量](./browser-quality.zh-CN.md)。它不执行材质图或认证浏览器。

@@ -2,6 +2,8 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+**2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Original sparse-pixel verdicts remain diagnostic; historical acceptance, native goldens and Studio saved-file gates remain unchanged. New browser support still needs source-bound qualification.
+
 **ALPHA-03, 2026-09-17:** The [exact Windows/Firefox 156.0 candidate](./evidence/alpha-03-configured/README.md) passed the ordinary-profile 11-case/44-channel gate against recorded same-source Release/DXC references. This does not promise compatibility across all browsers/drivers; npm remains unpublished.
 
 **M5 acceptance, 2026-09-15:** [Browser acceptance](./evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.

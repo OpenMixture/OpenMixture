@@ -5,7 +5,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { assertBuild, hash, installed } from './candidate.mjs';
+import { assertBuild, assertComparison, hash, installed } from './candidate.mjs';
 import { connectFirefox } from './firefox-transport.mjs';
 
 const json = async path => JSON.parse((await readFile(path, 'utf8')).replace(/^\uFEFF/, ''));
@@ -198,7 +198,7 @@ export async function run(product, candidateDirectory, nativeDirectory, launchFi
       cwd: resolve(import.meta.dirname, '../..'), stdio: 'inherit',
     });
     const comparison = await json(join(output, 'comparison.json'));
-    assert.equal(comparison.ok, true);
+    assertComparison(comparison);
     await save(join(output, 'ordinary.json'), { schemaVersion: 1, ok: true,
       receiptSha256: hash(await readFile(join(output, 'receipt.json'))), comparisonSha256: hash(await readFile(join(output, 'comparison.json'))),
       verifierSha256: hash(await readFile(import.meta.filename)), finishedAt: new Date().toISOString(),

@@ -140,3 +140,5 @@ PR-015 introduces no direct dependency or committed lockfile change. Product pac
 M5 adds `futures-channel` for nonblocking browser callbacks, `web-time` for browser timing, and the wasm-bindgen/serde bridge for typed transport. These are platform/binding dependencies; they do not enter core or add a pixel executor. Native Cargo package checks still cover the three native packages; browser npm verification is separate. See the [browser build and verification guide](./browser-runtime.md).
 
 [Browser material measurement and comparison](./browser-materials.md) documents `browser-material-measure` and `browser-material-check`.
+
+`cargo xtask browser-quality-calibrate <fresh-output>` verifies 40 independent perturbation controls and writes comparison sheets plus a policy-bound report; see [browser quality](./browser-quality.md). It does not execute a material graph or qualify a browser.

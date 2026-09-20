@@ -4,6 +4,8 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current status (2026-09-16):** Native M4/M4.1, bounded M5 and the independent Studio MVP are accepted. Cargo packages and the npm Alpha archive remain unpublished; ordinary browser configurations still need qualification. Next is [Browser Runtime Alpha delivery closeout](./docs/browser-alpha.md), the shared current-status and engine-ownership plan; M6 does not start.
 
+ALPHA-03 browser comparisons now follow [ADR 0006](./docs/decisions/0006-browser-quality-gates.md); all existing materials, variants and semantic/structural checks remain required. This adjusts comparison policy, not milestone scope or native golden acceptance.
+
 This roadmap is organized by verifiable outcomes, not dates, quarters, node counts, or feature volume. A milestone is complete only when all exit criteria pass in a clean environment.
 
 ## Roadmap rules

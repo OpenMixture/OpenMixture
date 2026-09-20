@@ -14,6 +14,44 @@ const json = async path => JSON.parse(await readFile(path, 'utf8'));
 const save = (path, data) => writeFile(path, JSON.stringify(data, null, 2) + '\n');
 const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 const archiveFile = (archive, file) => execFileSync('tar', ['-xOf', archive, `package/${file}`], { maxBuffer: 32 * 1024 * 1024 });
+const qualityBytes = await readFile(new URL('../../docs/browser-quality-v2.json', import.meta.url));
+export const qualityProfile = JSON.parse(qualityBytes);
+export const qualityProfileSha256 = `sha256:${hash(qualityBytes)}`;
+
+export function assertComparison(comparison) {
+  assert.equal(comparison.schemaVersion, 2, 'current browser comparison schema required');
+  assert.equal(comparison.mode, 'acceptance');
+  assert.equal(comparison.ok, true);
+  assert.deepEqual(comparison.profile, qualityProfile);
+  assert.equal(comparison.profileSha256, qualityProfileSha256);
+  for (const gate of ['semantics', 'materialStructure', 'numericalAgreement']) {
+    assert.equal(comparison.gates?.[gate], true, `missing/failed ${gate}`);
+  }
+  assert.equal(typeof comparison.gates.legacyPixelRegression, 'boolean');
+  assert.equal(comparison.cases.length, 11);
+  const seen = new Set();
+  for (const record of comparison.cases) {
+    assert.equal(record.planMatches, true);
+    const key = `${record.material}/${record.case}`;
+    assert.equal(seen.has(key), false, 'duplicate comparison case');
+    seen.add(key);
+    assert.deepEqual(Object.keys(record.channels).sort(), ['baseColor', 'height', 'normal', 'roughness']);
+    for (const channel of Object.values(record.channels)) {
+      assert.equal(channel.comparison?.ok, true);
+      assert.equal(channel.comparison.profile, qualityProfile.id);
+      assert.equal(typeof channel.legacyComparison?.ok, 'boolean');
+      assert.equal(channel.structure?.ok, true);
+      if (record.case !== 'default') assert.equal(channel.causality?.ok, true);
+    }
+    assert.ok(Array.isArray(record.relationships));
+    for (const relationship of record.relationships) assert.equal(relationship.ok, true);
+  }
+  assert.deepEqual([...seen].sort(), [
+    'glazed-ceramic/default', 'glazed-ceramic/fine-tiles', 'glazed-ceramic/matte',
+    'leather/default', 'leather/detail-min', 'leather/detail-max', 'leather/coarse-grain',
+    'wood/default', 'wood/coarse-grain', 'wood/straight-grain', 'wood/horizontal-grain',
+  ].sort());
+}
 
 export function assertBuild(actual, expected) {
   for (const key of buildKeys) {
@@ -137,9 +175,7 @@ export function validateEvidence(candidate, native, material, comparison, browse
   assert.equal(material.lockSha256, candidate.lockSha256);
   assert.equal(material.cases.length, 11);
   assert.equal(material.stress.renders, 12);
-  assert.equal(comparison.ok, true);
-  assert.equal(comparison.mode, 'acceptance');
-  assert.equal(comparison.cases.length, 11);
+  assertComparison(comparison);
   assert.equal(browser.stats.expected, 28);
   for (const field of ['unexpected', 'skipped', 'flaky']) assert.equal(browser.stats[field], 0);
   assert.equal(deployment.result, 'passed');
