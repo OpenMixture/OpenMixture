@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "build": {
+    "runtimeVersion": "0.1.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.1.0",
+    "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+    "engineDirty": false,
+    "buildId": "sha256:94f9cc455fcd5f805942b0196b39a276782ce0e504772c3a140ea8ad85814a28"
+  },
+  "mixedCode": "MIX_BROWSER_BUILD_MISMATCH",
+  "browser": "153.0.8010.12",
+  "args": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ]
+}

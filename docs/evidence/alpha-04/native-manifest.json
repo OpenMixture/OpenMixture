@@ -1,0 +1,6193 @@
+{
+  "schemaVersion": 1,
+  "kind": "studio",
+  "engineRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+  "engineDirty": false,
+  "runtimeRevision": "82b74707b2a8a998190e2f28b16f91fb9614486a",
+  "startedAt": "2026-09-20T05:00:19.130Z",
+  "nativeBinarySha256": "fa7df1326b7d10436c6b3e2f08cd86c7c466684cb4acf3656a3147ad7e36d3ca",
+  "cases": [
+    {
+      "material": "checker",
+      "id": "authored",
+      "sourceBase64": "eyJ2ZXJzaW9uIjogMSwgIm5vZGVzIjogW3siaWQiOiAiY2hlY2tlciIsICJ0eXBlIjogImNoZWNrZXIiLCAidmVyc2lvbiI6IDEsICJwYXJhbWV0ZXJzIjogeyJjZWxsc1giOiA0fX0sIHsiaWQiOiAib3V0IiwgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwgInZlcnNpb24iOiAxfV0sICJlZGdlcyI6IFt7ImZyb20iOiB7Im5vZGVJZCI6ICJjaGVja2VyIiwgInBvcnRJZCI6ICJjb2xvciJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogImJhc2VDb2xvciJ9fV0sICJleHBvc2VkUGFyYW1ldGVycyI6IFt7ImlkIjogInJvd3MiLCAibm9kZUlkIjogImNoZWNrZXIiLCAicGFyYW1ldGVySWQiOiAiY2VsbHNZIn1dfQ==",
+      "sourceSha256": "7c2247918e39238023a04df6f8a863eb070d83949ce14a506a4d9eff3ede46ef",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "checker",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                4,
+                8
+              ],
+              "colorA": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "colorB": [
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "roughness"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "checker",
+                "portId": "color"
+              }
+            },
+            "resource": 0
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 1
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 1
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 3
+          }
+        ],
+        "estimates": {
+          "textureBytes": 33554432,
+          "uniformBytes": 96,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 67108960,
+          "peakBytes": 41943136
+        },
+        "hash": "sha256:99e046856944d6d679975d855da35261e6cad4fcfbe5a50f1d8c67a56b937e57"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "checker",
+                  "typeId": "checker",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "checker",
+                "cells": [
+                  4,
+                  8
+                ],
+                "colorA": [
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "colorB": [
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "checker",
+                  "portId": "color"
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 48,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777264,
+            "peakBytes": 16777264
+          },
+          "hash": "sha256:4ef865b8366af83a0846c9cb817d3b6284e4588c56b88a7c5ebd4aee2caadda8"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "normal"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.5,
+                  0.5,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "normal",
+                  "value": [
+                    0.5,
+                    0.5,
+                    1
+                  ]
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:a834928626718d643043ce2bcaa2cb1e2e6897842c0c6c27f753cdd460845ad7"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "roughness"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  1,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "scalar",
+                  "value": 1
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:7adcee10aef31561fc0e7148c27d9ce3d3271ef783b61bc4dcffcb23e8540c69"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "height"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "scalar",
+                  "value": 0
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:3914ace8a62fa07582c7064e0ac4769e739da999fbe52faaeb9ac38128f68380"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "7581f45113f2eb8aad3dd173b448f379e6b65eca41fcab4cf091e02e2e009e7d",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "327d31cd1d38d825d781ded297dfe3e48828b4c04ec7d9de2436f2c9884b6107",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "default",
+      "sourceBase64": "ew0KICAidmVyc2lvbiI6IDEsDQogICJub2RlcyI6IFsNCiAgICB7DQogICAgICAiaWQiOiAidGlsZXMiLA0KICAgICAgInR5cGUiOiAiY2hlY2tlciIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgImNlbGxzWCI6IDgsDQogICAgICAgICJjZWxsc1kiOiA4LA0KICAgICAgICAiY29sb3JBIjogWw0KICAgICAgICAgIDAuNzIsDQogICAgICAgICAgMC43OCwNCiAgICAgICAgICAwLjczLA0KICAgICAgICAgIDEuMA0KICAgICAgICBdLA0KICAgICAgICAiY29sb3JCIjogWw0KICAgICAgICAgIDAuMDI1LA0KICAgICAgICAgIDAuMTIsDQogICAgICAgICAgMC4xNywNCiAgICAgICAgICAxLjANCiAgICAgICAgXQ0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImdsYXplIiwNCiAgICAgICJ0eXBlIjogImNvbnN0YW50LWNvbG9yIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAidmFsdWUiOiBbDQogICAgICAgICAgMC44MiwNCiAgICAgICAgICAwLjksDQogICAgICAgICAgMS4wLA0KICAgICAgICAgIDEuMA0KICAgICAgICBdDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiaWQiOiAiZmluaXNoIiwNCiAgICAgICJ0eXBlIjogImJsZW5kIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAibW9kZSI6ICJzY3JlZW4iLA0KICAgICAgICAib3BhY2l0eSI6IDAuMTINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJyb3VnaG5lc3MiLA0KICAgICAgInR5cGUiOiAiY29uc3RhbnQtc2NhbGFyIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAidmFsdWUiOiAwLjINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJnbG9zcy1yYW5nZSIsDQogICAgICAidHlwZSI6ICJsZXZlbHMiLA0KICAgICAgInZlcnNpb24iOiAxLA0KICAgICAgInBhcmFtZXRlcnMiOiB7DQogICAgICAgICJvdXRwdXRNaW4iOiAwLjA1LA0KICAgICAgICAib3V0cHV0TWF4IjogMC42NQ0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogIm91dCIsDQogICAgICAidHlwZSI6ICJtYXRlcmlhbC1vdXRwdXQiLA0KICAgICAgInZlcnNpb24iOiAxDQogICAgfQ0KICBdLA0KICAiZWRnZXMiOiBbDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAidGlsZXMiLA0KICAgICAgICAicG9ydElkIjogImNvbG9yIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJmaW5pc2giLA0KICAgICAgICAicG9ydElkIjogImEiDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiZnJvbSI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJnbGF6ZSIsDQogICAgICAgICJwb3J0SWQiOiAiY29sb3IiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogImZpbmlzaCIsDQogICAgICAgICJwb3J0SWQiOiAiYiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImZpbmlzaCIsDQogICAgICAgICJwb3J0SWQiOiAiY29sb3IiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm91dCIsDQogICAgICAgICJwb3J0SWQiOiAiYmFzZUNvbG9yIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwNCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSINCiAgICAgIH0sDQogICAgICAidG8iOiB7DQogICAgICAgICJub2RlSWQiOiAiZ2xvc3MtcmFuZ2UiLA0KICAgICAgICAicG9ydElkIjogImluIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAiZ2xvc3MtcmFuZ2UiLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLA0KICAgICAgICAicG9ydElkIjogInJvdWdobmVzcyINCiAgICAgIH0NCiAgICB9DQogIF0sDQogICJleHBvc2VkUGFyYW1ldGVycyI6IFsNCiAgICB7DQogICAgICAiaWQiOiAidGlsZXNYIiwNCiAgICAgICJub2RlSWQiOiAidGlsZXMiLA0KICAgICAgInBhcmFtZXRlcklkIjogImNlbGxzWCINCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJ0aWxlc1kiLA0KICAgICAgIm5vZGVJZCI6ICJ0aWxlcyIsDQogICAgICAicGFyYW1ldGVySWQiOiAiY2VsbHNZIg0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImdsYXplIiwNCiAgICAgICJub2RlSWQiOiAiZmluaXNoIiwNCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJvcGFjaXR5Ig0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogInJvdWdobmVzcyIsDQogICAgICAibm9kZUlkIjogInJvdWdobmVzcyIsDQogICAgICAicGFyYW1ldGVySWQiOiAidmFsdWUiDQogICAgfQ0KICBdDQp9DQo=",
+      "sourceSha256": "f121ff29b3fee1c1d6bb466ca692c0f5b39be7d099b34d6158fe909c76f545c4",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "glaze",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.82,
+                0.9,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "constant-scalar",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.2,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "gloss-range",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.05,
+              "outputMax": 0.65
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "tiles",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                8,
+                8
+              ],
+              "colorA": [
+                0.72,
+                0.78,
+                0.73,
+                1
+              ],
+              "colorB": [
+                0.025,
+                0.12,
+                0.17,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              },
+              "port": "mask"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "blend",
+              "a": 3,
+              "b": 0,
+              "mask": 4,
+              "mode": "screen",
+              "opacity": 0.12
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "finish",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "gloss-range",
+                "portId": "value"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 7
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 176,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663472,
+          "peakBytes": 75497648
+        },
+        "hash": "sha256:3c7f7e00902d93dcd2dd392cbaaeb844b8903707122416be3ea4a8910604c025"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "glaze",
+                  "typeId": "constant-color",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.82,
+                  0.9,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "tiles",
+                  "typeId": "checker",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "checker",
+                "cells": [
+                  8,
+                  8
+                ],
+                "colorA": [
+                  0.72,
+                  0.78,
+                  0.73,
+                  1
+                ],
+                "colorB": [
+                  0.025,
+                  0.12,
+                  0.17,
+                  1
+                ]
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "finish",
+                  "typeId": "blend",
+                  "version": 1
+                },
+                "port": "mask"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  1,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "finish",
+                  "typeId": "blend",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "blend",
+                "a": 1,
+                "b": 0,
+                "mask": 2,
+                "mode": "screen",
+                "opacity": 0.12
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "finish",
+                  "portId": "color"
+                }
+              },
+              "resource": 3
+            }
+          ],
+          "estimates": {
+            "textureBytes": 33554432,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 41943136,
+            "peakBytes": 41943136
+          },
+          "hash": "sha256:0a19c5496171b2ed415ebce3ac014983efff301e0cd3c163a4e777a0f125d28f"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "normal"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.5,
+                  0.5,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "normal",
+                  "value": [
+                    0.5,
+                    0.5,
+                    1
+                  ]
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:a834928626718d643043ce2bcaa2cb1e2e6897842c0c6c27f753cdd460845ad7"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "constant-scalar",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.2,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "gloss-range",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.05,
+                "outputMax": 0.65
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "gloss-range",
+                  "portId": "value"
+                }
+              },
+              "resource": 1
+            }
+          ],
+          "estimates": {
+            "textureBytes": 16777216,
+            "uniformBytes": 48,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 25165872,
+            "peakBytes": 25165872
+          },
+          "hash": "sha256:2aa4b997213f2091df7223c8b59993e1502ab4060c2be39ee176b5cc985c6be9"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "height"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "scalar",
+                  "value": 0
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:3914ace8a62fa07582c7064e0ac4769e739da999fbe52faaeb9ac38128f68380"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "glazed-ceramic",
+      "id": "authored",
+      "sourceBase64": "eyJ2ZXJzaW9uIjogMSwgIm5vZGVzIjogW3siaWQiOiAidGlsZXMiLCAidHlwZSI6ICJjaGVja2VyIiwgInZlcnNpb24iOiAxLCAicGFyYW1ldGVycyI6IHsiY2VsbHNYIjogMTYsICJjZWxsc1kiOiAxNiwgImNvbG9yQSI6IFswLjcyLCAwLjc4LCAwLjczLCAxLjBdLCAiY29sb3JCIjogWzAuMDI1LCAwLjEyLCAwLjE3LCAxLjBdfX0sIHsiaWQiOiAiZ2xhemUiLCAidHlwZSI6ICJjb25zdGFudC1jb2xvciIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7InZhbHVlIjogWzAuODIsIDAuOSwgMS4wLCAxLjBdfX0sIHsiaWQiOiAiZmluaXNoIiwgInR5cGUiOiAiYmxlbmQiLCAidmVyc2lvbiI6IDEsICJwYXJhbWV0ZXJzIjogeyJtb2RlIjogInNjcmVlbiIsICJvcGFjaXR5IjogMC4xMn19LCB7ImlkIjogInJvdWdobmVzcyIsICJ0eXBlIjogImNvbnN0YW50LXNjYWxhciIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7InZhbHVlIjogMC4yfX0sIHsiaWQiOiAiZ2xvc3MtcmFuZ2UiLCAidHlwZSI6ICJsZXZlbHMiLCAidmVyc2lvbiI6IDEsICJwYXJhbWV0ZXJzIjogeyJvdXRwdXRNaW4iOiAwLjA1LCAib3V0cHV0TWF4IjogMC42NX19LCB7ImlkIjogIm91dCIsICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsICJ2ZXJzaW9uIjogMX1dLCAiZWRnZXMiOiBbeyJmcm9tIjogeyJub2RlSWQiOiAidGlsZXMiLCAicG9ydElkIjogImNvbG9yIn0sICJ0byI6IHsibm9kZUlkIjogImZpbmlzaCIsICJwb3J0SWQiOiAiYSJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAiZ2xhemUiLCAicG9ydElkIjogImNvbG9yIn0sICJ0byI6IHsibm9kZUlkIjogImZpbmlzaCIsICJwb3J0SWQiOiAiYiJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAiZmluaXNoIiwgInBvcnRJZCI6ICJjb2xvciJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogImJhc2VDb2xvciJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAicm91Z2huZXNzIiwgInBvcnRJZCI6ICJ2YWx1ZSJ9LCAidG8iOiB7Im5vZGVJZCI6ICJnbG9zcy1yYW5nZSIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogImdsb3NzLXJhbmdlIiwgInBvcnRJZCI6ICJ2YWx1ZSJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogInJvdWdobmVzcyJ9fV0sICJleHBvc2VkUGFyYW1ldGVycyI6IFt7ImlkIjogInRpbGVzWCIsICJub2RlSWQiOiAidGlsZXMiLCAicGFyYW1ldGVySWQiOiAiY2VsbHNYIn0sIHsiaWQiOiAidGlsZXNZIiwgIm5vZGVJZCI6ICJ0aWxlcyIsICJwYXJhbWV0ZXJJZCI6ICJjZWxsc1kifSwgeyJpZCI6ICJnbGF6ZSIsICJub2RlSWQiOiAiZmluaXNoIiwgInBhcmFtZXRlcklkIjogIm9wYWNpdHkifSwgeyJpZCI6ICJyb3VnaG5lc3MiLCAibm9kZUlkIjogInJvdWdobmVzcyIsICJwYXJhbWV0ZXJJZCI6ICJ2YWx1ZSJ9LCB7ImlkIjogInN0dWRpb1BhcmFtZXRlciIsICJub2RlSWQiOiAidGlsZXMiLCAicGFyYW1ldGVySWQiOiAiY29sb3JBIn1dfQ==",
+      "sourceSha256": "9e38113db2c6bd987f9304f1c81abe5bd2c17cd7ba24069ba3d91d205e86cfe2",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "glaze",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.82,
+                0.9,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "constant-scalar",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.2,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "gloss-range",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.05,
+              "outputMax": 0.65
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "tiles",
+                "typeId": "checker",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "checker",
+              "cells": [
+                16,
+                16
+              ],
+              "colorA": [
+                0.72,
+                0.78,
+                0.73,
+                1
+              ],
+              "colorB": [
+                0.025,
+                0.12,
+                0.17,
+                1
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              },
+              "port": "mask"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "finish",
+                "typeId": "blend",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "blend",
+              "a": 3,
+              "b": 0,
+              "mask": 4,
+              "mode": "screen",
+              "opacity": 0.12
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "normal"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0.5,
+                0.5,
+                1,
+                1
+              ]
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "inputDefault",
+              "node": {
+                "id": "out",
+                "typeId": "material-output",
+                "version": 1
+              },
+              "port": "height"
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "finish",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "normal",
+                "value": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "gloss-range",
+                "portId": "value"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "default",
+              "value": {
+                "kind": "scalar",
+                "value": 0
+              }
+            },
+            "resource": 7
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 176,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663472,
+          "peakBytes": 75497648
+        },
+        "hash": "sha256:34deb6ce4de533a822ae483f7f92ef6300ccba3f3b5c13c3eb713bb694c6a913"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "glaze",
+                  "typeId": "constant-color",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.82,
+                  0.9,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "tiles",
+                  "typeId": "checker",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "checker",
+                "cells": [
+                  16,
+                  16
+                ],
+                "colorA": [
+                  0.72,
+                  0.78,
+                  0.73,
+                  1
+                ],
+                "colorB": [
+                  0.025,
+                  0.12,
+                  0.17,
+                  1
+                ]
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "finish",
+                  "typeId": "blend",
+                  "version": 1
+                },
+                "port": "mask"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  1,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "finish",
+                  "typeId": "blend",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "blend",
+                "a": 1,
+                "b": 0,
+                "mask": 2,
+                "mode": "screen",
+                "opacity": 0.12
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "finish",
+                  "portId": "color"
+                }
+              },
+              "resource": 3
+            }
+          ],
+          "estimates": {
+            "textureBytes": 33554432,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 41943136,
+            "peakBytes": 41943136
+          },
+          "hash": "sha256:75c5a60708ccd34a19f72da2b624edfff290e88220c1be29e2f0c76b2ffb4ca3"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "normal"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.5,
+                  0.5,
+                  1,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "normal",
+                  "value": [
+                    0.5,
+                    0.5,
+                    1
+                  ]
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:a834928626718d643043ce2bcaa2cb1e2e6897842c0c6c27f753cdd460845ad7"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "constant-scalar",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0.2,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "gloss-range",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.05,
+                "outputMax": 0.65
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "gloss-range",
+                  "portId": "value"
+                }
+              },
+              "resource": 1
+            }
+          ],
+          "estimates": {
+            "textureBytes": 16777216,
+            "uniformBytes": 48,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 25165872,
+            "peakBytes": 25165872
+          },
+          "hash": "sha256:2aa4b997213f2091df7223c8b59993e1502ab4060c2be39ee176b5cc985c6be9"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "inputDefault",
+                "node": {
+                  "id": "out",
+                  "typeId": "material-output",
+                  "version": 1
+                },
+                "port": "height"
+              },
+              "kernel": {
+                "id": "constant",
+                "value": [
+                  0,
+                  0,
+                  0,
+                  1
+                ]
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "default",
+                "value": {
+                  "kind": "scalar",
+                  "value": 0
+                }
+              },
+              "resource": 0
+            }
+          ],
+          "estimates": {
+            "textureBytes": 8388608,
+            "uniformBytes": 16,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 16777232,
+            "peakBytes": 16777232
+          },
+          "hash": "sha256:3914ace8a62fa07582c7064e0ac4769e739da999fbe52faaeb9ac38128f68380"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+        "normal": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+        "roughness": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+        "height": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "default",
+      "sourceBase64": "ew0KICAidmVyc2lvbiI6IDEsDQogICJub2RlcyI6IFsNCiAgICB7DQogICAgICAiaWQiOiAiZ3JhaW4iLA0KICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgInNlZWQiOiAyNzE4MjgsDQogICAgICAgICJzY2FsZSI6IDY0LA0KICAgICAgICAib2N0YXZlcyI6IDMsDQogICAgICAgICJwZXJzaXN0ZW5jZSI6IDAuMzUsDQogICAgICAgICJiYXNpcyI6ICJjZWxsdWxhciINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJoZWlnaHQiLA0KICAgICAgInR5cGUiOiAibGV2ZWxzIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAiaW5wdXRNaW4iOiAwLA0KICAgICAgICAiaW5wdXRNYXgiOiAwLjYsDQogICAgICAgICJnYW1tYSI6IDEuNg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImNvbG9yIiwNCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgImNvbG9yQSI6IFsNCiAgICAgICAgICAwLjAyNSwNCiAgICAgICAgICAwLjAxMSwNCiAgICAgICAgICAwLjAwNiwNCiAgICAgICAgICAxDQogICAgICAgIF0sDQogICAgICAgICJjb2xvckIiOiBbDQogICAgICAgICAgMC4wOSwNCiAgICAgICAgICAwLjAzOSwNCiAgICAgICAgICAwLjAxOSwNCiAgICAgICAgICAxDQogICAgICAgIF0NCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJub3JtYWwiLA0KICAgICAgInR5cGUiOiAiaGVpZ2h0LXRvLW5vcm1hbCIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgInN0cmVuZ3RoIjogMC4wMDINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJyb3VnaG5lc3MiLA0KICAgICAgInR5cGUiOiAibGV2ZWxzIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAib3V0cHV0TWluIjogMC43NiwNCiAgICAgICAgIm91dHB1dE1heCI6IDAuNTINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJvdXQiLA0KICAgICAgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwNCiAgICAgICJ2ZXJzaW9uIjogMQ0KICAgIH0NCiAgXSwNCiAgImVkZ2VzIjogWw0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImdyYWluIiwNCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSINCiAgICAgIH0sDQogICAgICAidG8iOiB7DQogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogImNvbG9yIiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsDQogICAgICAgICJwb3J0SWQiOiAiaW4iDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiZnJvbSI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLA0KICAgICAgICAicG9ydElkIjogImluIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAiY29sb3IiLA0KICAgICAgICAicG9ydElkIjogImNvbG9yIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLA0KICAgICAgICAicG9ydElkIjogImJhc2VDb2xvciINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm91dCIsDQogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0Ig0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwNCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm91dCIsDQogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwNCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSINCiAgICAgIH0sDQogICAgICAidG8iOiB7DQogICAgICAgICJub2RlSWQiOiAib3V0IiwNCiAgICAgICAgInBvcnRJZCI6ICJyb3VnaG5lc3MiDQogICAgICB9DQogICAgfQ0KICBdLA0KICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbDQogICAgew0KICAgICAgImlkIjogInNlZWQiLA0KICAgICAgIm5vZGVJZCI6ICJncmFpbiIsDQogICAgICAicGFyYW1ldGVySWQiOiAic2VlZCINCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJncmFpblNjYWxlIiwNCiAgICAgICJub2RlSWQiOiAiZ3JhaW4iLA0KICAgICAgInBhcmFtZXRlcklkIjogInNjYWxlIg0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImRldGFpbCIsDQogICAgICAibm9kZUlkIjogImdyYWluIiwNCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJwZXJzaXN0ZW5jZSINCiAgICB9DQogIF0NCn0NCg==",
+      "sourceSha256": "6a556e30e94f34928afeab9d3bf0cd3a5b6caccaad4234b42699cd376c093ee4",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 64,
+              "octaves": 3,
+              "persistence": 0.35,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:502ef1e43367181b3029af390b8b477da936b185244f02ff26ff9d20c360d355"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 0.35,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "color",
+                  "typeId": "gradient-map",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "gradientMap",
+                "input": 1,
+                "colorA": [
+                  0.025,
+                  0.011,
+                  0.006,
+                  1
+                ],
+                "colorB": [
+                  0.09,
+                  0.039,
+                  0.019,
+                  1
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "color",
+                  "portId": "color"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554528,
+            "peakBytes": 33554528
+          },
+          "hash": "sha256:c95abcb9362b042c78c0bd8de619eee794a605173bdbdd7b52d3d91338cabe56"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 0.35,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "normal",
+                  "typeId": "height-to-normal",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "heightToNormal",
+                "input": 1,
+                "strength": 0.002
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "normal",
+                  "portId": "normal"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 80,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554512,
+            "peakBytes": 33554512
+          },
+          "hash": "sha256:f97b7979a6eca456128c84a079c89ec6eae2f2e794be4eb1c13b82977b001f88"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 0.35,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 1,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.76,
+                "outputMax": 0.52
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "roughness",
+                  "portId": "value"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554528,
+            "peakBytes": 33554528
+          },
+          "hash": "sha256:1eba8c5c7f91c39c915f6767882798088dfd752182f483c53e8b5e4c45d8d113"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 0.35,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "height",
+                  "portId": "value"
+                }
+              },
+              "resource": 1
+            }
+          ],
+          "estimates": {
+            "textureBytes": 16777216,
+            "uniformBytes": 64,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 25165888,
+            "peakBytes": 25165888
+          },
+          "hash": "sha256:957ae843aa0a28880943d404077325019503b99e0940cab48901a6dbd1e1c0b6"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "8a90e83613fb0be1d9bfa631609658aa18f9c07eb9435c295e378bf73159045c",
+        "normal": "5ab64d009da902532c4dd62f479d8261c105a39feda1a5fb3523ad140c68633f",
+        "roughness": "06c1215088e35961984547a9da766a788777e9084f703267255e1ca4657815f1",
+        "height": "48ab41cbd438d1e22767d06b77015016bdbdb2277e753cdedc4246d8af7b0268"
+      }
+    },
+    {
+      "material": "leather",
+      "id": "authored",
+      "sourceBase64": "eyJ2ZXJzaW9uIjogMSwgIm5vZGVzIjogW3siaWQiOiAiZ3JhaW4iLCAidHlwZSI6ICJmcmFjdGFsLW5vaXNlIiwgInZlcnNpb24iOiAxLCAicGFyYW1ldGVycyI6IHsic2VlZCI6IDI3MTgyOCwgInNjYWxlIjogNjQsICJvY3RhdmVzIjogMywgInBlcnNpc3RlbmNlIjogMSwgImJhc2lzIjogImNlbGx1bGFyIn19LCB7ImlkIjogImhlaWdodCIsICJ0eXBlIjogImxldmVscyIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7ImlucHV0TWluIjogMCwgImlucHV0TWF4IjogMC42LCAiZ2FtbWEiOiAxLjZ9fSwgeyJpZCI6ICJjb2xvciIsICJ0eXBlIjogImdyYWRpZW50LW1hcCIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7ImNvbG9yQSI6IFswLjAyNSwgMC4wMTEsIDAuMDA2LCAxXSwgImNvbG9yQiI6IFswLjA5LCAwLjAzOSwgMC4wMTksIDFdfX0sIHsiaWQiOiAibm9ybWFsIiwgInR5cGUiOiAiaGVpZ2h0LXRvLW5vcm1hbCIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7InN0cmVuZ3RoIjogMC4wMDJ9fSwgeyJpZCI6ICJyb3VnaG5lc3MiLCAidHlwZSI6ICJsZXZlbHMiLCAidmVyc2lvbiI6IDEsICJwYXJhbWV0ZXJzIjogeyJvdXRwdXRNaW4iOiAwLjc2LCAib3V0cHV0TWF4IjogMC41Mn19LCB7ImlkIjogIm91dCIsICJ0eXBlIjogIm1hdGVyaWFsLW91dHB1dCIsICJ2ZXJzaW9uIjogMX1dLCAiZWRnZXMiOiBbeyJmcm9tIjogeyJub2RlSWQiOiAiZ3JhaW4iLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAidmFsdWUifSwgInRvIjogeyJub2RlSWQiOiAiY29sb3IiLCAicG9ydElkIjogImluIn19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJoZWlnaHQiLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogIm5vcm1hbCIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAidmFsdWUifSwgInRvIjogeyJub2RlSWQiOiAicm91Z2huZXNzIiwgInBvcnRJZCI6ICJpbiJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAiY29sb3IiLCAicG9ydElkIjogImNvbG9yIn0sICJ0byI6IHsibm9kZUlkIjogIm91dCIsICJwb3J0SWQiOiAiYmFzZUNvbG9yIn19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJoZWlnaHQiLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogIm91dCIsICJwb3J0SWQiOiAiaGVpZ2h0In19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJub3JtYWwiLCAicG9ydElkIjogIm5vcm1hbCJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogIm5vcm1hbCJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAicm91Z2huZXNzIiwgInBvcnRJZCI6ICJ2YWx1ZSJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogInJvdWdobmVzcyJ9fV0sICJleHBvc2VkUGFyYW1ldGVycyI6IFt7ImlkIjogInNlZWQiLCAibm9kZUlkIjogImdyYWluIiwgInBhcmFtZXRlcklkIjogInNlZWQifSwgeyJpZCI6ICJncmFpblNjYWxlIiwgIm5vZGVJZCI6ICJncmFpbiIsICJwYXJhbWV0ZXJJZCI6ICJzY2FsZSJ9LCB7ImlkIjogImRldGFpbCIsICJub2RlSWQiOiAiZ3JhaW4iLCAicGFyYW1ldGVySWQiOiAicGVyc2lzdGVuY2UifSwgeyJpZCI6ICJzdHVkaW9QYXJhbWV0ZXIiLCAibm9kZUlkIjogImdyYWluIiwgInBhcmFtZXRlcklkIjogIm9jdGF2ZXMifV19",
+      "sourceSha256": "8a99608a086e9f531e557822f454fe7a508d0c709d860629c4acdb35659c7a41",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 271828,
+              "scale": 64,
+              "octaves": 3,
+              "persistence": 1,
+              "basis": "cellular"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 0,
+              "inputMin": 0,
+              "inputMax": 0.6,
+              "gamma": 1.6,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 1,
+              "colorA": [
+                0.025,
+                0.011,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.09,
+                0.039,
+                0.019,
+                1
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 1,
+              "strength": 0.002
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 1,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.76,
+              "outputMax": 0.52
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 2
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 3
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 1
+          }
+        ],
+        "estimates": {
+          "textureBytes": 41943040,
+          "uniformBytes": 144,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 75497616,
+          "peakBytes": 50331792
+        },
+        "hash": "sha256:d03db8acb4f375d89b41e2bd0e72660e2b30c6253e6c6cfd1f44eb28b53b216c"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 1,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "color",
+                  "typeId": "gradient-map",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "gradientMap",
+                "input": 1,
+                "colorA": [
+                  0.025,
+                  0.011,
+                  0.006,
+                  1
+                ],
+                "colorB": [
+                  0.09,
+                  0.039,
+                  0.019,
+                  1
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "color",
+                  "portId": "color"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554528,
+            "peakBytes": 33554528
+          },
+          "hash": "sha256:2fc84a056d53f1a56c481da7872fa286a14d9ddd822dbde1df584b4216b6fe88"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 1,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "normal",
+                  "typeId": "height-to-normal",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "heightToNormal",
+                "input": 1,
+                "strength": 0.002
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "normal",
+                  "portId": "normal"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 80,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554512,
+            "peakBytes": 33554512
+          },
+          "hash": "sha256:c7742d732a5f679d17300e4eb99ca2be08651c7f37140b7b3448c67017c87679"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 1,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 1,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.76,
+                "outputMax": 0.52
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "roughness",
+                  "portId": "value"
+                }
+              },
+              "resource": 2
+            }
+          ],
+          "estimates": {
+            "textureBytes": 25165824,
+            "uniformBytes": 96,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 33554528,
+            "peakBytes": 33554528
+          },
+          "hash": "sha256:02c5e47fcf35851ce0b99c1e409edca377d3751a80c701b6637bfb77ebb91cf2"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 271828,
+                "scale": 64,
+                "octaves": 3,
+                "persistence": 1,
+                "basis": "cellular"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 0,
+                "inputMin": 0,
+                "inputMax": 0.6,
+                "gamma": 1.6,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "height",
+                  "portId": "value"
+                }
+              },
+              "resource": 1
+            }
+          ],
+          "estimates": {
+            "textureBytes": 16777216,
+            "uniformBytes": 64,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 25165888,
+            "peakBytes": 25165888
+          },
+          "hash": "sha256:21c9cb8dd32cb8bff1cb751c013039a6e135635ce685a957e3ae9b450fac2e08"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "7cfe4b13347272096e9905d6ee60c6452dfa9156eb777f28dc35654b6b49f5c4",
+        "normal": "62c69d528e5b23701d475aa5f00836a9cf4cd3c2252b06b39dc6c73d163c47af",
+        "roughness": "94c3c80bc9d00f85c8e12096bb2a36efe1bcaa0cc72eb267c91a55dd021fd200",
+        "height": "542f249b4982f773006be27a1ab4b374e7ac3e45481be794f91f86e3152c01e0"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "default",
+      "sourceBase64": "ew0KICAidmVyc2lvbiI6IDEsDQogICJub2RlcyI6IFsNCiAgICB7DQogICAgICAiaWQiOiAiZ3JhaW4iLA0KICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgInNlZWQiOiAxNjE4MDMsDQogICAgICAgICJzY2FsZSI6IDQsDQogICAgICAgICJvY3RhdmVzIjogNCwNCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwNCiAgICAgICAgImJhc2lzIjogInZhbHVlIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogInN0cmV0Y2giLA0KICAgICAgInR5cGUiOiAidHJhbnNmb3JtLTJkIiwNCiAgICAgICJ2ZXJzaW9uIjogMSwNCiAgICAgICJwYXJhbWV0ZXJzIjogew0KICAgICAgICAic2NhbGVYIjogMzIsDQogICAgICAgICJzY2FsZVkiOiAxLA0KICAgICAgICAicXVhcnRlclR1cm5zIjogMA0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImRpc3RvcnRpb24iLA0KICAgICAgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgInNlZWQiOiAzMTQxNTksDQogICAgICAgICJzY2FsZSI6IDMsDQogICAgICAgICJvY3RhdmVzIjogMywNCiAgICAgICAgInBlcnNpc3RlbmNlIjogMC40NSwNCiAgICAgICAgImJhc2lzIjogInZhbHVlIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogIndhcnAiLA0KICAgICAgInR5cGUiOiAid2FycCIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgInN0cmVuZ3RoWCI6IDAuMDE4LA0KICAgICAgICAic3RyZW5ndGhZIjogMA0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImhlaWdodCIsDQogICAgICAidHlwZSI6ICJsZXZlbHMiLA0KICAgICAgInZlcnNpb24iOiAxLA0KICAgICAgInBhcmFtZXRlcnMiOiB7DQogICAgICAgICJpbnB1dE1pbiI6IDAuMTIsDQogICAgICAgICJpbnB1dE1heCI6IDAuODgsDQogICAgICAgICJnYW1tYSI6IDAuNw0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImNvbG9yIiwNCiAgICAgICJ0eXBlIjogImdyYWRpZW50LW1hcCIsDQogICAgICAidmVyc2lvbiI6IDEsDQogICAgICAicGFyYW1ldGVycyI6IHsNCiAgICAgICAgImNvbG9yQSI6IFsNCiAgICAgICAgICAwLjA1LA0KICAgICAgICAgIDAuMDE3LA0KICAgICAgICAgIDAuMDA2LA0KICAgICAgICAgIDENCiAgICAgICAgXSwNCiAgICAgICAgImNvbG9yQiI6IFsNCiAgICAgICAgICAwLjM0LA0KICAgICAgICAgIDAuMTcsDQogICAgICAgICAgMC4wNjMsDQogICAgICAgICAgMQ0KICAgICAgICBdDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiaWQiOiAibm9ybWFsIiwNCiAgICAgICJ0eXBlIjogImhlaWdodC10by1ub3JtYWwiLA0KICAgICAgInZlcnNpb24iOiAxLA0KICAgICAgInBhcmFtZXRlcnMiOiB7DQogICAgICAgICJzdHJlbmd0aCI6IDAuMDAxNQ0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogInJvdWdobmVzcyIsDQogICAgICAidHlwZSI6ICJsZXZlbHMiLA0KICAgICAgInZlcnNpb24iOiAxLA0KICAgICAgInBhcmFtZXRlcnMiOiB7DQogICAgICAgICJvdXRwdXRNaW4iOiAwLjY1LA0KICAgICAgICAib3V0cHV0TWF4IjogMC40NQ0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogIm91dCIsDQogICAgICAidHlwZSI6ICJtYXRlcmlhbC1vdXRwdXQiLA0KICAgICAgInZlcnNpb24iOiAxDQogICAgfQ0KICBdLA0KICAiZWRnZXMiOiBbDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAiZ3JhaW4iLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJzdHJldGNoIiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogInN0cmV0Y2giLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJ3YXJwIiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImRpc3RvcnRpb24iLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJ3YXJwIiwNCiAgICAgICAgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQiDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiZnJvbSI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJ3YXJwIiwNCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSINCiAgICAgIH0sDQogICAgICAidG8iOiB7DQogICAgICAgICJub2RlSWQiOiAiaGVpZ2h0IiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogImNvbG9yIiwNCiAgICAgICAgInBvcnRJZCI6ICJpbiINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm5vcm1hbCIsDQogICAgICAgICJwb3J0SWQiOiAiaW4iDQogICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAiZnJvbSI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJoZWlnaHQiLA0KICAgICAgICAicG9ydElkIjogInZhbHVlIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJyb3VnaG5lc3MiLA0KICAgICAgICAicG9ydElkIjogImluIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAiY29sb3IiLA0KICAgICAgICAicG9ydElkIjogImNvbG9yIg0KICAgICAgfSwNCiAgICAgICJ0byI6IHsNCiAgICAgICAgIm5vZGVJZCI6ICJvdXQiLA0KICAgICAgICAicG9ydElkIjogImJhc2VDb2xvciINCiAgICAgIH0NCiAgICB9LA0KICAgIHsNCiAgICAgICJmcm9tIjogew0KICAgICAgICAibm9kZUlkIjogImhlaWdodCIsDQogICAgICAgICJwb3J0SWQiOiAidmFsdWUiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm91dCIsDQogICAgICAgICJwb3J0SWQiOiAiaGVpZ2h0Ig0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAibm9ybWFsIiwNCiAgICAgICAgInBvcnRJZCI6ICJub3JtYWwiDQogICAgICB9LA0KICAgICAgInRvIjogew0KICAgICAgICAibm9kZUlkIjogIm91dCIsDQogICAgICAgICJwb3J0SWQiOiAibm9ybWFsIg0KICAgICAgfQ0KICAgIH0sDQogICAgew0KICAgICAgImZyb20iOiB7DQogICAgICAgICJub2RlSWQiOiAicm91Z2huZXNzIiwNCiAgICAgICAgInBvcnRJZCI6ICJ2YWx1ZSINCiAgICAgIH0sDQogICAgICAidG8iOiB7DQogICAgICAgICJub2RlSWQiOiAib3V0IiwNCiAgICAgICAgInBvcnRJZCI6ICJyb3VnaG5lc3MiDQogICAgICB9DQogICAgfQ0KICBdLA0KICAiZXhwb3NlZFBhcmFtZXRlcnMiOiBbDQogICAgew0KICAgICAgImlkIjogImdyYWluU2VlZCIsDQogICAgICAibm9kZUlkIjogImdyYWluIiwNCiAgICAgICJwYXJhbWV0ZXJJZCI6ICJzZWVkIg0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogImdyYWluUmVwZWF0IiwNCiAgICAgICJub2RlSWQiOiAic3RyZXRjaCIsDQogICAgICAicGFyYW1ldGVySWQiOiAic2NhbGVYIg0KICAgIH0sDQogICAgew0KICAgICAgImlkIjogIndhcnBTdHJlbmd0aCIsDQogICAgICAibm9kZUlkIjogIndhcnAiLA0KICAgICAgInBhcmFtZXRlcklkIjogInN0cmVuZ3RoWCINCiAgICB9LA0KICAgIHsNCiAgICAgICJpZCI6ICJvcmllbnRhdGlvbiIsDQogICAgICAibm9kZUlkIjogInN0cmV0Y2giLA0KICAgICAgInBhcmFtZXRlcklkIjogInF1YXJ0ZXJUdXJucyINCiAgICB9DQogIF0NCn0NCg==",
+      "sourceSha256": "b0af118c2a7c6f6eb7e17f0b859cff0c49af046658021b5e9700e90739b951d9",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                32,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.018,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:bb18adab7291c5a29f1f6b8c93875e7811d142d037556e3b43993cff49c52c9e"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  32,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "color",
+                  "typeId": "gradient-map",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "gradientMap",
+                "input": 4,
+                "colorA": [
+                  0.05,
+                  0.017,
+                  0.006,
+                  1
+                ],
+                "colorB": [
+                  0.34,
+                  0.17,
+                  0.063,
+                  1
+                ]
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "color",
+                  "portId": "color"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 176,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720432,
+            "peakBytes": 58720432
+          },
+          "hash": "sha256:1d024fd4453db3628e213eadd211054d9a8117c2e7d719e92f513abbebee7612"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  32,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "normal",
+                  "typeId": "height-to-normal",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "heightToNormal",
+                "input": 4,
+                "strength": 0.0015
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "normal",
+                  "portId": "normal"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 160,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720416,
+            "peakBytes": 58720416
+          },
+          "hash": "sha256:e94d9dd429646a1f0dac7e8815d1a01b58e524898db0d9e8a087c8c678fbe75f"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  32,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 4,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.65,
+                "outputMax": 0.45
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "roughness",
+                  "portId": "value"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 176,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720432,
+            "peakBytes": 58720432
+          },
+          "hash": "sha256:c7d37298d30d0dba1d920c93e821d2bf5c653331a25762f88d6b247985fbfcb9"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  32,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "height",
+                  "portId": "value"
+                }
+              },
+              "resource": 4
+            }
+          ],
+          "estimates": {
+            "textureBytes": 41943040,
+            "uniformBytes": 144,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 50331792,
+            "peakBytes": 50331792
+          },
+          "hash": "sha256:6183eabfd4433dd10f7f8a2e0b480dbd40529e0f674bc763a51bc6c21ad2d7c2"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "47fd94f5436f415fa435e9b219e75da490875ffab68f8585fdac10fa297a528a",
+        "normal": "7b1db60a72cf29fa6bec2e0d6a34d405d4b411a61db5b3bc11bc521d1d6aef23",
+        "roughness": "52b6a550eb60a26c861de96a9e7fc6a47cc7c70287096adcb4f2dbc7841f8e7e",
+        "height": "4220a093995ff7ea4c3a976baebbe8e675fda891debe29d20be9d56ce17e9547"
+      }
+    },
+    {
+      "material": "wood",
+      "id": "authored",
+      "sourceBase64": "eyJ2ZXJzaW9uIjogMSwgIm5vZGVzIjogW3siaWQiOiAiZ3JhaW4iLCAidHlwZSI6ICJmcmFjdGFsLW5vaXNlIiwgInZlcnNpb24iOiAxLCAicGFyYW1ldGVycyI6IHsic2VlZCI6IDE2MTgwMywgInNjYWxlIjogNCwgIm9jdGF2ZXMiOiA0LCAicGVyc2lzdGVuY2UiOiAwLjQ1LCAiYmFzaXMiOiAidmFsdWUifX0sIHsiaWQiOiAic3RyZXRjaCIsICJ0eXBlIjogInRyYW5zZm9ybS0yZCIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7InNjYWxlWCI6IDE2LCAic2NhbGVZIjogMSwgInF1YXJ0ZXJUdXJucyI6IDB9fSwgeyJpZCI6ICJkaXN0b3J0aW9uIiwgInR5cGUiOiAiZnJhY3RhbC1ub2lzZSIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7InNlZWQiOiAzMTQxNTksICJzY2FsZSI6IDMsICJvY3RhdmVzIjogMywgInBlcnNpc3RlbmNlIjogMC40NSwgImJhc2lzIjogInZhbHVlIn19LCB7ImlkIjogIndhcnAiLCAidHlwZSI6ICJ3YXJwIiwgInZlcnNpb24iOiAxLCAicGFyYW1ldGVycyI6IHsic3RyZW5ndGhYIjogMC4wMTgsICJzdHJlbmd0aFkiOiAwfX0sIHsiaWQiOiAiaGVpZ2h0IiwgInR5cGUiOiAibGV2ZWxzIiwgInZlcnNpb24iOiAxLCAicGFyYW1ldGVycyI6IHsiaW5wdXRNaW4iOiAwLjEyLCAiaW5wdXRNYXgiOiAwLjg4LCAiZ2FtbWEiOiAwLjd9fSwgeyJpZCI6ICJjb2xvciIsICJ0eXBlIjogImdyYWRpZW50LW1hcCIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7ImNvbG9yQSI6IFswLjA1LCAwLjAxNywgMC4wMDYsIDFdLCAiY29sb3JCIjogWzAuMzQsIDAuMTcsIDAuMDYzLCAxXX19LCB7ImlkIjogIm5vcm1hbCIsICJ0eXBlIjogImhlaWdodC10by1ub3JtYWwiLCAidmVyc2lvbiI6IDEsICJwYXJhbWV0ZXJzIjogeyJzdHJlbmd0aCI6IDAuMDAxNX19LCB7ImlkIjogInJvdWdobmVzcyIsICJ0eXBlIjogImxldmVscyIsICJ2ZXJzaW9uIjogMSwgInBhcmFtZXRlcnMiOiB7Im91dHB1dE1pbiI6IDAuNjUsICJvdXRwdXRNYXgiOiAwLjQ1fX0sIHsiaWQiOiAib3V0IiwgInR5cGUiOiAibWF0ZXJpYWwtb3V0cHV0IiwgInZlcnNpb24iOiAxfV0sICJlZGdlcyI6IFt7ImZyb20iOiB7Im5vZGVJZCI6ICJncmFpbiIsICJwb3J0SWQiOiAidmFsdWUifSwgInRvIjogeyJub2RlSWQiOiAic3RyZXRjaCIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogInN0cmV0Y2giLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogIndhcnAiLCAicG9ydElkIjogImluIn19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJkaXN0b3J0aW9uIiwgInBvcnRJZCI6ICJ2YWx1ZSJ9LCAidG8iOiB7Im5vZGVJZCI6ICJ3YXJwIiwgInBvcnRJZCI6ICJkaXNwbGFjZW1lbnQifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogIndhcnAiLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAidmFsdWUifSwgInRvIjogeyJub2RlSWQiOiAiY29sb3IiLCAicG9ydElkIjogImluIn19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJoZWlnaHQiLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogIm5vcm1hbCIsICJwb3J0SWQiOiAiaW4ifX0sIHsiZnJvbSI6IHsibm9kZUlkIjogImhlaWdodCIsICJwb3J0SWQiOiAidmFsdWUifSwgInRvIjogeyJub2RlSWQiOiAicm91Z2huZXNzIiwgInBvcnRJZCI6ICJpbiJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAiY29sb3IiLCAicG9ydElkIjogImNvbG9yIn0sICJ0byI6IHsibm9kZUlkIjogIm91dCIsICJwb3J0SWQiOiAiYmFzZUNvbG9yIn19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJoZWlnaHQiLCAicG9ydElkIjogInZhbHVlIn0sICJ0byI6IHsibm9kZUlkIjogIm91dCIsICJwb3J0SWQiOiAiaGVpZ2h0In19LCB7ImZyb20iOiB7Im5vZGVJZCI6ICJub3JtYWwiLCAicG9ydElkIjogIm5vcm1hbCJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogIm5vcm1hbCJ9fSwgeyJmcm9tIjogeyJub2RlSWQiOiAicm91Z2huZXNzIiwgInBvcnRJZCI6ICJ2YWx1ZSJ9LCAidG8iOiB7Im5vZGVJZCI6ICJvdXQiLCAicG9ydElkIjogInJvdWdobmVzcyJ9fV0sICJleHBvc2VkUGFyYW1ldGVycyI6IFt7ImlkIjogImdyYWluU2VlZCIsICJub2RlSWQiOiAiZ3JhaW4iLCAicGFyYW1ldGVySWQiOiAic2VlZCJ9LCB7ImlkIjogImdyYWluUmVwZWF0IiwgIm5vZGVJZCI6ICJzdHJldGNoIiwgInBhcmFtZXRlcklkIjogInNjYWxlWCJ9LCB7ImlkIjogIndhcnBTdHJlbmd0aCIsICJub2RlSWQiOiAid2FycCIsICJwYXJhbWV0ZXJJZCI6ICJzdHJlbmd0aFgifSwgeyJpZCI6ICJvcmllbnRhdGlvbiIsICJub2RlSWQiOiAic3RyZXRjaCIsICJwYXJhbWV0ZXJJZCI6ICJxdWFydGVyVHVybnMifSwgeyJpZCI6ICJzdHVkaW9QYXJhbWV0ZXIiLCAibm9kZUlkIjogInN0cmV0Y2giLCAicGFyYW1ldGVySWQiOiAic2NhbGVZIn1dfQ==",
+      "sourceSha256": "44578bb90e85e90d39d5ccf8e32b66a2daf0db503f9f45273d07886197f90428",
+      "overrides": {},
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.45,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.018,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.12,
+              "inputMax": 0.88,
+              "gamma": 0.7,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05,
+                0.017,
+                0.006,
+                1
+              ],
+              "colorB": [
+                0.34,
+                0.17,
+                0.063,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 6,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.0015
+            },
+            "output": 6,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 7,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.65,
+              "outputMax": 0.45
+            },
+            "output": 7,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          },
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 6
+          },
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 7
+          },
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": 67108864,
+          "uniformBytes": 224,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 33554432,
+          "cumulativeReadbackBytes": 33554432,
+          "cumulativeBytes": 100663520,
+          "peakBytes": 75497696
+        },
+        "hash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563"
+      },
+      "channelPlans": {
+        "baseColor": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  16,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "color",
+                  "typeId": "gradient-map",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "gradientMap",
+                "input": 4,
+                "colorA": [
+                  0.05,
+                  0.017,
+                  0.006,
+                  1
+                ],
+                "colorB": [
+                  0.34,
+                  0.17,
+                  0.063,
+                  1
+                ]
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "color"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "color",
+                  "portId": "color"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 176,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720432,
+            "peakBytes": 58720432
+          },
+          "hash": "sha256:d922ff93f033b278c8ac003c74656acf74f178cfd410020011c081d56fca39a4"
+        },
+        "normal": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  16,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "normal",
+                  "typeId": "height-to-normal",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "heightToNormal",
+                "input": 4,
+                "strength": 0.0015
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "normal"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "normal",
+                  "portId": "normal"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 160,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720416,
+            "peakBytes": 58720416
+          },
+          "hash": "sha256:faf8f3f817ff7f6754320291ba3553002d5a8a4eea9ef5c0dd331bd2d3a49492"
+        },
+        "roughness": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  16,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 5,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "roughness",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 4,
+                "inputMin": 0,
+                "inputMax": 1,
+                "gamma": 1,
+                "outputMin": 0.65,
+                "outputMax": 0.45
+              },
+              "output": 5,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "roughness",
+                  "portId": "value"
+                }
+              },
+              "resource": 5
+            }
+          ],
+          "estimates": {
+            "textureBytes": 50331648,
+            "uniformBytes": 176,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 58720432,
+            "peakBytes": 58720432
+          },
+          "hash": "sha256:085aaa4cb95847c7e05e717d5d2cb0839b4fdd00ed9fcd708ed87b27d6853513"
+        },
+        "height": {
+          "version": 1,
+          "documentVersion": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "materialOutput": {
+            "id": "out",
+            "typeId": "material-output",
+            "version": 1
+          },
+          "passes": [
+            {
+              "id": 0,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "distortion",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 314159,
+                "scale": 3,
+                "octaves": 3,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 0,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 1,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "grain",
+                  "typeId": "fractal-noise",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "fractalNoise",
+                "seed": 161803,
+                "scale": 4,
+                "octaves": 4,
+                "persistence": 0.45,
+                "basis": "value"
+              },
+              "output": 1,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 2,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "stretch",
+                  "typeId": "transform-2d",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "transform2d",
+                "input": 1,
+                "scale": [
+                  16,
+                  1
+                ],
+                "quarterTurns": 0,
+                "offset": [
+                  0,
+                  0
+                ]
+              },
+              "output": 2,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 3,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "warp",
+                  "typeId": "warp",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "warp",
+                "input": 2,
+                "displacement": 0,
+                "strength": [
+                  0.018,
+                  0
+                ]
+              },
+              "output": 3,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            },
+            {
+              "id": 4,
+              "origin": {
+                "source": "node",
+                "node": {
+                  "id": "height",
+                  "typeId": "levels",
+                  "version": 1
+                }
+              },
+              "kernel": {
+                "id": "levels",
+                "input": 3,
+                "inputMin": 0.12,
+                "inputMax": 0.88,
+                "gamma": 0.7,
+                "outputMin": 0,
+                "outputMax": 1
+              },
+              "output": 4,
+              "outputDesc": {
+                "width": 1024,
+                "height": 1024,
+                "format": "rgba16float",
+                "kind": "scalar"
+              },
+              "dispatch": [
+                128,
+                128,
+                1
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "input": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "height",
+                  "portId": "value"
+                }
+              },
+              "resource": 4
+            }
+          ],
+          "estimates": {
+            "textureBytes": 41943040,
+            "uniformBytes": 144,
+            "paddedBytesPerRow": 8192,
+            "readbackBufferBytes": 8388608,
+            "readbackBytes": 8388608,
+            "cumulativeReadbackBytes": 8388608,
+            "cumulativeBytes": 50331792,
+            "peakBytes": 50331792
+          },
+          "hash": "sha256:9492f404da1be81d24c917198ece63298669bb91b5d6c6da5764a131bf42d9ab"
+        }
+      },
+      "nativePixels": {
+        "baseColor": "61237ffa3c9e2887bc0e93dab770d0f577c8b89bb5b830ba1142c9e0ca3fd19e",
+        "normal": "60f1d9acccea179b812eddfed866a16a0058792df5af22428e9f36600bbab437",
+        "roughness": "86a867101a1737e3399c51658a25f3b34d7fd1cae16bbc44de8c5e42329064a0",
+        "height": "d3589cce28ad92e3839d410531d9ac60971959456ef0f1ce1f7d3b0752507d32"
+      }
+    }
+  ],
+  "criteriaSha256": "3a896e4239014097d6e5353b1571a90c2ce4f0cec2ab9c7a4dc561785ce127b9",
+  "authoredManifestSha256": "30a5bbbbeb942fd28ecd1071ccc4526ea26d98481a18887353fdf0a12f7610a5",
+  "productRevision": "6b2d53e3de16b21725b2a4359a2263f98671a6f9",
+  "archiveSha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+  "completedAt": "2026-09-20T05:01:20.056Z"
+}
