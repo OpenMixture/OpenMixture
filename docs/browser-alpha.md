@@ -16,7 +16,7 @@ Native M4/M4.1, bounded M5 and the recorded Studio MVP are complete. Packages re
 | ALPHA-02 — Status alignment | Updated | This page owns current work; historical run records describe their own sources and environments. |
 | ALPHA-03 — Ordinary desktop browser qualification | Complete for the recorded Windows 11 / GT 1030 scope | [Chrome, Edge and Firefox each passed 11 cases / 44 channels under v2](./evidence/browser-quality-v2/README.md), with source/adapter identity and lifecycle evidence. Windows used the recorded existing archive; fresh PR packages are separately tested in Linux CI. This is not universal hardware support. |
 | ALPHA-04 — Publishable npm Alpha candidate | Exact candidate and recorded Studio upgrade gates passed | [Candidate release notes](./browser-alpha-candidate.md) fix the archive and support scope; [new execution evidence](./evidence/alpha-04/README.md) records 7 cases / 28 channels and 52 contracts on Windows and isolated Linux, plus ordinary Chrome save/Player/export. Registry publication and exact registry-version consumption remain separate actions. |
-| ALPHA-05 — Browser required checks | Next governance task | Decide and apply the two browser checks alongside the four native checks, then read back live enforcement. Passing optional jobs are not protected-branch enforcement. |
+| ALPHA-05 — Browser required checks | Active and verified | [Live enforcement evidence](./evidence/alpha-05/README.md) records both browser checks alongside the four native checks in active ruleset 23016046, effective main rules and PR required-check readback. Strict base synchronization, GitHub Actions source binding and no bypass actors are preserved. |
 
 ## Product handoff
 

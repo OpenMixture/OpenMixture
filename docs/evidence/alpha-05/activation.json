@@ -1,0 +1,64 @@
+{
+  "recorded_at": "2026-09-20T06:12:56.749Z",
+  "repository": "OpenMixture/OpenMixture",
+  "pull_request": "https://github.com/OpenMixture/OpenMixture/pull/22",
+  "baseline_main": "507852c59b69708b122fe24bdc240c68983bf84d",
+  "ruleset_id": 23016046,
+  "verification": "Existing policy preserved; only the two browser required contexts added. Live ruleset and effective main rules agree.",
+  "baseline_checks": [
+    {
+      "name": "Pinned SwiftShader Vulkan materials and packaged consumption",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786281/job/106030472817",
+      "completed_at": "2026-09-20T06:00:23Z"
+    },
+    {
+      "name": "WASM and npm package",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786285/job/106030472771",
+      "completed_at": "2026-09-20T05:56:02Z"
+    },
+    {
+      "name": "Check (macos-latest)",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786278/job/106030472731",
+      "completed_at": "2026-09-20T05:57:44Z"
+    },
+    {
+      "name": "Chromium WebGPU material matrix",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786283/job/106030472727",
+      "completed_at": "2026-09-20T05:58:38Z"
+    },
+    {
+      "name": "Check (windows-latest)",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786278/job/106030472720",
+      "completed_at": "2026-09-20T06:02:58Z"
+    },
+    {
+      "name": "Check (ubuntu-latest)",
+      "head_sha": "507852c59b69708b122fe24bdc240c68983bf84d",
+      "status": "completed",
+      "conclusion": "success",
+      "app_id": 15368,
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/35492786278/job/106030472694",
+      "completed_at": "2026-09-20T05:57:58Z"
+    }
+  ]
+}

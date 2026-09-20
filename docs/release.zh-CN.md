@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5 和记录范围内的 Studio MVP 已验收。普通 Windows Chrome／Edge／Firefox 均通过记录中已有归档的 [v2 材质矩阵](./evidence/browser-quality-v2/README.zh-CN.md)。软件包未发布。[准确候选与 Studio 升级](./browser-alpha-candidate.zh-CN.md)已通过记录范围内的验收。[Alpha 收口](./browser-alpha.zh-CN.md)接下来处理浏览器必需检查及独立发布决策；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5 和记录范围内的 Studio MVP 已验收。普通 Windows Chrome／Edge／Firefox 均通过记录中已有归档的 [v2 材质矩阵](./evidence/browser-quality-v2/README.zh-CN.md)。软件包未发布。[准确候选与 Studio 升级](./browser-alpha-candidate.zh-CN.md)已通过记录范围内的验收。[Alpha 收口](./browser-alpha.zh-CN.md)已记录浏览器必需检查生效；发布及准确注册表版本消费仍为独立动作；不启动 M6。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 

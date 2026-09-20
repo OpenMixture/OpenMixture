@@ -33,7 +33,9 @@
           {
             "context": "Pinned SwiftShader Vulkan materials and packaged consumption",
             "integration_id": 15368
-          }
+          },
+          { "context": "WASM and npm package", "integration_id": 15368 },
+          { "context": "Chromium WebGPU material matrix", "integration_id": 15368 }
         ]
       }
     }
