@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0-alpha.0",
+  "dist": {
+    "integrity": "sha512-VgovS/VAM5qDikntmM6a/TGc/s66qL8v4kbyJLs1fSFMJtT0lW4Tskb5WXwhLmezZjk+beCWWzPgRzErzQ/jqg==",
+    "shasum": "206e25f6d0f1ccdd189d54664848a987c8c99639",
+    "tarball": "https://registry.npmjs.org/@openmixture/runtime/-/runtime-0.1.0-alpha.0.tgz",
+    "fileCount": 12,
+    "unpackedSize": 1343048,
+    "signatures": [
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEUCIHif/XeZwTuYkF65rKPFg9UMEAJStUHgET2lACylfAG+AiEAqWXJVS0Wf5srUw3tzcOwC7zkEKZpH46Wpvaa0l8Inx8="
+      }
+    ]
+  },
+  "dist-tags": {
+    "alpha": "0.1.0-alpha.0",
+    "latest": "0.1.0-alpha.0"
+  },
+  "time": {
+    "created": "2026-09-20T07:26:14.060Z",
+    "0.1.0-alpha.0": "2026-09-20T07:26:14.490Z",
+    "modified": "2026-09-20T07:26:14.790Z"
+  }
+}

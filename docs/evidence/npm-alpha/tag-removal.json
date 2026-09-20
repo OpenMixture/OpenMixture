@@ -1,0 +1,12 @@
+{
+  "command": "npm dist-tag rm @openmixture/runtime latest --registry=https://registry.npmjs.org/ --browser=false",
+  "firstAttempt": "npm web authentication request expired; no alias removed",
+  "secondAttempt": {
+    "webAuthentication": "Authentication Successful",
+    "exitCode": 1,
+    "code": "E400",
+    "message": "400 Bad Request - DELETE https://registry.npmjs.org/-/package/@openmixture%2fruntime/dist-tags/latest"
+  },
+  "readback": { "alpha": "0.1.0-alpha.0", "latest": "0.1.0-alpha.0" },
+  "resolution": "Retain truthful registry state, pin exact prerelease in the consumer, and do not claim stable release or successful alias removal. No unpublish, replacement version or security bypass was attempted."
+}

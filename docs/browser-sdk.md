@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-sdk.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. Packages remain unpublished. The exact Alpha candidate and Studio upgrade pass the recorded acceptance; both browser checks are now required on main. Publication and exact registry-version consumption remain separate delivery actions. [Alpha closeout](./browser-alpha.md) owns current work; M6 does not start.
+**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. [Alpha closeout](./browser-alpha.md) owns current work; M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 
@@ -136,7 +136,7 @@ The [browser start guide](./browser-runtime.md) records the current Rust 1.98.1,
 
 Browser pixel tolerances must be measured and frozen in a reviewed acceptance specification before they become release pass/fail thresholds. Start from existing fixtures and documented native tolerances, explain any browser-specific adjustment, and retain exact checker/default/encoding sentinels where their fixture requires equality. Report measured differences as well as threshold outcomes; do not widen tolerances or reset goldens merely to pass. Semantic plan equivalence is mandatory; a hash mismatch for the same build/request must be explained and corrected or receive an explicit versioned-contract decision, not be hidden by pixel tolerance.
 
-The retained M5 receipt must bind the engine revision, package version/digest, consumer revision, pinned toolchains, browser matrix, deployment URL/base, test results and remaining limitations under the [evidence policy](./evidence-policy.md). Existing native acceptance does not certify the browser matrix. npm publication is a later explicit release action; local tarball consumption does not require it. If approved, an alpha release uses an explicit prerelease tag and the product locks an exact runtime version through a reviewable dependency update. The current package remains unpublished.
+The retained M5 receipt must bind the engine revision, package version/digest, consumer revision, pinned toolchains, browser matrix, deployment URL/base, test results and remaining limitations under the [evidence policy](./evidence-policy.md). Existing native acceptance does not certify the browser matrix. npm publication is a later explicit release action; local tarball consumption does not require it. If approved, an alpha release uses an explicit prerelease tag and the product locks an exact runtime version through a reviewable dependency update. The current Alpha is published; [registry-consumption evidence](./evidence/npm-alpha/README.md) binds the exact installed version.
 
 ## Non-goals and follow-up boundary
 

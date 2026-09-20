@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-An unpublished browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. This initial package implements the M5 browser chain; full M5 material, deployment and release acceptance is separate. It adds no TypeScript renderer, hidden device, worker or fallback.
+A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. The published Alpha is `@openmixture/runtime@0.1.0-alpha.0`; see the [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-alpha) for exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.1.0-alpha.0`. It adds no TypeScript renderer, hidden device, worker or fallback.
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';

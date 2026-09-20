@@ -1,0 +1,1777 @@
+{
+  "sourceSha256": "44578bb90e85e90d39d5ccf8e32b66a2daf0db503f9f45273d07886197f90428",
+  "plan": {
+    "version": 1,
+    "documentVersion": 1,
+    "size": [
+      1024,
+      1024
+    ],
+    "materialOutput": {
+      "id": "out",
+      "typeId": "material-output",
+      "version": 1
+    },
+    "passes": [
+      {
+        "id": 0,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "distortion",
+            "typeId": "fractal-noise",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "fractalNoise",
+          "seed": 314159,
+          "scale": 3,
+          "octaves": 3,
+          "persistence": 0.44999998807907104,
+          "basis": "value"
+        },
+        "output": 0,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "grain",
+            "typeId": "fractal-noise",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "fractalNoise",
+          "seed": 161803,
+          "scale": 4,
+          "octaves": 4,
+          "persistence": 0.44999998807907104,
+          "basis": "value"
+        },
+        "output": 1,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "stretch",
+            "typeId": "transform-2d",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "transform2d",
+          "input": 1,
+          "scale": [
+            16,
+            1
+          ],
+          "quarterTurns": 0,
+          "offset": [
+            0,
+            0
+          ]
+        },
+        "output": 2,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "warp",
+            "typeId": "warp",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "warp",
+          "input": 2,
+          "displacement": 0,
+          "strength": [
+            0.017999999225139618,
+            0
+          ]
+        },
+        "output": 3,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 4,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "height",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 3,
+          "inputMin": 0.11999999731779099,
+          "inputMax": 0.8799999952316284,
+          "gamma": 0.699999988079071,
+          "outputMin": 0,
+          "outputMax": 1
+        },
+        "output": 4,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 5,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "color",
+            "typeId": "gradient-map",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "gradientMap",
+          "input": 4,
+          "colorA": [
+            0.05000000074505806,
+            0.017000000923871994,
+            0.006000000052154064,
+            1
+          ],
+          "colorB": [
+            0.3400000035762787,
+            0.17000000178813934,
+            0.06300000101327896,
+            1
+          ]
+        },
+        "output": 5,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "color"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 6,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "normal",
+            "typeId": "height-to-normal",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "heightToNormal",
+          "input": 4,
+          "strength": 0.001500000013038516
+        },
+        "output": 6,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "normal"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      },
+      {
+        "id": 7,
+        "origin": {
+          "source": "node",
+          "node": {
+            "id": "roughness",
+            "typeId": "levels",
+            "version": 1
+          }
+        },
+        "kernel": {
+          "id": "levels",
+          "input": 4,
+          "inputMin": 0,
+          "inputMax": 1,
+          "gamma": 1,
+          "outputMin": 0.6499999761581421,
+          "outputMax": 0.44999998807907104
+        },
+        "output": 7,
+        "outputDesc": {
+          "width": 1024,
+          "height": 1024,
+          "format": "rgba16float",
+          "kind": "scalar"
+        },
+        "dispatch": [
+          128,
+          128,
+          1
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "channel": "baseColor",
+        "kind": "color",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "color",
+            "portId": "color"
+          }
+        },
+        "resource": 5
+      },
+      {
+        "channel": "normal",
+        "kind": "normal",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "normal",
+            "portId": "normal"
+          }
+        },
+        "resource": 6
+      },
+      {
+        "channel": "roughness",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "roughness",
+            "portId": "value"
+          }
+        },
+        "resource": 7
+      },
+      {
+        "channel": "height",
+        "kind": "scalar",
+        "input": {
+          "source": "connected",
+          "from": {
+            "nodeId": "height",
+            "portId": "value"
+          }
+        },
+        "resource": 4
+      }
+    ],
+    "estimates": {
+      "textureBytes": "67108864",
+      "uniformBytes": "224",
+      "paddedBytesPerRow": 8192,
+      "readbackBufferBytes": "8388608",
+      "readbackBytes": "33554432",
+      "cumulativeReadbackBytes": "33554432",
+      "cumulativeBytes": "100663520",
+      "peakBytes": "75497696"
+    },
+    "hash": "sha256:d269c32e6cde3aeb06a533b49c5fdb06656212a1e12619d055078e82a2d84563"
+  },
+  "channels": [
+    {
+      "channel": "baseColor",
+      "pngSha256": "5e6ec4bc19dd90860eb6b8885d6e9f28375c3039228b65bd486224420e046d16",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.017999999225139618,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.11999999731779099,
+              "inputMax": 0.8799999952316284,
+              "gamma": 0.699999988079071,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "color",
+                "typeId": "gradient-map",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "gradientMap",
+              "input": 4,
+              "colorA": [
+                0.05000000074505806,
+                0.017000000923871994,
+                0.006000000052154064,
+                1
+              ],
+              "colorB": [
+                0.3400000035762787,
+                0.17000000178813934,
+                0.06300000101327896,
+                1
+              ]
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "color",
+                "portId": "color"
+              }
+            },
+            "resource": 5
+          }
+        ],
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "176",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432"
+        },
+        "hash": "sha256:d922ff93f033b278c8ac003c74656acf74f178cfd410020011c081d56fca39a4"
+      },
+      "report": {
+        "planHash": "sha256:d922ff93f033b278c8ac003c74656acf74f178cfd410020011c081d56fca39a4",
+        "adapter": {
+          "name": "",
+          "deviceType": "Other",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 16384,
+            "maxTextureDimension2D": 16384,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 2048,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 10,
+            "maxDynamicStorageBuffersPerPipelineLayout": 8,
+            "maxSampledTexturesPerShaderStage": 48,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 16,
+            "maxStorageTexturesPerShaderStage": 8,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "2147483644",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "2147483648",
+            "maxVertexAttributes": 30,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          1024,
+          1024
+        ],
+        "passCount": "6",
+        "pipelineCache": {
+          "hits": 6,
+          "misses": 0,
+          "entries": "9"
+        },
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "176",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432"
+        },
+        "allocations": {
+          "textureCount": "6",
+          "textureBytes": "50331648",
+          "uniformCount": "6",
+          "uniformBytes": "176",
+          "stagingCount": "1",
+          "stagingBytes": "8388608",
+          "peakStagingBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432",
+          "liveBytes": "0",
+          "releasedBytes": "58720432",
+          "reusedBytes": "0"
+        },
+        "readbackBytes": "8388608",
+        "mappedBytes": "8388608",
+        "rgbaBytes": "4194304",
+        "timings": {
+          "pipelineMs": 0,
+          "executionMs": 42.1,
+          "readbackMs": 252.5,
+          "totalMs": 311.2
+        }
+      }
+    },
+    {
+      "channel": "normal",
+      "pngSha256": "9d08ed94cc468ba529fc9b716e1143c09a2cbba12b51b10fed045ddde20cf2ea",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.017999999225139618,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.11999999731779099,
+              "inputMax": 0.8799999952316284,
+              "gamma": 0.699999988079071,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "normal",
+                "typeId": "height-to-normal",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "heightToNormal",
+              "input": 4,
+              "strength": 0.001500000013038516
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "normal"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "normal",
+            "kind": "normal",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "normal",
+                "portId": "normal"
+              }
+            },
+            "resource": 5
+          }
+        ],
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "160",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720416",
+          "peakBytes": "58720416"
+        },
+        "hash": "sha256:faf8f3f817ff7f6754320291ba3553002d5a8a4eea9ef5c0dd331bd2d3a49492"
+      },
+      "report": {
+        "planHash": "sha256:faf8f3f817ff7f6754320291ba3553002d5a8a4eea9ef5c0dd331bd2d3a49492",
+        "adapter": {
+          "name": "",
+          "deviceType": "Other",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 16384,
+            "maxTextureDimension2D": 16384,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 2048,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 10,
+            "maxDynamicStorageBuffersPerPipelineLayout": 8,
+            "maxSampledTexturesPerShaderStage": 48,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 16,
+            "maxStorageTexturesPerShaderStage": 8,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "2147483644",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "2147483648",
+            "maxVertexAttributes": 30,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          1024,
+          1024
+        ],
+        "passCount": "6",
+        "pipelineCache": {
+          "hits": 6,
+          "misses": 0,
+          "entries": "9"
+        },
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "160",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720416",
+          "peakBytes": "58720416"
+        },
+        "allocations": {
+          "textureCount": "6",
+          "textureBytes": "50331648",
+          "uniformCount": "6",
+          "uniformBytes": "160",
+          "stagingCount": "1",
+          "stagingBytes": "8388608",
+          "peakStagingBytes": "8388608",
+          "cumulativeBytes": "58720416",
+          "peakBytes": "58720416",
+          "liveBytes": "0",
+          "releasedBytes": "58720416",
+          "reusedBytes": "0"
+        },
+        "readbackBytes": "8388608",
+        "mappedBytes": "8388608",
+        "rgbaBytes": "4194304",
+        "timings": {
+          "pipelineMs": 0,
+          "executionMs": 47.5,
+          "readbackMs": 36.8,
+          "totalMs": 99.4
+        }
+      }
+    },
+    {
+      "channel": "roughness",
+      "pngSha256": "fad6b65adcc6443bf10ed95002c108f7446170b96255c036497e93fad4647c21",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.017999999225139618,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.11999999731779099,
+              "inputMax": 0.8799999952316284,
+              "gamma": 0.699999988079071,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 5,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "roughness",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 4,
+              "inputMin": 0,
+              "inputMax": 1,
+              "gamma": 1,
+              "outputMin": 0.6499999761581421,
+              "outputMax": 0.44999998807907104
+            },
+            "output": 5,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "roughness",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "roughness",
+                "portId": "value"
+              }
+            },
+            "resource": 5
+          }
+        ],
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "176",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432"
+        },
+        "hash": "sha256:085aaa4cb95847c7e05e717d5d2cb0839b4fdd00ed9fcd708ed87b27d6853513"
+      },
+      "report": {
+        "planHash": "sha256:085aaa4cb95847c7e05e717d5d2cb0839b4fdd00ed9fcd708ed87b27d6853513",
+        "adapter": {
+          "name": "",
+          "deviceType": "Other",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 16384,
+            "maxTextureDimension2D": 16384,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 2048,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 10,
+            "maxDynamicStorageBuffersPerPipelineLayout": 8,
+            "maxSampledTexturesPerShaderStage": 48,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 16,
+            "maxStorageTexturesPerShaderStage": 8,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "2147483644",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "2147483648",
+            "maxVertexAttributes": 30,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          1024,
+          1024
+        ],
+        "passCount": "6",
+        "pipelineCache": {
+          "hits": 6,
+          "misses": 0,
+          "entries": "9"
+        },
+        "estimates": {
+          "textureBytes": "50331648",
+          "uniformBytes": "176",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432"
+        },
+        "allocations": {
+          "textureCount": "6",
+          "textureBytes": "50331648",
+          "uniformCount": "6",
+          "uniformBytes": "176",
+          "stagingCount": "1",
+          "stagingBytes": "8388608",
+          "peakStagingBytes": "8388608",
+          "cumulativeBytes": "58720432",
+          "peakBytes": "58720432",
+          "liveBytes": "0",
+          "releasedBytes": "58720432",
+          "reusedBytes": "0"
+        },
+        "readbackBytes": "8388608",
+        "mappedBytes": "8388608",
+        "rgbaBytes": "4194304",
+        "timings": {
+          "pipelineMs": 0,
+          "executionMs": 41.2,
+          "readbackMs": 35.3,
+          "totalMs": 92.60000000000001
+        }
+      }
+    },
+    {
+      "channel": "height",
+      "pngSha256": "a6c643d31ec9310697fc07936ef24f4d2bc6a5f659a1819972a1a70bbfe1be46",
+      "plan": {
+        "version": 1,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "distortion",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 314159,
+              "scale": 3,
+              "octaves": 3,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 1,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "grain",
+                "typeId": "fractal-noise",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "fractalNoise",
+              "seed": 161803,
+              "scale": 4,
+              "octaves": 4,
+              "persistence": 0.44999998807907104,
+              "basis": "value"
+            },
+            "output": 1,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 2,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "stretch",
+                "typeId": "transform-2d",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "transform2d",
+              "input": 1,
+              "scale": [
+                16,
+                1
+              ],
+              "quarterTurns": 0,
+              "offset": [
+                0,
+                0
+              ]
+            },
+            "output": 2,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 3,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "warp",
+                "typeId": "warp",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "warp",
+              "input": 2,
+              "displacement": 0,
+              "strength": [
+                0.017999999225139618,
+                0
+              ]
+            },
+            "output": 3,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          },
+          {
+            "id": 4,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "height",
+                "typeId": "levels",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "levels",
+              "input": 3,
+              "inputMin": 0.11999999731779099,
+              "inputMax": 0.8799999952316284,
+              "gamma": 0.699999988079071,
+              "outputMin": 0,
+              "outputMax": 1
+            },
+            "output": 4,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "scalar"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "height",
+            "kind": "scalar",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "height",
+                "portId": "value"
+              }
+            },
+            "resource": 4
+          }
+        ],
+        "estimates": {
+          "textureBytes": "41943040",
+          "uniformBytes": "144",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "50331792",
+          "peakBytes": "50331792"
+        },
+        "hash": "sha256:9492f404da1be81d24c917198ece63298669bb91b5d6c6da5764a131bf42d9ab"
+      },
+      "report": {
+        "planHash": "sha256:9492f404da1be81d24c917198ece63298669bb91b5d6c6da5764a131bf42d9ab",
+        "adapter": {
+          "name": "",
+          "deviceType": "Other",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 16384,
+            "maxTextureDimension2D": 16384,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 2048,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 10,
+            "maxDynamicStorageBuffersPerPipelineLayout": 8,
+            "maxSampledTexturesPerShaderStage": 48,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 16,
+            "maxStorageTexturesPerShaderStage": 8,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "2147483644",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "2147483648",
+            "maxVertexAttributes": 30,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 1024,
+            "maxComputeWorkgroupSizeX": 1024,
+            "maxComputeWorkgroupSizeY": 1024,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "DUAL_SOURCE_BLENDING",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          1024,
+          1024
+        ],
+        "passCount": "5",
+        "pipelineCache": {
+          "hits": 5,
+          "misses": 0,
+          "entries": "9"
+        },
+        "estimates": {
+          "textureBytes": "41943040",
+          "uniformBytes": "144",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "8388608",
+          "cumulativeReadbackBytes": "8388608",
+          "cumulativeBytes": "50331792",
+          "peakBytes": "50331792"
+        },
+        "allocations": {
+          "textureCount": "5",
+          "textureBytes": "41943040",
+          "uniformCount": "5",
+          "uniformBytes": "144",
+          "stagingCount": "1",
+          "stagingBytes": "8388608",
+          "peakStagingBytes": "8388608",
+          "cumulativeBytes": "50331792",
+          "peakBytes": "50331792",
+          "liveBytes": "0",
+          "releasedBytes": "50331792",
+          "reusedBytes": "0"
+        },
+        "readbackBytes": "8388608",
+        "mappedBytes": "8388608",
+        "rgbaBytes": "4194304",
+        "timings": {
+          "pipelineMs": 0,
+          "executionMs": 40.5,
+          "readbackMs": 37.900000000000006,
+          "totalMs": 93.10000000000001
+        }
+      }
+    }
+  ]
+}

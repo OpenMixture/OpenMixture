@@ -1,0 +1,898 @@
+{
+  "retention": "Compact test outcomes; full routine Playwright report and embedded screenshots remain in ignored local output.",
+  "stats": {
+    "startTime": "2026-09-20T07:28:07.719Z",
+    "duration": 98031.91900000001,
+    "expected": 52,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "tests": [
+    {
+      "title": "browser.spec.ts > package import has no WASM effects; CPU contract does not touch WebGPU",
+      "file": "browser.spec.ts",
+      "line": 23,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 502,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:08.655Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts > missing WASM produces a structured loader failure",
+      "file": "browser.spec.ts",
+      "line": 82,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 307,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:09.518Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts > explicit packaged WASM URL and supplied bytes load without a loader refetch",
+      "file": "browser.spec.ts",
+      "line": 98,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 441,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:09.837Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts > real WebGPU renders owned odd-size pixels and obeys busy/destruction rules",
+      "file": "browser.spec.ts",
+      "line": 130,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 495,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:10.288Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts > Player loads user bytes, reports invalid input, renders and keeps preview after disposal",
+      "file": "browser.spec.ts",
+      "line": 190,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 914,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:10.798Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "browser.spec.ts > pagehide releases the old GPU and allows a new explicit initialization",
+      "file": "browser.spec.ts",
+      "line": 216,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 828,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:11.725Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > delete and rebuild checker graph with atomic binding cleanup, no GPU required",
+      "file": "editing.spec.ts",
+      "line": 36,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1066,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:12.585Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > integer, float, enum and color edits retain invalid field text and can be repaired",
+      "file": "editing.spec.ts",
+      "line": 56,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 752,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:13.663Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > Rust cycle and type diagnostics identify nodes and invalid drafts remain repairable",
+      "file": "editing.spec.ts",
+      "line": 81,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 900,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:14.428Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > material dirtiness protects replacement, discard restores bytes, and new material starts validated",
+      "file": "editing.spec.ts",
+      "line": 95,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 612,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:15.342Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > rapid authored edits replace pending work; incomplete and invalid drafts suppress old GPU completions",
+      "file": "editing.spec.ts",
+      "line": 111,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5714,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:15.967Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > real device loss blocks edited preview but leaves authoring usable",
+      "file": "editing.spec.ts",
+      "line": 146,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 918,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:21.695Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > glazed-ceramic: authored parameters produce four exact independent runtime previews",
+      "file": "editing.spec.ts",
+      "line": 162,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4857,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:22.625Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > leather: authored parameters produce four exact independent runtime previews",
+      "file": "editing.spec.ts",
+      "line": 162,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4568,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:27.496Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "editing.spec.ts > wood: authored parameters produce four exact independent runtime previews",
+      "file": "editing.spec.ts",
+      "line": 162,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4645,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:32.074Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "export.spec.ts > odd dimensions, all eight channel encodings and downloads after disposal",
+      "file": "export.spec.ts",
+      "line": 17,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2558,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:36.742Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "export.spec.ts > pending PNG edit cannot download stale bytes and releases export busy state",
+      "file": "export.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1231,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:39.313Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "export.spec.ts > pending PNG pagehide cannot download stale bytes and releases export busy state",
+      "file": "export.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1086,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:40.558Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "export.spec.ts > pending PNG failure cannot download stale bytes and releases export busy state",
+      "file": "export.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 872,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:41.656Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "export.spec.ts > long uploaded filenames remain bounded and visible on narrow screens",
+      "file": "export.spec.ts",
+      "line": 92,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 814,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:42.540Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > history restores invalid buffers, atomic deletion, bindings and drag transactions",
+      "file": "history-save.spec.ts",
+      "line": 12,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1130,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:43.390Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > unchanged save is exact; edited save excludes overrides and reopens with matching sidecar",
+      "file": "history-save.spec.ts",
+      "line": 35,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1818,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:44.533Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > failed open, layout and download retain recoverable material and history",
+      "file": "history-save.spec.ts",
+      "line": 66,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 757,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:46.361Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > duplicate bindings are Rust-invalid and undoable; typing is one gesture; new/open cancellation retains work",
+      "file": "history-save.spec.ts",
+      "line": 87,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1603,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:47.130Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > glazed-ceramic: save/reopen preserves every untouched value and numeric token",
+      "file": "history-save.spec.ts",
+      "line": 103,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1235,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:48.745Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > leather: save/reopen preserves every untouched value and numeric token",
+      "file": "history-save.spec.ts",
+      "line": 103,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1297,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:49.993Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > wood: save/reopen preserves every untouched value and numeric token",
+      "file": "history-save.spec.ts",
+      "line": 103,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1438,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:51.301Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "history-save.spec.ts > undo during real readback drops the old completion and renders the restored source",
+      "file": "history-save.spec.ts",
+      "line": 132,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1148,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:52.752Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > real device destruction between renders settles with loss evidence",
+      "file": "lifecycle.spec.ts",
+      "line": 91,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 518,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:53.926Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > real device destruction during readback settles with loss evidence",
+      "file": "lifecycle.spec.ts",
+      "line": 91,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 551,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:54.454Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > real mapping validation failure cleans up scopes and permits a later render",
+      "file": "lifecycle.spec.ts",
+      "line": 143,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 512,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:55.016Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > repeated independent modules and devices retain owned outputs with no live per-call allocations",
+      "file": "lifecycle.spec.ts",
+      "line": 180,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1031,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:55.540Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > unavailable WebGPU remains a structured failure while CPU validation works",
+      "file": "lifecycle.spec.ts",
+      "line": 217,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 348,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:56.583Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > injected adapter acquisition rejection preserves its structured stage",
+      "file": "lifecycle.spec.ts",
+      "line": 230,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 341,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:56.944Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts > injected device acquisition rejection preserves its structured stage",
+      "file": "lifecycle.spec.ts",
+      "line": 230,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 385,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:57.296Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > glazed-ceramic: metadata controls, parameter changes and four real channel previews",
+      "file": "player.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4805,
+          "retry": 0,
+          "startTime": "2026-09-20T07:28:57.712Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > leather: metadata controls, parameter changes and four real channel previews",
+      "file": "player.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5339,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:02.528Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > wood: metadata controls, parameter changes and four real channel previews",
+      "file": "player.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5228,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:07.880Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > color and enum controls preserve exact values and show Rust validation failures",
+      "file": "player.spec.ts",
+      "line": 99,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2540,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:13.122Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > rapid edits replace queued work, invalid overrides suppress old completion, and disposal waits",
+      "file": "player.spec.ts",
+      "line": 145,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1086,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:15.686Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > an invalid new file clears old bindings and cannot receive an earlier render",
+      "file": "player.spec.ts",
+      "line": 177,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 976,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:16.787Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > unsupported WebGPU leaves metadata controls usable and reports a structured error",
+      "file": "player.spec.ts",
+      "line": 193,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 629,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:17.776Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > pagehide during initialization waits for and destroys the late device",
+      "file": "player.spec.ts",
+      "line": 204,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 685,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:18.416Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > a latest real GPU failure retains the previous preview with stale status",
+      "file": "player.spec.ts",
+      "line": 236,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1010,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:19.114Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "player.spec.ts > a late file read cannot replace the newer file or its parameter bindings",
+      "file": "player.spec.ts",
+      "line": 262,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 518,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:20.137Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > source graphs for all samples work without GPU acquisition and show catalog details",
+      "file": "studio.spec.ts",
+      "line": 20,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2222,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:20.679Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > projection keeps disconnected nodes and numeric source tokens; invalid bytes retain the graph",
+      "file": "studio.spec.ts",
+      "line": 41,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1231,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:22.917Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > keyboard, dragging, sidecar round trips and layout failures preserve material bytes",
+      "file": "studio.spec.ts",
+      "line": 64,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1925,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:24.161Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > late source and layout reads cannot replace a newer graph or layout",
+      "file": "studio.spec.ts",
+      "line": 97,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2615,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:26.101Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > Studio glazed-ceramic preview and PNG match independent installed runtime",
+      "file": "studio.spec.ts",
+      "line": 119,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5115,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:28.733Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > Studio leather preview and PNG match independent installed runtime",
+      "file": "studio.spec.ts",
+      "line": 119,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5353,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:33.864Z",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "studio.spec.ts > Studio wood preview and PNG match independent installed runtime",
+      "file": "studio.spec.ts",
+      "line": 119,
+      "ok": true,
+      "status": "expected",
+      "projectName": "",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5621,
+          "retry": 0,
+          "startTime": "2026-09-20T07:29:39.230Z",
+          "errors": []
+        }
+      ]
+    }
+  ]
+}

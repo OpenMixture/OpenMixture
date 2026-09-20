@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "source": "87ded9351e1c426e03aa7fb2b4c641f32399b85b",
+  "runtime": {
+    "version": "0.1.0-alpha.0",
+    "resolved": "https://registry.npmjs.org/@openmixture/runtime/-/runtime-0.1.0-alpha.0.tgz",
+    "integrity": "sha512-VgovS/VAM5qDikntmM6a/TGc/s66qL8v4kbyJLs1fSFMJtT0lW4Tskb5WXwhLmezZjk+beCWWzPgRzErzQ/jqg==",
+    "license": "MIT OR Apache-2.0"
+  },
+  "archiveSha256": "a9bcfe8d849f9fb9982a750dd99d026807fdf6453b5be491deeda90e99a2c6ae",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "README.md": "693614fa2eb43407a3a782332ff0123947e5ae0f1b122a4e92a7b17f1cdb8bb8",
+    "README.zh-CN.md": "72d8bb8ead6060f1aef9e215c35e92488acc6c9b58f5f3e1859a50b73ecbab73",
+    "build-info.json": "d2d58fa2ffc102d80d8a171fa99d8441d036817b5f8c7e20c7fc173c306e09d8",
+    "package.json": "be087b06139057d42bb95bb7a11530a523e0b4c0539de9293071466887e89633",
+    "src/build-info.mjs": "f7e26fa615436ae94742e840af10ea006bb528daf1f813446aaebe6c946b51cd",
+    "src/index.d.ts": "4f0a89b7284753fd839581b22723a1fe094d2b6e908302e05d722bf8d45fee83",
+    "src/index.mjs": "19705526f3c3384a194a52d5f50514633fca0fce9f189167394b512b50e94f33",
+    "src/runtime.mjs": "8e543e010c859f785cad3558ed2c5ad5f67f9db662001dcc8915092bf649d932",
+    "wasm/bindings.mjs": "3e010017aeccbb0abbe6f72715ea4d735c89db595420a9ec3e397f1f35df600e",
+    "wasm/mixture_wasm_bg.wasm": "a8fa8a84ebaa60ba40e20c0a5c1971edda65d57259043096d0517abbe7d79bbf"
+  },
+  "verifiedAt": "2026-09-20T07:29:25.638Z"
+}
