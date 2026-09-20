@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 // Expected identity comes from the installed package, independently of the browser bundle.
 const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
@@ -199,7 +199,8 @@ test('scalar composition executes in the candidate and fails explicitly in the p
       const seamRatio=(seam/2048)/(interior/(2*1024*1023));
       const changed = outputs.length ? pixels.reduce((n,v,i)=>n+(v!==outputs.at(-1)[i]),0)/pixels.length : null;
       outputs.push(pixels);
-      rows.push({weight,planHash:inspection.plan.hash,range:[min,max],seamRatio,changed,adapter:result.report.adapter,
+      const images=result.channels.map(c=>{const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=1024;canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(c.pixels),1024,1024),0,0);return {channel:c.channel,png:canvas.toDataURL('image/png').split(',')[1]};});
+      rows.push({weight,images,planHash:inspection.plan.hash,range:[min,max],seamRatio,changed,adapter:result.report.adapter,
         hashes:await Promise.all(result.channels.map(async c=>({channel:c.channel,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',c.pixels))].map(v=>v.toString(16).padStart(2,'0')).join('')})))});
     }
     return {build, rows, owned: outputs.every(p=>p.length===1024*1024*4)};
@@ -213,6 +214,10 @@ test('scalar composition executes in the candidate and fails explicitly in the p
     expect(result.owned).toBe(true); expect(result.rows).toHaveLength(4);
     for(const row of result.rows) { expect(row.range[1]-row.range[0]).toBeGreaterThan(20);expect(row.seamRatio).toBeLessThan(2);if(row.changed!==null)expect(row.changed).toBeGreaterThan(0.1); }
     expect(new Set(result.rows.map(r=>r.planHash)).size).toBe(4);
+  }
+  for(const row of result.rows ?? []) {
+    for(const image of row.images) await writeFile(testInfo.outputPath('scalar-'+row.weight+'-'+image.channel+'.png'),Buffer.from(image.png,'base64'));
+    delete row.images;
   }
   await testInfo.attach('scalar-evidence', {body:JSON.stringify({...result,browser:browser.version()},(_key,value)=>typeof value==='bigint'?value.toString():value,2),contentType:'application/json'});
 });

@@ -63,6 +63,40 @@ fn scalar_blend_public_gpu() {
                 assert_eq!(a.pixels(), b.pixels());
             }
         }
+        let mut comparisons = Vec::new();
+        if let Ok(directory) = std::env::var("MIXTURE_SCALAR_BROWSER_DIR") {
+            for channel in result.channels() {
+                let path = std::path::Path::new(&directory)
+                    .join(format!("scalar-{weight}-{}.png", channel.channel.as_str()));
+                let mut reader =
+                    png::Decoder::new(std::io::BufReader::new(std::fs::File::open(path).unwrap()))
+                        .read_info()
+                        .unwrap();
+                assert_eq!((reader.info().width, reader.info().height), (1024, 1024));
+                assert_eq!(reader.info().color_type, png::ColorType::Rgba);
+                assert_eq!(reader.info().bit_depth, png::BitDepth::Eight);
+                let mut browser = vec![0; reader.output_buffer_size().unwrap()];
+                reader.next_frame(&mut browser).unwrap();
+                assert_eq!(browser.len(), channel.pixels().len());
+                let max = browser
+                    .iter()
+                    .zip(channel.pixels())
+                    .map(|(a, b)| a.abs_diff(*b))
+                    .max()
+                    .unwrap();
+                assert!(
+                    max <= 1,
+                    "{} weight {weight}: max component delta {max}",
+                    channel.channel.as_str()
+                );
+                let changed = browser
+                    .iter()
+                    .zip(channel.pixels())
+                    .filter(|(a, b)| a != b)
+                    .count();
+                comparisons.push(json!({"channel":channel.channel.as_str(),"maxComponentDelta":max,"changedComponents":changed,"components":browser.len(),"limit":1}));
+            }
+        }
         let pixels = result
             .channels()
             .iter()
@@ -96,7 +130,7 @@ fn scalar_blend_public_gpu() {
             );
         }
         owned.push(pixels.to_vec());
-        rows.push(json!({"weight":weight,"planHash":plan.hash(),"range":[lo,hi],"heightSeamRatio":ratio,"execution":result.report()}));
+        rows.push(json!({"weight":weight,"browserComparison":comparisons,"planHash":plan.hash(),"range":[lo,hi],"heightSeamRatio":ratio,"execution":result.report()}));
         retained.push(result);
     }
     drop(renderer);
