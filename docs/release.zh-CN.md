@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**当前状态（2026-09-17）：** Native M4／M4.1、限定环境内 M5 和独立 Studio MVP 已验收；Cargo 包与 npm Alpha 归档仍未发布，已记录 Windows／Firefox 配置通过[完整 ALPHA-03 运行时门槛](./evidence/alpha-03-configured/README.zh-CN.md)，其他普通配置仍未认证。下一阶段是 [Browser Runtime Alpha 交付收尾](./browser-alpha.zh-CN.md)，其中统一记录当前状态、引擎认领项与跨仓库交接；不启动 M6。
+**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5 和记录范围内的 Studio MVP 已验收。普通 Windows Chrome／Edge／Firefox 均通过记录中已有归档的 [v2 材质矩阵](./evidence/browser-quality-v2/README.zh-CN.md)。软件包未发布。[Alpha 收口](./browser-alpha.zh-CN.md)接下来处理准确候选交付、Studio 升级验收及浏览器必需检查决策；不启动 M6。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 

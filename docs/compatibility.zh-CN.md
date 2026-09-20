@@ -4,7 +4,7 @@
 
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。运行时和 Studio 材质比较共用该规则；当前报告移除已替代的稀疏像素判定。原生金图及精确棋盘格检查不变。新浏览器支持仍需绑定源码的资格证据。
 
-**ALPHA-03，2026-09-17：** [Windows／Firefox 156.0 的确切候选](./evidence/alpha-03-configured/README.zh-CN.md)通过普通配置的 11 案例／44 通道门槛，使用已记录的同源 Release／DXC 原生参照。该结果不扩展为所有浏览器／驱动的兼容承诺；npm 仍未发布。
+**ALPHA-03，2026-09-20：** [记录的 Windows Chrome／Edge／Firefox 执行](./evidence/browser-quality-v2/README.zh-CN.md)在记录的 GT 1030 主机、已有归档上均通过 v2 的 11 案例／44 通道。新 PR 包另经 Linux CI 验证；不代表普遍浏览器／驱动保证，npm 未发布。
 
 **M5 验收，2026-09-15：** [浏览器验收记录](./evidence/m5-05/README.zh-CN.md)关闭记录的 macOS／Linux Chromium 矩阵内 M5-05 门槛：冻结后两端各通过 11 个 1K 用例／44 通道比较、语义与质量检查、12 次额外生命周期渲染，以及独立产品隔离安装、28 项浏览器契约和正常生产静态部署。完整像素与来源证据已保留。Alpha 就绪限于实测范围，npm 仍未发布；Studio／M6 需另行决定。下方较早的日期记录保留其当时状态。
 
