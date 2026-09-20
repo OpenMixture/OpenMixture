@@ -50,3 +50,5 @@ cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/l
 [本地最终检查](./local-check.json)：移走旧打包缓存后，完整 `cargo xtask check` 通过（含独立包消费、Rustdoc 和 185 份文档链接）。[缓存失败原文](./cached-rustdoc-failure.txt)保留 OS 错误，未修改源码规避检查。PR 的当前远端检查另行验证。
 
 [npm 发布 dry-run](./publish-dry-run.txt)以 `--access public --tag alpha` 成功检查准确归档（12 文件，348066 字节），没有发布。npm 提示实际发布需登录；注册表权限、版本可用性及实际发布均未验证，须由独立发行决策处理。
+
+整合记录：[引擎 PR #21](https://github.com/OpenMixture/OpenMixture/pull/21)与 [Studio PR #16](https://github.com/OpenMixture/Studio/pull/16)。Studio 文档头 `d79488882baeb47ca5630b1d7b4d460c72d86638` 的两项必需检查已在 [35491355073](https://github.com/OpenMixture/Studio/actions/runs/35491355073) 通过。合并状态和当前头检查以对应 PR 的实时记录为准；不要将早期头结果当作后续修订验收。
