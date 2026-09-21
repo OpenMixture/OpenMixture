@@ -51,7 +51,7 @@ const dirtyResult = spawnSync('git', ['status', '--porcelain', '--untracked-file
 const metadata = JSON.parse(command('cargo', ['metadata', '--locked', '--no-deps', '--format-version', '1']));
 const engineVersion = metadata.packages.find(pkg => pkg.name === 'mixture-wasm')?.version;
 if (!engineVersion) throw new Error('Could not resolve the binding engine version');
-const buildInfo = { runtimeVersion: manifest.version, apiSchemaVersion: 1, engineVersion,
+const buildInfo = { runtimeVersion: manifest.version, apiSchemaVersion: 2, engineVersion,
   engineRevision: revisionResult.status === 0 ? revisionResult.stdout.trim() : null,
   engineDirty: dirtyResult.status === 0 ? dirtyResult.stdout.trim().length > 0 : null, buildId: `sha256:${digest.digest('hex')}` };
 const env = { ...process.env, MIXTURE_RUNTIME_VERSION: manifest.version, MIXTURE_BUILD_ID: buildInfo.buildId };

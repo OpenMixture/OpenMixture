@@ -8,6 +8,14 @@ use serde::Serialize;
 
 pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
     match id {
+        KernelId::ImageInput => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/image-input.wgsl")
+            ),
+            "image_input",
+        ),
         KernelId::Constant => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -99,6 +107,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             .collect::<Vec<_>>()
     };
     match invocation {
+        KernelInvocation::ImageInput { .. } => vec![0; 16],
         KernelInvocation::Constant { value } => floats(value),
         KernelInvocation::Checker {
             cells,
@@ -182,7 +191,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most ten entries.
+/// Pipeline lookups for one render call. The cache has at most eleven kernel identities (image upload remains gated).
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -260,6 +269,7 @@ mod tests {
     #[test]
     fn graph_shader_validates_without_a_gpu_and_matches_uniform_abi() {
         for (id, size) in [
+            (KernelId::ImageInput, 16),
             (KernelId::Constant, 16),
             (KernelId::Checker, 48),
             (KernelId::Levels, 32),

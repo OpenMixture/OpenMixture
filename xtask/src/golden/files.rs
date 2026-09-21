@@ -123,6 +123,7 @@ pub(super) fn inputs(root: &Path, material: &Path) -> TaskResult<Digests> {
         "crates/mixture-cli/Cargo.toml",
         "xtask/Cargo.toml",
         ".github/scripts/setup-swiftshader.sh",
+        "docs/plan-v2-migration.json",
     ] {
         result.insert(name.to_owned(), digest(&relative(root, name)?)?);
     }

@@ -7,7 +7,7 @@ import { consumerCompatibility, assertBuild, assertComparison, qualityProfile, q
 
 const bytes = Buffer.from('new candidate archive');
 const receipt = {
-  runtimeVersion: '0.2.0-alpha.0', apiSchemaVersion: 1, engineVersion: '0.1.0',
+  runtimeVersion: '0.3.0-alpha.0', apiSchemaVersion: 2, engineVersion: '0.1.0',
   engineRevision: 'a'.repeat(40), engineDirty: false, buildId: `sha256:${'b'.repeat(64)}`, sha256: hash(bytes),
   files: ['package.json', 'build-info.json', 'src/build-info.mjs', 'src/index.d.ts', 'src/index.mjs',
     'src/runtime.mjs', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm'],
@@ -132,8 +132,9 @@ test('installed byte verification catches mixed components and a failed recheck 
 });
 
 test('ENG-04 disposable host compatibility preserves all other test assertions', () => {
- const before = "expect(result.catalogSize).toBe(11);\nexpect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');\nkeepLifecycleAndPixels();";
+ const before = "expect(result.catalogSize).toBe(11);\nexpect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n});\nkeepLifecycleAndPixels();";
  const after = consumerCompatibility(before);
- assert.equal(after, "expect(result.catalogSize).toBe(12);\nexpect(explicit.runtimeVersion).toBe('0.2.0-alpha.0');\nkeepLifecycleAndPixels();");
+ assert.equal(after, "expect(result.catalogSize).toBe(13);\nexpect(explicit.runtimeVersion).toBe('0.3.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',\n});\nkeepLifecycleAndPixels();");
+ assert.throws(()=>consumerCompatibility(before.replace("peakBytes: 'bigint'", "peakBytes: 'number'")));
  assert.throws(()=>consumerCompatibility(after)); assert.throws(()=>consumerCompatibility(before+before));
 });

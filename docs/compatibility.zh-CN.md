@@ -2,6 +2,8 @@
 
 [English](./compatibility.md) | 简体中文
 
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。运行时和 Studio 材质比较共用该规则；当前报告移除已替代的稀疏像素判定。原生金图及精确棋盘格检查不变。新浏览器支持仍需绑定源码的资格证据。
 
 **ALPHA-03，2026-09-20：** [记录的 Windows Chrome／Edge／Firefox 执行](./evidence/browser-quality-v2/README.zh-CN.md)在记录的 GT 1030 主机、已有归档上均通过 v2 的 11 案例／44 通道。新 PR 包另经 Linux CI 验证；不代表普遍浏览器／驱动保证，npm 未发布。

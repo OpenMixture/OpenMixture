@@ -17,6 +17,7 @@ fn registry_matches_reviewed_type_versions() {
             ("fractal-noise", 1),
             ("gradient-map", 1),
             ("height-to-normal", 1),
+            ("image-input", 1),
             ("levels", 1),
             ("material-output", 1),
             ("scalar-blend", 1),
@@ -47,9 +48,16 @@ fn registry_contracts_have_valid_defaults_and_explicit_seed() {
                     parameter.id
                 );
             } else {
-                assert_eq!((contract.type_id, parameter.id), ("fractal-noise", "seed"));
+                assert!(matches!(
+                    (contract.type_id, parameter.id),
+                    ("fractal-noise", "seed") | ("image-input", "resourceId")
+                ));
             }
             match parameter.kind {
+                ParameterKind::ResourceRef => {
+                    assert!(parameter.accepts(&json!("heightSource")));
+                    assert!(!parameter.accepts(&json!("../height.png")));
+                }
                 ParameterKind::Float { min, max } => {
                     assert!(parameter.accepts(&json!(min)));
                     assert!(parameter.accepts(&json!(max)));

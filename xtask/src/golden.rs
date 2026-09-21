@@ -5,6 +5,7 @@ pub(crate) mod browser_quality;
 mod files;
 mod model;
 mod pixels;
+mod plan_migration;
 pub(crate) mod studio;
 #[cfg(test)]
 mod tests;
@@ -264,9 +265,15 @@ fn check(root: &Path, id: &str) -> TaskResult {
             &format!("render-{}", case.id),
         )?;
         validate_render(&report, &doctor, &acceptance)?;
-        let plan_matches = baseline.as_ref().is_some_and(|b| {
-            report["planHash"].as_str() == b.plan_hashes.get(&case.id).map(String::as_str)
-        });
+        let plan_matches = match (
+            baseline.as_ref().and_then(|b| b.plan_hashes.get(&case.id)),
+            report["planHash"].as_str(),
+        ) {
+            (Some(previous), Some(current)) => {
+                plan_migration::matches(id, &case.id, previous, current)?
+            }
+            _ => false,
+        };
         comparisons_passed &= plan_matches;
         let mut channels = BTreeMap::new();
         let mut case_images = BTreeMap::new();
@@ -342,7 +349,15 @@ fn check(root: &Path, id: &str) -> TaskResult {
             .collect::<Vec<_>>();
         machine_passed &= relationships.iter().all(|r| r["ok"] == true);
         overview.push((case.id.clone(), previews));
-        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels,"relationships":relationships}));
+        let baseline_hash = baseline.as_ref().and_then(|b| b.plan_hashes.get(&case.id));
+        let identity_rule = if !plan_matches {
+            "mismatch"
+        } else if report["planHash"].as_str() == baseline_hash.map(String::as_str) {
+            "exact"
+        } else {
+            "explicit-v1-to-v2"
+        };
+        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"baselinePlanHash":baseline_hash,"planIdentityRule":identity_rule,"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels,"relationships":relationships}));
     }
     pixels::sheet(&review.join("overview.png"), &overview)?;
     pixels::sheet(&review.join("tiling.png"), &tiles)?;
@@ -384,7 +399,7 @@ fn validate_render(report: &Value, doctor: &Value, acceptance: &Acceptance) -> T
     let outputs = report["outputs"]
         .as_array()
         .ok_or("render report has no outputs")?;
-    if report["schemaVersion"] != 1
+    if report["schemaVersion"] != 2
         || report["ok"] != true
         || report["diagnostics"] != json!([])
         || report["execution"]["size"] != json!([acceptance.size, acceptance.size])

@@ -65,3 +65,5 @@
 [ENG-04 Scalar 场组合](./eng-04-scalar-blend.zh-CN.md)记录已实现节点、版本化兼容性和原生／浏览器验收；新包尚未发布。
 
 [M6A-01 最小资源合同](./m6a-resource-contract.zh-CN.md)与 [ADR 0007](./decisions/0007-external-image-resources.zh-CN.md)定义选定的外部高度输入设计、兼容决策及后续验收任务。这些文档不代表资源 API 和像素已实现或验收。
+
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。

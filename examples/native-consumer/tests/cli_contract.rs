@@ -126,7 +126,7 @@ impl Harness {
                 "existing validate envelope is unversioned"
             ),
             "inspect" => {
-                assert_eq!(value["schemaVersion"], 1);
+                assert_eq!(value["schemaVersion"], 2);
                 assert!(
                     value.get("plan").is_some(),
                     "plan is present, including null on failure"
@@ -225,7 +225,7 @@ fn context_envelope(value: &Value) {
 }
 
 fn render_envelope(value: &Value) {
-    assert_eq!(value["schemaVersion"], 1);
+    assert_eq!(value["schemaVersion"], 2);
     for field in ["input", "outputDirectory"] {
         assert!(value[field].is_string());
     }
@@ -256,7 +256,7 @@ fn cli_contract_cpu() {
     inspect_args.extend(REQUEST);
     let original = h.json("inspect-valid", &inspect_args, 0);
     let plan = &original["plan"];
-    assert_eq!(plan["version"], 1);
+    assert_eq!(plan["version"], 2);
     assert_eq!(plan["documentVersion"], 1);
     assert_eq!(plan["size"], json!([65, 3]));
     assert_eq!(plan["passes"].as_array().unwrap().len(), 4);

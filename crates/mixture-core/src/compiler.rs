@@ -1,6 +1,6 @@
 //! Compile validated material graphs into deterministic, GPU-independent plans.
 
-mod lower;
+pub(crate) mod lower;
 mod normalize;
 
 use crate::{
@@ -129,8 +129,7 @@ pub fn compile(
     document: &ValidatedDocument,
     request: &CompileRequest,
 ) -> Result<RenderPlan, CompileError> {
-    let normalized = normalize(document, request)?;
-    lower::compile(&normalized, request)
+    Ok(crate::resources::prepare(document, request, &[], &Default::default())?.into_plan())
 }
 pub(crate) fn invalid(message: &str) -> Diagnostic {
     Diagnostic::error(DiagnosticCode::CompileInvalidRequest, Stage::Compile, message)

@@ -26,7 +26,7 @@ export class MixtureRuntimeError extends Error {
   readonly browserFailure?: BrowserFailure; readonly evidence?: unknown;
 }
 export type ParameterKind = { type: 'float' | 'integer'; min: number; max: number }
-  | { type: 'color' } | { type: 'enum'; values: string[] };
+  | { type: 'resourceRef' } | { type: 'color' } | { type: 'enum'; values: string[] };
 export interface ParameterContract { id: string; kind: ParameterKind; default: ParameterValue | null; }
 export interface PortDefault { kind: PortKind; value: number | number[]; }
 export interface PortContract { id: string; kind: PortKind; default: PortDefault | null; }
@@ -42,6 +42,7 @@ export interface ExposedParameter {
   contract: ParameterContract; sourceValue: ParameterValue; effectiveValue: ParameterValue;
 }
 export interface PlanEstimates {
+  resourceCount: bigint; resourceUploadBytes: bigint; resourceTextureBytes: bigint; resourceStagingBytes: bigint;
   textureBytes: bigint; uniformBytes: bigint; paddedBytesPerRow: number;
   readbackBufferBytes: bigint; readbackBytes: bigint; cumulativeReadbackBytes: bigint;
   cumulativeBytes: bigint; peakBytes: bigint;
@@ -52,6 +53,7 @@ export interface RenderPlan {
   passes: Array<{ id: number; origin: ProjectedValue; kernel: ProjectedValue; output: number;
     outputDesc: ProjectedValue; dispatch: [number, number, number] }>;
   outputs: Array<{ channel: ChannelId; kind: PortKind; input: InputSource; resource: number }>;
+  imageResources: Array<{ id: string; format: string; width: number; height: number; bytesPerRow: bigint; contentDigest: string }>;
   estimates: PlanEstimates;
 }
 export interface Inspection {

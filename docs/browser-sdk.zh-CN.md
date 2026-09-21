@@ -2,6 +2,8 @@
 
 [English](./browser-sdk.md) | 简体中文
 
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+
 **当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。

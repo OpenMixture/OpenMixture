@@ -1,6 +1,6 @@
 //! Backend-neutral material graph semantics for Mixture.
 //!
-//! Strict .mix v1 decoding, eleven versioned node contracts, graph validation, and
+//! Strict .mix v1 decoding, thirteen versioned node contracts, graph validation, and
 //! structured diagnostics with explicit safety limits, and deterministic RenderPlan compilation.
 //! This library has no GPU, CLI, browser, or image dependencies.
 //!
@@ -69,6 +69,7 @@ pub mod limits;
 mod nodes;
 pub mod plan;
 pub mod registry;
+pub mod resources;
 pub mod validation;
 
 pub use error::{Diagnostic, DiagnosticCode, DiagnosticReport, EvidenceValue, Severity, Stage};
@@ -81,3 +82,6 @@ pub use validation::{InputSource, MaterialChannel, ValidatedDocument};
 
 pub use compiler::{CompileError, CompileRequest, NormalizedDocument, compile, normalize};
 pub use plan::{OutputChannel, RenderPlan};
+pub use resources::{
+    ImageBinding, ImageResource, PreparedRender, ResourceLimits, ResourceSnapshot, prepare,
+};

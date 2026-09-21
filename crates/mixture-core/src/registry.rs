@@ -50,6 +50,8 @@ pub struct PortContract {
 #[derive(Clone, Copy, Debug, Serialize)]
 #[serde(tag = "type", rename_all = "camelCase")]
 pub enum ParameterKind {
+    /// A case-sensitive caller resource ID using the document identifier grammar.
+    ResourceRef,
     /// A finite JSON number within the bounds.
     Float {
         /// Minimum value.
@@ -110,6 +112,7 @@ impl ParameterContract {
     /// Check a value without coercion, clamping, or source mutation.
     pub fn accepts(&self, value: &Value) -> bool {
         match self.kind {
+            ParameterKind::ResourceRef => value.as_str().is_some_and(crate::resources::valid_id),
             ParameterKind::Float { min, max } => value
                 .as_f64()
                 .is_some_and(|v| v.is_finite() && (min..=max).contains(&v)),
@@ -160,7 +163,7 @@ impl NodeContract {
         self.parameters.iter().find(|p| p.id == id)
     }
 }
-/// The twelve reviewed node contracts in lexical type-ID order.
+/// The thirteen reviewed node contracts in lexical type-ID order.
 pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::blend::CONTRACT,
     &crate::nodes::checker::CONTRACT,
@@ -169,6 +172,7 @@ pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::fractal_noise::CONTRACT,
     &crate::nodes::gradient_map::CONTRACT,
     &crate::nodes::height_to_normal::CONTRACT,
+    &crate::nodes::image_input::CONTRACT,
     &crate::nodes::levels::CONTRACT,
     &crate::nodes::material_output::CONTRACT,
     &crate::nodes::scalar_blend::CONTRACT,

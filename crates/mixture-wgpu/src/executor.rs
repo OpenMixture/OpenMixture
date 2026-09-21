@@ -189,6 +189,19 @@ pub(crate) struct Executed {
     pub timings: ExecutionTimings,
     pub allocations: AllocationReport,
 }
+fn require_resource_free(kernels: &[&KernelInvocation]) -> Result<(), GpuOperationError> {
+    if let Some(resource_id) = kernels.iter().find_map(|kernel| match kernel {
+        KernelInvocation::ImageInput { resource_id } => Some(resource_id),
+        _ => None,
+    }) {
+        return Err(mixture_core::Diagnostic::error(
+            mixture_core::DiagnosticCode::ResourceMissing, Stage::Compile,
+            "Image plans require a prepared-resource execution entry point; upload is not implemented in M6A-02.",
+        ).with_evidence("resourceId", resource_id.as_str())
+            .with_suggestion("Use resource-free plans until the M6A-03 resource upload executor is available.").into());
+    }
+    Ok(())
+}
 // The fixed probe also uses this exact dispatch, upload, allocation and readback path.
 pub(crate) async fn execute(
     context: &GpuContext,
@@ -197,6 +210,9 @@ pub(crate) async fn execute(
     kernels: &[&KernelInvocation],
     outputs: &[(usize, PortKind)],
 ) -> Result<Executed, GpuOperationError> {
+    // M6A-02 admits content-bound Core plans, but resource upload is M6A-03.
+    // Reject before any pipeline creation, allocation, submission or cache mutation.
+    require_resource_free(kernels).map_err(|error| error.in_context(context))?;
     let total = Instant::now();
     let mut resources = Resources::default();
     let result = async {
@@ -357,6 +373,21 @@ pub(crate) async fn execute(
 mod allocation_tests {
     use super::*;
     use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};
+
+    #[test]
+    fn image_plan_is_rejected_before_gpu_work_until_prepared_upload_exists() {
+        let image = KernelInvocation::ImageInput {
+            resource_id: "heightSource".into(),
+        };
+        let error = require_resource_free(&[&image]).unwrap_err();
+        assert_eq!(
+            error.diagnostic().code,
+            mixture_core::DiagnosticCode::ResourceMissing
+        );
+        assert_eq!(error.diagnostic().stage, Stage::Compile);
+        assert!(error.allocations().is_none());
+        assert!(require_resource_free(&[&KernelInvocation::Constant { value: [0.; 4] }]).is_ok());
+    }
 
     #[test]
     #[ignore = "requires GPU; cargo xtask gpu-smoke"]

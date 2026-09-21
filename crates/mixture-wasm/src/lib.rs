@@ -259,7 +259,7 @@ pub fn build_info() -> Result<JsValue, JsValue> {
     }
     project(&BuildInfo {
         runtime_version: option_env!("MIXTURE_RUNTIME_VERSION").unwrap_or("unpackaged"),
-        api_schema_version: 1,
+        api_schema_version: 2,
         engine_version: env!("CARGO_PKG_VERSION"),
         engine_revision: option_env!("MIXTURE_ENGINE_REVISION"),
         engine_dirty: option_env!("MIXTURE_ENGINE_DIRTY").map(|value| value == "1"),
