@@ -15,7 +15,7 @@ npm run build
 npm run preview
 ```
 
-Open the printed local address at `/consumer/`. Click **Render material**; the page loads `public/input.mix` and initializes WASM/GPU explicitly for that invocation. The committed lock installs exactly `@openmixture/runtime@0.1.0-alpha.0` from the registry, not `latest` or a source checkout. Use a secure context (localhost or HTTPS) and a WebGPU-capable browser. GPU acquisition failure is displayed with the SDK's structured diagnostics; there is no automatic fallback.
+Open the printed local address at `/consumer/`. Click **Render material**; the page loads `public/input.mix` and initializes WASM/GPU explicitly for that invocation. The committed lock installs exactly `@openmixture/runtime@0.2.0-alpha.0` from the registry, not `latest` or a source checkout. Use a secure context (localhost or HTTPS) and a WebGPU-capable browser. GPU acquisition failure is displayed with the SDK's structured diagnostics; there is no automatic fallback.
 
 The fixture exposes `frequency` and `roughness`. The example intentionally uses these known exposed IDs; it does not duplicate the node catalog or build a general editor. `src/consumer.ts` is the short public-SDK workflow. The report shows package build identity, plan hash, effective exposed values and selected adapter. Its bigint-to-string formatting is host-owned display logic, not a replacement Mixture report schema. Scalar canvas display is a simple byte preview; it does not claim a color-managed material preview or PNG export.
 
@@ -63,4 +63,4 @@ The existing `Chromium WebGPU material matrix` job runs both independent modes *
 
 The npm Alpha is published within its recorded scope. Public Rust APIs are consumable from source/local Cargo archives; Rust crates remain unpublished, and this example does not introduce CLI binary distribution. A future browser release needs a new version and archive identity, engine qualification, explicit publication, then clean exact-version registry consumption. Studio may choose its own upgrade/deployment schedule. A version change requires updating this fixture's exact package/lock and compatibility expectations in a reviewed change.
 
-ENG-04 adds a ninth test: the 0.2.0-alpha.0 candidate renders the two-Scalar fixture at four 1K weights; the still-pinned registry 0.1.0-alpha.0 explicitly rejects the new type. Only staged runtime version/archive/integrity change for candidate installation. No new package is published. See [ENG-04](../../docs/eng-04-scalar-blend.md).
+ENG-04 adds a ninth test: both the candidate and exact registry 0.2.0-alpha.0 render the two-Scalar fixture at four 1K weights. Historical 0.1.0-alpha.0 unknown-type rejection evidence remains in the ENG-04 record. Only staged runtime version/archive/integrity change for candidate installation. See [ENG-04](../../docs/eng-04-scalar-blend.md) and the [new release record](../../docs/evidence/npm-020-alpha/README.md).

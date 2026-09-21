@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前状态（2026-09-20）：** M0–M5 与 M4.1 已在记录的验收范围内完成。[npm Alpha 发布及精确注册表消费](./docs/evidence/npm-alpha/README.zh-CN.md)已针对 `@openmixture/runtime@0.1.0-alpha.0` 完成；Rust crate 仍未发布。本状态依据保留证据，不代表重新查询注册表或执行 GPU。历史验收不认证新源码、新包或未测环境。
+**当前状态（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
 本页负责当前引擎优先级。[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付、支持限制及缺陷交接。[INITIAL_PRS](./INITIAL_PRS.zh-CN.md)、[M4_PRS](./M4_PRS.zh-CN.md) 和 [M5_PRS](./M5_PRS.zh-CN.md)保留历史实施计划，其中当时的下一步不再作为当前执行指令。
 
@@ -17,7 +17,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | ENG-01 — Post-Alpha 路线图 | 已实现：当前计划、配对导航和首次 Alpha 收尾；区分已完成历史与后续工作。 | 只有一个当前规划入口；下游产品任务不控制引擎进度；资源输入与打包有独立进入条件。 |
 | ENG-02 — 阶段规则毕业 | 已在 ENG-01 后实现：agent／架构指导和节点目录测试。 | 用明确用例准入替代过期 M3 数量门槛；保留经过审查的目录身份、契约检查、显式种子和全部材质门槛。不增加节点。 |
 | ENG-03 — 独立浏览器 SDK 入口 | 已实现[独立浏览器消费者](./examples/browser-consumer/README.zh-CN.md)、公开包示例及分开的候选／注册表身份核验。验收绑定每次实测版本，已有 Studio 覆盖保留。 | 无需了解 Studio，即可通过公开 API 加载 .mix、覆盖参数、选择通道、渲染、诊断和销毁。精确已发布版本与当前候选 tarball 分别验证并记录各自身份。 |
-| ENG-04 — 一个材质表达增量 | 已实现 [Scalar 组合](./docs/eng-04-scalar-blend.zh-CN.md)：两个 Scalar 高度场组合后生成法线，提供定向原生／浏览器验收。新包尚未发布。 | 先批准具体用例及输入／权重／范围／精度／版本契约，再增加最小 scalar-blend。Native／浏览器执行、边界／平铺／因果测试及已有材质回归通过。 |
+| ENG-04 — 一个材质表达增量 | 已实现 [Scalar 组合](./docs/eng-04-scalar-blend.zh-CN.md)：两个 Scalar 高度场组合后生成法线，提供定向原生／浏览器验收。[浏览器 0.2.0-alpha.0 已发布](./docs/evidence/npm-020-alpha/README.zh-CN.md)，Rust 包仍未发布。 | 先批准具体用例及输入／权重／范围／精度／版本契约，再增加最小 scalar-blend。Native／浏览器执行、边界／平铺／因果测试及已有材质回归通过。 |
 
 ENG-03 必须保留已有固定 Studio 消费者检查及其历史证据。先建立已有覆盖与新宿主的对应关系，再另行提出替换变更；不建设第二个完整 Player，不修改 Studio。ENG-04 不授权一组数学节点或现有 blend 语义变更。不承诺含新节点的文档可在旧运行时执行；旧文档保持行为，不支持的类型须明确报错。
 
@@ -26,7 +26,7 @@ ENG-03 必须保留已有固定 Studio 消费者检查及其历史证据。先�
 - 引擎契约、像素、材质质量及生命周期检查约束引擎发布。
 - 引擎负责的固定可丢弃消费者验收按声明的兼容范围继续必需。有意的版本化 API 变更需要明确更新兼容范围和测试，不要求永久支持所有历史宿主。
 - Studio 当前产品分支、部署及用户试用不自动阻塞引擎发布。现有六项必需检查保持不变；本计划不移除或重命名检查。
-- 包内容变化须推进版本、冻结归档身份、完成资格验证、明确执行发布并在干净环境消费精确注册表版本。旧发行不认证新字节。浏览器 npm 交付、原生 Rust 源码 API 和 CLI 分发分别决定支持及分发范围；本批不发布任何包。
+- 包内容变化须推进版本、冻结归档身份、完成资格验证、明确执行发布并在干净环境消费精确注册表版本。旧发行不认证新字节。浏览器 npm 交付、原生 Rust 源码 API 和 CLI 分发分别决定支持及分发范围；[0.2.0 Alpha 交付](./docs/evidence/npm-020-alpha/README.zh-CN.md)只发布浏览器 npm 包。
 
 遵循[治理](./docs/governance.zh-CN.md)、[发布状态](./docs/release.zh-CN.md)及[证据保留](./docs/evidence-policy.zh-CN.md)。先运行针对性验证，再运行 `cargo xtask check`；GPU 变更还须提供对应 GPU 证据。原生金图、精确 checker 与[浏览器 v2 质量门槛](./docs/browser-quality.zh-CN.md)保持独立。已记录的 warp 精度限制仍存在，关闭研究不代表修复。
 

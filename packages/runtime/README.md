@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. The published Alpha is `@openmixture/runtime@0.1.0-alpha.0`; see the [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-alpha) for exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.1.0-alpha.0`. It adds no TypeScript renderer, hidden device, worker or fallback.
+A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. The published Alpha is `@openmixture/runtime@0.2.0-alpha.0`; see the [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-020-alpha) for exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.2.0-alpha.0`. It adds no TypeScript renderer, hidden device, worker or fallback.
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';
@@ -42,6 +42,6 @@ node --test packages/runtime/test/runtime.test.mjs
 node scripts/browser-runtime/build.mjs
 ```
 
-Set `WASM_BINDGEN` to an explicit CLI path when needed. The build requires the repository-pinned Rust, Cargo.lock and wasm-bindgen 0.2.128. It emits a real `target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz`, SHA-256 sidecar and receipt with exact tool versions and source build identity. `engineRevision` identifies HEAD and `engineDirty` records whether source changes were present; the build ID additionally covers source, repository compilation settings, the actual compiler/binding versions and explicit target/profile flags. The source tree package is not the distributable: generated JS/WASM/build metadata exist only in the staged archive. Consumer installation uses `npm install ./vendor/openmixture-runtime-0.1.0-alpha.0.tgz` with no Rust, engine source, compilation hook or network CDN dependency. Keep the consumer's package lock.
+Set `WASM_BINDGEN` to an explicit CLI path when needed. The build requires the repository-pinned Rust, Cargo.lock and wasm-bindgen 0.2.128. It emits a real `target/browser-runtime/openmixture-runtime-0.2.0-alpha.0.tgz`, SHA-256 sidecar and receipt with exact tool versions and source build identity. `engineRevision` identifies HEAD and `engineDirty` records whether source changes were present; the build ID additionally covers source, repository compilation settings, the actual compiler/binding versions and explicit target/profile flags. The source tree package is not the distributable: generated JS/WASM/build metadata exist only in the staged archive. Consumer installation uses `npm install ./vendor/openmixture-runtime-0.2.0-alpha.0.tgz` with no Rust, engine source, compilation hook or network CDN dependency. Keep the consumer's package lock.
 
 The Node tests use a fake low-level binding solely for public request/lifecycle checks. A successful build or these tests do not demonstrate real WebGPU rendering, native/browser pixel equivalence, PNG export fidelity, device-loss delivery or all-browser support. Those require the independent product's served production tests and retained evidence. Node GPU/SSR rendering, an editor, resource packaging, cancellation and zero-copy textures remain unsupported.
