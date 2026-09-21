@@ -77,6 +77,10 @@ jobs:
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
+      - name: Verify exact v1 to v2 material plan migration without resetting goldens
+        run: |
+          cargo build --locked -p mixture-cli
+          node scripts/verify-plan-v2.mjs
       - name: Check out pinned independent product
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:

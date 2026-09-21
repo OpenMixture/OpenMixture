@@ -5,6 +5,7 @@ pub(crate) mod browser_quality;
 mod files;
 mod model;
 mod pixels;
+mod plan_migration;
 pub(crate) mod studio;
 #[cfg(test)]
 mod tests;
@@ -264,9 +265,15 @@ fn check(root: &Path, id: &str) -> TaskResult {
             &format!("render-{}", case.id),
         )?;
         validate_render(&report, &doctor, &acceptance)?;
-        let plan_matches = baseline.as_ref().is_some_and(|b| {
-            report["planHash"].as_str() == b.plan_hashes.get(&case.id).map(String::as_str)
-        });
+        let plan_matches = match (
+            baseline.as_ref().and_then(|b| b.plan_hashes.get(&case.id)),
+            report["planHash"].as_str(),
+        ) {
+            (Some(previous), Some(current)) => {
+                plan_migration::matches(id, &case.id, previous, current)?
+            }
+            _ => false,
+        };
         comparisons_passed &= plan_matches;
         let mut channels = BTreeMap::new();
         let mut case_images = BTreeMap::new();
