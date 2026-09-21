@@ -12,6 +12,8 @@ use std::time::Duration;
 pub(crate) struct Resources {
     pub textures: Vec<wgpu::Texture>,
     uniforms: Vec<wgpu::Buffer>,
+    images: std::collections::BTreeMap<String, wgpu::Texture>,
+    uploads: Vec<wgpu::Buffer>,
     pub groups: Vec<wgpu::BindGroup>,
     pub allocations: Allocations,
 }
@@ -22,7 +24,11 @@ impl Drop for Resources {
 }
 impl Resources {
     fn release(&mut self) {
-        if self.uniforms.is_empty() && self.textures.is_empty() {
+        if self.uniforms.is_empty()
+            && self.textures.is_empty()
+            && self.images.is_empty()
+            && self.uploads.is_empty()
+        {
             return;
         }
         self.groups.clear();
@@ -32,12 +38,128 @@ impl Resources {
         for texture in self.textures.drain(..) {
             texture.destroy();
         }
+        for (_, texture) in std::mem::take(&mut self.images) {
+            texture.destroy();
+        }
+        for buffer in self.uploads.drain(..) {
+            buffer.destroy();
+            self.allocations.release_staging(buffer.size());
+        }
         self.allocations.release_passes();
     }
 
     pub fn finish(mut self) -> crate::AllocationReport {
         self.release();
         self.allocations.report()
+    }
+    pub async fn upload(
+        &mut self,
+        context: &crate::GpuContext,
+        snapshot: &mixture_core::ResourceSnapshot,
+    ) -> Result<(), GpuOperationError> {
+        let image = snapshot.image();
+        let device = context.device();
+        let stage = Stage::GpuExecution;
+        context.ensure_available(stage)?;
+        // Core checked packed sizes and conservative 256-byte staging before capture.
+        let row = image.bytes_per_row.div_ceil(256) * 256;
+        let staging_bytes = row * u64::from(image.height);
+        let gpu_row = u32::try_from(row).map_err(|source| {
+            GpuOperationError::source_error(stage, "Upload row exceeds GPU layout size.", source)
+        })?;
+        if staging_bytes > device.limits().max_buffer_size {
+            return Err(GpuOperationError::at(
+                stage,
+                "Image upload exceeds acquired buffer limit.",
+            )
+            .evidence("maxBufferSize", device.limits().max_buffer_size)
+            .evidence("observedBytes", staging_bytes));
+        }
+        let (texture, buffer) = checked(
+            device,
+            stage,
+            "Could not allocate image upload resources.",
+            || {
+                let texture = device.create_texture(&wgpu::TextureDescriptor {
+                    label: Some("external linear RGBA8 image"),
+                    size: extent([image.width, image.height]),
+                    mip_level_count: 1,
+                    sample_count: 1,
+                    dimension: wgpu::TextureDimension::D2,
+                    format: wgpu::TextureFormat::Rgba8Unorm,
+                    usage: wgpu::TextureUsages::COPY_DST | wgpu::TextureUsages::TEXTURE_BINDING,
+                    view_formats: &[],
+                });
+                let buffer = device.create_buffer(&wgpu::BufferDescriptor {
+                    label: Some("padded image upload"),
+                    size: staging_bytes,
+                    usage: wgpu::BufferUsages::COPY_SRC,
+                    mapped_at_creation: true,
+                });
+                (texture, buffer)
+            },
+        )
+        .await?;
+        self.allocations
+            .image(image.bytes_per_row * u64::from(image.height), staging_bytes)?;
+        self.images.insert(image.id.clone(), texture);
+        self.uploads.push(buffer);
+        let texture = self
+            .images
+            .get(&image.id)
+            .ok_or_else(|| GpuOperationError::at(stage, "Missing captured texture."))?;
+        let buffer = self
+            .uploads
+            .last()
+            .ok_or_else(|| GpuOperationError::at(stage, "Missing upload staging."))?;
+        {
+            let mut mapped = buffer.get_mapped_range_mut(..).map_err(|source| {
+                GpuOperationError::source_error(stage, "Could not map image upload.", source)
+            })?;
+            let row = usize::try_from(row).map_err(|source| {
+                GpuOperationError::source_error(stage, "Upload row exceeds host size.", source)
+            })?;
+            let packed = usize::try_from(image.bytes_per_row).map_err(|source| {
+                GpuOperationError::source_error(stage, "Packed row exceeds host size.", source)
+            })?;
+            for (y, source) in snapshot.data().chunks_exact(packed).enumerate() {
+                mapped
+                    .slice(y * row..y * row + packed)
+                    .copy_from_slice(source);
+            }
+        }
+        checked(device, stage, "Could not unmap image upload.", || {
+            buffer.unmap()
+        })
+        .await?;
+        let encoder = checked(device, stage, "Could not encode image upload.", || {
+            let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("image upload"),
+            });
+            encoder.copy_buffer_to_texture(
+                wgpu::TexelCopyBufferInfo {
+                    buffer,
+                    layout: wgpu::TexelCopyBufferLayout {
+                        offset: 0,
+                        bytes_per_row: Some(gpu_row),
+                        rows_per_image: Some(image.height),
+                    },
+                },
+                wgpu::TexelCopyTextureInfo {
+                    texture,
+                    mip_level: 0,
+                    origin: wgpu::Origin3d::ZERO,
+                    aspect: wgpu::TextureAspect::All,
+                },
+                extent([image.width, image.height]),
+            );
+            encoder
+        })
+        .await?;
+        submit(device, context.queue(), encoder, stage).await?;
+        context.ensure_available(stage)?;
+        self.allocations
+            .uploaded(image.bytes_per_row * u64::from(image.height))
     }
     pub async fn push(
         &mut self,
@@ -47,7 +169,7 @@ impl Resources {
         size: [u32; 2],
     ) -> Result<(), GpuOperationError> {
         let bytes = crate::kernels::parameters(kernel);
-        let inputs = kernel
+        let mut inputs = kernel
             .inputs()
             .map(|id| {
                 self.textures.get(id.index() as usize).ok_or_else(|| {
@@ -58,6 +180,12 @@ impl Resources {
                 })
             })
             .collect::<Result<Vec<_>, _>>()?;
+        if let KernelInvocation::ImageInput { resource_id } = kernel {
+            inputs.push(self.images.get(resource_id).ok_or_else(|| {
+                GpuOperationError::at(Stage::GpuExecution, "Prepared image texture is missing.")
+                    .evidence("resourceId", resource_id.as_str())
+            })?);
+        }
         let (texture, uniform, group) = checked(
             device,
             Stage::GpuExecution,

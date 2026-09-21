@@ -2,7 +2,7 @@
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; browser resource arguments and cross-platform image qualification remain M6A-04/05. Read historical version descriptions below in that context.
 
 The twelve version-1 contracts in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
 

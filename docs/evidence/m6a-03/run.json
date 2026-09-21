@@ -1,0 +1,1551 @@
+{
+  "schemaVersion": 1,
+  "scope": "M6A-03 Native image node; not browser resource qualification or publication",
+  "source": {
+    "baseCommit": "7e7b9a2ee9af1ac167d98a2a329977f38e005ab9",
+    "workingTreeClean": false,
+    "identity": "SHA-256 of tested runtime, fixtures, tests and tooling files; later documentation commits are not claimed as tested revisions",
+    "files": {
+      "Cargo.lock": "f33bd9f52126fde217582d92fb8ad30188c80b41d19d4a64488c7f71ea5ab9b6",
+      "Cargo.toml": "5cb42588432c090eda0097c35c41a882164cb33bb6e2b2ba604027787f39a9a1",
+      "crates/mixture-core/Cargo.toml": "7bb49ee5df36b8ed8f6ce75e1d89569b1bd6c3c295ca8fcd03904a2eb364ab9d",
+      "crates/mixture-core/examples/diagnostics.rs": "b605a9574e5946565cfe6ff8cdb6b82387eb36a69271e363ba046401e21af0b4",
+      "crates/mixture-core/src/compiler.rs": "9f33e4d47a4ac7e7de59ac41708efbf3ed4612f2ca6bdd01b87f475907197124",
+      "crates/mixture-core/src/compiler/lower.rs": "d2f282d19357ac731bf19e3d12886af47bb4b4f5f8f965459a3c25a5f4e67e66",
+      "crates/mixture-core/src/compiler/normalize.rs": "dd2fd68658055b8e764129169506fa3b4b697041433dd3a0613af8ceb7415811",
+      "crates/mixture-core/src/document.rs": "79c975513dc69d0310888970cafc793b97e8463b49d6e49c70959e0f201a30fe",
+      "crates/mixture-core/src/document/decode.rs": "5381b02d9cb7bb3f274c1e9b11b69122764c871dc0585097a3ca722407e2bb43",
+      "crates/mixture-core/src/error.rs": "531fb98d5611485d2fce32182a477d43f1bc95fdca535a523a4e0108a71a621f",
+      "crates/mixture-core/src/lib.rs": "d8e4d55ffe9401a38dab9e70c16b3c61d8786cd88bd21b36cf53c5a5ea0dc781",
+      "crates/mixture-core/src/limits.rs": "825d373f8f2253799dcd6d712ca087e989d5c589379d6dc74863f02aaa12e1f0",
+      "crates/mixture-core/src/nodes/blend.rs": "bb57f1591e4648036b22941718fbbb94c4ceaf598e8db1d4d122789b862ebbba",
+      "crates/mixture-core/src/nodes/checker.rs": "0e9191831861b98863a916e6dc97482c92845aaf92d54990d4235b433886a9f8",
+      "crates/mixture-core/src/nodes/constant_color.rs": "1b6ff43580ce56b038c6397b5d8d4a4938069addb54609c8e6b4a3c68c9a4f09",
+      "crates/mixture-core/src/nodes/constant_scalar.rs": "c8a7ecdf9b22c88e94d151f101b8d0e51b043d380c3fe959594aa8a2062b42a5",
+      "crates/mixture-core/src/nodes/fractal_noise.rs": "cfea5208d5e03459cc0400e0c6fff95244d01bc4e169ae028598ed825c8a9f72",
+      "crates/mixture-core/src/nodes/gradient_map.rs": "a309f6332cff9bd289485294100860f4f2f1b1e5475875ab9b897430228a34b6",
+      "crates/mixture-core/src/nodes/height_to_normal.rs": "a5c927eb3119e73e6dfe4cf4ebd6ec7385d1c8a6995cb8e640c637a308cc0368",
+      "crates/mixture-core/src/nodes/image_input.rs": "2557fc22e9eabc09d11f269d6658d0e8c0116e4e63f01bac8779a63a8ee1281e",
+      "crates/mixture-core/src/nodes/levels.rs": "c3373ca896b1bd76b799bfca2c873428034067eabe61437142a0409ca98483e1",
+      "crates/mixture-core/src/nodes/material_output.rs": "6e68c67a089e14712bf4b9dfc95d0035307e73297f24bb85c8a97dca36c14f59",
+      "crates/mixture-core/src/nodes/mod.rs": "dd8bb4a1b3b794cf44d77cf72fb43e80b396f0530fa0771a042580ccc85a28ad",
+      "crates/mixture-core/src/nodes/scalar_blend.rs": "89306d2e52c048dac4d3ea96c1f8d720f1e61929d4176c4559fbfc4129c2752b",
+      "crates/mixture-core/src/nodes/transform_2d.rs": "aa359719798908555f036ccc7bcc6b41c871a3d98255066837aa384cc1c35d0b",
+      "crates/mixture-core/src/nodes/warp.rs": "1783b5866c70246a5d03e0f68fb1d36969744f07b6441e5bd1731a478a184c73",
+      "crates/mixture-core/src/plan.rs": "8b042ece09b2e66ab1dba347e4518149c279a653312d7fac901a44251cabe65d",
+      "crates/mixture-core/src/registry.rs": "a923052a29c00f568d10a30de6ceaa4f0eae8d76282cdf696b397aaf58ad8233",
+      "crates/mixture-core/src/resources.rs": "38dd3a4a28aa1c549599e716160f787aac31e6344cd49ed44642717a9dadd0c7",
+      "crates/mixture-core/src/validation.rs": "b18fdc331e82f8c1fe5d818485678caf9977bbe79e70dcbaebd98be38f32b114",
+      "crates/mixture-core/tests/diagnostics.rs": "377fd51e14fab576d446fec7967dc3f475c28a533d26be4a853413b2d2a994c7",
+      "crates/mixture-core/tests/format.rs": "3e0efb0e8daf9b29314e5f2d20feab77a7b8e75cd06e75b1cfd47b9662c77da9",
+      "crates/mixture-core/tests/limits.rs": "9dfa557f0f07a5cd96f9a10d411a6e499d3638c08d361bfe55f1a2450e288bac",
+      "crates/mixture-core/tests/m3_nodes.rs": "9243cab3e17c93e485fb19e8862ce511280b86a0092093fc16d6524e489b27dc",
+      "crates/mixture-core/tests/plan.rs": "f440ae719563ee477f73df44f14169305171d83bcea34f94628172b876f1d62b",
+      "crates/mixture-core/tests/registry.rs": "acab7203a8cc6084388d52d19b4e5c1a8c603ba44e2d508cc91243d60b7b024f",
+      "crates/mixture-core/tests/resampling.rs": "b43ace596ae37dedd61c57429cd6d2a21d1d707737797844538578c4c0f820f3",
+      "crates/mixture-core/tests/resources.rs": "3f9b0188593cc04d583ba0355f5d69415a2a5cb930a94037020231a6f8572a21",
+      "crates/mixture-core/tests/scalar_blend.rs": "8b2e9e653e3bc739779c4a34c0cd00a8905515ceaf701d86dbdf68adea1a0191",
+      "crates/mixture-core/tests/validation.rs": "06435d5845f5ef50d0be96d1aafd9c615f481219cbc05308a7fab3c293403334",
+      "crates/mixture-wgpu/Cargo.toml": "1eabaa687a2f2dd378821eb0079c138b6a655f8d239ca118dc0db776e79e6968",
+      "crates/mixture-wgpu/shaders/nodes/blend.wgsl": "ffce5f2f1684a6fd5834686f6052890d861d09c3acbbcfab59410acbdd196ef5",
+      "crates/mixture-wgpu/shaders/nodes/checker.wgsl": "089d04ac234c1cfc225d61dabb98f955b1c7d90da7c993b8c5278f018248bd24",
+      "crates/mixture-wgpu/shaders/nodes/constant.wgsl": "3e71c6c25a44ae38c034bed7866cbb773dea2051a2afe1cb6422c79912614e11",
+      "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl": "34790324819fc194c4f7610dea7fa0839dfe73100d975e62ed897f256468b83f",
+      "crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl": "b07a154743c869d92d43f918571e0efb2743128448ccdddbf948b9b0d214023a",
+      "crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl": "4900048ccd35c9be51395c2bdf2a90c2be7b0582338dbde21b9167aa539c8e89",
+      "crates/mixture-wgpu/shaders/nodes/image-input.wgsl": "78c5b0bde39c91b648ec960dc26f45bf1be91aa79462e4b369a1ff3eef16e226",
+      "crates/mixture-wgpu/shaders/nodes/levels.wgsl": "335bcc1f9dc9d7cde13846286d0113baa620d4a3555c141bf352a6e1cc838290",
+      "crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl": "2f2d3eebbaf56f0ddf9cbe0735f18cbbd2317b04119856d8cdead6d6bd010a78",
+      "crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl": "b863119ee39924f5a57eb42b55e32af449a23dbcb82f5ca2effcd6d9a3fc39af",
+      "crates/mixture-wgpu/shaders/nodes/warp.wgsl": "0cfc85b503de8a595e43a06cf25f2b670c392da7dae4cf4801b9251a0203e5ba",
+      "crates/mixture-wgpu/shaders/precision.wgsl": "66c080227428e58dace7532577c88246425f59db7397fb62fa5a01edb703dd90",
+      "crates/mixture-wgpu/src/allocations.rs": "551199b39e5f24fe54582069fdc7bf83e9731a8b1c561b5f8e1ebb0a5f2e7cc7",
+      "crates/mixture-wgpu/src/checker.rs": "7d9ab440177fbd5fa63fd38725d3333fe2e64e7d23f978923e06ba7ec85cda6e",
+      "crates/mixture-wgpu/src/context.rs": "e5055c89ba5a87b957826b9817ea98634af80abe28634630ba4478b184376b38",
+      "crates/mixture-wgpu/src/diagnostics.rs": "dd6d455c43ab57b3a4a61284871052efff6ad71ff99af767e7d404bc6864df59",
+      "crates/mixture-wgpu/src/executor.rs": "be3b80482bf578540ccac6cb414550015a14a1bbcc5910d925c7ec927eaabd41",
+      "crates/mixture-wgpu/src/kernels.rs": "01638d507ce39358a2d2a18934406aec697693a99ccb9136e27eecd9338c1d84",
+      "crates/mixture-wgpu/src/lib.rs": "24d63348a9bbda40006e2b9571e8817f5a0ef1d3f928eece88133c4b63395436",
+      "crates/mixture-wgpu/src/operation.rs": "f4b645244458afa61dac9cd53869056e5a7c82e268b493bd75143b6b6c03d65c",
+      "crates/mixture-wgpu/src/readback.rs": "0f9b21ffd2dae77df042c6246e70c47e6464941c087cb1b91cb8dd36dfb7adf5",
+      "crates/mixture-wgpu/src/resources.rs": "b03fc1f7665a2bd0b28408f024aba14b0b700d01414b990e622767fb17dc9c8e",
+      "crates/mixture-wgpu/src/testdata/constant-scalar.mix": "4d2e5b630680444bf7a61741cd7c4787ec40bf8babcefe636ffcc4f5006e098e",
+      "crates/mixture-wgpu/src/testdata/transform-2d.mix": "8bed9891bad461bed9436c2b1774b9d287ffa4da1779f99f31cdbb71f4fdf596",
+      "crates/mixture-wgpu/src/testdata/warp.mix": "c5f9b8b774df968183198e7bf4f37a4316b762f09a175bf7ec1c6ef458f4686d",
+      "crates/mixture-wgpu/tests/checker.rs": "a8d2a38d543b72b3242cc1da52337bd8a537fe57fc9c1b51a578c31ab3e4dd0c",
+      "crates/mixture-wgpu/tests/context.rs": "060f75263198a5e8304549c3398c2d400b87197e363e00203e588f17ba41f943",
+      "crates/mixture-wgpu/tests/nodes.rs": "d03220302a96598e608850a34e8dfeb84472df26dc533b5b48f3cf5db7ad2d5d",
+      "crates/mixture-wgpu/tests/support/image_probe.rs": "b94cc7be54791d65a45b971e934b398b7b3f8c6158c6c7570555fbf189d541cb",
+      "crates/mixture-wgpu/tests/support/normal_probe.rs": "b76ab92ca0b188c31e50d963762005ecd3dcddc2a1833f49bac821e5c89cef3c",
+      "crates/mixture-wgpu/tests/support/precision_probe.rs": "429edef9a98a43b60d98a0693855ce62078508848ebf36c1bacc52a339873514",
+      "crates/mixture-wgpu/tests/support/resampling_probe.rs": "c619a376e03da46ad9856d5699b500d0a836923afa24575f7de5dd090fa0701e",
+      "crates/mixture-wgpu/tests/support/scalar_probe.rs": "ce50c4cfb34ba8b77df8f45c802362d53033747016d9545ff7b08227105aa997",
+      "examples/native-consumer/Cargo.lock": "a38a41fafe4cff969e4b03275097273d4e39582958bcd48d989cfa92a8083d04",
+      "examples/native-consumer/Cargo.toml": "6d26f4acf1aaed25669de4773284d4963b1670b15b340b164f90b86d6f489264",
+      "examples/native-consumer/input.mix": "c8aa5e95a1ad0a12789798f471f1a108c6829c6628efba45c3c84d1b81a4ddee",
+      "examples/native-consumer/src/cpu.rs": "f4fb8b37005b13e564dbe4710540858537129538224bd6ff72858996ba0a50a5",
+      "examples/native-consumer/src/gpu.rs": "2e06f9b842682532287e34f6a4684a1ac8d2e1adf0d7472e7e5a81162eb91c04",
+      "examples/native-consumer/src/latest.rs": "d10d1b1429af6abbb898630065a167ea09d657a42ebb1c2a3bec644eebd3ccbd",
+      "examples/native-consumer/src/lib.rs": "b3452b5944b3ea857b6da6b6a1a535f87e21dc42f324ff22a165aac1303b4797",
+      "examples/native-consumer/src/main.rs": "af0cd472d3956492f9075b961b2fa547cdbd938447ae7100f0edb9f74de23bf1",
+      "examples/native-consumer/tests/cli_contract.rs": "bf2f95187baace2fe14f20ace5e360943234d93651e377d684cad18972a9ed8e",
+      "examples/native-consumer/tests/commands.rs": "462cd0e572c52eb7efe4ec976b6459bb21f40ac60ebb14cbb42f61cffa737d2e",
+      "examples/native-consumer/tests/device_loss.rs": "81d8be8925888e76ecca4f07f2dab4b15a675355e53f1f81e8e82edb1afb22ec",
+      "examples/native-consumer/tests/inputs/missing-warp.mix": "f71d29dd1883913aaec2f56baf4fd581e4f0d0bb687fe5ec7e560c3609076adb",
+      "examples/native-consumer/tests/latest_cli.rs": "cb631c2da35167e5be7b5e88a34a7e0b7044c90616cd5304c98a0911fd7156ae",
+      "examples/native-consumer/tests/resources.rs": "9fba9a14700d0f7897c7c31676ae9adacb8dbfd3a4aa9aa2a1bab38379032e1c",
+      "examples/native-consumer/tests/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+      "examples/native-consumer/tests/scalar_blend.rs": "afdc8eb42db79611caf14c05450458987e0b3295b916e723e0258e266a8573d6",
+      "fixtures/nodes/image-input/height.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+      "rust-toolchain.toml": "c910997cb152c6dc8ed13b1fdf9fa28a4ed30d6776123e27dd6170e5c66067a0",
+      "xtask/Cargo.toml": "b07d9b528646460db1d63eecce137330bb2c188791587cb532e5fa07788b2b30",
+      "xtask/src/consumer.rs": "9978272d41d541a89c9247a991f5262b9d630ac6299facadaa53a985f2c70f5b",
+      "xtask/src/dependencies.rs": "398f12355741d391c25641db6e552b59797da44bd53da5cd8f4f1622b226255a",
+      "xtask/src/golden.rs": "6c7c0cdc7f9b73157211deeb88c443e48f32e68ca6799bcbe48470cb4be626f0",
+      "xtask/src/golden/browser.rs": "d2a64fc9222e39a0b2cb8d0c9a75745b64c3d46bc4c06f03c5e8fdd44f73f95d",
+      "xtask/src/golden/browser_quality.rs": "22068133e2025d1f66f6f4314a0e228a59ce74974a01131c1fba8fd4b19300a3",
+      "xtask/src/golden/files.rs": "c2d0d3a769b9aa63ca1cd1539c1d58929deab18e380ca4f471293fd25898dd25",
+      "xtask/src/golden/model.rs": "af57d1ff85375483945fbcaaea03d2a71b34b0828769f1184acacc460f725b90",
+      "xtask/src/golden/pixels.rs": "2fa4c65832e2fb406f0e2a706b65e9800e7ee676b8edc27e000b4356558a66af",
+      "xtask/src/golden/plan_migration.rs": "b081ebfe2882003f4b59911fadcabfce758db69cc71797878bb42d13221b87d2",
+      "xtask/src/golden/studio.rs": "eb2918bef50949174e7664ebbbf08e9e6de9b8e98c34d535b77a548d0736b599",
+      "xtask/src/golden/tests.rs": "94801792b0b43b4f7fba91f0438f0060575295eef5b8c3c5a6ad0e8ca9615fa8",
+      "xtask/src/golden/trace.rs": "bffb336a4c3e179bd26c86ad076809a8dfe084f6883bf94f7ef71ef8bbd4ce81",
+      "xtask/src/gpu_smoke.rs": "cede36f7c15b2a878afc41ad068d790cdb4a09f8247e088bf0fb09848f291f5c",
+      "xtask/src/links.rs": "a673451a6709f7a7c6ba1d9e880b44b87edf0c80efd1434bbdca63450a51a052",
+      "xtask/src/main.rs": "9eb4a2c1924ae2edf650d2091b8b7895ec0e63ba33bf372ab81a8bf79d556abe",
+      "xtask/src/package.rs": "df41f28f2a26bd4475538d7cf0cc68c7629e1c49ba27f0c1d4fd9f037aa1f7c9",
+      "xtask/tests/commands.rs": "2404426ab0dac1a0aca99ee622643b8bdbe1a2b89f268fdb38aa88312d43713a"
+    },
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+  },
+  "run": {
+    "finishedAt": "2026-09-21T08:53:47.077Z",
+    "host": "Windows x64",
+    "command": "cargo xtask test-node image-input",
+    "requestedPolicy": {
+      "backend": "auto",
+      "software": false
+    },
+    "adapter": {
+      "name": "NVIDIA GeForce GT 1030",
+      "backend": "Vulkan",
+      "deviceType": "DiscreteGpu",
+      "vendor": 4318,
+      "device": 7425,
+      "driver": "NVIDIA",
+      "driverInfo": "582.66"
+    },
+    "ok": true
+  },
+  "cases": [
+    {
+      "iteration": 0,
+      "size": [
+        1,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 820,
+          "liveBytes": 0,
+          "peakBytes": 564,
+          "peakStagingBytes": 512,
+          "releasedBytes": 820,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "reusedBytes": 0,
+          "stagingBytes": 768,
+          "stagingCount": 3,
+          "textureBytes": 20,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 820,
+          "cumulativeReadbackBytes": 512,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 564,
+          "readbackBufferBytes": 256,
+          "readbackBytes": 16,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "textureBytes": 16,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 512,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 0,
+          "misses": 2
+        },
+        "planHash": "sha256:f9c02096f80405e1c3115a87228576f5b87ea7510573643bee01c87ee24e7bb4",
+        "readbackBytes": 16,
+        "rgbaBytes": 8,
+        "size": [
+          1,
+          1
+        ],
+        "timings": {
+          "executionMs": 2.2339,
+          "pipelineMs": 16.788999999999998,
+          "readbackMs": 11.583400000000001,
+          "totalMs": 81.0206
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        1,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 820,
+          "liveBytes": 0,
+          "peakBytes": 564,
+          "peakStagingBytes": 512,
+          "releasedBytes": 820,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "reusedBytes": 0,
+          "stagingBytes": 768,
+          "stagingCount": 3,
+          "textureBytes": 20,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 820,
+          "cumulativeReadbackBytes": 512,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 564,
+          "readbackBufferBytes": 256,
+          "readbackBytes": 16,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "textureBytes": 16,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 512,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:f9c02096f80405e1c3115a87228576f5b87ea7510573643bee01c87ee24e7bb4",
+        "readbackBytes": 16,
+        "rgbaBytes": 8,
+        "size": [
+          1,
+          1
+        ],
+        "timings": {
+          "executionMs": 0.7939,
+          "pipelineMs": 0.0062,
+          "readbackMs": 0.734,
+          "totalMs": 3.6380000000000003
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        1,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 820,
+          "liveBytes": 0,
+          "peakBytes": 564,
+          "peakStagingBytes": 512,
+          "releasedBytes": 820,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "reusedBytes": 0,
+          "stagingBytes": 768,
+          "stagingCount": 3,
+          "textureBytes": 20,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 820,
+          "cumulativeReadbackBytes": 512,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 564,
+          "readbackBufferBytes": 256,
+          "readbackBytes": 16,
+          "resourceCount": 1,
+          "resourceStagingBytes": 256,
+          "resourceTextureBytes": 4,
+          "resourceUploadBytes": 4,
+          "textureBytes": 16,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 512,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:f9c02096f80405e1c3115a87228576f5b87ea7510573643bee01c87ee24e7bb4",
+        "readbackBytes": 16,
+        "rgbaBytes": 8,
+        "size": [
+          1,
+          1
+        ],
+        "timings": {
+          "executionMs": 0.6843,
+          "pipelineMs": 0.0042,
+          "readbackMs": 0.6508,
+          "totalMs": 2.9516999999999998
+        }
+      }
+    },
+    {
+      "iteration": 0,
+      "size": [
+        1,
+        256
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 201760,
+          "liveBytes": 0,
+          "peakBytes": 136224,
+          "peakStagingBytes": 131072,
+          "releasedBytes": 201760,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 196608,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 201760,
+          "cumulativeReadbackBytes": 131072,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 136224,
+          "readbackBufferBytes": 65536,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 131072,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:6347dec5121f09261b9b162ebaf3892f04f8d39e78679cce391a231f778a9baa",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          1,
+          256
+        ],
+        "timings": {
+          "executionMs": 0.9767,
+          "pipelineMs": 0.0038,
+          "readbackMs": 2.6391999999999998,
+          "totalMs": 5.8279
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        1,
+        256
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 201760,
+          "liveBytes": 0,
+          "peakBytes": 136224,
+          "peakStagingBytes": 131072,
+          "releasedBytes": 201760,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 196608,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 201760,
+          "cumulativeReadbackBytes": 131072,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 136224,
+          "readbackBufferBytes": 65536,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 131072,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:6347dec5121f09261b9b162ebaf3892f04f8d39e78679cce391a231f778a9baa",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          1,
+          256
+        ],
+        "timings": {
+          "executionMs": 0.9627,
+          "pipelineMs": 0.0059,
+          "readbackMs": 2.6587,
+          "totalMs": 8.5656
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        1,
+        256
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 201760,
+          "liveBytes": 0,
+          "peakBytes": 136224,
+          "peakStagingBytes": 131072,
+          "releasedBytes": 201760,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 196608,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 201760,
+          "cumulativeReadbackBytes": 131072,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 136224,
+          "readbackBufferBytes": 65536,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 65536,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 131072,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:6347dec5121f09261b9b162ebaf3892f04f8d39e78679cce391a231f778a9baa",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          1,
+          256
+        ],
+        "timings": {
+          "executionMs": 1.7174,
+          "pipelineMs": 0.0063,
+          "readbackMs": 3.4807,
+          "totalMs": 9.9564
+        }
+      }
+    },
+    {
+      "iteration": 0,
+      "size": [
+        256,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10272,
+          "liveBytes": 0,
+          "peakBytes": 8224,
+          "peakStagingBytes": 3072,
+          "releasedBytes": 10272,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 5120,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10272,
+          "cumulativeReadbackBytes": 4096,
+          "paddedBytesPerRow": 2048,
+          "peakBytes": 8224,
+          "readbackBufferBytes": 2048,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4096,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:a7205bb54cc74743f2b1b5624326e93b1048cabb8b4048f0ef8082e419422cc7",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          256,
+          1
+        ],
+        "timings": {
+          "executionMs": 0.828,
+          "pipelineMs": 0.005,
+          "readbackMs": 1.4251,
+          "totalMs": 4.7924
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        256,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10272,
+          "liveBytes": 0,
+          "peakBytes": 8224,
+          "peakStagingBytes": 3072,
+          "releasedBytes": 10272,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 5120,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10272,
+          "cumulativeReadbackBytes": 4096,
+          "paddedBytesPerRow": 2048,
+          "peakBytes": 8224,
+          "readbackBufferBytes": 2048,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4096,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:a7205bb54cc74743f2b1b5624326e93b1048cabb8b4048f0ef8082e419422cc7",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          256,
+          1
+        ],
+        "timings": {
+          "executionMs": 0.8401,
+          "pipelineMs": 0.0053,
+          "readbackMs": 1.2046999999999999,
+          "totalMs": 6.0157
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        256,
+        1
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10272,
+          "liveBytes": 0,
+          "peakBytes": 8224,
+          "peakStagingBytes": 3072,
+          "releasedBytes": 10272,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "reusedBytes": 0,
+          "stagingBytes": 5120,
+          "stagingCount": 3,
+          "textureBytes": 5120,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10272,
+          "cumulativeReadbackBytes": 4096,
+          "paddedBytesPerRow": 2048,
+          "peakBytes": 8224,
+          "readbackBufferBytes": 2048,
+          "readbackBytes": 4096,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1024,
+          "resourceTextureBytes": 1024,
+          "resourceUploadBytes": 1024,
+          "textureBytes": 4096,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4096,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:a7205bb54cc74743f2b1b5624326e93b1048cabb8b4048f0ef8082e419422cc7",
+        "readbackBytes": 4096,
+        "rgbaBytes": 2048,
+        "size": [
+          256,
+          1
+        ],
+        "timings": {
+          "executionMs": 1.1215000000000002,
+          "pipelineMs": 0.0061,
+          "readbackMs": 1.3388,
+          "totalMs": 8.6068
+        }
+      }
+    },
+    {
+      "iteration": 0,
+      "size": [
+        2,
+        2
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 1648,
+          "liveBytes": 0,
+          "peakBytes": 1136,
+          "peakStagingBytes": 1024,
+          "releasedBytes": 1648,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "reusedBytes": 0,
+          "stagingBytes": 1536,
+          "stagingCount": 3,
+          "textureBytes": 80,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 1648,
+          "cumulativeReadbackBytes": 1024,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 1136,
+          "readbackBufferBytes": 512,
+          "readbackBytes": 64,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "textureBytes": 64,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 1024,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:47949238fad10f0380d7424d53aedc5795986df53fb78b5c8a2a3e23e709b1ff",
+        "readbackBytes": 64,
+        "rgbaBytes": 32,
+        "size": [
+          2,
+          2
+        ],
+        "timings": {
+          "executionMs": 0.9333,
+          "pipelineMs": 0.005699999999999999,
+          "readbackMs": 0.8498,
+          "totalMs": 4.3323
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        2,
+        2
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 1648,
+          "liveBytes": 0,
+          "peakBytes": 1136,
+          "peakStagingBytes": 1024,
+          "releasedBytes": 1648,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "reusedBytes": 0,
+          "stagingBytes": 1536,
+          "stagingCount": 3,
+          "textureBytes": 80,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 1648,
+          "cumulativeReadbackBytes": 1024,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 1136,
+          "readbackBufferBytes": 512,
+          "readbackBytes": 64,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "textureBytes": 64,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 1024,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:47949238fad10f0380d7424d53aedc5795986df53fb78b5c8a2a3e23e709b1ff",
+        "readbackBytes": 64,
+        "rgbaBytes": 32,
+        "size": [
+          2,
+          2
+        ],
+        "timings": {
+          "executionMs": 0.8216,
+          "pipelineMs": 0.0053,
+          "readbackMs": 0.8947,
+          "totalMs": 4.265599999999999
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        2,
+        2
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 1648,
+          "liveBytes": 0,
+          "peakBytes": 1136,
+          "peakStagingBytes": 1024,
+          "releasedBytes": 1648,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "reusedBytes": 0,
+          "stagingBytes": 1536,
+          "stagingCount": 3,
+          "textureBytes": 80,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 1648,
+          "cumulativeReadbackBytes": 1024,
+          "paddedBytesPerRow": 256,
+          "peakBytes": 1136,
+          "readbackBufferBytes": 512,
+          "readbackBytes": 64,
+          "resourceCount": 1,
+          "resourceStagingBytes": 512,
+          "resourceTextureBytes": 16,
+          "resourceUploadBytes": 16,
+          "textureBytes": 64,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 1024,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:47949238fad10f0380d7424d53aedc5795986df53fb78b5c8a2a3e23e709b1ff",
+        "readbackBytes": 64,
+        "rgbaBytes": 32,
+        "size": [
+          2,
+          2
+        ],
+        "timings": {
+          "executionMs": 0.8194,
+          "pipelineMs": 0.0059,
+          "readbackMs": 0.958,
+          "totalMs": 3.8971999999999998
+        }
+      }
+    },
+    {
+      "iteration": 0,
+      "size": [
+        65,
+        3
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10076,
+          "liveBytes": 0,
+          "peakBytes": 7772,
+          "peakStagingBytes": 3840,
+          "releasedBytes": 10076,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "reusedBytes": 0,
+          "stagingBytes": 6144,
+          "stagingCount": 3,
+          "textureBytes": 3900,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10076,
+          "cumulativeReadbackBytes": 4608,
+          "paddedBytesPerRow": 768,
+          "peakBytes": 7772,
+          "readbackBufferBytes": 2304,
+          "readbackBytes": 3120,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "textureBytes": 3120,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4608,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:2c187943fac485437a34b4234e65ad64489ccdce79880fbba1213691ca4b1319",
+        "readbackBytes": 3120,
+        "rgbaBytes": 1560,
+        "size": [
+          65,
+          3
+        ],
+        "timings": {
+          "executionMs": 0.8436,
+          "pipelineMs": 0.0070999999999999995,
+          "readbackMs": 1.1712,
+          "totalMs": 4.8289
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        65,
+        3
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10076,
+          "liveBytes": 0,
+          "peakBytes": 7772,
+          "peakStagingBytes": 3840,
+          "releasedBytes": 10076,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "reusedBytes": 0,
+          "stagingBytes": 6144,
+          "stagingCount": 3,
+          "textureBytes": 3900,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10076,
+          "cumulativeReadbackBytes": 4608,
+          "paddedBytesPerRow": 768,
+          "peakBytes": 7772,
+          "readbackBufferBytes": 2304,
+          "readbackBytes": 3120,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "textureBytes": 3120,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4608,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:2c187943fac485437a34b4234e65ad64489ccdce79880fbba1213691ca4b1319",
+        "readbackBytes": 3120,
+        "rgbaBytes": 1560,
+        "size": [
+          65,
+          3
+        ],
+        "timings": {
+          "executionMs": 1.1119,
+          "pipelineMs": 0.0046,
+          "readbackMs": 1.5093,
+          "totalMs": 5.2774
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        65,
+        3
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 10076,
+          "liveBytes": 0,
+          "peakBytes": 7772,
+          "peakStagingBytes": 3840,
+          "releasedBytes": 10076,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "reusedBytes": 0,
+          "stagingBytes": 6144,
+          "stagingCount": 3,
+          "textureBytes": 3900,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 10076,
+          "cumulativeReadbackBytes": 4608,
+          "paddedBytesPerRow": 768,
+          "peakBytes": 7772,
+          "readbackBufferBytes": 2304,
+          "readbackBytes": 3120,
+          "resourceCount": 1,
+          "resourceStagingBytes": 1536,
+          "resourceTextureBytes": 780,
+          "resourceUploadBytes": 780,
+          "textureBytes": 3120,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 4608,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:2c187943fac485437a34b4234e65ad64489ccdce79880fbba1213691ca4b1319",
+        "readbackBytes": 3120,
+        "rgbaBytes": 1560,
+        "size": [
+          65,
+          3
+        ],
+        "timings": {
+          "executionMs": 1.2505000000000002,
+          "pipelineMs": 0.0048,
+          "readbackMs": 1.3195999999999999,
+          "totalMs": 5.494
+        }
+      }
+    },
+    {
+      "iteration": 0,
+      "size": [
+        1024,
+        1024
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 41943072,
+          "liveBytes": 0,
+          "peakBytes": 33554464,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 41943072,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 20971520,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 41943072,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 33554464,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 16777216,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 16777216,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:70b64d30aae1b2f3147fbe8f8d3e5e20fd59dd8878f2208304a17e46479a0b7f",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 3.0816,
+          "pipelineMs": 0.0067,
+          "readbackMs": 1063.2866999999999,
+          "totalMs": 1073.7321
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 41943072,
+          "liveBytes": 0,
+          "peakBytes": 33554464,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 41943072,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 20971520,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 41943072,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 33554464,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 16777216,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 16777216,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:70b64d30aae1b2f3147fbe8f8d3e5e20fd59dd8878f2208304a17e46479a0b7f",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 4.3751,
+          "pipelineMs": 0.0132,
+          "readbackMs": 1505.2425999999998,
+          "totalMs": 1518.5091
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "size": [
+        1024,
+        1024
+      ],
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 41943072,
+          "liveBytes": 0,
+          "peakBytes": 33554464,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 41943072,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 20971520,
+          "textureCount": 3,
+          "uniformBytes": 32,
+          "uniformCount": 2
+        },
+        "estimates": {
+          "cumulativeBytes": 41943072,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 33554464,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 16777216,
+          "uniformBytes": 32
+        },
+        "mappedBytes": 16777216,
+        "passCount": 2,
+        "pipelineCache": {
+          "entries": 2,
+          "hits": 2,
+          "misses": 0
+        },
+        "planHash": "sha256:70b64d30aae1b2f3147fbe8f8d3e5e20fd59dd8878f2208304a17e46479a0b7f",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 3.4943,
+          "pipelineMs": 0.018099999999999998,
+          "readbackMs": 1530.8736999999999,
+          "totalMs": 1541.8574999999998
+        }
+      }
+    },
+    {
+      "weight": 0,
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 58720336,
+          "liveBytes": 0,
+          "peakBytes": 50331728,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 58720336,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 37748736,
+          "textureCount": 5,
+          "uniformBytes": 80,
+          "uniformCount": 4
+        },
+        "estimates": {
+          "cumulativeBytes": 58720336,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331728,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 33554432,
+          "uniformBytes": 80
+        },
+        "mappedBytes": 16777216,
+        "passCount": 4,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 2,
+          "misses": 2
+        },
+        "planHash": "sha256:cc7fd57e56686cb38c9400216cac0c23445418e9b92476145788b0fffa942c07",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 7.968100000000001,
+          "pipelineMs": 10.2487,
+          "readbackMs": 1007.7510000000001,
+          "totalMs": 1033.1937
+        }
+      }
+    },
+    {
+      "weight": 0.25,
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 58720336,
+          "liveBytes": 0,
+          "peakBytes": 50331728,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 58720336,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 37748736,
+          "textureCount": 5,
+          "uniformBytes": 80,
+          "uniformCount": 4
+        },
+        "estimates": {
+          "cumulativeBytes": 58720336,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331728,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 33554432,
+          "uniformBytes": 80
+        },
+        "mappedBytes": 16777216,
+        "passCount": 4,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 4,
+          "misses": 0
+        },
+        "planHash": "sha256:5113de219867b1b7660508d429ad3169cbab4146cdee795ce301eee2566d9964",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 8.6744,
+          "pipelineMs": 0.0085,
+          "readbackMs": 1009.4296,
+          "totalMs": 1024.3790999999999
+        }
+      }
+    },
+    {
+      "weight": 0.5,
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 58720336,
+          "liveBytes": 0,
+          "peakBytes": 50331728,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 58720336,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 37748736,
+          "textureCount": 5,
+          "uniformBytes": 80,
+          "uniformCount": 4
+        },
+        "estimates": {
+          "cumulativeBytes": 58720336,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331728,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 33554432,
+          "uniformBytes": 80
+        },
+        "mappedBytes": 16777216,
+        "passCount": 4,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 4,
+          "misses": 0
+        },
+        "planHash": "sha256:c2ac735f469dd0ccf7bf82be2536b0f7778cb7e5b992cb9c203333094a61e701",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 7.5729,
+          "pipelineMs": 0.0036,
+          "readbackMs": 978.7892,
+          "totalMs": 992.2723
+        }
+      }
+    },
+    {
+      "weight": 1,
+      "execution": {
+        "allocations": {
+          "cumulativeBytes": 58720336,
+          "liveBytes": 0,
+          "peakBytes": 50331728,
+          "peakStagingBytes": 12582912,
+          "releasedBytes": 58720336,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "reusedBytes": 0,
+          "stagingBytes": 20971520,
+          "stagingCount": 3,
+          "textureBytes": 37748736,
+          "textureCount": 5,
+          "uniformBytes": 80,
+          "uniformCount": 4
+        },
+        "estimates": {
+          "cumulativeBytes": 58720336,
+          "cumulativeReadbackBytes": 16777216,
+          "paddedBytesPerRow": 8192,
+          "peakBytes": 50331728,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 16777216,
+          "resourceCount": 1,
+          "resourceStagingBytes": 4194304,
+          "resourceTextureBytes": 4194304,
+          "resourceUploadBytes": 4194304,
+          "textureBytes": 33554432,
+          "uniformBytes": 80
+        },
+        "mappedBytes": 16777216,
+        "passCount": 4,
+        "pipelineCache": {
+          "entries": 4,
+          "hits": 4,
+          "misses": 0
+        },
+        "planHash": "sha256:8c8364a19976db30db15c463f9318a0d8b23f70bd9b64313a5cf7fffdb676526",
+        "readbackBytes": 16777216,
+        "rgbaBytes": 8388608,
+        "size": [
+          1024,
+          1024
+        ],
+        "timings": {
+          "executionMs": 7.6465,
+          "pipelineMs": 0.0048,
+          "readbackMs": 1015.612,
+          "totalMs": 1029.3158
+        }
+      }
+    }
+  ],
+  "ownedOutputAfterDestroy": true,
+  "visual": {
+    "file": "README.md",
+    "columns": [
+      0,
+      0.25,
+      0.5,
+      1
+    ],
+    "rows": [
+      "height",
+      "normal"
+    ],
+    "sourceResolution": [
+      1024,
+      1024
+    ],
+    "panelResolution": [
+      256,
+      256
+    ],
+    "sampling": "nearest, every fourth texel; no color transfer",
+    "rawSha256": {
+      "image-input-0-height.rgba": "e6663ef2659331d7c5430d3a18111eed569d580018558bf0b244096bebdf98bf",
+      "image-input-0-normal.rgba": "dc688ae2f1c1af5e615538c185caf6d13bcaa2e3e59d5b100cbac8586f7ce309",
+      "image-input-0.25-height.rgba": "b914a2f907f930040b3372163d9055639381a91a14fbc196bd582c73cb6f7f22",
+      "image-input-0.25-normal.rgba": "f0cab9a6fb0ab123fc6c3cd41ce9205863cff12d8b467df10054a0ff46a7c1cf",
+      "image-input-0.5-height.rgba": "cb1bf937d305b7ede62c0111c391fd8f3daec3050d54f134805c8c8ee6c096bb",
+      "image-input-0.5-normal.rgba": "24fea804bf60c8fb34af9cc2fda450b6119c6eb1cab6e521b9544a2edb1094bd",
+      "image-input-1-height.rgba": "16ecfbe2f3f45999dc21d4f68632f431667f60d3b8bacfcb6a9ae7f146cef0ad",
+      "image-input-1-normal.rgba": "9f6e36633fbfba3407c9d616134f0583914093163c68d43950ce572236ba0d30"
+    },
+    "agentReview": "Inspected the rendered contact sheet: periodic imported height transitions to seeded noise; corresponding normal patterns change without missing or transposed panels. Literal orientation and all-byte gates are executable tests. This is agent visual review, not a maintainer golden update.",
+    "generator": {
+      "path": "scripts/image-resource-contact.mjs",
+      "sha256": "0fd111ba2c16215e113389b550958f6557e19164a0f5793302f3914d15db75e7"
+    },
+    "reviewedCompositeSha256": "188642bb13589b9da791d8b21ec2d920b4d5b6c42d19b27cf1e3410a842f302a",
+    "panels": [
+      {
+        "file": "height-0.25.png",
+        "sha256": "8c15b3a139a87b178fb905602f5e0924ded0cf00c020c5ac181f6eb7b321080c"
+      },
+      {
+        "file": "height-0.5.png",
+        "sha256": "92c3b3b6f47af0d7cb281158e5de0ff14259442cbca7323df5068b9127ceac1f"
+      },
+      {
+        "file": "height-0.png",
+        "sha256": "b8cad8138fe4858bab430ccaa4aca5227ca9415215683102b6d51e0fea0ad061"
+      },
+      {
+        "file": "height-1.png",
+        "sha256": "44e629e5f1900bb218aa0b85bd9e6dad1412cfb4cecff58a0ff72d426eb8c889"
+      },
+      {
+        "file": "normal-0.25.png",
+        "sha256": "c99fd8bc4bfe20dc67e0d42040871d5b64b69f6f623e6e3e98c9895bc251c53f"
+      },
+      {
+        "file": "normal-0.5.png",
+        "sha256": "b71891ae3437492a4a2d74525b1c823f4a38be0ff631c94eb4690e7e87206b7b"
+      },
+      {
+        "file": "normal-0.png",
+        "sha256": "ff76fa2361139395f55199509f76fa0eff036afa5cd91da17651096973296d84"
+      },
+      {
+        "file": "normal-1.png",
+        "sha256": "e2207db82b01a0c247bda1bca10b041d90599ac374af2afd50f369e09cdadf07"
+      }
+    ]
+  },
+  "retention": {
+    "git": [
+      "run.json",
+      "eight pixel-identical PNG panels",
+      "paired README files",
+      "frozen tests and fixture"
+    ],
+    "temporary": "Complete logs and 1K raw RGBA in ignored tmp/node-tests/auto; not durably archived. CI full bundles have finite retention."
+  }
+}

@@ -737,4 +737,4 @@ ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Ren
 
 [ADR 0007](./docs/decisions/0007-external-image-resources.zh-CN.md)及[最小资源合同](./docs/m6a-resource-contract.zh-CN.md)选定既有节点参数中的逻辑资源引用、调用方提供线性 RGBA8 输入、Core 拥有不可变捕获及内容身份、wgpu 拥有上传和生命周期。集成接受设计；运行时实现仍待完成。这有限扩展 ADR 0003 对资源引用的排除，不增加内嵌资源或改变唯一像素执行器。实现将引入 image-input v1、计划／哈希 v2 和 API schema 2；上方架构说明仍是当前已实现基线，直至对应实现变更落地。
 
-M6A-02 已实现 Core 资源语义和计划 v2；原生上传及图像像素资格仍待完成。详见 [Core 实现](./docs/m6a-02-core-resources.zh-CN.md)。现有十二种节点的像素语义保持不变；image-input 是已实现 Core 合同、尚未完成 GPU 纵向验收的第十三种节点。
+M6A-02 已实现 Core 资源语义和计划 v2。[M6A-03](./docs/m6a-03-native-resources.zh-CN.md)通过唯一 wgpu 执行器增加公开准备资源执行、每次渲染 RGBA8 上传及计数。现有十二种节点像素语义不变。浏览器图像捕获及跨平台图像资格仍待 M6A-04／05。

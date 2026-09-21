@@ -2,6 +2,8 @@
 
 [English](./m6a-02-core-resources.md) | 简体中文
 
+**后续实现：** [M6A-03](./m6a-03-native-resources.zh-CN.md)现已接通 Native 上传路径。本页保留 M6A-02 当时的实现边界。
+
 M6A-02 实现[已接受资源合同](./m6a-resource-contract.zh-CN.md)的 Core 部分，增加 `image-input@1`、`resourceRef`、`ImageBinding`、独立 `ResourceLimits`、不可变 `ResourceSnapshot` 和不透明 `PreparedRender`。这不代表图像节点的 GPU／浏览器纵向实现已完成：原生上传／执行仍属于 M6A-03，浏览器资源请求属于 M6A-04。本次不接受新图像像素或发布包。
 
 ## 公开准备入口

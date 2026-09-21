@@ -216,7 +216,8 @@ pub(super) fn policy() -> TaskResult<(String, String)> {
 pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
     if !matches!(
         node,
-        "constant-scalar"
+        "image-input"
+            | "constant-scalar"
             | "constant-color"
             | "checker"
             | "levels"

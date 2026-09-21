@@ -191,7 +191,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most eleven kernel identities (image upload remains gated).
+/// Pipeline lookups for one render call. The cache has at most eleven kernel identities, including image upload.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.

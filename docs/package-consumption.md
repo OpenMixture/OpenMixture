@@ -6,6 +6,8 @@ PR-015 implements `cargo xtask package-check`. It creates actual local Cargo arc
 
 ## Archive and dependency boundary
 
+M6A-03 also runs the public prepared-image GPU consumer against extracted archives. Verification cleans the four local packages from the shared build target before building, preserving only external dependency caches: archive mtimes must not allow stale same-version runtime code to pass. See the [Native resource implementation](./m6a-03-native-resources.md) for the current 0.3.0 source contract; version descriptions below retain the PR-015 history.
+
 The three product packages remain version `0.1.0` and `publish = false`. Workspace path dependencies now also require exactly `=0.1.0`; Cargo's normalized archive manifests retain that version and remove producer paths. The consumer's source-path manifest in the repository stays unchanged.
 
 | Package contents | Verification |

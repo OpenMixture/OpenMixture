@@ -16,4 +16,4 @@ Mixture 唯一像素执行器：显式 `GpuContext` 所有权、类型化 `Rende
 
 安装相应 Rust 目标后，使用 `cargo check --locked -p mixture-wgpu --target wasm32-unknown-unknown` 编译该执行器。这仅验证编译；真实浏览器渲染、奇数宽度回读、结果生命周期及设备丢失测试属于独立消费者与 M5 证据。当前已实现边界及剩余门槛见仓库[浏览器 SDK 契约](https://github.com/OpenMixture/OpenMixture/blob/main/docs/browser-sdk.zh-CN.md)。
 
-M6A-02 增加 Core 图像资源准备及计划 v2。image-input 尚不支持 GPU 执行；需要 M6A-03 上传路径。参见[实现边界](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-02-core-resources.zh-CN.md)。
+M6A-02 增加 Core 图像资源准备及计划 v2。M6A-03 增加 `Renderer::render_prepared(&PreparedRender)`，支持 Native 图像上传与执行。参见[实现边界](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-03-native-resources.zh-CN.md)。

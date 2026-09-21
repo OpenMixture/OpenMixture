@@ -2,7 +2,7 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; browser resource arguments and cross-platform image qualification remain M6A-04/05. Read historical version descriptions below in that context.
 
 **2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Runtime and Studio material comparisons share this profile; current reports omit superseded sparse-pixel verdicts. Native goldens and exact checker checks remain unchanged. New browser support still needs source-bound qualification.
 

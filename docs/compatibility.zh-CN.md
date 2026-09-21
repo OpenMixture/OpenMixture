@@ -2,7 +2,7 @@
 
 [English](./compatibility.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；浏览器资源参数及跨平台图像资格仍待 M6A-04／05。以下历史版本说明须按此更新理解。
 
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。运行时和 Studio 材质比较共用该规则；当前报告移除已替代的稀疏像素判定。原生金图及精确棋盘格检查不变。新浏览器支持仍需绑定源码的资格证据。
 

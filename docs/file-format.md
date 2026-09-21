@@ -2,7 +2,7 @@
 
 English | [简体中文](./file-format.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; browser resource arguments and cross-platform image qualification remain M6A-04/05. Read historical version descriptions below in that context.
 
 PR-005 introduces the first executable `.mix` source schema. It is UTF-8 JSON with document version `1` and independently required node version `1`. No earlier executable format or migration exists. This adds decoding, six node contracts, graph validation, and a CLI validator; PR-006 [graph compilation](./render-plan.md) is now implemented; PR-007 [graph execution](./graph-rendering.md) is implemented.
 
