@@ -2,7 +2,9 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5 and the recorded Studio MVP are accepted. Ordinary Windows Chrome/Edge/Firefox each pass the [v2 material matrix](./evidence/browser-quality-v2/README.md) for the recorded existing archive. [npm Alpha publication and exact registry consumption](./evidence/npm-alpha/README.md) are complete within the recorded scope. Rust crates remain unpublished. [Alpha closeout](./browser-alpha.md) records the delivery and enforced browser checks; hosted trial redeployment remains separate and M6 does not start.
+**M6A-05 qualification, 2026-09-21:** [Retained acceptance](./evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. The 0.3.0 Rust source / 0.3.0-alpha.0 API-schema-2 browser candidate are unpublished. Implementation PR integration and release remain separate.
+
+**Historical checkpoint (2026-09-20):** Native M4/M4.1, bounded M5 and the recorded Studio MVP are accepted. Ordinary Windows Chrome/Edge/Firefox each pass the [v2 material matrix](./evidence/browser-quality-v2/README.md) for the recorded existing archive. [npm Alpha publication and exact registry consumption](./evidence/npm-alpha/README.md) are complete within the recorded scope. Rust crates remain unpublished. [Alpha closeout](./browser-alpha.md) records the delivery and enforced browser checks; hosted trial redeployment remains separate and M6 does not start.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 

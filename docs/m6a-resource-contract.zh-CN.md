@@ -93,3 +93,7 @@
 按变更运行既有 `test-format`、`test-core`、`test-plan`、`shader-check`、`test-consumer`、`gpu-smoke`、`cargo xtask check`。`cargo xtask test-node image-input` 是需要夹具／工具注册的未来目标，本文件未实现。首次验收不需要 CLI 图像加载选项或解码器，使用公开 Rust 消费者和浏览器字节即可。缺少必需资源的 `inspect --plan` 明确失败，不制造占位内容或哈希。
 
 URL 下载、多格式解码框架、颜色／HDR 输入、任意跨度、自动重采样、空间遮罩、加法混合、`.mixpack`、缓存／去重、GPUTexture 导入、零拷贝、新 crate、Studio UI 和发布均不在范围内。下一任务是实现本合同，不是扩展通用资源系统。
+
+## M6A-05 验收范围决策 — 2026-09-21
+
+[留存验收](./evidence/m6a-05/README.zh-CN.md)明确将 M6-A 里程碑关闭限定于记录的 Linux 固定 Native SwiftShader / Chromium 软件矩阵。每个宣称验收的组合仍必须以不变的冻结输入满足最大分量差 ≤1；不承诺所有硬件。此为依据已保留 Windows 硬件失败（法线差异最高 8）作出的显式范围修订，不把该运行改判通过，也不提高容差。扩展硬件范围需要独立数值/兼容决策，并通过资源、Scalar 和材质回归。不修改现有着色器或黄金图。M6A-02–04 已实现，`cargo xtask test-node image-input` 已可用。上文原设计中的将来时保留 M6A-01 当时状态。发布、依赖 PR 集成和维护者图像批准，与机器验收及代理图像审查分别记录。

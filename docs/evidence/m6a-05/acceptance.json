@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "status": "qualified-recorded-linux-software-matrix",
+  "recordedAt": "2026-09-21T12:34:51.261Z",
+  "source": {
+    "pr": 36,
+    "head": "6e6af1872a7111263815a70ab54ad35009c9326a",
+    "testedIntegration": "9dae2dff21958ac117504ab968a264cd900ae4bb",
+    "dirty": false
+  },
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:08:16Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596753957/job/106323314948",
+      "name": "Chromium WebGPU material matrix",
+      "startedAt": "2026-09-21T11:57:15Z",
+      "status": "COMPLETED",
+      "workflowName": "Browser material qualification"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:00:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596753917/job/106323225317",
+      "name": "WASM and npm package",
+      "startedAt": "2026-09-21T11:56:56Z",
+      "status": "COMPLETED",
+      "workflowName": "Browser runtime package"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:05:24Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596754004/job/106323313684",
+      "name": "Pinned SwiftShader Vulkan materials and packaged consumption",
+      "startedAt": "2026-09-21T11:57:15Z",
+      "status": "COMPLETED",
+      "workflowName": "GPU material acceptance"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:02:43Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596753934/job/106323321651",
+      "name": "Check (ubuntu-latest)",
+      "startedAt": "2026-09-21T11:57:16Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:03:48Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596753934/job/106323321689",
+      "name": "Check (macos-latest)",
+      "startedAt": "2026-09-21T11:57:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-21T12:08:01Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35596753934/job/106323321389",
+      "name": "Check (windows-latest)",
+      "startedAt": "2026-09-21T11:57:16Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    }
+  ],
+  "artifact": {
+    "id": 10637705492,
+    "node_id": "MDg6QXJ0aWZhY3QxMDYzNzcwNTQ5Mg==",
+    "name": "chromium-material-matrix",
+    "size_in_bytes": 90252143,
+    "url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10637705492",
+    "archive_download_url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10637705492/zip",
+    "expired": false,
+    "digest": "sha256:65550c01823ca7f9d5f1a2635eb0eb12979edca6165cbaf442050349ccfb7ed3",
+    "created_at": "2026-09-21T12:08:12Z",
+    "updated_at": "2026-09-21T12:08:12Z",
+    "expires_at": "2026-10-21T12:08:08Z",
+    "workflow_run": {
+      "id": 35596753957,
+      "repository_id": 1341360232,
+      "head_repository_id": 1341360232,
+      "head_branch": "codex/m6a-04-browser-resources",
+      "head_sha": "6e6af1872a7111263815a70ab54ad35009c9326a"
+    }
+  },
+  "build": {
+    "runtimeVersion": "0.3.0-alpha.0",
+    "apiSchemaVersion": 2,
+    "engineVersion": "0.3.0",
+    "engineRevision": "9dae2dff21958ac117504ab968a264cd900ae4bb",
+    "engineDirty": false,
+    "buildId": "sha256:721eed5458ce82d55c73fcae004a1edb497ec1a8aab9f470c12c034c1543d602",
+    "tarball": "target/browser-runtime/openmixture-runtime-0.3.0-alpha.0.tgz",
+    "sha256": "464540b5af7913629213f6d20df7f0b7f41acee2287334819bbf2b325c5e65e5",
+    "toolchain": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "bindgen": "wasm-bindgen 0.2.128",
+      "typescript": "5.9.3",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "target": "wasm32-unknown-unknown"
+    },
+    "files": [
+      "LICENSE-APACHE",
+      "LICENSE-MIT",
+      "README.md",
+      "README.zh-CN.md",
+      "build-info.json",
+      "package.json",
+      "src/bindings.d.ts",
+      "src/bindings.js",
+      "src/build-info.js",
+      "src/index.d.ts",
+      "src/index.js",
+      "src/runtime.d.ts",
+      "src/runtime.js",
+      "src/types.d.ts",
+      "src/types.js",
+      "wasm/bindings.mjs",
+      "wasm/mixture_wasm_bg.wasm"
+    ],
+    "status": "built; browser acceptance is a separate verification"
+  },
+  "summary": {
+    "resourceComparisons": 8,
+    "resourceMaxComponentDelta": 0,
+    "scalarComparisons": 8,
+    "scalarMaxComponentDelta": 0,
+    "materialCases": 11,
+    "materialChannels": 44,
+    "materials": [
+      "glazed-ceramic",
+      "leather",
+      "wood"
+    ],
+    "materialGates": {
+      "materialStructure": true,
+      "numericalAgreement": true,
+      "semantics": true
+    },
+    "candidateTests": {
+      "startTime": "2026-09-21T12:00:58.871Z",
+      "duration": 17194.131999999998,
+      "expected": 13,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "registryTests": {
+      "startTime": "2026-09-21T12:02:25.264Z",
+      "duration": 9266.305,
+      "expected": 9,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "visualReview": {
+    "reviewer": "Codex agent",
+    "maintainerAcceptance": false,
+    "contact": "contact.png",
+    "method": "Top-left nearest-neighbor sample (4*x,4*y) of each 1K output to 256x256. Columns weights 0,0.25,0.5,1; rows height,normal. No color changes.",
+    "findings": "Periodic imported ridges remain visible at intermediate weights; increasing procedural detail changes height and normal together. Endpoints visibly differ and no blank/corrupt panel is present. Exact orientation, seams, pixel parity and endpoints are machine-tested, not inferred from the downsampled sheet.",
+    "inputs": {
+      "resource-0-height.png": {
+        "sha256": "4ee3b4991b2693cba22155626fe0c73dbc1887049d7a60a651852577210cb1e8",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-0-normal.png": {
+        "sha256": "0bca188f377c508b3b2c6d6c61517a7193f7c1a25497b6216091b27653e7e0b1",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-0.25-height.png": {
+        "sha256": "89387150d636c7ea8074d64a222f06db4476618e16d129033a80d802cdbd0c99",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-0.25-normal.png": {
+        "sha256": "f4b215d6e77b072b77e906ee66bc05cb3f357ff4375c94e12fefa60ee19be5cf",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-0.5-height.png": {
+        "sha256": "ac3e327eadfc6bdb1fe454ea445d8ced9cd445ff5292cff26d233da8eb6b62c0",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-0.5-normal.png": {
+        "sha256": "2ff7d8937b8cdfb3b8b917e653deff4df4aac328b03f1d57ddbdf266f9805182",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-1-height.png": {
+        "sha256": "082795644150fbd27825a56d094d2ff536e55d06e1bc92f322edbacb69599f62",
+        "width": 1024,
+        "height": 1024
+      },
+      "resource-1-normal.png": {
+        "sha256": "d8d6693d1389311e852e5f03c444f3bd9075ec6b9cbe185a3c627527d620f495",
+        "width": 1024,
+        "height": 1024
+      }
+    }
+  },
+  "retained": {
+    "candidate.json": {
+      "sha256": "cf8b66fcc456c48ae30f20f96461176408e174df8fac45674fe63d7859f01388",
+      "bytes": 4888,
+      "artifactPath": "tmp/sdk-candidate/qualification.json"
+    },
+    "resources.json": {
+      "sha256": "8dbe7ccaccee9a16bac3dcd0d433662624afe9dbb7d9b4badc1eeac15e48fe77",
+      "bytes": 31487,
+      "artifactPath": "tmp/sdk-resource-comparison/comparison.json"
+    },
+    "browser-resources.json": {
+      "sha256": "5c501501b03c5411a61423d9583f8805a96897efdcd158b8d851a344cdee7ed1",
+      "bytes": 12241,
+      "artifactPath": "tmp/sdk-resource-comparison/resource-evidence.json"
+    },
+    "scalar.json": {
+      "sha256": "80e9f601939d476a8e5d79640f90fc2d6e9fc8339b448d714bf6803de93b15bd",
+      "bytes": 28615,
+      "artifactPath": "tmp/sdk-scalar-comparison/comparison.json"
+    },
+    "materials.json": {
+      "sha256": "1ac527b4aa2e02ee8931497a5c8322dd9110ee52d45023e1fbcbeb25bc5dfb04",
+      "bytes": 96985,
+      "artifactPath": "tmp/browser-output/comparison.json"
+    },
+    "product.json": {
+      "sha256": "d95fc3b409b2ff7324951325ee68adbc350bd45a5680c4aaa572a4082b8572ef",
+      "bytes": 4732,
+      "artifactPath": "tmp/browser-candidate/qualification.json"
+    },
+    "registry.json": {
+      "sha256": "41e262321a47d2966ed7ebd4d259c30db2229f0ae6ca8da44e2d57a2c096217d",
+      "bytes": 4425,
+      "artifactPath": "tmp/sdk-registry/qualification.json"
+    },
+    "build.json": {
+      "sha256": "7e3334f180fc76ed724797081502846e7abf892baff9b8e097f80dba05ca1bf2",
+      "bytes": 1120,
+      "artifactPath": "target/browser-runtime/receipt.json"
+    },
+    "windows-failure.json": {
+      "sha256": "1ae2b7e0086f5a966c9d4887e5a4e905dae6c1ef3839ba54ce1759c52874f3bd",
+      "bytes": 32542,
+      "provenance": "../m6a-04/windows-hardware-failure.json"
+    },
+    "contact.png": {
+      "sha256": "cdc246550bdaeb3c7704320961cde188064aad78952a686cc4731321424ce4d3",
+      "bytes": 816008
+    },
+    "protection.json": {
+      "sha256": "b17c4496c8ec1ae38a4ba7abbdbb015b0b22f605d36bcaf13f0781a222360181",
+      "bytes": 1607
+    }
+  },
+  "limitations": [
+    "Windows hardware resource comparison remains failed, max normal delta 8; <=1 criterion unchanged. See windows-failure.json and original M6A-04 provenance.",
+    "No universal hardware acceptance, maintainer visual approval, merge or publication is claimed.",
+    "Original archives, full 1K PNGs and ordinary logs remain finite-retention CI artifacts; selected reports and reviewed contact are retained in Git. Artifact ZIP digest is GitHub-reported; extracted candidate archive SHA256 was independently verified."
+  ],
+  "remoteProtection": {
+    "retrievedAt": "2026-09-21T12:43:55.869Z",
+    "id": 23016046,
+    "enforcement": "active",
+    "requiredChecks": {
+      "strict_required_status_checks_policy": true,
+      "do_not_enforce_on_create": false,
+      "required_status_checks": [
+        {
+          "context": "Check (ubuntu-latest)",
+          "integration_id": 15368
+        },
+        {
+          "context": "Check (macos-latest)",
+          "integration_id": 15368
+        },
+        {
+          "context": "Check (windows-latest)",
+          "integration_id": 15368
+        },
+        {
+          "context": "Pinned SwiftShader Vulkan materials and packaged consumption",
+          "integration_id": 15368
+        },
+        {
+          "context": "WASM and npm package",
+          "integration_id": 15368
+        },
+        {
+          "context": "Chromium WebGPU material matrix",
+          "integration_id": 15368
+        }
+      ]
+    },
+    "bypassActors": []
+  },
+  "nativeArtifact": {
+    "id": 10636589850,
+    "node_id": "MDg6QXJ0aWZhY3QxMDYzNjU4OTg1MA==",
+    "name": "swiftshader-material-evidence",
+    "size_in_bytes": 43554351,
+    "url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10636589850",
+    "archive_download_url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10636589850/zip",
+    "expired": false,
+    "digest": "sha256:c774e4d9b5cedcaf5203d24700ec730a7e9c3b3a85e0b6b480d2e8284511ec75",
+    "created_at": "2026-09-21T12:05:22Z",
+    "updated_at": "2026-09-21T12:05:22Z",
+    "expires_at": "2026-10-21T12:05:20Z",
+    "workflow_run": {
+      "id": 35596754004,
+      "repository_id": 1341360232,
+      "head_repository_id": 1341360232,
+      "head_branch": "codex/m6a-04-browser-resources",
+      "head_sha": "6e6af1872a7111263815a70ab54ad35009c9326a"
+    }
+  }
+}
