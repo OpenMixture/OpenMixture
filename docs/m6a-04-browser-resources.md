@@ -54,3 +54,5 @@ Normal and height PNGs produced by the test canvas are comparison artifacts, not
 ## Qualification boundary
 
 The Linux pinned-software CI matrix is the integration gate. Local Windows Chrome public-interface tests pass, but that does **not** qualify its hardware path for the fixed Native/browser component limit: the frozen M6A-03 input produced normal maxima of 4 at weight 0.5 and 8 at weight 1 on the measured Native NVIDIA GT 1030/Vulkan versus Chrome WebGPU route. Height maxima were ≤1 and imported-only weight 0 matched exactly. Weight 1 also equals the direct procedural endpoint in each runtime, so this failure is present without imported pixels contributing to the output. It must remain a failed comparison, not be absorbed by material tolerances or a new baseline. M6A-05 must resolve or explicitly scope this hardware precision limitation before claiming that route; no universal cross-adapter qualification is asserted here.
+
+[Bounded software success and hardware failure receipts](./evidence/m6a-04/README.md) are retained separately; neither substitutes for the other.

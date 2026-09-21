@@ -14,16 +14,17 @@ expected.add('resource-evidence.json');
 const seen=new Set();
 async function collect(directory){for(const entry of await readdir(directory,{withFileTypes:true})){
  const path=join(directory,entry.name);if(entry.isDirectory())await collect(path);
- else if(expected.has(entry.name)){assert.equal(seen.has(entry.name),false);seen.add(entry.name);await copyFile(path,join(destination,entry.name));}
+ else if(expected.has(entry.name)){assert.equal(seen.has(entry.name),false);seen.add(entry.name);const bytes=await readFile(path);await writeFile(join(destination,entry.name),bytes);assert.deepEqual(await readFile(join(destination,entry.name)),bytes,'copied resource evidence differs');}
 }}
 await collect(join(input,'test-results'));assert.equal(seen.size,9);
 await writeFile(join(destination,'comparison.json'),JSON.stringify({ok:false,status:'incomplete'}));
-const result=spawnSync('cargo',['test','--manifest-path','examples/native-consumer/Cargo.toml','--locked','--all-features','--target-dir','target/native-consumer','--test','image_resources','--','--ignored','--nocapture'],{encoding:'utf8',env:{...process.env,MIXTURE_RESOURCE_BROWSER_DIR:destination,MIXTURE_RESOURCE_EVIDENCE:join(destination,'comparison.json')}});
+const result=spawnSync('cargo',['test','--manifest-path','examples/native-consumer/Cargo.toml','--locked','--all-features','--target-dir','target/native-consumer','--test','image_resources','--','--ignored','--nocapture'],{encoding:'utf8',env:{...process.env,MIXTURE_RESOURCE_BROWSER_DIR:destination,MIXTURE_RESOURCE_EVIDENCE:join(destination,'native.json')}});
 await writeFile(join(destination,'stdout.log'),result.stdout??'');await writeFile(join(destination,'stderr.log'),result.stderr??'');
 if(result.error)throw result.error;assert.equal(result.status,0,'resource comparison failed; inspect retained output');
 const browser=JSON.parse(await readFile(join(destination,'resource-evidence.json')));
 assert.equal(browser.build.buildId,receipt.build.buildId);
-const report=JSON.parse(await readFile(join(destination,'comparison.json')));assert.equal(report.ok,true);assert.equal(report.cases.length,4);
+const report=JSON.parse(await readFile(join(destination,'native.json')));assert.equal(report.ok,true);assert.equal(report.cases.length,4);
 for(const row of report.cases){assert.equal(row.planHash,browser.rows.find(r=>r.weight===row.weight)?.planHash,'Native/browser prepared identity mismatch');assert.equal(row.browserComparison.length,2);for(const channel of row.browserComparison)assert.ok(channel.maxComponentDelta<=1);}
 await copyFile(join(input,'qualification.json'),join(destination,'browser-qualification.json'));
+await writeFile(join(destination,'comparison.json'),JSON.stringify({...report,browserBuild:receipt.build,sourceRevision:receipt.consumerRevision},null,2)+'\n');
 console.log(`Resource native/browser comparison passed: ${destination}`);

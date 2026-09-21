@@ -54,3 +54,5 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 ## 资格边界
 
 集成门槛为 Linux 固定软件 CI 矩阵。本地 Windows Chrome 公开接口测试通过，但这**不代表**其硬件路径达到固定 Native／浏览器分量差上限：在测得的 Native NVIDIA GT 1030／Vulkan 对 Chrome WebGPU 路线上，M6A-03 冻结输入的法线最大差在权重 0.5 为 4、权重 1 为 8。高度最大差均 ≤1，纯导入的权重 0 完全一致。权重 1 在各自运行时也等于直接程序噪声端点，因此该失败在导入像素不贡献输出时仍存在。它必须保持为失败对照，不能被材质容差或新基线吸收。M6A-05 在声明该路线前必须解决或明确限定此硬件精度问题；本次不声明任意适配器跨端资格。
+
+[有界软件矩阵成功与硬件失败回执](./evidence/m6a-04/README.zh-CN.md)分别保留，不能相互替代。
