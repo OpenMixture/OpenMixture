@@ -503,6 +503,7 @@ fn candidate_fixture() -> (Temp, PathBuf, PathBuf, Acceptance, Candidate) {
         "crates/mixture-cli/Cargo.toml",
         "xtask/Cargo.toml",
         ".github/scripts/setup-swiftshader.sh",
+        "docs/plan-v2-migration.json",
     ] {
         let path = temp.0.join(name);
         fs::create_dir_all(path.parent().unwrap()).unwrap();
@@ -558,12 +559,23 @@ fn candidate_fixture() -> (Temp, PathBuf, PathBuf, Acceptance, Candidate) {
 
 #[test]
 fn candidate_guards_reject_changed_artifacts_inputs_baselines_and_failed_measurements() {
-    for changed in ["artifact", "inputs", "baseline", "failedReport"] {
+    for changed in [
+        "artifact",
+        "inputs",
+        "baseline",
+        "failedReport",
+        "planMigration",
+    ] {
         let (temp, directory, review, acceptance, mut candidate) = candidate_fixture();
         assert!(verify_candidate(&temp.0, &directory, &review, &candidate, &acceptance).is_ok());
         match changed {
             "artifact" => fs::write(review.join("default/baseColor.png"), b"tampered").unwrap(),
             "inputs" => fs::write(directory.join("material.mix"), b"changed source").unwrap(),
+            "planMigration" => fs::write(
+                temp.0.join("docs/plan-v2-migration.json"),
+                b"changed plan identity",
+            )
+            .unwrap(),
             "baseline" => {
                 fs::create_dir(directory.join("expected")).unwrap();
                 fs::write(directory.join("expected/new.png"), b"new baseline").unwrap();
