@@ -4,7 +4,7 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current status (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
-**M6A-05 qualification, 2026-09-21:** [Retained acceptance](./docs/evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. The 0.3.0 Rust source / 0.3.0-alpha.0 API-schema-2 browser candidate are unpublished. Implementation PR integration and release remain separate.
+**M6A-05 qualification, 2026-09-21:** [Retained acceptance](./docs/evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. Subsequently integrated into main and [published as browser 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.md); Rust crates remain unpublished.
 
 This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.md) retains the first delivery, support limits and defect handoff. [INITIAL_PRS](./INITIAL_PRS.md), [M4_PRS](./M4_PRS.md) and [M5_PRS](./M5_PRS.md) retain historical implementation plans; their former next steps are not current execution instructions.
 
@@ -16,8 +16,8 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 
 | Planning state | Current content |
 |---|---|
-| Available baseline | Published `@openmixture/runtime@0.2.0-alpha.0` includes the independent browser SDK entry and `scalar-blend@1`; Rust source is version `0.2.0`, with crates still unpublished. `.mix v1` and API schema 1 remain unchanged. |
-| Next decision | M6-A implementation and bounded qualification are complete on the feature stack; integrate the dependent PRs through required checks, then decide publication separately. Hardware numerical maintenance remains an explicit unresolved candidate; M6-B does not start automatically. |
+| Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
+| Next decision | M6-A is integrated into main and the browser Alpha is published. Hardware numerical maintenance remains unresolved; M6-B does not start automatically. Select the next bounded increment independently. |
 | Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
 | Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 

@@ -1,0 +1,58 @@
+{
+  "reviewedScope": "M6A-03 Native, M6A-04 browser, M6A-05 scoped evidence",
+  "blockingFindings": [],
+  "review": "https://github.com/OpenMixture/OpenMixture/pull/36",
+  "merges": [
+    {
+      "headRefOid": "290672e716bbc5ebf65d7cbf22da8a0c2fbad276",
+      "mergeCommit": {
+        "oid": "79950e017d95a7ca10e5d973c66bbe852a569f3f"
+      },
+      "number": 35,
+      "state": "MERGED"
+    },
+    {
+      "headRefOid": "822e49be5c6d7e394515f7c420cd0e6797e0afc8",
+      "mergeCommit": {
+        "oid": "acabc3a911c14c3b8a2775d184f8b9cd759209c9"
+      },
+      "number": 36,
+      "state": "MERGED"
+    },
+    {
+      "headRefOid": "b170713549385883f3bb87eb6000efc4f0488a1c",
+      "mergeCommit": {
+        "oid": "7ffafaeaaa7d908c76957171d14dafe435743b1e"
+      },
+      "number": 37,
+      "state": "MERGED"
+    }
+  ],
+  "releaseSource": "acabc3a911c14c3b8a2775d184f8b9cd759209c9",
+  "retainedHashes": {
+    "build.json": {
+      "sha256": "55dba3d6f538de19316edff1b54c2a706daf590d47cc00ac251ab12077f4e0cf",
+      "artifactPath": "target/browser-runtime/receipt.json"
+    },
+    "ci-sdk.json": {
+      "sha256": "0849efc7f4b34c4b40b304023a187656ba60cb7ce62e475d0ef7bda6e53a76f0",
+      "artifactPath": "tmp/sdk-candidate/qualification.json"
+    },
+    "ci-resources.json": {
+      "sha256": "8e344af059e5e4f99ddde207c53c2d2c434a0e267229bb903f488de66c66ebd9",
+      "artifactPath": "tmp/sdk-resource-comparison/comparison.json"
+    },
+    "ci-scalar.json": {
+      "sha256": "06fc390a9fd6b46f565aaf1fac5940fdc7d39627dbddb3dcd1166e7fcb7c53c1",
+      "artifactPath": "tmp/sdk-scalar-comparison/comparison.json"
+    },
+    "ci-materials.json": {
+      "sha256": "b554a06df63daa50dc90c8d6d75c4c778e5eba84c40a62bb827d9f256f0f59ec",
+      "artifactPath": "tmp/browser-output/comparison.json"
+    },
+    "ci-product.json": {
+      "sha256": "89a0634ca1f4a6b7838f9cbf58a9d6f1aca22644dde82168c74957575654f627",
+      "artifactPath": "tmp/browser-candidate/qualification.json"
+    }
+  }
+}

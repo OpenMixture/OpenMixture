@@ -2,6 +2,8 @@
 
 [English](./release.md) | 简体中文
 
+**当前发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。Windows 硬件资源法线一致性仍未通过，不扩大支持范围。
+
 **M6A-05 验收，2026-09-21：** [留存验收](./evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。0.3.0 Rust 源码 / 0.3.0-alpha.0、API schema 2 浏览器候选均未发布。实现 PR 集成和发布仍是独立动作。
 
 **历史检查点（2026-09-20）：** 原生 M4／M4.1、有界 M5 和记录范围内的 Studio MVP 已验收。普通 Windows Chrome／Edge／Firefox 均通过记录中已有归档的 [v2 材质矩阵](./evidence/browser-quality-v2/README.zh-CN.md)。[npm Alpha 发布与准确注册表消费](./evidence/npm-alpha/README.zh-CN.md)已在记录范围内完成。Rust crate 仍未发布。[Alpha 收口](./browser-alpha.zh-CN.md)记录交付及浏览器强制检查；托管试用重新部署仍为独立动作，不启动 M6。

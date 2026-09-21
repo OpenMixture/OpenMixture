@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.2.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-020-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.2.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
+这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.3.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';
@@ -47,6 +47,6 @@ node scripts/browser-runtime/build.mjs
 
 Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、资源打包、取消和零拷贝纹理仍不支持。
 
-当前源码候选为未发布的 0.3.0-alpha.0／API schema 2／计划 v2，包含 image-input Core 合同；M6A-04 已让 `validate`、`inspect`、`render` 接受资源数组及显式资源限制。注册表安装仍使用上方精确已发布版本。
+当前已发布版本为 0.3.0-alpha.0／API schema 2／计划 v2，包含 image-input Core 合同；M6A-04 已让 `validate`、`inspect`、`render` 接受资源数组及显式资源限制。注册表安装仍使用上方精确已发布版本。
 
-M6A-04 未发布候选实现浏览器资源请求和同步 Core 快照；见[浏览器资源接口](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.zh-CN.md)。Rust `prepare_from`／`AdapterImageBinding`／`ImageData` 仅扩展同步字节适配，验证、预算和摘要仍由 Core 负责。
+0.3.0-alpha.0 实现浏览器资源请求和同步 Core 快照；见[浏览器资源接口](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.zh-CN.md)。Rust `prepare_from`／`AdapterImageBinding`／`ImageData` 仅扩展同步字节适配，验证、预算和摘要仍由 Core 负责。
