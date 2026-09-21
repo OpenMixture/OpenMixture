@@ -25,3 +25,7 @@ Owned input copies make asynchronous behavior deterministic at bounded memory co
 ## Verification
 
 M6A-01 runs paired-document/link checks and `cargo xtask check`. Later tasks execute the contract's known-value, resource budget/identity, capture/lifecycle, Native/browser and existing material gates, using public consumers. Keep all six required CI checks. Contract acceptance is distinct from implementation, pixel qualification and publication; no shader, fixture baseline or package changes belong to this design PR.
+
+## M6A-05 scope addendum — 2026-09-21
+
+The [contract scope decision](../m6a-resource-contract.md#m6a-05-acceptance-scope-decision--2026-09-21) bounds pixel acceptance to the measured Linux software matrix. Retained Windows failure evidence prevents a hardware parity claim; ≤1, existing shader semantics and all regression gates remain unchanged. This selects bounded qualification over an unreviewed numerical semantic change or fitting a higher tolerance. Broader hardware acceptance and publication remain separate decisions.

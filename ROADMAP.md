@@ -4,6 +4,8 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 **Current status (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
+**M6A-05 qualification, 2026-09-21:** [Retained acceptance](./docs/evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. The 0.3.0 Rust source / 0.3.0-alpha.0 API-schema-2 browser candidate are unpublished. Implementation PR integration and release remain separate.
+
 This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.md) retains the first delivery, support limits and defect handoff. [INITIAL_PRS](./INITIAL_PRS.md), [M4_PRS](./M4_PRS.md) and [M5_PRS](./M5_PRS.md) retain historical implementation plans; their former next steps are not current execution instructions.
 
 ## Current direction — Post-Alpha
@@ -15,8 +17,8 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.2.0-alpha.0` includes the independent browser SDK entry and `scalar-blend@1`; Rust source is version `0.2.0`, with crates still unpublished. `.mix v1` and API schema 1 remain unchanged. |
-| Selected next goal | M6A-01 selects the [minimal external image contract](./docs/m6a-resource-contract.md) and [ADR 0007](./docs/decisions/0007-external-image-resources.md) for integration: same-size linear RGBA8 R-channel height, explicit resource references, owned snapshots, budgets and content-bound plan v2. Design acceptance occurs through this PR; implementation and pixel acceptance remain pending. |
-| Current execution scope | [M6A-02 Core implementation](./docs/m6a-02-core-resources.md) delivers resource validation, snapshots and plan identity, gated by its implementation PR checks. [M6A-03 Native upload/execution](./docs/m6a-03-native-resources.md) adds prepared-resource rendering and Native pixel/lifetime gates. [M6A-04 browser resources](./docs/m6a-04-browser-resources.md) adds public capture/render requests and Native/browser comparison; M6A-05 final qualification remains next. |
+| Next decision | M6-A implementation and bounded qualification are complete on the feature stack; integrate the dependent PRs through required checks, then decide publication separately. Hardware numerical maintenance remains an explicit unresolved candidate; M6-B does not start automatically. |
+| Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
 | Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 
 Follow the selected contract task sequence, recording design integration, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
@@ -32,14 +34,14 @@ Follow [governance](./docs/governance.md), [release status](./docs/release.md) a
 
 ## M6 — Resources and Portable Packaging
 
-These directions remain independent. M6A-01 selects the external-input design for integration; M6-B remains an unscheduled candidate. Neither is implemented by this planning change.
+These directions remain independent. M6-A is implemented and qualified within the recorded software matrix on its feature stack; M6-B remains an unscheduled candidate.
 
 | Direction | Entry decision | Bounded outcome |
 |---|---|---|
-| M6-A — External image input | M6A-01 selects the [external-height contract](./docs/m6a-resource-contract.md) for design integration. Implementation follows M6A-02–05; no container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
+| M6-A — External image input | M6A-01 selects the [external-height contract](./docs/m6a-resource-contract.md) for design integration. M6A-02–05 now deliver implementation and bounded qualification on the feature stack; no container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
 | M6-B — Portable asset packaging | Demonstrate a distribution/loading problem that plain .mix plus external files cannot adequately solve. Decide independently of M6-A. | Define inspectable resource identities, bounded loading and path safety; consider .mixpack only when justified. |
 
-This contract decision does not implement resources or start portable packaging. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
+M6-A qualification does not start portable packaging. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
 
 ## Continuing engineering and later candidates
 
