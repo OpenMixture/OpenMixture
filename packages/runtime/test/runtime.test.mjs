@@ -3,9 +3,11 @@ import test from 'node:test';
 import { captureRequest as captureWithLimits, captureSource, createRuntimeModule, MixtureRuntimeError } from '../dist/runtime.js';
 
 const policy = { decodedBytes: 2097152n, nodes: 128n, edges: 512n, exposedParameters: 64n, outputDimension: 2048n, requestedOutputs: 8n, transientBytes: 536870912n };
-const captureRequest = (options, operation) => captureWithLimits(options, operation, policy);
+const resourcePolicy = { resourceCount: 8n, resourcePixels: 16777216n, resourceBytes: 67108864n };
+const captureRequest = (options, operation) => captureWithLimits(options, operation, policy, resourcePolicy);
 const build = { runtimeVersion: 'test', apiSchemaVersion: 1, engineVersion: 'test', engineRevision: null, engineDirty: false, buildId: 'test' };
-const defaults = { default_limits: () => ({ ...policy }), build_info: () => ({ ...build }), node_catalog: () => [],
+const defaults = { default_resource_limits: () => ({ ...resourcePolicy }),
+  prepare_source: (bytes, request) => structuredClone({ bytes, request }), default_limits: () => ({ ...policy }), build_info: () => ({ ...build }), node_catalog: () => [],
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
 
@@ -75,7 +77,7 @@ test('accepted inputs are captured; busy and in-flight idempotent destruction se
     let settle, received, released = 0;
     const engineResult = { channels: [{ pixels: new Uint8Array([1, 2, 3, 255]) }] };
     const module = createRuntimeModule({ ...defaults, create_gpu: async () => ({ context_report: () => ({ verdict: 'unverified' }),
-      render: (bytes, request) => { received = { bytes, request }; return new Promise(resolve => { settle = resolve; }); },
+      render: input => { received = input; return new Promise(resolve => { settle = resolve; }); },
       destroy: () => { released++; }, free() {},
     }) }, build);
     const gpu = await module.createGpu();
@@ -114,4 +116,21 @@ test('an engine failure survives wrapping and pending destruction still releases
     if (previousSecure) Object.defineProperty(globalThis, 'isSecureContext', previousSecure); else delete globalThis.isSecureContext;
     if (previousNavigator) Object.defineProperty(globalThis, 'navigator', previousNavigator); else delete globalThis.navigator;
   }
+});
+
+test('resource transport rejects unsafe buffers and shapes before entering Rust', () => {
+  const image = data => ({ id: 'height', width: 2, height: 1, format: 'rgba8-linear', bytesPerRow: 8, data });
+  const storage = new Uint8Array([99, 1, 2, 3, 4, 5, 6, 7, 8, 99]);
+  const view = storage.subarray(1, 9);
+  assert.deepEqual([...captureRequest({ resources: [image(view)] }, 'render').resources[0].data], [1,2,3,4,5,6,7,8]);
+  const detached = new Uint8Array(8); structuredClone(detached.buffer, { transfer: [detached.buffer] });
+  const bad = [detached, new Uint8Array(new SharedArrayBuffer(8)), new Uint8Array(new ArrayBuffer(8, { maxByteLength: 16 })), new Uint16Array(4), [1,2]];
+  for (const data of bad) assert.throws(() => captureRequest({ resources: [image(data)] }, 'render'), invalid);
+  for (const value of [NaN, Infinity, 1.5, '2', -1, 2 ** 32]) assert.throws(() => captureRequest({ resources: [{ ...image(view), width: value }] }, 'render'), invalid);
+  for (const value of [-1n, 1, 2n ** 64n]) assert.throws(() => captureRequest({ resourceLimits: { resourceBytes: value } }, 'render'), invalid);
+  let calls = 0;
+  const accessor = image(view); Object.defineProperty(accessor, 'data', { get() { calls++; return view; } });
+  assert.throws(() => captureRequest({ resources: [accessor] }, 'render'), invalid);
+  assert.equal(calls, 0);
+  assert.throws(() => captureRequest({ resources: [image(view)], resourceLimits: { resourceCount: 0n } }, 'render'), e => e.code === 'MIX_LIMIT_RESOURCE_COUNT_EXCEEDED');
 });

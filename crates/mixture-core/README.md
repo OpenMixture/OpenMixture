@@ -9,3 +9,5 @@ The local 0.3.0 package is pre-alpha and publication remains disabled. Thirteen 
 Package contents include source, both README languages and [MIT](./LICENSE-MIT)/[Apache-2.0](./LICENSE-APACHE) licenses. Repository integration fixtures and material evidence are not consumer runtime assets. `cargo xtask package-check` in the repository verifies actual archives in an isolated local workspace; it does not publish packages or claim registry availability.
 
 M6A-02 adds Core image preparation and plan v2. GPU image execution is not available until the M6A-03 upload path. See the [implementation boundary](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-02-core-resources.md).
+
+M6A-04 implements browser resource requests and synchronous Core snapshots in the unpublished candidate; see [browser resources](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.md). Rust `prepare_from`/`AdapterImageBinding`/`ImageData` add only synchronous byte adaptation; Core still owns validation, budgets and hashes.

@@ -245,3 +245,5 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 ## License
 
 Licensed under either [Apache-2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT), at your option. Current pre-alpha packages retain `publish = false`; publication requires a separate release decision.
+
+[M6A-04 browser resource APIs](./docs/m6a-04-browser-resources.md) connect image requests, synchronous snapshots and same-source Native/browser pixel comparison in the unpublished candidate.

@@ -47,6 +47,48 @@ pub struct ImageBinding<'a> {
     pub data: &'a [u8],
 }
 
+/// Adapter image descriptor with a synchronous pixel source; semantic checks remain in Core.
+#[derive(Clone, Copy)]
+pub struct AdapterImageBinding<'a, D> {
+    /// Case-sensitive logical name, not a file path or URL.
+    pub id: &'a str,
+    /// Positive width, exactly the requested output width.
+    pub width: u32,
+    /// Positive height, exactly the requested output height.
+    pub height: u32,
+    /// Exactly `rgba8-linear`; unknown values return a structured error.
+    pub format: &'a str,
+    /// Exactly four times width; no padding is accepted.
+    pub bytes_per_row: u64,
+    /// Tightly packed top-left RGBA bytes; captured before prepare returns.
+    pub data: D,
+}
+
+/// Synchronous adapter byte source. Core validates lengths/budgets first, then
+/// allocates the destination and hashes the copied bytes itself. Implementations
+/// must keep their declared length stable and copy it without yielding or retaining
+/// the target. Core hashes the destination, never a caller-provided identity.
+pub trait ImageData {
+    /// Exact packed input length, without copying pixels.
+    fn byte_len(&self) -> usize;
+    /// Copy into Core-owned storage; failures retain their structured diagnostic.
+    fn copy_to(&self, target: &mut [u8]) -> Result<(), CompileError>;
+}
+impl ImageData for &[u8] {
+    fn byte_len(&self) -> usize {
+        self.len()
+    }
+    fn copy_to(&self, target: &mut [u8]) -> Result<(), CompileError> {
+        if target.len() != self.len() {
+            return Err(compiler::invariant(
+                "Resource source length changed during capture.",
+            ));
+        }
+        target.copy_from_slice(self);
+        Ok(())
+    }
+}
+
 /// Serialized resource identity. Construction of this value cannot forge a plan.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -123,6 +165,28 @@ pub fn prepare(
     bindings: &[ImageBinding<'_>],
     limits: &ResourceLimits,
 ) -> Result<PreparedRender, CompileError> {
+    let inputs: Vec<_> = bindings
+        .iter()
+        .map(|b| AdapterImageBinding {
+            id: b.id,
+            width: b.width,
+            height: b.height,
+            format: b.format,
+            bytes_per_row: b.bytes_per_row,
+            data: b.data,
+        })
+        .collect();
+    prepare_from(document, request, &inputs, limits)
+}
+
+/// Prepare from a synchronous adapter source without an intermediate pixel copy.
+/// Core still owns every metadata check, allocation, content hash and snapshot.
+pub fn prepare_from<D: ImageData>(
+    document: &ValidatedDocument,
+    request: &CompileRequest,
+    bindings: &[AdapterImageBinding<'_, D>],
+    limits: &ResourceLimits,
+) -> Result<PreparedRender, CompileError> {
     let normalized = compiler::normalize(document, request)?;
     compiler::lower::compile(&normalized, request, bindings, limits)
 }
@@ -165,10 +229,10 @@ fn mul(id: &str, a: u64, b: u64) -> Result<u64, CompileError> {
         .ok_or_else(|| arithmetic(id, "multiply", a, b))
 }
 
-pub(crate) fn capture(
+pub(crate) fn capture<D: ImageData>(
     normalized: &NormalizedDocument,
     request: &CompileRequest,
-    bindings: &[ImageBinding<'_>],
+    bindings: &[AdapterImageBinding<'_, D>],
     limits: &ResourceLimits,
     selected: &BTreeSet<String>,
 ) -> Result<Vec<ResourceSnapshot>, CompileError> {
@@ -209,7 +273,7 @@ pub(crate) fn capture(
             b.height,
             b.format,
             b.bytes_per_row,
-            b.data.len(),
+            b.data.byte_len(),
         )
     });
     for binding in ordered {
@@ -279,7 +343,7 @@ pub(crate) fn capture(
         let count = mul(b.id, u64::from(b.width), u64::from(b.height))?;
         let row = mul(b.id, u64::from(b.width), 4)?;
         let length = mul(b.id, row, u64::from(b.height))?;
-        let supplied_length = b.data.len() as u64;
+        let supplied_length = b.data.byte_len() as u64;
         if b.bytes_per_row != row || supplied_length != length {
             errors.push(
                 diagnostic(
@@ -333,19 +397,30 @@ pub(crate) fn capture(
         if !required.contains_key(id) {
             continue;
         }
-        let mut data = Vec::new();
-        data.try_reserve_exact(binding.data.len())
-            .map_err(|source| {
-                CompileError::from(
-                    diagnostic(
-                        Code::ResourceInvalidBinding,
-                        id,
-                        "Cannot allocate an owned resource snapshot.",
-                    )
-                    .with_source(source),
+        // Allocate from the already validated descriptor, not a second potentially
+        // stateful adapter length query after enforcing budgets.
+        let length = usize::try_from(mul(id, binding.bytes_per_row, u64::from(binding.height))?)
+            .map_err(|_| {
+                arithmetic(
+                    id,
+                    "hostLength",
+                    binding.bytes_per_row,
+                    u64::from(binding.height),
                 )
             })?;
-        data.extend_from_slice(binding.data);
+        let mut data = Vec::new();
+        data.try_reserve_exact(length).map_err(|source| {
+            CompileError::from(
+                diagnostic(
+                    Code::ResourceInvalidBinding,
+                    id,
+                    "Cannot allocate an owned resource snapshot.",
+                )
+                .with_source(source),
+            )
+        })?;
+        data.resize(length, 0);
+        binding.data.copy_to(&mut data)?;
         let mut hash = Sha256::new();
         hash.update(b"mixture-image-rgba8-linear-v1\0");
         hash.update(binding.width.to_le_bytes());

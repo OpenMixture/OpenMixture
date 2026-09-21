@@ -14,3 +14,5 @@ node scripts/browser-runtime/build.mjs
 ```
 
 Run these commands from the engine repository. The build script requires the pinned Rust WASM target and wasm-bindgen CLI 0.2.128, and injects one source build identity into JS, types and WASM. Direct Cargo builds identify themselves as unpackaged and cannot be substituted for checked package artifacts. Building does not establish browser rendering acceptance: use the separate product's production consumption tests and retain actual browser/adapter evidence. Full M5 release gates remain separate.
+
+M6A-04 implements browser resource requests and synchronous Core snapshots in the unpublished candidate; see [browser resources](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.md). Rust `prepare_from`/`AdapterImageBinding`/`ImageData` add only synchronous byte adaptation; Core still owns validation, budgets and hashes.

@@ -2,7 +2,7 @@
 
 [English](./browser-sdk.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；浏览器资源参数及跨平台图像资格仍待 M6A-04／05。以下历史版本说明须按此更新理解。
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
 
 **当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
 
@@ -151,3 +151,7 @@ ENG-03 新增使用本公开契约的[独立浏览器 SDK 示例与验收入口]
 ## ENG-04 兼容性与未发布版本
 
 源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。
+
+## M6A-04 图像请求
+
+`RenderRequest.resources` 接受 `ImageBinding[]`，`resourceLimits` 接受部分 bigint 策略。`validate`、`inspect`、`render` 共用请求类型。同步捕获、偏移视图、错误、所有权、复现命令和版本边界见[浏览器资源合同](./m6a-04-browser-resources.zh-CN.md)。

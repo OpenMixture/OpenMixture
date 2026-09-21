@@ -7,9 +7,14 @@ export interface SafetyLimits {
   decodedBytes: bigint; nodes: bigint; edges: bigint; exposedParameters: bigint;
   outputDimension: bigint; requestedOutputs: bigint; transientBytes: bigint;
 }
+export interface ResourceLimits { resourceCount: bigint; resourcePixels: bigint; resourceBytes: bigint; }
+export interface ImageBinding {
+  id: string; width: number; height: number; format: 'rgba8-linear'; bytesPerRow: number; data: Uint8Array;
+}
 export interface RenderRequest {
   size?: [number, number]; channels?: ChannelId[];
   overrides?: Record<string, ParameterValue>; limits?: Partial<SafetyLimits>;
+  resources?: ImageBinding[]; resourceLimits?: Partial<ResourceLimits>;
 }
 export interface BuildInfo {
   runtimeVersion: string; apiSchemaVersion: number; engineVersion: string;

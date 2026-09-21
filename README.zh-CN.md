@@ -245,3 +245,5 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 ## 许可证
 
 可任选 [Apache-2.0](./LICENSE-APACHE) 或 [MIT](./LICENSE-MIT) 许可证使用。当前 pre-alpha 软件包保持 `publish = false`；发布需单独决定。
+
+[M6A-04 浏览器公开资源接口](./docs/m6a-04-browser-resources.zh-CN.md)在未发布候选中接通图像请求、同步快照和同源 Native／浏览器像素对照。

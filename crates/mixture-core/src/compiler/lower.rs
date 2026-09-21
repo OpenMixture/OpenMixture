@@ -6,10 +6,10 @@ use crate::{
     registry::{PortDefault, PortKind, node_contract},
 };
 
-pub(crate) fn compile(
+pub(crate) fn compile<D: crate::resources::ImageData>(
     normalized: &NormalizedDocument,
     request: &CompileRequest,
-    bindings: &[crate::ImageBinding<'_>],
+    bindings: &[crate::AdapterImageBinding<'_, D>],
     resource_limits: &crate::ResourceLimits,
 ) -> Result<crate::PreparedRender, CompileError> {
     let document = normalized.document();

@@ -1,4 +1,4 @@
-import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, Inspection, ParameterValue, RenderRequest, RenderResult, RuntimeModule, SafetyLimits, Source, ValidationResult } from './types.js';
+import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, Inspection, ParameterValue, RenderRequest, RenderResult, RuntimeModule, SafetyLimits, ResourceLimits, ImageBinding, Source, ValidationResult } from './types.js';
 import type { BindingRequest, Bindings, Failure } from './bindings.js';
 
 const U32_MAX = 4294967295;
@@ -79,8 +79,8 @@ function array(value: unknown, operation: string, label: string, maxLength: numb
 
 export function captureOptions(options: unknown, operation: string, allowed: readonly string[]) { return record(options, operation, 'options', allowed); }
 
-export function captureRequest(options: unknown = {}, operation: string, defaultLimits: Readonly<SafetyLimits>): BindingRequest {
-  const captured = record(options, operation, 'request', ['size', 'channels', 'overrides', 'limits']);
+export function captureRequest(options: unknown = {}, operation: string, defaultLimits: Readonly<SafetyLimits>, defaultResources: Readonly<ResourceLimits>): BindingRequest {
+  const captured = record(options, operation, 'request', ['size', 'channels', 'overrides', 'limits', 'resources', 'resourceLimits']);
   const limits = { ...defaultLimits };
   if ('limits' in captured) {
     for (const [key, value] of Object.entries(record(captured.limits, operation, 'limits', Object.keys(defaultLimits)))) {
@@ -114,7 +114,33 @@ export function captureRequest(options: unknown = {}, operation: string, default
       } else throw invalid(operation, 'Override values must be a number, enum string, or four-number color');
     }
   }
-  return { size: size as [number, number], channels: channels as string[], limits, overridesJson: JSON.stringify(overrides) };
+  const resourceLimits = { ...defaultResources };
+  if ('resourceLimits' in captured) {
+    for (const [key, value] of Object.entries(record(captured.resourceLimits, operation, 'resourceLimits', Object.keys(defaultResources)))) {
+      if (typeof value !== 'bigint' || value < 0n || value > U64_MAX) throw invalid(operation, 'Resource limits must be nonnegative u64 bigints');
+      resourceLimits[key as keyof ResourceLimits] = value;
+    }
+  }
+  const resources: ImageBinding[] = [];
+  if ('resources' in captured) {
+    if (Array.isArray(captured.resources)) {
+      resourceBudget(operation, 'resourceCount', resourceLimits.resourceCount, BigInt(Object.getOwnPropertyDescriptor(captured.resources, 'length')!.value));
+    }
+    const entries = array(captured.resources, operation, 'resources', Number.MAX_SAFE_INTEGER);
+    for (const entry of entries) {
+      const image = record(entry, operation, 'resource', ['id', 'width', 'height', 'format', 'bytesPerRow', 'data']);
+      if (typeof image.id !== 'string' || typeof image.format !== 'string') throw invalid(operation, 'Resource id and format must be strings');
+      for (const key of ['width', 'height', 'bytesPerRow']) {
+        const value = image[key];
+        if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0 || (key !== 'bytesPerRow' && value > U32_MAX)) throw invalid(operation, 'Resource dimensions and stride must be unsigned exact integers');
+      }
+      const data = imageBytes(image.data, operation);
+      resources.push({ id: image.id, format: image.format as 'rgba8-linear', width: image.width as number,
+        height: image.height as number, bytesPerRow: image.bytesPerRow as number, data });
+    }
+  }
+  // Borrow only until synchronous Rust preparation returns, before any yield.
+  return { resources, resourceLimits, size: size as [number, number], channels: channels as string[], limits, overridesJson: JSON.stringify(overrides) };
 }
 
 export function captureSource(source: unknown, limit: bigint, operation: string): Uint8Array<ArrayBuffer> {
@@ -152,6 +178,24 @@ export function copyBytes(source: unknown, operation: string, limit?: bigint): U
   return copy;
 }
 
+function resourceBudget(operation: string, name: keyof ResourceLimits, configured: bigint, observed: bigint) {
+  if (observed <= configured) return;
+  const codes = { resourceCount: 'COUNT', resourcePixels: 'PIXELS', resourceBytes: 'BYTES' };
+  throw new MixtureRuntimeError(operation, { diagnostics: [{ code: 'MIX_LIMIT_RESOURCE_' + codes[name] + '_EXCEEDED',
+    stage: 'compile', severity: 'error', message: 'Resource budget exceeded.', evidence: { limit: name, configured, observed },
+    suggestion: 'Reduce resource input or explicitly select a larger policy.' }] });
+}
+
+function imageBytes(value: unknown, operation: string): Uint8Array<ArrayBuffer> {
+  if (!(value instanceof Uint8Array) || Object.getPrototypeOf(value) !== Uint8Array.prototype) throw invalid(operation, 'Resource data must be an ordinary Uint8Array');
+  const buffer = bufferOf.call(value);
+  const resizable = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'resizable')?.get;
+  if (!(buffer instanceof ArrayBuffer) || (resizable && resizable.call(buffer))) throw invalid(operation, 'Resource buffers must be non-shared and non-resizable');
+  try { new Uint8Array(buffer, 0, 0); } catch { throw invalid(operation, 'Detached resource buffer'); }
+  const offset = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteOffset')!.get!.call(value);
+  return new Uint8Array(buffer, offset, byteLengthOf.call(value));
+}
+
 function sourceLimit(operation: string, configured: bigint, observed: bigint) {
   // This failure precedes copying, but keeps the core limit identity/evidence.
   return new MixtureRuntimeError(operation, { diagnostics: [{ code: 'MIX_LIMIT_DECODED_BYTES_EXCEEDED',
@@ -166,11 +210,12 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
     if (actual[key] !== expectedBuild[key]) throw browserError('loadRuntime', 'BUILD_MISMATCH', `JS/WASM ${key} mismatch`, { expected: expectedBuild[key], actual: actual[key] });
   }
   const defaultLimits = Object.freeze(bindings.default_limits());
+  const defaultResources = Object.freeze(bindings.default_resource_limits());
   function cpu(operation: 'inspect', source: Source, options?: RenderRequest): Inspection;
   function cpu(operation: 'validate', source: Source, options?: RenderRequest): ValidationResult;
   function cpu(operation: 'inspect' | 'validate', source: Source, options?: RenderRequest): ValidationResult {
     return boundary(operation, () => {
-      const request = captureRequest(options, operation, defaultLimits);
+      const request = captureRequest(options, operation, defaultLimits, defaultResources);
       const bytes = captureSource(source, request.limits.decodedBytes, operation);
       return bindings[operation === 'validate' ? 'validate_source' : 'inspect_source'](bytes, request);
     });
@@ -201,13 +246,14 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
         render(source, options = {}) {
           if (closing) return Promise.reject(browserError('render', 'RUNTIME_DESTROYED', 'Runtime destruction has started'));
           if (active) return Promise.reject(browserError('render', 'RUNTIME_BUSY', 'This runtime already has an accepted render'));
-          let bytes, request;
+          let prepared;
           try {
-            request = captureRequest(options, 'render', defaultLimits);
-            bytes = captureSource(source, request.limits.decodedBytes, 'render');
+            const request = captureRequest(options, 'render', defaultLimits, defaultResources);
+            const bytes = captureSource(source, request.limits.decodedBytes, 'render');
+            prepared = bindings.prepare_source(bytes, request);
           } catch (error) { return Promise.reject(normalizeError('render', error)); }
           // Acceptance and input capture precede the first asynchronous yield.
-          active = Promise.resolve().then(() => low.render(bytes, request))
+          active = Promise.resolve().then(() => low.render(prepared))
             .catch(error => { throw normalizeError('render', error); })
             .finally(() => { active = null; });
           return active;

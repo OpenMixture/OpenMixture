@@ -16,7 +16,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 |---|---|
 | 当前可用基线 | `@openmixture/runtime@0.2.0-alpha.0` 已发布，包含独立浏览器 SDK 入口和 `scalar-blend@1`；Rust 源码版本为 `0.2.0`，crate 尚未发布。`.mix v1` 与 API schema 1 保持不变。 |
 | 已选定下一目标 | M6A-01 选定[最小外部图像合同](./docs/m6a-resource-contract.zh-CN.md)及 [ADR 0007](./docs/decisions/0007-external-image-resources.zh-CN.md)供集成：同尺寸线性 RGBA8 的 R 通道高度、显式资源引用、自有快照、预算及内容绑定的计划 v2。通过本 PR 接受设计；实现与像素验收仍待完成。 |
-| 当前执行范围 | [M6A-02 Core 实现](./docs/m6a-02-core-resources.zh-CN.md)交付资源验证、快照和计划身份；以本实现 PR 的检查为集成门槛。[M6A-03 Native 上传与执行](./docs/m6a-03-native-resources.zh-CN.md)增加准备资源渲染及 Native 像素／生命周期门槛。后续为 M6A-04 浏览器资源和 M6A-05 资格验证。 |
+| 当前执行范围 | [M6A-02 Core 实现](./docs/m6a-02-core-resources.zh-CN.md)交付资源验证、快照和计划身份；以本实现 PR 的检查为集成门槛。[M6A-03 Native 上传与执行](./docs/m6a-03-native-resources.zh-CN.md)增加准备资源渲染及 Native 像素／生命周期门槛。[M6A-04 浏览器资源](./docs/m6a-04-browser-resources.zh-CN.md)增加公开捕获／渲染请求及 Native／浏览器对照；后续为 M6A-05 最终资格验证。 |
 | 条件式候选 | M6-B 打包、原生分发、图复用和 GPU 互操作分别按明确问题决定。性能与数值维护由测量或回归驱动，不构成必须串行完成的功能链。 |
 
 按选定合同中的任务顺序推进，分别记录设计集成、实现及验收证据。Studio 的升级、部署及产品验收不是引擎规划或发布的前置条件。
