@@ -75,7 +75,9 @@ export function validateCandidate(receipt, bytes, revision) {
 // Versioned expectations in the pinned disposable CI host only. Its repository is not edited.
 export function consumerCompatibility(source) {
   const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(13);"],
-    ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.3.0-alpha.0');"]];
+    ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.3.0-alpha.0');"],
+    ["    cumulativeBytes: 'bigint', peakBytes: 'bigint',",
+      "    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',"]];
   for (const [before, after] of changes) {
     assert.equal(source.split(before).length, 2, 'pinned compatibility assertion changed; review host contract');
     source = source.replace(before, after);
@@ -111,7 +113,7 @@ export async function stage(packageDirectory, product, output, revision, consume
   await writeFile(testPath, adaptedTest);
   await save(join(output, 'consumer-compatibility.json'), { consumerRevision,
     originalSha256: hash(Buffer.from(originalTest)), adaptedSha256: hash(Buffer.from(adaptedTest)),
-    reason: 'M6A-02: thirteen Core contracts and unpublished runtime 0.3.0-alpha.0; only two exact assertions updated',
+    reason: 'M6A-02: thirteen Core contracts, unpublished runtime 0.3.0-alpha.0 and four bigint resource estimates; three exact expectations updated',
     original: originalTest, adapted: adaptedTest });
   const lockBytes = await readFile(join(product, 'package-lock.json'));
   const originalArchive = await readFile(join(product, vendor));

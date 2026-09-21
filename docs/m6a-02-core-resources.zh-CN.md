@@ -28,7 +28,7 @@ let captured = prepared.resources();
 
 全部计划采用版本 2、哈希前缀 `mixture-render-plan-v2\0`、按字典序排列的 `imageResources` 身份表及四个显式资源估计字段。内容摘要按合同绑定捕获的域／尺寸／全部 RGBA 字节。可执行 v1 哈希预期替换为独立命名的 v2 快照；原始 v1 JSON 保留为未修改的历史记录。既有程序化内核和材质金图不变。
 
-Rust workspace 包为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0、API schema 2。CLI inspect 及图 render 报告 schema 为 2，validate、doctor 和固定 checker 信封保留原版本。类型声明暴露 `resourceRef`、计划图像身份及 bigint 资源估计；尚不暴露浏览器上传参数。独立注册表消费者继续安装精确已发布 0.2.0-alpha.0。候选资格显式将固定可丢弃宿主的目录预期调整为十三项，包版本预期调整为 0.3.0-alpha.0，保留原始／适配测试摘要及其他全部检查。这不修改 Studio，也不接受候选资源执行。
+Rust workspace 包为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0、API schema 2。CLI inspect 及图 render 报告 schema 为 2，validate、doctor 和固定 checker 信封保留原版本。类型声明暴露 `resourceRef`、计划图像身份及 bigint 资源估计；尚不暴露浏览器上传参数。独立注册表消费者继续安装精确已发布 0.2.0-alpha.0。候选资格显式将固定可丢弃宿主的目录预期调整为十三项，包版本预期调整为 0.3.0-alpha.0，并在完整估计类型断言中增加四个 bigint 资源字段，保留原始／适配测试摘要及其他全部检查。这不修改 Studio，也不接受候选资源执行。
 
 穷尽内核映射包含唯一图像 WGSL 源码，使用整数 R 采样及既有半精度存储约定，并有 shader 解析／ABI 检查。M6A-03 接通准备资源执行前，执行器在 GPU 分配、管线查找及提交前拒绝图像调用，保留结构化资源及适配器证据。这不是回退；未实现上传路径和验收门槛前不得删除该保护。
 

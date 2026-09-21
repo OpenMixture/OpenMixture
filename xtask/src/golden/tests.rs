@@ -3,6 +3,43 @@ use model::{Change, Structure};
 use std::sync::atomic::{AtomicU64, Ordering};
 
 #[test]
+fn material_render_requires_v2_and_consistent_execution_evidence() {
+    let acceptance: Acceptance = serde_json::from_str(include_str!(
+        "../../../fixtures/materials/glazed-ceramic/acceptance.json"
+    ))
+    .unwrap();
+    let adapter = json!({"name":"test adapter"});
+    let doctor = json!({"adapter":adapter});
+    let hash = format!("sha256:{}", "a".repeat(64));
+    let report = json!({
+        "schemaVersion":2,"ok":true,"diagnostics":[],"planHash":hash,
+        "context":{"adapter":adapter},
+        "execution":{"size":[acceptance.size,acceptance.size],"planHash":hash,
+            "adapter":adapter,"readbackBytes":u64::from(acceptance.size).pow(2)*8*4},
+        "outputs":CHANNELS.iter().map(|channel| json!({
+            "channel":channel,"encoding":acceptance.channels[*channel].encoding,
+            "source":{"source":acceptance.channels[*channel].source},
+            "size":[acceptance.size,acceptance.size],"writtenBytes":1
+        })).collect::<Vec<_>>()
+    });
+    validate_render(&report, &doctor, &acceptance).unwrap();
+    for (pointer, value) in [
+        ("/schemaVersion", json!(1)),
+        ("/execution/planHash", json!("different")),
+        ("/execution/adapter", json!({})),
+        ("/execution/readbackBytes", json!(0)),
+        ("/outputs/0/writtenBytes", json!(0)),
+    ] {
+        let mut invalid = report.clone();
+        *invalid.pointer_mut(pointer).unwrap() = value;
+        assert!(
+            validate_render(&invalid, &doctor, &acceptance).is_err(),
+            "{pointer}"
+        );
+    }
+}
+
+#[test]
 fn directional_metrics_distinguish_axes_without_histogram_shortcuts() {
     let row = [20_u8, 50, 110, 180, 220, 180, 110, 50];
     let vertical = Image {
