@@ -8,7 +8,8 @@ OpenMixture M5 的浏览器编译和传输边界。此未发布 crate 调用 `mi
 
 ```sh
 cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 

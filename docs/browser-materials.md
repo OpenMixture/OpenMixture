@@ -28,7 +28,9 @@ The consumer remains Studio `56c510ab57daa1b68ef660525a648a582730a37e`. The [can
 After installation the workflow runs `npm run check`, all 28 pinned browser contracts, an actual browser build-identity probe, the 11-case/44-channel material matrix plus 12 lifecycle renders, frozen comparison, and normal production deployment. The probe also supplies the historical WASM bytes to current JS and requires `MIX_BROWSER_BUILD_MISMATCH`. Public types and real bigint/owned-output behavior are covered by the independent consumer. Both browser jobs run the focused rejection tests:
 
 ```bash
-node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
+node --test scripts/browser-runtime/candidate.test.mjs
 ```
 
 For a fresh candidate, first commit the engine changes and build with `node scripts/browser-runtime/build.mjs`. Prepare native references using that exact full engine SHA, retaining the existing source-drift guard. With a fresh checkout of the consumer pin, use:

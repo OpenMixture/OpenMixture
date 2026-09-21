@@ -24,13 +24,14 @@ M5-02／M5-03 现已提供轻量 WASM 绑定、完整本地 `@openmixture/runtim
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.128 --locked
 cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 
-`WASM_BINDGEN` 可指定 CLI 可执行文件。构建拒绝版本不匹配。它编译锁定的 Rust 源，生成绑定，组装公开 JS／类型／WASM 与许可证，并在 `target/browser-runtime/` 下运行 `npm pack`。该目录包含归档、SHA-256 文件及标识源内容、构建 ID、工具的 `receipt.json`。消费者安装不编译 Rust。
+`WASM_BINDGEN` 可指定 CLI 可执行文件。构建拒绝版本不匹配。它编译锁定的 Rust 源，生成绑定，组装公开 JS／类型／WASM 与许可证，并在 `target/browser-runtime/` 下运行 `npm pack`。该目录包含归档、SHA-256 文件及标识源内容、构建 ID、工具的 `receipt.json`。消费者安装不编译 Rust 或 TypeScript。生产端使用锁定的 SDK 编译器依赖，清理旧编译输出，仅打包生成的 JS／声明以及 WASM、元数据与许可证。源码、锁文件、编译器版本和编译设置参与构建身份计算；本地 `node_modules` 与 `dist` 不参与。`npm test --prefix packages/runtime` 编译生成声明的消费者（含预期类型错误），并运行现有运行时边界测试。
 
-生成的 no-modules wasm-bindgen 胶水被封装进 ESM 工厂。每次显式 `loadRuntime` 获得独立绑定／模块状态；导入公开入口不加载 WASM 或获取 GPU 状态。此打包细节不增加图或 shader 语义。手写公开 TypeScript 声明随同一次构建交付，并由独立消费者检查；不将其描述为自动生成的 Rust API 声明。
+生成的 no-modules wasm-bindgen 胶水被封装进 ESM 工厂。每次显式 `loadRuntime` 获得独立绑定／模块状态；导入公开入口不加载 WASM 或获取 GPU 状态。此打包细节不增加图或 shader 语义。SDK 包装层使用严格 TypeScript 实现。TypeScript 5.9.3 从同一实现和共享投影类型生成 JavaScript 与公开声明，软件包继续导出浏览器 ESM。人工审查的 Rust／JS 绑定接口仍是信任边界：声明生成不能验证 Rust 序列化。真实绑定与浏览器契约必须继续检查 bigint 与 number、可空字段、结构化错误、异步渲染及销毁后的像素所有权。
 
 ## 公开用法
 
@@ -57,7 +58,7 @@ try {
 
 `loadRuntime({ wasm })` 接受 URL／字符串或自有字节输入；省略 `wasm` 使用包内资源 URL。每个 GPU 实例接受一个渲染；另一并发请求以 `MIX_BROWSER_RUNTIME_BUSY` 拒绝。`destroy` 停止接收新工作，等待已接受工作并显式释放设备，不使返回的 JS 像素失效。浏览器回调等待让出事件循环。原生阻塞等待保留原生行为；不承诺浏览器硬性期限、自动恢复或其他渲染器。
 
-Core／GPU 诊断保留其代码和上下文。`MIX_BROWSER_BINDING_FAILED` 独立于无效参数报告意外绑定／trap 失败；浏览器加载、构建不匹配、不支持 WebGPU、busy 和 destroyed 错误继续区分。确切 JS 投影见[公开声明](../packages/runtime/src/index.d.ts)：u64／usize 数据使用 bigint，而流水线 hits／misses 等 u32 字段使用 number。空的可选诊断 evidence 可以缺失。
+Core／GPU 诊断保留其代码和上下文。`MIX_BROWSER_BINDING_FAILED` 独立于无效参数报告意外绑定／trap 失败；浏览器加载、构建不匹配、不支持 WebGPU、busy 和 destroyed 错误继续区分。确切 JS 投影见[公开投影类型](../packages/runtime/src/types.ts)：u64／usize 数据使用 bigint，而流水线 hits／misses 等 u32 字段使用 number。空的可选诊断 evidence 可以缺失。
 
 ## 独立产品与验证
 

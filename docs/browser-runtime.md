@@ -24,13 +24,14 @@ Use the repository Rust toolchain and an exact matching wasm-bindgen CLI. This c
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.128 --locked
 cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 
-`WASM_BINDGEN` may name an explicit CLI executable. The build refuses a mismatched version. It compiles the locked Rust source, generates bindings, assembles public JS/types/WASM and licenses, and runs `npm pack` under `target/browser-runtime/`. The directory contains the archive, SHA-256 sidecar and `receipt.json` identifying source content, build ID and tools. No consumer installation compiles Rust.
+`WASM_BINDGEN` may name an explicit CLI executable. The build refuses a mismatched version. It compiles the locked Rust source, generates bindings, assembles public JS/types/WASM and licenses, and runs `npm pack` under `target/browser-runtime/`. The directory contains the archive, SHA-256 sidecar and `receipt.json` identifying source content, build ID and tools. No consumer installation compiles Rust or TypeScript. The producer uses the locked SDK compiler dependency, removes old emitted output, and packages only emitted JS/declarations plus WASM, metadata and licenses. Source, lockfile, compiler version and compilation settings participate in build identity; local `node_modules` and `dist` do not. `npm test --prefix packages/runtime` compiles a consumer of the emitted declarations (including expected type errors) and runs the existing runtime boundary tests.
 
-The generated no-modules wasm-bindgen glue is enclosed in an ESM factory. Each explicit `loadRuntime` obtains independent binding/module state; importing the public entry does not load WASM or acquire GPU state. This packaging detail does not add graph or shader semantics. Handwritten public TypeScript declarations ship from the same build and are checked by the independent consumer; they are not described as automatically generated Rust API declarations.
+The generated no-modules wasm-bindgen glue is enclosed in an ESM factory. Each explicit `loadRuntime` obtains independent binding/module state; importing the public entry does not load WASM or acquire GPU state. This packaging detail does not add graph or shader semantics. The SDK facade is implemented in strict TypeScript. TypeScript 5.9.3 emits JavaScript and public declarations from the same implementation and shared projection types; the package still exports browser ESM. The manually reviewed Rust/JS binding interface remains a trust boundary: declaration generation does not verify Rust serialization. Real binding and browser contracts must continue checking bigint versus number, nullable fields, structured errors, asynchronous rendering and owned pixels after destruction.
 
 ## Public usage
 
@@ -57,7 +58,7 @@ The product supplies raw string/UTF-8 source; it must not parse and reserialize 
 
 `loadRuntime({ wasm })` accepts a URL/string or owned byte input; omitted `wasm` uses the packaged asset URL. Each GPU instance admits one render; another concurrent request rejects with `MIX_BROWSER_RUNTIME_BUSY`. `destroy` stops new work, waits for accepted work and explicitly releases the device without invalidating returned JS pixels. Browser callback waiting yields to the event loop. Native blocking waits keep their native behavior; no browser hard deadline, automatic recovery or alternate renderer is promised.
 
-Core/GPU diagnostics preserve their codes and context. `MIX_BROWSER_BINDING_FAILED` reports an unexpected binding/trap failure separately from invalid arguments; browser loading, build mismatch, unsupported WebGPU, busy and destroyed errors remain separate. Inspect [public declarations](../packages/runtime/src/index.d.ts) for the precise JS projection: u64/usize data use bigint, while u32 fields such as pipeline hits/misses use number. Empty optional diagnostic evidence may be absent.
+Core/GPU diagnostics preserve their codes and context. `MIX_BROWSER_BINDING_FAILED` reports an unexpected binding/trap failure separately from invalid arguments; browser loading, build mismatch, unsupported WebGPU, busy and destroyed errors remain separate. Inspect [public projection types](../packages/runtime/src/types.ts) for the precise JS projection: u64/usize data use bigint, while u32 fields such as pipeline hits/misses use number. Empty optional diagnostic evidence may be absent.
 
 ## Independent product and verification
 
