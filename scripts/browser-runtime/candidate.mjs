@@ -66,8 +66,8 @@ export function validateCandidate(receipt, bytes, revision) {
   assert.equal(receipt.sha256, hash(bytes), 'candidate archive digest mismatch');
   assert.equal(receipt.runtimeVersion, '0.2.0-alpha.0', 'update the pinned consumer contract for a new version');
   assert.equal(receipt.apiSchemaVersion, 1);
-  for (const file of ['package.json', 'build-info.json', 'src/build-info.mjs', 'src/index.d.ts',
-    'src/index.mjs', 'src/runtime.mjs', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm']) {
+  for (const file of ['package.json', 'build-info.json', 'src/build-info.js', 'src/index.d.ts', 'src/runtime.d.ts', 'src/types.d.ts', 'src/bindings.d.ts',
+    'src/index.js', 'src/runtime.js', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm']) {
     assert.ok(receipt.files.includes(file), `missing candidate file: ${file}`);
   }
 }

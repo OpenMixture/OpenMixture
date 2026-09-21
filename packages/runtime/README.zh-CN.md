@@ -31,14 +31,15 @@ try {
 
 每个 GPU 实例同时接受一个渲染，忙碌调用被拒绝。`destroy()` 立即停止接受请求，等待已接受渲染结束并清理，然后释放设备；重复调用共享 promise。它不取消 GPU 工作，也不分离先前结果。请求通道全部返回或整个渲染失败。像素从 Rust 复制到独立 JS 数组，采用左上起点、紧密 RGBA8 和直通 alpha。颜色 RGB 为 sRGB；标量和已编码法线为线性数据。产品 PNG 导出必须保留这些编码。
 
-Rust u64 和 usize 报告字段投影为 `bigint`；u32 字段和参数值保持 JS number。例如 `plan.estimates.peakBytes`、`report.allocations.liveBytes` 为 bigint，尺寸、计划版本、pipeline cache 命中/未命中数为 number。普通 `JSON.stringify` 无法序列化 bigint；产品可在自己的日志格式中显式编码。精确公开接口见 `src/index.d.ts`；JS、声明、WASM 和 `build-info.json` 共享并检查构建身份。
+Rust u64 和 usize 报告字段投影为 `bigint`；u32 字段和参数值保持 JS number。例如 `plan.estimates.peakBytes`、`report.allocations.liveBytes` 为 bigint，尺寸、计划版本、pipeline cache 命中/未命中数为 number。普通 `JSON.stringify` 无法序列化 bigint；产品可在自己的日志格式中显式编码。SDK 使用严格 TypeScript 实现；构建生成公开 `src/index.d.ts` 及其引用的声明。Rust／JS 投影类型仍需真实绑定契约验证，包括可空值与像素所有权；JS、声明、WASM 和 `build-info.json` 共享并检查构建身份。
 
 生产者从引擎仓库执行：
 
 ```sh
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.128 --locked
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 

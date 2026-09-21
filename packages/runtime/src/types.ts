@@ -21,10 +21,6 @@ export interface Diagnostic {
   evidence?: Record<string, string | bigint | boolean>; suggestion?: string;
 }
 export interface BrowserFailure { code: string; operation: string; message: string; evidence?: unknown; suggestion?: string; }
-export class MixtureRuntimeError extends Error {
-  readonly operation: string; readonly code: string | undefined; readonly diagnostics: Diagnostic[];
-  readonly browserFailure?: BrowserFailure; readonly evidence?: unknown;
-}
 export type ParameterKind = { type: 'float' | 'integer'; min: number; max: number }
   | { type: 'color' } | { type: 'enum'; values: string[] };
 export interface ParameterContract { id: string; kind: ParameterKind; default: ParameterValue | null; }
@@ -82,5 +78,3 @@ export interface RuntimeModule {
   inspect(source: Source, request?: RenderRequest): Inspection;
   createGpu(options?: { powerPreference?: 'low-power' | 'high-performance' }): Promise<GpuRuntime>;
 }
-/** Default URL is package-relative. Supplied bytes perform no loader fetch. */
-export function loadRuntime(options?: { wasm?: URL | string | Uint8Array }): Promise<RuntimeModule>;

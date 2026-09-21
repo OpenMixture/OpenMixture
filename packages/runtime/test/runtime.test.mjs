@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { captureRequest as captureWithLimits, captureSource, createRuntimeModule, MixtureRuntimeError } from '../src/runtime.mjs';
+import { captureRequest as captureWithLimits, captureSource, createRuntimeModule, MixtureRuntimeError } from '../dist/runtime.js';
 
 const policy = { decodedBytes: 2097152n, nodes: 128n, edges: 512n, exposedParameters: 64n, outputDimension: 2048n, requestedOutputs: 8n, transientBytes: 536870912n };
 const captureRequest = (options, operation) => captureWithLimits(options, operation, policy);

@@ -31,14 +31,15 @@ Successful validation/inspection includes the plan, material channels and expose
 
 Each GPU instance accepts one render at a time. Busy calls reject. `destroy()` stops acceptance immediately, awaits the accepted render's settlement and cleanup, and releases the device; repeated calls share a promise. It does not cancel GPU work or detach previous results. Requested channels are returned completely or the render fails. Pixels are copied from Rust into independent JS-owned arrays, tightly packed top-left RGBA8 with straight alpha. Color RGB is sRGB; scalar and encoded-normal bytes are linear data. Product PNG export must preserve these encodings.
 
-Typed Rust u64 and usize report fields project as `bigint`; typed u32 fields and parameter values remain JS numbers. For example, `plan.estimates.peakBytes` and `report.allocations.liveBytes` are bigint, while dimensions, plan versions and pipeline cache hit/miss counts are numbers. Plain `JSON.stringify` cannot serialize bigint; a product may encode them explicitly in its own logs. The exact public surface is in `src/index.d.ts`; JS, declarations, WASM and `build-info.json` share a checked build identity.
+Typed Rust u64 and usize report fields project as `bigint`; typed u32 fields and parameter values remain JS numbers. For example, `plan.estimates.peakBytes` and `report.allocations.liveBytes` are bigint, while dimensions, plan versions and pipeline cache hit/miss counts are numbers. Plain `JSON.stringify` cannot serialize bigint; a product may encode them explicitly in its own logs. The SDK is implemented in strict TypeScript; the build generates the public `src/index.d.ts` and its referenced declarations. Rust/JS projection types still require real binding contracts, including nullable values and pixel ownership; JS, declarations, WASM and `build-info.json` share a checked build identity.
 
 Producer commands, run from the engine repository:
 
 ```sh
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.128 --locked
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 

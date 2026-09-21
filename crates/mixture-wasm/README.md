@@ -8,7 +8,8 @@ Public consumers install the independently built `@openmixture/runtime` npm arch
 
 ```sh
 cargo check --locked -p mixture-wasm --target wasm32-unknown-unknown
-node --test packages/runtime/test/runtime.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 

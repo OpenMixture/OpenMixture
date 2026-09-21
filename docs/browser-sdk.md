@@ -32,7 +32,7 @@ The engine repository builds and versions the npm package. There is no separate 
 
 ## Loading and explicit GPU initialization
 
-The following operations are implemented by the local package. Exact signatures and JS types are in the [public declarations](../packages/runtime/src/index.d.ts), with executable usage and build commands in the [browser start guide](./browser-runtime.md). Consumer tests must continue to verify this boundary; implemented methods alone do not satisfy the remaining M5 acceptance gates.
+The following operations are implemented by the local package. Exact signatures and JS types are in the [public projection types](../packages/runtime/src/types.ts), with executable usage and build commands in the [browser start guide](./browser-runtime.md). Consumer tests must continue to verify this boundary; implemented methods alone do not satisfy the remaining M5 acceptance gates.
 
 | Public operation | Observable behavior |
 |---|---|

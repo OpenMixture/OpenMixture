@@ -27,12 +27,14 @@ test('inert import and CPU APIs use the exact public package without GPU acquisi
     return { build: runtime.getBuildInfo(), valid: validation.ok, catalog: runtime.getNodeCatalog().map(c => c.typeId),
       size: changed.plan.size, channels: changed.plan.outputs.map(o => o.channel),
       roughness: changed.exposedParameters.find(p => p.id === 'roughness').effectiveValue,
+      nullablePort: runtime.getNodeCatalog().find(c => c.typeId === 'material-output').inputs.find(p => p.id === 'baseColor').default,
+      dimensionType: typeof changed.plan.size[0], parameterType: typeof changed.exposedParameters.find(p => p.id === 'roughness').effectiveValue,
       bytesType: typeof changed.plan.estimates.peakBytes };
   }, source);
   expect(result.build).toEqual(expectedBuild);
   expect(result.valid).toBe(true);
   expect(result.catalog).toContain('checker');
-  expect(result).toMatchObject({ size: [65, 3], channels: ['roughness'], roughness: 0.75, bytesType: 'bigint' });
+  expect(result).toMatchObject({ size: [65, 3], channels: ['roughness'], roughness: 0.75, bytesType: 'bigint', nullablePort: null, dimensionType: 'number', parameterType: 'number' });
   const wasm = requests.filter(url => url.endsWith('.wasm'));
   expect(wasm).toHaveLength(1);
   expect(new URL(wasm[0]).pathname).toMatch(/^\/consumer\/assets\/.*\.wasm$/);
@@ -74,9 +76,13 @@ test('65×3 public render has exact checker/scalar bytes and survives helper des
     });
     return { build, planHash: inspection.plan.hash, resultHash: result.plan.hash,
       adapter: result.report.adapter, allocations: result.report.allocations,
+      projection: { passCount: typeof result.report.passCount, hits: typeof result.report.pipelineCache.hits,
+        entries: typeof result.report.pipelineCache.entries, readbackBytes: typeof result.report.readbackBytes,
+        pixels: result.channels.every(c => c.pixels instanceof Uint8Array) },
       channels: result.channels.map(c => ({ ...c, pixels: [...c.pixels] })) };
   });
   expect(rendered.build).toEqual(expectedBuild);
+  expect(rendered.projection).toEqual({ passCount: 'bigint', hits: 'number', entries: 'bigint', readbackBytes: 'bigint', pixels: true });
   expect(rendered.resultHash).toBe(rendered.planHash);
   expect(rendered.channels.map(c => c.channel)).toEqual(['baseColor', 'roughness']);
   expect(rendered.channels.map(c => c.encoding)).toEqual(['rgba8-srgb', 'rgba8-linear']);

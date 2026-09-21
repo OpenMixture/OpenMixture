@@ -28,7 +28,9 @@ Linux 使用已有锁定 SwiftShader 设置及显式 Vulkan／软件策略。产
 安装后工作流执行 `npm run check`、固定消费者的全部 28 项浏览器契约、实际浏览器构建身份探针、11 用例／44 通道材质矩阵及 12 次生命周期渲染、冻结比较和正常生产部署。探针还把历史 WASM 字节交给当前 JS，要求返回 `MIX_BROWSER_BUILD_MISMATCH`。独立消费者覆盖公开类型和真实 bigint／自有输出行为。两个浏览器 job 都运行定向拒绝测试：
 
 ```bash
-node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs
+npm ci --prefix packages/runtime --ignore-scripts
+npm test --prefix packages/runtime
+node --test scripts/browser-runtime/candidate.test.mjs
 ```
 
 验证新候选时，先提交引擎改动并用 `node scripts/browser-runtime/build.mjs` 构建。用该确切完整引擎 SHA 准备原生参考，保留既有源码漂移守卫。准备固定消费者的新检出后执行：

@@ -67,7 +67,9 @@ jobs:
           cargo install wasm-bindgen-cli --version 0.2.128 --locked
       - name: Test candidate guards and build this revision's archive
         run: |
-          node --test packages/runtime/test/runtime.test.mjs scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs
+          npm ci --prefix packages/runtime --ignore-scripts
+          npm test --prefix packages/runtime
+          node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
