@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0-alpha.0",
+  "dist": {
+    "shasum": "19f7de22bd8107641db67c202149de4ba90253c9",
+    "tarball": "https://registry.npmjs.org/@openmixture/runtime/-/runtime-0.2.0-alpha.0.tgz",
+    "fileCount": 12,
+    "integrity": "sha512-WUSeskztk3QEN2eIbj2GE+HYNC+9Q5QY44ivKQjJlfqadKakc+zKsDBMBnZ0Ok4uPGLHiJYo7WSa0s8ba8r/7Q==",
+    "signatures": [
+      {
+        "sig": "MEUCIDBXOD5XNZl1Bhk/swJbG/kWjjovmzLafUzwpWM9I8bvAiEAnptgf5sl00b1PAyRZZtSAKAU9aKkSP3WSUUPOOF2PBY=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEUCIChFgECKckZUSdgaSjWFhNwwwd2XCAKm7Xygap59Tg+EAiEA/tBBZCPnSaLrH+nVBHUBM4ioW80Lsp0Zi6s5qYnlTgw="
+      }
+    ],
+    "unpackedSize": 1351268
+  },
+  "time": {
+    "created": "2026-09-20T07:26:14.060Z",
+    "modified": "2026-09-21T05:03:13.487Z",
+    "0.1.0-alpha.0": "2026-09-20T07:26:14.490Z",
+    "0.2.0-alpha.0": "2026-09-21T05:03:13.279Z"
+  },
+  "dist-tags": {
+    "alpha": "0.2.0-alpha.0",
+    "latest": "0.1.0-alpha.0"
+  }
+}

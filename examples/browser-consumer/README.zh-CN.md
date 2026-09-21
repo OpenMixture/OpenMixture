@@ -15,7 +15,7 @@ npm run build
 npm run preview
 ```
 
-打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.1.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
+打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.2.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
 
 夹具暴露 `frequency` 和 `roughness`。示例有意使用这些已知公开 ID，不复制节点目录或构建通用编辑器。`src/consumer.ts` 是简短的公开 SDK 流程。报告显示包构建身份、计划哈希、公开参数有效值和所选适配器。bigint 转字符串属于宿主显示逻辑，不是新的 Mixture 报告结构。Scalar 画布只是字节预览，不声称提供颜色管理材质预览或 PNG 导出。
 
@@ -63,4 +63,4 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 
 npm Alpha 已在记录范围内发布。公开 Rust API 可通过源码／本地 Cargo 归档消费，Rust crate 仍未发布；本示例不引入 CLI 二进制分发。未来浏览器发行需要新版本和归档身份、引擎资格验证、明确发布，再进行干净环境的精确注册表消费。Studio 自行决定升级／部署节奏。版本变化时，须在经审查的变更中更新本夹具的精确包／锁及兼容预期。
 
-ENG-04 增加第九项测试：0.2.0-alpha.0 候选在 1K 下渲染四种权重的双 Scalar 夹具，仍固定的注册表 0.1.0-alpha.0 明确拒绝新类型。候选安装仅修改暂存 runtime 版本／归档／完整性。不发布新包。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)。
+ENG-04 增加第九项测试：候选及精确注册表 0.2.0-alpha.0 均在 1K 下渲染四种权重的双 Scalar 夹具。0.1.0-alpha.0 拒绝新类型的历史测试证据保留在 ENG-04 记录中。候选安装仅修改暂存 runtime 版本／归档／完整性。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)及[新发行记录](../../docs/evidence/npm-020-alpha/README.zh-CN.md)。

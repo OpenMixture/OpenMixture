@@ -20,7 +20,7 @@ The browser candidate advances to 0.2.0-alpha.0. API schema 1, `.mix` version 1,
 
 Candidate qualification substitutes only the runtime dependency/version/integrity in the independent host. The pinned disposable Studio CI host has two explicit producer-owned compatibility adjustments: catalog size 11→12 and runtime version 0.1.0-alpha.0→0.2.0-alpha.0. The staging script fails if either exact original assertion changes, retains original/adapted test source and digests, and preserves all lifecycle, pixel, material and deployment checks. No Studio repository, product upgrade or deployment is changed. This is a reviewed version-contract update, not permanent compatibility with old catalog counts.
 
-Rust packages and the new browser candidate remain unpublished. Publication and downstream upgrades are separate work.
+The [subsequent browser release](./evidence/npm-020-alpha/README.md) publishes 0.2.0-alpha.0 and advances the registry fixture to that exact version, including Scalar rendering. The 0.1.0-alpha.0 rejection below describes implementation-time acceptance. Rust packages remain unpublished; downstream upgrades are separate work.
 
 ## Verification
 

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "published and exact registry consumption passed",
+  "verifiedAt": "2026-09-21T05:07:45.223Z",
+  "package": "@openmixture/runtime",
+  "version": "0.2.0-alpha.0",
+  "publisher": "krapnik",
+  "command": "npm publish <frozen-tarball> --access public --tag alpha --ignore-scripts --registry=https://registry.npmjs.org/",
+  "authorization": "Explicit user request to publish; user completed npm login and publication security-key verification.",
+  "source": "9cd62fe7f16fe51a43badd1d9f70267abd87f843",
+  "buildId": "sha256:2418a0770ba86d7a583cdafcafddf935e3d91ba9d9f316f7835deb3ac5137183",
+  "archiveSha256": "6d7b24f613af9444cb6d854d192749f0e46db6d846d5636e460b16c8fed72cdf",
+  "archiveIntegrity": "sha512-WUSeskztk3QEN2eIbj2GE+HYNC+9Q5QY44ivKQjJlfqadKakc+zKsDBMBnZ0Ok4uPGLHiJYo7WSa0s8ba8r/7Q==",
+  "archiveBytes": 345816,
+  "registryBuildMatchesCandidate": true,
+  "allInstalledFilesMatchCandidate": true,
+  "registryTests": {
+    "startTime": "2026-09-21T05:05:32.541Z",
+    "duration": 7136.05,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "registryVerifierSource": {
+    "revision": "9cd62fe7f16fe51a43badd1d9f70267abd87f843",
+    "dirty": true,
+    "hash": "908b7bc83dee114ae4ad18e2a30f6c149d2287d3120f525d7ec058ded06f3b90"
+  },
+  "scope": "Browser npm only. No Rust publication, stable promotion, Studio upgrade or deployment."
+}

@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.1.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.1.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
+这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.2.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-020-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.2.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';
@@ -42,6 +42,6 @@ node --test packages/runtime/test/runtime.test.mjs
 node scripts/browser-runtime/build.mjs
 ```
 
-需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-0.1.0-alpha.0.tgz`、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-0.1.0-alpha.0.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
+需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-0.2.0-alpha.0.tgz`、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-0.2.0-alpha.0.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
 
 Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、资源打包、取消和零拷贝纹理仍不支持。

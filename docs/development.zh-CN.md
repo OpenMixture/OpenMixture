@@ -154,4 +154,4 @@ node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/s
 node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 ```
 
-候选验收要求 HEAD 对应的干净源码归档；注册表验收使用示例锁定的精确版本，不使用候选构建身份。两种模式均在检出目录外暂存，核验安装字节及类型，构建静态资源并执行八项真实浏览器测试。自动化 Chromium 须具备可用 WebGPU，GPU 不可用属于失败。示例 README 定义显式本地 Chrome／适配器配置及证据限制。这些 Node／浏览器检查在 `cargo xtask check` 之外，已有浏览器包／材质 CI job 执行它们且不移除固定 Studio 覆盖。这些命令不发布软件包。
+候选验收要求 HEAD 对应的干净源码归档；注册表验收使用示例锁定的精确版本，不使用候选构建身份。两种模式均在检出目录外暂存，核验安装字节及类型，构建静态资源并执行九项真实浏览器测试。自动化 Chromium 须具备可用 WebGPU，GPU 不可用属于失败。示例 README 定义显式本地 Chrome／适配器配置及证据限制。这些 Node／浏览器检查在 `cargo xtask check` 之外，已有浏览器包／材质 CI job 执行它们且不移除固定 Studio 覆盖。这些命令不发布软件包。
