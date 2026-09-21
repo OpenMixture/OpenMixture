@@ -732,3 +732,7 @@ M5 浏览器启动增加实际的 `mixture-wasm` 编译边界，npm 资源留在
 ## ENG-04 目录扩展
 
 ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Renderer 自有缓存现有十种 kernel 身份。既有源码语义和计划序列化不变。见[契约](./docs/eng-04-scalar-blend.zh-CN.md)。
+
+## M6A-01 已选定资源设计 — 尚未实现
+
+[ADR 0007](./docs/decisions/0007-external-image-resources.zh-CN.md)及[最小资源合同](./docs/m6a-resource-contract.zh-CN.md)选定既有节点参数中的逻辑资源引用、调用方提供线性 RGBA8 输入、Core 拥有不可变捕获及内容身份、wgpu 拥有上传和生命周期。集成接受设计；运行时实现仍待完成。这有限扩展 ADR 0003 对资源引用的排除，不增加内嵌资源或改变唯一像素执行器。实现将引入 image-input v1、计划／哈希 v2 和 API schema 2；上方架构说明仍是当前已实现基线，直至对应实现变更落地。

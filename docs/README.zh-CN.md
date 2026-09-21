@@ -63,3 +63,5 @@
 [ENG-03 消费者证据](./evidence/eng-03/README.zh-CN.md)保留候选／注册表的独立身份、本地浏览器结果及已检查的示例截图。
 
 [ENG-04 Scalar 场组合](./eng-04-scalar-blend.zh-CN.md)记录已实现节点、版本化兼容性和原生／浏览器验收；新包尚未发布。
+
+[M6A-01 最小资源合同](./m6a-resource-contract.zh-CN.md)与 [ADR 0007](./decisions/0007-external-image-resources.zh-CN.md)定义选定的外部高度输入设计、兼容决策及后续验收任务。这些文档不代表资源 API 和像素已实现或验收。
