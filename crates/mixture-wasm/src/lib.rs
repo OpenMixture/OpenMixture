@@ -5,8 +5,8 @@ use std::collections::BTreeMap;
 use js_sys::{Array, Object, Reflect, Uint8Array};
 use mixture_core::registry::{BUILT_INS, ParameterContract, node_contract};
 use mixture_core::{
-    CompileRequest, Diagnostic, MaterialDocument, RenderPlan, SafetyLimits, ValidatedDocument,
-    compile,
+    AdapterImageBinding, CompileRequest, Diagnostic, MaterialDocument, PreparedRender, RenderPlan,
+    ResourceLimits, SafetyLimits, ValidatedDocument,
 };
 use mixture_wgpu::{GpuContext, GpuContextOptions, PowerPreference, Renderer};
 use serde::{Deserialize, Serialize};
@@ -73,13 +73,42 @@ struct Request {
     channels: Vec<String>,
     overrides_json: String,
     limits: SafetyLimits,
+    resource_limits: ResourceLimits,
+    resources: Vec<ImageRequest>,
 }
 
-fn prepare(
-    source: &[u8],
-    options: JsValue,
-    operation: &str,
-) -> Result<(ValidatedDocument, CompileRequest, RenderPlan), JsValue> {
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct ImageRequest {
+    id: String,
+    width: u32,
+    height: u32,
+    format: String,
+    bytes_per_row: u64,
+    #[serde(with = "serde_wasm_bindgen::preserve")]
+    data: Uint8Array,
+}
+
+struct BrowserImage(Uint8Array);
+impl mixture_core::ImageData for BrowserImage {
+    fn byte_len(&self) -> usize {
+        self.0.length() as usize
+    }
+    fn copy_to(&self, target: &mut [u8]) -> Result<(), mixture_core::CompileError> {
+        self.0.copy_to(target);
+        Ok(())
+    }
+}
+
+/// Internal synchronous capture handle; the public facade never exposes it.
+#[wasm_bindgen]
+pub struct BrowserPrepared {
+    document: ValidatedDocument,
+    request: CompileRequest,
+    prepared: PreparedRender,
+}
+
+fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<BrowserPrepared, JsValue> {
     let wire: Request = serde_wasm_bindgen::from_value(options)
         .map_err(|error| invalid(operation, &error.to_string()))?;
     let outputs = wire
@@ -105,10 +134,27 @@ fn prepare(
         .map_err(|error| {
             engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e)
         })?;
-    let plan = compile(&document, &request).map_err(|error| {
-        engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e)
-    })?;
-    Ok((document, request, plan))
+    let bindings: Vec<_> = wire
+        .resources
+        .iter()
+        .map(|image| AdapterImageBinding {
+            id: &image.id,
+            width: image.width,
+            height: image.height,
+            format: &image.format,
+            bytes_per_row: image.bytes_per_row,
+            data: BrowserImage(image.data.clone()),
+        })
+        .collect();
+    let prepared =
+        mixture_core::prepare_from(&document, &request, &bindings, &wire.resource_limits).map_err(
+            |error| engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e),
+        )?;
+    Ok(BrowserPrepared {
+        document,
+        request,
+        prepared,
+    })
 }
 
 // Validated parameter values are u32/finite float/color/enum values. Project their
@@ -208,7 +254,7 @@ fn inspection(
 #[wasm_bindgen]
 pub fn validate_source(source: &[u8], request: JsValue) -> Result<JsValue, JsValue> {
     match prepare(source, request, "validate") {
-        Ok((document, request, plan)) => inspection(&document, &request, &plan),
+        Ok(input) => inspection(&input.document, &input.request, input.prepared.plan()),
         Err(failure) => {
             if Reflect::has(&failure, &JsValue::from_str("browserFailure"))? {
                 return Err(failure);
@@ -228,8 +274,8 @@ pub fn validate_source(source: &[u8], request: JsValue) -> Result<JsValue, JsVal
 /// Inspect a valid document/request or return the unchanged core diagnostics.
 #[wasm_bindgen]
 pub fn inspect_source(source: &[u8], request: JsValue) -> Result<JsValue, JsValue> {
-    let (document, request, plan) = prepare(source, request, "inspect")?;
-    inspection(&document, &request, &plan)
+    let input = prepare(source, request, "inspect")?;
+    inspection(&input.document, &input.request, input.prepared.plan())
 }
 
 /// Fresh Rust-registry catalog projection with no shared mutable aliases.
@@ -242,6 +288,18 @@ pub fn node_catalog() -> Result<JsValue, JsValue> {
 #[wasm_bindgen]
 pub fn default_limits() -> Result<JsValue, JsValue> {
     project(&SafetyLimits::default())
+}
+
+/// Authoritative resource policy, projected as bigint fields.
+#[wasm_bindgen]
+pub fn default_resource_limits() -> Result<JsValue, JsValue> {
+    project(&ResourceLimits::default())
+}
+
+/// Capture all selected pixels before the public render call returns.
+#[wasm_bindgen]
+pub fn prepare_source(source: &[u8], request: JsValue) -> Result<BrowserPrepared, JsValue> {
+    prepare(source, request, "render")
 }
 
 /// Build identity injected by the producer's package build command.
@@ -308,13 +366,16 @@ impl BrowserGpu {
     }
 
     /// Compile source and execute the existing immutable RenderPlan, asynchronously.
-    pub async fn render(&mut self, source: &[u8], request: JsValue) -> Result<JsValue, JsValue> {
-        let (document, _, plan) = prepare(source, request, "render")?;
+    pub async fn render(&mut self, input: BrowserPrepared) -> Result<JsValue, JsValue> {
+        let BrowserPrepared {
+            document, prepared, ..
+        } = input;
+        let plan = prepared.plan();
         let renderer = self
             .renderer
             .as_mut()
             .ok_or_else(|| invalid("render", "Renderer is destroyed"))?;
-        let output = renderer.render(&plan).await.map_err(|error| {
+        let output = renderer.render_prepared(&prepared).await.map_err(|error| {
             let failure = engine_error("render", std::slice::from_ref(error.diagnostic()))
                 .unwrap_or_else(|e| e);
             #[derive(Serialize)]

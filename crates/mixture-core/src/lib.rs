@@ -83,5 +83,6 @@ pub use validation::{InputSource, MaterialChannel, ValidatedDocument};
 pub use compiler::{CompileError, CompileRequest, NormalizedDocument, compile, normalize};
 pub use plan::{OutputChannel, RenderPlan};
 pub use resources::{
-    ImageBinding, ImageResource, PreparedRender, ResourceLimits, ResourceSnapshot, prepare,
+    AdapterImageBinding, ImageBinding, ImageData, ImageResource, PreparedRender, ResourceLimits,
+    ResourceSnapshot, prepare, prepare_from,
 };

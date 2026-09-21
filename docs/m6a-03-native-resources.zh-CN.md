@@ -33,3 +33,5 @@ M6A-03 在 [M6A-02](./m6a-02-core-resources.zh-CN.md) 上实现[资源合同](./
 运行 `cargo xtask test-node image-input`、`shader-check`、`test-consumer`、`gpu-smoke` 和 `check`。节点执行 JSON 与四组 1K 高度／法线 RGBA 写入 `tmp/node-tests/<backend>/`；gpu-smoke 使用 `tmp/gpu-smoke/nodes/`，覆盖现有节点、Scalar、生命周期和打包消费者。CI 还保留不变的三种材质金图、2K 跟踪和浏览器检查。
 
 选定证据见 [Native 证据记录](./evidence/m6a-03/README.zh-CN.md)，普通重复日志保留于忽略目录或 CI 产物。Native 结果不认证浏览器图像执行。CLI 解码、浏览器资源 API、池化、新依赖、Studio 修改及发布均不在范围内。
+
+**后续实现：** [M6A-04](./m6a-04-browser-resources.zh-CN.md)现提供浏览器资源接口，本页保留 M6A-03 的范围。

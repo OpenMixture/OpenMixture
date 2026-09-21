@@ -46,8 +46,8 @@ export async function verifyInstalled(directory, expectedBuild, files) {
   }
 }
 
-export function assertBrowserReport(report) {
-  assert.equal(report.stats.expected, 9, 'all nine public-consumer tests must execute');
+export function assertBrowserReport(report, mode = 'registry') {
+  assert.equal(report.stats.expected, mode === 'candidate' ? 13 : 9, 'all mode-specific public-consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -77,7 +77,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache') };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: mode === 'candidate' ? '1' : '0' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
@@ -169,7 +169,7 @@ export async function qualify(mode, packageDirectory, output) {
     await npm(['exec', '--', 'playwright', 'install', ...(process.platform === 'linux' ? ['--with-deps'] : []), 'chromium']);
     await npm(['run', 'test:browser']);
     const browser = await json(join(staging, 'test-results/report.json'));
-    assertBrowserReport(browser);
+    assertBrowserReport(browser, mode);
     await verifyInstalled(staging, metadata, fileHashes);
     assert.equal(hash(await readFile(join(staging, 'package-lock.json'))), record.lockSha256);
     record.browserTests = browser.stats;

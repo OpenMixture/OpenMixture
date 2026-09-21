@@ -2,7 +2,7 @@
 
 [English](./m6a-resource-contract.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；浏览器资源参数及跨平台图像资格仍待 M6A-04／05。以下历史版本说明须按此更新理解。
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
 
 状态：根据用户要求完成 M6A-01，于 2026-09-21 选定设计并提交审查。本文件及 [ADR 0007](./decisions/0007-external-image-resources.zh-CN.md)集成后接受此有界设计，不代表已实现或验收。已发布的 `0.2.0-alpha.0` 无法消费这些资源。M6A-02 至 M6A-05 仍是后续实现与验收任务。下文名称和示例均为计划合同，不是当前可调用 API。
 
@@ -93,3 +93,7 @@
 按变更运行既有 `test-format`、`test-core`、`test-plan`、`shader-check`、`test-consumer`、`gpu-smoke`、`cargo xtask check`。`cargo xtask test-node image-input` 是需要夹具／工具注册的未来目标，本文件未实现。首次验收不需要 CLI 图像加载选项或解码器，使用公开 Rust 消费者和浏览器字节即可。缺少必需资源的 `inspect --plan` 明确失败，不制造占位内容或哈希。
 
 URL 下载、多格式解码框架、颜色／HDR 输入、任意跨度、自动重采样、空间遮罩、加法混合、`.mixpack`、缓存／去重、GPUTexture 导入、零拷贝、新 crate、Studio UI 和发布均不在范围内。下一任务是实现本合同，不是扩展通用资源系统。
+
+## M6A-05 验收范围决策 — 2026-09-21
+
+[留存验收](./evidence/m6a-05/README.zh-CN.md)明确将 M6-A 里程碑关闭限定于记录的 Linux 固定 Native SwiftShader / Chromium 软件矩阵。每个宣称验收的组合仍必须以不变的冻结输入满足最大分量差 ≤1；不承诺所有硬件。此为依据已保留 Windows 硬件失败（法线差异最高 8）作出的显式范围修订，不把该运行改判通过，也不提高容差。扩展硬件范围需要独立数值/兼容决策，并通过资源、Scalar 和材质回归。不修改现有着色器或黄金图。M6A-02–04 已实现，`cargo xtask test-node image-input` 已可用。上文原设计中的将来时保留 M6A-01 当时状态。发布、依赖 PR 集成和维护者图像批准，与机器验收及代理图像审查分别记录。

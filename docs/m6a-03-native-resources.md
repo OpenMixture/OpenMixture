@@ -33,3 +33,5 @@ Actual `allocations` adds `resourceCount`/`resourceUploadBytes` for successfully
 Run `cargo xtask test-node image-input`, `shader-check`, `test-consumer`, `gpu-smoke` and `check`. Node execution JSON and four 1K height/normal RGBA pairs go to `tmp/node-tests/<backend>/`; gpu-smoke uses `tmp/gpu-smoke/nodes/`. GPU smoke includes existing nodes, Scalar, lifecycle and packaged consumers. CI additionally retains unchanged three-material goldens, 2K trace and browser checks.
 
 Selected evidence belongs in the [Native evidence record](./evidence/m6a-03/README.md); ordinary repeated logs stay ignored or in CI artifacts. Native results do not certify browser image execution. CLI decoding, browser resource APIs, pooling, new dependencies, Studio changes and publication are out of scope.
+
+**Later implementation:** [M6A-04](./m6a-04-browser-resources.md) now supplies the browser resource interface; this page retains the M6A-03 boundary.

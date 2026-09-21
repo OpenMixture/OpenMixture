@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "mode": "registry",
+  "ok": true,
+  "startedAt": "2026-09-21T12:02:18.142Z",
+  "verifierSha256": "8f8134a0b88aa67862e6e7b34f91b30c50df80dc73990266e6e36a74dd326b27",
+  "consumerRevision": "9dae2dff21958ac117504ab968a264cd900ae4bb",
+  "consumerDirty": false,
+  "staging": "/tmp/mixture-browser-consumer-ji4cwa",
+  "platform": "linux",
+  "arch": "x64",
+  "node": "v24.20.0",
+  "run": "35596753957",
+  "attempt": "1",
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "f681afdc174c9093e8e860278cdd2c7b26c356af3a820ff1a56accdc469d9c7a",
+    "package.json": "5a0605defe32ec735f7460cba5656d424f295a08ebaecce09869bf5d11226195",
+    "playwright.config.mjs": "14ca51ad62ad9a12351b6ec37305829bde8d71d31f7254078ac6229acb327514",
+    "public/image-input.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "public/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+    "README.md": "d1140db2be165ece9af29fae1a4efd2a420d4f86ca83f3c96ae574fe8bce1a61",
+    "README.zh-CN.md": "eec6cacd61e3feded3ddfdcadba4fdc2fd4959ecb3cce255ebaf7774c35f1f55",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/resources.spec.mjs": "bcb767bab4adec3b4772b225a90068ad71867f9a93c35f64f85e6cda385dd20d",
+    "tests/sdk.spec.mjs": "dcc4eaa016dc33b922a85989e935f07f41e005b747b5ad8f1e00ca95e0314c23",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "build": {
+    "runtimeVersion": "0.2.0-alpha.0",
+    "apiSchemaVersion": 1,
+    "engineVersion": "0.2.0",
+    "engineRevision": "9cd62fe7f16fe51a43badd1d9f70267abd87f843",
+    "engineDirty": false,
+    "buildId": "sha256:2418a0770ba86d7a583cdafcafddf935e3d91ba9d9f316f7835deb3ac5137183"
+  },
+  "archiveSha256": "6d7b24f613af9444cb6d854d192749f0e46db6d846d5636e460b16c8fed72cdf",
+  "archiveIntegrity": "sha512-WUSeskztk3QEN2eIbj2GE+HYNC+9Q5QY44ivKQjJlfqadKakc+zKsDBMBnZ0Ok4uPGLHiJYo7WSa0s8ba8r/7Q==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "build-info.json": "2b243ff15b86a9e847fe37828e5dfa0467a7eb2bcc16a647d47e68f9124421c4",
+    "package.json": "1b290e5b9e7493a240e0024f05e765764ae3c1530944d288dbbb1f4cf2be95ab",
+    "README.md": "f868a07a034325e7afb40475ccc86c175de83d393106dee099659ca1826961ec",
+    "README.zh-CN.md": "e427daf0dcac6a309b9d8c30a60f0f50e5708ed09a6cb3fc934de3e66113f2aa",
+    "wasm/bindings.mjs": "68f3a9ae9e0f06ca7c4133867d9251e08292e9841cfe8f53fd06999539c44145",
+    "src/build-info.mjs": "6b8443fef9c426e223c0754133d0fefc72a5a41b0318ff27119deb617faa3c21",
+    "src/index.mjs": "19705526f3c3384a194a52d5f50514633fca0fce9f189167394b512b50e94f33",
+    "src/runtime.mjs": "8e543e010c859f785cad3558ed2c5ad5f67f9db662001dcc8915092bf649d932",
+    "src/index.d.ts": "b8ed3b66d7fa354fe27477b1ccacbdfe7caddd7883cf0c4b4d9bc59cb2e25df5",
+    "wasm/mixture_wasm_bg.wasm": "88ff76813c53ee029aa556161f578801cfc84306641c0bedec7ee39c7785754f"
+  },
+  "lockSha256": "f681afdc174c9093e8e860278cdd2c7b26c356af3a820ff1a56accdc469d9c7a",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist",
+    "--use-angle=swiftshader",
+    "--use-webgpu-adapter=swiftshader"
+  ],
+  "browserChannel": "chromium",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserTests": {
+    "startTime": "2026-09-21T12:02:25.264Z",
+    "duration": 9266.305,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "finishedAt": "2026-09-21T12:02:34.562Z"
+}

@@ -14,3 +14,5 @@ node scripts/browser-runtime/build.mjs
 ```
 
 从引擎仓库执行。构建脚本需要固定 Rust WASM target 和 wasm-bindgen CLI 0.2.128，将同一源码构建身份注入 JS、类型和 WASM。直接 Cargo 构建标记为 unpackaged，不可替代经过检查的包产物。构建不等于浏览器渲染验收：使用独立产品生产消费测试并保留实际浏览器/适配器证据。完整 M5 发布门槛仍需另行完成。
+
+M6A-04 未发布候选实现浏览器资源请求和同步 Core 快照；见[浏览器资源接口](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.zh-CN.md)。Rust `prepare_from`／`AdapterImageBinding`／`ImageData` 仅扩展同步字节适配，验证、预算和摘要仍由 Core 负责。

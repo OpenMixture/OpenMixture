@@ -66,3 +66,14 @@ test('ENG-04 native and browser hosts consume the same source fixture', async ()
   assert.deepEqual(await readFile(new URL(path,import.meta.url)),fixture);
  }
 });
+
+test('M6A-04 resource cases are required only for the new candidate and share the frozen source', async () => {
+  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
+  assertBrowserReport(report, 'candidate');
+  assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
+  assert.throws(() => assertBrowserReport(report, 'registry'));
+  const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
+  for (const path of ['../../examples/native-consumer/tests/image-input.mix','../../examples/browser-consumer/public/image-input.mix']) {
+    assert.deepEqual(await readFile(new URL(path, import.meta.url)), fixture);
+  }
+});

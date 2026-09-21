@@ -482,3 +482,63 @@ fn approved_height_fixture_prepares_both_outputs_without_a_gpu() {
         assert_eq!(result.plan().passes().len(), 4);
     }
 }
+
+#[test]
+fn adapter_capture_is_selected_bounded_and_hashed_by_core() {
+    use std::cell::Cell;
+    struct Source<'a>(&'a Cell<usize>, &'a [u8]);
+    impl ImageData for Source<'_> {
+        fn byte_len(&self) -> usize {
+            self.1.len()
+        }
+        fn copy_to(&self, target: &mut [u8]) -> Result<(), CompileError> {
+            self.0.set(self.0.get() + 1);
+            target.copy_from_slice(self.1);
+            Ok(())
+        }
+    }
+    let calls = Cell::new(0);
+    let pixels = [19; 16];
+    let input = |id| AdapterImageBinding {
+        id,
+        width: 2,
+        height: 2,
+        format: "rgba8-linear",
+        bytes_per_row: 8,
+        data: Source(&calls, &pixels),
+    };
+    let doc = document(&source());
+    let req = request();
+    for inputs in [
+        vec![input("first")],
+        vec![input("first"), input("first")],
+        vec![input("first"), input("second"), input("unknown")],
+    ] {
+        assert!(prepare_from(&doc, &req, &inputs, &Default::default()).is_err());
+        assert_eq!(calls.get(), 0);
+    }
+    let inputs = [input("first"), input("second"), input("unused")];
+    assert!(
+        prepare_from(
+            &doc,
+            &req,
+            &inputs,
+            &ResourceLimits {
+                resource_bytes: 47,
+                ..Default::default()
+            }
+        )
+        .is_err()
+    );
+    assert_eq!(calls.get(), 0);
+    let adapted = prepare_from(&doc, &req, &inputs, &Default::default()).unwrap();
+    assert_eq!(calls.get(), 2);
+    let borrowed = prepare(
+        &doc,
+        &req,
+        &[binding("first", &pixels), binding("second", &pixels)],
+        &Default::default(),
+    )
+    .unwrap();
+    assert_eq!(adapted.plan().hash(), borrowed.plan().hash());
+}

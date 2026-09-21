@@ -64,3 +64,5 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 npm Alpha 已在记录范围内发布。公开 Rust API 可通过源码／本地 Cargo 归档消费，Rust crate 仍未发布；本示例不引入 CLI 二进制分发。未来浏览器发行需要新版本和归档身份、引擎资格验证、明确发布，再进行干净环境的精确注册表消费。Studio 自行决定升级／部署节奏。版本变化时，须在经审查的变更中更新本夹具的精确包／锁及兼容预期。
 
 ENG-04 增加第九项测试：候选及精确注册表 0.2.0-alpha.0 均在 1K 下渲染四种权重的双 Scalar 夹具。0.1.0-alpha.0 拒绝新类型的历史测试证据保留在 ENG-04 记录中。候选安装仅修改暂存 runtime 版本／归档／完整性。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)及[新发行记录](../../docs/evidence/npm-020-alpha/README.zh-CN.md)。
+
+M6A-04 候选模式要求全部 13 项测试：原九项加四项资源测试，覆盖同步快照、偏移视图、非法缓冲区、生命周期及冻结 M6A-03 的 1K 图像／噪声组合。注册表 0.2.0-alpha.0 模式仍运行原九项，不跳过用例来凑通过。通过 `check-resources.mjs` 独立对照 Native，固定最大分量差 ≤1；[范围和已知硬件失败](../../docs/m6a-04-browser-resources.zh-CN.md)不能被接口通过替代。

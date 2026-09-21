@@ -75,6 +75,8 @@ jobs:
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
       - name: Compare Scalar composition across native and browser execution
         run: node scripts/browser-runtime/check-scalar.mjs tmp/sdk-candidate tmp/sdk-scalar-comparison
+      - name: Compare imported image resources across native and browser execution
+        run: node scripts/browser-runtime/check-resources.mjs tmp/sdk-candidate tmp/sdk-resource-comparison
       - name: Qualify the exact published version separately
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
@@ -141,6 +143,7 @@ jobs:
             tmp/browser-product/test-results/
             tmp/sdk-candidate/
             tmp/sdk-scalar-comparison/
+            tmp/sdk-resource-comparison/
             tmp/sdk-registry/
           retention-days: 30
           if-no-files-found: error

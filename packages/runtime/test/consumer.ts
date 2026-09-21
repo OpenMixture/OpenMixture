@@ -43,3 +43,9 @@ const passes: number = result.report.passCount;
 gpu.context = {};
 // @ts-expect-error Error diagnostics remain readonly.
 failure.diagnostics = [];
+
+module.inspect('{}', { resources: [{ id: 'heightSource', width: 2, height: 2, bytesPerRow: 8, format: 'rgba8-linear', data: new Uint8Array(16) }], resourceLimits: { resourceBytes: 16n } });
+// @ts-expect-error Resource budgets use bigint.
+module.validate('{}', { resourceLimits: { resourceCount: 8 } });
+// @ts-expect-error The public image format is explicit linear RGBA8.
+gpu.render('{}', { resources: [{ id: 'x', width: 1, height: 1, bytesPerRow: 4, format: 'rgba8-srgb', data: new Uint8Array(4) }] });

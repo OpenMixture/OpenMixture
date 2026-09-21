@@ -47,4 +47,6 @@ Set `WASM_BINDGEN` to an explicit CLI path when needed. The build requires the r
 
 The Node tests use a fake low-level binding solely for public request/lifecycle checks. A successful build or these tests do not demonstrate real WebGPU rendering, native/browser pixel equivalence, PNG export fidelity, device-loss delivery or all-browser support. Those require the independent product's served production tests and retained evidence. Node GPU/SSR rendering, an editor, resource packaging, cancellation and zero-copy textures remain unsupported.
 
-The current source candidate is unpublished 0.3.0-alpha.0/API schema 2/plan v2, including the image-input Core contract. Browser resource upload arguments are not implemented yet. Registry installation still uses the exact published version above.
+The current source candidate is unpublished 0.3.0-alpha.0/API schema 2/plan v2, including the image-input Core contract. `validate`, `inspect` and `render` accept resource arrays and explicit resource limits through M6A-04. Registry installation still uses the exact published version above.
+
+M6A-04 implements browser resource requests and synchronous Core snapshots in the unpublished candidate; see [browser resources](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.md). Rust `prepare_from`/`AdapterImageBinding`/`ImageData` add only synchronous byte adaptation; Core still owns validation, budgets and hashes.
