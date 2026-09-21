@@ -69,3 +69,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 **M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
 
 [M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and unresolved hardware failure.
+
+[Browser 0.3.0 publication evidence](./evidence/npm-030-alpha/README.md) records main integration, frozen archive, publication and exact registry consumption.

@@ -15,7 +15,7 @@ npm run build
 npm run preview
 ```
 
-打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.2.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
+打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.3.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
 
 夹具暴露 `frequency` 和 `roughness`。示例有意使用这些已知公开 ID，不复制节点目录或构建通用编辑器。`src/consumer.ts` 是简短的公开 SDK 流程。报告显示包构建身份、计划哈希、公开参数有效值和所选适配器。bigint 转字符串属于宿主显示逻辑，不是新的 Mixture 报告结构。Scalar 画布只是字节预览，不声称提供颜色管理材质预览或 PNG 导出。
 
@@ -30,7 +30,7 @@ npm run test:browser
 
 Linux CI 使用 `npx playwright install --with-deps chromium` 安装浏览器系统依赖。自动化默认使用固定 Playwright Chromium，并显式传入 `--enable-unsafe-webgpu --ignore-gpu-blocklist`。`MIXTURE_BROWSER_ARGS` 可指定额外启动参数的 JSON 数组；CI 使用既有显式 Chromium SwiftShader 策略。明确选择本地 Chrome 时设置 `MIXTURE_BROWSER_CHANNEL=chrome`（PowerShell：`$env:MIXTURE_BROWSER_CHANNEL = 'chrome'`）。不静默重试或替换浏览器通道。这些是自动化测试配置，不是普通浏览器或所有硬件资格认证。
 
-九项测试全部要求通过，不允许跳过／重试：惰性导入／无 GPU API 与打包身份、无效输入结构化诊断、精确 65×3 checker／Scalar 像素、多次渲染和销毁后的自有输出、busy／closing 生命周期、明确的 GPU 不可用错误、非根路径静态 UI 渲染，以及正常构建不含测试宿主。`test:browser` 单独生成包含验收宿主的 `test-dist`，普通 `dist` 只有示例。checker／常量的解析预期是测试判据，不是第二个材质执行器。测试使用真实 WASM 和 WebGPU，不使用模拟像素后端。
+全部 13 项测试（包括下述资源用例）要求通过，不允许跳过／重试：惰性导入／无 GPU API 与打包身份、无效输入结构化诊断、精确 65×3 checker／Scalar 像素、多次渲染和销毁后的自有输出、busy／closing 生命周期、明确的 GPU 不可用错误、非根路径静态 UI 渲染，以及正常构建不含测试宿主。`test:browser` 单独生成包含验收宿主的 `test-dist`，普通 `dist` 只有示例。checker／常量的解析预期是测试判据，不是第二个材质执行器。测试使用真实 WASM 和 WebGPU，不使用模拟像素后端。
 
 ## 候选与注册表验收
 
@@ -63,6 +63,6 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 
 npm Alpha 已在记录范围内发布。公开 Rust API 可通过源码／本地 Cargo 归档消费，Rust crate 仍未发布；本示例不引入 CLI 二进制分发。未来浏览器发行需要新版本和归档身份、引擎资格验证、明确发布，再进行干净环境的精确注册表消费。Studio 自行决定升级／部署节奏。版本变化时，须在经审查的变更中更新本夹具的精确包／锁及兼容预期。
 
-ENG-04 增加第九项测试：候选及精确注册表 0.2.0-alpha.0 均在 1K 下渲染四种权重的双 Scalar 夹具。0.1.0-alpha.0 拒绝新类型的历史测试证据保留在 ENG-04 记录中。候选安装仅修改暂存 runtime 版本／归档／完整性。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)及[新发行记录](../../docs/evidence/npm-020-alpha/README.zh-CN.md)。
+ENG-04 增加第九项测试：候选及精确注册表 0.3.0-alpha.0 均在 1K 下渲染四种权重的双 Scalar 夹具。0.1.0-alpha.0 拒绝新类型的历史测试证据保留在 ENG-04 记录中。候选安装仅修改暂存 runtime 版本／归档／完整性。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)及[新发行记录](../../docs/evidence/npm-030-alpha/README.zh-CN.md)。
 
-M6A-04 候选模式要求全部 13 项测试：原九项加四项资源测试，覆盖同步快照、偏移视图、非法缓冲区、生命周期及冻结 M6A-03 的 1K 图像／噪声组合。注册表 0.2.0-alpha.0 模式仍运行原九项，不跳过用例来凑通过。通过 `check-resources.mjs` 独立对照 Native，固定最大分量差 ≤1；[范围和已知硬件失败](../../docs/m6a-04-browser-resources.zh-CN.md)不能被接口通过替代。
+M6A-04 候选模式要求全部 13 项测试：原九项加四项资源测试，覆盖同步快照、偏移视图、非法缓冲区、生命周期及冻结 M6A-03 的 1K 图像／噪声组合。注册表 0.3.0-alpha.0 模式同样要求全部 13 项，不跳过用例来凑通过。通过 `check-resources.mjs` 独立对照 Native，固定最大分量差 ≤1；[范围和已知硬件失败](../../docs/m6a-04-browser-resources.zh-CN.md)不能被接口通过替代。

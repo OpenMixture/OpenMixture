@@ -247,3 +247,5 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 可任选 [Apache-2.0](./LICENSE-APACHE) 或 [MIT](./LICENSE-MIT) 许可证使用。当前 pre-alpha 软件包保持 `publish = false`；发布需单独决定。
 
 [M6A-04 浏览器公开资源接口](./docs/m6a-04-browser-resources.zh-CN.md)在未发布候选中接通图像请求、同步快照和同源 Native／浏览器像素对照。
+
+**2026-09-22：** `@openmixture/runtime@0.3.0-alpha.0` 已发布，包含外部图像资源、API schema 2 和计划 v2。安装精确版本；[发行及迁移说明](./docs/evidence/npm-030-alpha/README.zh-CN.md)保留有限软件矩阵验收和未解决 Windows 硬件法线精度限制。Rust crate 仍未发布。

@@ -4,7 +4,7 @@
 
 **当前状态（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
-**M6A-05 验收，2026-09-21：** [留存验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。0.3.0 Rust 源码 / 0.3.0-alpha.0、API schema 2 浏览器候选均未发布。实现 PR 集成和发布仍是独立动作。
+**M6A-05 验收，2026-09-21：** [留存验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。随后已集成 main 并[发布浏览器 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.zh-CN.md)，Rust crate 仍未发布。
 
 本页负责当前引擎优先级。[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付、支持限制及缺陷交接。[INITIAL_PRS](./INITIAL_PRS.zh-CN.md)、[M4_PRS](./M4_PRS.zh-CN.md) 和 [M5_PRS](./M5_PRS.zh-CN.md)保留历史实施计划，其中当时的下一步不再作为当前执行指令。
 
@@ -16,8 +16,8 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 
 | 规划状态 | 当前内容 |
 |---|---|
-| 当前可用基线 | `@openmixture/runtime@0.2.0-alpha.0` 已发布，包含独立浏览器 SDK 入口和 `scalar-blend@1`；Rust 源码版本为 `0.2.0`，crate 尚未发布。`.mix v1` 与 API schema 1 保持不变。 |
-| 下一决策 | M6-A 实现与有界验收已在功能分支栈完成；按必需检查集成依赖 PR，再独立决定发布。硬件数值维护保留为明确未解决候选；不自动启动 M6-B。 |
+| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。Rust 0.3.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
+| 下一决策 | M6-A 已集成 main 并发布浏览器 Alpha。硬件数值维护仍是明确未解决候选，M6-B 不自动启动；独立决定下一有界增量。 |
 | 当前验收 | [M6A-05 证据](./docs/evidence/m6a-05/README.zh-CN.md)绑定软件矩阵、归档、六项检查、受审查像素及未解决硬件失败。 |
 | 条件式候选 | M6-B 打包、原生分发、图复用和 GPU 互操作分别按明确问题决定。性能与数值维护由测量或回归驱动，不构成必须串行完成的功能链。 |
 

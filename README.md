@@ -247,3 +247,5 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 Licensed under either [Apache-2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT), at your option. Current pre-alpha packages retain `publish = false`; publication requires a separate release decision.
 
 [M6A-04 browser resource APIs](./docs/m6a-04-browser-resources.md) connect image requests, synchronous snapshots and same-source Native/browser pixel comparison in the unpublished candidate.
+
+**2026-09-22:** `@openmixture/runtime@0.3.0-alpha.0` is published with external image resources, API schema 2 and plan v2. Install the exact version; [release/migration notes](./docs/evidence/npm-030-alpha/README.md) retain bounded software qualification and the unresolved Windows hardware normal-precision limit. Rust crates remain unpublished.

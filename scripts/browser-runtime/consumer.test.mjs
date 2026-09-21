@@ -7,10 +7,10 @@ import { assertBrowserReport, candidateManifests, safePackagePath, verifyInstall
 import { hash } from './candidate.mjs';
 
 test('candidate substitution preserves the frozen dependency graph and does not accept floating versions', () => {
-  const manifest = { dependencies: { '@openmixture/runtime': '0.2.0-alpha.0' } };
+  const manifest = { dependencies: { '@openmixture/runtime': '0.3.0-alpha.0' } };
   const lock = { lockfileVersion: 3, packages: {
     '': structuredClone(manifest),
-    'node_modules/@openmixture/runtime': { version: '0.2.0-alpha.0', resolved: 'https://registry.npmjs.org/runtime.tgz', integrity: 'old' },
+    'node_modules/@openmixture/runtime': { version: '0.3.0-alpha.0', resolved: 'https://registry.npmjs.org/runtime.tgz', integrity: 'old' },
     'node_modules/vite': { version: '8.3.0', integrity: 'unchanged' },
   } };
   const result = candidateManifests(manifest, lock, '0.3.0-alpha.0', Buffer.from('candidate'));
@@ -18,7 +18,7 @@ test('candidate substitution preserves the frozen dependency graph and does not 
   assert.equal(result.lock.packages['node_modules/@openmixture/runtime'].resolved, 'file:vendor/runtime.tgz');
   assert.match(result.lock.packages['node_modules/@openmixture/runtime'].integrity, /^sha512-/);
   assert.deepEqual(result.lock.packages['node_modules/vite'], lock.packages['node_modules/vite']);
-  assert.equal(manifest.dependencies['@openmixture/runtime'], '0.2.0-alpha.0');
+  assert.equal(manifest.dependencies['@openmixture/runtime'], '0.3.0-alpha.0');
   assert.throws(() => candidateManifests({ dependencies: { '@openmixture/runtime': '^0.1.0' } }, lock, '0.3.0-alpha.0', Buffer.from('candidate')));
 });
 
@@ -30,7 +30,7 @@ test('archive paths cannot escape the installed package', () => {
 });
 
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
-  const report = { stats: { expected: 9, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
+  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
@@ -67,11 +67,12 @@ test('ENG-04 native and browser hosts consume the same source fixture', async ()
  }
 });
 
-test('M6A-04 resource cases are required only for the new candidate and share the frozen source', async () => {
+test('published M6A resource cases are required in both modes and share the frozen source', async () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report, 'candidate');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
-  assert.throws(() => assertBrowserReport(report, 'registry'));
+  assertBrowserReport(report, 'registry');
+  assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));
   const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
   for (const path of ['../../examples/native-consumer/tests/image-input.mix','../../examples/browser-consumer/public/image-input.mix']) {
     assert.deepEqual(await readFile(new URL(path, import.meta.url)), fixture);

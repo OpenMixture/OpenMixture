@@ -18,7 +18,7 @@ const archiveFile = (archive, file) => execFileSync('tar', ['-xOf', archive, `pa
 const integrity = bytes => `sha512-${createHash('sha512').update(bytes).digest('base64')}`;
 
 export function candidateManifests(manifest, lock, version, bytes) {
-  const published = '0.2.0-alpha.0';
+  const published = '0.3.0-alpha.0';
   assert.equal(version, '0.3.0-alpha.0', 'review the candidate compatibility contract before upgrading');
   assert.equal(manifest.dependencies['@openmixture/runtime'], published, 'example must pin the exact published version');
   assert.equal(lock.lockfileVersion, 3);
@@ -47,7 +47,8 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 }
 
 export function assertBrowserReport(report, mode = 'registry') {
-  assert.equal(report.stats.expected, mode === 'candidate' ? 13 : 9, 'all mode-specific public-consumer tests must execute');
+  assert.ok(['candidate', 'registry'].includes(mode));
+  assert.equal(report.stats.expected, 13, 'all public resource-consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -77,7 +78,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: mode === 'candidate' ? '1' : '0' };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
