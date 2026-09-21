@@ -122,6 +122,14 @@ pub(super) fn gpu(
         &directory,
         "scalar-blend",
     )?;
+    captured(
+        compile_command(root, "test")
+            .args(["--test", "resources", "--", "--ignored", "--nocapture"])
+            .env("MIXTURE_GPU_BACKEND", backend)
+            .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" }),
+        &directory,
+        "resources",
+    )?;
     captured(&mut compile_command(root, "build"), &directory, "build")?;
     let mut command = binary(root);
     command.args([

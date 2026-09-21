@@ -6,7 +6,7 @@ struct Params { reserved: vec4<u32>, }
 @compute @workgroup_size(8, 8, 1)
 fn image_input(@builtin(global_invocation_id) id: vec3<u32>) {
     let size = textureDimensions(output_texture);
-    if id.x >= size.x || id.y >= size.y { return; }
+    if params.reserved.x != 0u || id.x >= size.x || id.y >= size.y { return; }
     let value = textureLoad(input_texture, vec2<i32>(id.xy), 0).r;
     textureStore(output_texture, vec2<i32>(id.xy), mixture_half4(vec4<f32>(value, 0.0, 0.0, 1.0)));
 }

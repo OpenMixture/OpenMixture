@@ -16,4 +16,4 @@ Browser submission and readback await queue/map callbacks and balanced asynchron
 
 Compile this executor with `cargo check --locked -p mixture-wgpu --target wasm32-unknown-unknown` after installing that Rust target. This only verifies compilation; actual browser rendering, odd-width readback, result lifetime and device-loss tests belong to the independent consumer and M5 evidence. See the repository [browser SDK contract](https://github.com/OpenMixture/OpenMixture/blob/main/docs/browser-sdk.md) for the current implemented boundary and remaining gates.
 
-M6A-02 adds Core image preparation and plan v2. GPU image execution is not available until the M6A-03 upload path. See the [implementation boundary](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-02-core-resources.md).
+M6A-02 adds Core image preparation and plan v2. M6A-03 adds `Renderer::render_prepared(&PreparedRender)` for Native image uploads and execution. See the [implementation boundary](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-02-core-resources.md).

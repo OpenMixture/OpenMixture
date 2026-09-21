@@ -2,7 +2,7 @@
 
 [English](./native-sdk.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；浏览器资源参数及跨平台图像资格仍待 M6A-04／05。以下历史版本说明须按此更新理解。
 
 PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，PR-014 添加[消费者自有新鲜度处理](./stale-results.zh-CN.md)，PR-015 验证[真实本地软件包消费](./package-consumption.zh-CN.md)。见 [M4 退出／发布评估](./release.zh-CN.md)。
 
@@ -16,6 +16,7 @@ PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证�
 | 选择参数、尺寸及通道 | `CompileRequest`、`compile(&validated, &request)` 返回不可变 `RenderPlan` 或 `CompileError`。覆盖影响编译，不修改源文档。 |
 | 获取请求设备 | `GpuContext::request(options).await` 拥有自己的 instance／adapter／device／queue，并返回请求／实际上下文结构化证据。 |
 | 渲染 | `Renderer::new(context)` 消费上下文；`render(&plan).await` 返回自有 `RenderOutput` 或 `GpuOperationError`。 |
+| 渲染捕获图像 | `prepare` 同步捕获调用方字节；`render_prepared(&prepared).await` 使用不可变配对，不保留输入快照。见 [M6A-03](./m6a-03-native-resources.zh-CN.md)。 |
 | 消费数据及报告 | `channels()`、`pixels()`、`report()` 借用结果拥有的 CPU 数据，其生命周期可长于 renderer／context。 |
 
 Core 也公开 `BUILT_INS`、`node_contract`、节点／端口／参数类型和版本化默认值。消费者无需第二套目录、解析器、编译器或像素实现。[Core Rustdoc](../crates/mixture-core/src/lib.rs)现使用完整内联源示例，替代仓库相对文件，并准确描述十一种契约及已实现的验证／编译。

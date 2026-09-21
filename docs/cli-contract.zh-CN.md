@@ -2,7 +2,7 @@
 
 [English](./cli-contract.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；浏览器资源参数及跨平台图像资格仍待 M6A-04／05。以下历史版本说明须按此更新理解。
 
 PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_contract.rs)消费已构建的 `mixture` 可执行文件，使用自有输入及输出目录。它修复人类可读诊断上下文，记录现有 JSON 和退出行为，不引入 schema 版本、不改变像素语义，也不完成其余 [M4 工作](../M4_PRS.zh-CN.md)。
 

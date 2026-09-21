@@ -2,7 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; browser resource arguments and cross-platform image qualification remain M6A-04/05. Read historical version descriptions below in that context.
 
 PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
 
@@ -15,6 +15,7 @@ PR-011 verifies the existing public Rust path with an [independent application](
 | Select parameters, size and channels | `CompileRequest`, `compile(&validated, &request)` return an immutable `RenderPlan` or `CompileError`. Overrides affect compilation, not the source document. |
 | Acquire the requested device | `GpuContext::request(options).await` owns its instance/adapter/device/queue and returns structured requested/actual context evidence. |
 | Render | `Renderer::new(context)` consumes the context; `render(&plan).await` returns owned `RenderOutput` or `GpuOperationError`. |
+| Render captured images | `prepare` captures caller bytes synchronously; `render_prepared(&prepared).await` consumes that immutable pairing without retaining input snapshots. See [M6A-03](./m6a-03-native-resources.md). |
 | Consume data and reports | `channels()`, `pixels()` and `report()` borrow CPU-owned data from the result, which outlives the renderer/context. |
 | Inspect GPU failure | `GpuOperationError::reason()`, `device_loss()`, `adapter()` and `allocations()` retain the primary classification, delivered loss, selected adapter and cleanup evidence. |
 

@@ -719,3 +719,11 @@ fn node_scalar_blend_gpu() {
         .unwrap();
     }
 }
+
+#[path = "support/image_probe.rs"]
+mod image_probe;
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node image-input"]
+fn node_image_input_gpu() {
+    image_probe::run();
+}

@@ -2,6 +2,8 @@
 
 English | [简体中文](./m6a-02-core-resources.zh-CN.md)
 
+**Later implementation:** [M6A-03](./m6a-03-native-resources.md) now supplies the Native upload path. This page retains the M6A-02 implementation boundary.
+
 M6A-02 implements the Core portion of the [accepted resource contract](./m6a-resource-contract.md). It adds `image-input@1`, `resourceRef`, `ImageBinding`, separate `ResourceLimits`, immutable `ResourceSnapshot` and opaque `PreparedRender`. It does not complete the image node's GPU/browser vertical slice: native upload/execution remains M6A-03 and browser resource requests remain M6A-04. No new image pixels or package publication are accepted here.
 
 ## Public preparation
@@ -28,7 +30,7 @@ Ordinary `compile` uses an empty resource set: selected image nodes return `MIX_
 
 All plans now have version 2, hash prefix `mixture-render-plan-v2\0`, a lexical `imageResources` identity table and four explicit resource estimate fields. Content digests bind the captured domain/dimensions/all RGBA bytes per the contract. Executable v1 hash expectations are replaced by separately named v2 snapshots; original v1 JSON files remain unchanged historical records. Existing procedural kernels and material golden pixels are unchanged.
 
-Rust workspace packages are 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0, API schema 2. CLI inspect and graph-render report schemas are 2, while validate, doctor and fixed-checker envelopes retain their existing versions. Type declarations expose `resourceRef`, plan image identities and bigint resource estimates; browser upload arguments are deliberately not exposed yet. The standalone registry consumer continues to install exact published 0.2.0-alpha.0. Candidate qualification explicitly updates the pinned disposable host's catalog expectation to thirteen its package-version expectation to 0.3.0-alpha.0 and its exact estimate-type expectation with four bigint resource fields, retaining original/adapted test hashes and all other checks. This does not edit Studio or accept candidate resource execution.
+Rust workspace packages are 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0, API schema 2. CLI inspect and graph-render report schemas are 2, while validate, doctor and fixed-checker envelopes retain their existing versions. Type declarations expose `resourceRef`, plan image identities and bigint resource estimates; browser upload arguments are deliberately not exposed yet. The standalone registry consumer continues to install exact published 0.2.0-alpha.0. Candidate qualification explicitly updates the pinned disposable host's catalog expectation to thirteen, its package-version expectation to 0.3.0-alpha.0 and its exact estimate-type expectation with four bigint resource fields, retaining original/adapted test hashes and all other checks. This does not edit Studio or accept candidate resource execution.
 
 The exhaustive kernel mapping includes one image WGSL source with integer R sampling and the existing half-float store convention. Shader parsing/ABI checks cover it. Until M6A-03 supplies prepared-resource execution, the executor rejects image invocations before GPU allocation, pipeline lookup or submission, retaining structured resource and adapter evidence. This guard is not a fallback and must not be removed without implementing the upload path and its acceptance gates.
 

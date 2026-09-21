@@ -2,7 +2,7 @@
 
 English | [简体中文](./render-plan.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; browser resource arguments and cross-platform image qualification remain M6A-04/05. Read historical version descriptions below in that context.
 
 PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. PR-007 [graph execution](./graph-rendering.md) implements the exhaustive WGSL mapping. The fixed checker pixels remain unchanged; its shared 48-byte uniform is documented there.
 

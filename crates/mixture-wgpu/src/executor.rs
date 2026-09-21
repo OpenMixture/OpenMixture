@@ -7,7 +7,7 @@ use crate::{
     resources::{self, Resources},
 };
 use mixture_core::{
-    InputSource, OutputChannel, RenderPlan, Stage,
+    InputSource, OutputChannel, PreparedRender, RenderPlan, ResourceSnapshot, Stage,
     plan::{KernelInvocation, PLAN_VERSION, PlanEstimates, PlanHash},
     registry::PortKind,
 };
@@ -132,6 +132,26 @@ impl Renderer {
     /// Consumers needing a responsive event loop should own the renderer on their
     /// explicitly managed worker. This method does not promise cancellation.
     pub async fn render(&mut self, plan: &RenderPlan) -> Result<RenderOutput, GpuOperationError> {
+        let kernels: Vec<_> = plan.passes().iter().map(|p| &p.kernel).collect();
+        require_resource_free(&kernels)
+            .map_err(|error| error.in_context(&self.context).in_plan(plan))?;
+        self.render_inner(plan, &[]).await
+    }
+    /// Execute Core's immutable plan/snapshot pairing. Each selected image is uploaded
+    /// once per call; retaining the prepared request retains only its CPU snapshots.
+    /// Outputs own their pixels independently of the request and renderer.
+    pub async fn render_prepared(
+        &mut self,
+        prepared: &PreparedRender,
+    ) -> Result<RenderOutput, GpuOperationError> {
+        self.render_inner(prepared.plan(), prepared.resources())
+            .await
+    }
+    async fn render_inner(
+        &mut self,
+        plan: &RenderPlan,
+        snapshots: &[ResourceSnapshot],
+    ) -> Result<RenderOutput, GpuOperationError> {
         if plan.version() != PLAN_VERSION {
             return Err(GpuOperationError::at(
                 Stage::GpuExecution,
@@ -144,12 +164,13 @@ impl Renderer {
             .iter()
             .map(|o| (o.resource.index() as usize, o.kind))
             .collect();
-        let result = execute(
+        let result = execute_prepared(
             &self.context,
             &mut self.cache,
             plan.size(),
             &kernels,
             &mappings,
+            snapshots,
         )
         .await
         .map_err(|error| error.in_plan(plan))?;
@@ -195,10 +216,13 @@ fn require_resource_free(kernels: &[&KernelInvocation]) -> Result<(), GpuOperati
         _ => None,
     }) {
         return Err(mixture_core::Diagnostic::error(
-            mixture_core::DiagnosticCode::ResourceMissing, Stage::Compile,
-            "Image plans require a prepared-resource execution entry point; upload is not implemented in M6A-02.",
-        ).with_evidence("resourceId", resource_id.as_str())
-            .with_suggestion("Use resource-free plans until the M6A-03 resource upload executor is available.").into());
+            mixture_core::DiagnosticCode::ResourceMissing,
+            Stage::Compile,
+            "Image plans require their immutable prepared resources.",
+        )
+        .with_evidence("resourceId", resource_id.as_str())
+        .with_suggestion("Call Renderer::render_prepared with the Core prepared request.")
+        .into());
     }
     Ok(())
 }
@@ -210,9 +234,17 @@ pub(crate) async fn execute(
     kernels: &[&KernelInvocation],
     outputs: &[(usize, PortKind)],
 ) -> Result<Executed, GpuOperationError> {
-    // M6A-02 admits content-bound Core plans, but resource upload is M6A-03.
-    // Reject before any pipeline creation, allocation, submission or cache mutation.
     require_resource_free(kernels).map_err(|error| error.in_context(context))?;
+    execute_prepared(context, cache, size, kernels, outputs, &[]).await
+}
+async fn execute_prepared(
+    context: &GpuContext,
+    cache: &mut PipelineCache,
+    size: [u32; 2],
+    kernels: &[&KernelInvocation],
+    outputs: &[(usize, PortKind)],
+    snapshots: &[ResourceSnapshot],
+) -> Result<Executed, GpuOperationError> {
     let total = Instant::now();
     let mut resources = Resources::default();
     let result = async {
@@ -252,6 +284,13 @@ pub(crate) async fn execute(
             )
         })?;
         context.ensure_available(Stage::GpuExecution)?;
+        for snapshot in snapshots {
+            resources.upload(context, snapshot).await.map_err(|error| {
+                error
+                    .evidence("operation", "resourceUpload")
+                    .evidence("resourceId", snapshot.image().id.as_str())
+            })?;
+        }
         let pipeline_started = Instant::now();
         let mut cache_report = PipelineCacheReport {
             entries: cache.len(),
@@ -375,7 +414,75 @@ mod allocation_tests {
     use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};
 
     #[test]
-    fn image_plan_is_rejected_before_gpu_work_until_prepared_upload_exists() {
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn image_gpu_partial_readback_failure_releases_uploads_and_allows_retry() {
+        let source = br#"{"version":1,"nodes":[
+            {"id":"c","type":"constant-color","version":1},
+            {"id":"i","type":"image-input","version":1,"parameters":{"resourceId":"pixels"}},
+            {"id":"o","type":"material-output","version":1}],"edges":[
+            {"from":{"nodeId":"c","portId":"color"},"to":{"nodeId":"o","portId":"baseColor"}},
+            {"from":{"nodeId":"i","portId":"value"},"to":{"nodeId":"o","portId":"height"}}]}"#;
+        let doc = MaterialDocument::decode(source, &SafetyLimits::default())
+            .unwrap()
+            .into_validated(&SafetyLimits::default())
+            .unwrap();
+        let pixels = [64, 0, 255, 0].repeat(65 * 3);
+        let prepared = mixture_core::prepare(
+            &doc,
+            &CompileRequest {
+                size: [65, 3],
+                outputs: vec![OutputChannel::Height],
+                ..Default::default()
+            },
+            &[mixture_core::ImageBinding {
+                id: "pixels",
+                width: 65,
+                height: 3,
+                format: "rgba8-linear",
+                bytes_per_row: 260,
+                data: &pixels,
+            }],
+            &mixture_core::ResourceLimits::default(),
+        )
+        .unwrap();
+        let context =
+            pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+        let mut cache = PipelineCache::default();
+        let kernels: Vec<_> = prepared.plan().passes().iter().map(|p| &p.kernel).collect();
+        for _ in 0..3 {
+            let error = pollster::block_on(execute_prepared(
+                &context,
+                &mut cache,
+                [65, 3],
+                &kernels,
+                &[(0, PortKind::Scalar), (usize::MAX, PortKind::Scalar)],
+                prepared.resources(),
+            ))
+            .err()
+            .unwrap();
+            assert_eq!(error.diagnostic().message, "Output resource is missing.");
+            let allocations = error.allocations().unwrap();
+            assert_eq!(allocations.resource_count, 1);
+            assert_eq!(allocations.resource_staging_bytes, 1536);
+            assert_eq!(allocations.live_bytes, 0);
+            assert_eq!(allocations.released_bytes, allocations.cumulative_bytes);
+            let output = pollster::block_on(execute_prepared(
+                &context,
+                &mut cache,
+                [65, 3],
+                &kernels,
+                &[(0, PortKind::Scalar)],
+                prepared.resources(),
+            ))
+            .unwrap();
+            assert_eq!(output.pixels[0], [64, 64, 64, 255].repeat(65 * 3));
+            assert_eq!(output.allocations.live_bytes, 0);
+            assert_eq!(output.cache.entries, 1);
+        }
+    }
+
+    #[test]
+    fn plain_image_plan_is_rejected_before_gpu_work() {
         let image = KernelInvocation::ImageInput {
             resource_id: "heightSource".into(),
         };

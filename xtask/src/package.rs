@@ -580,6 +580,29 @@ fn verify(
     )?)?;
     validate_resolution(&metadata, lab, version)?;
     let target = root.join("target/package-consumer");
+    // Archives preserve old mtimes. A shared target can otherwise reuse a prior
+    // local crate at the same version despite different extracted source bytes.
+    // Rebuild the four local packages, retaining only external dependency caches.
+    capture(
+        cargo(lab)
+            .args([
+                "clean",
+                "--offline",
+                "--locked",
+                "-p",
+                APP,
+                "-p",
+                "mixture-core",
+                "-p",
+                "mixture-wgpu",
+                "-p",
+                "mixture-cli",
+                "--target-dir",
+            ])
+            .arg(&target),
+        directory,
+        "clean-local-packages",
+    )?;
     capture(&mut command(lab, &target, "build"), directory, "build")?;
     capture(&mut command(lab, &target, "test"), directory, "tests")?;
     let mut doc = command(lab, &target, "doc");
@@ -657,6 +680,24 @@ fn verify(
         consumer::validate_gpu(&gpu)?;
         gpu_smoke::validate_adapter(&gpu["context"], backend, software, expected)?;
         cli_contract(lab, &target, &cli, directory, true, policy)?;
+        capture(
+            cargo(lab)
+                .args([
+                    "test",
+                    "--offline",
+                    "--locked",
+                    "--all-features",
+                    "-p",
+                    APP,
+                    "--target-dir",
+                ])
+                .arg(&target)
+                .args(["--test", "resources", "--", "--ignored", "--nocapture"])
+                .env("MIXTURE_GPU_BACKEND", backend)
+                .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" }),
+            directory,
+            "resource-gpu-tests",
+        )?;
     }
     if source_snapshot(root)? != before {
         return Err("producer source changed during package verification".into());

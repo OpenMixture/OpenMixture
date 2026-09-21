@@ -11,9 +11,17 @@ use serde::Serialize;
 #[derive(Clone, Debug, Default, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AllocationReport {
-    /// Number of created rgba16float pass textures.
+    /// Unique image IDs successfully submitted for upload in this call.
+    pub resource_count: u64,
+    /// Packed RGBA8 bytes successfully submitted, excluding row padding.
+    pub resource_upload_bytes: u64,
+    /// Uploaded image texture descriptors; included in texture_bytes.
+    pub resource_texture_bytes: u64,
+    /// Upload staging descriptors; included in staging_bytes.
+    pub resource_staging_bytes: u64,
+    /// Number of created pass and uploaded image textures.
     pub texture_count: u64,
-    /// Sum of created pass texture descriptor bytes, at eight bytes per pixel.
+    /// Sum of pass (eight bytes/pixel) and image (four bytes/pixel) descriptors.
     pub texture_bytes: u64,
     /// Number of created typed parameter buffers.
     pub uniform_count: u64,
@@ -21,7 +29,7 @@ pub struct AllocationReport {
     pub uniform_bytes: u64,
     /// Number of created staging buffers, including separate aliased readbacks.
     pub staging_count: u64,
-    /// Sum of created staging buffer descriptor sizes across all readbacks.
+    /// Sum of created staging buffer descriptor sizes across uploads and readbacks.
     pub staging_bytes: u64,
     /// Maximum simultaneously live staging descriptor bytes.
     pub peak_staging_bytes: u64,
@@ -37,7 +45,7 @@ pub struct AllocationReport {
     pub reused_bytes: u64,
 }
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 pub(crate) struct Allocations {
     report: AllocationReport,
     live_staging_bytes: u64,
@@ -63,6 +71,31 @@ impl Allocations {
         Ok(())
     }
 
+    pub fn image(&mut self, texture: u64, staging: u64) -> Result<(), GpuOperationError> {
+        let mut next = self.clone();
+        let stage = Stage::GpuExecution;
+        next.staging(staging)?;
+        next.allocate(texture, stage)?;
+        next.report.texture_count = add(next.report.texture_count, 1, stage)?;
+        next.report.texture_bytes = add(next.report.texture_bytes, texture, stage)?;
+        next.report.resource_texture_bytes =
+            add(next.report.resource_texture_bytes, texture, stage)?;
+        next.report.resource_staging_bytes =
+            add(next.report.resource_staging_bytes, staging, stage)?;
+        *self = next;
+        Ok(())
+    }
+    pub fn uploaded(&mut self, packed: u64) -> Result<(), GpuOperationError> {
+        let count = add(self.report.resource_count, 1, Stage::GpuExecution)?;
+        let bytes = add(
+            self.report.resource_upload_bytes,
+            packed,
+            Stage::GpuExecution,
+        )?;
+        self.report.resource_count = count;
+        self.report.resource_upload_bytes = bytes;
+        Ok(())
+    }
     pub fn staging(&mut self, bytes: u64) -> Result<(), GpuOperationError> {
         let stage = Stage::Readback;
         let count = add(self.report.staging_count, 1, stage)?;
@@ -125,8 +158,28 @@ mod tests {
         let error = allocations.staging(u64::MAX).unwrap_err();
         assert_eq!(error.diagnostic().stage, Stage::Readback);
         assert_eq!(allocations.report(), before);
+        assert!(allocations.image(u64::MAX, 1536).is_err());
+        assert_eq!(allocations.report(), before);
         allocations.release_passes();
         assert_eq!(allocations.report().live_bytes, 0);
         assert_eq!(allocations.report().released_bytes, 80);
+    }
+
+    #[test]
+    fn image_descriptors_and_upload_counts_are_distinct_and_release_once() {
+        let mut allocations = Allocations::default();
+        allocations.image(780, 1536).unwrap();
+        assert_eq!(allocations.report().resource_count, 0);
+        allocations.uploaded(780).unwrap();
+        let report = allocations.report();
+        assert_eq!(report.resource_count, 1);
+        assert_eq!(report.resource_upload_bytes, 780);
+        assert_eq!(report.texture_bytes, report.resource_texture_bytes);
+        assert_eq!(report.staging_bytes, report.resource_staging_bytes);
+        assert_eq!(report.cumulative_bytes, 2316);
+        allocations.release_staging(1536);
+        allocations.release_passes();
+        assert_eq!(allocations.report().released_bytes, 2316);
+        assert_eq!(allocations.report().live_bytes, 0);
     }
 }
