@@ -65,22 +65,22 @@ fn reviewed_plan_and_hash_snapshots() {
         (
             CHECKER,
             vec![Channel::BaseColor],
-            include_str!("snapshots/plan-checker.json"),
+            include_str!("snapshots/plan-v2-checker.json"),
         ),
         (
             CHECKER,
             Channel::ALL.to_vec(),
-            include_str!("snapshots/plan-defaults.json"),
+            include_str!("snapshots/plan-v2-defaults.json"),
         ),
         (
             ALL,
             vec![Channel::BaseColor, Channel::Roughness],
-            include_str!("snapshots/plan-all-m2.json"),
+            include_str!("snapshots/plan-v2-all-m2.json"),
         ),
         (
             ALL,
             vec![Channel::Roughness],
-            include_str!("snapshots/plan-sliced.json"),
+            include_str!("snapshots/plan-v2-sliced.json"),
         ),
     ] {
         let plan = compile(&document(source), &request(&outputs)).unwrap();
@@ -89,7 +89,7 @@ fn reviewed_plan_and_hash_snapshots() {
             expected
         );
         let hash_input = plan.hash_input().unwrap();
-        assert!(hash_input.starts_with(b"mixture-render-plan-v1\0"));
+        assert!(hash_input.starts_with(b"mixture-render-plan-v2\0"));
         let digest = Sha256::digest(hash_input);
         let hex: String = digest.iter().map(|b| format!("{b:02x}")).collect();
         assert_eq!(plan.hash().as_str(), format!("sha256:{hex}"));

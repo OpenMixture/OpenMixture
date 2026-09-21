@@ -736,3 +736,5 @@ ENG-04 adds scalar-blend v1: twelve node types map to ten WGSL kernels. Renderer
 ## M6A-01 selected resource design — not implemented
 
 [ADR 0007](./docs/decisions/0007-external-image-resources.md) and the [minimal resource contract](./docs/m6a-resource-contract.md) select logical resource references inside existing node parameters, caller-owned linear RGBA8 input, Core-owned immutable capture/content identity and wgpu-owned upload/lifetime. Integration accepts the design; runtime implementation remains pending. This narrowly extends ADR 0003's resource-reference exclusion without adding embedded resources or changing the sole pixel executor. The implementation will introduce image-input v1, plan/hash v2 and API schema 2; existing architecture descriptions above remain the implemented baseline until their owning implementation changes land.
+
+M6A-02 implements Core resource semantics and plan v2; native uploads and image-pixel qualification remain pending. See the [Core implementation](./docs/m6a-02-core-resources.md). Existing twelve-node pixel semantics remain unchanged; image-input is the thirteenth Core contract, not a completed GPU vertical slice.

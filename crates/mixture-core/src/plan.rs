@@ -6,9 +6,9 @@ use sha2::{Digest, Sha256};
 use std::{fmt, str::FromStr};
 
 /// Version of the plan structure, lowering rules, memory model, and hash encoding.
-pub const PLAN_VERSION: u32 = 1;
+pub const PLAN_VERSION: u32 = 2;
 /// Domain separator prepended to canonical compact plan JSON when hashing.
-pub const PLAN_HASH_DOMAIN: &[u8] = b"mixture-render-plan-v1\0";
+pub const PLAN_HASH_DOMAIN: &[u8] = b"mixture-render-plan-v2\0";
 
 /// Material channel request in stable material-contract order.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize)]
@@ -92,7 +92,7 @@ impl ResourceId {
     }
 }
 
-/// One portable intermediate storage format in plan version 1.
+/// One portable intermediate storage format in plan version 2.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 pub enum TextureFormat {
     /// Eight bytes per pixel, one mip, one layer, two-dimensional storage.
@@ -143,6 +143,8 @@ pub enum PassOrigin {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum KernelId {
+    /// Read caller-supplied linear RGBA8 red into a Scalar intermediate.
+    ImageInput,
     /// Shared uniform constant kernel for scalar, color, and default normal data.
     Constant,
     /// Two-color checker.
@@ -189,6 +191,11 @@ pub enum BlendMode {
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(tag = "id", rename_all = "camelCase", rename_all_fields = "camelCase")]
 pub enum KernelInvocation {
+    /// Immutable content identity is recorded in the plan resource table.
+    ImageInput {
+        /// Logical caller resource ID, resolved by Core preparation.
+        resource_id: String,
+    },
     /// Uniform RGBA storage value. Scalars use [value, 0, 0, 1]; normals use [xyz, 1].
     Constant {
         /// Packed uniform value.
@@ -294,6 +301,7 @@ impl KernelInvocation {
     /// Exhaustive kernel identity; parameter variants cannot disagree with this ID.
     pub fn id(&self) -> KernelId {
         match self {
+            Self::ImageInput { .. } => KernelId::ImageInput,
             Self::Constant { .. } => KernelId::Constant,
             Self::Checker { .. } => KernelId::Checker,
             Self::Levels { .. } => KernelId::Levels,
@@ -309,9 +317,10 @@ impl KernelInvocation {
     /// Logical input resources in binding order. Repeated bindings are preserved.
     pub fn inputs(&self) -> impl Iterator<Item = ResourceId> {
         match self {
-            Self::Constant { .. } | Self::Checker { .. } | Self::FractalNoise { .. } => {
-                [None, None, None]
-            }
+            Self::ImageInput { .. }
+            | Self::Constant { .. }
+            | Self::Checker { .. }
+            | Self::FractalNoise { .. } => [None, None, None],
             Self::Levels { input, .. }
             | Self::GradientMap { input, .. }
             | Self::HeightToNormal { input, .. }
@@ -327,10 +336,11 @@ impl KernelInvocation {
         .into_iter()
         .flatten()
     }
-    /// Uniform allocation assumed by plan version 1, including struct padding.
+    /// Uniform allocation assumed by plan version 2, including struct padding.
     pub fn uniform_bytes(&self) -> u64 {
         match self {
-            Self::Constant { .. }
+            Self::ImageInput { .. }
+            | Self::Constant { .. }
             | Self::ScalarBlend { .. }
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
@@ -378,6 +388,14 @@ pub struct PlanOutput {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PlanEstimates {
+    /// Unique selected external images, independent of node reference count.
+    pub resource_count: u64,
+    /// Packed bytes uploaded for selected external images.
+    pub resource_upload_bytes: u64,
+    /// External rgba8unorm texture descriptor bytes, separate from pass textures.
+    pub resource_texture_bytes: u64,
+    /// Conservative 256-byte-row-aligned upload staging bytes.
+    pub resource_staging_bytes: u64,
     /// Sum of all logical pass textures, also the peak resident texture bytes.
     pub texture_bytes: u64,
     /// Sum of all padded uniform allocations.
@@ -420,6 +438,7 @@ pub(crate) struct PlanData {
     pub passes: Vec<ComputePass>,
     pub outputs: Vec<PlanOutput>,
     pub estimates: PlanEstimates,
+    pub image_resources: Vec<crate::ImageResource>,
 }
 /// Immutable compiler output. No deserializer or public constructor accepts
 /// forged passes, resource references, estimates, or hashes.
@@ -430,6 +449,10 @@ pub struct RenderPlan {
     hash: PlanHash,
 }
 impl RenderPlan {
+    /// Selected external image identities, sorted by logical ID; never raw pixels.
+    pub fn image_resources(&self) -> &[crate::ImageResource] {
+        &self.data.image_resources
+    }
     pub(crate) fn new(data: PlanData) -> Result<Self, CompileError> {
         let mut bytes = PLAN_HASH_DOMAIN.to_vec();
         bytes.extend(serde_json::to_vec(&data).map_err(crate::compiler::serialization_error)?);
@@ -463,7 +486,7 @@ impl RenderPlan {
         &self.hash
     }
     /// Complete reproducible hash input: domain separator plus compact plan JSON,
-    /// excluding the hash itself. Field order is fixed by plan version 1.
+    /// excluding the hash itself. Field order is fixed by plan version 2.
     pub fn hash_input(&self) -> Result<Vec<u8>, CompileError> {
         let mut bytes = PLAN_HASH_DOMAIN.to_vec();
         bytes.extend(serde_json::to_vec(&self.data).map_err(crate::compiler::serialization_error)?);

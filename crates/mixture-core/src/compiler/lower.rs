@@ -6,10 +6,12 @@ use crate::{
     registry::{PortDefault, PortKind, node_contract},
 };
 
-pub(super) fn compile(
+pub(crate) fn compile(
     normalized: &NormalizedDocument,
     request: &CompileRequest,
-) -> Result<RenderPlan, CompileError> {
+    bindings: &[crate::ImageBinding<'_>],
+    resource_limits: &crate::ResourceLimits,
+) -> Result<crate::PreparedRender, CompileError> {
     let document = normalized.document();
     let nodes: BTreeMap<_, _> = document
         .nodes
@@ -49,6 +51,8 @@ pub(super) fn compile(
             }
         }
     }
+    let snapshots =
+        crate::resources::capture(normalized, request, bindings, resource_limits, &selected)?;
     // Dependencies are sets of producer nodes, so binding one producer twice
     // does not leave an artificial indegree that Kahn's algorithm cannot clear.
     let mut dependencies: BTreeMap<String, BTreeSet<String>> = selected
@@ -118,12 +122,26 @@ pub(super) fn compile(
             resource,
         });
     }
-    let estimates = estimates(request.size, &builder.passes, outputs.len())?;
+    let mut estimates = estimates(request.size, &builder.passes, outputs.len())?;
+    for snapshot in &snapshots {
+        let image = snapshot.image();
+        let texture = mul(mul(u64::from(image.width), u64::from(image.height))?, 4)?;
+        let staging = mul(
+            mul(add(image.bytes_per_row, 255)? / 256, 256)?,
+            u64::from(image.height),
+        )?;
+        estimates.resource_count = add(estimates.resource_count, 1)?;
+        estimates.resource_upload_bytes = add(estimates.resource_upload_bytes, texture)?;
+        estimates.resource_texture_bytes = add(estimates.resource_texture_bytes, texture)?;
+        estimates.resource_staging_bytes = add(estimates.resource_staging_bytes, staging)?;
+        estimates.peak_bytes = add(estimates.peak_bytes, add(texture, staging)?)?;
+        estimates.cumulative_bytes = add(estimates.cumulative_bytes, add(texture, staging)?)?;
+    }
     request
         .limits
         .check(LimitKind::TransientBytes, estimates.peak_bytes)
         .map_err(|error| CompileError::from(error.diagnostic(Stage::Compile)))?;
-    RenderPlan::new(PlanData {
+    let plan = RenderPlan::new(PlanData {
         version: PLAN_VERSION,
         document_version: document.version,
         size: request.size,
@@ -131,7 +149,9 @@ pub(super) fn compile(
         passes: builder.passes,
         outputs,
         estimates,
-    })
+        image_resources: snapshots.iter().map(|s| s.image().clone()).collect(),
+    })?;
+    Ok(crate::resources::prepared(plan, snapshots))
 }
 struct Builder<'a> {
     normalized: &'a NormalizedDocument,
@@ -213,6 +233,12 @@ impl Builder<'_> {
                 .ok_or_else(|| invariant("Required typed input binding is missing."))
         };
         let kernel = match node.type_id.as_str() {
+            "image-input" => KernelInvocation::ImageInput {
+                resource_id: parameter(node, "resourceId")?
+                    .as_str()
+                    .ok_or_else(|| invariant("Normalized resource reference is invalid."))?
+                    .into(),
+            },
             "constant-scalar" => KernelInvocation::Constant {
                 value: [number(node, "value")?, 0.0, 0.0, 1.0],
             },
@@ -311,7 +337,7 @@ impl Builder<'_> {
             },
             _ => {
                 return Err(invariant(
-                    "Selected node has no supported pixel invocation in plan version 1.",
+                    "Selected node has no supported pixel invocation in plan version 2.",
                 ));
             }
         };
@@ -408,6 +434,10 @@ fn estimates(
     let cumulative_readback_bytes = mul(readback_buffer_bytes, outputs as u64)?;
     let resident = add(texture_bytes, uniform_bytes)?;
     Ok(PlanEstimates {
+        resource_count: 0,
+        resource_upload_bytes: 0,
+        resource_texture_bytes: 0,
+        resource_staging_bytes: 0,
         texture_bytes,
         uniform_bytes,
         padded_bytes_per_row,

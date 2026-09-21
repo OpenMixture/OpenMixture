@@ -1,0 +1,411 @@
+{
+  "version": 2,
+  "documentVersion": 1,
+  "size": [
+    64,
+    64
+  ],
+  "materialOutput": {
+    "id": "out",
+    "typeId": "material-output",
+    "version": 1
+  },
+  "passes": [
+    {
+      "id": 0,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "checker",
+          "typeId": "checker",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "checker",
+        "cells": [
+          8,
+          8
+        ],
+        "colorA": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "colorB": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "output": 0,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "color"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "normal"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.5,
+          0.5,
+          1.0,
+          1.0
+        ]
+      },
+      "output": 1,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "normal"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "roughness"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 2,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "metallic"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 3,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "height"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 4,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "ambientOcclusion"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 5,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "opacity"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 6,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "origin": {
+        "source": "inputDefault",
+        "node": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "port": "emissive"
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 7,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "color"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "channel": "baseColor",
+      "kind": "color",
+      "input": {
+        "source": "connected",
+        "from": {
+          "nodeId": "checker",
+          "portId": "color"
+        }
+      },
+      "resource": 0
+    },
+    {
+      "channel": "normal",
+      "kind": "normal",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "normal",
+          "value": [
+            0.5,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "resource": 1
+    },
+    {
+      "channel": "roughness",
+      "kind": "scalar",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 1.0
+        }
+      },
+      "resource": 2
+    },
+    {
+      "channel": "metallic",
+      "kind": "scalar",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 0.0
+        }
+      },
+      "resource": 3
+    },
+    {
+      "channel": "height",
+      "kind": "scalar",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 0.0
+        }
+      },
+      "resource": 4
+    },
+    {
+      "channel": "ambientOcclusion",
+      "kind": "scalar",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 1.0
+        }
+      },
+      "resource": 5
+    },
+    {
+      "channel": "opacity",
+      "kind": "scalar",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "scalar",
+          "value": 1.0
+        }
+      },
+      "resource": 6
+    },
+    {
+      "channel": "emissive",
+      "kind": "color",
+      "input": {
+        "source": "default",
+        "value": {
+          "kind": "color",
+          "value": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "resource": 7
+    }
+  ],
+  "estimates": {
+    "resourceCount": 0,
+    "resourceUploadBytes": 0,
+    "resourceTextureBytes": 0,
+    "resourceStagingBytes": 0,
+    "textureBytes": 262144,
+    "uniformBytes": 160,
+    "paddedBytesPerRow": 512,
+    "readbackBufferBytes": 32768,
+    "readbackBytes": 262144,
+    "cumulativeReadbackBytes": 262144,
+    "cumulativeBytes": 524448,
+    "peakBytes": 295072
+  },
+  "imageResources": [],
+  "hash": "sha256:2656c689b0d12cd3e3e1676fbb50ed268ac769737e884788238dd48017116028"
+}

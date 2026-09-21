@@ -8,6 +8,39 @@ use serde::{Deserialize, Serialize, Serializer, ser::SerializeStruct};
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum DiagnosticCode {
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_INVALID_BINDING")]
+    ResourceInvalidBinding,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_DUPLICATE_ID")]
+    ResourceDuplicateId,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_UNKNOWN_ID")]
+    ResourceUnknownId,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_MISSING")]
+    ResourceMissing,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_FORMAT_UNSUPPORTED")]
+    ResourceFormatUnsupported,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_SIZE_MISMATCH")]
+    ResourceSizeMismatch,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_LENGTH_MISMATCH")]
+    ResourceLengthMismatch,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_RESOURCE_IDENTITY_MISMATCH")]
+    ResourceIdentityMismatch,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_LIMIT_RESOURCE_COUNT_EXCEEDED")]
+    LimitResourceCountExceeded,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_LIMIT_RESOURCE_PIXELS_EXCEEDED")]
+    LimitResourcePixelsExceeded,
+    /// External image resource contract failure.
+    #[serde(rename = "MIX_LIMIT_RESOURCE_BYTES_EXCEEDED")]
+    LimitResourceBytesExceeded,
     /// Input bytes are not valid UTF-8 (reserved for decoding).
     #[serde(rename = "MIX_PARSE_INVALID_UTF8")]
     ParseInvalidUtf8,
@@ -122,6 +155,17 @@ impl DiagnosticCode {
     /// The stable machine-readable spelling; independent of Rust debug formatting.
     pub const fn as_str(self) -> &'static str {
         match self {
+            Self::ResourceInvalidBinding => "MIX_RESOURCE_INVALID_BINDING",
+            Self::ResourceDuplicateId => "MIX_RESOURCE_DUPLICATE_ID",
+            Self::ResourceUnknownId => "MIX_RESOURCE_UNKNOWN_ID",
+            Self::ResourceMissing => "MIX_RESOURCE_MISSING",
+            Self::ResourceFormatUnsupported => "MIX_RESOURCE_FORMAT_UNSUPPORTED",
+            Self::ResourceSizeMismatch => "MIX_RESOURCE_SIZE_MISMATCH",
+            Self::ResourceLengthMismatch => "MIX_RESOURCE_LENGTH_MISMATCH",
+            Self::ResourceIdentityMismatch => "MIX_RESOURCE_IDENTITY_MISMATCH",
+            Self::LimitResourceCountExceeded => "MIX_LIMIT_RESOURCE_COUNT_EXCEEDED",
+            Self::LimitResourcePixelsExceeded => "MIX_LIMIT_RESOURCE_PIXELS_EXCEEDED",
+            Self::LimitResourceBytesExceeded => "MIX_LIMIT_RESOURCE_BYTES_EXCEEDED",
             Self::ParseInvalidUtf8 => "MIX_PARSE_INVALID_UTF8",
             Self::ParseInvalidJson => "MIX_PARSE_INVALID_JSON",
             Self::FormatUnsupportedVersion => "MIX_FORMAT_UNSUPPORTED_VERSION",

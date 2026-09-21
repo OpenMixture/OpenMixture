@@ -2,6 +2,8 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+
 PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
 
 ## Reviewed API path

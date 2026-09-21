@@ -1,0 +1,226 @@
+{
+  "version": 2,
+  "documentVersion": 1,
+  "size": [
+    64,
+    64
+  ],
+  "materialOutput": {
+    "id": "out",
+    "typeId": "material-output",
+    "version": 1
+  },
+  "passes": [
+    {
+      "id": 0,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "checker",
+          "typeId": "checker",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "checker",
+        "cells": [
+          16,
+          8
+        ],
+        "colorA": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "colorB": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "output": 0,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "color"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "mask",
+          "typeId": "constant-scalar",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.5,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "output": 1,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "levels",
+          "typeId": "levels",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "levels",
+        "input": 1,
+        "inputMin": 0.0,
+        "inputMax": 1.0,
+        "gamma": 2.0,
+        "outputMin": 0.0,
+        "outputMax": 1.0
+      },
+      "output": 2,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "tint",
+          "typeId": "constant-color",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "constant",
+        "value": [
+          0.2,
+          0.4,
+          0.8,
+          1.0
+        ]
+      },
+      "output": 3,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "color"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "blend",
+          "typeId": "blend",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "blend",
+        "a": 0,
+        "b": 3,
+        "mask": 2,
+        "mode": "multiply",
+        "opacity": 0.75
+      },
+      "output": 4,
+      "outputDesc": {
+        "width": 64,
+        "height": 64,
+        "format": "rgba16float",
+        "kind": "color"
+      },
+      "dispatch": [
+        8,
+        8,
+        1
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "channel": "baseColor",
+      "kind": "color",
+      "input": {
+        "source": "connected",
+        "from": {
+          "nodeId": "blend",
+          "portId": "color"
+        }
+      },
+      "resource": 4
+    },
+    {
+      "channel": "roughness",
+      "kind": "scalar",
+      "input": {
+        "source": "connected",
+        "from": {
+          "nodeId": "mask",
+          "portId": "value"
+        }
+      },
+      "resource": 1
+    }
+  ],
+  "estimates": {
+    "resourceCount": 0,
+    "resourceUploadBytes": 0,
+    "resourceTextureBytes": 0,
+    "resourceStagingBytes": 0,
+    "textureBytes": 163840,
+    "uniformBytes": 128,
+    "paddedBytesPerRow": 512,
+    "readbackBufferBytes": 32768,
+    "readbackBytes": 65536,
+    "cumulativeReadbackBytes": 65536,
+    "cumulativeBytes": 229504,
+    "peakBytes": 196736
+  },
+  "imageResources": [],
+  "hash": "sha256:2e564133a7753c1ae2887c6fe308493733088dad6dcea884b8f27d5419c3e524"
+}

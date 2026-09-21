@@ -121,7 +121,9 @@ pub fn normalize(
                             .collect::<Result<_, _>>()?,
                     )
                 }
-                ParameterKind::Integer { .. } | ParameterKind::Enum { .. } => value,
+                ParameterKind::Integer { .. }
+                | ParameterKind::Enum { .. }
+                | ParameterKind::ResourceRef => value,
             };
             node.parameters.insert(parameter.id.into(), canonical);
         }

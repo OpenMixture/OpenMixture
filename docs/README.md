@@ -65,3 +65,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [ENG-04 Scalar composition](./eng-04-scalar-blend.md) documents the implemented node, versioned compatibility and native/browser acceptance; new packages remain unpublished.
 
 [M6A-01 minimal resource contract](./m6a-resource-contract.md) and [ADR 0007](./decisions/0007-external-image-resources.md) define the selected external-height input design, compatibility decisions and future acceptance tasks. Resource APIs and pixels are not implemented or qualified by these documents.
+
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.

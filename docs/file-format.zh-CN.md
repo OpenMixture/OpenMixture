@@ -2,6 +2,8 @@
 
 [English](./file-format.md) | 简体中文
 
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+
 PR-005 引入首个可执行的 `.mix` 源文件格式：UTF-8 JSON，文档版本为 `1`，节点版本独立且必须显式为 `1`。此前不存在已实现的格式或迁移。本次添加解码、六个节点契约、图验证和 CLI 验证器；PR-006 [图编译](./render-plan.zh-CN.md)现已实现，PR-007 [图执行](./graph-rendering.zh-CN.md)已实现。
 
 ## 使用验证器
