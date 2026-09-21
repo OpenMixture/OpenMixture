@@ -349,7 +349,15 @@ fn check(root: &Path, id: &str) -> TaskResult {
             .collect::<Vec<_>>();
         machine_passed &= relationships.iter().all(|r| r["ok"] == true);
         overview.push((case.id.clone(), previews));
-        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels,"relationships":relationships}));
+        let baseline_hash = baseline.as_ref().and_then(|b| b.plan_hashes.get(&case.id));
+        let identity_rule = if !plan_matches {
+            "mismatch"
+        } else if report["planHash"].as_str() == baseline_hash.map(String::as_str) {
+            "exact"
+        } else {
+            "explicit-v1-to-v2"
+        };
+        cases.push(json!({"id":case.id,"overrides":overrides,"planHash":report["planHash"],"baselinePlanHash":baseline_hash,"planIdentityRule":identity_rule,"planMatchesGolden":plan_matches,"execution":report["execution"],"outputs":report["outputs"],"channels":channels,"relationships":relationships}));
     }
     pixels::sheet(&review.join("overview.png"), &overview)?;
     pixels::sheet(&review.join("tiling.png"), &tiles)?;
