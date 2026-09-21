@@ -20,7 +20,7 @@ export class MixtureRuntimeError extends Error {
     if (failure.browserFailure) this.browserFailure = failure.browserFailure;
     if (failure.evidence !== undefined) this.evidence = failure.evidence;
   }
-  get code() { return this.diagnostics[0]?.code ?? this.browserFailure?.code; }
+  get code(): string | undefined { return this.diagnostics[0]?.code ?? this.browserFailure?.code; }
 }
 
 export function browserError(operation: string, code: string, message: string, evidence?: unknown) {

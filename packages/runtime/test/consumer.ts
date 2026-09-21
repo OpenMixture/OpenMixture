@@ -24,6 +24,11 @@ const hits: number = result.report.pipelineCache.hits;
 const destroyed: Promise<void> = gpu.destroy();
 const failure = new MixtureRuntimeError('render', { diagnostics: [], evidence: null });
 const code: string | undefined = failure.code;
+// @ts-expect-error A failure without diagnostics or browserFailure has no code.
+failure.code.toLowerCase();
+if (failure.code !== undefined) {
+  const normalizedCode: string = failure.code.toLowerCase();
+}
 // @ts-expect-error Dimensions are numbers, not bigint.
 module.inspect('{}', { size: [1n, 2n] });
 // @ts-expect-error Budgets are bigint, not number.

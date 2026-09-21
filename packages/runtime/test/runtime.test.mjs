@@ -9,6 +9,11 @@ const defaults = { default_limits: () => ({ ...policy }), build_info: () => ({ .
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
 
+test('errors without diagnostics or a browser failure have no code', () => {
+  assert.equal(new MixtureRuntimeError('render', {}).code, undefined);
+  assert.equal(new MixtureRuntimeError('render', { diagnostics: [] }).code, undefined);
+});
+
 test('request integers, limits, shapes and accessor-free capture', () => {
   for (const value of [0, -1, 1.5, Infinity, NaN, 4294967296, Number.MAX_SAFE_INTEGER + 1, true, '64']) {
     assert.throws(() => captureRequest({ size: [value, 3] }, 'render'), invalid);
