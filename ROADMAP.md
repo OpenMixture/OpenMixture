@@ -10,16 +10,16 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
-The next outcome is an independently usable and verifiable SDK, followed by one bounded material-expression increment. Maintain one main feature increment plus necessary maintenance. This batch implements ENG-01 followed by ENG-02; their documentation and rule/test changes are in place. ENG-03 now provides the independent SDK entry below; ENG-04 implements the bounded Scalar composition increment; acceptance is bound to its implementation evidence. Completion claims remain bound to each work item’s evidence.
+Maintain one main feature increment plus necessary maintenance. ENG-01–04 are complete; their outcomes and acceptance boundaries are retained under completed milestones below, not queued for another implementation round.
 
-| Item | Scope and sequence | Exit criteria |
-|---|---|---|
-| ENG-01 — Post-Alpha roadmap | Implemented: current plan, paired navigation and first-Alpha closeout; separate completed history from future work. | One current planning entry; no downstream product task controls engine progress; resource input and packaging have independent entry conditions. |
-| ENG-02 — Graduate stage rules | Implemented after ENG-01: agent/architecture guidance and node-catalog tests. | Replace the expired M3 count gate with explicit use-case admission; retain reviewed catalog identities, contract checks, explicit seeds and all material gates. No node added. |
-| ENG-03 — Independent browser SDK entry | Implemented [independent browser consumer](./examples/browser-consumer/README.md), public-package example and separate candidate/registry identity checks. Acceptance is bound to each tested revision; existing Studio coverage remains. | Load .mix, override parameters, select channels, render, diagnose and destroy through public APIs without Studio knowledge. Verify exact published-version consumption separately from the current candidate tarball, recording each identity. |
-| ENG-04 — One material-expression increment | Implemented [Scalar composition](./docs/eng-04-scalar-blend.md): two Scalar height fields combined before height-to-normal, with focused native/browser acceptance. [Browser 0.2.0-alpha.0 is published](./docs/evidence/npm-020-alpha/README.md); Rust packages remain unpublished. | Approve a concrete use case and input/weight/range/precision/version contract before adding a minimal scalar-blend. Native/browser execution, boundary/tiling/causality tests and existing material regressions pass. |
+| Planning state | Current content |
+|---|---|
+| Available baseline | Published `@openmixture/runtime@0.2.0-alpha.0` includes the independent browser SDK entry and `scalar-blend@1`; Rust source is version `0.2.0`, with crates still unpublished. `.mix v1` and API schema 1 remain unchanged. |
+| Next goal awaiting approval | Prioritize evaluation of a minimal M6-A use case: blend an external linear height image with a procedural Scalar field to produce height/normal outputs. Before implementation, approve format, resource references, dimensions, numerical rules, ownership, budgets, execution identity and version contracts. This entry does not approve a resource API or node implementation. |
+| Current execution scope | PLAN-01 reconciles roadmap status and paired documentation only. No next main feature is approved for execution; M6-A remains a pending decision. |
+| Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 
-ENG-03 must preserve the existing pinned Studio consumer checks and their historical evidence. Map existing coverage to the new host before proposing any replacement in a separate change; do not build another full Player or modify Studio. ENG-04 does not authorize a math-node collection or changes to existing blend semantics. New-node documents are not promised to work on older runtimes; old documents retain their behavior and unsupported types must fail explicitly.
+Break down the next implementation plan after use-case approval, recording planning, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
 
 ## Verification and release ownership
 
@@ -39,11 +39,11 @@ These are independent, unscheduled candidates, not a single implementation batch
 | M6-A — External image input | Approve an engine-owned use case that requires external pixels, with a minimal resource contract and testable budgets. No container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
 | M6-B — Portable asset packaging | Demonstrate a distribution/loading problem that plain .mix plus external files cannot adequately solve. Decide independently of M6-A. | Define inspectable resource identities, bounded loading and path safety; consider .mixpack only when justified. |
 
-Neither direction starts in ENG-01/02. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
+This planning closeout starts neither direction. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
 
 ## Continuing engineering and later candidates
 
-Measure parsing/validation, compilation, first/reused rendering, readback/conversion and peak resource counts on stable workloads before proposing a local optimization. A complete performance program is not a prerequisite for ENG-04 or M6-A. Numerical semantic changes need their own version/compatibility decision and must not be hidden in an unrelated feature.
+Measure parsing/validation, compilation, first/reused rendering, readback/conversion and peak resource counts on stable workloads before proposing a local optimization. A complete performance program is not a prerequisite for M6-A or another bounded feature. Numerical semantic changes need their own version/compatibility decision and must not be hidden in an unrelated feature.
 
 Subgraphs, presets, custom shaders/plugins, specialized formats, GPU interop, engine export profiles and native package/binary distribution remain separate decisions. Product editors, 3D preview, accounts and collaboration remain outside this engine batch. CPU/WebGL renderers are forbidden second pixel executors, not ordinary backlog candidates.
 
@@ -91,6 +91,19 @@ PR governance and native required checks completed; [governance](./docs/governan
 ### M5 — WebAssembly and Browser WebGPU
 
 Thin WASM binding, complete npm runtime and independent consumer accepted in the [recorded browser matrix](./docs/evidence/m5-05/README.md). Later ordinary-browser and first-publication evidence lives in [Alpha closeout](./docs/browser-alpha.md). Player/Studio implementation history does not assign new product work to this repository.
+
+### ENG-01–04 — Post-Alpha independent SDK and Scalar composition
+
+These work items are complete. The retained exit criteria describe their acceptance scope, not instructions to restart them. Browser delivery is bound to the [0.2.0-alpha.0 publication record](./docs/evidence/npm-020-alpha/README.md); Rust distribution and platform support claims remain unchanged.
+
+| Item | Scope and sequence | Exit criteria |
+|---|---|---|
+| ENG-01 — Post-Alpha roadmap | Implemented: current plan, paired navigation and first-Alpha closeout; separate completed history from future work. | One current planning entry; no downstream product task controls engine progress; resource input and packaging have independent entry conditions. |
+| ENG-02 — Graduate stage rules | Implemented after ENG-01: agent/architecture guidance and node-catalog tests. | Replace the expired M3 count gate with explicit use-case admission; retain reviewed catalog identities, contract checks, explicit seeds and all material gates. No node added. |
+| ENG-03 — Independent browser SDK entry | Implemented [independent browser consumer](./examples/browser-consumer/README.md), public-package example and separate candidate/registry identity checks. Acceptance is bound to each tested revision; existing Studio coverage remains. | Load .mix, override parameters, select channels, render, diagnose and destroy through public APIs without Studio knowledge. Verify exact published-version consumption separately from the current candidate tarball, recording each identity. |
+| ENG-04 — One material-expression increment | Implemented [Scalar composition](./docs/eng-04-scalar-blend.md): two Scalar height fields combined before height-to-normal, with focused native/browser acceptance. [Browser 0.2.0-alpha.0 is published](./docs/evidence/npm-020-alpha/README.md); Rust packages remain unpublished. | Approve a concrete use case and input/weight/range/precision/version contract before adding a minimal scalar-blend. Native/browser execution, boundary/tiling/causality tests and existing material regressions pass. |
+
+ENG-03 must preserve the existing pinned Studio consumer checks and their historical evidence. Map existing coverage to the new host before proposing any replacement in a separate change; do not build another full Player or modify Studio. ENG-04 does not authorize a math-node collection or changes to existing blend semantics. New-node documents are not promised to work on older runtimes; old documents retain their behavior and unsupported types must fail explicitly.
 
 ## Historical checkpoints (status at the time)
 
