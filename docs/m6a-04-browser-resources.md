@@ -2,7 +2,7 @@
 
 English | [简体中文](./m6a-04-browser-resources.zh-CN.md)
 
-The unpublished `0.3.0-alpha.0` candidate/API schema 2 now accepts image resources in `validate`, `inspect` and GPU `render`. This implements the browser boundary of the [resource contract](./m6a-resource-contract.md), depending on [M6A-03 execution](./m6a-03-native-resources.md). M6A-05 final qualification/publication remains separate; the published `0.2.0-alpha.0` package has no resource entry point.
+The unpublished `0.3.0-alpha.0` candidate/API schema 2 now accepts image resources in `validate`, `inspect` and GPU `render`. This implements the browser boundary of the [resource contract](./m6a-resource-contract.md), depending on [M6A-03 execution](./m6a-03-native-resources.md). [M6A-05](./evidence/m6a-05/README.md) now retains bounded software qualification; publication remains separate; the published `0.2.0-alpha.0` package has no resource entry point.
 
 ## Public request
 

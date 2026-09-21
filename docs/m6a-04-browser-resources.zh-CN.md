@@ -2,7 +2,7 @@
 
 [English](./m6a-04-browser-resources.md) | 简体中文
 
-未发布的 `0.3.0-alpha.0` 候选／API schema 2 现允许 `validate`、`inspect` 和 GPU `render` 接收图像资源。本次在 [M6A-03 执行](./m6a-03-native-resources.zh-CN.md)基础上实现[资源合同](./m6a-resource-contract.zh-CN.md)的浏览器边界。M6A-05 最终资格验证／发布仍独立；已发布的 `0.2.0-alpha.0` 没有资源入口。
+未发布的 `0.3.0-alpha.0` 候选／API schema 2 现允许 `validate`、`inspect` 和 GPU `render` 接收图像资源。本次在 [M6A-03 执行](./m6a-03-native-resources.zh-CN.md)基础上实现[资源合同](./m6a-resource-contract.zh-CN.md)的浏览器边界。[M6A-05](./evidence/m6a-05/README.zh-CN.md)现已保留有界软件验收，发布仍独立；已发布的 `0.2.0-alpha.0` 没有资源入口。
 
 ## 公开请求
 
