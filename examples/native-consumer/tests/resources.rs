@@ -37,6 +37,21 @@ fn public_core_resource_preparation_owns_input_and_rejects_missing_bindings() {
         &ResourceLimits::default(),
     )
     .unwrap();
+    let adapted = mixture_core::prepare_from(
+        &document,
+        &request,
+        &[mixture_core::AdapterImageBinding {
+            id: "source",
+            width: 1,
+            height: 1,
+            format: "rgba8-linear",
+            bytes_per_row: 4,
+            data: pixels.as_slice(),
+        }],
+        &ResourceLimits::default(),
+    )
+    .unwrap();
+    assert_eq!(adapted.plan().hash(), prepared.plan().hash());
     pixels.fill(0);
     drop(pixels);
     assert_eq!(prepared.resources()[0].data(), &[128, 34, 56, 0]);

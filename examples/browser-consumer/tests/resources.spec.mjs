@@ -120,10 +120,10 @@ test('1K imported height and noise composition retains endpoint and cross-runtim
   const result = await page.evaluate(async source => {
     const runtime = await window.sdk.loadRuntime(), gpu = await runtime.createGpu();
     const size=1024, data=new Uint8Array(size*size*4);
-    // Integer periodic tile, identical literal generator in the Native consumer.
+    // Frozen M6A-03 64-texel triangular tile, identical in the Native consumer.
     for(let y=0;y<size;y++) for(let x=0;x<size;x++) {
-      const triangle = n => { const p=n%256;return p<128?p:255-p; };
-      const r=triangle(x)+triangle(y);data.set([r,255-r,17,(x+y)%2?91:0],(y*size+x)*4);
+      const u=x%64,v=y%64;
+      const r=(Math.min(u,63-u)*5+Math.min(v,63-v)*3)%256;data.set([r,19,201,0],(y*size+x)*4);
     }
     const resource={id:'heightSource',width:size,height:size,format:'rgba8-linear',bytesPerRow:size*4,data};
     const request={size:[size,size],channels:['height','normal'],resources:[resource]};
@@ -134,6 +134,7 @@ test('1K imported height and noise composition retains endpoint and cross-runtim
       let previous;
       for(const weight of [0,0.25,0.5,1]) {
         const out=await gpu.render(source,{...request,overrides:{detailWeight:weight}});
+        if(out.plan.imageResources[0].contentDigest!=='aeb0e01748d9b4d25b7404498e4e6f11c5f4e247444cd28eac79504a5df4a2c2') throw Error('Frozen M6A-03 input changed');
         const reference=weight===0?image:weight===1?noise:null;
         const endpoints=reference?out.channels.every((c,n)=>c.pixels.every((v,i)=>v===reference.channels[n].pixels[i])):true;
         const height=out.channels.find(c=>c.channel==='height').pixels;

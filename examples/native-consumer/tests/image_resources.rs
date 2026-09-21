@@ -18,16 +18,13 @@ fn compile_source(v: &Value, weight: f64) -> mixture_core::PreparedRender {
         .unwrap()
         .into_validated(&req.limits)
         .unwrap();
-    let triangle = |n: u32| {
-        let p = n % 256;
-        if p < 128 { p } else { 255 - p }
-    };
-    let pixels: Vec<u8> = (0..1024)
-        .flat_map(|y| {
-            (0..1024).flat_map(move |x| {
-                let r = (triangle(x) + triangle(y)) as u8;
-                [r, 255 - r, 17, if (x + y) % 2 == 1 { 91 } else { 0 }]
-            })
+    // Frozen M6A-03 tile; this is input generation, not a pixel executor.
+    let pixels: Vec<u8> = (0..1024u32 * 1024)
+        .flat_map(|i| {
+            let x = i % 1024 % 64;
+            let y = i / 1024 % 64;
+            let r = ((x.min(63 - x) * 5 + y.min(63 - y) * 3) % 256) as u8;
+            [r, 19, 201, 0]
         })
         .collect();
     prepare(
@@ -47,6 +44,10 @@ fn compile_source(v: &Value, weight: f64) -> mixture_core::PreparedRender {
 }
 #[test]
 fn image_resource_public_plan() {
+    assert_eq!(
+        compile_source(&source(), 0.5).plan().image_resources()[0].content_digest,
+        "aeb0e01748d9b4d25b7404498e4e6f11c5f4e247444cd28eac79504a5df4a2c2"
+    );
     assert!(
         compile_source(&source(), 0.5)
             .plan()
@@ -115,17 +116,20 @@ fn image_resource_public_gpu() {
                     .map(|(a, b)| a.abs_diff(*b))
                     .max()
                     .unwrap();
-                assert!(
-                    max <= 1,
-                    "{} weight {weight}: max component delta {max}",
-                    channel.channel.as_str()
-                );
                 let changed = browser
                     .iter()
                     .zip(channel.pixels())
                     .filter(|(a, b)| a != b)
                     .count();
-                comparisons.push(json!({"channel":channel.channel.as_str(),"maxComponentDelta":max,"changedComponents":changed,"components":browser.len(),"limit":1}));
+                let offset = browser
+                    .iter()
+                    .zip(channel.pixels())
+                    .position(|(a, b)| a.abs_diff(*b) == max)
+                    .unwrap()
+                    / 4
+                    * 4;
+                comparisons.push(json!({"channel":channel.channel.as_str(),"maxComponentDelta":max,"changedComponents":changed,"components":browser.len(),"limit":1,
+                    "sample":{"x":offset/4%1024,"y":offset/4/1024,"browser":&browser[offset..offset+4],"native":&channel.pixels()[offset..offset+4]}}));
             }
         }
         let pixels = result
@@ -180,10 +184,21 @@ fn image_resource_public_gpu() {
     assert!(owned.iter().all(|v| v.len() == 1024 * 1024 * 4));
     let path = std::env::var("MIXTURE_RESOURCE_EVIDENCE")
         .unwrap_or_else(|_| "resource-evidence.json".into());
+    let accepted = rows.iter().all(|row| {
+        row["browserComparison"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|c| c["maxComponentDelta"].as_u64().unwrap() <= 1)
+    });
     std::fs::write(
         path,
-        serde_json::to_vec_pretty(&json!({"ok":true,"cases":rows,"ownedAfterDestroy":true}))
+        serde_json::to_vec_pretty(&json!({"ok":accepted,"cases":rows,"ownedAfterDestroy":true}))
             .unwrap(),
     )
     .unwrap();
+    assert!(
+        accepted,
+        "Native/browser image comparison exceeded the fixed component delta limit; inspect the report"
+    );
 }
