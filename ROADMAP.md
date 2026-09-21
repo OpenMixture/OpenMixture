@@ -15,11 +15,11 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.2.0-alpha.0` includes the independent browser SDK entry and `scalar-blend@1`; Rust source is version `0.2.0`, with crates still unpublished. `.mix v1` and API schema 1 remain unchanged. |
-| Next goal awaiting approval | Prioritize evaluation of a minimal M6-A use case: blend an external linear height image with a procedural Scalar field to produce height/normal outputs. Before implementation, approve format, resource references, dimensions, numerical rules, ownership, budgets, execution identity and version contracts. This entry does not approve a resource API or node implementation. |
-| Current execution scope | PLAN-01 reconciles roadmap status and paired documentation only. No next main feature is approved for execution; M6-A remains a pending decision. |
+| Selected next goal | M6A-01 selects the [minimal external image contract](./docs/m6a-resource-contract.md) and [ADR 0007](./docs/decisions/0007-external-image-resources.md) for integration: same-size linear RGBA8 R-channel height, explicit resource references, owned snapshots, budgets and content-bound plan v2. Design acceptance occurs through this PR; implementation and pixel acceptance remain pending. |
+| Current execution scope | M6A-01 delivers the resource contract and compatibility decision only. Next is M6A-02 Core resource semantics, followed by Native, browser and qualification tasks defined in the contract; none is claimed implemented here. |
 | Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 
-Break down the next implementation plan after use-case approval, recording planning, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
+Follow the selected contract task sequence, recording design integration, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
 
 ## Verification and release ownership
 
@@ -32,14 +32,14 @@ Follow [governance](./docs/governance.md), [release status](./docs/release.md) a
 
 ## M6 — Resources and Portable Packaging
 
-These are independent, unscheduled candidates, not a single implementation batch.
+These directions remain independent. M6A-01 selects the external-input design for integration; M6-B remains an unscheduled candidate. Neither is implemented by this planning change.
 
 | Direction | Entry decision | Bounded outcome |
 |---|---|---|
-| M6-A — External image input | Approve an engine-owned use case that requires external pixels, with a minimal resource contract and testable budgets. No container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
+| M6-A — External image input | M6A-01 selects the [external-height contract](./docs/m6a-resource-contract.md) for design integration. Implementation follows M6A-02–05; no container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
 | M6-B — Portable asset packaging | Demonstrate a distribution/loading problem that plain .mix plus external files cannot adequately solve. Decide independently of M6-A. | Define inspectable resource identities, bounded loading and path safety; consider .mixpack only when justified. |
 
-This planning closeout starts neither direction. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
+This contract decision does not implement resources or start portable packaging. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
 
 ## Continuing engineering and later candidates
 

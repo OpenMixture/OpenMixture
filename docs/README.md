@@ -63,3 +63,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [ENG-03 consumer evidence](./evidence/eng-03/README.md) retains separate candidate/registry identities, local browser results and the inspected example screenshot.
 
 [ENG-04 Scalar composition](./eng-04-scalar-blend.md) documents the implemented node, versioned compatibility and native/browser acceptance; new packages remain unpublished.
+
+[M6A-01 minimal resource contract](./m6a-resource-contract.md) and [ADR 0007](./decisions/0007-external-image-resources.md) define the selected external-height input design, compatibility decisions and future acceptance tasks. Resource APIs and pixels are not implemented or qualified by these documents.

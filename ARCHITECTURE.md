@@ -732,3 +732,7 @@ Browser runtime qualification uses the bounded texture-agreement profile defined
 ## ENG-04 catalog extension
 
 ENG-04 adds scalar-blend v1: twelve node types map to ten WGSL kernels. Renderer-owned cache capacity is now ten kernel identities. Existing source semantics and serialized plans remain unchanged. See [the contract](./docs/eng-04-scalar-blend.md).
+
+## M6A-01 selected resource design — not implemented
+
+[ADR 0007](./docs/decisions/0007-external-image-resources.md) and the [minimal resource contract](./docs/m6a-resource-contract.md) select logical resource references inside existing node parameters, caller-owned linear RGBA8 input, Core-owned immutable capture/content identity and wgpu-owned upload/lifetime. Integration accepts the design; runtime implementation remains pending. This narrowly extends ADR 0003's resource-reference exclusion without adding embedded resources or changing the sole pixel executor. The implementation will introduce image-input v1, plan/hash v2 and API schema 2; existing architecture descriptions above remain the implemented baseline until their owning implementation changes land.
