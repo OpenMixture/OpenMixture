@@ -4,9 +4,31 @@
   "description": "Explicit browser WebGPU runtime for OpenMixture material graphs",
   "type": "module",
   "sideEffects": false,
-  "exports": { ".": { "types": "./src/index.d.ts", "import": "./src/index.mjs" } },
-  "files": ["src/*.mjs", "src/*.d.ts", "wasm/*", "README*.md", "LICENSE-*", "build-info.json"],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "files": [
+    "src/*.js",
+    "src/*.d.ts",
+    "wasm/*",
+    "README*.md",
+    "LICENSE-*",
+    "build-info.json"
+  ],
   "license": "MIT OR Apache-2.0",
-  "repository": { "type": "git", "url": "https://github.com/OpenMixture/OpenMixture.git", "directory": "packages/runtime" },
-  "scripts": { "test": "node --test test/*.test.mjs" }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenMixture/OpenMixture.git",
+    "directory": "packages/runtime"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "npm run build && tsc -p test/tsconfig.json && node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
 }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { captureRequest as captureWithLimits, captureSource, createRuntimeModule, MixtureRuntimeError } from '../src/runtime.mjs';
+import { captureRequest as captureWithLimits, captureSource, createRuntimeModule, MixtureRuntimeError } from '../dist/runtime.js';
 
 const policy = { decodedBytes: 2097152n, nodes: 128n, edges: 512n, exposedParameters: 64n, outputDimension: 2048n, requestedOutputs: 8n, transientBytes: 536870912n };
 const captureRequest = (options, operation) => captureWithLimits(options, operation, policy);
@@ -8,6 +8,11 @@ const build = { runtimeVersion: 'test', apiSchemaVersion: 1, engineVersion: 'tes
 const defaults = { default_limits: () => ({ ...policy }), build_info: () => ({ ...build }), node_catalog: () => [],
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
+
+test('errors without diagnostics or a browser failure have no code', () => {
+  assert.equal(new MixtureRuntimeError('render', {}).code, undefined);
+  assert.equal(new MixtureRuntimeError('render', { diagnostics: [] }).code, undefined);
+});
 
 test('request integers, limits, shapes and accessor-free capture', () => {
   for (const value of [0, -1, 1.5, Infinity, NaN, 4294967296, Number.MAX_SAFE_INTEGER + 1, true, '64']) {

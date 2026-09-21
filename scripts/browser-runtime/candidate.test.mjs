@@ -9,8 +9,8 @@ const bytes = Buffer.from('new candidate archive');
 const receipt = {
   runtimeVersion: '0.3.0-alpha.0', apiSchemaVersion: 2, engineVersion: '0.1.0',
   engineRevision: 'a'.repeat(40), engineDirty: false, buildId: `sha256:${'b'.repeat(64)}`, sha256: hash(bytes),
-  files: ['package.json', 'build-info.json', 'src/build-info.mjs', 'src/index.d.ts', 'src/index.mjs',
-    'src/runtime.mjs', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm'],
+  files: ['package.json', 'build-info.json', 'src/build-info.js', 'src/index.d.ts', 'src/runtime.d.ts', 'src/types.d.ts', 'src/bindings.d.ts', 'src/index.js',
+    'src/runtime.js', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm'],
 };
 const runtime = 'node_modules/@openmixture/runtime';
 const vendor = 'file:vendor/openmixture-runtime-0.1.0-alpha.0.tgz';
@@ -20,7 +20,9 @@ test('candidate rejects historical archives, wrong revision, dirty sources and i
   assert.throws(() => validateCandidate(receipt, Buffer.from('old archive'), receipt.engineRevision), /digest/);
   assert.throws(() => validateCandidate(receipt, bytes, 'c'.repeat(40)), /revision/);
   assert.throws(() => validateCandidate({ ...receipt, engineDirty: true }, bytes, receipt.engineRevision), /clean/);
-  assert.throws(() => validateCandidate({ ...receipt, files: [] }, bytes, receipt.engineRevision), /missing candidate/);
+  for (const missing of receipt.files) {
+    assert.throws(() => validateCandidate({ ...receipt, files: receipt.files.filter(file => file !== missing) }, bytes, receipt.engineRevision), /missing candidate/);
+  }
   assert.throws(() => assertBuild({ ...receipt, buildId: 'old JS' }, receipt), /buildId/);
   assert.throws(() => assertBuild({ ...receipt, engineRevision: 'old WASM' }, receipt), /engineRevision/);
   assert.throws(() => assertBuild(receipt, { ...receipt, buildId: undefined }), /missing expected/);
