@@ -2,6 +2,8 @@
 
 English | [简体中文](./cli-contract.zh-CN.md)
 
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+
 PR-012 verifies consumption of the built `mixture` executable from an [independent Rust test program](../examples/native-consumer/tests/cli_contract.rs), with its own input and output directory. It repairs human diagnostic context and records the existing JSON and exit behavior. It does not introduce a schema version, change pixel semantics, or complete the remaining [M4 work](../M4_PRS.md).
 
 ## Process boundary

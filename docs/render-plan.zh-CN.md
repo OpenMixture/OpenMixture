@@ -2,6 +2,8 @@
 
 [English](./render-plan.md) | 简体中文
 
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+
 PR-006 实现纯 CPU 编译和 `inspect --plan`。[编译器](../crates/mixture-core/src/compiler.rs)负责参数覆盖语义、依赖裁剪、排序、类型化降级、分配估算及哈希；[RenderPlan](../crates/mixture-core/src/plan.rs)定义与后端无关的类型。PR-007 [图执行](./graph-rendering.zh-CN.md)实现穷尽 WGSL 映射。固定棋盘格像素保持不变，共享的 48 字节 uniform 在该指南中说明。
 
 ## 运行与检查

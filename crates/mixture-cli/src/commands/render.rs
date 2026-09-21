@@ -77,7 +77,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         }
     };
     let mut report = Report {
-        schema_version: 1,
+        schema_version: 2,
         input: options.path.clone(),
         output_directory: options.out.clone(),
         plan_hash: None,

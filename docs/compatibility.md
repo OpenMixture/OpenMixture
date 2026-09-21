@@ -2,6 +2,8 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. Native uploads and browser resource arguments remain M6A-03/04 work; no new image pixels are accepted. Read historical version descriptions below in that context.
+
 **2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Runtime and Studio material comparisons share this profile; current reports omit superseded sparse-pixel verdicts. Native goldens and exact checker checks remain unchanged. New browser support still needs source-bound qualification.
 
 **ALPHA-03, 2026-09-20:** [Recorded Windows Chrome/Edge/Firefox runs](./evidence/browser-quality-v2/README.md) each pass 11 cases / 44 channels under v2 on the recorded GT 1030 host and existing archive. Fresh PR packages are separately qualified in Linux CI. This is not a universal browser/driver guarantee; npm remains unpublished.

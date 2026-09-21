@@ -2,6 +2,8 @@
 
 [English](./m6a-resource-contract.md) | 简体中文
 
+**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。原生上传及浏览器资源参数仍待 M6A-03／04；本次不接受新图像像素。以下历史版本说明须按此更新理解。
+
 状态：根据用户要求完成 M6A-01，于 2026-09-21 选定设计并提交审查。本文件及 [ADR 0007](./decisions/0007-external-image-resources.zh-CN.md)集成后接受此有界设计，不代表已实现或验收。已发布的 `0.2.0-alpha.0` 无法消费这些资源。M6A-02 至 M6A-05 仍是后续实现与验收任务。下文名称和示例均为计划合同，不是当前可调用 API。
 
 ## 用例与节点
