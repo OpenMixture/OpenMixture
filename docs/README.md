@@ -6,6 +6,8 @@ English | [简体中文](./README.zh-CN.md)
 
 The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
+[MAT-02 layered-weathering preparation](./mat-02-layered-weathering.md) is a draft for the stage after MAT-01, with a proposed neighborhood operation and five-channel material acceptance design. It does not claim implementation or accepted pixels.
+
 The root documents are the active project contract:
 
 - [Mission and setup](../README.md)

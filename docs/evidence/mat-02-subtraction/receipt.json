@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "4c49186097290a842c0c0f11a9f6a62ad29b229b",
+  "sourceDirty": false,
+  "createdAt": "2026-09-22T18:37:46.105Z",
+  "buildCommand": "cargo build --locked -p mixture-cli",
+  "buildProfile": "dev",
+  "cliSha256": "3ce008c4c444b57b6a16299f92af0cadca387469b86c64bbc2e70b36f1fc980b",
+  "lockSha256": "0afbbb2332695ccace994a5961767e251c0880ba9e12b810b286d4a18a18c300",
+  "verifierSha256": "f3387f4b23b5874df47a8266d461c89497d6d110cb18703efbc8629e60d5d6f6",
+  "toolchain": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "arithmetic": {
+    "a": 0.5,
+    "b": 0.499755859375,
+    "expectedDifference": 0.000244140625,
+    "amplification": 4096
+  },
+  "scope": "Existing three-node subtraction composition only; no new kernel or material acceptance.",
+  "ok": true,
+  "runs": [
+    {
+      "backend": "vulkan",
+      "args": [
+        "render",
+        "tmp\\mat02-subtract-clean-01\\input.mix",
+        "--size",
+        "1",
+        "--output",
+        "height,roughness",
+        "--backend",
+        "vulkan",
+        "--out",
+        "tmp\\mat02-subtract-clean-01\\vulkan",
+        "--json"
+      ],
+      "adapter": "NVIDIA GeForce GT 1030",
+      "driver": "582.66",
+      "planHash": "sha256:ef67dde95e6642dbd98a6010926ffac11f71eb20a4c4b608f83b9515eae65610",
+      "actual": [
+        0,
+        0,
+        0,
+        255
+      ],
+      "reference": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "backend": "dx12",
+      "args": [
+        "render",
+        "tmp\\mat02-subtract-clean-01\\input.mix",
+        "--size",
+        "1",
+        "--output",
+        "height,roughness",
+        "--backend",
+        "dx12",
+        "--out",
+        "tmp\\mat02-subtract-clean-01\\dx12",
+        "--json"
+      ],
+      "adapter": "NVIDIA GeForce GT 1030",
+      "driver": "",
+      "planHash": "sha256:ef67dde95e6642dbd98a6010926ffac11f71eb20a4c4b608f83b9515eae65610",
+      "actual": [
+        0,
+        0,
+        0,
+        255
+      ],
+      "reference": [
+        255,
+        255,
+        255,
+        255
+      ]
+    }
+  ],
+  "files": {
+    "input.mix": "6df18144625d5d2b9253c2e06e3975a5bb9ec15383cd3ec435833387e2e80f4e",
+    "vulkan.json": "c2e1938b620537eabce2dec035afcd8a02f6d6beda487accb03d1ca601bf16d2",
+    "dx12.json": "3ae72d12220bd9693cee97105b59635a7af61ec3a50699f2ec0d4df98fdaefde",
+    "vulkan/height.png": "4fb4997b568d33ad65736eec86c6b7498b0e009aea25a655da6fb5757078d563",
+    "vulkan/roughness.png": "af8784ea5bb03df3da7c33b73b50ef4e36259ecaa091eaec01f09aa5ff1dc58a",
+    "dx12/height.png": "4fb4997b568d33ad65736eec86c6b7498b0e009aea25a655da6fb5757078d563",
+    "dx12/roughness.png": "af8784ea5bb03df3da7c33b73b50ef4e36259ecaa091eaec01f09aa5ff1dc58a"
+  }
+}

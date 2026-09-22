@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "b",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.499755859375
+      }
+    },
+    {
+      "id": "inverse",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "outputMin": 1,
+        "outputMax": 0
+      }
+    },
+    {
+      "id": "mix",
+      "type": "scalar-blend",
+      "version": 1,
+      "parameters": {
+        "weight": 0.5
+      }
+    },
+    {
+      "id": "difference",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.5,
+        "inputMax": 1
+      }
+    },
+    {
+      "id": "amplify",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMax": 0.000244140625
+      }
+    },
+    {
+      "id": "reference",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 1
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1,
+      "parameters": {}
+    },
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "b",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "inverse",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "a",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "mix",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "inverse",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "mix",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "mix",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "difference",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "difference",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "amplify",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "amplify",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "reference",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": []
+}
