@@ -25,7 +25,7 @@
 
 [MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。工作候选已实现 brick-pattern 与 scalar-mask-blend，四通道砖材质夹具为候选；MAT-01 材质验收尚未完成。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
 
-[MAT-02 前期设计](./docs/mat-02-layered-weathering.zh-CN.md)是草案，不是已准入节点或已接受材质。它提议由 Core／wgpu 负责的有界轴向 Scalar 形态处理及饱和减法，并复用既有组合。MAT-01 退出及 MAT-02a 目录／版本／验收计划接受仍是实现前置条件。本次准备不改变运行时、格式或迁移规则；检查配对文档／链接，并保留六项既有门槛。
+[MAT-02 前期设计](./docs/mat-02-layered-weathering.zh-CN.md)是草案，不是已准入节点或已接受材质。它提议由 Core／wgpu 负责的有界轴向 Scalar 形态处理及饱和减法，并复用既有组合。MAT-01 退出及 MAT-02a 目录／版本／验收计划接受仍是实现前置条件。[减法反例](./docs/evidence/mat-02-subtraction/README.zh-CN.md)记录干净源码中既有节点的组合限制，不是新节点验收。本次准备不改变运行时、格式或迁移规则；检查配对文档／链接，并保留六项既有门槛。
 
 ## 本指南的强制维护要求
 
