@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "bricks",
+      "type": "brick-pattern",
+      "version": 1
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "parameters": {
+        "strength": 0.025
+      }
+    },
+    {
+      "id": "color",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": [
+          0.13,
+          0.12,
+          0.1,
+          1
+        ],
+        "colorB": [
+          0.52,
+          0.16,
+          0.065,
+          1
+        ]
+      }
+    },
+    {
+      "id": "rough",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "outputMin": 0.95,
+        "outputMax": 0.65
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "bricks",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "bricks",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "bricks",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "color",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "bricks",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rough",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rough",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "columns",
+      "nodeId": "bricks",
+      "parameterId": "columns"
+    },
+    {
+      "id": "rows",
+      "nodeId": "bricks",
+      "parameterId": "rows"
+    },
+    {
+      "id": "layout",
+      "nodeId": "bricks",
+      "parameterId": "layout"
+    },
+    {
+      "id": "gap",
+      "nodeId": "bricks",
+      "parameterId": "gap"
+    },
+    {
+      "id": "bevel",
+      "nodeId": "bricks",
+      "parameterId": "bevel"
+    }
+  ]
+}

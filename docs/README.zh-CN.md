@@ -74,3 +74,5 @@ M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 
 [M6A-05 综合验收](./evidence/m6a-05/README.zh-CN.md)保留源码/归档绑定的软件矩阵、已审查联系表、回归门禁和未解决硬件失败。
 
 [浏览器 0.3.0 发布证据](./evidence/npm-030-alpha/README.zh-CN.md)记录 main 集成、冻结归档、发布及精确注册表消费。
+
+[砖块图案](./brick-pattern.zh-CN.md) 定义有界砖块高度生成器。

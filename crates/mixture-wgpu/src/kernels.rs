@@ -24,6 +24,14 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
             ),
             "constant",
         ),
+        KernelId::BrickPattern => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/brick-pattern.wgsl")
+            ),
+            "brick_pattern",
+        ),
         KernelId::Checker => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -120,6 +128,19 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
                 .collect();
             bytes.extend(floats(color_a));
             bytes.extend(floats(color_b));
+            bytes
+        }
+        KernelInvocation::BrickPattern {
+            cells,
+            half_offset,
+            gap,
+            bevel,
+        } => {
+            let mut bytes: Vec<_> = [cells[0], cells[1], u32::from(*half_offset), 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(&[*gap, *bevel, 0., 0.]));
             bytes
         }
         KernelInvocation::Levels {
@@ -273,6 +294,7 @@ mod tests {
             (KernelId::ImageInput, 16),
             (KernelId::Constant, 16),
             (KernelId::Checker, 48),
+            (KernelId::BrickPattern, 32),
             (KernelId::Levels, 32),
             (KernelId::Blend, 16),
             (KernelId::ScalarBlend, 16),

@@ -74,3 +74,5 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 [M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and unresolved hardware failure.
 
 [Browser 0.3.0 publication evidence](./evidence/npm-030-alpha/README.md) records main integration, frozen archive, publication and exact registry consumption.
+
+[Brick pattern](./brick-pattern.md) defines the new bounded brick height generator.

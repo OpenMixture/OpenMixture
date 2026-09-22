@@ -1,0 +1,33 @@
+{
+  "sourceRevision": "847fe53c6a42dfac573ee498ccfdc15b1e978b79",
+  "build": {
+    "runtimeVersion": "0.6.0-alpha.0",
+    "apiSchemaVersion": 2,
+    "engineVersion": "0.6.0",
+    "engineRevision": "847fe53c6a42dfac573ee498ccfdc15b1e978b79",
+    "engineDirty": false,
+    "buildId": "sha256:6c0db23376a4fb84cf886063b7e60f57ecd287b53cd4ea2053358e25958a59dc"
+  },
+  "platform": "win32",
+  "browserChannel": "chrome",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "ok": true,
+  "archiveSha256": "1512ae8542b8c5aaf843067f4120ec3c4c12cc0d444cd3da0e2b1472103f3ef0",
+  "browserTests": {
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0
+  },
+  "comparison": "windows-comparison.json",
+  "gateMaxComponentDelta": 1,
+  "maximumObservedDelta": 0
+}

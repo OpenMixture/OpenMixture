@@ -147,6 +147,8 @@ pub enum KernelId {
     ImageInput,
     /// Shared uniform constant kernel for scalar, color, and default normal data.
     Constant,
+    /// Periodic brick height with mortar and linear bevels.
+    BrickPattern,
     /// Two-color checker.
     Checker,
     /// Scalar levels remapping.
@@ -202,6 +204,17 @@ pub enum KernelInvocation {
     Constant {
         /// Packed uniform value.
         value: [f32; 4],
+    },
+    /// Periodic brick height; half-offset layouts require an even row count.
+    BrickPattern {
+        /// Columns and rows per tile.
+        cells: [u32; 2],
+        /// Shift odd rows by half a cell.
+        half_offset: bool,
+        /// Total mortar width as a fraction of each axis cell extent.
+        gap: f32,
+        /// Inward linear transition width as a fraction of each axis cell extent.
+        bevel: f32,
     },
     /// Checker cells and colors. Pixel coordinates and dimensions come from the pass.
     Checker {
@@ -306,6 +319,7 @@ impl KernelInvocation {
             Self::ImageInput { .. } => KernelId::ImageInput,
             Self::Constant { .. } => KernelId::Constant,
             Self::Checker { .. } => KernelId::Checker,
+            Self::BrickPattern { .. } => KernelId::BrickPattern,
             Self::Levels { .. } => KernelId::Levels,
             Self::Blend { .. } => KernelId::Blend,
             Self::ScalarBlend { .. } => KernelId::ScalarBlend,
@@ -321,6 +335,7 @@ impl KernelInvocation {
         match self {
             Self::ImageInput { .. }
             | Self::Constant { .. }
+            | Self::BrickPattern { .. }
             | Self::Checker { .. }
             | Self::FractalNoise { .. } => [None, None, None],
             Self::Levels { input, .. }
@@ -348,7 +363,8 @@ impl KernelInvocation {
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,
             Self::Checker { .. } => 48,
-            Self::Levels { .. }
+            Self::BrickPattern { .. }
+            | Self::Levels { .. }
             | Self::FractalNoise { .. }
             | Self::GradientMap { .. }
             | Self::Transform2d { .. } => 32,

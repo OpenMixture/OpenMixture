@@ -112,6 +112,18 @@ pub(super) fn gpu(
     )?;
     captured(
         compile_command(root, "test")
+            .args(["--test", "brick_pattern", "--", "--ignored", "--nocapture"])
+            .env("MIXTURE_GPU_BACKEND", backend)
+            .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" })
+            .env(
+                "MIXTURE_BRICK_EVIDENCE",
+                directory.join("brick-pattern.json"),
+            ),
+        &directory,
+        "brick-pattern",
+    )?;
+    captured(
+        compile_command(root, "test")
             .args(["--test", "scalar_blend", "--", "--ignored", "--nocapture"])
             .env("MIXTURE_GPU_BACKEND", backend)
             .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" })

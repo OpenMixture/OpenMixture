@@ -73,6 +73,8 @@ jobs:
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
+      - name: Compare brick height and normals across Native and browser
+        run: node scripts/browser-runtime/check-bricks.mjs tmp/sdk-candidate tmp/sdk-brick-comparison
       - name: Compare Scalar composition across native and browser execution
         run: node scripts/browser-runtime/check-scalar.mjs tmp/sdk-candidate tmp/sdk-scalar-comparison
       - name: Compare imported image resources across native and browser execution
@@ -155,6 +157,7 @@ jobs:
             tmp/browser-product/package-lock.json
             tmp/browser-product/test-results/
             tmp/sdk-candidate/
+            tmp/sdk-brick-comparison/
             tmp/sdk-scalar-comparison/
             tmp/sdk-resource-comparison/
             tmp/sdk-asset-comparison/

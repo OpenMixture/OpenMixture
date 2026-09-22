@@ -2,7 +2,8 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+**当前增量：** 维护者选择 [brick-pattern v1](./docs/brick-pattern.zh-CN.md)。源基线已集成 M6-B 与 NUM-01。Rust 0.6.0/浏览器 0.6.0-alpha.0 为未发布砖块候选，验收单独记录。下文旧里程碑证据保留原始范围。
+
 
 **当前状态（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
@@ -27,7 +28,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。Rust 0.3.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | M6-B 实现及有界验收已在评审栈完成；集成/发布单独处理，不自动启动下一功能。 |
+| 当前增量 | [砖块图案 v1](./docs/brick-pattern.zh-CN.md)：一个程序化高度生成器和完整材质图。M6-B/NUM-01 已集成；砖块实现、验收和发布分别记录。 |
 | 当前验收 | [M6B-05](./docs/evidence/m6b-05/README.zh-CN.md)：精确候选、Native 源码/归档及浏览器矩阵、材质与六检查，保留 Windows 硬件限制。 |
 | 条件式候选 | 原生分发、图复用和 GPU 互操作分别按明确问题决定。性能与数值维护由测量或回归驱动，不构成必须串行完成的功能链。 |
 

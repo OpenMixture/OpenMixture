@@ -382,6 +382,25 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
                 .with_suggestion("Supply a finite value in the documented range and exact JSON type; values are never clamped or coerced."));
         }
     }
+    if node.type_id == "brick-pattern"
+        && resolved_parameter(node, contract, "layout")
+            .and_then(|v| v.as_str().map(str::to_owned))
+            .as_deref()
+            == Some("half-offset")
+        && let Some(rows) = resolved_parameter(node, contract, "rows").and_then(|v| v.as_u64())
+        && rows % 2 != 0
+    {
+        diagnostics.push(
+            at_parameter(
+                Code::ParameterInvalidValue,
+                &node.id,
+                "rows",
+                "Half-offset brick patterns require an even row count for vertical tiling.",
+            )
+            .with_evidence("rows", rows)
+            .with_suggestion("Use an even row count or select the aligned layout."),
+        );
+    }
     if node.type_id == "levels" {
         let low = resolved_parameter(node, contract, "inputMin").and_then(|v| v.as_f64());
         let high = resolved_parameter(node, contract, "inputMax").and_then(|v| v.as_f64());
