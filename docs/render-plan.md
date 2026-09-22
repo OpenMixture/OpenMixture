@@ -4,6 +4,8 @@ English | [简体中文](./render-plan.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
+The [resource preparation contract](./m6a-02-core-resources.md) defines `PreparedRender`, plan-v2 `imageResources` identities and external-image budgets; resource-free examples below continue to use `compile`.
+
 PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. PR-007 [graph execution](./graph-rendering.md) implements the exhaustive WGSL mapping. The fixed checker pixels remain unchanged; its shared 48-byte uniform is documented there.
 
 ## Run and inspect

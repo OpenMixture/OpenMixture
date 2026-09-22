@@ -4,6 +4,8 @@ English | [简体中文](./native-sdk.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
+The [shared CPU asset codec](./m6b-03-cpu-assets.md) defines `mixture-asset` writing, borrowed/owned loading and Core preparation; unpacked pixels still execute through the existing wgpu path.
+
 PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
 
 ## Reviewed API path

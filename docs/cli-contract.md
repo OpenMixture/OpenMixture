@@ -4,6 +4,8 @@ English | [简体中文](./cli-contract.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
+The [asset CLI contract](./m6b-04-adapters.md) adds the schema-1 envelopes, file rules and memory budgets for `asset pack` / `inspect` / `render`; nested graph-render reports use schema 2 as documented here.
+
 PR-012 verifies consumption of the built `mixture` executable from an [independent Rust test program](../examples/native-consumer/tests/cli_contract.rs), with its own input and output directory. It repairs human diagnostic context and records the existing JSON and exit behavior. It does not introduce a schema version, change pixel semantics, or complete the remaining [M4 work](../M4_PRS.md).
 
 ## Process boundary

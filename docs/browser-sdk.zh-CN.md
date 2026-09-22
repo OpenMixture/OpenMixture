@@ -4,6 +4,8 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
+[资产适配接口](./m6b-04-adapters.zh-CN.md)定义已实现的 `inspectPackage` / `renderPackage`、同步字节捕获和包内存预算。
+
 **历史检查点（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。

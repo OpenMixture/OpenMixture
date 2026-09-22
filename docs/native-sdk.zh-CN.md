@@ -4,6 +4,8 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
+[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)定义 `mixture-asset` 的写入、借用/自有装载及 Core 准备；解包后的像素仍由现有 wgpu 路径执行。
+
 PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，PR-014 添加[消费者自有新鲜度处理](./stale-results.zh-CN.md)，PR-015 验证[真实本地软件包消费](./package-consumption.zh-CN.md)。见 [M4 退出／发布评估](./release.zh-CN.md)。
 
 ## 已审查的 API 路径

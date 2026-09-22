@@ -4,6 +4,8 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
+[资产 CLI 契约](./m6b-04-adapters.zh-CN.md)补充 `asset pack` / `inspect` / `render` 的 schema-1 外层报告、文件规则和内存预算；其嵌套图渲染报告沿用本文 schema 2。
+
 PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_contract.rs)消费已构建的 `mixture` 可执行文件，使用自有输入及输出目录。它修复人类可读诊断上下文，记录现有 JSON 和退出行为，不引入 schema 版本、不改变像素语义，也不完成其余 [M4 工作](../M4_PRS.zh-CN.md)。
 
 ## 进程边界

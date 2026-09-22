@@ -4,6 +4,8 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
+[资源准备契约](./m6a-02-core-resources.zh-CN.md)定义 `PreparedRender`、计划 v2 的 `imageResources` 身份和外部图像预算；下文无资源图示例继续使用 `compile`。
+
 PR-006 实现纯 CPU 编译和 `inspect --plan`。[编译器](../crates/mixture-core/src/compiler.rs)负责参数覆盖语义、依赖裁剪、排序、类型化降级、分配估算及哈希；[RenderPlan](../crates/mixture-core/src/plan.rs)定义与后端无关的类型。PR-007 [图执行](./graph-rendering.zh-CN.md)实现穷尽 WGSL 映射。固定棋盘格像素保持不变，共享的 48 字节 uniform 在该指南中说明。
 
 ## 运行与检查

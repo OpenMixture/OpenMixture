@@ -4,6 +4,8 @@ English | [简体中文](./browser-sdk.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
+[Asset adapter APIs](./m6b-04-adapters.md) define the implemented `inspectPackage` / `renderPackage`, synchronous byte capture and package memory budgets.
+
 **Historical checkpoint (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](../ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
