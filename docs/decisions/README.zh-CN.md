@@ -12,5 +12,6 @@
 | [0004](./0004-no-implicit-semantic-fallback.zh-CN.md) | 不进行隐式语义回退 | 基础工程已接受 |
 | [0006](./0006-browser-quality-gates.zh-CN.md) | 有界浏览器纹理一致性 | 实现决策；资格单独记录 |
 | [0007](./0007-external-image-resources.zh-CN.md) | 调用方提供外部图像输入 | M6A-01 设计审查；尚未实现 |
+| [0008](./0008-portable-assets.zh-CN.md) | 可选纯字节 USTAR 资产及 CPU codec 边界 | M6B-02 选定设计；尚待实现 |
 
 未来 ADR 必须包含背景、决策、备选方案、影响、迁移和验证。顺序编号，在此添加链接；契约变化时更新[架构](../../ARCHITECTURE.zh-CN.md)和[路线图](../../ROADMAP.zh-CN.md)。明确用新决策取代旧决策，不重写已接受决策的历史。

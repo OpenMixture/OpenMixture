@@ -6,6 +6,8 @@ Status: M6-B explicitly started by the maintainer on 2026-09-22. This first slic
 
 ## First consumer outcome
 
+**M6B-02 update:** [format/ownership/budget selection](./m6b-package-format.md) and [ADR 0008](./decisions/0008-portable-assets.md) now select canonical uncompressed USTAR, a separate optional Rust CPU codec boundary and explicit buffer limits. Measured alternatives and malformed-input fixtures are retained. The next implementation slice is M6B-03; no loader exists yet. The kickoff statements above describe M6B-01 historically.
+
 A caller can move **one offline asset** containing one unchanged `.mix v1` document and its existing `rgba8-linear` height resources to a different directory or machine. A Native public consumer and the browser public package can inspect it without a GPU, then prepare the same content-bound plan and render through the existing wgpu path. The recipient supplies bytes and rendering options; no author-machine paths, companion-file search, URLs, service account or network resolution is required. CLI file handling is an adapter over the same loader, not another implementation.
 
 Use the existing `image-input` / `scalar-blend` height-normal fixture, one 1024×1024 image, weights 0/0.25/0.5/1 and a small asymmetric image control. No new node, image semantics, sampler, resolution conversion, graph syntax or pixel kernel is needed. This scope is independent of NUM-01: the initial baseline is main `c2a08e14be9991d75df24e0f045d842d8db4b570` / 0.3.0, not the unmerged 0.4 noise branch. Later qualification must identify the exact integrated node versions; packaging must never silently migrate them.

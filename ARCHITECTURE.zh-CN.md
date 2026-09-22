@@ -740,3 +740,6 @@ ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Ren
 M6A-02 已实现 Core 资源语义和计划 v2。[M6A-03](./docs/m6a-03-native-resources.zh-CN.md)通过唯一 wgpu 执行器增加公开准备资源执行、每次渲染 RGBA8 上传及计数。现有十二种节点像素语义不变。[M6A-04](./docs/m6a-04-browser-resources.zh-CN.md)通过 Core 适配字节源同步捕获浏览器图像，并复用准备资源执行器。最终图像资格仍属 M6A-05。
 
 M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵，并在 ADR 0007 明确补充范围。保留的 Windows 硬件一致性失败尚未解决；不改变像素语义或数值门槛。
+## M6B-02 选定可移植输入边界 — 尚待实现
+
+[ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。设计 PR 不新增 crate 或依赖。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。

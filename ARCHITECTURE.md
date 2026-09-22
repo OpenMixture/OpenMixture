@@ -717,6 +717,10 @@ A change requires an architecture decision record when it introduces or changes:
 
 An ADR must include context, decision, alternatives, consequences, migration, and verification. It must also update this document when the accepted decision changes a normative rule.
 
+## M6B-02 selected portable input boundary — implementation pending
+
+[ADR 0008](./docs/decisions/0008-portable-assets.md) selects [canonical uncompressed USTAR assets](./docs/m6b-package-format.md) and authorizes an optional `mixture-asset` public CPU codec crate in M6B-03. It depends on Core; CLI and WASM depend on the codec, while Core/wgpu never do. The codec owns bounded archive bytes, manifest/integrity and package diagnostics, not graph/resource semantics, filesystem extraction or pixel execution. Core supplies reusable resource metadata/digest/reference helpers; wgpu remains unchanged. No crate or dependency is added by the design PR. This narrowly enables producer-owned input transport outside Core; existing exclusions of editor/export/ZIP responsibilities from Core remain.
+
 ## PR-010 measured resampling slice
 
 The catalog now has eleven node types and nine kernels. Scalar `transform-2d` and `warp` use explicit wrapped bilinear texture loads before color/normal derivation; document and node versions remain 1. Their additive typed payloads are documented in [node contracts](./docs/node-contracts.md). `RenderReport.allocations` records successful resource descriptor bytes separately from core estimates. The naive retain-all-pass-textures schedule remains in place; `trace-2k` ranks all three materials and their cases by peak estimate, then measures the largest against the existing 512 MiB budget. Counters exclude driver overhead and CPU buffers; destruction is not a claim of immediate physical memory reclamation. See [development and trace semantics](./docs/development.md). No new crate, format, dependency, cache, optimizer or renderer is introduced.
