@@ -301,7 +301,12 @@ fn node_brick_pattern_gpu() {
         .insert("seed".into(), json!(4294967295_u32));
     let second = render(&request);
     assert_ne!(first, second, "cell amplitudes must respond to seed");
-    for (a, b) in first.chunks_exact(4).zip(second.chunks_exact(4)) {
+    for (a, b) in first
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .zip(second.as_chunks::<4>().0)
+    {
         // Sub-byte bevel samples can cross the RGBA8 zero threshold as amplitudes change.
         if a[0].max(b[0]) > 1 {
             assert_eq!(
