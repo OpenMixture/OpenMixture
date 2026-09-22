@@ -217,7 +217,7 @@ test('scalar composition executes in the candidate and fails explicitly in the p
     expect(result.validation.ok).toBe(false);
     expect(result.validation.diagnostics.map(d=>d.code)).toContain('MIX_NODE_UNKNOWN_TYPE');
   } else {
-    expect(['0.2.0-alpha.0','0.3.0-alpha.0']).toContain(expectedBuild.runtimeVersion);
+    expect(['0.2.0-alpha.0','0.3.0-alpha.0','0.4.0-alpha.0']).toContain(expectedBuild.runtimeVersion);
     expect(result.owned).toBe(true); expect(result.rows).toHaveLength(4);
     for(const row of result.rows) { expect(row.range[1]-row.range[0]).toBeGreaterThan(20);expect(row.seamRatio).toBeLessThan(2);if(row.changed!==null)expect(row.changed).toBeGreaterThan(0.1); }
     expect(new Set(result.rows.map(r=>r.planHash)).size).toBe(4);

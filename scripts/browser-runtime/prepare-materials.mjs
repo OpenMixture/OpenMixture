@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto';
 const root = resolve(import.meta.dirname, '../..');
 const [destination, runtimeRevision, migration] = process.argv.slice(2);
 if (migration !== undefined && migration !== '--noise-v2') throw new Error('Unknown material migration option');
-if (!destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-materials.mjs <new-directory> <runtime-engine-revision>');
+if (!destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-materials.mjs <new-directory> <runtime-engine-revision> [--noise-v2]');
 const out = resolve(destination);
 if (existsSync(out)) throw new Error('Reference directory already exists; select a fresh run directory');
 const git = (...args) => execFileSync('git', args, {cwd:root,encoding:'utf8'}).trim();

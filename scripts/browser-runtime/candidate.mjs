@@ -233,6 +233,6 @@ export async function verifyNoiseMigration(product, output, nativeDirectory, bro
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const [mode, ...args] = process.argv.slice(2);
   const operation = { stage, installed, probe, verify, 'verify-noise-v2': verifyNoiseMigration }[mode];
-  assert.ok(operation && args.length === operation.length, 'Usage: candidate.mjs stage <package-dir> <product> <new-evidence-dir> <engine-sha> <consumer-sha> | installed/probe <product> <evidence-dir> | verify <product> <evidence-dir> <native-dir> <browser-dir>');
+  assert.ok(operation && args.length === operation.length, 'Usage: candidate.mjs stage <package-dir> <product> <new-evidence-dir> <engine-sha> <consumer-sha> | installed/probe <product> <evidence-dir> | verify/verify-noise-v2 <product> <evidence-dir> <native-dir> <browser-dir>');
   await operation(...args);
 }
