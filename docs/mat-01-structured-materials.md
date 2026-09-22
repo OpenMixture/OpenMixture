@@ -55,7 +55,7 @@ The planned brick uniform is 48 bytes: four u32 words `[columns,rows,seed,0]`, t
 
 ## Frozen qualification matrix
 
-[acceptance.json](../fixtures/materials/brick-paving/acceptance.json) is the machine-readable case/budget input for the forthcoming verifier. It contains planned thresholds, not test results. Use independent changes for columns, rows, each mortar width, row offset, bevel, height/color variation and seed; presets are not a substitute for causality tests. A verifier must check expected direction/locality, not merely a changed hash.
+[qualification-plan.json](../fixtures/materials/brick-paving/qualification-plan.json) is the machine-readable case/budget input for the forthcoming verifier. It contains planned thresholds, not test results. Use independent changes for columns, rows, each mortar width, row offset, bevel, height/color variation and seed; presets are not a substitute for causality tests. A verifier must check expected direction/locality, not merely a changed hash.
 
 - Render four channels at 256², 1024², 2048² and 257×129. The fixed regular, staggered, varied and second-seed cases must all pass. Also test 1×1, 1×17 and 17×1 node outputs, full u32 seeds, legal parameter endpoints, zero variation, and invalid odd staggered rows before GPU acquisition.
 - On the pinned SwiftShader adapter, repeated identical inputs are byte-exact. Native/browser comparisons require maximum absolute RGBA8 component error ≤1 for each channel, including normal. Explicitly test recorded GT 1030 Vulkan/DX12 versus browser where available; do not claim other hardware. Investigate failures without silently widening this contract.
