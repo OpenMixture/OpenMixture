@@ -1,0 +1,47 @@
+{
+  "seed": [
+    "heightSeed",
+    "colorSeed",
+    "maskSeed"
+  ],
+  "columns": [
+    "heightColumns",
+    "colorColumns",
+    "maskColumns"
+  ],
+  "rows": [
+    "heightRows",
+    "colorRows",
+    "maskRows"
+  ],
+  "rowOffset": [
+    "heightRowOffset",
+    "colorRowOffset",
+    "maskRowOffset"
+  ],
+  "mortarX": [
+    "heightMortarX",
+    "colorMortarX",
+    "maskMortarX"
+  ],
+  "mortarY": [
+    "heightMortarY",
+    "colorMortarY",
+    "maskMortarY"
+  ],
+  "bevel": [
+    "heightBevel",
+    "colorBevel",
+    "maskBevel"
+  ],
+  "heightVariation": [
+    "heightVariation"
+  ],
+  "colorVariation": [
+    "colorVariation"
+  ],
+  "variation": [
+    "heightVariation",
+    "colorVariation"
+  ]
+}

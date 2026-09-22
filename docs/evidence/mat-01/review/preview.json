@@ -1,0 +1,43 @@
+{
+  "ok": true,
+  "completed": true,
+  "humanAccepted": false,
+  "browser": "153.0.8010.48",
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "pascal",
+    "device": "",
+    "description": ""
+  },
+  "cases": [
+    "default",
+    "regular",
+    "staggered",
+    "varied",
+    "second-seed"
+  ],
+  "inputPngSha256": {
+    "default-1024x1024-baseColor.png": "6ed8a1302eca7d20b74bf7ecaa15ca9af6b08b992a124a37bd6c5179732182a2",
+    "default-1024x1024-normal.png": "f44396253870b73547b6f6a83b323533c0d512f040ecc075e1caca65b8046c16",
+    "default-1024x1024-roughness.png": "0bcee2d931656fc592fede502fea88c37177e45a5bfcb120fcc2a86b6d795814",
+    "default-1024x1024-height.png": "5d89f7c04726ad23043bab145f56e87fba8126897ca93d97b8dc053371618683",
+    "regular-1024x1024-baseColor.png": "fbf657f210554ff32ce01c4817591b17b67433081ba4153663ddc43ace99ab40",
+    "regular-1024x1024-normal.png": "19236ae2f615a6ce6b9230d709233a10ca277c98e485ded5846d4f92cbc8aa64",
+    "regular-1024x1024-roughness.png": "8a4c6a737479d4ca272639f9a765197eea486376a42c6ef11bcb3d850fdd2292",
+    "regular-1024x1024-height.png": "0b16f5bee997419de197b162876ee88281208f2ddbb9905442f7b7e5c8e66b87",
+    "staggered-1024x1024-baseColor.png": "e5f54054c463d7b01eb97c243a02839e5b10dd58e0059b1e4869f208c857f96c",
+    "staggered-1024x1024-normal.png": "829145bd1ffee53ea0bfc6fe5d23e7c139233127b9b75d384f9bfec3a07011b2",
+    "staggered-1024x1024-roughness.png": "d6c840a1f43733cc6fa45eece1fbb16b8864dbcdac48dbbab8bdd670aa5f20e3",
+    "staggered-1024x1024-height.png": "98d0d37acd6a132e6c8de19522c5f8cb573b18dda4d5dfe8adeadca71aee7389",
+    "varied-1024x1024-baseColor.png": "2ebd293970aaee144a5fbdd1d597ad945022795b67e4578561749275c0ec175d",
+    "varied-1024x1024-normal.png": "e0f6aac11db3a05b60bead4b73d4495c29b1fbdc1b50c0bcf302f09228b5ff7c",
+    "varied-1024x1024-roughness.png": "a4d6ed538f5b19dcd2e3d68149fbc9b818a0d5578903a6022a3c85baa8c8504c",
+    "varied-1024x1024-height.png": "36453cb2110075a91b16b3093a9b6940242f5c1a5b4c37ef413ce9712ff565f2",
+    "second-seed-1024x1024-baseColor.png": "1407152c211766bd6a6f8a4af58a32cb80987683757b9dec1e97baa4f01b2696",
+    "second-seed-1024x1024-normal.png": "1cdaf2b21c69803d0e9bdc8309324fac48183b19d4e70a53d98c5b6051e802d0",
+    "second-seed-1024x1024-roughness.png": "0bcee2d931656fc592fede502fea88c37177e45a5bfcb120fcc2a86b6d795814",
+    "second-seed-1024x1024-height.png": "7d2720311778de3261f905f50989bd8862fd4ba48a14b6cc3cddad6769d5c16d"
+  },
+  "previewHtmlSha256": "7d83de65baeaac25a7296f28349ac3a2423b91457b0b7eebe08dc7f1befe0971",
+  "shading": "dielectric GGX, fixed key/fill, no displacement; visualization only"
+}
