@@ -60,11 +60,24 @@ test('installed verification rejects changed WASM and mismatched build metadata'
   }
 });
 
-test('ENG-04 native and browser hosts consume the same source fixture', async () => {
- const fixture = await readFile(new URL('../../fixtures/nodes/scalar-blend/two-noise.mix', import.meta.url));
- for(const path of ['../../examples/native-consumer/tests/scalar-blend.mix','../../examples/browser-consumer/public/scalar-blend.mix']) {
-  assert.deepEqual(await readFile(new URL(path,import.meta.url)),fixture);
+async function assertNoiseMigration(name, fixture) {
+ const legacy = await readFile(new URL(`../../examples/browser-consumer/public/${name}.mix`, import.meta.url));
+ assert.deepEqual(legacy, fixture);
+ const native = await readFile(new URL(`../../examples/native-consumer/tests/${name}.mix`, import.meta.url));
+ const browser = await readFile(new URL(`../../examples/browser-consumer/public/${name}-v2.mix`, import.meta.url));
+ assert.deepEqual(native, browser);
+ const migrated = JSON.parse(fixture);
+ let count = 0;
+ for (const node of migrated.nodes) if (node.type === 'fractal-noise') {
+  assert.equal(node.version, 1); node.version = 2; count++;
  }
+ assert.ok(count > 0);
+ assert.deepEqual(JSON.parse(native), migrated, 'migration changes only explicit noise versions');
+}
+
+test('ENG-04 hosts preserve the frozen fixture and share an explicit noise migration', async () => {
+ const fixture = await readFile(new URL('../../fixtures/nodes/scalar-blend/two-noise.mix', import.meta.url));
+ await assertNoiseMigration('scalar-blend', fixture);
 });
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
@@ -74,7 +87,5 @@ test('published M6A resource cases are required in both modes and share the froz
   assertBrowserReport(report, 'registry');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));
   const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
-  for (const path of ['../../examples/native-consumer/tests/image-input.mix','../../examples/browser-consumer/public/image-input.mix']) {
-    assert.deepEqual(await readFile(new URL(path, import.meta.url)), fixture);
-  }
+  await assertNoiseMigration('image-input', fixture);
 });
