@@ -4,11 +4,11 @@ English | [简体中文](./node-contracts.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-The fourteen versioned node types in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
+The fifteen versioned node types in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
 
 ## Common rules
 
-The latest catalog has fourteen node types. `fractal-noise` supports versions 1 and 2; all other types require `version: 1`. See [stable value noise](./stable-noise.md) for explicit v2 migration and rounding. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` and `brick-pattern` require an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
+The latest catalog has fifteen node types. `fractal-noise` supports versions 1 and 2; all other types require `version: 1`. See [stable value noise](./stable-noise.md) for explicit v2 migration and rounding. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` and `brick-pattern` require an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
@@ -206,9 +206,15 @@ The [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover def
 
 ## scalar-blend
 
+Spatial Scalar mixing is separately provided by `scalar-mask-blend@1`; the uniform-weight contract below is unchanged.
+
 [Contract](../crates/mixture-core/src/nodes/scalar_blend.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl), [fixtures](../fixtures/nodes/scalar-blend/README.md).
 
 Required inputs `a: Scalar`, `b: Scalar`; output `value: Scalar`. Finite Float `weight` in [0, 1], default 0.5. Clamp both finite samples to [0, 1], select the exact clamped endpoint at effective f32 weights 0 and 1, otherwise compute `clamp(a + (b-a)*weight, 0, 1)`. Store (value, 0, 0, 1) using the existing half-precision convention. This pointwise crossfade preserves compatible tiling but cannot repair seams. Both inputs remain required and validated at endpoints. No randomness, resampling, mask or color conversion. See [ENG-04](./eng-04-scalar-blend.md) for compatibility and acceptance.
+
+## scalar-mask-blend
+
+Required Scalar inputs `a`, `b` and `mask`; Scalar `value` output. Float `opacity` in [0,1], default 1. Clamp finite samples, multiply mask by opacity, select exact endpoints or interpolate; no resampling. See the complete [MAT-01 contract](./mat-01-structured-materials.md) and [literal fixtures](../fixtures/nodes/scalar-mask-blend/README.md). Existing scalar-blend has no new input or behavior change.
 
 ## brick-pattern
 

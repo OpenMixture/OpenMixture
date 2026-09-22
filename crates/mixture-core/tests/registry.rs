@@ -22,6 +22,7 @@ fn registry_matches_reviewed_type_versions() {
             ("levels", 1),
             ("material-output", 1),
             ("scalar-blend", 1),
+            ("scalar-mask-blend", 1),
             ("transform-2d", 1),
             ("warp", 1)
         ]

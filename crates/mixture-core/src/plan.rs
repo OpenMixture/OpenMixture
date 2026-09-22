@@ -157,6 +157,8 @@ pub enum KernelId {
     Blend,
     /// Normalized scalar interpolation.
     ScalarBlend,
+    /// Spatial masked normalized scalar interpolation.
+    ScalarMaskBlend,
     /// Periodic explicitly seeded scalar noise.
     FractalNoise,
     /// Scalar-to-color linear gradient.
@@ -253,6 +255,17 @@ pub enum KernelInvocation {
         /// Effective f32 weight in [0, 1].
         weight: f32,
     },
+    /// Scalar blend with a required spatial mask.
+    ScalarMaskBlend {
+        /// First scalar texture.
+        a: ResourceId,
+        /// Second scalar texture.
+        b: ResourceId,
+        /// Scalar spatial mask.
+        mask: ResourceId,
+        /// Overall opacity in [0, 1].
+        opacity: f32,
+    },
     /// Color blend with two color textures and one scalar mask.
     Blend {
         /// First color texture.
@@ -327,6 +340,7 @@ impl KernelInvocation {
             Self::Levels { .. } => KernelId::Levels,
             Self::Blend { .. } => KernelId::Blend,
             Self::ScalarBlend { .. } => KernelId::ScalarBlend,
+            Self::ScalarMaskBlend { .. } => KernelId::ScalarMaskBlend,
             Self::FractalNoise { .. } => KernelId::FractalNoise,
             Self::GradientMap { .. } => KernelId::GradientMap,
             Self::HeightToNormal { .. } => KernelId::HeightToNormal,
@@ -352,7 +366,9 @@ impl KernelInvocation {
                 ..
             } => [Some(*input), Some(*displacement), None],
             Self::ScalarBlend { a, b, .. } => [Some(*a), Some(*b), None],
-            Self::Blend { a, b, mask, .. } => [Some(*a), Some(*b), Some(*mask)],
+            Self::Blend { a, b, mask, .. } | Self::ScalarMaskBlend { a, b, mask, .. } => {
+                [Some(*a), Some(*b), Some(*mask)]
+            }
         }
         .into_iter()
         .flatten()
@@ -363,6 +379,7 @@ impl KernelInvocation {
             Self::ImageInput { .. }
             | Self::Constant { .. }
             | Self::ScalarBlend { .. }
+            | Self::ScalarMaskBlend { .. }
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,

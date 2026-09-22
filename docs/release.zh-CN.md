@@ -84,9 +84,9 @@ macOS loader 路径是本地准备路径，不是可移植安装说明；按目�
 - [ ] 为目标分发审查最终注册表／包锁／安装元数据。当前本地归档省略锁，使用独立固定验证器；单独授权发布改动前保留 `publish = false`。
 - [ ] 在发布版本审查最终说明、实际包内容及源码身份。本地归档或成功 CI 本身不授权发布、push／merge 或创建发布 tag。
 
-## MAT-01b 工作候选
+## MAT-01c 工作候选
 
-源码清单现为未发布 Rust 0.6.0 / browser 0.6.0-alpha.0，用于[brick-pattern 契约](./mat-01-structured-materials.zh-CN.md)。工作候选新增一个公开内核身份（十四种节点类型／十二种内核），下游 Rust 穷举匹配须处理 BrickPattern。现有格式／plan／API schema、旧节点语义及已发布归档不变。这是实现中状态，不代表 main 集成、材质验收或发布；上方已集成 0.5 基线及绑定源码的证据继续保留其历史事实。
+源码清单为未发布 Rust 0.6.0 / browser 0.6.0-alpha.0，用于 [MAT-01 契约](./mat-01-structured-materials.zh-CN.md)。工作候选新增 BrickPattern 与 ScalarMaskBlend（十五种节点类型／十三种内核），下游 Rust 穷举匹配须处理两者。四通道砖材质夹具仍为候选。现有格式／plan／API schema、旧节点语义及已发布归档不变。这是实现中状态，不代表 main 集成、材质验收或发布；上方已集成 0.5 基线及绑定源码的证据继续保留其历史事实。
 
 ## 本地未发布说明
 

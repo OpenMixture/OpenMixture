@@ -7,7 +7,8 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 13] = [
+const NODES: [&str; 14] = [
+    "scalar-mask-blend",
     "brick-pattern",
     "constant-scalar",
     "constant-color",
@@ -268,6 +269,21 @@ fn run_node(name: &str) {
 #[ignore = "requires GPU; cargo xtask test-node constant-scalar"]
 fn node_constant_scalar_gpu() {
     run_node("constant-scalar");
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node scalar-mask-blend"]
+fn node_scalar_mask_blend_gpu() {
+    run_node("scalar-mask-blend");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = scalar_probe::run_masked(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::write(
+            Path::new(&directory).join("scalar-mask-blend-literal-probes.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
 }
 
 #[test]
@@ -719,7 +735,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 seen.insert(format!("{:?}", pass.kernel.id()));
             }
             assert_eq!(renderer.cached_pipeline_count(), seen.len());
-            assert!(seen.len() <= 11);
+            assert!(seen.len() <= 12);
             assert_eq!(report.allocations.live_bytes, 0);
             assert_eq!(
                 report.allocations.released_bytes,
@@ -741,7 +757,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
             rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
         }
     }
-    assert_eq!(seen.len(), 11);
+    assert_eq!(seen.len(), 12);
     renderer.clear_pipeline_cache();
     assert_eq!(renderer.cached_pipeline_count(), 0);
     let plan = plan(

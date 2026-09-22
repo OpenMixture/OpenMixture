@@ -84,9 +84,9 @@ The macOS loader paths are local preparation paths, not portable installation in
 - [ ] Review final registry/package-lock/install metadata for the intended distribution. Current local archives omit locks and use a separate pinned verifier; `publish = false` stays until a separately authorized release change.
 - [ ] Review final release notes, actual package contents and source identity at the release revision. A local archive or successful CI run does not itself authorize publication, push/merge or a release tag.
 
-## MAT-01b working candidate
+## MAT-01c working candidate
 
-The source manifests now select unpublished Rust 0.6.0 / browser 0.6.0-alpha.0 for the [brick-pattern contract](./mat-01-structured-materials.md). The working candidate adds one public kernel identity (fourteen node types/twelve kernels), requiring downstream exhaustive Rust matches to handle BrickPattern. Existing format/plan/API schemas, old node semantics and published archives remain unchanged. This is implementation in progress, not main integration, material qualification or release; the integrated 0.5 baseline and its source-bound evidence above remain historical facts.
+The source manifests select unpublished Rust 0.6.0 / browser 0.6.0-alpha.0 for the [MAT-01 contracts](./mat-01-structured-materials.md). The working candidate adds BrickPattern and ScalarMaskBlend (fifteen node types/thirteen kernels), requiring downstream exhaustive Rust matches to handle both. The four-channel brick fixture is still a candidate. Existing format/plan/API schemas, old node semantics and published archives remain unchanged. This is implementation in progress, not main integration, material qualification or release; the integrated 0.5 baseline and its source-bound evidence above remain historical facts.
 
 ## Local unreleased notes
 
