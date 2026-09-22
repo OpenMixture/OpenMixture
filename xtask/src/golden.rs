@@ -84,6 +84,7 @@ pub(super) fn dispatch(root: &Path, args: &[OsString]) -> TaskResult {
             }
             Ok(())
         }
+        ["test-material", "brick-paving"] => crate::brick_material::run(root),
         ["test-material", id] => check(root, id),
         ["golden", "update", id, "--accept"] => {
             // Presence, even CI=false, is deliberately conservative. No rendering or I/O first.

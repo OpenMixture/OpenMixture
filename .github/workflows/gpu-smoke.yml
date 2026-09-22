@@ -61,6 +61,8 @@ jobs:
         run: cargo xtask gpu-smoke
       - name: Compare all three materials at 1K
         run: cargo xtask golden check
+      - name: Verify structured brick material matrix and package roundtrips
+        run: cargo xtask test-material brick-paving
       - name: Measure the largest material case at 2K
         run: cargo xtask trace-2k
       - name: Retain execution, comparison, and environment evidence
@@ -74,4 +76,5 @@ jobs:
             tmp/package-check/
             tmp/golden/
             tmp/trace-2k/
+            tmp/materials/brick-paving/
           if-no-files-found: error

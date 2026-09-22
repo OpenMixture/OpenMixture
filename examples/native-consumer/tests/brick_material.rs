@@ -36,6 +36,7 @@ fn plan(source: &[u8], controls: &Value, changes: &Value, size: [u32; 2]) -> Ren
 
 fn renderer() -> Renderer {
     let backend = match std::env::var("MIXTURE_GPU_BACKEND").as_deref() {
+        Ok("auto") => BackendPreference::Auto,
         Ok("vulkan") => BackendPreference::Vulkan,
         Ok("dx12") => BackendPreference::Dx12,
         Ok("metal") => BackendPreference::Metal,
@@ -342,6 +343,28 @@ fn brick_material_public_gpu_matrix() {
         downsampling.push(json!({"channel":channel.as_str(),"meanRgbError":error}));
     }
     let mut timing = Vec::new();
+    let stress_low = pollster::block_on(gpu.render(&plan(
+        &source,
+        &controls,
+        &json!({"columns":64,"rows":64}),
+        [256, 256],
+    )))
+    .unwrap();
+    let stress_high = pollster::block_on(gpu.render(&plan(
+        &source,
+        &controls,
+        &json!({"columns":64,"rows":64}),
+        [1024, 1024],
+    )))
+    .unwrap();
+    save(&stress_low, destination, "stress-256x256");
+    save(&stress_high, destination, "stress-1024x1024");
+    let stress: Vec<_> = [OutputChannel::Height, OutputChannel::BaseColor].into_iter().map(|channel| {
+        let error = downsample_error(pixels(&stress_low, channel), pixels(&stress_high, channel), 256);
+        let passes = error.iter().all(|v| *v <= matrix["maxDefaultDownsampleMeanError"].as_f64().unwrap());
+        json!({"channel":channel.as_str(),"cells":[64,64],"meanRgbError":error,"passesDefaultMetric":passes,
+            "qualityScope":if passes {"measured stress passes this metric only"} else {"outside default quality guarantee"}})
+    }).collect();
     for size in [1024, 2048] {
         let mut gpu = renderer();
         let plan = plan(&source, &controls, &json!({}), [size, size]);
@@ -393,7 +416,7 @@ fn brick_material_public_gpu_matrix() {
     std::fs::write(report_path, serde_json::to_vec_pretty(&json!({
         "schemaVersion":1,"completed":true,"ok":downsample_ok && timing_ok && browser_ok,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser_directory.is_some(),
         "scope":"native matrix, repeatability, package roundtrip, descriptor bounds, downsampling and matched-adapter timing budgets",
-        "materialAccepted":false,"cases":rows,"structure":structure,"downsampling":downsampling,"timing":timing
+        "materialAccepted":false,"cases":rows,"structure":structure,"downsampling":downsampling,"stress":stress,"timing":timing
     })).unwrap()).unwrap();
     assert!(
         downsample_ok,
