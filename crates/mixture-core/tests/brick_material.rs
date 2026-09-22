@@ -11,7 +11,7 @@ fn material_cases_compile_through_public_overrides_within_frozen_budget() {
     .into_validated(&SafetyLimits::default())
     .unwrap();
     let acceptance: Value = serde_json::from_slice(include_bytes!(
-        "../../../fixtures/materials/brick-paving/acceptance.json"
+        "../../../fixtures/materials/brick-paving/qualification-plan.json"
     ))
     .unwrap();
     let controls: Value = serde_json::from_slice(include_bytes!(

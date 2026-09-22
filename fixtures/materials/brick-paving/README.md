@@ -6,7 +6,7 @@ This is the unaccepted MAT-01c four-channel [material](./material.mix), implemen
 
 [controls.json](./controls.json) is an acceptance-fixture mapping from conceptual controls to public override IDs, not a new runtime schema or automatic parameter propagation. A caller changes each listed public override together for shared layout controls; heightVariation and colorVariation remain independent. The compiled graph has no hidden linkage between duplicate nodes. MAT-04 owns future graph/parameter reuse.
 
-[acceptance.json](./acceptance.json) retains frozen cases and budgets. This candidate has no accepted golden, human review or complete cross-runtime verdict yet. Do not install a golden merely because the source renders. MAT-01d must provide the full matrix, PBR review, package/public-browser consumption and retained evidence.
+[qualification-plan.json](./qualification-plan.json) retains frozen cases and budgets. This candidate has no accepted golden, human review or complete cross-runtime verdict yet. Do not install a golden merely because the source renders. MAT-01d must provide the full matrix, PBR review, package/public-browser consumption and retained evidence.
 
 Preview through the public CLI:
 

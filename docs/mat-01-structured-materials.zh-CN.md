@@ -55,7 +55,7 @@ Core 负责两个契约、全图验证、覆盖验证、类型化降级及计划
 
 ## 冻结验收矩阵
 
-[acceptance.json](../fixtures/materials/brick-paving/acceptance.json) 是后续验证器的机器可读用例／预算输入，包含计划门槛，不是测试结果。独立修改 columns、rows、两个 mortar 宽度、rowOffset、bevel、高度／颜色 variation 和 seed；预设不能替代因果测试。验证器须检查预期方向／局部性，而非仅检查哈希变化。
+[qualification-plan.json](../fixtures/materials/brick-paving/qualification-plan.json) 是后续验证器的机器可读用例／预算输入，包含计划门槛，不是测试结果。独立修改 columns、rows、两个 mortar 宽度、rowOffset、bevel、高度／颜色 variation 和 seed；预设不能替代因果测试。验证器须检查预期方向／局部性，而非仅检查哈希变化。
 
 - 在 256²、1024²、2048²、257×129 渲染四通道。固定规则、错行、随机变化和第二种子用例都须通过。另测试 1×1、1×17、17×1 节点输出、完整 u32 种子、合法参数端点、零 variation，以及在 GPU 获取前拒绝非法奇数错行。
 - 固定 SwiftShader 上相同输入重复渲染须逐字节一致。Native／浏览器各通道 RGBA8 分量最大绝对误差 ≤1，包括 normal。可用时明确测试已记录 GT 1030 Vulkan／DX12 与浏览器比较，不声明其他硬件。失败需调查，不得静默扩大本契约门槛。
