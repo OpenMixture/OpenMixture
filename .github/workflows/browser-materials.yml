@@ -157,6 +157,7 @@ jobs:
             tmp/browser-product/package-lock.json
             tmp/browser-product/test-results/
             tmp/sdk-candidate/
+            tmp/sdk-brick-comparison/
             tmp/sdk-scalar-comparison/
             tmp/sdk-resource-comparison/
             tmp/sdk-asset-comparison/

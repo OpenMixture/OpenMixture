@@ -252,5 +252,5 @@ test('brick height and normals render through the public candidate; old registry
     expect(result.rows).toHaveLength(4);
     for(const row of result.rows){expect(row.range).toEqual([0,255]);for(const image of row.images)await writeFile(testInfo.outputPath('brick-'+row.id+'-'+image.channel+'.png'),Buffer.from(image.png,'base64'));delete row.images;}
   }else{expect(result.validation.ok).toBe(false);expect(result.validation.diagnostics.map(d=>d.code)).toContain('MIX_NODE_UNKNOWN_TYPE');}
-  await writeFile(testInfo.outputPath('brick-evidence.json'),JSON.stringify(result,null,2));
+  await writeFile(testInfo.outputPath('brick-evidence.json'),JSON.stringify(result,(_key,value)=>typeof value==='bigint'?value.toString():value,2));
 });
