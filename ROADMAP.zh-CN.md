@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。源码版本为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。最近材质验收检查点使用 Rust 0.5.0 / browser 0.5.0-alpha.0。MAT-01b 已通过 [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50) 集成，未发布源码清单为 0.6.0 / 0.6.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 

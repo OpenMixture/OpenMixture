@@ -8,7 +8,7 @@
 
 ## 当前实现要点
 
-基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。MAT-01b 工作候选为未发布、尚未验收的 Rust 0.6.0 / browser 0.6.0-alpha.0；已集成运行时基线仍为 0.5；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
+基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。MAT-01b 工作候选为未发布、尚未验收的 Rust 0.6.0 / browser 0.6.0-alpha.0；最近完整材质验收基线仍为 0.5；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
 
 - **版本边界：** `.mix` 保持 v1，`RenderPlan` 与浏览器 API schema 为 v2。计划哈希域为 `mixture-render-plan-v2\0`，包含选中外部图像的身份。图 `render` 和 `inspect --plan` 报告为 schema 2；doctor、固定 checker、asset 外层报告为 schema 1；`validate` 保持无版本外层结构。见[兼容性](./docs/compatibility.zh-CN.md)。
 - **节点语义：** 十五种节点类型降级为十三种像素内核；`scalar-blend@1` 和 `image-input@1` 已实现。必须按显式类型/版本解析，`fractal-noise@1` 与 `@2` 共存。数量仅描述当前快照，不是准入目标或永久上限。

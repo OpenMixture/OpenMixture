@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. Source versions are unpublished Rust 0.5.0 / browser 0.5.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
+**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. The last qualified material checkpoint used Rust 0.5.0 / browser 0.5.0-alpha.0. MAT-01b is integrated through [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50), with unpublished source manifests at 0.6.0 / 0.6.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
 
 **Historical checkpoint (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
