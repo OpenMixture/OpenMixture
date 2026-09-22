@@ -23,7 +23,7 @@
 
 [材质能力路线图](./ROADMAP.zh-CN.md)选择 MAT-01 砖墙／铺地砖结构为下一增量，随后是 MAT-02 分层风化、MAT-03 编织表面及 MAT-04 图复用。这些是规划能力，不是已实现目录的扩张。从 MAT-01a 有界契约、目录／版本审查及冻结验收用例开始；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
 
-[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/acceptance.json)。在所属 PR 落地前它们仍未实现。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
+[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。在所属 PR 落地前它们仍未实现。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
 
 ## 本指南的强制维护要求
 

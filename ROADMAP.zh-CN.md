@@ -81,7 +81,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 | 工作项 | 交付物 | 依赖／完成条件 |
 |---|---|---|
-| MAT-01a — 契约与验收设计 | [选定契约](./docs/mat-01-structured-materials.zh-CN.md)及[冻结矩阵](./fixtures/materials/brick-paving/acceptance.json)规定 brick-pattern@1、scalar-mask-blend@1、参数、坐标、种子、采样、精度和预算。 | 设计已记录；运行时与像素仍未实现。契约集成后下一实现切面为 MAT-01b。格式／架构变更须单独决策。 |
+| MAT-01a — 契约与验收设计 | [选定契约](./docs/mat-01-structured-materials.zh-CN.md)及[冻结矩阵](./fixtures/materials/brick-paving/qualification-plan.json)规定 brick-pattern@1、scalar-mask-blend@1、参数、坐标、种子、采样、精度和预算。 | 设计已记录；运行时与像素仍未实现。契约集成后下一实现切面为 MAT-01b。格式／架构变更须单独决策。 |
 | MAT-01b — 结构生成 | 通过 Core 降级及唯一 wgpu 执行器实现已批准的形状／重复／变化切面，增加专项夹具及公开契约文档。 | MAT-01a 之后；着色器／节点测试、非法输入、确定性种子行为、边界和奇数尺寸用例通过。保留明确目录审查。 |
 | MAT-01c — 材质组合 | 只增加批准的缺失遮罩／边缘处理切面；构建具有公开控制的一致 baseColor、roughness、height 和 normal 输出。 | MAT-01b 之后；独立参数因果、接缝及高度／法线测试，以及可审查通道和 PBR 对照图。不重复内核，不把广泛数学库伪装成一个节点。 |
 | MAT-01d — 验收与交接 | 通过 Native／浏览器公开 API 和精确候选包消费，保留绑定源码／归档的回执、视觉评审及实测开销。记录支持限制与剩余缺口。 | MAT-01c 之后；下方共同门槛、全部六项必需 CI 通过，两份 Agent Guide 一致。集成及后续发布各自留证。 |
