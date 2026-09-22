@@ -2,6 +2,8 @@
 
 [English](./ARCHITECTURE.md) | 简体中文
 
+**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+
 **状态：** 从零实现 Mixture 的架构契约。
 
 本文定义 Mixture 的职责、数据在系统中的流向，以及初期明确排除的设计。它是初始路线图的规范依据。
@@ -744,3 +746,7 @@ M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Lin
 ## NUM-01 版本化 value-noise 算术
 
 [稳定 value noise](./docs/stable-noise.zh-CN.md)在现有 WGSL kernel 中增加 fractal-noise v2 的 Q0.24 value 计算。目录仍有十三种类型/十一个 kernel，v1 与 cellular 行为继续可用。显式节点版本和 StableValue 降低区分哈希，不改变 .mix v1 或 plan/API schema 2。未发布的 0.4 候选和迁移材质源码需独立验收。
+
+## M6B-03 可移植输入边界
+
+[ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。M6B-03 实现可选 crate 与共用 Core 辅助函数。[M6B-04](./docs/m6b-04-adapters.zh-CN.md)将 CLI 文件 I/O 与 WASM 字节传输接到同一 codec，均准备 Core 拥有的快照并复用 wgpu；适配器持有字节与 codec 共用预算，包括 JS 和 Rust 两份包副本。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。

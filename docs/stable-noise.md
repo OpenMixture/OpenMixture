@@ -2,6 +2,8 @@
 
 English | [简体中文](./stable-noise.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
 The maintainer authorized explicit noise-semantic migration and material requalification on 2026-09-22, following the [Windows investigation](./evidence/windows-numerics/README.md). This change implements `fractal-noise@2` in the unpublished **0.4.0-alpha.0** candidate. It does not publish the candidate or retrospectively qualify 0.3.0 hardware pixels.
 
 ## Contract and compatibility

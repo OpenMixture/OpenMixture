@@ -114,10 +114,18 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
 fn execute(options: Options, report: &mut Report) -> Result<(), (Vec<Diagnostic>, u8)> {
     let request = options
         .compile
-        .request()
+        .request_ref()
         .map_err(|e| (e.report().diagnostics().to_vec(), 2))?;
     let document = super::document_io::load(&options.path, &request.limits)?;
     let plan = compile(&document, &request).map_err(|e| (e.report().diagnostics().to_vec(), 2))?;
+    execute_plan(options, report, plan, None)
+}
+fn execute_plan(
+    options: Options,
+    report: &mut Report,
+    plan: mixture_core::RenderPlan,
+    prepared: Option<mixture_core::PreparedRender>,
+) -> Result<(), (Vec<Diagnostic>, u8)> {
     report.plan_hash = Some(plan.hash().clone());
     let context = match pollster::block_on(GpuContext::request(options.gpu)) {
         Ok(context) => context,
@@ -128,8 +136,11 @@ fn execute(options: Options, report: &mut Report) -> Result<(), (Vec<Diagnostic>
     };
     report.context = Some(context.report().clone());
     let mut renderer = Renderer::new(context);
-    let output = pollster::block_on(renderer.render(&plan))
-        .map_err(|e| (vec![e.diagnostic().clone()], 1))?;
+    let output = match prepared {
+        Some(prepared) => pollster::block_on(renderer.render_prepared(&prepared)),
+        None => pollster::block_on(renderer.render(&plan)),
+    }
+    .map_err(|e| (vec![e.diagnostic().clone()], 1))?;
     report.execution = Some(output.report().clone());
     std::fs::create_dir_all(&options.out).map_err(|e| {
         (
@@ -245,4 +256,42 @@ fn human(out: &mut impl Write, report: &Report) -> io::Result<()> {
     }
     super::human_diagnostics::write(out, &report.diagnostics)?;
     Ok(())
+}
+
+/// Package command shares renderer, PNG encoding, adapter evidence and partial writes.
+pub(super) fn prepared(
+    input: PathBuf,
+    out: PathBuf,
+    gpu: GpuContextOptions,
+    prepared: mixture_core::PreparedRender,
+) -> (impl Serialize, u8) {
+    let mut report = Report {
+        schema_version: 2,
+        input: input.clone(),
+        output_directory: out.clone(),
+        plan_hash: None,
+        context: None,
+        execution: None,
+        outputs: Vec::new(),
+        diagnostics: DiagnosticReport::new([]),
+    };
+    let options = Options {
+        path: input,
+        out,
+        compile: CompileOptions::default(),
+        gpu,
+        json: false,
+    };
+    let plan = prepared.plan().clone();
+    let exit = match execute_plan(options, &mut report, plan, Some(prepared)) {
+        Ok(()) => 0,
+        Err((diagnostics, exit)) => {
+            report.diagnostics = DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
+                d.document_path = Some(report.input.to_string_lossy().into_owned());
+                d
+            }));
+            exit
+        }
+    };
+    (report, exit)
 }

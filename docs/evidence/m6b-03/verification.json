@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-22T08:04:54.702565+00:00",
+  "timezone": "Asia/Shanghai",
+  "workItem": "M6B-03",
+  "pullRequest": "https://github.com/OpenMixture/OpenMixture/pull/43",
+  "testedCommit": "162456342e1f9bb2ee82675cfcc9c6458657fb1b",
+  "testedTree": "6fc9af6161be816355073ecc7080dc0cfe0224c9",
+  "workingTreeAtFinalRun": "clean; later evidence/package-guide documentation edits are not part of this tested commit",
+  "host": "Windows x86_64-pc-windows-msvc",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "node": "v24.21.0",
+  "environment": {
+    "CARGO_INCREMENTAL": "0"
+  },
+  "identities": {
+    "Cargo.lock": "f0cbbfdedfc85ba5d3a0ee43ec60a58cbe3639a4b30838d9c573688fdf314599",
+    "examples/native-consumer/Cargo.lock": "af97bdba14d00369bd99b80a73f70d7563da2d1964f62a53a7fa02a22f387e95",
+    "fixtures/packages/mixpack-v1/cases.json": "c3e8759101ab8ba2799bed43dbc388937876a7b52ba6ef9b23f1dbd796beb3a4"
+  },
+  "versionAvailability": {
+    "publishedNpmVersions": [
+      "0.1.0-alpha.0",
+      "0.2.0-alpha.0",
+      "0.3.0-alpha.0"
+    ],
+    "selectedRust": "0.5.0",
+    "selectedBrowserCandidate": "0.5.0-alpha.0",
+    "publicationPerformed": false
+  },
+  "checks": [
+    {
+      "command": "cargo xtask check",
+      "result": "passed",
+      "logSha256": "0a7e1d49359163e1fe75b8218a619293c57a27d339c94a1dfb79ec3eb7d20878",
+      "temporaryLog": "tmp/m6b03-final-check.log"
+    },
+    {
+      "command": "cargo test --locked -p mixture-asset --test memory -- --nocapture",
+      "result": "passed",
+      "logSha256": "eec0229ef08872ebd8b4dd946ba3b93bcc7c1184213b4b64a862cc4729dcd73c",
+      "temporaryLog": "tmp/m6b03-memory.log"
+    },
+    {
+      "command": "cargo check --locked -p mixture-asset --target wasm32-unknown-unknown",
+      "result": "passed",
+      "logSha256": "ac65af003c980f639dfbf5eb2baa2e1064d7cebfcef32eef3f926359727ea412"
+    },
+    {
+      "command": "node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/consumer.test.mjs",
+      "result": "12 passed",
+      "logSha256": "ae39ec6b72adb470f596ccb7df461a8593acd9113ed3f920a5733593917bde97"
+    },
+    {
+      "command": "tar -tf fixtures/packages/mixpack-v1/valid.mixpack",
+      "result": "passed",
+      "entries": [
+        "manifest.json",
+        "material.mix",
+        "images/0000.rgba"
+      ]
+    }
+  ],
+  "actualRustBufferMeasurements": [
+    {
+      "resourceCount": 1,
+      "width": 1024,
+      "height": 1024,
+      "packageBytes": 4197888,
+      "retainedCapacity": 4197888,
+      "selectedBytes": 4194304,
+      "borrowedCharge": 4195096,
+      "ownedCharge": 8392984
+    },
+    {
+      "resourceCount": 8,
+      "width": 2048,
+      "height": 1024,
+      "packageBytes": 67119616,
+      "retainedCapacity": 67119616,
+      "selectedBytes": 67108864,
+      "borrowedCharge": 67113297,
+      "ownedCharge": 134232913
+    }
+  ],
+  "packageVerification": {
+    "completed": true,
+    "gpuExecuted": false,
+    "mode": "cpu",
+    "ok": true,
+    "packagedCratesValidated": true,
+    "schemaVersion": 1,
+    "stagingDirectory": "\\\\?\\C:\\Users\\krapnik\\AppData\\Local\\Temp\\mixture-package-cpu-45524-1790063930965912600",
+    "stagingRemoved": true,
+    "verification": {
+      "archives": {
+        "mixture-asset-0.5.0.crate": "sha256:3c95d1727a3bcdd92556516acaa631a0ca3cd4bae7132d31fb6a8601f0703caf",
+        "mixture-cli-0.5.0.crate": "sha256:36196a86e4bc79fd01e157824789be93ce76d93b2651005acdfc15f448cd5ac2",
+        "mixture-core-0.5.0.crate": "sha256:dc671730fc5512cfc284bd16b5fcfdcff2bb7677956f8486abc3fd0204ab3511",
+        "mixture-wgpu-0.5.0.crate": "sha256:38e1b8612fa1583ca605ec72ec4b563603299f789c66ad4ca33530bbb28711a1"
+      },
+      "binaryHashes": {
+        "cli": "sha256:e65209fa83449ad178701cc179c22d78653be7780275af4e4e1267374e508fd4",
+        "consumer": "sha256:9eacdb1c7259af7f8d8743070453a73f159bab076d26f4e7a4f5f890213a2b69"
+      },
+      "buildCache": "D:\\Coding\\OpenMixture\\target/package-consumer",
+      "cliCpu": "cli-cpu/status.json",
+      "cliGpu": null,
+      "cpuConsumer": "consumer-cpu.stdout.log",
+      "externalPinnedPackages": 133,
+      "extractedSourcesUnchanged": true,
+      "gpuConsumer": null,
+      "lockPolicy": "archives omit lockfiles while publication is disabled; disposable verification lock is seeded from the committed workspace lock, local membership normalized offline, external name/version/source/checksum pins checked, then all builds/tests use --offline --locked",
+      "missingShaderRejected": true,
+      "packageVersion": "0.5.0",
+      "producerSourcesUnchanged": true,
+      "resolution": "Cargo-normalized archives extracted outside the producer; version-only consumer and package dependencies resolved through local [patch.crates-io] entries to those extracted archives"
+    }
+  },
+  "coverage": {
+    "malformedCorpusCasesIncludingValid": 22,
+    "assetUnitTests": 4,
+    "assetIntegrationTests": 7,
+    "assetDoctests": 1,
+    "independentNativeAssetTest": "passed from source and extracted archives",
+    "gpuExecutedLocally": false
+  },
+  "limitations": [
+    "CPU codec/ownership implementation only; CLI/browser package adapters and package pixel qualification remain M6B-04/05.",
+    "Buffer charges are not RSS; caller inputs, typed objects, allocator overhead, concurrent assets and output retention are separate.",
+    "No new dependency versions, renderer, shader, golden or published release.",
+    "Remote checks run independently; this receipt does not claim their completion."
+  ],
+  "retention": {
+    "inGit": "This receipt, paired explanation, implementation/tests and tiny corpus.",
+    "temporary": "Complete local logs, .crate archives and verifier output under tmp/package-check/cpu-45524-1790063930965912600; no durable archive retrieval promise.",
+    "auditLimit": "Digests identify original transient files but do not preserve their contents. Tests can reproduce a new run, not recover an expired original archive."
+  }
+}

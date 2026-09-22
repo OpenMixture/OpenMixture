@@ -12,5 +12,6 @@ These decisions adopt the supplied greenfield architecture for M0 / PR-001. They
 | [0004](./0004-no-implicit-semantic-fallback.md) | No implicit semantic fallback | Accepted for the foundation |
 | [0006](./0006-browser-quality-gates.md) | Bounded browser texture agreement | Implemented decision; qualification recorded separately |
 | [0007](./0007-external-image-resources.md) | Caller-owned external image input | M6A-01 design review; implementation pending |
+| [0008](./0008-portable-assets.md) | Optional byte-only USTAR assets and CPU codec boundary | M6B-02 selected design; implementation pending |
 
 Future ADRs must include context, decision, alternatives, consequences, migration, and verification. Number them sequentially, link them here, and update [the architecture](../../ARCHITECTURE.md) and [roadmap](../../ROADMAP.md) when their contracts change. Supersede an accepted decision explicitly rather than rewriting its history.

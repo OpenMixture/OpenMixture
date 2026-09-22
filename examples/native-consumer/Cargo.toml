@@ -13,6 +13,7 @@ publish = false
 software-vulkan = ["mixture-wgpu/software-vulkan"]
 
 [dependencies]
+mixture-asset = { path = "../../crates/mixture-asset" }
 mixture-core = { path = "../../crates/mixture-core" }
 mixture-wgpu = { path = "../../crates/mixture-wgpu" }
 pollster = "=0.4.0"

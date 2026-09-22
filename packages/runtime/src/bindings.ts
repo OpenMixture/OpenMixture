@@ -1,4 +1,6 @@
 import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, ImageBinding, Inspection, NodeContract, RenderResult, ResourceLimits, SafetyLimits, ValidationResult } from './types.js';
+import type { PackageInspection, PackageLimits } from './types.js';
+export interface PackageBindingRequest { request: BindingRequest; packageLimits: PackageLimits; }
 
 // Manually reviewed Rust/JS projection contract, verified against real WASM.
 // Generated wasm-bindgen declarations expose JsValue as any; they do not prove it.
@@ -21,6 +23,9 @@ export interface Bindings {
   build_info(): BuildInfo;
   default_limits(): SafetyLimits;
   default_resource_limits(): ResourceLimits;
+  default_package_limits(): PackageLimits;
+  inspect_package(bytes: Uint8Array, options: PackageBindingRequest): PackageInspection;
+  prepare_package(bytes: Uint8Array, options: PackageBindingRequest): PreparedBinding;
   prepare_source(source: Uint8Array, request: BindingRequest): PreparedBinding;
   node_catalog(): NodeContract[];
   validate_source(source: Uint8Array, request: BindingRequest): ValidationResult;

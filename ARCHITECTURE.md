@@ -2,6 +2,8 @@
 
 English | [简体中文](./ARCHITECTURE.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
 **Status:** architecture contract for the greenfield implementation.
 
 This document defines what Mixture owns, how data moves through the system, and which designs are intentionally excluded. It is normative for the initial roadmap.
@@ -716,6 +718,10 @@ A change requires an architecture decision record when it introduces or changes:
 - a compatibility promise.
 
 An ADR must include context, decision, alternatives, consequences, migration, and verification. It must also update this document when the accepted decision changes a normative rule.
+
+## M6B-03 portable input boundary
+
+[ADR 0008](./docs/decisions/0008-portable-assets.md) selects [canonical uncompressed USTAR assets](./docs/m6b-package-format.md) and authorizes an optional `mixture-asset` public CPU codec crate in M6B-03. It depends on Core; CLI and WASM depend on the codec, while Core/wgpu never do. The codec owns bounded archive bytes, manifest/integrity and package diagnostics, not graph/resource semantics, filesystem extraction or pixel execution. Core supplies reusable resource metadata/digest/reference helpers; wgpu remains unchanged. M6B-03 implements the optional crate and shared Core helpers. [M6B-04](./docs/m6b-04-adapters.md) connects CLI file I/O and WASM byte transfer to that codec; both prepare Core-owned snapshots and reuse wgpu. Adapter-retained bytes share the codec budget, including both JS and Rust package copies. This narrowly enables producer-owned input transport outside Core; existing exclusions of editor/export/ZIP responsibilities from Core remain.
 
 ## PR-010 measured resampling slice
 

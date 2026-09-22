@@ -19,7 +19,7 @@ const integrity = bytes => `sha512-${createHash('sha512').update(bytes).digest('
 
 export function candidateManifests(manifest, lock, version, bytes) {
   const published = '0.3.0-alpha.0';
-  assert.equal(version, '0.4.0-alpha.0', 'review the candidate compatibility contract before upgrading');
+  assert.equal(version, '0.5.0-alpha.0', 'review the candidate compatibility contract before upgrading');
   assert.equal(manifest.dependencies['@openmixture/runtime'], published, 'example must pin the exact published version');
   assert.equal(lock.lockfileVersion, 3);
   assert.equal(lock.packages[''].dependencies['@openmixture/runtime'], published);
@@ -48,7 +48,7 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 
 export function assertBrowserReport(report, mode = 'registry') {
   assert.ok(['candidate', 'registry'].includes(mode));
-  assert.equal(report.stats.expected, 13, 'all public resource-consumer tests must execute');
+  assert.equal(report.stats.expected, mode === 'candidate' ? 16 : 13, 'all public consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -78,7 +78,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1' };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
@@ -115,6 +115,9 @@ export async function qualify(mode, packageDirectory, output) {
       archive = join(packageDirectory, basename(expected.tarball.replaceAll('\\', '/')));
       validateCandidate(expected, await readFile(archive), record.consumerRevision);
       version = expected.runtimeVersion;
+      execFileSync('cargo', ['run','--locked','--manifest-path',join(root,'examples/native-consumer/Cargo.toml'),'--target-dir',join(root,'target/native-consumer'),'--example','asset-fixtures','--',join(staging,'public/m6b05')], {cwd:root,stdio:'pipe'});
+      record.assetFixtures = {};
+      for (const name of ['1024x1024.mixpack','65x3.mixpack']) record.assetFixtures[name] = hash(await readFile(join(staging,'public/m6b05',name)));
       await mkdir(join(staging, 'vendor'));
       await cp(archive, join(staging, vendor));
       const next = candidateManifests(manifest, lock, version, await readFile(archive));

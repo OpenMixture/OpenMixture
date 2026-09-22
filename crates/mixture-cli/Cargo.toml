@@ -19,6 +19,7 @@ software-vulkan = ["mixture-wgpu/software-vulkan"]
 
 [dependencies]
 mixture-core.workspace = true
+mixture-asset.workspace = true
 mixture-wgpu.workspace = true
 pollster.workspace = true
 serde_json.workspace = true

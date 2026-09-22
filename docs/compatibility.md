@@ -2,6 +2,10 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
+**M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
+
 **M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
 
 **2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Runtime and Studio material comparisons share this profile; current reports omit superseded sparse-pixel verdicts. Native goldens and exact checker checks remain unchanged. New browser support still needs source-bound qualification.

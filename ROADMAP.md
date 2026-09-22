@@ -2,6 +2,8 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
 **Current status (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
 **M6A-05 qualification, 2026-09-21:** [Retained acceptance](./docs/evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. Subsequently integrated into main and [published as browser 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.md); Rust crates remain unpublished.
@@ -14,6 +16,10 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 **NUM-01, implemented and qualified within recorded scope:** the authorized [stable value-noise migration](./docs/stable-noise.md) implements `fractal-noise@2` in the unpublished 0.4 candidate. [Retained evidence](./docs/evidence/stable-noise/README.md) closes the measured Windows Vulkan/DX12-versus-Chrome resource/Scalar regression (max difference 0), passes the migrated software material matrix and all six CI checks, and retains before/after visual review. This does not publish 0.4, qualify old 0.3 hardware pixels, or close unrelated cellular/warp precision limits.
 
+**M6B-05 qualification complete:** [Retained acceptance](./docs/evidence/m6b-05/README.md) closes M6-B implementation/qualification for the recorded Linux software matrix: 16 package channel comparisons are exact, independent source/archive consumers and existing materials pass, and all six required checks succeed. Windows hardware normal parity remains failed. Rust 0.5.0 / browser 0.5.0-alpha.0 remain unpublished; stack integration and release are separate.
+
+**M6-B started, 2026-09-22:** the maintainer selected portable asset packaging as the next main increment. [M6B-01](./docs/m6b-portable-assets.md) establishes the measured offline-delivery gap and the M6B-02–05 format/implementation/qualification sequence. This kickoff does not implement a loader, select a binary format or publish a package.
+
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
 Maintain one main feature increment plus necessary maintenance. ENG-01–04 are complete; their outcomes and acceptance boundaries are retained under completed milestones below, not queued for another implementation round.
@@ -21,9 +27,9 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Next decision | M6-A is integrated into main and the browser Alpha is published. Hardware numerical maintenance remains unresolved; M6-B does not start automatically. Select the next bounded increment independently. |
-| Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
-| Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
+| Active increment | M6-B implementation and bounded qualification complete on the review stack. Integration/publication require separate work; no next feature is automatically started. |
+| Current qualification | [M6B-05](./docs/evidence/m6b-05/README.md): exact candidate, Native source/archive and browser matrix, materials and six checks; Windows hardware limitation retained. |
+| Conditional candidates | Decide native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 
 Follow the selected contract task sequence, recording design integration, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
 
@@ -38,14 +44,14 @@ Follow [governance](./docs/governance.md), [release status](./docs/release.md) a
 
 ## M6 — Resources and Portable Packaging
 
-These directions remain independent. M6-A is implemented and qualified within the recorded software matrix on its feature stack; M6-B remains an unscheduled candidate.
+These directions remain independent. M6-A is implemented and qualified within the recorded software matrix; M6-B is now explicitly selected, starting with measured requirements rather than a preselected binary format.
 
 | Direction | Entry decision | Bounded outcome |
 |---|---|---|
 | M6-A — External image input | M6A-01 selects the [external-height contract](./docs/m6a-resource-contract.md) for design integration. M6A-02–05 now deliver implementation and bounded qualification on the feature stack; no container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
-| M6-B — Portable asset packaging | Demonstrate a distribution/loading problem that plain .mix plus external files cannot adequately solve. Decide independently of M6-A. | Define inspectable resource identities, bounded loading and path safety; consider .mixpack only when justified. |
+| M6-B — Portable asset packaging | [M6B-01](./docs/m6b-portable-assets.md) records the portable binding gap and single-asset offline use case; M6B-02 selects format/ownership. | Shared Native/browser loading, inspectable resource identity, bounded memory and path safety; preserve loose-input semantics and qualify the exact candidate in M6B-05. |
 
-M6-A qualification does not start portable packaging. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
+M6-B starts through the maintainer's explicit decision, not automatically from M6-A qualification. Format, loader, adapters and acceptance remain separate work items. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
 
 ## Continuing engineering and later candidates
 

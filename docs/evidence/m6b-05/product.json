@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "candidate": {
+    "schemaVersion": 1,
+    "receipt": {
+      "runtimeVersion": "0.5.0-alpha.0",
+      "apiSchemaVersion": 2,
+      "engineVersion": "0.5.0",
+      "engineRevision": "189059f7eca172c8179f416f404f9418a08e3e1d",
+      "engineDirty": false,
+      "buildId": "sha256:ece8fb3e2aa0516a4c6bf70428afc27f83452057de5643525c96cef4728f8365",
+      "tarball": "target/browser-runtime/openmixture-runtime-0.5.0-alpha.0.tgz",
+      "sha256": "c1593834217d7a50e1a8abf72cf18937d6ec7350a45495755fbaaae17a1a8f81",
+      "toolchain": {
+        "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+        "bindgen": "wasm-bindgen 0.2.128",
+        "typescript": "5.9.3",
+        "node": "v24.20.0",
+        "npm": "11.19.0",
+        "target": "wasm32-unknown-unknown"
+      },
+      "files": [
+        "LICENSE-APACHE",
+        "LICENSE-MIT",
+        "README.md",
+        "README.zh-CN.md",
+        "build-info.json",
+        "package.json",
+        "src/bindings.d.ts",
+        "src/bindings.js",
+        "src/build-info.js",
+        "src/index.d.ts",
+        "src/index.js",
+        "src/runtime.d.ts",
+        "src/runtime.js",
+        "src/types.d.ts",
+        "src/types.js",
+        "wasm/bindings.mjs",
+        "wasm/mixture_wasm_bg.wasm"
+      ],
+      "status": "built; browser acceptance is a separate verification"
+    },
+    "fileHashes": {
+      "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+      "README.md": "68075bc75462b55b39729b2ce1442fd05d2b01f22d6392c9a81ae0e262ef6549",
+      "README.zh-CN.md": "6f67a02e237e7efa372053d1ff6632b2ffd00d53ec7f096726201d484502affd",
+      "build-info.json": "07b393770fce207348e7c9317186fe10e0da39d92ab3e9abdf88bc7ba2326c02",
+      "package.json": "32199580a4655478d546703b135ac2eeaa50e7fe5f11ba1f4b81f07b244e1a38",
+      "src/bindings.d.ts": "e3d5ce2d0e8141530f04b40c6a55c30113ef1a78d83b5ae32dceaf2b56e22978",
+      "src/bindings.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "src/build-info.js": "1396126fcf28ac026eacf8f04433dbe0f8235216560598b7376261208c713d0f",
+      "src/index.d.ts": "23331d5ebd7c206182446faa01a945513cfc69ab2e1d237e2a84714ea0d81779",
+      "src/index.js": "702126492ec5c76fdd817cfd096063b9520a8997cb906d897e414a4c653dd1b0",
+      "src/runtime.d.ts": "6f9b286e6442ee12dadd45068fbbc0367b2466a4f814cf022c4c5492fc5cc9c7",
+      "src/runtime.js": "64db5e6ef1ce8ab15fdebba72cb0ea32cf915b97d9ac932791b861362b01d1fc",
+      "src/types.d.ts": "d1daa3c7888e25f49dc625938bb2de0057cbf482a52241033b3d80b62801fde8",
+      "src/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "wasm/bindings.mjs": "984ce6f82cf5883f9ce529f3ea9084886689233767f3f30b08ed0692c851fa88",
+      "wasm/mixture_wasm_bg.wasm": "5e2a727ff48e33019b45046a2ef6ed1d1ebc3ec44901d5be72716107679e2f82"
+    },
+    "consumerRevision": "56c510ab57daa1b68ef660525a648a582730a37e",
+    "originalLockSha256": "dd1d81c31fbf4a6258fae1de1fb7433402728ad61fd4e2f9fff60a7adf58a196",
+    "lockSha256": "d16d03cb10416a6d0b4f658ac3692f01b44d35b712e4f950aabdfa0d0c7b80d0",
+    "originalArchiveSha256": "9e245578de160cee1050259ef34358c3fcd3353a21bbb1672d29701bc1ac8084",
+    "historicalWasmSha256": "fe09b40f00764ce8964ac2f4ad2a350bd69872f8a13e14a602f8aa57579620fb",
+    "run": "35712247923",
+    "attempt": "1",
+    "startedAt": "2026-09-22T09:54:09.968Z"
+  },
+  "evidence": [
+    {
+      "path": "tmp/browser-native/manifest.json",
+      "sha256": "ee37954ee87242ef8d65223baaabdc0c52d9443c2afd7cb1686e4a9d19e080a0"
+    },
+    {
+      "path": "tmp/browser-output/receipt.json",
+      "sha256": "681080a59276701e9b436e78b7435ad1ad022b2bebd6408ef0d5868ae237f2c1"
+    },
+    {
+      "path": "tmp/browser-output/comparison.json",
+      "sha256": "036e83818bad66e5724c7026a7b0d9a2eda8d30feea3f240b24487784708e106"
+    },
+    {
+      "path": "tmp/browser-product/test-results/browser.json",
+      "sha256": "7f0d7ab4617734f55fb2621eb9cb68277323ccab7ebb9ddc97ddc15792eef283"
+    },
+    {
+      "path": "tmp/browser-product/test-results/deployment/receipt.json",
+      "sha256": "5fe6f2f0ba1e6618e2ef6461d07565e38a92ab2becbd0bbb267e63e5e0749a05"
+    },
+    {
+      "path": "tmp/browser-candidate/installed.json",
+      "sha256": "fe7fb136ea01927bd76c08e5d4ab39f786c43391cf4605f448f3ea2664b72b51"
+    },
+    {
+      "path": "tmp/browser-candidate/probe.json",
+      "sha256": "54ce4cb3a591e1f19fa270d251cfc908ab35f9116fd2aee1f1062c11d251c6bf"
+    }
+  ],
+  "completedAt": "2026-09-22T09:57:06.376Z",
+  "scope": "Pinned Chromium candidate qualification; not default-browser support or npm publication"
+}

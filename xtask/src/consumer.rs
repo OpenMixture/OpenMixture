@@ -124,7 +124,19 @@ pub(super) fn gpu(
     )?;
     captured(
         compile_command(root, "test")
-            .args(["--test", "resources", "--", "--ignored", "--nocapture"])
+            .args([
+                "--test",
+                "resources",
+                "--test",
+                "asset_qualification",
+                "--",
+                "--ignored",
+                "--nocapture",
+            ])
+            .env(
+                "MIXTURE_ASSET_EVIDENCE",
+                directory.join("asset-qualification.json"),
+            )
             .env("MIXTURE_GPU_BACKEND", backend)
             .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" }),
         &directory,
@@ -420,6 +432,7 @@ fn cli_contract(
 pub(super) fn validate_cli_status(status: &Value, gpu: bool) -> TaskResult {
     let required: &[&str] = if gpu {
         &[
+            "asset-render",
             "doctor",
             "doctor-skipped",
             "render-full",
@@ -430,6 +443,9 @@ pub(super) fn validate_cli_status(status: &Value, gpu: bool) -> TaskResult {
         ]
     } else {
         &[
+            "asset-pack",
+            "asset-plan",
+            "asset-bad-before-gpu",
             "validate-valid",
             "inspect-valid",
             "validate-missing-warp.mix-json",
@@ -624,6 +640,7 @@ mod tests {
     #[test]
     fn cli_contract_receipt_rejects_skipped_tests_partial_cases_and_wrong_exits() {
         let cases: Vec<_> = [
+            ("asset-render", 0),
             ("doctor", 0),
             ("doctor-skipped", 0),
             ("render-full", 0),
@@ -645,7 +662,7 @@ mod tests {
         incomplete["cases"].as_array_mut().unwrap().pop();
         assert!(validate_cli_status(&incomplete, true).is_err());
         let mut wrong_exit = valid.clone();
-        wrong_exit["cases"][5]["exitCode"] = json!(0);
+        wrong_exit["cases"][6]["exitCode"] = json!(0);
         assert!(validate_cli_status(&wrong_exit, true).is_err());
         let mut unexecuted = valid;
         unexecuted["gpuExecuted"] = json!(false);

@@ -2,6 +2,8 @@
 
 [English](./stable-noise.md) | 简体中文
 
+**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+
 维护者在 2026-09-22 的 [Windows 调查](./evidence/windows-numerics/README.zh-CN.md)之后，授权显式迁移噪声语义并重新验收材质。本变更在未发布的 **0.4.0-alpha.0** 候选中实现 `fractal-noise@2`，不发布该候选，也不追认 0.3.0 的硬件像素。
 
 ## 契约与兼容性

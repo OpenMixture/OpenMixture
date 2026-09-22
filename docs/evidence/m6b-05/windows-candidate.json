@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "mode": "candidate",
+  "ok": true,
+  "startedAt": "2026-09-22T09:46:40.982Z",
+  "verifierSha256": "f9c85d19031d857d6e878bab8a434c0fedb1643b40183e9846fbd2deddc73b12",
+  "consumerRevision": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19",
+  "consumerDirty": false,
+  "staging": "C:\\Users\\krapnik\\AppData\\Local\\Temp\\mixture-browser-consumer-6Rj9iC",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.21.0",
+  "run": null,
+  "attempt": null,
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "da3260d7087692fef06fca2c2d3215e328caddbbf7333e8d818dd246e4b1f6da",
+    "package.json": "c6eedbdee271a2ed1da64ab8b22406e9ee110ae8ec91e71b74a66dda5430f362",
+    "playwright.config.mjs": "c510243e4612db6322b8d7b90df7e626b3930701a787cc98123daa0c05710b10",
+    "public/asset.mix": "ca3996221ac0be990e76c1c5797c1ef0b2812e1e726e5bf7de4085525cc2b91a",
+    "public/asset.mixpack": "6dc66adfab06c5ae7a0e8ea7edc989d33c00f817e04354d70e5ae20a4c38f0b7",
+    "public/image-input.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "public/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+    "README.md": "ed1f707662df10480506eb147df0ebfc10214fc90a27abfae2b0dd24f1df053d",
+    "README.zh-CN.md": "d1ac30d7d1b14c5e048db2a6d8f09b2e5a442f999ed20c126bce93a5237551ff",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/assets.spec.mjs": "eca4ed48792c5b310f6ba78ec588e914a9789c07434ab66605d7560172d01f78",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/resources.spec.mjs": "bcb767bab4adec3b4772b225a90068ad71867f9a93c35f64f85e6cda385dd20d",
+    "tests/sdk.spec.mjs": "5ff1696e095da6f1000b8145181ca3a2c3f8d86bba4f694974ee7701c14a1004",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "assetFixtures": {
+    "1024x1024.mixpack": "8906ec7c349732d05e87b53f6a865baf4a8e77421675c5bc6e05a3297fd0f059",
+    "65x3.mixpack": "3bf5922469f191930cf6877de0dd4bfd08b3ab27785b45e8f1227ae0620eba74"
+  },
+  "build": {
+    "runtimeVersion": "0.5.0-alpha.0",
+    "apiSchemaVersion": 2,
+    "engineVersion": "0.5.0",
+    "engineRevision": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19",
+    "engineDirty": false,
+    "buildId": "sha256:bbebdb0f099a01039d7c75e995eb309ad379d54dfd54576ffe9b845c503bf05a"
+  },
+  "archiveSha256": "7e3575325fbc98c3520cb6d0dd28ad401b4f2c45b999c9e920120df033ce79c7",
+  "archiveIntegrity": "sha512-t3H8yE4gs55CD1Zvhd6UX6uta6KMaIuFnDe31jQBmJyAFAHpOLX0/uallb0KzNN3DiykcPl6C5ZfBBro9n/CEg==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "src/bindings.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "src/build-info.js": "5ad9401297d2ab5c195e185e906a3bbc3fe6c8b8579a43606bf9a57cb8d9eb2b",
+    "src/index.js": "702126492ec5c76fdd817cfd096063b9520a8997cb906d897e414a4c653dd1b0",
+    "src/runtime.js": "64db5e6ef1ce8ab15fdebba72cb0ea32cf915b97d9ac932791b861362b01d1fc",
+    "src/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "build-info.json": "cfb7bbc5e2069db4d0c0b0cb1f0def9b6b8cc2fa0319b5aff62e9b5d4cf4389c",
+    "package.json": "32199580a4655478d546703b135ac2eeaa50e7fe5f11ba1f4b81f07b244e1a38",
+    "README.md": "68075bc75462b55b39729b2ce1442fd05d2b01f22d6392c9a81ae0e262ef6549",
+    "README.zh-CN.md": "6f67a02e237e7efa372053d1ff6632b2ffd00d53ec7f096726201d484502affd",
+    "wasm/bindings.mjs": "e1e907cc50f718d78d3a1275588c115ef197e9f542f6bc2026d499cd3bc6399b",
+    "src/bindings.d.ts": "e3d5ce2d0e8141530f04b40c6a55c30113ef1a78d83b5ae32dceaf2b56e22978",
+    "src/index.d.ts": "e9cdfd105fb86df88ec116870d642330aa02b8a8bda153a66bb83684b5928b40",
+    "src/runtime.d.ts": "6f9b286e6442ee12dadd45068fbbc0367b2466a4f814cf022c4c5492fc5cc9c7",
+    "src/types.d.ts": "d1daa3c7888e25f49dc625938bb2de0057cbf482a52241033b3d80b62801fde8",
+    "wasm/mixture_wasm_bg.wasm": "1f9360c56dff0d121f81c151c29b307417e0ce7c9cbecca87fbe6e9d36d238e0"
+  },
+  "lockSha256": "f9874f37b062f49ec4861ddba16ff90290600731491ad6ba2b564faf8fd71005",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "browserChannel": "chrome",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserTests": {
+    "startTime": "2026-09-22T09:47:47.071Z",
+    "duration": 22373.534,
+    "expected": 16,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "finishedAt": "2026-09-22T09:48:09.497Z"
+}

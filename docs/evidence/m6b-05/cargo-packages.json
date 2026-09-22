@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "gpuExecuted": true,
+  "mode": "gpu",
+  "ok": true,
+  "packagedCratesValidated": true,
+  "schemaVersion": 1,
+  "stagingDirectory": "/tmp/mixture-package-gpu-3069-1790070584446009493",
+  "stagingRemoved": true,
+  "verification": {
+    "archives": {
+      "mixture-asset-0.5.0.crate": "sha256:90f08bc51de679394a36009ecc10834058dcf16fd83c485418424d81f30a401e",
+      "mixture-cli-0.5.0.crate": "sha256:63b08f3708118e2295425c9bf1cf5249747fcef5d83b95e28d8dfe120b91b45e",
+      "mixture-core-0.5.0.crate": "sha256:1b92798954c537c70144ec748e51e42b7fa8da6a3985bc33135837c8a0e99bd0",
+      "mixture-wgpu-0.5.0.crate": "sha256:c704c5f86437eee7947d196737eac4c42e9f59cbf133a4010def40c054a46831"
+    },
+    "binaryHashes": {
+      "cli": "sha256:940a61b2e153b1a5dabbcbb838ea677e6c56accb186be03f4b96043aee682807",
+      "consumer": "sha256:c56d52f511ea185417152ab6b216dad7d7cd31e3b4ea8ada1d53ec31cc5e57af"
+    },
+    "buildCache": "/home/runner/work/OpenMixture/OpenMixture/target/package-consumer",
+    "cliCpu": "cli-cpu/status.json",
+    "cliGpu": "cli-gpu/status.json",
+    "cpuConsumer": "consumer-cpu.stdout.log",
+    "externalPinnedPackages": 133,
+    "extractedSourcesUnchanged": true,
+    "gpuConsumer": "consumer-gpu.stdout.log",
+    "lockPolicy": "archives omit lockfiles while publication is disabled; disposable verification lock is seeded from the committed workspace lock, local membership normalized offline, external name/version/source/checksum pins checked, then all builds/tests use --offline --locked",
+    "missingShaderRejected": true,
+    "packageVersion": "0.5.0",
+    "producerSourcesUnchanged": true,
+    "resolution": "Cargo-normalized archives extracted outside the producer; version-only consumer and package dependencies resolved through local [patch.crates-io] entries to those extracted archives"
+  }
+}

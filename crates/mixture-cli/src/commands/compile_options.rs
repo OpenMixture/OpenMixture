@@ -1,13 +1,16 @@
 //! Shared CLI syntax for the core compile request; semantics stay in mixture-core.
 use mixture_core::{CompileError, CompileRequest, OutputChannel};
 use std::{collections::BTreeMap, ffi::OsString, slice::Iter};
-#[derive(Default)]
+#[derive(Clone, Default)]
 pub(super) struct CompileOptions {
     size: Option<[u32; 2]>,
     outputs: Option<String>,
     overrides: BTreeMap<String, serde_json::Value>,
 }
 impl CompileOptions {
+    pub fn request_ref(&self) -> Result<CompileRequest, CompileError> {
+        self.clone().request()
+    }
     pub fn parse_option(
         &mut self,
         flag: &str,

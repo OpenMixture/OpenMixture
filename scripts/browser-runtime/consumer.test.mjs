@@ -13,13 +13,13 @@ test('candidate substitution preserves the frozen dependency graph and does not 
     'node_modules/@openmixture/runtime': { version: '0.3.0-alpha.0', resolved: 'https://registry.npmjs.org/runtime.tgz', integrity: 'old' },
     'node_modules/vite': { version: '8.3.0', integrity: 'unchanged' },
   } };
-  const result = candidateManifests(manifest, lock, '0.4.0-alpha.0', Buffer.from('candidate'));
+  const result = candidateManifests(manifest, lock, '0.5.0-alpha.0', Buffer.from('candidate'));
   assert.equal(result.manifest.dependencies['@openmixture/runtime'], 'file:vendor/runtime.tgz');
   assert.equal(result.lock.packages['node_modules/@openmixture/runtime'].resolved, 'file:vendor/runtime.tgz');
   assert.match(result.lock.packages['node_modules/@openmixture/runtime'].integrity, /^sha512-/);
   assert.deepEqual(result.lock.packages['node_modules/vite'], lock.packages['node_modules/vite']);
   assert.equal(manifest.dependencies['@openmixture/runtime'], '0.3.0-alpha.0');
-  assert.throws(() => candidateManifests({ dependencies: { '@openmixture/runtime': '^0.1.0' } }, lock, '0.4.0-alpha.0', Buffer.from('candidate')));
+  assert.throws(() => candidateManifests({ dependencies: { '@openmixture/runtime': '^0.1.0' } }, lock, '0.5.0-alpha.0', Buffer.from('candidate')));
 });
 
 test('archive paths cannot escape the installed package', () => {
@@ -32,6 +32,8 @@ test('archive paths cannot escape the installed package', () => {
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
+  assertBrowserReport({...report,stats:{...report.stats,expected:16}},'candidate');
+  assert.throws(()=>assertBrowserReport(report,'candidate'));
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
   }
@@ -82,10 +84,30 @@ test('ENG-04 hosts preserve the frozen fixture and share an explicit noise migra
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
-  assertBrowserReport(report, 'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:16}}, 'candidate');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
   assertBrowserReport(report, 'registry');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));
   const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
   await assertNoiseMigration('image-input', fixture);
+});
+
+
+test('asset closeout rejects missing, duplicate, mismatched and failed matrix evidence',async()=>{
+  const {verifyAssetMatrix}=await import('./asset-matrix.mjs');
+  const rows=['1024x1024','65x3'].flatMap(size=>[0,0.25,0.5,1].map(weight=>({size:size.split('x').map(Number),weight,planHash:'same',packageSha256:size,exactLoosePixels:true,repeatedLoads:2,allocations:{liveBytes:'0'},execution:{allocations:{liveBytes:0}},browserComparison:['height','normal'].map(channel=>({channel,maxComponentDelta:1,limit:1}))})));
+  const browser={ownedAfterDestroy:true,rows:structuredClone(rows)},native={ok:true,ownedAfterDestroy:true,cases:rows};
+  const receipt={assetFixtures:{'1024x1024.mixpack':'1024x1024','65x3.mixpack':'65x3'}};
+  verifyAssetMatrix(native,browser,receipt);
+  for(const mutate of [n=>n.cases.pop(),n=>n.cases[1]=n.cases[0],n=>n.cases[0].planHash='wrong',n=>n.cases[0].packageSha256='wrong',n=>n.cases[0].execution.allocations.liveBytes=1,n=>n.cases[0].browserComparison[0].maxComponentDelta=2,n=>n.ownedAfterDestroy=false]){
+    const bad=structuredClone(native);mutate(bad);assert.throws(()=>verifyAssetMatrix(bad,browser,receipt));
+  }
+});
+
+
+test('portable asset regression retains v1 independently of migrated loose resource inputs',async()=>{
+  const asset = await readFile(new URL('../../examples/native-consumer/tests/asset-input.mix',import.meta.url));
+  const browser = await readFile(new URL('../../examples/browser-consumer/public/image-input.mix',import.meta.url));
+  assert.deepEqual(asset,browser);
+  for(const node of JSON.parse(asset).nodes)if(node.type==='fractal-noise')assert.equal(node.version,1);
 });

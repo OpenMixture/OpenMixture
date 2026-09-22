@@ -199,6 +199,10 @@ pub(crate) fn valid_id(id: &str) -> bool {
             .iter()
             .all(|b| b.is_ascii_alphanumeric() || *b == b'_' || *b == b'-')
 }
+/// Whether a logical image ID satisfies the shared bounded ASCII contract.
+pub fn valid_image_id(id: &str) -> bool {
+    valid_id(id)
+}
 fn diagnostic(code: Code, id: &str, message: &str) -> Diagnostic {
     Diagnostic::error(code, Stage::Compile, message)
         .with_evidence("resourceId", id.chars().take(64).collect::<String>())
@@ -302,66 +306,11 @@ pub(crate) fn capture<D: ImageData>(
                 "No normalized node references this resource.",
             ));
         }
-        if b.format != "rgba8-linear" {
-            errors.push(
-                diagnostic(
-                    Code::ResourceFormatUnsupported,
-                    b.id,
-                    "Unsupported resource format.",
-                )
-                .with_evidence("expected", "rgba8-linear")
-                .with_evidence("observed", b.format.chars().take(64).collect::<String>())
-                .with_evidence("observedFormatBytes", b.format.len() as u64),
-            );
-        }
-        if b.width == 0 || b.height == 0 || [b.width, b.height] != request.size {
-            errors.push(
-                diagnostic(
-                    Code::ResourceSizeMismatch,
-                    b.id,
-                    "Resource dimensions must equal the positive output dimensions.",
-                )
-                .with_evidence("expectedWidth", u64::from(request.size[0]))
-                .with_evidence("expectedHeight", u64::from(request.size[1]))
-                .with_evidence("observedWidth", u64::from(b.width))
-                .with_evidence("observedHeight", u64::from(b.height)),
-            );
-        }
-        for (axis, value) in [("width", b.width), ("height", b.height)] {
-            if let Err(error) = request
-                .limits
-                .check(LimitKind::OutputDimension, u64::from(value))
-            {
-                errors.push(
-                    error
-                        .diagnostic(Stage::Compile)
-                        .with_evidence("resourceId", b.id)
-                        .with_evidence("axis", axis),
-                );
-            }
-        }
-        let count = mul(b.id, u64::from(b.width), u64::from(b.height))?;
-        let row = mul(b.id, u64::from(b.width), 4)?;
-        let length = mul(b.id, row, u64::from(b.height))?;
-        let supplied_length = b.data.byte_len() as u64;
-        if b.bytes_per_row != row || supplied_length != length {
-            errors.push(
-                diagnostic(
-                    Code::ResourceLengthMismatch,
-                    b.id,
-                    "Resource stride and byte length must be exactly packed RGBA8.",
-                )
-                .with_evidence("expectedBytesPerRow", row)
-                .with_evidence("observedBytesPerRow", b.bytes_per_row)
-                .with_evidence("expectedLength", length)
-                .with_evidence("observedLength", supplied_length),
-            );
-        }
-        usize::try_from(length)
-            .map_err(|_| arithmetic(b.id, "hostLength", length, usize::MAX as u64))?;
+        let (count, bounded_length) =
+            check_metadata(b, request.size, &request.limits, &mut errors)?;
         pixels = add(b.id, pixels, count)?;
         // Both declared and actual lengths are bounded, including malformed input.
-        bytes = add(b.id, bytes, length.max(supplied_length))?;
+        bytes = add(b.id, bytes, bounded_length)?;
     }
     errors.extend(budget(
         Code::LimitResourcePixelsExceeded,
@@ -421,16 +370,7 @@ pub(crate) fn capture<D: ImageData>(
         })?;
         data.resize(length, 0);
         binding.data.copy_to(&mut data)?;
-        let mut hash = Sha256::new();
-        hash.update(b"mixture-image-rgba8-linear-v1\0");
-        hash.update(binding.width.to_le_bytes());
-        hash.update(binding.height.to_le_bytes());
-        hash.update(&data);
-        let content_digest = hash
-            .finalize()
-            .iter()
-            .map(|byte| format!("{byte:02x}"))
-            .collect();
+        let content_digest = image_digest(binding.width, binding.height, &data);
         snapshots.push(ResourceSnapshot {
             image: ImageResource {
                 id: id.into(),
@@ -444,4 +384,192 @@ pub(crate) fn capture<D: ImageData>(
         });
     }
     Ok(snapshots)
+}
+
+fn check_metadata<D: ImageData>(
+    b: &AdapterImageBinding<'_, D>,
+    size: [u32; 2],
+    safety: &crate::SafetyLimits,
+    errors: &mut Vec<Diagnostic>,
+) -> Result<(u64, u64), CompileError> {
+    if b.format != "rgba8-linear" {
+        errors.push(
+            diagnostic(
+                Code::ResourceFormatUnsupported,
+                b.id,
+                "Unsupported resource format.",
+            )
+            .with_evidence("expected", "rgba8-linear")
+            .with_evidence("observed", b.format.chars().take(64).collect::<String>())
+            .with_evidence("observedFormatBytes", b.format.len() as u64),
+        );
+    }
+    if b.width == 0 || b.height == 0 || [b.width, b.height] != size {
+        errors.push(
+            diagnostic(
+                Code::ResourceSizeMismatch,
+                b.id,
+                "Resource dimensions must equal the positive output dimensions.",
+            )
+            .with_evidence("expectedWidth", u64::from(size[0]))
+            .with_evidence("expectedHeight", u64::from(size[1]))
+            .with_evidence("observedWidth", u64::from(b.width))
+            .with_evidence("observedHeight", u64::from(b.height)),
+        );
+    }
+    for (axis, value) in [("width", b.width), ("height", b.height)] {
+        if let Err(error) = safety.check(LimitKind::OutputDimension, u64::from(value)) {
+            errors.push(
+                error
+                    .diagnostic(Stage::Compile)
+                    .with_evidence("resourceId", b.id)
+                    .with_evidence("axis", axis),
+            );
+        }
+    }
+    let count = mul(b.id, u64::from(b.width), u64::from(b.height))?;
+    let row = mul(b.id, u64::from(b.width), 4)?;
+    let length = mul(b.id, row, u64::from(b.height))?;
+    let supplied_length = b.data.byte_len() as u64;
+    if b.bytes_per_row != row || supplied_length != length {
+        errors.push(
+            diagnostic(
+                Code::ResourceLengthMismatch,
+                b.id,
+                "Resource stride and byte length must be exactly packed RGBA8.",
+            )
+            .with_evidence("expectedBytesPerRow", row)
+            .with_evidence("observedBytesPerRow", b.bytes_per_row)
+            .with_evidence("expectedLength", length)
+            .with_evidence("observedLength", supplied_length),
+        );
+    }
+    usize::try_from(length)
+        .map_err(|_| arithmetic(b.id, "hostLength", length, usize::MAX as u64))?;
+    Ok((count, length.max(supplied_length)))
+}
+
+/// Validate one borrowed image and compute its identity without capturing pixels.
+/// Caller policies and the ordinary executor use the same metadata and hash logic.
+pub fn image_identity(
+    binding: &ImageBinding<'_>,
+    safety: &crate::SafetyLimits,
+    limits: &ResourceLimits,
+) -> Result<ImageResource, CompileError> {
+    let b = AdapterImageBinding {
+        id: binding.id,
+        width: binding.width,
+        height: binding.height,
+        format: binding.format,
+        bytes_per_row: binding.bytes_per_row,
+        data: binding.data,
+    };
+    let mut errors = Vec::new();
+    if !valid_id(b.id) {
+        errors.push(diagnostic(
+            Code::ResourceInvalidBinding,
+            b.id,
+            "Invalid resource identifier.",
+        ));
+    }
+    let (pixels, bytes) = check_metadata(&b, [b.width, b.height], safety, &mut errors)?;
+    errors.extend(budget(
+        Code::LimitResourceCountExceeded,
+        "resourceCount",
+        limits.resource_count,
+        1,
+    ));
+    errors.extend(budget(
+        Code::LimitResourcePixelsExceeded,
+        "resourcePixels",
+        limits.resource_pixels,
+        pixels,
+    ));
+    errors.extend(budget(
+        Code::LimitResourceBytesExceeded,
+        "resourceBytes",
+        limits.resource_bytes,
+        bytes,
+    ));
+    if !errors.is_empty() {
+        return Err(CompileError::new(errors));
+    }
+    Ok(ImageResource {
+        id: b.id.into(),
+        width: b.width,
+        height: b.height,
+        format: b.format.into(),
+        bytes_per_row: b.bytes_per_row,
+        content_digest: image_digest(b.width, b.height, binding.data),
+    })
+}
+
+fn image_digest(width: u32, height: u32, data: &[u8]) -> String {
+    let mut hash = Sha256::new();
+    hash.update(b"mixture-image-rgba8-linear-v1\0");
+    hash.update(width.to_le_bytes());
+    hash.update(height.to_le_bytes());
+    hash.update(data);
+    hash.finalize()
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
+}
+
+/// Full default resource closure in lexical order, including disconnected branches.
+pub fn document_image_ids(document: &ValidatedDocument) -> Result<BTreeSet<String>, CompileError> {
+    image_ids(document.document(), None)
+}
+fn image_ids(
+    document: &crate::MaterialDocument,
+    selected: Option<&BTreeSet<String>>,
+) -> Result<BTreeSet<String>, CompileError> {
+    let mut ids = BTreeSet::new();
+    for node in &document.nodes {
+        if node.type_id == "image-input" && selected.is_none_or(|s| s.contains(&node.id)) {
+            let id = node
+                .parameters
+                .get("resourceId")
+                .and_then(|v| v.as_str())
+                .ok_or_else(|| compiler::invariant("Validated resource ID is missing."))?;
+            ids.insert(id.to_owned());
+        }
+    }
+    Ok(ids)
+}
+/// Core-owned resource request inventory; no transport logic or pixel capture.
+#[derive(Debug)]
+pub struct ImageReferences {
+    /// Selected resource IDs after validation and dependency slicing.
+    pub selected: BTreeSet<String>,
+    /// Supplied public override IDs targeting resource-reference parameters.
+    pub overridden: BTreeSet<String>,
+}
+/// Validate every request/override before reporting resource selection and override kinds.
+pub fn image_references(
+    document: &ValidatedDocument,
+    request: &CompileRequest,
+) -> Result<ImageReferences, CompileError> {
+    let normalized = compiler::normalize(document, request)?;
+    let selected = compiler::lower::selected_nodes(&normalized, request)?;
+    let mut overridden = BTreeSet::new();
+    for exposed in &document.document().exposed_parameters {
+        if request.overrides.contains_key(&exposed.id) {
+            let kind = document
+                .document()
+                .nodes
+                .iter()
+                .find(|n| n.id == exposed.node_id)
+                .and_then(|n| crate::registry::node_contract_version(&n.type_id, n.version))
+                .and_then(|c| c.parameter(&exposed.parameter_id))
+                .map(|p| p.kind);
+            if matches!(kind, Some(crate::registry::ParameterKind::ResourceRef)) {
+                overridden.insert(exposed.id.clone());
+            }
+        }
+    }
+    Ok(ImageReferences {
+        selected: image_ids(normalized.document(), Some(&selected))?,
+        overridden,
+    })
 }

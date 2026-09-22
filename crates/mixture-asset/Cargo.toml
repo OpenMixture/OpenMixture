@@ -1,0 +1,20 @@
+[package]
+name = "mixture-asset"
+description = "Bounded byte-only portable material assets for Mixture"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+readme = "README.md"
+include = ["Cargo.toml", "src/**", "README*.md", "LICENSE-*"]
+
+[dependencies]
+mixture-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+
+[lints]
+workspace = true
