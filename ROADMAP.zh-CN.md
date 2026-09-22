@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。源码版本为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。最近材质验收检查点使用 Rust 0.5.0 / browser 0.5.0-alpha.0。MAT-01b 已通过 [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50) 集成，未发布源码清单为 0.6.0 / 0.6.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
@@ -27,7 +27,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。当前 Rust 0.5.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-01 结构化砖墙／铺地砖材质是选定的下一规划增量。从 MAT-01a 契约与验收用例开始；本计划不实现新节点。M6-B／NUM-01 发布继续单独处理。 |
+| 当前增量 | MAT-01 结构化砖墙／铺地砖材质：契约已记录，MAT-01b/c 候选实现提供两个节点及四通道夹具。验收和 main 集成仍待完成，MAT-02 尚未开始。M6-B／NUM-01 发布继续单独处理。 |
 | 当前验收 | [M6B-05](./docs/evidence/m6b-05/README.zh-CN.md)：精确候选、Native 源码/归档及浏览器矩阵、材质与六检查，保留 v1 Windows 硬件失败，显式 v2 value-noise 修复单独验收。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
@@ -81,7 +81,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 | 工作项 | 交付物 | 依赖／完成条件 |
 |---|---|---|
-| MAT-01a — 契约与验收设计 | [选定契约](./docs/mat-01-structured-materials.zh-CN.md)及[冻结矩阵](./fixtures/materials/brick-paving/qualification-plan.json)规定 brick-pattern@1、scalar-mask-blend@1、参数、坐标、种子、采样、精度和预算。 | 设计已记录；运行时与像素仍未实现。契约集成后下一实现切面为 MAT-01b。格式／架构变更须单独决策。 |
+| MAT-01a — 契约与验收设计 | [选定契约](./docs/mat-01-structured-materials.zh-CN.md)及[冻结矩阵](./fixtures/materials/brick-paving/qualification-plan.json)规定 brick-pattern@1、scalar-mask-blend@1、参数、坐标、种子、采样、精度和预算。 | 设计已记录；两个节点实现与材质夹具现为候选，不代表材质像素已接受。格式／架构变更须单独决策。 |
 | MAT-01b — 结构生成 | 通过 Core 降级及唯一 wgpu 执行器实现已批准的形状／重复／变化切面，增加专项夹具及公开契约文档。 | MAT-01a 之后；着色器／节点测试、非法输入、确定性种子行为、边界和奇数尺寸用例通过。保留明确目录审查。 |
 | MAT-01c — 材质组合 | 只增加批准的缺失遮罩／边缘处理切面；构建具有公开控制的一致 baseColor、roughness、height 和 normal 输出。 | MAT-01b 之后；独立参数因果、接缝及高度／法线测试，以及可审查通道和 PBR 对照图。不重复内核，不把广泛数学库伪装成一个节点。 |
 | MAT-01d — 验收与交接 | 通过 Native／浏览器公开 API 和精确候选包消费，保留绑定源码／归档的回执、视觉评审及实测开销。记录支持限制与剩余缺口。 | MAT-01c 之后；下方共同门槛、全部六项必需 CI 通过，两份 Agent Guide 一致。集成及后续发布各自留证。 |

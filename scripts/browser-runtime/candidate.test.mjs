@@ -136,7 +136,7 @@ test('installed byte verification catches mixed components and a failed recheck 
 test('ENG-04 disposable host compatibility preserves all other test assertions', () => {
  const before = "expect(result.catalogSize).toBe(11);\nexpect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n});\nkeepLifecycleAndPixels();";
  const after = consumerCompatibility(before);
- assert.equal(after, "expect(result.catalogSize).toBe(14);\nexpect(explicit.runtimeVersion).toBe('0.6.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',\n});\nkeepLifecycleAndPixels();");
+ assert.equal(after, "expect(result.catalogSize).toBe(15);\nexpect(explicit.runtimeVersion).toBe('0.6.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',\n});\nkeepLifecycleAndPixels();");
  assert.throws(()=>consumerCompatibility(before.replace("peakBytes: 'bigint'", "peakBytes: 'number'")));
  assert.throws(()=>consumerCompatibility(after)); assert.throws(()=>consumerCompatibility(before+before));
 });

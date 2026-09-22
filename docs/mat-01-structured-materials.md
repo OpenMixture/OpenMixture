@@ -2,7 +2,7 @@
 
 English | [简体中文](./mat-01-structured-materials.zh-CN.md)
 
-Status: MAT-01a implementation contract, 2026-09-23. The MAT-01b working candidate implements brick-pattern in unpublished 0.6; scalar-mask-blend and the material remain pending. This is the bounded design selected under the [material roadmap](../ROADMAP.md), not material acceptance. MAT-01d records qualified sources and review. Publication remains separate.
+Status: MAT-01a implementation contract, 2026-09-23. The MAT-01c working candidate implements both selected nodes and a four-channel material fixture in unpublished 0.6; full material qualification remains pending. This is the bounded design selected under the [material roadmap](../ROADMAP.md), not material acceptance. MAT-01d records qualified sources and review. Publication remains separate.
 
 ## Material brief and reviewed catalog delta
 

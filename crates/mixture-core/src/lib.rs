@@ -1,6 +1,6 @@
 //! Backend-neutral material graph semantics for Mixture.
 //!
-//! Strict .mix v1 decoding, fourteen versioned node contracts, graph validation, and
+//! Strict .mix v1 decoding, fifteen versioned node contracts, graph validation, and
 //! structured diagnostics with explicit safety limits, and deterministic RenderPlan compilation.
 //! This library has no GPU, CLI, browser, or image dependencies.
 //!

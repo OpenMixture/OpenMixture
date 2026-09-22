@@ -272,6 +272,12 @@ impl Builder<'_> {
                 b: binding("b")?,
                 weight: number(node, "weight")?,
             },
+            "scalar-mask-blend" => KernelInvocation::ScalarMaskBlend {
+                a: binding("a")?,
+                b: binding("b")?,
+                mask: binding("mask")?,
+                opacity: number(node, "opacity")?,
+            },
             "blend" => {
                 let mode = match parameter(node, "mode")?.as_str() {
                     Some("normal") => BlendMode::Normal,
