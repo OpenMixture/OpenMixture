@@ -43,7 +43,7 @@ assert.equal(browser.ok, true);
 assert.deepEqual(browser.build, receipt.build);
 assert.equal(browser.rows.length, 20);
 const nativeDirectory = join(destination, 'native');
-const result = spawnSync('cargo', ['test', '--release', '--locked', '--all-features', '--manifest-path', 'examples/native-consumer/Cargo.toml', '--test', 'brick_material', 'brick_material_public_gpu_matrix', '--', '--ignored', '--nocapture'], {
+const result = spawnSync('cargo', ['test', '--release', '--locked', '--all-features', '--manifest-path', 'examples/native-consumer/Cargo.toml', '--target-dir', 'target/native-consumer', '--test', 'brick_material', 'brick_material_public_gpu_matrix', '--', '--ignored', '--nocapture'], {
   encoding: 'utf8', env: { ...process.env, MIXTURE_BRICK_FIXTURE_DIR: fixture,
     MIXTURE_BRICK_BROWSER_DIR: destination, MIXTURE_BRICK_EVIDENCE_DIR: nativeDirectory },
 });

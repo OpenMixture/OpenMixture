@@ -28,6 +28,8 @@ pub(super) fn run(root: &Path) -> TaskResult {
             "--all-features",
             "--manifest-path",
             "examples/native-consumer/Cargo.toml",
+            "--target-dir",
+            "target/native-consumer",
             "--test",
             "brick_material",
             "brick_material_public_gpu_matrix",

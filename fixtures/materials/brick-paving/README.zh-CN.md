@@ -17,10 +17,12 @@ $env:MIXTURE_GPU_BACKEND='vulkan'
 $env:MIXTURE_GPU_SOFTWARE='0'
 $env:MIXTURE_BRICK_FIXTURE_DIR=(Resolve-Path fixtures/materials/brick-paving).Path
 $env:MIXTURE_BRICK_EVIDENCE_DIR=Join-Path $env:TEMP 'mixture-brick-native-run-01'
-cargo test --release --locked --manifest-path examples/native-consumer/Cargo.toml --test brick_material brick_material_public_gpu_matrix -- --ignored --nocapture
+cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test brick_material brick_material_public_gpu_matrix -- --ignored --nocapture
 ```
 
 其他原生后端可选 `dx12` 或 `metal`；固定 SwiftShader 须按现有文档设置 Vulkan 驱动并指定软件策略 `1`。普通 CPU 测试只编译而不执行该 GPU 测试。已存在的输出目录会被拒绝，失败不会覆盖先前证据。目录包含精确输入副本及记录真实适配器／计划身份的 `native-matrix.json`；成功回执仅覆盖其明确声明的范围。
+
+xtask 与浏览器对照入口均显式构建到 `target/native-consumer`，上方命令也如此。这样 Cargo 生成物遵循仓库受跟踪的忽略规则，不依赖开发者私有 Git 排除配置。验收继续拒绝脏源码；[留存 CI 失败](../../../docs/evidence/mat-01/ci-failure-4bf/README.zh-CN.md)说明此回归及修复。
 
 通过公开 CLI 预览：
 

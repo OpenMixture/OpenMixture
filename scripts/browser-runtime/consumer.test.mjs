@@ -3,8 +3,66 @@ import { test } from 'node:test';
 import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join, dirname, basename, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { assertBrowserReport, candidateManifests, safePackagePath, verifyInstalled } from './consumer.mjs';
 import { hash } from './candidate.mjs';
+
+test('brick comparison keeps a fresh checkout clean without private target ignores', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'mixture-brick-routing-'));
+  const git = (...args) => execFileSync('git', args, { cwd: directory, encoding: 'utf8' }).trim();
+  try {
+    const fixture = join(directory, 'fixtures/materials/brick-paving');
+    const nativeTests = join(directory, 'examples/native-consumer/tests');
+    const qualification = join(directory, 'qualification');
+    await mkdir(fixture, { recursive: true });
+    await mkdir(nativeTests, { recursive: true });
+    await mkdir(join(qualification, 'test-results'), { recursive: true });
+    await writeFile(join(directory, '.gitignore'), '/target/\n/qualification/\n/comparison/\n');
+    await writeFile(join(directory, '.empty-ignore'), '');
+    await writeFile(join(directory, 'rust-toolchain.toml'), await readFile(new URL('../../rust-toolchain.toml', import.meta.url)));
+    const brickFixtures = {};
+    for (const name of ['material.mix', 'controls.json', 'qualification-plan.json']) {
+      const bytes = await readFile(new URL(`../../fixtures/materials/brick-paving/${name}`, import.meta.url));
+      await writeFile(join(fixture, name), bytes);
+      brickFixtures[name] = hash(bytes);
+    }
+    const matrix = JSON.parse(await readFile(join(fixture, 'qualification-plan.json')));
+    const rows = matrix.cases.flatMap(c => matrix.sizes.map(size => ({ case: c.id, size, planHash: 'routing-fixture' })));
+    const native = { ok: true, completed: true, debugAssertions: false, browserCompared: true,
+      timing: [{ budgetPassed: true }, { budgetPassed: true }],
+      cases: rows.map(row => ({ ...row, execution: { planHash: row.planHash }, browserComparison: matrix.channels.map(channel => ({ channel, maxComponentDelta: 0 })) })),
+    };
+    // A dependency-free Rust test replaces only the GPU workload. The real
+    // orchestration still invokes Cargo in a separate consumer workspace.
+    await writeFile(join(directory, 'examples/native-consumer/Cargo.toml'), '[package]\nname="brick-routing-fixture"\nversion="0.0.0"\nedition="2024"\n[workspace]\n');
+    await writeFile(join(nativeTests, 'matrix.json'), JSON.stringify(native));
+    await writeFile(join(nativeTests, 'brick_material.rs'), `#[test]\n#[ignore]\nfn brick_material_public_gpu_matrix() {\n assert!(!cfg!(debug_assertions));\n let out = std::path::PathBuf::from(std::env::var("MIXTURE_BRICK_EVIDENCE_DIR").unwrap());\n std::fs::create_dir(&out).unwrap();\n std::fs::write(out.join("native-matrix.json"), include_str!("matrix.json")).unwrap();\n}\n`);
+    const env = { ...process.env };
+    delete env.CARGO_TARGET_DIR;
+    execFileSync('cargo', ['generate-lockfile', '--manifest-path', 'examples/native-consumer/Cargo.toml', '--offline'], { cwd: directory, env, stdio: 'pipe' });
+    git('init', '--quiet');
+    git('config', 'core.autocrlf', 'false');
+    git('config', 'core.excludesFile', join(directory, '.empty-ignore'));
+    await mkdir(join(directory, '.git/info'), { recursive: true });
+    await writeFile(join(directory, '.git/info/exclude'), '');
+    git('add', '.');
+    git('-c', 'user.name=Routing fixture', '-c', 'user.email=routing@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '--quiet', '-m', 'fixture');
+    const build = { runtimeVersion: '0.6.0-alpha.0' };
+    await writeFile(join(qualification, 'qualification.json'), JSON.stringify({ ok: true, mode: 'candidate', build, consumerRevision: git('rev-parse', 'HEAD'), consumerDirty: false, brickFixtures }));
+    await writeFile(join(qualification, 'test-results/brick-browser.json'), JSON.stringify({ ok: true, build, rows }));
+    for (const row of rows) for (const channel of matrix.channels) {
+      await writeFile(join(qualification, 'test-results', `${row.case}-${row.size[0]}x${row.size[1]}-${channel}.png`), 'routing-only fixture; pixels are not evaluated');
+    }
+    execFileSync(process.execPath, [fileURLToPath(new URL('./check-brick.mjs', import.meta.url)), qualification, join(directory, 'comparison')], { cwd: directory, env, stdio: 'pipe' });
+    assert.equal(JSON.parse(await readFile(join(directory, 'comparison/comparison.json'))).ok, true);
+    assert.equal(git('status', '--porcelain'), '', 'Cargo outputs must stay in the repository-owned ignored target directory');
+  } finally {
+    assert.equal(dirname(resolve(directory)), resolve(tmpdir()));
+    assert.ok(basename(directory).startsWith('mixture-brick-routing-'));
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 test('candidate substitution preserves the frozen dependency graph and does not accept floating versions', () => {
   const manifest = { dependencies: { '@openmixture/runtime': '0.3.0-alpha.0' } };

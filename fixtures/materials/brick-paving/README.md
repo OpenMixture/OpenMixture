@@ -17,10 +17,12 @@ $env:MIXTURE_GPU_BACKEND='vulkan'
 $env:MIXTURE_GPU_SOFTWARE='0'
 $env:MIXTURE_BRICK_FIXTURE_DIR=(Resolve-Path fixtures/materials/brick-paving).Path
 $env:MIXTURE_BRICK_EVIDENCE_DIR=Join-Path $env:TEMP 'mixture-brick-native-run-01'
-cargo test --release --locked --manifest-path examples/native-consumer/Cargo.toml --test brick_material brick_material_public_gpu_matrix -- --ignored --nocapture
+cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test brick_material brick_material_public_gpu_matrix -- --ignored --nocapture
 ```
 
 Use `dx12` or `metal` for other native backends; pinned SwiftShader requires the documented Vulkan driver setup and software policy `1`. Ordinary CPU tests compile but do not execute this GPU test. A pre-existing destination is rejected; failures never overwrite earlier evidence. The directory contains exact input copies and `native-matrix.json` with actual adapter/plan identities. A successful receipt covers only its stated scope.
+
+Both the xtask and browser comparison entry points explicitly build under `target/native-consumer`, as does the command above. This keeps generated Cargo files inside the repository's tracked ignore policy, independent of a developer's private Git excludes. Qualification still rejects dirty sources; the [recorded CI failure](../../../docs/evidence/mat-01/ci-failure-4bf/README.md) explains the regression and fix.
 
 Preview through the public CLI:
 

@@ -1,0 +1,34 @@
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	﻿2026-09-22T18:51:53.9492109Z ##[group]Run node scripts/browser-runtime/candidate.mjs verify tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9493606Z ^[[36;1mnode scripts/browser-runtime/candidate.mjs verify tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output^[[0m
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9524188Z shell: /usr/bin/bash -e {0}
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9524529Z env:
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9524770Z   CC: clang-18
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9525030Z   CXX: clang++-18
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9525307Z   MIXTURE_GPU_BACKEND: vulkan
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9525643Z   MIXTURE_GPU_SOFTWARE: 1
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9525978Z   MIXTURE_GPU_EXPECT_ADAPTER: SwiftShader
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9526562Z   MIXTURE_BROWSER_ARGS: ["--use-angle=swiftshader","--use-webgpu-adapter=swiftshader"]
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9527460Z   VK_ICD_FILENAMES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9528369Z   VK_DRIVER_FILES: /home/runner/work/OpenMixture/OpenMixture/tmp/swiftshader/build/Linux/vk_swiftshader_icd.json
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9529058Z ##[endgroup]
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9982237Z node:internal/modules/run_main:107
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9982657Z     triggerUncaughtException(
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9982900Z     ^
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9983009Z 
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9983255Z AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9983750Z 
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9983884Z true !== false
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9984032Z 
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9984561Z     at validateEvidence (file:///home/runner/work/OpenMixture/OpenMixture/scripts/browser-runtime/candidate.mjs:191:10)
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9985610Z     at verify (file:///home/runner/work/OpenMixture/OpenMixture/scripts/browser-runtime/candidate.mjs:219:3)
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9986295Z     at async file:///home/runner/work/OpenMixture/OpenMixture/scripts/browser-runtime/candidate.mjs:237:3 {
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9986723Z   generatedMessage: true,
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9986947Z   code: 'ERR_ASSERTION',
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9987186Z   actual: true,
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9987388Z   expected: false,
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9987584Z   operator: 'strictEqual',
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9987793Z   diff: 'simple'
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9987983Z }
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9988074Z 
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:53.9988162Z Node.js v24.20.0
+Chromium WebGPU material matrix	Bind all acceptance gates to this candidate	2026-09-22T18:51:54.0020452Z ##[error]Process completed with exit code 1.
