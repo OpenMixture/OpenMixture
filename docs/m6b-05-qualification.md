@@ -2,7 +2,7 @@
 
 English | [简体中文](./m6b-05-qualification.zh-CN.md)
 
-Qualification is in progress; implementation is based on M6B-04 with its six passing remote checks. This slice changes consumer tests/tooling only, retaining package v1, document v1, plan v2, API schema 2 and fractal-noise v1. Rust 0.5.0 / npm 0.5.0-alpha.0 remain unpublished. M6-B closeout requires the recorded exact-candidate and all-six-check results, not merely these test definitions.
+[Qualification completed](./evidence/m6b-05/README.md) on the recorded Linux software matrix: all 16 package channel comparisons are exact and all six required checks pass. This slice changes consumer tests/tooling only, retaining package v1, document v1, plan v2, API schema 2 and fractal-noise v1. Rust 0.5.0 / npm 0.5.0-alpha.0 remain unpublished. The linked receipt identifies the exact tested commit/archive; later documentation commits do not replace that identity.
 
 The independent Native consumer owns `tests/asset_support`: the unchanged M6A height/normal graph, 1024×1024 frozen triangular image and 65×3 asymmetric control (`R=(17x+71y)%256`, other channels 19/201/0). Its `asset-fixtures` example authors two single-file assets using only the public Rust codec into the disposable browser consumer. No author sidecars are shipped. The browser fetches only the archive; the loose reference source/pixels are supplied separately by the test for comparison.
 

@@ -2,6 +2,8 @@
 
 [English](./development.md) | 简体中文
 
+**M6B-05，2026-09-22：** [可移植资产验收](./evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成：源码/归档与浏览器消费、16 个包精确对照、原材质及六检查全部通过。Windows 硬件法线一致性仍未合格。0.5.0 / 0.5.0-alpha.0 未发布，集成和发布单独处理，下方早期状态保留为历史。
+
 **M6B-04（2026-09-22）：** [CLI/浏览器资产适配](./m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
 
 M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。

@@ -2,6 +2,8 @@
 
 English | [简体中文](./development.zh-CN.md)
 
+**M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
+
 **M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
 
 M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.

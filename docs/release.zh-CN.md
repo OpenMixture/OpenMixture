@@ -2,6 +2,8 @@
 
 [English](./release.md) | 简体中文
 
+**M6B-05，2026-09-22：** [可移植资产验收](./evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成：源码/归档与浏览器消费、16 个包精确对照、原材质及六检查全部通过。Windows 硬件法线一致性仍未合格。0.5.0 / 0.5.0-alpha.0 未发布，集成和发布单独处理，下方早期状态保留为历史。
+
 **当前发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。Windows 硬件资源法线一致性仍未通过，不扩大支持范围。
 
 **M6A-05 验收，2026-09-21：** [留存验收](./evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。0.3.0 Rust 源码 / 0.3.0-alpha.0、API schema 2 浏览器候选均未发布。实现 PR 集成和发布仍是独立动作。

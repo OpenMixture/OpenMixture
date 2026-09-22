@@ -2,6 +2,8 @@
 
 English | [简体中文](./release.zh-CN.md)
 
+**M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
+
 **Current release (2026-09-22):** [Browser 0.3.0-alpha.0](./evidence/npm-030-alpha/README.md) is published from the main archive that passed all six checks. API schema 2 / plan v2; Rust crates remain unpublished. Windows hardware resource-normal parity remains unqualified; support is not expanded.
 
 **M6A-05 qualification, 2026-09-21:** [Retained acceptance](./evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. The 0.3.0 Rust source / 0.3.0-alpha.0 API-schema-2 browser candidate are unpublished. Implementation PR integration and release remain separate.
