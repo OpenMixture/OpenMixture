@@ -643,6 +643,24 @@ fn graph_gpu_device_loss_with_warm_cache_is_typed() {
 fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
     let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
     let mut other = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    // Explicit reviewed kernels in the procedural fixture matrix. ImageInput is
+    // covered by its independent resource suite, not this resource-free matrix.
+    let expected: std::collections::BTreeSet<String> = [
+        "Constant",
+        "Checker",
+        "BrickPattern",
+        "Levels",
+        "Blend",
+        "ScalarBlend",
+        "FractalNoise",
+        "GradientMap",
+        "HeightToNormal",
+        "Transform2d",
+        "Warp",
+    ]
+    .into_iter()
+    .map(str::to_owned)
+    .collect();
     let mut seen = std::collections::BTreeSet::new();
     let mut rows = Vec::new();
     // Every focused contract case varies parameters/channels without new cache keys.
@@ -664,7 +682,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 seen.insert(format!("{:?}", pass.kernel.id()));
             }
             assert_eq!(renderer.cached_pipeline_count(), seen.len());
-            assert!(seen.len() <= 10);
+            assert!(seen.is_subset(&expected));
             assert_eq!(report.allocations.live_bytes, 0);
             assert_eq!(
                 report.allocations.released_bytes,
@@ -686,7 +704,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
             rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
         }
     }
-    assert_eq!(seen.len(), 10);
+    assert_eq!(seen, expected);
     renderer.clear_pipeline_cache();
     assert_eq!(renderer.cached_pipeline_count(), 0);
     let plan = plan(
