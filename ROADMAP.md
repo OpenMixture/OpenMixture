@@ -10,6 +10,8 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 ## Current direction — Post-Alpha
 
+**M6-B started, 2026-09-22:** the maintainer selected portable asset packaging as the next main increment. [M6B-01](./docs/m6b-portable-assets.md) establishes the measured offline-delivery gap and the M6B-02–05 format/implementation/qualification sequence. This kickoff does not implement a loader, select a binary format or publish a package.
+
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
 Maintain one main feature increment plus necessary maintenance. ENG-01–04 are complete; their outcomes and acceptance boundaries are retained under completed milestones below, not queued for another implementation round.
@@ -17,9 +19,9 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Next decision | M6-A is integrated into main and the browser Alpha is published. Hardware numerical maintenance remains unresolved; M6-B does not start automatically. Select the next bounded increment independently. |
+| Active increment | M6-B: one offline asset containing unchanged `.mix` plus existing external height resources. M6B-01 records entry evidence; M6B-02 next selects the bounded format and Rust ownership before implementation. |
 | Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
-| Conditional candidates | Decide M6-B packaging, native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
+| Conditional candidates | Decide native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 
 Follow the selected contract task sequence, recording design integration, implementation and accepted evidence separately. Studio upgrades, deployment and product acceptance are not prerequisites for engine planning or release.
 
@@ -34,14 +36,14 @@ Follow [governance](./docs/governance.md), [release status](./docs/release.md) a
 
 ## M6 — Resources and Portable Packaging
 
-These directions remain independent. M6-A is implemented and qualified within the recorded software matrix on its feature stack; M6-B remains an unscheduled candidate.
+These directions remain independent. M6-A is implemented and qualified within the recorded software matrix; M6-B is now explicitly selected, starting with measured requirements rather than a preselected binary format.
 
 | Direction | Entry decision | Bounded outcome |
 |---|---|---|
 | M6-A — External image input | M6A-01 selects the [external-height contract](./docs/m6a-resource-contract.md) for design integration. M6A-02–05 now deliver implementation and bounded qualification on the feature stack; no container or Studio resource-panel requirement. | Caller supplies resources; engine validates identity, size, format and budgets, uploads and manages GPU lifetime. Caller owns network/files/permissions; CLI decoding stays an adapter concern. |
-| M6-B — Portable asset packaging | Demonstrate a distribution/loading problem that plain .mix plus external files cannot adequately solve. Decide independently of M6-A. | Define inspectable resource identities, bounded loading and path safety; consider .mixpack only when justified. |
+| M6-B — Portable asset packaging | [M6B-01](./docs/m6b-portable-assets.md) records the portable binding gap and single-asset offline use case; M6B-02 selects format/ownership. | Shared Native/browser loading, inspectable resource identity, bounded memory and path safety; preserve loose-input semantics and qualify the exact candidate in M6B-05. |
 
-M6-A qualification does not start portable packaging. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
+M6-B starts through the maintainer's explicit decision, not automatically from M6-A qualification. Format, loader, adapters and acceptance remain separate work items. Resource caches, deduplication, incremental uploads and legacy conversion need separate measured or demonstrated problems. No built-in URL downloader, marketplace, general resource manager or editor state in runtime documents is authorized.
 
 ## Continuing engineering and later candidates
 
