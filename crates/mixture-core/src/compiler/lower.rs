@@ -240,6 +240,14 @@ impl Builder<'_> {
                     color_b: color(node, "colorB")?,
                 }
             }
+            "brick-pattern" => KernelInvocation::BrickPattern {
+                cells: [integer(node, "columns")?, integer(node, "rows")?],
+                seed: integer(node, "seed")?,
+                row_offset: number(node, "rowOffset")?,
+                mortar: [number(node, "mortarX")?, number(node, "mortarY")?],
+                bevel: number(node, "bevel")?,
+                variation: number(node, "variation")?,
+            },
             "levels" => {
                 let input_min = number(node, "inputMin")?;
                 let input_max = number(node, "inputMax")?;

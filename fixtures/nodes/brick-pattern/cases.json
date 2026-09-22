@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "node": "brick-pattern",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "regular",
+      "overrides": {
+        "columns": 2,
+        "rows": 2,
+        "mortarX": 0.25,
+        "mortarY": 0.25,
+        "bevel": 0,
+        "variation": 0,
+        "rowOffset": 0
+      },
+      "size": [
+        32,
+        32
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            8
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            8,
+            8
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            8,
+            24
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "staggered",
+      "overrides": {
+        "columns": 2,
+        "rows": 2,
+        "mortarX": 0.25,
+        "mortarY": 0.25,
+        "bevel": 0,
+        "variation": 0,
+        "rowOffset": 0.5
+      },
+      "size": [
+        32,
+        32
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            8,
+            8
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            8,
+            24
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            24
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "odd-rectangle",
+      "overrides": {
+        "columns": 2,
+        "rows": 2,
+        "mortarX": 0.25,
+        "mortarY": 0.25,
+        "bevel": 0,
+        "variation": 0,
+        "rowOffset": 0
+      },
+      "size": [
+        65,
+        33
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            8
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            48,
+            24
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "single-cell",
+      "overrides": {
+        "columns": 1,
+        "rows": 1,
+        "mortarX": 0.25,
+        "mortarY": 0.25,
+        "bevel": 0,
+        "variation": 0,
+        "rowOffset": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        257,
+        129
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "maximum-seed",
+      "overrides": {
+        "seed": 4294967295
+      },
+      "size": [
+        257,
+        129
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": []
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "rows": 3
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "columns": 65
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "seed": -1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

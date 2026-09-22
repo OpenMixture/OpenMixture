@@ -8,6 +8,14 @@ use serde::Serialize;
 
 pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
     match id {
+        KernelId::BrickPattern => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/brick-pattern.wgsl")
+            ),
+            "brick_pattern",
+        ),
         KernelId::ImageInput => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -107,6 +115,22 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             .collect::<Vec<_>>()
     };
     match invocation {
+        KernelInvocation::BrickPattern {
+            cells,
+            seed,
+            row_offset,
+            mortar,
+            bevel,
+            variation,
+        } => {
+            let mut bytes: Vec<_> = [cells[0], cells[1], *seed, 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(&[*row_offset, mortar[0], mortar[1], *bevel]));
+            bytes.extend(floats(&[*variation, 0., 0., 0.]));
+            bytes
+        }
         KernelInvocation::ImageInput { .. } => vec![0; 16],
         KernelInvocation::Constant { value } => floats(value),
         KernelInvocation::Checker {
@@ -192,7 +216,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most eleven kernel identities, including image upload.
+/// Pipeline lookups for one render call. The cache has at most twelve kernel identities, including image upload.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -276,6 +300,7 @@ mod tests {
             (KernelId::Levels, 32),
             (KernelId::Blend, 16),
             (KernelId::ScalarBlend, 16),
+            (KernelId::BrickPattern, 48),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
             (KernelId::HeightToNormal, 16),

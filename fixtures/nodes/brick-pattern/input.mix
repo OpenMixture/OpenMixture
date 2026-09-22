@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "brick",
+      "type": "brick-pattern",
+      "version": 1,
+      "parameters": {
+        "seed": 1729
+      }
+    },
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "brick",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "seed",
+      "nodeId": "brick",
+      "parameterId": "seed"
+    },
+    {
+      "id": "columns",
+      "nodeId": "brick",
+      "parameterId": "columns"
+    },
+    {
+      "id": "rows",
+      "nodeId": "brick",
+      "parameterId": "rows"
+    },
+    {
+      "id": "rowOffset",
+      "nodeId": "brick",
+      "parameterId": "rowOffset"
+    },
+    {
+      "id": "mortarX",
+      "nodeId": "brick",
+      "parameterId": "mortarX"
+    },
+    {
+      "id": "mortarY",
+      "nodeId": "brick",
+      "parameterId": "mortarY"
+    },
+    {
+      "id": "bevel",
+      "nodeId": "brick",
+      "parameterId": "bevel"
+    },
+    {
+      "id": "variation",
+      "nodeId": "brick",
+      "parameterId": "variation"
+    }
+  ]
+}

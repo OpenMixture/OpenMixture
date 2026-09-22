@@ -143,6 +143,8 @@ pub enum PassOrigin {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum KernelId {
+    /// Periodic rectangular block profiles with deterministic per-cell amplitude.
+    BrickPattern,
     /// Read caller-supplied linear RGBA8 red into a Scalar intermediate.
     ImageInput,
     /// Shared uniform constant kernel for scalar, color, and default normal data.
@@ -193,6 +195,21 @@ pub enum BlendMode {
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(tag = "id", rename_all = "camelCase", rename_all_fields = "camelCase")]
 pub enum KernelInvocation {
+    /// Four-sample periodic brick profile; explicit seed retains all 32 bits.
+    BrickPattern {
+        /// Columns and rows per tile.
+        cells: [u32; 2],
+        /// Explicit per-cell random seed.
+        seed: u32,
+        /// Alternating row displacement in cell widths.
+        row_offset: f32,
+        /// Horizontal and vertical gap fractions.
+        mortar: [f32; 2],
+        /// Inward smooth profile width in cell coordinates.
+        bevel: f32,
+        /// Seeded amplitude variation in [0, 1].
+        variation: f32,
+    },
     /// Immutable content identity is recorded in the plan resource table.
     ImageInput {
         /// Logical caller resource ID, resolved by Core preparation.
@@ -303,6 +320,7 @@ impl KernelInvocation {
     /// Exhaustive kernel identity; parameter variants cannot disagree with this ID.
     pub fn id(&self) -> KernelId {
         match self {
+            Self::BrickPattern { .. } => KernelId::BrickPattern,
             Self::ImageInput { .. } => KernelId::ImageInput,
             Self::Constant { .. } => KernelId::Constant,
             Self::Checker { .. } => KernelId::Checker,
@@ -320,6 +338,7 @@ impl KernelInvocation {
     pub fn inputs(&self) -> impl Iterator<Item = ResourceId> {
         match self {
             Self::ImageInput { .. }
+            | Self::BrickPattern { .. }
             | Self::Constant { .. }
             | Self::Checker { .. }
             | Self::FractalNoise { .. } => [None, None, None],
@@ -347,7 +366,7 @@ impl KernelInvocation {
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,
-            Self::Checker { .. } => 48,
+            Self::Checker { .. } | Self::BrickPattern { .. } => 48,
             Self::Levels { .. }
             | Self::FractalNoise { .. }
             | Self::GradientMap { .. }
