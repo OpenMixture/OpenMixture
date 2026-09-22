@@ -11,3 +11,17 @@ Agent review: brick courses alternate only in the offset variants; mortar is dar
 ![Two by two height repetition](./tiled-height.png)
 
 The tiled image repeats a 512x512 display reduction of the default height. Separate GPU tests compare the complete doubled-resolution/doubled-cell output to four original tiles byte for byte; the preview alone is not that proof. Original and migrated historical material goldens are unchanged.
+
+## Windows public-consumer result
+
+[Exact candidate receipt](./windows.json) and [Native/browser comparison](./windows-comparison.json) bind source 847fe53c6a42dfac573ee498ccfdc15b1e978b79 and the clean unpublished 0.6.0-alpha.0 archive. All 17 candidate browser tests passed. Three 1K variants and one 65x3 control have equal plan hashes and maximum component delta **0** for all eight height/normal comparisons against the unchanged <=1 gate. This covers the recorded Windows adapter and installed Chrome only, not arbitrary hardware or a published release. cargo xtask check, shader validation, focused node GPU tests and the independent Native consumer passed locally. Six remote checks are separate; PR #47 carries their current status. An initial browser evidence write failed on BigInt serialization; the source above includes the repair and a complete fresh qualification.
+
+Reproduce from that source using a clean candidate build, then:
+
+```sh
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/brick-browser-candidate
+node scripts/browser-runtime/check-bricks.mjs tmp/brick-browser-candidate tmp/brick-native-browser
+```
+
+On this Windows host MIXTURE_BROWSER_CHANNEL=chrome selected the installed browser; native used the explicitly recorded auto adapter policy. Use fresh output directories. Candidate build/registry identities remain separate. The software CI matrix retains its own reports under sdk-brick-comparison in the Chromium artifact.
