@@ -11,6 +11,7 @@ fn registry_matches_reviewed_type_versions() {
         identities,
         [
             ("blend", 1),
+            ("brick-pattern", 1),
             ("checker", 1),
             ("constant-color", 1),
             ("constant-scalar", 1),
@@ -50,7 +51,9 @@ fn registry_contracts_have_valid_defaults_and_explicit_seed() {
             } else {
                 assert!(matches!(
                     (contract.type_id, parameter.id),
-                    ("fractal-noise", "seed") | ("image-input", "resourceId")
+                    ("fractal-noise", "seed")
+                        | ("brick-pattern", "seed")
+                        | ("image-input", "resourceId")
                 ));
             }
             match parameter.kind {

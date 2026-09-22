@@ -8,10 +8,10 @@
 
 ## 当前实现要点
 
-基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。此快照源码为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
+基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。MAT-01b 工作候选为未发布、尚未验收的 Rust 0.6.0 / browser 0.6.0-alpha.0；已集成运行时基线仍为 0.5；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
 
 - **版本边界：** `.mix` 保持 v1，`RenderPlan` 与浏览器 API schema 为 v2。计划哈希域为 `mixture-render-plan-v2\0`，包含选中外部图像的身份。图 `render` 和 `inspect --plan` 报告为 schema 2；doctor、固定 checker、asset 外层报告为 schema 1；`validate` 保持无版本外层结构。见[兼容性](./docs/compatibility.zh-CN.md)。
-- **节点语义：** 十三种节点类型降级为十一种像素内核；`scalar-blend@1` 和 `image-input@1` 已实现。必须按显式类型/版本解析，`fractal-noise@1` 与 `@2` 共存。数量仅描述当前快照，不是准入目标或永久上限。
+- **节点语义：** 十四种节点类型降级为十二种像素内核；`scalar-blend@1` 和 `image-input@1` 已实现。必须按显式类型/版本解析，`fractal-noise@1` 与 `@2` 共存。数量仅描述当前快照，不是准入目标或永久上限。
 - **外部资源（M6-A）：** 调用方提供紧密排列的 `rgba8-linear` 图像字节；Core 验证身份、尺寸、预算，同步捕获选中像素并返回不可变 `PreparedRender`；wgpu 负责上传和执行。禁止隐式路径/URL 查找、PNG 解码、重采样及保留调用方可变缓冲区。见[资源契约](./docs/m6a-resource-contract.zh-CN.md)。
 - **可移植资产（M6-B）：** 可选 `mixture-asset` 负责共享纯 CPU `.mixpack v1` 读写，采用严格规范化的无压缩 USTAR 子集。保留精确 `.mix` 字节和节点版本；在裁剪前验证哈希与完整资源闭包，不将归档路径提取到文件系统。包 v1 对所有 `resourceRef` 覆盖（包括相同值）返回 `MIX_PACKAGE_RESOURCE_OVERRIDE`，普通覆盖保持 Core 语义。见[格式/所有权](./docs/m6b-package-format.zh-CN.md)及 [codec](./docs/m6b-03-cpu-assets.zh-CN.md)。
 - **包内存：** 默认上限为归档 67 MiB、manifest 64 KiB、计费字节缓冲区 202 MiB，调用方只能降低。计入 Rust 实际保留容量、源码/manifest 临时缓冲区、Core 选中快照及适配层副本。浏览器同时计入同步 JS 快照与 Rust 副本；异步 GPU 执行前释放传输缓冲区。这是字节缓冲区策略，不是进程 RSS 承诺。[适配规则](./docs/m6b-04-adapters.zh-CN.md)必须与可执行限制同步。
@@ -23,7 +23,7 @@
 
 [材质能力路线图](./ROADMAP.zh-CN.md)选择 MAT-01 砖墙／铺地砖结构为下一增量，随后是 MAT-02 分层风化、MAT-03 编织表面及 MAT-04 图复用。这些是规划能力，不是已实现目录的扩张。从 MAT-01a 有界契约、目录／版本审查及冻结验收用例开始；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
 
-[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/acceptance.json)。在所属 PR 落地前它们仍未实现。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
+[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/acceptance.json)。工作候选已实现 brick-pattern，scalar-mask-blend 仍为规划；MAT-01 材质验收尚未完成。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
 
 ## 本指南的强制维护要求
 

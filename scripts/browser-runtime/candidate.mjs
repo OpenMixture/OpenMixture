@@ -64,7 +64,7 @@ export function validateCandidate(receipt, bytes, revision) {
   assert.equal(receipt.engineDirty, false, 'candidate requires clean sources');
   assert.match(receipt.buildId, /^sha256:[a-f0-9]{64}$/);
   assert.equal(receipt.sha256, hash(bytes), 'candidate archive digest mismatch');
-  assert.equal(receipt.runtimeVersion, '0.5.0-alpha.0', 'update the pinned consumer contract for a new version');
+  assert.equal(receipt.runtimeVersion, '0.6.0-alpha.0', 'update the pinned consumer contract for a new version');
   assert.equal(receipt.apiSchemaVersion, 2);
   for (const file of ['package.json', 'build-info.json', 'src/build-info.js', 'src/index.d.ts', 'src/runtime.d.ts', 'src/types.d.ts', 'src/bindings.d.ts',
     'src/index.js', 'src/runtime.js', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm']) {
@@ -74,8 +74,8 @@ export function validateCandidate(receipt, bytes, revision) {
 
 // Versioned expectations in the pinned disposable CI host only. Its repository is not edited.
 export function consumerCompatibility(source) {
-  const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(13);"],
-    ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.5.0-alpha.0');"],
+  const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(14);"],
+    ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.6.0-alpha.0');"],
     ["    cumulativeBytes: 'bigint', peakBytes: 'bigint',",
       "    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',"]];
   for (const [before, after] of changes) {
@@ -113,7 +113,7 @@ export async function stage(packageDirectory, product, output, revision, consume
   await writeFile(testPath, adaptedTest);
   await save(join(output, 'consumer-compatibility.json'), { consumerRevision,
     originalSha256: hash(Buffer.from(originalTest)), adaptedSha256: hash(Buffer.from(adaptedTest)),
-    reason: 'M6B-03: thirteen unchanged Core contracts, unpublished runtime 0.5.0-alpha.0 and four bigint resource estimates; three exact expectations updated',
+    reason: 'MAT-01b: fourteen Core contracts including brick-pattern, unpublished runtime 0.6.0-alpha.0 and four bigint resource estimates; three exact expectations updated',
     original: originalTest, adapted: adaptedTest });
   const lockBytes = await readFile(join(product, 'package-lock.json'));
   const originalArchive = await readFile(join(product, vendor));

@@ -7,7 +7,8 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 12] = [
+const NODES: [&str; 13] = [
+    "brick-pattern",
     "constant-scalar",
     "constant-color",
     "checker",
@@ -267,6 +268,62 @@ fn run_node(name: &str) {
 #[ignore = "requires GPU; cargo xtask test-node constant-scalar"]
 fn node_constant_scalar_gpu() {
     run_node("constant-scalar");
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node brick-pattern"]
+fn node_brick_pattern_gpu() {
+    run_node("brick-pattern");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let mut renderer = Renderer::new(context);
+    let bytes = source("brick-pattern", "input.mix");
+    let mut request = CompileRequest {
+        size: [257, 129],
+        outputs: vec![OutputChannel::Height],
+        ..Default::default()
+    };
+    let mut render = |request: &CompileRequest| {
+        let plan = plan(&bytes, request).unwrap();
+        pollster::block_on(renderer.render(&plan))
+            .unwrap()
+            .channels()[0]
+            .pixels()
+            .to_vec()
+    };
+    let first = render(&request);
+    assert_eq!(
+        first,
+        render(&request),
+        "identical requests must repeat exactly"
+    );
+    request
+        .overrides
+        .insert("seed".into(), json!(4294967295_u32));
+    let second = render(&request);
+    assert_ne!(first, second, "cell amplitudes must respond to seed");
+    for (a, b) in first.chunks_exact(4).zip(second.chunks_exact(4)) {
+        // Sub-byte bevel samples can cross the RGBA8 zero threshold as amplitudes change.
+        if a[0].max(b[0]) > 1 {
+            assert_eq!(
+                a[0] == 0,
+                b[0] == 0,
+                "seed must preserve resolved gap locations"
+            );
+        }
+    }
+    request.overrides.insert("variation".into(), json!(0));
+    let no_variation = render(&request);
+    request.overrides.insert("seed".into(), json!(0));
+    assert_eq!(
+        no_variation,
+        render(&request),
+        "zero variation must remove seed influence"
+    );
+    for size in [[1, 1], [1, 17], [17, 1]] {
+        request.size = size;
+        let pixels = render(&request);
+        assert_eq!(pixels.len(), (size[0] * size[1] * 4) as usize);
+    }
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask test-node constant-color"]
@@ -657,7 +714,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 seen.insert(format!("{:?}", pass.kernel.id()));
             }
             assert_eq!(renderer.cached_pipeline_count(), seen.len());
-            assert!(seen.len() <= 10);
+            assert!(seen.len() <= 11);
             assert_eq!(report.allocations.live_bytes, 0);
             assert_eq!(
                 report.allocations.released_bytes,
@@ -679,7 +736,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
             rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
         }
     }
-    assert_eq!(seen.len(), 10);
+    assert_eq!(seen.len(), 11);
     renderer.clear_pipeline_cache();
     assert_eq!(renderer.cached_pipeline_count(), 0);
     let plan = plan(

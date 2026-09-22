@@ -2,7 +2,7 @@
 
 [English](./mat-01-structured-materials.md) | 简体中文
 
-状态：MAT-01a 实现契约，2026-09-23。这是[材质路线图](../ROADMAP.zh-CN.md)下选定的有界设计，不代表新节点或材质像素已经实现、接受。MAT-01b/c 负责实现，MAT-01d 记录验收源码与评审。发布继续独立处理。
+状态：MAT-01a 实现契约，2026-09-23。MAT-01b 工作候选在未发布 0.6 中实现 brick-pattern；scalar-mask-blend 及材质仍待完成。这是[材质路线图](../ROADMAP.zh-CN.md)下选定的有界设计，不代表材质已接受。MAT-01d 记录验收源码与评审。发布继续独立处理。
 
 ## 材质目标与审查后的目录增量
 

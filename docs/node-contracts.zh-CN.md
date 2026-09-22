@@ -4,11 +4,11 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-[mixture-core](../crates/mixture-core/src/registry.rs)中的十三种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十四种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 
-最新目录有十三个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+最新目录有十四个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -209,3 +209,7 @@ cargo xtask test-node warp
 [契约](../crates/mixture-core/src/nodes/scalar_blend.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl)、[夹具](../fixtures/nodes/scalar-blend/README.zh-CN.md)。
 
 必需输入 `a: Scalar`、`b: Scalar`，输出 `value: Scalar`。有限 Float 参数 `weight` 范围 [0, 1]，默认 0.5。两个有限样本先钳制到 [0, 1]；有效 f32 权重为 0／1 时精确选择相应端点，否则计算 `clamp(a + (b-a)*weight, 0, 1)`。按现有半精度约定存储 (value, 0, 0, 1)。逐点线性混合保持兼容平铺，但不修复接缝。端点仍要求并验证两个输入。无随机性、重采样、遮罩或颜色转换。兼容性和验收见 [ENG-04](./eng-04-scalar-blend.zh-CN.md)。
+
+## brick-pattern
+
+MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value` 输出。完整[契约](./mat-01-structured-materials.zh-CN.md)规定必填种子、矩形重复、非零行偏移的偶数行约束、灰缝宽度、向内倒角、种子幅度及四样本滤波。[专项夹具](../fixtures/nodes/brick-pattern/README.zh-CN.md)验证布局和诊断。Core 负责全图及覆盖验证，唯一 WGSL 内核负责像素。已有身份、计划哈希与格式不变。候选实现与 MAT-01 材质／跨端验收分别记录。

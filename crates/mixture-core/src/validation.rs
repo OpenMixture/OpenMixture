@@ -382,6 +382,21 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
                 .with_suggestion("Supply a finite value in the documented range and exact JSON type; values are never clamped or coerced."));
         }
     }
+    if node.type_id == "brick-pattern" {
+        let rows = resolved_parameter(node, contract, "rows").and_then(|v| v.as_u64());
+        let offset = resolved_parameter(node, contract, "rowOffset").and_then(|v| v.as_f64());
+        if let (Some(rows), Some(offset)) = (rows, offset)
+            && rows % 2 != 0
+            && offset != 0.0
+        {
+            diagnostics.push(at_parameter(
+                Code::ParameterInvalidValue,
+                &node.id,
+                "rows",
+                "A nonzero brick rowOffset requires an even number of rows for periodic alternation.",
+            ).with_suggestion("Use an even rows value, or set rowOffset to zero."));
+        }
+    }
     if node.type_id == "levels" {
         let low = resolved_parameter(node, contract, "inputMin").and_then(|v| v.as_f64());
         let high = resolved_parameter(node, contract, "inputMax").and_then(|v| v.as_f64());
