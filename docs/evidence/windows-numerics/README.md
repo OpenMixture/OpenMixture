@@ -47,12 +47,12 @@ $env:MIXTURE_GPU_BACKEND = 'vulkan' # Repeat with dx12.
 cargo test --manifest-path examples/native-consumer/Cargo.toml --locked --all-features --target-dir target/native-consumer --test image_resources -- --ignored --nocapture
 ```
 
-The [Native probe](../../../crates/mixture-wgpu/tests/numerical_probe.rs) uses production shaders through wgpu, is ignored in ordinary tests, and is not a public renderer. Install existing browser-consumer development dependencies in a disposable engine-owned copy (`npm ci --ignore-scripts`), then pass its `node_modules/playwright/index.mjs`. This run used existing ignored `tmp/m6a04-browser-host`. All capture directories must be fresh; adapt absolute paths to your checkout.
+The [Native probe](../../../crates/mixture-wgpu/examples/numerical_probe.rs) uses production shaders through wgpu, runs only as an explicit example, and is not a public renderer. Install existing browser-consumer development dependencies in a disposable engine-owned copy (`npm ci --ignore-scripts`), then pass its `node_modules/playwright/index.mjs`. This run used existing ignored `tmp/m6a04-browser-host`. All capture directories must be fresh; adapt absolute paths to your checkout.
 
 ```powershell
 $env:MIXTURE_GPU_BACKEND = 'vulkan'
 $env:MIXTURE_NUMERICAL_OUTPUT = 'D:/Coding/OpenMixture/tmp/probe-native'
-cargo test --locked -p mixture-wgpu --test numerical_probe -- --ignored --nocapture
+cargo run --locked -p mixture-wgpu --example numerical_probe
 node scripts/browser-runtime/probe-numerics.mjs tmp/m6a04-browser-host/node_modules/playwright/index.mjs tmp/probe-browser tmp/probe-native/noise.rgba16
 node scripts/browser-runtime/compare-numerics.mjs tmp/probe-native tmp/probe-browser tmp/probe-comparison.json
 ```
@@ -68,6 +68,8 @@ $env:MIXTURE_NUMERICAL_SHADER = 'D:/Coding/OpenMixture/tmp/noise-fma.wgsl'
 For pre-half instrumentation, generate mode `prehalf` instead of `fma`. Decode each f16 channel, multiply by 256, and assemble four bytes little-endian as f32 bits. Compare those bits and the nine coordinates in `baseline.json`. Normal output from this mode has no material meaning and must not be interpreted or accepted.
 
 ## Verification and retention
+
+Follow-up: the first PR GPU run executed the diagnostic under its existing `--ignored` sweep and failed because the manual output variable was absent. The probe now lives in `examples/numerical_probe.rs` and runs only via `cargo run --example`; no required check or test filter was weakened. Its control capture matches the original raw noise bytes. The initial receipt retains the historical test path/source hash at commit `5f9fe45`.
 
 Registry tests: 13 passed. Both public hardware parity tests: failed as above. Existing `cargo xtask test-node fractal-noise` passed before experimentation. Six capture/replay experiments completed. `cargo xtask check` passed with `CARGO_INCREMENTAL=0` after the first attempt hit a Rust 1.98.1 incremental-cache panic (`Invalid DepKind 488`). This environment failure is separate from GPU parity failure. The PR records final checks after documentation changes.
 

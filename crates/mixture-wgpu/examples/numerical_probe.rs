@@ -2,9 +2,7 @@
 use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions};
 use std::{path::PathBuf, time::Duration};
 
-#[test]
-#[ignore = "diagnostic GPU capture; set MIXTURE_NUMERICAL_OUTPUT to a fresh absolute directory"]
-fn capture_production_noise() {
+fn main() {
     let output = PathBuf::from(std::env::var("MIXTURE_NUMERICAL_OUTPUT").unwrap());
     assert!(output.is_absolute(), "use an absolute output directory");
     std::fs::create_dir(&output).unwrap();

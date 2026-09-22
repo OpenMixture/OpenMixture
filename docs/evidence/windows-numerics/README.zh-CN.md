@@ -47,12 +47,12 @@ $env:MIXTURE_GPU_BACKEND = 'vulkan' # 再使用 dx12 重复。
 cargo test --manifest-path examples/native-consumer/Cargo.toml --locked --all-features --target-dir target/native-consumer --test image_resources -- --ignored --nocapture
 ```
 
-[Native 探针](../../../crates/mixture-wgpu/tests/numerical_probe.rs)通过 wgpu 使用生产 shader，普通测试忽略它，它不是公共渲染器。在引擎拥有的临时副本中安装已有 browser-consumer 开发依赖（`npm ci --ignore-scripts`），然后传入其 `node_modules/playwright/index.mjs`。本次使用已有的忽略目录 `tmp/m6a04-browser-host`。捕获目录必须是新的，绝对路径需适配自己的 checkout。
+[Native 探针](../../../crates/mixture-wgpu/examples/numerical_probe.rs)通过 wgpu 使用生产 shader，仅作为显式示例运行，它不是公共渲染器。在引擎拥有的临时副本中安装已有 browser-consumer 开发依赖（`npm ci --ignore-scripts`），然后传入其 `node_modules/playwright/index.mjs`。本次使用已有的忽略目录 `tmp/m6a04-browser-host`。捕获目录必须是新的，绝对路径需适配自己的 checkout。
 
 ```powershell
 $env:MIXTURE_GPU_BACKEND = 'vulkan'
 $env:MIXTURE_NUMERICAL_OUTPUT = 'D:/Coding/OpenMixture/tmp/probe-native'
-cargo test --locked -p mixture-wgpu --test numerical_probe -- --ignored --nocapture
+cargo run --locked -p mixture-wgpu --example numerical_probe
 node scripts/browser-runtime/probe-numerics.mjs tmp/m6a04-browser-host/node_modules/playwright/index.mjs tmp/probe-browser tmp/probe-native/noise.rgba16
 node scripts/browser-runtime/compare-numerics.mjs tmp/probe-native tmp/probe-browser tmp/probe-comparison.json
 ```
@@ -68,6 +68,8 @@ $env:MIXTURE_NUMERICAL_SHADER = 'D:/Coding/OpenMixture/tmp/noise-fma.wgsl'
 若要捕获半精度转换前的值，用 `prehalf` 模式代替 `fma`。解码每个 f16 通道，乘以 256，将四个字节按小端组合为 f32 位模式。比较位模式和 `baseline.json` 中九个坐标。该模式的法线输出无材质意义，不得解释或验收。
 
 ## 检查与保留
+
+后续修正：首次 PR GPU 检查通过现有 `--ignored` 全量执行带入了诊断探针，由于缺少手动输出变量而失败。探针现移至 `examples/numerical_probe.rs`，仅通过 `cargo run --example` 运行；没有削弱任何必需检查或测试过滤器。对照捕获与原始噪声字节一致。初始记录保留提交 `5f9fe45` 的历史测试路径及源码哈希。
 
 Registry 测试：13 项通过。两项公共硬件一致性测试：如上失败。实验之前已有 `cargo xtask test-node fractal-noise` 通过。六组捕获/重放实验完成。首次 `cargo xtask check` 遇到 Rust 1.98.1 增量缓存 panic（`Invalid DepKind 488`），设置 `CARGO_INCREMENTAL=0` 后检查通过。这一环境失败与 GPU 一致性失败不同。PR 记录文档变更之后的最终检查。
 
