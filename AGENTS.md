@@ -6,6 +6,27 @@ This file is the operational contract for coding agents and contributors working
 
 Read [ARCHITECTURE.md](./ARCHITECTURE.md) before changing boundaries and [ROADMAP.md](./ROADMAP.md) before adding scope. [INITIAL_PRS.md](./INITIAL_PRS.md) and [M4_PRS.md](./M4_PRS.md) retain the completed implementation batches. [M5_PRS.md](./M5_PRS.md) retains the completed browser implementation train; the [browser SDK contract](./docs/browser-sdk.md) defines its public contract. Current work follows the Post-Alpha roadmap; distinguish planning, implementation and accepted evidence. Follow [repository governance](./docs/governance.md) for new branches, actual GitHub pull requests, and required checks, and [evidence retention](./docs/evidence-policy.md) when recording results. A tracked ruleset file alone does not prove that remote protection is active.
 
+## Current implementation essentials
+
+Baseline reviewed 2026-09-22: M6-A, M6-B and NUM-01 are integrated. [Release status](./docs/release.md) owns current publication and qualified-platform claims; source manifests own build versions. The source snapshot is Rust 0.5.0 / browser 0.5.0-alpha.0, unpublished; the recorded published browser package is 0.3.0-alpha.0. Integration, qualification and publication are distinct. Do not treat historical milestone plans as the current backlog.
+
+- **Version boundaries:** `.mix` remains v1; `RenderPlan` and browser API schema are v2. The plan hash domain is `mixture-render-plan-v2\0`, including selected external-image identities. Graph `render` and `inspect --plan` reports use schema 2; doctor, fixed checker and asset envelopes use schema 1; `validate` stays unversioned. See [compatibility](./docs/compatibility.md).
+- **Node semantics:** thirteen node types lower to eleven pixel kernels. `scalar-blend@1` and `image-input@1` are implemented. Resolve explicit type/version pairs: `fractal-noise@1` and `@2` coexist. Counts describe this snapshot, not admission targets or permanent limits.
+- **External resources (M6-A):** callers supply tightly packed `rgba8-linear` image bytes; Core validates identities, dimensions and budgets, captures selected pixels synchronously, and returns immutable `PreparedRender`. Wgpu uploads and executes them. No implicit path/URL lookup, PNG decoding, resampling or mutable caller-buffer retention. See [resource contract](./docs/m6a-resource-contract.md).
+- **Portable assets (M6-B):** optional `mixture-asset` owns the shared CPU-only `.mixpack v1` reader/writer using a strict canonical uncompressed USTAR profile. Preserve exact `.mix` bytes and node versions, validate hashes and the full resource closure before slicing, and never extract archive paths. Package v1 rejects all `resourceRef` overrides, including unchanged values, with `MIX_PACKAGE_RESOURCE_OVERRIDE`; ordinary overrides retain Core semantics. See [format/ownership](./docs/m6b-package-format.md) and [codec](./docs/m6b-03-cpu-assets.md).
+- **Package memory:** default ceilings are 67 MiB archive, 64 KiB manifest and 202 MiB accounted byte buffers; callers may only lower them. Charge retained Rust capacity, source/manifest scratch, selected Core snapshots and adapter copies. Browser accounting includes both its synchronous JS snapshot and Rust copy; release transport buffers before asynchronous GPU execution. This is a byte-buffer policy, not a process-RSS guarantee. Keep [adapter rules](./docs/m6b-04-adapters.md) and executable limits synchronized.
+- **Browser boundary:** `mixture-wasm` and `packages/runtime` are thin bindings over the same Rust logic. Import is inert; `loadRuntime` and GPU creation are explicit. Snapshot accepted bytes/options before yielding, reject busy/closing calls before copying, share one busy slot across loose/package rendering, and retain owned outputs after idempotent destruction. `inspectPackage` is CPU-only; `renderPackage` uses the sole wgpu executor.
+- **Numerical qualification (NUM-01):** explicit v2 **value** noise uses Q0.24 arithmetic. Recorded GT 1030 Vulkan/DX12-versus-Chrome resource/Scalar height and normal comparisons have maximum difference 0; frozen v1 resource/asset fixtures retain the historical normal difference 8/255 against the unchanged ≤1/255 gate. Do not auto-migrate documents, reset goldens, or generalize this repair to cellular, warp, arbitrary graphs or all hardware. See [stable noise](./docs/stable-noise.md) and its source-bound evidence.
+- **Delivery gates:** main requires all six checks: Linux/macOS/Windows CPU checks, pinned SwiftShader GPU/package consumption, WASM/npm packaging, and Chromium material qualification. Preserve both original and explicitly migrated material matrices. Candidate archives and exact registry consumption are separate evidence; passing CPU/interface/software checks alone does not qualify Windows hardware pixels. Follow [governance](./docs/governance.md) and [evidence retention](./docs/evidence-policy.md).
+
+## Mandatory maintenance of this guide
+
+Every major adjustment **must update `AGENTS.md` and `AGENTS.zh-CN.md` in the same PR**. This is a completion requirement, not an optional follow-up. Major adjustments include architecture/ownership changes; public APIs, commands, formats, node semantics, versions or migration policy; resource/memory/lifecycle rules; required checks or qualification scope; milestone integration/publication that changes the working baseline; and cross-project or delivery-policy changes.
+
+Update the relevant current rule, map, command or test entry rather than accumulating contradictory status banners. Record the change, its reason, the owning boundary, compatibility/migration consequences, and the required verification or evidence link. Keep detailed design in its focused guide/ADR, current release state in the release guide, and source-bound results in evidence records. Do not rewrite historical failures as passes or mark planned work implemented. Routine refactors, typo fixes and repeated runs need no new milestone entry unless they alter these operational rules.
+
+Before marking a PR ready, explicitly review its impact on this guide. For a major adjustment, list the updated sections and supporting links in the PR description; for other work, record that no operational rule changed. If code or accepted decisions disagree with this guide, follow the authority order below and correct the drift in the same change. A major adjustment with a stale or unsynchronized guide is not complete.
+
 ## Mission
 
 Mixture is a Rust material-graph compiler and headless texture renderer with exactly one pixel execution path: `wgpu` compute shaders.
@@ -75,13 +96,24 @@ cargo run -p mixture-cli -- doctor --json
 cargo run -p mixture-cli -- validate <file.mix> --json
 cargo run -p mixture-cli -- inspect <file.mix> --plan --json
 cargo run -p mixture-cli -- render <file.mix> --size 512 --out ./out
+
+# Portable asset workflows (raw tightly packed rgba8-linear input)
+cargo run -p mixture-cli -- asset pack material.mix --size 65x3 --image Input input.rgba --out material.mixpack --json
+cargo run -p mixture-cli -- asset inspect material.mixpack --json
+cargo run -p mixture-cli -- asset render material.mixpack --size 65x3 --output height --out ./out --json
+
+# Shared codec and public browser package checks
+cargo test --locked -p mixture-asset
+npm test --prefix packages/runtime
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime <fresh-evidence-directory>
 ```
 
 Keep introduced command meanings stable. Label any future command proposal as unimplemented until it exists. Do not silently replace a documented command with an unrelated one.
 
 ## Repository map
 
-The following is the planned runtime-module ownership map. PR-002 added core diagnostics and limits; PR-003 added `mixture-wgpu/src/context.rs`, `mixture-wgpu/src/diagnostics.rs`, and `mixture-cli/src/commands/doctor.rs`. PR-004 added the fixed checker, readback, operation errors, one WGSL kernel, and CLI PNG orchestration. PR-005 added bounded document decoding, static node contracts, graph validation, and CLI validate. PR-006 added compiler normalization/slicing, typed plans, hashing, and CLI inspect. PR-007 added the shared executor, per-call resources, kernel mapping/cache, graph render, and all M2 node fixtures. PR-008 adds protected material golden tooling under `xtask/src/golden/` and the first ceramic fixture without new runtime modules. PR-009 adds three explicit core contracts and WGSL kernels for noise, gradient mapping and height-derived normals, plus the leather fixture. PR-010 adds transform/warp contracts and kernels, per-render descriptor accounting in `mixture-wgpu/src/allocations.rs`, and `xtask/src/golden/trace.rs`. PR-011 adds the independent `examples/native-consumer/` workspace and `xtask/src/consumer.rs`, including CPU checks in `check` and explicit owned-output consumption in `gpu-smoke`; product runtime boundaries are unchanged. PR-012 adds shared human diagnostic formatting under `mixture-cli/src/commands/human_diagnostics.rs` and independent CLI report/exit/PNG tests in `examples/native-consumer/tests/cli_contract.rs`; `test-consumer` runs the CPU cases and `gpu-smoke` the explicit GPU cases. PR-013 adds context-owned loss records and typed failure/cleanup evidence in `mixture-wgpu`, with independent device-loss consumption in `examples/native-consumer/tests/device_loss.rs`. PR-014 adds consumer-only freshness state in `examples/native-consumer/src/latest.rs`, a deterministic Rust driver, generation-isolated CLI tests and a nine-kernel cache-bound regression; product runtime code is unchanged. PR-015 adds `xtask/src/package.rs` for isolated archive consumption, package metadata/readme/license includes and package-local unit fixtures; `check` includes CPU package verification and `gpu-smoke` explicitly verifies packaged pixels/CLI. Remaining modules are introduced by their owning implementation PR, without empty runtime stubs. Existing modules and commands are linked from [the development guide](./docs/development.md).
+The map below identifies current runtime ownership. Historical PR-001–015 implementation batches live in [INITIAL_PRS](./INITIAL_PRS.md) and [M4_PRS](./M4_PRS.md); browser implementation is retained in [M5_PRS](./M5_PRS.md). Current resource/asset/noise rules are summarized above. Introduce modules for actual ownership, without empty stubs.
 
 ```text
 crates/mixture-core/
@@ -89,10 +121,17 @@ crates/mixture-core/
   src/validation.rs     format, graph, parameter, and budget validation
   src/registry.rs       built-in node contracts
   src/compiler.rs       document -> RenderPlan
+  src/resources.rs      image identities, resource limits and PreparedRender
   src/plan.rs           backend-neutral execution plan
   src/error.rs          stable diagnostic codes and structured errors
   src/limits.rs         explicit safety limits and measured limit failures
   src/nodes/            one small module per built-in node contract
+
+crates/mixture-asset/
+  src/archive.rs        strict byte-only USTAR loading
+  src/writer.rs         deterministic package writing
+  src/manifest.rs       manifest/closure validation
+  src/limits.rs         explicit byte-buffer accounting
 
 crates/mixture-wgpu/
   src/context.rs        explicit adapter/device/queue acquisition
@@ -108,6 +147,12 @@ crates/mixture-cli/
   src/commands/validate.rs
   src/commands/inspect.rs
   src/commands/render.rs
+  src/commands/asset.rs
+
+crates/mixture-wasm/    thin Rust browser bindings; src/assets.rs package adapter
+packages/runtime/      public ESM loader, TypeScript API and lifecycle bridge
+scripts/browser-runtime/  candidate/registry and material qualification
+fixtures/packages/     portable asset acceptance and rejection corpus
 
 fixtures/nodes/         focused node input/output fixtures
 fixtures/materials/     golden materials and acceptance evidence
@@ -128,6 +173,7 @@ Owns:
 - parameter override validation;
 - compilation to `RenderPlan`;
 - stable plan hashing;
+- external-image identity, resource budgets, synchronous pixel capture and immutable `PreparedRender`;
 - structured diagnostics that do not depend on a GPU.
 
 Must not own:
@@ -160,13 +206,21 @@ Must not own:
 - a second copy of the node catalog;
 - engine-specific texture naming or packaging.
 
+### `mixture-asset`
+
+Owns byte-only package format, deterministic writing, borrowed/owned loading, full resource closure and package budgets; reuses Core validation, resource identity and preparation. Must not own file/network I/O, GPU state, browser objects, pixel execution or duplicate node semantics.
+
+### `mixture-wasm` and `packages/runtime`
+
+Own thin bindings, explicit loading, synchronous input capture, type/error transfer and public lifecycle; package budgeting calls the shared Rust codec. Do not reimplement graph semantics, the package parser or rendering in JS/bindings.
+
 ### `mixture-cli`
 
 Owns only:
 
 - file and directory I/O;
 - command-line parsing;
-- calling public APIs from `mixture-core` and `mixture-wgpu`;
+- calling public APIs from `mixture-core`, `mixture-asset` and `mixture-wgpu`;
 - PNG encoding and JSON/human-readable reports;
 - process exit codes.
 
@@ -194,6 +248,7 @@ For every task:
 6. Inspect generated artifacts or rendered images when behavior is visual.
 7. Run `cargo xtask check` before declaring the change ready.
 8. Update public docs in the same pull request when behavior or commands change.
+9. Apply the mandatory guide-maintenance rule: update both Agent Guides for major adjustments in the same PR and record guide impact in the PR description.
 
 Keep English documentation and its paired `*.zh-CN.md` version synchronized in the same pull request. See [documentation maintenance](./docs/README.md) for language and source-bundle conventions.
 
@@ -214,9 +269,15 @@ Do not begin by running the full GPU matrix for a local one-line parser change. 
 | CLI command | command snapshot/integration test; `test-consumer` for public report/exit contracts |
 | golden material | `cargo xtask test-material <id>` and visual evidence review |
 | repository automation | the exact affected `xtask` test plus `cargo xtask check` |
+| Resource identity/preparation | `cargo xtask test-core`, `test-plan`, independent Native/browser resource consumption; affected cross-runtime comparisons for pixel changes |
+| Shared asset codec/package format | `cargo test --locked -p mixture-asset`, `test-consumer`, `package-check`; `gpu-smoke` and package cross-runtime comparisons for pixel-path changes |
+| WASM/JS lifecycle or package adapter | `npm test --prefix packages/runtime`, clean WASM/npm build, independent candidate consumption and affected resource/Scalar/asset pixel comparisons |
+| Documentation/Agent Guide | Check source/evidence, synchronize languages, `cargo xtask links`, `cargo xtask check`; serialize xtask on Windows to avoid rewriting a running launcher |
 | public API | downstream example or external-consumer fixture |
 
 CI owns the full platform and GPU matrix. Local development should prefer the smallest decisive command.
+
+For browser environment/adapter setup and cross-runtime pixel comparison, follow the full recipes in [browser resources](./docs/m6a-04-browser-resources.md), [asset qualification](./docs/m6b-05-qualification.md) and [stable noise](./docs/stable-noise.md). Use fresh evidence directories; interface tests do not replace pixel qualification.
 
 ## Adding a built-in node
 
@@ -387,6 +448,7 @@ A task is complete only when:
 - decisive repository checks pass;
 - structured diagnostics remain meaningful;
 - public behavior and docs agree;
+- major adjustments are recorded in both Agent Guides with rationale, owning boundary, compatibility impact and verification links;
 - visual changes have reviewable evidence;
 - no hidden fallback or global state was introduced;
 - out-of-scope work is not smuggled into the change;

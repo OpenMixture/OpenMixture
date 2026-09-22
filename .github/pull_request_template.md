@@ -12,6 +12,10 @@ Identify the current milestone exit criterion or blocking defect.
 
 Explain ownership, data flow, and relevant tradeoffs.
 
+## Agent Guide impact
+
+Major adjustments must update `AGENTS.md` and `AGENTS.zh-CN.md` in this PR. List the updated sections, rationale, ownership/compatibility impact and verification links; otherwise explicitly state that no operational rule changed.
+
 ## Evidence
 
 - Targeted verification:
