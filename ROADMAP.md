@@ -2,7 +2,8 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+**Current increment:** the maintainer selected [brick-pattern v1](./docs/brick-pattern.md). M6-B and NUM-01 are integrated in the source baseline. Rust 0.6.0/browser 0.6.0-alpha.0 are unpublished brick candidates; qualification remains separate. Earlier milestone receipts below retain their original scope.
+
 
 **Current status (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
@@ -27,7 +28,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | M6-B implementation and bounded qualification complete on the review stack. Integration/publication require separate work; no next feature is automatically started. |
+| Active increment | [Brick pattern v1](./docs/brick-pattern.md): one procedural height generator and complete material fixture. M6-B/NUM-01 are integrated; brick implementation and qualification are tracked separately from release. |
 | Current qualification | [M6B-05](./docs/evidence/m6b-05/README.md): exact candidate, Native source/archive and browser matrix, materials and six checks; Windows hardware limitation retained. |
 | Conditional candidates | Decide native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 

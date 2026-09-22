@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 1,
+  "node": "brick-pattern",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "size": [
+        128,
+        128
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {},
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            8
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            24
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            24
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            127,
+            127
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "aligned",
+      "size": [
+        128,
+        128
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "layout": "aligned"
+      },
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            24
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            16,
+            24
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-bevel",
+      "size": [
+        16,
+        16
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 1,
+        "rows": 1,
+        "layout": "aligned",
+        "gap": 0.125,
+        "bevel": 0.25
+      },
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            7
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            1,
+            7
+          ],
+          "rgba": [
+            32,
+            32,
+            32,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            2,
+            7
+          ],
+          "rgba": [
+            96,
+            96,
+            96,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            3,
+            7
+          ],
+          "rgba": [
+            159,
+            159,
+            159,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            4,
+            7
+          ],
+          "rgba": [
+            223,
+            223,
+            223,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            5,
+            7
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "hard-edge",
+      "size": [
+        16,
+        16
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 1,
+        "rows": 1,
+        "layout": "aligned",
+        "gap": 0.25,
+        "bevel": 0
+      },
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            1,
+            7
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            2,
+            7
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "maximum",
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 256,
+        "rows": 256,
+        "gap": 0.5,
+        "bevel": 0.25
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "single-pixel",
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 1,
+        "rows": 1,
+        "layout": "aligned",
+        "gap": 0,
+        "bevel": 0
+      },
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "single-column",
+      "size": [
+        1,
+        33
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 1,
+        "rows": 2,
+        "layout": "aligned"
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "single-row",
+      "size": [
+        33,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 2,
+        "rows": 1,
+        "layout": "aligned"
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "rectangular",
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "columns": 1,
+        "rows": 1,
+        "layout": "aligned"
+      },
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            32,
+            1
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            1
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "height",
+          "xy": [
+            64,
+            1
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "rows": 3
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "rows": 1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "columns": 0
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "columns": 257
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "rows": 257
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "layout": "random"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "gap": -0.1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "gap": 0.51
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "bevel": -0.1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "bevel": 0.26
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "columns": 2.5
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

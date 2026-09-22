@@ -259,6 +259,12 @@ impl Builder<'_> {
                     output_max: number(node, "outputMax")?,
                 }
             }
+            "brick-pattern" => KernelInvocation::BrickPattern {
+                cells: [integer(node, "columns")?, integer(node, "rows")?],
+                half_offset: parameter(node, "layout")?.as_str() == Some("half-offset"),
+                gap: number(node, "gap")?,
+                bevel: number(node, "bevel")?,
+            },
             "scalar-blend" => KernelInvocation::ScalarBlend {
                 a: binding("a")?,
                 b: binding("b")?,

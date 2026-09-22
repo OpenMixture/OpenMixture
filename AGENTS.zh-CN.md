@@ -220,6 +220,8 @@ Studio 怀疑运行时存在缺陷时，应在 OpenMixture 提交上游 issue，
 
 ## 添加内置节点
 
+砖块节点增量：[brick-pattern@1](./docs/brick-pattern.zh-CN.md) 实现有界程序化砖块高度用例。Core 负责 Scalar 契约和错行奇数行拒绝，wgpu 负责唯一内核。更新显式目录与穷尽 plan 枚举审查。Rust 0.6.0/浏览器 0.6.0-alpha.0 为未发布候选，不迁移旧文档、plan/API/资产格式和噪声版本。必须执行契约/节点测试、Native/browser 像素比较、两套材质矩阵和六项检查；实现不等于验收。
+
 新增节点需要打通完整纵向实现，不能只添加注册表项。
 
 必需步骤：

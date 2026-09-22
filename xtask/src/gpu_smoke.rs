@@ -222,6 +222,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             | "checker"
             | "levels"
             | "blend"
+            | "brick-pattern"
             | "scalar-blend"
             | "material-output"
             | "fractal-noise"

@@ -220,6 +220,8 @@ CI owns the full platform and GPU matrix. Local development should prefer the sm
 
 ## Adding a built-in node
 
+Brick-pattern work: [brick-pattern@1](./docs/brick-pattern.md) adds a bounded procedural brick height use case. Core owns the Scalar contract and odd-row rejection; wgpu owns the sole kernel. Review the explicit catalog and new exhaustive plan variants. Rust 0.6.0/browser 0.6.0-alpha.0 are unpublished candidates; existing documents, plan/API/package formats and noise versions do not migrate. Run focused contract/node tests, Native/browser pixel comparisons, both material matrices and all six checks. Qualification is not implied by implementation.
+
 A node addition is a vertical slice, not only a registry entry.
 
 Required steps:

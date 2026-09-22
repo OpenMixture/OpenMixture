@@ -181,7 +181,7 @@ test('normal build excludes the qualification host', async () => {
 test('scalar composition executes in the candidate and fails explicitly in the published runtime', async ({ page, browser }, testInfo) => {
   test.setTimeout(120000);
   await openHost(page);
-  const fixture = expectedBuild.runtimeVersion === '0.5.0-alpha.0' ? 'scalar-blend-v2.mix' : 'scalar-blend.mix';
+  const fixture = expectedBuild.runtimeVersion === '0.6.0-alpha.0' ? 'scalar-blend-v2.mix' : 'scalar-blend.mix';
   const source = await readFile(new URL(`../public/${fixture}`, import.meta.url), 'utf8');
   const result = await page.evaluate(async source => {
     const runtime = await window.sdk.loadRuntime();
@@ -217,7 +217,7 @@ test('scalar composition executes in the candidate and fails explicitly in the p
     expect(result.validation.ok).toBe(false);
     expect(result.validation.diagnostics.map(d=>d.code)).toContain('MIX_NODE_UNKNOWN_TYPE');
   } else {
-    expect(['0.2.0-alpha.0','0.3.0-alpha.0','0.5.0-alpha.0']).toContain(expectedBuild.runtimeVersion);
+    expect(['0.2.0-alpha.0','0.3.0-alpha.0','0.6.0-alpha.0']).toContain(expectedBuild.runtimeVersion);
     expect(result.owned).toBe(true); expect(result.rows).toHaveLength(4);
     for(const row of result.rows) { expect(row.range[1]-row.range[0]).toBeGreaterThan(20);expect(row.seamRatio).toBeLessThan(2);if(row.changed!==null)expect(row.changed).toBeGreaterThan(0.1); }
     expect(new Set(result.rows.map(r=>r.planHash)).size).toBe(4);
@@ -227,4 +227,30 @@ test('scalar composition executes in the candidate and fails explicitly in the p
     delete row.images;
   }
   await testInfo.attach('scalar-evidence', {body:JSON.stringify({...result,browser:browser.version()},(_key,value)=>typeof value==='bigint'?value.toString():value,2),contentType:'application/json'});
+});
+
+
+test('brick height and normals render through the public candidate; old registry rejects the type', async ({page},testInfo)=>{
+  test.setTimeout(120000);
+  await openHost(page);
+  const source=await readFile(new URL('../public/brick-pattern.mix',import.meta.url),'utf8');
+  const result=await page.evaluate(async source=>{
+    const runtime=await window.sdk.loadRuntime(),build=runtime.getBuildInfo();
+    if(build.runtimeVersion!=='0.6.0-alpha.0')return {build,validation:runtime.validate(source)};
+    const rows=[];
+    for(const [id,size,overrides] of [['offset',[1024,1024],{}],['aligned',[1024,1024],{layout:'aligned'}],['wide',[1024,1024],{gap:0.2}],['rect',[65,3],{columns:1,rows:1,layout:'aligned'}]]){
+      const {inspection,result}=await window.sdk.renderMaterial(runtime,source,{size,channels:['height','normal'],overrides});
+      const images=result.channels.map(c=>{const canvas=document.createElement('canvas');canvas.width=size[0];canvas.height=size[1];canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(c.pixels),...size),0,0);return {channel:c.channel,png:canvas.toDataURL('image/png').split(',')[1]};});
+      const height=result.channels.find(c=>c.channel==='height').pixels;
+      let lo=255,hi=0;for(let i=0;i<height.length;i+=4){lo=Math.min(lo,height[i]);hi=Math.max(hi,height[i]);}
+      rows.push({id,size,planHash:inspection.plan.hash,range:[lo,hi],images,adapter:result.report.adapter});
+    }
+    return {build,rows};
+  },source);
+  expect(result.build).toEqual(expectedBuild);
+  if(result.rows){
+    expect(result.rows).toHaveLength(4);
+    for(const row of result.rows){expect(row.range).toEqual([0,255]);for(const image of row.images)await writeFile(testInfo.outputPath('brick-'+row.id+'-'+image.channel+'.png'),Buffer.from(image.png,'base64'));delete row.images;}
+  }else{expect(result.validation.ok).toBe(false);expect(result.validation.diagnostics.map(d=>d.code)).toContain('MIX_NODE_UNKNOWN_TYPE');}
+  await writeFile(testInfo.outputPath('brick-evidence.json'),JSON.stringify(result,null,2));
 });

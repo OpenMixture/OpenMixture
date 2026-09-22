@@ -11,6 +11,7 @@ fn registry_matches_reviewed_type_versions() {
         identities,
         [
             ("blend", 1),
+            ("brick-pattern", 1),
             ("checker", 1),
             ("constant-color", 1),
             ("constant-scalar", 1),

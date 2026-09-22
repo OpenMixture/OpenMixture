@@ -7,10 +7,11 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 12] = [
+const NODES: [&str; 13] = [
     "constant-scalar",
     "constant-color",
     "checker",
+    "brick-pattern",
     "levels",
     "blend",
     "scalar-blend",
@@ -272,6 +273,12 @@ fn node_constant_scalar_gpu() {
 #[ignore = "requires GPU; cargo xtask test-node constant-color"]
 fn node_constant_color_gpu() {
     run_node("constant-color");
+}
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node brick-pattern"]
+fn node_brick_pattern_gpu() {
+    run_node("brick-pattern");
+    brick_invariants();
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask test-node checker"]
@@ -732,4 +739,54 @@ mod image_probe;
 #[ignore = "requires GPU; cargo xtask test-node image-input"]
 fn node_image_input_gpu() {
     image_probe::run();
+}
+
+fn brick_invariants() {
+    let bytes = source("brick-pattern", "input.mix");
+    let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
+    let mut render = |size, overrides| {
+        let request = CompileRequest {
+            size,
+            outputs: vec![OutputChannel::Height],
+            overrides,
+            ..Default::default()
+        };
+        pollster::block_on(renderer.render(&plan(&bytes, &request).unwrap()))
+            .unwrap()
+            .channels()[0]
+            .pixels()
+            .to_vec()
+    };
+    let original = render([128, 128], BTreeMap::new());
+    assert_eq!(original, render([128, 128], BTreeMap::new()));
+    let repeated = render(
+        [256, 256],
+        BTreeMap::from([("columns".into(), json!(8)), ("rows".into(), json!(16))]),
+    );
+    for y in 0..256 {
+        for x in 0..256 {
+            let a = (y * 256 + x) * 4;
+            let b = ((y % 128) * 128 + x % 128) * 4;
+            assert_eq!(
+                &repeated[a..a + 4],
+                &original[b..b + 4],
+                "two by two tiling at {x},{y}"
+            );
+        }
+    }
+    for key in ["gap", "bevel"] {
+        let wider = render([128, 128], BTreeMap::from([(key.into(), json!(0.2))]));
+        assert!(
+            wider.iter().zip(&original).all(|(a, b)| a <= b),
+            "wider mortar/bevel cannot increase height"
+        );
+        assert!(wider.iter().zip(&original).any(|(a, b)| a < b));
+    }
+    for y in 0..112 {
+        for x in 0..128 {
+            let a = (y * 128 + x) * 4;
+            let b = ((y + 16) * 128 + (x + 16) % 128) * 4;
+            assert_eq!(original[a], original[b], "next row must shift half a brick");
+        }
+    }
 }
