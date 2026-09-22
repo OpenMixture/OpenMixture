@@ -48,7 +48,7 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 
 export function assertBrowserReport(report, mode = 'registry') {
   assert.ok(['candidate', 'registry'].includes(mode));
-  assert.equal(report.stats.expected, mode === 'candidate' ? 15 : 13, 'all public consumer tests must execute');
+  assert.equal(report.stats.expected, mode === 'candidate' ? 16 : 13, 'all public consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -115,6 +115,9 @@ export async function qualify(mode, packageDirectory, output) {
       archive = join(packageDirectory, basename(expected.tarball.replaceAll('\\', '/')));
       validateCandidate(expected, await readFile(archive), record.consumerRevision);
       version = expected.runtimeVersion;
+      execFileSync('cargo', ['run','--locked','--manifest-path',join(root,'examples/native-consumer/Cargo.toml'),'--target-dir',join(root,'target/native-consumer'),'--example','asset-fixtures','--',join(staging,'public/m6b05')], {cwd:root,stdio:'pipe'});
+      record.assetFixtures = {};
+      for (const name of ['1024x1024.mixpack','65x3.mixpack']) record.assetFixtures[name] = hash(await readFile(join(staging,'public/m6b05',name)));
       await mkdir(join(staging, 'vendor'));
       await cp(archive, join(staging, vendor));
       const next = candidateManifests(manifest, lock, version, await readFile(archive));

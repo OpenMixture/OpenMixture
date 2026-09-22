@@ -32,7 +32,7 @@ test('archive paths cannot escape the installed package', () => {
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
-  assertBrowserReport({...report,stats:{...report.stats,expected:15}},'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:16}},'candidate');
   assert.throws(()=>assertBrowserReport(report,'candidate'));
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
@@ -71,12 +71,24 @@ test('ENG-04 native and browser hosts consume the same source fixture', async ()
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
-  assertBrowserReport({...report,stats:{...report.stats,expected:15}}, 'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:16}}, 'candidate');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
   assertBrowserReport(report, 'registry');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));
   const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
   for (const path of ['../../examples/native-consumer/tests/image-input.mix','../../examples/browser-consumer/public/image-input.mix']) {
     assert.deepEqual(await readFile(new URL(path, import.meta.url)), fixture);
+  }
+});
+
+
+test('asset closeout rejects missing, duplicate, mismatched and failed matrix evidence',async()=>{
+  const {verifyAssetMatrix}=await import('./asset-matrix.mjs');
+  const rows=['1024x1024','65x3'].flatMap(size=>[0,0.25,0.5,1].map(weight=>({size:size.split('x').map(Number),weight,planHash:'same',packageSha256:size,exactLoosePixels:true,repeatedLoads:2,allocations:{liveBytes:'0'},execution:{allocations:{liveBytes:0}},browserComparison:['height','normal'].map(channel=>({channel,maxComponentDelta:1,limit:1}))})));
+  const browser={ownedAfterDestroy:true,rows:structuredClone(rows)},native={ok:true,ownedAfterDestroy:true,cases:rows};
+  const receipt={assetFixtures:{'1024x1024.mixpack':'1024x1024','65x3.mixpack':'65x3'}};
+  verifyAssetMatrix(native,browser,receipt);
+  for(const mutate of [n=>n.cases.pop(),n=>n.cases[1]=n.cases[0],n=>n.cases[0].planHash='wrong',n=>n.cases[0].packageSha256='wrong',n=>n.cases[0].execution.allocations.liveBytes=1,n=>n.cases[0].browserComparison[0].maxComponentDelta=2,n=>n.ownedAfterDestroy=false]){
+    const bad=structuredClone(native);mutate(bad);assert.throws(()=>verifyAssetMatrix(bad,browser,receipt));
   }
 });

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 const bytes = [...await readFile(new URL('../public/asset.mixpack',import.meta.url))];
 const source = await readFile(new URL('../public/asset.mix',import.meta.url),'utf8');
@@ -56,4 +56,57 @@ test('public package rendering captures before yielding and shares rejection rec
   for(let i=0;i<780;i+=4)expect(result.pixels.slice(i,i+4)).toEqual([128,128,128,255]);
   delete result.pixels;
   await testInfo.attach('asset-adapter-evidence',{body:JSON.stringify(result,(_k,v)=>typeof v==='bigint'?v.toString():v,2),contentType:'application/json'});
+});
+
+
+test('M6B-05 offline assets match loose four-weight pixels and repeat after rejection', async ({page,browser},testInfo)=>{
+  await host(page);
+  const graph=await readFile(new URL('../public/image-input.mix',import.meta.url),'utf8');
+  const result=await page.evaluate(async source=>{
+    const runtime=await window.sdk.loadRuntime(),gpu=await runtime.createGpu(),rows=[];
+    const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
+    let retained,before;
+    try {
+      for(const [width,height] of [[1024,1024],[65,3]]) {
+        // Only one moved archive is loaded. No material/image sidecar fetch exists.
+        const bytes=new Uint8Array(await (await fetch(`/consumer/m6b05/${width}x${height}.mixpack`)).arrayBuffer());
+        const asset=runtime.inspectPackage(bytes),data=new Uint8Array(width*height*4);
+        for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+          const u=x%64,v=y%64,r=width===1024?(Math.min(u,63-u)*5+Math.min(v,63-v)*3)%256:(x*17+y*71)%256;
+          data.set([r,19,201,0],(y*width+x)*4);
+        }
+        const resources=[{id:'heightSource',width,height,format:'rgba8-linear',bytesPerRow:width*4,data}];
+        for(const weight of [0,0.25,0.5,1]) {
+          const request={size:[width,height],channels:['height','normal'],overrides:{detailWeight:weight}};
+          const loose=await gpu.render(source,{...request,resources});
+          for(let iteration=0;iteration<2;iteration++) {
+            let rejection;try{await gpu.renderPackage(bytes.subarray(0,bytes.length-1),request);}catch(e){rejection=e.code;}
+            if(rejection!=='MIX_PACKAGE_INVALID')throw Error('Malformed package did not reject');
+            const input=new Uint8Array(bytes),pending=gpu.renderPackage(input,request);input.fill(0);
+            const out=await pending;
+            if(out.plan.hash!==loose.plan.hash)throw Error('Package plan differs');
+            if(out.report.allocations.liveBytes!==0n)throw Error('Live per-call resources retained');
+            const images=[];
+            for(let n=0;n<out.channels.length;n++){
+              const c=out.channels[n],reference=loose.channels[n];
+              if(c.pixels.length!==reference.pixels.length||!c.pixels.every((v,i)=>v===reference.pixels[i]))throw Error('Package pixels differ');
+              if(iteration===0){const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+                canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(c.pixels),width,height),0,0);
+                images.push({channel:c.channel,png:canvas.toDataURL('image/png').split(',')[1],sha256:await hash(c.pixels)});}
+            }
+            if(iteration===0)rows.push({size:[width,height],weight,packageSha256:asset.packageSha256,planHash:out.plan.hash,exactLoosePixels:true,repeatedLoads:2,allocations:out.report.allocations,images});
+            retained=out.channels[0].pixels;before=await hash(retained);
+          }
+        }
+      }
+      return {rows,build:runtime.getBuildInfo(),adapter:gpu.context,ownedAfterDestroy:await (async()=>{await gpu.destroy();return before===await hash(retained);})()};
+    } finally {await gpu.destroy();}
+  },graph);
+  expect(result.rows).toHaveLength(8);expect(result.ownedAfterDestroy).toBe(true);
+  for(const row of result.rows){
+    for(const image of row.images){await writeFile(testInfo.outputPath(`asset-${row.size.join('x')}-${row.weight}-${image.channel}.png`),Buffer.from(image.png,'base64'));delete image.png;}
+  }
+  const evidence=JSON.stringify({...result,browser:browser.version()},(_k,v)=>typeof v==='bigint'?v.toString():v,2);
+  await writeFile(testInfo.outputPath('asset-evidence.json'),evidence);
+  await testInfo.attach('asset-evidence',{body:evidence,contentType:'application/json'});
 });

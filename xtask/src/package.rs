@@ -701,7 +701,19 @@ fn verify(
                     "--target-dir",
                 ])
                 .arg(&target)
-                .args(["--test", "resources", "--", "--ignored", "--nocapture"])
+                .args([
+                    "--test",
+                    "resources",
+                    "--test",
+                    "asset_qualification",
+                    "--",
+                    "--ignored",
+                    "--nocapture",
+                ])
+                .env(
+                    "MIXTURE_ASSET_EVIDENCE",
+                    directory.join("asset-qualification.json"),
+                )
                 .env("MIXTURE_GPU_BACKEND", backend)
                 .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" }),
             directory,
