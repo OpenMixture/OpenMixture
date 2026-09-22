@@ -37,6 +37,6 @@ node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native-v2 <full-t
 
 `cargo xtask test-node fractal-noise` 现覆盖两个源码版本、重复性、seed 因果、octave/persistence 等价关系、小尺寸矩形/退化轴、新的精确 v2 129×65 基线，以及生产算术与独立 u64/f64 运算的对照。这一算术 oracle 不渲染 CPU 材质像素。新 v2 基线与原有两个 v1 基线分开。`cargo xtask test-core`、`test-plan`、`shader-check`、`gpu-smoke`、`check` 的含义不变。
 
-手动数值探针使用 basis 字段 2 选择新的 value 路径；六组 1K Windows Vulkan/Chrome 诊断用例的原始 f16 高度/法线完全一致，包括此前失败的 scale 7。这些观测不能替代干净候选包验收、DX12 覆盖、迁移材质评审或 CI。验收记录需分别绑定每个被测试的源码/archive。历史 Windows 失败对 v1 及已发布的 0.3 仍成立。
+[留存验收](./evidence/stable-noise/README.zh-CN.md)绑定干净 Windows 候选、13 项 SDK 测试、Vulkan/DX12 相对 Chrome 的公共资源/Scalar 高度法线逐字节一致结果、两个后端六组原始 f16 完全一致的诊断（含 scale 7），以及全部六项必需 CI。迁移后的软件矩阵 11 用例/44 通道通过不变的质量门禁。前后对照图与代理评审已留存，不声称人类视觉批准。历史 Windows 失败对 v1 及已发布的 0.3 仍成立；任意完整硬件图不属于本次有界结论。
 
 不在范围内：自动改写文档、发布 0.4、cellular/warp 数值重设计、纹理格式变更、放宽阈值、Studio 升级与部署。

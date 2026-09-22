@@ -1,0 +1,116 @@
+{
+  "date": "2026-09-22",
+  "reviewer": "Codex agent",
+  "humanApproval": false,
+  "scope": "Authorized semantic migration; agent inspection of representative material contact sheets. All 11 cases measured at full resolution.",
+  "inspected": [
+    "wood-default.png",
+    "wood-coarse-grain.png",
+    "leather-detail-max.png",
+    "glazed-ceramic-fine-tiles.png",
+    "ci-wood-default.png",
+    "ci-leather-default.png",
+    "ci-glazed-ceramic-default.png"
+  ],
+  "result": "No visible new structure, orientation or channel artifacts in inspected sheets; original goldens retained.",
+  "measurements": [
+    {
+      "path": "migration-comparison.json",
+      "sha256": "86c8082f32f6dc09a9459da1c4e27c9288493dc2b0ae99879b66eb695b002578"
+    },
+    {
+      "path": "ci-material-comparison.json",
+      "sha256": "362377a8481948c961cf15cb6936647e5ee4e89066339aefb98e901b0bec0a95"
+    }
+  ],
+  "files": [
+    {
+      "path": "ci-glazed-ceramic-default.png",
+      "sha256": "89802340cd099f07b891cbcbf092793f42427cb9ef84fc60d6900e35e1e13c68"
+    },
+    {
+      "path": "ci-glazed-ceramic-fine-tiles.png",
+      "sha256": "4db1da81bf386dac94c5bef290da742371cda547ffcca878e96d5c7740349573"
+    },
+    {
+      "path": "ci-glazed-ceramic-matte.png",
+      "sha256": "6003ebe2d028d036813a5771fd378f29fbe06d40f3b5a98c7e22b3660d5fe622"
+    },
+    {
+      "path": "ci-leather-coarse-grain.png",
+      "sha256": "adb1e0769b8c58f9473917a034328ec04e60cdcdad30573ae1c38e2a1dd96b71"
+    },
+    {
+      "path": "ci-leather-default.png",
+      "sha256": "1b501221465ec95ab0bcf24fe1f0b80967112f81295cfa7b32b6364ff8ce6423"
+    },
+    {
+      "path": "ci-leather-detail-max.png",
+      "sha256": "eb8597a1700c7b489a36210f53dc80f471f79d694d21d129dde46744df304fed"
+    },
+    {
+      "path": "ci-leather-detail-min.png",
+      "sha256": "6deb27108f1762874aa7d13b84a1e99c051dec99059c2233fee5abdc33396dbf"
+    },
+    {
+      "path": "ci-wood-coarse-grain.png",
+      "sha256": "9fadf4da16a32a83d58b5d8c1d8ce6fac3ce6a1905ee13ae2bb866f28d1207f4"
+    },
+    {
+      "path": "ci-wood-default.png",
+      "sha256": "5eb906ebdce9c51cbbae789a420991e688ae16e045afcdb697b802c7dff0052d"
+    },
+    {
+      "path": "ci-wood-horizontal-grain.png",
+      "sha256": "07c643f12ac48ca3edb4293237efa830dbd405a964bd7b420bb3936a5f934ebe"
+    },
+    {
+      "path": "ci-wood-straight-grain.png",
+      "sha256": "e30274e138571630fcd20e97b08b6c67b94d3a86fd979926e3093bbdd5c3f3c1"
+    },
+    {
+      "path": "glazed-ceramic-default.png",
+      "sha256": "a4a9e5ecabc795b9b8052059bd8dd075de105d936eaf022505d704f6e5d50b1b"
+    },
+    {
+      "path": "glazed-ceramic-fine-tiles.png",
+      "sha256": "a5271294fb7e10a3de81112c3732c1c456f096477c44cf7006280627798898ff"
+    },
+    {
+      "path": "glazed-ceramic-matte.png",
+      "sha256": "5bab8d3a8a1daa8cb9a340382af6a0ea235e74c7a1df7cb0738318d913de6895"
+    },
+    {
+      "path": "leather-coarse-grain.png",
+      "sha256": "315979d5fdea13236ee274f4b300a6eb307fb0383022f02715ae1c618a9073d9"
+    },
+    {
+      "path": "leather-default.png",
+      "sha256": "b53c730eed84e6dba0117b5e31fafc76873c2165485c3cc25f2af255d8ef861d"
+    },
+    {
+      "path": "leather-detail-max.png",
+      "sha256": "5d4e095dd073bdaed44b8944b71c89908abc1fd70c2b08b15423163d213abe07"
+    },
+    {
+      "path": "leather-detail-min.png",
+      "sha256": "4b0b5d3a12935d4a96efc2625607b972d2d12be477cb47625e50af5bbc972de2"
+    },
+    {
+      "path": "wood-coarse-grain.png",
+      "sha256": "fcb973c92600fcbce80ac964f97693e3035df0375cea1fa8385992e30e26c8de"
+    },
+    {
+      "path": "wood-default.png",
+      "sha256": "e9b27b0b30ad770786166922148d79369d8c66f7c6a35b77190e0c7b5f11fb57"
+    },
+    {
+      "path": "wood-horizontal-grain.png",
+      "sha256": "50b572aa77f3168ba12ecaf9153b026e6cdb2720e47786cbe9216b0611d3d71b"
+    },
+    {
+      "path": "wood-straight-grain.png",
+      "sha256": "5fd0fcf82de8a431aaf6a9d029b990129c4dff540ee590e3fa2ddc146e9edc08"
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 
 ## 当前方向 — Post-Alpha
 
-**NUM-01，进行中：** 维护者已授权显式迁移噪声语义并重新验收材质。[稳定 value noise](./docs/stable-noise.zh-CN.md)在未发布的 0.4 候选中实现 `fractal-noise@2`，提供已提交的迁移材质输入，质量门禁不变。这是实现/验收工作，不是发布，也不追认旧 0.3 硬件路径。
+**NUM-01，已实现并在记录范围内验收：** 已授权的[稳定 value noise 迁移](./docs/stable-noise.zh-CN.md)在未发布的 0.4 候选中实现 `fractal-noise@2`。[留存证据](./docs/evidence/stable-noise/README.zh-CN.md)关闭测量的 Windows Vulkan/DX12 相对 Chrome 资源/Scalar 回归（最大差 0），迁移软件材质矩阵及六项 CI 全部通过，前后视觉评审已留存。这不发布 0.4、不追认旧 0.3 硬件像素，也不关闭其他 cellular/warp 精度限制。
 
 OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可以来自批准的里程碑、维护者定义的引擎用例、测量、回归或外部 issue。下游需求是规划输入，不是引擎工作的前置条件。依据[项目边界](./AGENTS.zh-CN.md)，Studio 自行负责升级、产品验收、部署和用户试用。
 

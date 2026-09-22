@@ -12,7 +12,7 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 ## Current direction — Post-Alpha
 
-**NUM-01, in progress:** the maintainer authorized explicit noise-semantic migration and material requalification. [Stable value noise](./docs/stable-noise.md) implements `fractal-noise@2` in the unpublished 0.4 candidate, with committed migrated material inputs and unchanged quality gates. This is implementation/qualification work, not publication or acceptance of the old 0.3 hardware route.
+**NUM-01, implemented and qualified within recorded scope:** the authorized [stable value-noise migration](./docs/stable-noise.md) implements `fractal-noise@2` in the unpublished 0.4 candidate. [Retained evidence](./docs/evidence/stable-noise/README.md) closes the measured Windows Vulkan/DX12-versus-Chrome resource/Scalar regression (max difference 0), passes the migrated software material matrix and all six CI checks, and retains before/after visual review. This does not publish 0.4, qualify old 0.3 hardware pixels, or close unrelated cellular/warp precision limits.
 
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
