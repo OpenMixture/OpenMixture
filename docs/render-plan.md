@@ -2,7 +2,7 @@
 
 English | [简体中文](./render-plan.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. PR-007 [graph execution](./graph-rendering.md) implements the exhaustive WGSL mapping. The fixed checker pixels remain unchanged; its shared 48-byte uniform is documented there.
 
@@ -23,7 +23,7 @@ cargo xtask check
 
 `inspect` shares the validator's bounded source loader: at most 2 MiB plus one detection byte under the default policy. It performs full source validation before compilation, including unrequested branches. It never acquires an adapter or writes the input. Options can precede the path; use `--` before a path beginning with `-`.
 
-JSON mode writes one report with `schemaVersion: 1`, `plan`, `ok`, and `diagnostics`. Success contains the plan and an empty diagnostic array. Failure contains `plan: null` and ordered shared diagnostics, including the supplied path. Human mode shows pass origins, kernels, resource mappings, connected/default output sources, hash, and estimates. Exit `0` means compiled, `2` means invalid invocation/source/request, and `1` means file/report I/O failure. Malformed CLI syntax, duplicate flags/override IDs, or malformed override JSON write usage to stderr; semantic failures use the chosen report mode.
+JSON mode writes one report with `schemaVersion: 2`, `plan`, `ok`, and `diagnostics`. Success contains the plan and an empty diagnostic array. Failure contains `plan: null` and ordered shared diagnostics, including the supplied path. Human mode shows pass origins, kernels, resource mappings, connected/default output sources, hash, and estimates. Exit `0` means compiled, `2` means invalid invocation/source/request, and `1` means file/report I/O failure. Malformed CLI syntax, duplicate flags/override IDs, or malformed override JSON write usage to stderr; semantic failures use the chosen report mode.
 
 ## Public API and normalized source
 
@@ -67,6 +67,8 @@ Each selected pixel node emits one pass. An unconnected optional input emits a c
 | `heightToNormal` / `HeightToNormal` | scalar `input: ResourceId`, f32 `strength` | 16 |
 | `transform2d` / `Transform2d` | `transform-2d` source node; `input: ResourceId`, `scale: [u32; 2]`, `quarter_turns: u32`, `offset: [f32; 2]` | 32 |
 | `warp` / `Warp` | `warp` source node; `input: ResourceId`, `displacement: ResourceId`, `strength: [f32; 2]` | 16 |
+| `scalarBlend` / `ScalarBlend` | Scalar `a`/`b` ResourceId, `weight: f32` | 16 |
+| `imageInput` / `ImageInput` | Prepared external image `resource_id` | 16 |
 
 `KernelInvocation::id()` is exhaustive; `inputs()` exposes typed bindings in binding order. There is no arbitrary parameter JSON or second untyped input list in the plan. `PassOrigin` retains node ID/type/version or the owner and port of a synthesized default. `PlanOutput` retains channel kind, the connected endpoint or explicit default, and the actual logical resource. `RenderPlan` is immutable through its public API and cannot be deserialized or publicly constructed with forged references/hashes.
 
@@ -80,7 +82,7 @@ The executor binds the uniform at `0`, output texture at `1`, and `input` at `2`
 
 ## Allocation estimate contract
 
-Plan version 1 assumes a deliberately simple execution schedule: retain every pass texture and uniform until execution/readback finish; read requested channels sequentially, allocating and releasing one staging buffer for each. There is no early release or resource pool. The estimates are logical GPU allocation bytes, not driver measurements, CPU memory, PNG allocations, shader/pipeline memory, or device allocation granularity.
+Plan version 2 assumes a deliberately simple execution schedule: retain every pass texture and uniform until execution/readback finish; read requested channels sequentially, allocating and releasing one staging buffer for each. There is no early release or resource pool. The estimates are logical GPU allocation bytes, not driver measurements, CPU memory, PNG allocations, shader/pipeline memory, or device allocation granularity.
 
 Let `W`/`H` be dimensions, `P` be pass count, `O` be requested channel count, `U` be total padded uniform bytes, `T = W × H × 8`, and `R = ceil(W × 8 / 256) × 256 × H`:
 
@@ -99,7 +101,7 @@ Aliases still read once per requested channel. Arithmetic uses checked u64 opera
 
 ## Stable hash contract
 
-`plan.version` is `1`. `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Hash input is exactly the bytes `mixture-render-plan-v1` followed by a NUL byte, then compact UTF-8 JSON of the plan body, excluding `hash`. `RenderPlan::hash_input()` returns those bytes for consumers. Root field order is `version`, `documentVersion`, `size`, `materialOutput`, `passes`, `outputs`, `estimates`; nested ordering is fixed by the typed serializer and the [checked-in snapshots](../crates/mixture-core/tests/snapshots/). This is a versioned serialization contract, not generic alphabetically sorted JSON. Changing key order, number formatting, lowering, or memory semantics needs review against this version.
+`plan.version` is `2`. `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Hash input is exactly the bytes `mixture-render-plan-v2` followed by a NUL byte, then compact UTF-8 JSON of the plan body, excluding `hash`. `RenderPlan::hash_input()` returns those bytes for consumers. Root field order is `version`, `documentVersion`, `size`, `materialOutput`, `passes`, `outputs`, `estimates`, `imageResources`; nested ordering is fixed by the typed serializer and the [checked-in snapshots](../crates/mixture-core/tests/snapshots/). This is a versioned serialization contract, not generic alphabetically sorted JSON. Changing key order, number formatting, lowering, or memory semantics needs review against this version.
 
 The body includes source document version, selected node/owner IDs, types and versions, effective typed parameters (including override results), output provenance, requested channels, dimensions, pass/resource identities, descriptions, dispatch, and deterministic estimates. Node IDs are semantically retained for diagnostics/order; renaming nodes is not graph-isomorphism normalization.
 
@@ -115,10 +117,10 @@ The four new snapshots are checker/baseColor, checker/all defaults, all-M2/baseC
 
 PR-006's local focused and workspace checks passed on the pinned toolchain; remote cross-platform CI was still pending at that time. The documented [remote CI gates](./evidence/remote-ci/README.md) are now closed. PR-007 added [execution of these typed invocations](./graph-rendering.md) through the sole `wgpu` graph renderer, with all six M2 node pixel fixtures. PR-008 added [material golden tooling](./material-goldens.md); the completed [M3 review](./m3-review.md) records human acceptance of all three materials.
 
-PR-009 adds typed `FractalNoise`, `GradientMap` and `HeightToNormal` invocations without changing plan version 1 or old plan/hash snapshots. Noise uploads all u32 seed bits and hashes seed, basis, scale, octave and persistence semantics; the compiler retains typed Scalar/Color/Normal connections and slices new branches normally. Public [M3 API tests](../crates/mixture-core/tests/m3_nodes.rs) verify defaults, required seed, lowering, branch slicing and hash sensitivity.
+Historically, PR-009 added typed `FractalNoise`, `GradientMap` and `HeightToNormal` invocations without changing plan version 1 or old plan/hash snapshots. Noise uploads all u32 seed bits and hashes seed, basis, scale, octave and persistence semantics; the compiler retains typed Scalar/Color/Normal connections and slices new branches normally. Public [M3 API tests](../crates/mixture-core/tests/m3_nodes.rs) verify defaults, required seed, lowering, branch slicing and hash sensitivity.
 
-PR-010 adds typed `Transform2d` and `Warp` invocations as an additive extension to the v1 source node catalog. Document and plan versions remain `1`; the existing hash prefix, old plan/hash snapshots, and existing material pixel baselines are unchanged. The new invocations use the same typed serialization, effective-parameter hashing and dependency slicing rules. Public [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover lowered defaults, integer fields, ordered and repeated scalar bindings, uniform sizes, unrequested-branch slicing, parameter hash sensitivity, source-order equivalence, and rejection of missing or mistyped connections.
+Historically, PR-010 added typed `Transform2d` and `Warp` invocations as an additive extension to the v1 source node catalog. Document and plan versions remain `1`; the existing hash prefix, old plan/hash snapshots, and existing material pixel baselines are unchanged. The new invocations use the same typed serialization, effective-parameter hashing and dependency slicing rules. Public [resampling API tests](../crates/mixture-core/tests/resampling.rs) cover lowered defaults, integer fields, ordered and repeated scalar bindings, uniform sizes, unrequested-branch slicing, parameter hash sensitivity, source-order equivalence, and rejection of missing or mistyped connections.
 
-## ENG-04 compatibility and unpublished versions
+## ENG-04 compatibility history
 
-The source packages advance to Rust 0.2.0 because adding ScalarBlend to the exhaustive public KernelId/KernelInvocation enums may break downstream exhaustive matches. No non_exhaustive retrofit or other API redesign is made. The browser candidate advances to 0.2.0-alpha.0; API schema 1, .mix version 1 and plan version/hash domain remain unchanged. Serialized existing variants and old plan hash snapshots remain unchanged. Public npm 0.1.0-alpha.0 stays pinned in the registry consumer and must reject scalar-blend with MIX_NODE_UNKNOWN_TYPE. Candidate installation changes only the staged runtime archive/version/integrity; frozen tool dependencies and the pinned disposable Studio source remain intact. Rust packages and the new browser candidate are unpublished; this work does not authorize publication.
+The [Scalar composition record](./eng-04-scalar-blend.md) retains the original 0.2 API change. See [compatibility](./compatibility.md) and [release status](./release.md) for current versions and schemas.

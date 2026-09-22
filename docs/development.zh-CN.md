@@ -2,16 +2,12 @@
 
 [English](./development.md) | 简体中文
 
-**M6B-05，2026-09-22：** [可移植资产验收](./evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成：源码/归档与浏览器消费、16 个包精确对照、原材质及六检查全部通过。Windows 硬件法线一致性仍未合格。0.5.0 / 0.5.0-alpha.0 未发布，集成和发布单独处理，下方早期状态保留为历史。
-
-**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](./m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
-
-M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
 ## 基础工程、诊断与 GPU 上下文状态
 
 仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 验收现已包含[三平台 CPU 及 Linux SwiftShader CI](./evidence/remote-ci/README.zh-CN.md)。远端门槛及[有界 M5 浏览器验收](./evidence/m5-05/README.zh-CN.md)已完成。[首次 npm Alpha](./evidence/npm-alpha/README.zh-CN.md)已发布；Rust crate 仍未发布。当前优先级遵循 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)。
-它包含四个产品 crate 边界（包括轻量 WASM 绑定）和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十二个节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。Rust crate 继续禁用发布；浏览器 npm 包有独立的发行记录。
+它包含五个产品 crate 边界（包括轻量 WASM 绑定）和私有仓库工具。核心提供[诊断与安全限制 API](./diagnostics.zh-CN.md)；[显式 GPU 获取与 doctor](./gpu-context.zh-CN.md)已可用。[棋盘格计算／回读和 CLI PNG 输出](./builtin-checker.zh-CN.md)已实现，[严格 .mix 解码／验证](./file-format.zh-CN.md)和[十三种版本化节点契约](./node-contracts.zh-CN.md)已实现。[确定性编译与计划检查](./render-plan.zh-CN.md)已实现，[图执行](./graph-rendering.zh-CN.md)及三个 PNG 示例已实现。Rust crate 继续禁用发布；浏览器 npm 包有独立的发行记录。
 
 [rust-toolchain.toml](../rust-toolchain.toml)固定使用 Rust 1.98.1、edition 2024、rustfmt 和 Clippy。通过 [rustup](https://rustup.rs/) 安装 Rust，并准备原生 Rust 链接器／工具链：macOS 使用 Xcode Command Line Tools，Linux 使用 C 链接器，Windows 使用 Visual Studio C++ Build Tools。在本仓库运行 Cargo 时，会按需安装固定工具链。
 

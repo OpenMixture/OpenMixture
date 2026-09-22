@@ -2,6 +2,8 @@
 
 [English](./m6b-04-adapters.md) | 简体中文
 
+**当前状态：** 本实现已随 M6-B 合入 main；M6B-05 已完成记录范围内的[综合验收](./m6b-05-qualification.zh-CN.md)。以下实现切片说明中的后续任务为当时计划；版本及硬件范围见[发布状态](./release.zh-CN.md)。
+
 2026-09-22 已在评审分支实现。[共享 CPU codec](./m6b-03-cpu-assets.zh-CN.md)现服务于显式本地文件 CLI 命令及浏览器公共字节 API。版本仍为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0。综合像素验收及阶段收尾属于 M6B-05；本切片不改变 shader、源格式、包 v1 或散装输入 API。
 
 ## CLI 文件

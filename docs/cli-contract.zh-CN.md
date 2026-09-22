@@ -2,7 +2,7 @@
 
 [English](./cli-contract.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
 PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_contract.rs)消费已构建的 `mixture` 可执行文件，使用自有输入及输出目录。它修复人类可读诊断上下文，记录现有 JSON 和退出行为，不引入 schema 版本、不改变像素语义，也不完成其余 [M4 工作](../M4_PRS.zh-CN.md)。
 
@@ -27,11 +27,11 @@ PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_co
 | 命令 | 必需顶层字段 | 失败时的字段存在规则 |
 |---|---|---|
 | `validate` | `ok: boolean`、`diagnostics: array` | 保持两个字段；该原始结构**没有 `schemaVersion` 字段**。 |
-| `inspect --plan` | `schemaVersion: 1`、`plan: object or null`、`ok`、`diagnostics` | `plan` 存在且为 null。 |
+| `inspect --plan` | `schemaVersion: 2`、`plan: object or null`、`ok`、`diagnostics` | `plan` 存在且为 null。 |
 | `doctor` | `schemaVersion: 1`、`verdict: string`、`requested: object`、`adapter: object or null`、`device: object or null`、`computeProbe: string`、`readbackProbe: string`、`ok`、`diagnostics` | adapter／device 字段始终存在；设备请求失败时可保留已选适配器证据。`execution` 是**可选、缺省时省略**的棋盘报告，仅完成探针时存在。 |
-| `render` | `schemaVersion: 1`、`input: string`、`outputDirectory: string`、`planHash: string or null`、`context: object or null`、`execution: object or null`、`outputs: array`、`ok`、`diagnostics` | `planHash`、`context`、`execution` **始终存在**，不可用时为 null。`outputs` 只包含已完成的文件写入。 |
+| `render` | `schemaVersion: 2`、`input: string`、`outputDirectory: string`、`planHash: string or null`、`context: object or null`、`execution: object or null`、`outputs: array`、`ok`、`diagnostics` | `planHash`、`context`、`execution` **始终存在**，不可用时为 null。`outputs` 只包含已完成的文件写入。 |
 
-`schemaVersion`、计划 `version`、源码 `documentVersion` 和节点版本描述不同边界。当前检查正文为 [RenderPlan v1](./render-plan.zh-CN.md)：`version`、`documentVersion`、`size: [width,height]`、`materialOutput`、`passes`、`outputs`、`estimates`、`hash`。pass／资源 ID 和字节估算均为非负整数；`hash` 是 `sha256:` 加 64 个小写十六进制字符。核心拥有计划序列化及哈希。调整请求通道顺序仍编译为相同规范计划；改变有实际意义的覆盖值会改变哈希，而裁剪未使用分支可以消除其工作量。
+`schemaVersion`、计划 `version`、源码 `documentVersion` 和节点版本描述不同边界。当前检查正文为 [RenderPlan v2](./render-plan.zh-CN.md)：`version`、`documentVersion`、`size: [width,height]`、`materialOutput`、`passes`、`outputs`、`estimates`、`imageResources`、`hash`。pass／资源 ID 和字节估算均为非负整数；`hash` 是 `sha256:` 加 64 个小写十六进制字符。核心拥有计划序列化及哈希。调整请求通道顺序仍编译为相同规范计划；改变有实际意义的覆盖值会改变哈希，而裁剪未使用分支可以消除其工作量。
 
 ## 诊断数据与人类可读上下文
 

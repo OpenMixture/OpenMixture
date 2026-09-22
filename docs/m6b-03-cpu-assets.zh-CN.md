@@ -2,6 +2,8 @@
 
 [English](./m6b-03-cpu-assets.md) | 简体中文
 
+**当前状态：** 本实现已随 M6-B 合入 main；M6B-05 已完成记录范围内的[综合验收](./m6b-05-qualification.zh-CN.md)。以下实现切片说明中的后续任务为当时计划；版本及硬件范围见[发布状态](./release.zh-CN.md)。
+
 可选 [mixture-asset crate](../crates/mixture-asset/README.zh-CN.md)实现 [M6B-02 字节契约](./m6b-package-format.zh-CN.md)。源码和独立 Cargo 消费者无需 GPU 即可写入、验证、检查和准备 `.mixpack v1`。Rust 源码为 0.5.0；浏览器构建身份推进至未发布的 0.5.0-alpha.0，注册表消费者仍固定于已发布 0.3.0-alpha.0。CLI/浏览器包 API 和包像素验收仍属 M6B-04/05。不声称发布或新增硬件数值保证。
 
 ## 公共操作与所有权

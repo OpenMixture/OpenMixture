@@ -2,7 +2,7 @@
 
 English | [简体中文](./browser-runtime.zh-CN.md)
 
-**M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 **Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](../ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
 

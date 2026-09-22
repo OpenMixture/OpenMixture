@@ -2,9 +2,7 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
-M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
-
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
 
@@ -74,6 +72,6 @@ PR-013 additionally runs the independent `device_loss` integration test with exp
 
 [PR-014 freshness state](./stale-results.md) lives entirely in the independent consumer. It accepts generations before compilation, limits active/pending work and retains at most displayed pixels plus a current completion. A stale display stays labeled stale after newer failure. The host still owns responsive worker scheduling.
 
-## ENG-04 compatibility and unpublished versions
+## ENG-04 compatibility history
 
-The source packages advance to Rust 0.2.0 because adding ScalarBlend to the exhaustive public KernelId/KernelInvocation enums may break downstream exhaustive matches. No non_exhaustive retrofit or other API redesign is made. The browser candidate advances to 0.2.0-alpha.0; API schema 1, .mix version 1 and plan version/hash domain remain unchanged. Serialized existing variants and old plan hash snapshots remain unchanged. Public npm 0.1.0-alpha.0 stays pinned in the registry consumer and must reject scalar-blend with MIX_NODE_UNKNOWN_TYPE. Candidate installation changes only the staged runtime archive/version/integrity; frozen tool dependencies and the pinned disposable Studio source remain intact. Rust packages and the new browser candidate are unpublished; this work does not authorize publication.
+The [Scalar composition record](./eng-04-scalar-blend.md) retains the original 0.2 API change. See [compatibility](./compatibility.md) and [release status](./release.md) for current versions and schemas.

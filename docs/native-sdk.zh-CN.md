@@ -2,9 +2,7 @@
 
 [English](./native-sdk.md) | 简体中文
 
-M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
-
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
 PR-011 使用[独立应用](../examples/native-consumer/README.zh-CN.md)验证现有公开 Rust 路径，不为产品 crate 增加 renderer 门面、运行时 crate、节点、着色器、文档版本或依赖。项目仍为 pre-alpha：PR-012 单独验证 [CLI 契约](./cli-contract.zh-CN.md)，PR-013 定义[设备丢失／OOM 分类及清理](./gpu-failures.zh-CN.md)，PR-014 添加[消费者自有新鲜度处理](./stale-results.zh-CN.md)，PR-015 验证[真实本地软件包消费](./package-consumption.zh-CN.md)。见 [M4 退出／发布评估](./release.zh-CN.md)。
 
@@ -74,6 +72,6 @@ PR-013 还使用显式测试环境变量运行独立 `device_loss` 集成测试�
 
 [PR-014 新鲜度状态](./stale-results.zh-CN.md)完全位于独立消费者中。它在编译前登记代次，限制活跃／待执行工作，最多保留展示像素加当前完成输出。较新失败后，旧展示仍标为过期。响应性 worker 调度仍由宿主负责。
 
-## ENG-04 兼容性与未发布版本
+## ENG-04 兼容性历史
 
-源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。
+[Scalar 组合记录](./eng-04-scalar-blend.zh-CN.md)保留当时的 0.2 API 变更。当前版本与 schema 以[兼容性记录](./compatibility.zh-CN.md)和[发布状态](./release.zh-CN.md)为准。

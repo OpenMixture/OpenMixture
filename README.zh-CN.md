@@ -4,9 +4,9 @@
 
 > 基于 Rust 和 `wgpu` 的小型材质图编译器与无界面纹理渲染器。
 
-**当前状态（2026-09-21）：** ENG-01–04 已实现。包含 Scalar 组合的 npm Alpha `@openmixture/runtime@0.2.0-alpha.0` 已发布，[发行记录](./docs/evidence/npm-020-alpha/README.zh-CN.md)绑定精确归档及资格验证。原生 M4／M4.1、有界 M5 和较早浏览器／产品验收保留各自范围。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](./ROADMAP.zh-CN.md)负责当前工作，[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付证据。
+**当前状态（2026-09-22）：** M6-A、M6-B 和稳定 value noise v2 已实现并集成。源码为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；浏览器发布版为 0.3.0-alpha.0。已发布包与源码的硬件验收范围不同，见[发布状态](./docs/release.zh-CN.md)。[路线图](./ROADMAP.zh-CN.md)负责当前优先级。
 
-[M6A-02](./docs/m6a-02-core-resources.zh-CN.md)增加第十三种 Core 节点合同 image-input、不可变资源准备和计划 v2；[M6A-03](./docs/m6a-03-native-resources.zh-CN.md)接通 Native 图像上传与执行。Rust 源码为 0.3.0，浏览器候选为 0.3.0-alpha.0／API schema 2，均未发布；精确已发布 npm 版本仍为 0.2.0-alpha.0。
+[M6-A](./docs/m6a-resource-contract.zh-CN.md)提供外部图像资源、不可变准备请求和计划 v2；[M6-B](./docs/m6b-portable-assets.zh-CN.md)提供共享 CPU 资产 codec、CLI/浏览器适配及有界验收。[稳定噪声](./docs/stable-noise.zh-CN.md)提供显式 `fractal-noise@2` 迁移；旧文档保持原节点版本。
 
 **已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器运行时](./docs/browser-runtime.zh-CN.md)已完成[记录的 macOS／Linux Chromium 材质验收](./docs/evidence/m5-05/README.zh-CN.md)，独立 [Studio](https://github.com/OpenMixture/Studio) 的 MVP 也已通过[记录的 macOS 保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。当前候选 CI 已独立构建并安装新包完成浏览器验收；每个交付候选仍须绑定自身的源码和归档结果。
 

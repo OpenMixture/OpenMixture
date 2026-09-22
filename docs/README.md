@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
@@ -18,7 +18,7 @@ The root documents are the active project contract:
 - [M5 browser runtime and Player plan](../M5_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
-[Portable asset packaging](./m6b-portable-assets.md) starts M6-B with measured delivery requirements and the format/implementation/qualification sequence; the CPU loader is implemented, with adapters and qualification remaining.
+[Portable asset packaging](./m6b-portable-assets.md) starts M6-B with measured delivery requirements and the format/implementation/qualification sequence; the CPU codec, CLI/browser adapters and bounded qualification are implemented and integrated.
 [Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. Its implementation guide and Alpha closeout distinguish historical checkpoints, bounded M5 acceptance and the completed first delivery.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
 [Native CLI reports and exit codes](./cli-contract.md) defines PR-012 JSON presence/types, complete human context, independent process tests and partial-write behavior.
@@ -27,10 +27,10 @@ The root documents are the active project contract:
 [GPU context and doctor](./gpu-context.md) describes PR-003 acquisition, report fields, exit codes, and pinned software CI.
 [Built-in checker](./builtin-checker.md) defines PR-004 pixels, readback, PNG output, golden provenance, and execution evidence.
 [Strict .mix v1 format](./file-format.md) defines PR-005 decoding, validation, CLI behavior, and source fixtures.
-[Eleven built-in node contracts](./node-contracts.md) define typed ports, parameters, defaults, and declared semantics before graph execution.
+[Versioned built-in node contracts](./node-contracts.md) define typed ports, parameters, defaults, and declared semantics before graph execution.
 [Deterministic RenderPlan](./render-plan.md) defines PR-006 requests, normalization, slicing, typed resources, estimates, hashes, and CLI inspection.
-[Eleven-node graph rendering](./graph-rendering.md) defines PR-007/009/010 execution, caching, readback/PNG encoding, examples, tests, and adapter evidence.
-[Architecture decisions](./decisions/README.md) record the four foundation decisions.
+[Graph rendering](./graph-rendering.md) defines PR-007/009/010 execution, caching, readback/PNG encoding, examples, tests, and adapter evidence.
+[Architecture decisions](./decisions/README.md) record foundation and subsequent design decisions and implementation status.
 
 The original [review bundle](../mixture-greenfield-docs/README.md) is retained unchanged as source material. Its planned commands are not a claim that later milestones are implemented. Root documentation is maintained with the code from this point onward; the bundle manifest applies only to the original bundle.
 
@@ -47,6 +47,8 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 - [Pull request description template](../.github/pull_request_template.md)
 
 ## Languages and synchronization
+
+Use [release status](./release.md) as the shared entry point for current state; other guides link to it instead of copying version/backlog banners. Keep contract tables aligned with source. Label historical conclusions with date, build, node version and hardware scope; link later fixes to new evidence without rewriting old failures.
 
 - Active project documents are paired in the same directory: English uses `*.md`, Simplified Chinese uses `*.zh-CN.md`. Each page provides language links at the top.
 - Update both languages in the same PR when behavior, commands, scope, or acceptance criteria change. Chinese documents preserve the full requirements rather than replacing the source with a summary.
@@ -65,12 +67,10 @@ The original [review bundle](../mixture-greenfield-docs/README.md) is retained u
 
 [ENG-03 consumer evidence](./evidence/eng-03/README.md) retains separate candidate/registry identities, local browser results and the inspected example screenshot.
 
-[ENG-04 Scalar composition](./eng-04-scalar-blend.md) documents the implemented node, versioned compatibility and native/browser acceptance; new packages remain unpublished.
+[ENG-04 Scalar composition](./eng-04-scalar-blend.md) documents the implemented node, versioned compatibility and native/browser acceptance; its first publication is recorded in the [0.2 release](./evidence/npm-020-alpha/README.md).
 
-[M6A-01 minimal resource contract](./m6a-resource-contract.md) and [ADR 0007](./decisions/0007-external-image-resources.md) define the selected external-height input design, compatibility decisions and future acceptance tasks. Resource APIs and pixels are not implemented or qualified by these documents.
+[M6A-01 minimal resource contract](./m6a-resource-contract.md) and [ADR 0007](./decisions/0007-external-image-resources.md) record the external-height design. M6A-02–04 implement the Core, Native and browser resource paths; M6A-05 retains bounded qualification.
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
-
-[M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and unresolved hardware failure.
+[M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and the v1 hardware failure; see [stable noise](./stable-noise.md) for the explicit v2 repair.
 
 [Browser 0.3.0 publication evidence](./evidence/npm-030-alpha/README.md) records main integration, frozen archive, publication and exact registry consumption.

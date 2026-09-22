@@ -2,11 +2,9 @@
 
 [English](./browser-sdk.md) | 简体中文
 
-**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](./m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
-
-**当前状态（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
+**历史检查点（2026-09-20）：** 原生 M4／M4.1、有界 M5、记录范围内的 Studio MVP 及普通 Windows Chrome／Edge／Firefox 验收已完成。npm Alpha `@openmixture/runtime@0.1.0-alpha.0` 已发布，准确注册表版本消费已通过记录的 Studio 门槛。Rust crate 仍未发布；两项浏览器检查是 main 必需检查。[Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前工作；Alpha 收尾保留首次交付证据。M6 仍未排期。
 
 以下带日期的检查点保留当时状态，不作为当前未完成项清单。
 
@@ -150,9 +148,9 @@ Player／Studio 产品工作仍归消费者。引擎能力工作也可由维护�
 
 ENG-03 新增使用本公开契约的[独立浏览器 SDK 示例与验收入口](../examples/browser-consumer/README.zh-CN.md)。候选和精确注册表构建分别验证，固定 Studio 材质及更广泛契约覆盖继续必需。
 
-## ENG-04 兼容性与未发布版本
+## ENG-04 兼容性历史
 
-源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。
+[Scalar 组合记录](./eng-04-scalar-blend.zh-CN.md)保留当时的 0.2 API 变更。当前版本与 schema 以[兼容性记录](./compatibility.zh-CN.md)和[发布状态](./release.zh-CN.md)为准。
 
 ## M6A-04 图像请求
 

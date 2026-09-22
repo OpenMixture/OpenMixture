@@ -2,6 +2,8 @@
 
 English | [简体中文](./m6b-03-cpu-assets.zh-CN.md)
 
+**Current status:** this implementation is merged into main with M6-B; M6B-05 has completed [comprehensive qualification](./m6b-05-qualification.md) within its recorded scope. Follow-up tasks mentioned in this implementation-slice account were the plan at that checkpoint; see [release status](./release.md) for versions and hardware scope.
+
 The optional [mixture-asset crate](../crates/mixture-asset/README.md) implements the [M6B-02 byte contract](./m6b-package-format.md). Source and isolated Cargo consumers can write, validate, inspect and prepare `.mixpack v1` without a GPU. Rust source is 0.5.0; the browser build identity advances to unpublished 0.5.0-alpha.0, while the registry consumer stays pinned to published 0.3.0-alpha.0. CLI/browser package APIs and package pixel qualification remain M6B-04/05. No release or new hardware numerical guarantee is claimed.
 
 ## Public operations and ownership

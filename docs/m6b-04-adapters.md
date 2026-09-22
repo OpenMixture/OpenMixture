@@ -2,6 +2,8 @@
 
 English | [简体中文](./m6b-04-adapters.zh-CN.md)
 
+**Current status:** this implementation is merged into main with M6-B; M6B-05 has completed [comprehensive qualification](./m6b-05-qualification.md) within its recorded scope. Follow-up tasks mentioned in this implementation-slice account were the plan at that checkpoint; see [release status](./release.md) for versions and hardware scope.
+
 Implemented on the review branch, 2026-09-22. The [shared CPU codec](./m6b-03-cpu-assets.md) now serves explicit local-file CLI commands and public browser byte APIs. Versions remain unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. M6B-05 owns combined pixel qualification and milestone closeout; this slice does not change shaders, the source format, package v1, or loose-input APIs.
 
 ## CLI files
