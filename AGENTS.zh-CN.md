@@ -25,6 +25,8 @@
 
 [MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。工作候选已实现 brick-pattern 与 scalar-mask-blend，四通道砖材质夹具为候选；MAT-01 材质验收尚未完成。[夹具指南](./fixtures/materials/brick-paving/README.zh-CN.md)记录候选 Native 矩阵工具，候选浏览器 CI 现要求二十组用例／八十通道对照。工具也检查包往返和匹配适配器的耗时预算；`test-node brick-pattern` 检查周期原点移位及原始 f16 范围；`test-material brick-paving` 运行 Native 矩阵并测量 64×64 格混叠限制。两个砖材质入口显式将 Cargo 构建输出放入 `target/native-consumer`；验收不能依赖私有 Git 排除配置或削弱干净源码检查。见 [CI 输出路径失败](./docs/evidence/mat-01/ci-failure-4bf/README.zh-CN.md)及隔离回归。固定 WebGPU PBR 评审工具仅负责消费者可视化；[Windows 候选证据](./docs/evidence/mat-01/README.zh-CN.md)留存所选完整像素及绑定源码的回执；人工 PBR 接受与最终 CI／集成仍待完成。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
 
+[MAT-02 前期设计](./docs/mat-02-layered-weathering.zh-CN.md)是草案，不是已准入节点或已接受材质。它提议由 Core／wgpu 负责的有界轴向 Scalar 形态处理及饱和减法，并复用既有组合。MAT-01 退出及 MAT-02a 目录／版本／验收计划接受仍是实现前置条件。[减法反例](./docs/evidence/mat-02-subtraction/README.zh-CN.md)记录干净源码中既有节点的组合限制，不是新节点验收。本次准备不改变运行时、格式或迁移规则；检查配对文档／链接，并保留六项既有门槛。
+
 ## 本指南的强制维护要求
 
 每次重大调整**必须在同一 PR 中更新 `AGENTS.md` 和 `AGENTS.zh-CN.md`**，这是完成条件，不是可选后续工作。重大调整包括：架构/职责边界；公共 API、命令、格式、节点语义、版本或迁移策略；资源/内存/生命周期规则；必需检查或验收范围；改变工作基线的里程碑集成/发布；跨项目或交付策略。

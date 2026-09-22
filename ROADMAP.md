@@ -88,6 +88,8 @@ Work-item IDs below are not GitHub PR numbers. Each implementation seam uses an 
 
 MAT-02/03/04 use the same contract → minimal implementation seams → material evidence → qualification sequence. Break them into actual work items at entry, using lessons from the previous stage; do not assign speculative node IDs or shipping versions now.
 
+[MAT-02 preparatory design](./docs/mat-02-layered-weathering.md) records the neighborhood-morphology gap, a proposed contract, composition relationships and decisions to freeze at entry. Its node identity, candidate version and budgets are proposals, not catalog admission or implementation authorization. MAT-01 remains the active increment; MAT-02 implementation still requires its exit and MAT-02a acceptance.
+
 ### Common material acceptance and ownership
 
 - Before implementation, bind a material brief and cases to measurable structure, independent parameter effects, output-channel relationships, periodic boundary behavior and numeric tolerances. Include default, endpoint, combined-parameter and at least two-seed cases for randomized behavior. Do not loosen gates after seeing failed candidates.
