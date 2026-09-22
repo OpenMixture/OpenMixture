@@ -1,6 +1,6 @@
 use crate::registry::*;
 
-pub(crate) static CONTRACT: NodeContract = NodeContract {
+pub(crate) static LEGACY_CONTRACT: NodeContract = NodeContract {
     type_id: "fractal-noise",
     version: 1,
     label: "Fractal Noise",
@@ -43,4 +43,14 @@ pub(crate) static CONTRACT: NodeContract = NodeContract {
             default: Some(ParameterDefault::Enum("value")),
         },
     ],
+};
+
+pub(crate) static CONTRACT: NodeContract = NodeContract {
+    type_id: "fractal-noise",
+    version: 2,
+    label: "Fractal Noise",
+    description: "Seeded periodic noise: deterministic Q0.24 value interpolation; cellular retains its floating-point precision limits.",
+    inputs: LEGACY_CONTRACT.inputs,
+    outputs: LEGACY_CONTRACT.outputs,
+    parameters: LEGACY_CONTRACT.parameters,
 };

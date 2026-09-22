@@ -560,7 +560,7 @@ pub fn image_references(
                 .nodes
                 .iter()
                 .find(|n| n.id == exposed.node_id)
-                .and_then(|n| crate::registry::node_contract(&n.type_id))
+                .and_then(|n| crate::registry::node_contract_version(&n.type_id, n.version))
                 .and_then(|c| c.parameter(&exposed.parameter_id))
                 .map(|p| p.kind);
             if matches!(kind, Some(crate::registry::ParameterKind::ResourceRef)) {

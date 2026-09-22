@@ -181,7 +181,8 @@ test('normal build excludes the qualification host', async () => {
 test('scalar composition executes in the candidate and fails explicitly in the published runtime', async ({ page, browser }, testInfo) => {
   test.setTimeout(120000);
   await openHost(page);
-  const source = await readFile(new URL('../public/scalar-blend.mix', import.meta.url), 'utf8');
+  const fixture = expectedBuild.runtimeVersion === '0.5.0-alpha.0' ? 'scalar-blend-v2.mix' : 'scalar-blend.mix';
+  const source = await readFile(new URL(`../public/${fixture}`, import.meta.url), 'utf8');
   const result = await page.evaluate(async source => {
     const runtime = await window.sdk.loadRuntime();
     const build = runtime.getBuildInfo();

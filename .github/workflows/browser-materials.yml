@@ -128,6 +128,15 @@ jobs:
         run: >-
           node scripts/browser-runtime/candidate.mjs verify
           tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output
+      - name: Prepare explicit noise-v2 material migration
+        run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native-v2 "$(git rev-parse HEAD)" --noise-v2
+      - name: Requalify migrated materials through the same installed public runtime
+        working-directory: tmp/browser-product
+        run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native-v2 ../browser-output-v2
+      - name: Check unchanged quality gates for migrated materials
+        run: cargo xtask browser-material-check tmp/browser-native-v2 tmp/browser-output-v2
+      - name: Bind migrated material acceptance to the exact candidate
+        run: node scripts/browser-runtime/candidate.mjs verify-noise-v2 tmp/browser-product tmp/browser-candidate tmp/browser-native-v2 tmp/browser-output-v2
       - name: Retain material qualification evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
@@ -140,6 +149,8 @@ jobs:
             tmp/browser-candidate/
             tmp/browser-native/
             tmp/browser-output/
+            tmp/browser-native-v2/
+            tmp/browser-output-v2/
             tmp/browser-quality-controls/
             tmp/browser-product/package-lock.json
             tmp/browser-product/test-results/

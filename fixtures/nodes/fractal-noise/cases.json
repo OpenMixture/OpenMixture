@@ -546,6 +546,200 @@
           "tolerance": 1
         }
       ]
+    },
+    {
+      "id": "stable-defaults",
+      "overrides": {},
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            149,
+            149,
+            149,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            162,
+            162,
+            162,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            149,
+            149,
+            149,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "source": "stable.mix",
+      "golden": {
+        "channel": "height",
+        "file": "stable-defaults-129x65.rgba",
+        "hardwareTolerance": 0
+      }
+    },
+    {
+      "id": "stable-cellular",
+      "overrides": {
+        "basis": "cellular"
+      },
+      "size": [
+        129,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 1,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            52,
+            52,
+            52,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            43,
+            32
+          ],
+          "rgba": [
+            62,
+            62,
+            62,
+            255
+          ],
+          "tolerance": 1
+        },
+        {
+          "channel": "height",
+          "xy": [
+            128,
+            64
+          ],
+          "rgba": [
+            44,
+            44,
+            44,
+            255
+          ],
+          "tolerance": 1
+        }
+      ],
+      "source": "stable.mix"
+    },
+    {
+      "id": "stable-one",
+      "source": "stable.mix",
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "scale": 1,
+        "octaves": 1,
+        "persistence": 0
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "stable-row",
+      "source": "stable.mix",
+      "size": [
+        65,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "scale": 7,
+        "octaves": 6,
+        "persistence": 1
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "stable-column",
+      "source": "stable.mix",
+      "size": [
+        1,
+        65
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "scale": 13,
+        "octaves": 6,
+        "persistence": 0.1
+      },
+      "passCount": 1,
+      "samples": []
+    },
+    {
+      "id": "stable-boundaries",
+      "source": "stable.mix",
+      "size": [
+        65,
+        3
+      ],
+      "outputs": [
+        "height"
+      ],
+      "overrides": {
+        "seed": 4294967295,
+        "scale": 128,
+        "octaves": 6,
+        "persistence": 1
+      },
+      "passCount": 1,
+      "samples": []
     }
   ],
   "invalidCases": [

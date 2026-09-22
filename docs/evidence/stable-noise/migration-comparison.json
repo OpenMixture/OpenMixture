@@ -1,0 +1,473 @@
+{
+  "sourceRevision": "2cadd6deb5a9b38263bbcbe6a1dbbc7bbeb0a26c",
+  "engineDirty": false,
+  "nativeManifestSha256": {
+    "v1": "014af638dc641d4f2113da520b6b45c6e9f11ba67c668ef10304fd0e6b2affa0",
+    "v2": "ad049a7801a1339cf5a83e1f0d8e40f24083f1728106d8b77049eb29ad12b70f"
+  },
+  "scope": "Native Vulkan semantic migration comparison; agent visual review, not human acceptance",
+  "cases": [
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "planHash": "sha256:45f84ce18daa23f0e485f7048d9c3fdd9e4f8c26a1b41544c8dd8d67559cc94e",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "v2PngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "v2PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "v2PngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "v2PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "glazed-ceramic-default.png",
+      "reviewImageSha256": "a4a9e5ecabc795b9b8052059bd8dd075de105d936eaf022505d704f6e5d50b1b"
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "planHash": "sha256:414df04be1b61b09fb2647dbbc8d805b09ac6d2870bbc657610f827de6e39e05",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+          "v2PngSha256": "a76f2b20d3f3dcdd7e4ae181e25d54dd822c3e78e96f8cbde1b3af8af591d1f2",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "v2PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "v2PngSha256": "96106e019be7325b3aa32a31256e68d6a745867338071c24bf715004b7aa40a2",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "v2PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "glazed-ceramic-fine-tiles.png",
+      "reviewImageSha256": "a5271294fb7e10a3de81112c3732c1c456f096477c44cf7006280627798898ff"
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "sourceSha256": "ec04b518719ec7aab7a7cf351624bfc370e755b41645cf2edbd9425dd3bbf4fd",
+      "planHash": "sha256:5bd3aaead1e6336b1879ac7d58e5e180bd8d5875fea38c244925f57bd151e4cb",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "v2PngSha256": "27b14145b12ae563aa01e5394c2bee687645ad05033a88fc8d2b952ecc29d30e",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "v2PngSha256": "da133aabba9b2651e16d2e41625715fb1b22b543342217a4fda0c6eadef5f5e0",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+          "v2PngSha256": "adc294f4c1b87059338d84c2dc2a6153b01cf2db9540df56e6539d993db0ea53",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "v2PngSha256": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "glazed-ceramic-matte.png",
+      "reviewImageSha256": "5bab8d3a8a1daa8cb9a340382af6a0ea235e74c7a1df7cb0738318d913de6895"
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "sourceSha256": "d2f3627a478dae6636db615158e970f633300dbceb11ff4e629f5cf6e486e9a0",
+      "planHash": "sha256:824757739dc22a5f21061e5f47355eb53dfc911070eaf0ecf39e9408600f0902",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "ac6006160533788e537ff216f91bf3fcfae617a0f1323d200cd00ddde34018ff",
+          "v2PngSha256": "ac6006160533788e537ff216f91bf3fcfae617a0f1323d200cd00ddde34018ff",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "17539e2ab5235bbfdd49198cdfbee557dd6d097706a3cd7e0b8c6211b5017c6a",
+          "v2PngSha256": "17539e2ab5235bbfdd49198cdfbee557dd6d097706a3cd7e0b8c6211b5017c6a",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "06c1215088e35961984547a9da766a788777e9084f703267255e1ca4657815f1",
+          "v2PngSha256": "06c1215088e35961984547a9da766a788777e9084f703267255e1ca4657815f1",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "5f88e5c4ccb0827f8ab00ec98c6b3b2692592321d758ee3b15a13ae1e2b79a31",
+          "v2PngSha256": "5f88e5c4ccb0827f8ab00ec98c6b3b2692592321d758ee3b15a13ae1e2b79a31",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "leather-default.png",
+      "reviewImageSha256": "b53c730eed84e6dba0117b5e31fafc76873c2165485c3cc25f2af255d8ef861d"
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "sourceSha256": "d2f3627a478dae6636db615158e970f633300dbceb11ff4e629f5cf6e486e9a0",
+      "planHash": "sha256:a6cdef1753cc8944e7ea24370de5067d8b08a5de434cf9513603aa68e665f179",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "759b88285b473c70a0df01dadd9ad78b43ed12cd87f3fc1b81293f829ae4154d",
+          "v2PngSha256": "759b88285b473c70a0df01dadd9ad78b43ed12cd87f3fc1b81293f829ae4154d",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "979cbbe75f484e2a8a04b3d2548706a195413b5ee6e9971db103a73c77e67fe5",
+          "v2PngSha256": "979cbbe75f484e2a8a04b3d2548706a195413b5ee6e9971db103a73c77e67fe5",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "adfcfea5fb0753bf2a5406c00573e9e1112da27fdcdccf594ba7f10d5b2de5b5",
+          "v2PngSha256": "adfcfea5fb0753bf2a5406c00573e9e1112da27fdcdccf594ba7f10d5b2de5b5",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "22269e5e253a3dc107d82b1ef32f9470244d8db0fedca4999ace32128508490b",
+          "v2PngSha256": "22269e5e253a3dc107d82b1ef32f9470244d8db0fedca4999ace32128508490b",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "leather-detail-min.png",
+      "reviewImageSha256": "4b0b5d3a12935d4a96efc2625607b972d2d12be477cb47625e50af5bbc972de2"
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "sourceSha256": "d2f3627a478dae6636db615158e970f633300dbceb11ff4e629f5cf6e486e9a0",
+      "planHash": "sha256:906ea501e975d4b31fe11274f8dc1f86aa1b5b52745f4cb9af9eb1a54cc4be25",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "c82185206a7e573091600981359c37f5b799ebdd0d99112d086a6c99b34cafff",
+          "v2PngSha256": "c82185206a7e573091600981359c37f5b799ebdd0d99112d086a6c99b34cafff",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "29f714b575ac29aece1ec2b53376347c3dca46a1043cd3d31e2a3e6c1c40996e",
+          "v2PngSha256": "29f714b575ac29aece1ec2b53376347c3dca46a1043cd3d31e2a3e6c1c40996e",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "9831ed03030a44b4bf79bafb4598403a120f278b8c7e6befe217c1916a316211",
+          "v2PngSha256": "9831ed03030a44b4bf79bafb4598403a120f278b8c7e6befe217c1916a316211",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "43eda66dea5a8572f1e1511aaa86d7a58834d44599755a10fb704b9154a1bded",
+          "v2PngSha256": "43eda66dea5a8572f1e1511aaa86d7a58834d44599755a10fb704b9154a1bded",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "leather-detail-max.png",
+      "reviewImageSha256": "5d4e095dd073bdaed44b8944b71c89908abc1fd70c2b08b15423163d213abe07"
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "sourceSha256": "d2f3627a478dae6636db615158e970f633300dbceb11ff4e629f5cf6e486e9a0",
+      "planHash": "sha256:682988feab69b374afd9b921e15fe729532110b236bb21fd58f2c0aa74b803dc",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "e817c607f70129ac8ccd1036092ed41be6e00083a5ed526b90d2b7a843d9151b",
+          "v2PngSha256": "e817c607f70129ac8ccd1036092ed41be6e00083a5ed526b90d2b7a843d9151b",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "9f9e0fd529be582d72e85b8ef188f7c8ec4ffa6887b8b0f1bd792e71446fe03e",
+          "v2PngSha256": "9f9e0fd529be582d72e85b8ef188f7c8ec4ffa6887b8b0f1bd792e71446fe03e",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "a40d062536d0311c2c863077f6040529ebbfef031d1c103e7e111f9ecc33b570",
+          "v2PngSha256": "a40d062536d0311c2c863077f6040529ebbfef031d1c103e7e111f9ecc33b570",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "63b82b592105b1e6c3ab3f0bd285d3c65155bab35921b365b0b94fd1a70f43ea",
+          "v2PngSha256": "63b82b592105b1e6c3ab3f0bd285d3c65155bab35921b365b0b94fd1a70f43ea",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "leather-coarse-grain.png",
+      "reviewImageSha256": "315979d5fdea13236ee274f4b300a6eb307fb0383022f02715ae1c618a9073d9"
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "sourceSha256": "187f9af8e263bce9fe1ca1d6ec95487eadd27b68624b7c0be36cfeced4ff09e6",
+      "planHash": "sha256:8c35c73c9c4eef443eb76d889daef0d106e6abbed925519fa8b0b05a31224c95",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "0fc75b255c091e2aefe4ce58017d1c4120658700b68d77ab4f6b0db348951e91",
+          "v2PngSha256": "1646d6b11adc072bce0d118ffc3b985a7bb915f97ac843507f343d528cf1885f",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 9.218851725260416e-06,
+          "changedPixelRatio": 2.765655517578125e-05
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "a55e0cf5d77e6d35d9fce0098aaccc79b02634eb81efeae78a3e036e5a876d2f",
+          "v2PngSha256": "173372d6b3c946a3c36feceda8e99c7f3c65ca14d57f925e410ea58b58757b96",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 1.3033548990885416e-05,
+          "changedPixelRatio": 3.910064697265625e-05
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "2e25d0143f07a3012900cf11f26a72bef58e5b48ba1bb9896e3679b7c2e7fff5",
+          "v2PngSha256": "954e40744df410c5acf346fbedbca3524cfa7f14696c820e09e8401b2e0e0606",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 4.76837158203125e-06,
+          "changedPixelRatio": 4.76837158203125e-06
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "d79fd66d3236426c26a508935220bcae81a4c5b9c3213ae8e9d9c4b9faddcd8d",
+          "v2PngSha256": "c931bc330e8959fe7b67de37259e9217e4b2ac7418cc5e17353348aad0c97c6e",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 3.62396240234375e-05,
+          "changedPixelRatio": 3.62396240234375e-05
+        }
+      ],
+      "reviewImage": "wood-default.png",
+      "reviewImageSha256": "e9b27b0b30ad770786166922148d79369d8c66f7c6a35b77190e0c7b5f11fb57"
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "sourceSha256": "187f9af8e263bce9fe1ca1d6ec95487eadd27b68624b7c0be36cfeced4ff09e6",
+      "planHash": "sha256:3b8679b6267026890dd0765de4af1c4fe06d6153033cc02b7ca15ccd9d90c0c1",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "61237ffa3c9e2887bc0e93dab770d0f577c8b89bb5b830ba1142c9e0ca3fd19e",
+          "v2PngSha256": "fb79c9b28835f078e96ee6a6ebcb4a36fe7971917ec050d07ec6d10fab65c431",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 4.76837158203125e-06,
+          "changedPixelRatio": 1.430511474609375e-05
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "60f1d9acccea179b812eddfed866a16a0058792df5af22428e9f36600bbab437",
+          "v2PngSha256": "4b44439080b96010d31cd4147d68653c1f512162f0459cf88a4143fed0ed63a1",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 1.0172526041666666e-05,
+          "changedPixelRatio": 3.0517578125e-05
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "86a867101a1737e3399c51658a25f3b34d7fd1cae16bbc44de8c5e42329064a0",
+          "v2PngSha256": "b03b3e2338a65f010fb220b18cd47aea98cd058bd65e6ea77c60c38081c2844a",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 2.86102294921875e-06,
+          "changedPixelRatio": 2.86102294921875e-06
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "d3589cce28ad92e3839d410531d9ac60971959456ef0f1ce1f7d3b0752507d32",
+          "v2PngSha256": "442ed86bd9633b68819725eacadb3e4639c8b2c72e3abe2cd96526e46ded34e5",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 2.09808349609375e-05,
+          "changedPixelRatio": 2.09808349609375e-05
+        }
+      ],
+      "reviewImage": "wood-coarse-grain.png",
+      "reviewImageSha256": "fcb973c92600fcbce80ac964f97693e3035df0375cea1fa8385992e30e26c8de"
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "sourceSha256": "187f9af8e263bce9fe1ca1d6ec95487eadd27b68624b7c0be36cfeced4ff09e6",
+      "planHash": "sha256:b2d0a258bf63ba987f9dff4024bc7943fd46515d5b447c4c7156ad648215267f",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+          "v2PngSha256": "48bf2b61984ca5c7fe0c94dc0c680f4cdf1acae1e318d9967b9e66f6201eb3fb",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "97230df56e537ea723c1503f701b5b574b2bf689dfb756af9ec16cf53c4dc92c",
+          "v2PngSha256": "808f9b99586c09ee494210f6b18d87c2c79e52728ba3f5631d3bcf5157cd776a",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 1.0172526041666666e-05,
+          "changedPixelRatio": 3.0517578125e-05
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+          "v2PngSha256": "d8e453ff158bd16048ab03e355dcc6f060dc58d3f69f060204b59cf119490162",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+          "v2PngSha256": "2bfbcb5c1c4f4d66c2b6d203f8c4249ec071249f28bd6df049261c84bc5333bb",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        }
+      ],
+      "reviewImage": "wood-straight-grain.png",
+      "reviewImageSha256": "5fd0fcf82de8a431aaf6a9d029b990129c4dff540ee590e3fa2ddc146e9edc08"
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "sourceSha256": "187f9af8e263bce9fe1ca1d6ec95487eadd27b68624b7c0be36cfeced4ff09e6",
+      "planHash": "sha256:e821d353b7a4a6cc24938121fd78a8e46007e8b325a325df8a373b0986237314",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "v1PngSha256": "9f3ed34357b7f6f130bea01958de6ab405c5432bb1955df6601fd81eda899a31",
+          "v2PngSha256": "0523a5170d02562cc339eebad5242986a8d65e4d681251b2d8ec7699840c7192",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 3.178914388020833e-07,
+          "changedPixelRatio": 9.5367431640625e-07
+        },
+        {
+          "channel": "normal",
+          "v1PngSha256": "b81532b6311228cf74d5791d15cf44ab78b0641451cb0f405bdbcb495d82721e",
+          "v2PngSha256": "c7fcc27c9e9c777079236208c86a90ad57d8d47d92da34d3ac3a2d7c72e128e5",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 3.4968058268229165e-06,
+          "changedPixelRatio": 1.049041748046875e-05
+        },
+        {
+          "channel": "roughness",
+          "v1PngSha256": "cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+          "v2PngSha256": "cd9de78211401f1ee7155547e35d1de49ef27e4d8013c319c1e06e0afdf0817c",
+          "maxRgbDelta": 0,
+          "meanRgbDelta": 0.0,
+          "changedPixelRatio": 0.0
+        },
+        {
+          "channel": "height",
+          "v1PngSha256": "d9de2e9e9dcce0430faeed444c1fc3a7df878b97920d6d317249b3d97151957a",
+          "v2PngSha256": "40d722309ce5689ebb429675da75822405ccad75194d8d78bd856ce80d73d4fb",
+          "maxRgbDelta": 1,
+          "meanRgbDelta": 9.5367431640625e-06,
+          "changedPixelRatio": 9.5367431640625e-06
+        }
+      ],
+      "reviewImage": "wood-horizontal-grain.png",
+      "reviewImageSha256": "50b572aa77f3168ba12ecaf9153b026e6cdb2720e47786cbe9216b0611d3d71b"
+    }
+  ]
+}

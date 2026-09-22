@@ -38,6 +38,48 @@ fn decode(value: &Value) -> MaterialDocument {
 }
 
 #[test]
+fn noise_v2_is_explicit_and_has_distinct_plan_semantics() {
+    let request = CompileRequest {
+        outputs: vec![OutputChannel::Height],
+        ..Default::default()
+    };
+    let compile_value = |value: &Value| {
+        let document = decode(value).into_validated(&request.limits).unwrap();
+        compile(&document, &request).unwrap()
+    };
+    let legacy = source();
+    let mut stable = legacy.clone();
+    stable["nodes"][0]["version"] = json!(2);
+    let old_plan = compile_value(&legacy);
+    let new_plan = compile_value(&stable);
+    assert!(matches!(
+        old_plan.passes()[0].kernel,
+        KernelInvocation::FractalNoise {
+            basis: NoiseBasis::Value,
+            ..
+        }
+    ));
+    assert!(matches!(
+        new_plan.passes()[0].kernel,
+        KernelInvocation::FractalNoise {
+            basis: NoiseBasis::StableValue,
+            ..
+        }
+    ));
+    assert_ne!(old_plan.hash(), new_plan.hash());
+    assert_eq!(compile_value(&legacy).hash(), old_plan.hash());
+    assert_eq!(decode(&stable).nodes[0].version, 2);
+    stable["nodes"][0]["version"] = json!(3);
+    assert!(
+        decode(&stable)
+            .validate(&request.limits)
+            .diagnostics()
+            .iter()
+            .any(|d| d.code == DiagnosticCode::NodeUnsupportedVersion)
+    );
+}
+
+#[test]
 fn m3_seed_is_required_even_on_an_unused_branch_and_never_coerced_or_defaulted() {
     let mut value = source();
     value["nodes"][0]["parameters"] = json!({});

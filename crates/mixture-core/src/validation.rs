@@ -3,7 +3,7 @@
 use crate::{
     Diagnostic, DiagnosticCode as Code, DiagnosticReport, LimitKind, SafetyLimits, Stage,
     document::{DocumentError, Endpoint, FORMAT_VERSION, MaterialDocument, Node},
-    registry::{NodeContract, PortDefault, PortKind, node_contract},
+    registry::{NodeContract, PortDefault, PortKind, node_contract, node_contract_version},
 };
 use serde::Serialize;
 use serde_json::Value;
@@ -49,12 +49,16 @@ impl ValidatedDocument {
     /// Resolve an explicit or default parameter without mutating the document.
     pub fn parameter(&self, node_id: &str, parameter_id: &str) -> Option<Value> {
         let node = self.document.nodes.iter().find(|n| n.id == node_id)?;
-        resolved_parameter(node, node_contract(&node.type_id)?, parameter_id)
+        resolved_parameter(
+            node,
+            node_contract_version(&node.type_id, node.version)?,
+            parameter_id,
+        )
     }
     /// Resolve a single input to a real connection or its versioned default.
     pub fn input_source(&self, node_id: &str, port_id: &str) -> Option<InputSource> {
         let node = self.document.nodes.iter().find(|n| n.id == node_id)?;
-        let port = node_contract(&node.type_id)?.input(port_id)?;
+        let port = node_contract_version(&node.type_id, node.version)?.input(port_id)?;
         if let Some(edge) = self
             .document
             .edges
@@ -299,7 +303,7 @@ fn identifier(id: &str) -> bool {
             .all(|b| b.is_ascii_alphanumeric() || b == b'_' || b == b'-')
 }
 fn supported_contract(node: &Node) -> Option<&'static NodeContract> {
-    node_contract(&node.type_id).filter(|contract| contract.version == node.version)
+    node_contract_version(&node.type_id, node.version)
 }
 fn resolved_parameter(node: &Node, contract: &NodeContract, id: &str) -> Option<Value> {
     let parameter = contract.parameter(id)?;
@@ -321,7 +325,7 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
             ),
         );
     }
-    let Some(contract) = node_contract(&node.type_id) else {
+    let Some(latest) = node_contract(&node.type_id) else {
         diagnostics.push(
             at_node(
                 Code::NodeUnknownType,
@@ -333,7 +337,7 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
         );
         return;
     };
-    if node.version != contract.version {
+    let Some(contract) = node_contract_version(&node.type_id, node.version) else {
         diagnostics.push(
             at_node(
                 Code::NodeUnsupportedVersion,
@@ -341,13 +345,13 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
                 "Unsupported node version.",
             )
             .with_evidence("observed", u64::from(node.version))
-            .with_evidence("supported", u64::from(contract.version))
+            .with_evidence("supported", u64::from(latest.version))
             .with_suggestion(
-                "Use node version 1; do not reinterpret another version's parameters.",
+                "Use a documented supported node version; migrate explicitly before changing pixel semantics.",
             ),
         );
         return;
-    }
+    };
     for parameter in contract.parameters {
         if parameter.default.is_none() && !node.parameters.contains_key(parameter.id) {
             diagnostics.push(

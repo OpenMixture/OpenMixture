@@ -3,7 +3,7 @@ use super::*;
 use crate::{
     InputSource, Node,
     plan::*,
-    registry::{PortDefault, PortKind, node_contract},
+    registry::{PortDefault, PortKind, node_contract_version},
 };
 
 pub(crate) fn compile<D: crate::resources::ImageData>(
@@ -82,7 +82,7 @@ pub(crate) fn compile<D: crate::resources::ImageData>(
     }
     let mut outputs = Vec::new();
     for channel in channels {
-        let port = node_contract(&sink.type_id)
+        let port = node_contract_version(&sink.type_id, sink.version)
             .and_then(|contract| contract.input(channel.as_str()))
             .ok_or_else(|| invariant("Material channel contract is missing."))?;
         let input = normalized
@@ -189,7 +189,7 @@ impl Builder<'_> {
         }
     }
     fn node(&mut self, node: &Node) -> Result<(), CompileError> {
-        let contract = node_contract(&node.type_id)
+        let contract = node_contract_version(&node.type_id, node.version)
             .ok_or_else(|| invariant("Selected node contract is missing."))?;
         let mut bindings = BTreeMap::new();
         for port in contract.inputs {
@@ -285,6 +285,7 @@ impl Builder<'_> {
                 octaves: integer(node, "octaves")?,
                 persistence: number(node, "persistence")?,
                 basis: match parameter(node, "basis")?.as_str() {
+                    Some("value") if node.version == 2 => NoiseBasis::StableValue,
                     Some("value") => NoiseBasis::Value,
                     Some("cellular") => NoiseBasis::Cellular,
                     _ => return Err(invariant("Validated noise basis is unsupported.")),
@@ -457,7 +458,7 @@ pub(crate) fn selected_nodes(
         let node = nodes
             .get(id.as_str())
             .ok_or_else(|| invariant("Selected node is missing."))?;
-        let contract = node_contract(&node.type_id)
+        let contract = node_contract_version(&node.type_id, node.version)
             .ok_or_else(|| invariant("Selected contract is missing."))?;
         for port in contract.inputs {
             if let Some(InputSource::Connected { from }) =

@@ -21,6 +21,8 @@ const NODES: [&str; 12] = [
     "transform-2d",
     "warp",
 ];
+#[path = "support/fixed_noise_probe.rs"]
+mod fixed_noise_probe;
 #[path = "support/normal_probe.rs"]
 mod normal_probe;
 #[path = "support/precision_probe.rs"]
@@ -168,6 +170,9 @@ fn run_node(name: &str) {
     if name == "constant-color" {
         precision_probe::run(&context);
     }
+    if name == "fractal-noise" {
+        fixed_noise_probe::run(&context);
+    }
     if let Ok(expected) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
         assert!(context.report().adapter().unwrap().name.contains(&expected));
     }
@@ -292,7 +297,8 @@ fn node_material_output_gpu() {
 #[ignore = "requires GPU; cargo xtask test-node fractal-noise"]
 fn node_fractal_noise_gpu() {
     run_node("fractal-noise");
-    noise_invariants();
+    noise_invariants("input.mix");
+    noise_invariants("stable.mix");
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask test-node gradient-map"]
@@ -391,8 +397,8 @@ fn resampling_invariants(name: &str) {
 }
 
 // Relations across full rendered outputs, not a second noise implementation.
-fn noise_invariants() {
-    let bytes = source("fractal-noise", "input.mix");
+fn noise_invariants(file: &str) {
+    let bytes = source("fractal-noise", file);
     let base = CompileRequest {
         size: [129, 65],
         outputs: vec![OutputChannel::Height],

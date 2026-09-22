@@ -2,6 +2,8 @@
 
 English | [简体中文](./release.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
 **M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
 
 **Current release (2026-09-22):** [Browser 0.3.0-alpha.0](./evidence/npm-030-alpha/README.md) is published from the main archive that passed all six checks. API schema 2 / plan v2; Rust crates remain unpublished. Windows hardware resource-normal parity remains unqualified; support is not expanded.

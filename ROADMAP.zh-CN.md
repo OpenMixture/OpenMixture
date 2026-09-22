@@ -2,13 +2,19 @@
 
 [English](./ROADMAP.md) | 简体中文
 
+**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+
 **当前状态（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
 **M6A-05 验收，2026-09-21：** [留存验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。随后已集成 main 并[发布浏览器 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.zh-CN.md)，Rust crate 仍未发布。
 
 本页负责当前引擎优先级。[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付、支持限制及缺陷交接。[INITIAL_PRS](./INITIAL_PRS.zh-CN.md)、[M4_PRS](./M4_PRS.zh-CN.md) 和 [M5_PRS](./M5_PRS.zh-CN.md)保留历史实施计划，其中当时的下一步不再作为当前执行指令。
 
+**Windows 数值调查，2026-09-22：** [复现与隔离](./docs/evidence/windows-numerics/README.zh-CN.md)将已记录的资源法线失败定位至上游噪声算术/半精度舍入，相同高度重算法线完全一致。仅改 FMA 的实验仍在合法 scale 上失败，不是运行时修复。硬件验收仍未关闭，语义修复之前需先决定数值与版本契约。
+
 ## 当前方向 — Post-Alpha
+
+**NUM-01，已实现并在记录范围内验收：** 已授权的[稳定 value noise 迁移](./docs/stable-noise.zh-CN.md)在未发布的 0.4 候选中实现 `fractal-noise@2`。[留存证据](./docs/evidence/stable-noise/README.zh-CN.md)关闭测量的 Windows Vulkan/DX12 相对 Chrome 资源/Scalar 回归（最大差 0），迁移软件材质矩阵及六项 CI 全部通过，前后视觉评审已留存。这不发布 0.4、不追认旧 0.3 硬件像素，也不关闭其他 cellular/warp 精度限制。
 
 **M6B-05 综合验收完成：** [留存验收](./docs/evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成 M6-B 实现/验收：16 个包通道精确一致，独立源码/归档消费及原材质通过，六项必需检查成功。Windows 硬件法线对照仍失败。Rust 0.5.0 / browser 0.5.0-alpha.0 未发布，PR 栈集成与发布单独处理。
 

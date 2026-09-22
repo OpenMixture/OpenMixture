@@ -162,3 +162,7 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 ```
 
 Candidate qualification requires a clean-source archive for HEAD. Registry qualification uses the example's committed exact version, not the candidate's build identity. Each stages outside the checkout, verifies installed bytes and types, builds static assets, and runs nine real browser tests. Automated Chromium must have working WebGPU; unavailable GPU execution is a failure. The example README defines explicit local Chrome/adapter overrides and evidence limits. These Node/browser checks are additional to `cargo xtask check`; the existing browser package/material CI jobs run them without removing pinned Studio coverage. No package is published by these commands.
+
+## Noise-v2 qualification
+
+[NUM-01](./stable-noise.md) defines the explicit migration. `prepare-materials.mjs <fresh-output> <full-revision> --noise-v2` selects committed migrated material inputs; the existing `cargo xtask browser-material-check` then applies unchanged gates. `candidate.mjs verify-noise-v2 <product> <candidate-evidence> <native-v2> <browser-v2>` retains a separate bound receipt. These are producer qualification tools, not automatic document migration or publication.

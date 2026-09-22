@@ -8,6 +8,26 @@ use crate::TaskResult;
 use serde_json::{Value, json};
 use std::{collections::BTreeMap, fs, path::Path};
 
+fn material_source(manifest: &Value) -> TaskResult<&'static str> {
+    match manifest.get("noiseVersion") {
+        None => Ok("material.mix"),
+        Some(value) if value.as_u64() == Some(2) => Ok("material-noise-v2.mix"),
+        _ => Err("unsupported explicit noise migration identity".into()),
+    }
+}
+
+#[test]
+fn noise_migration_selects_only_the_reviewed_fixture() {
+    assert_eq!(material_source(&json!({})).unwrap(), "material.mix");
+    assert_eq!(
+        material_source(&json!({"noiseVersion":2})).unwrap(),
+        "material-noise-v2.mix"
+    );
+    for value in [json!(null), json!(1), json!(3), json!("2"), json!(2.5)] {
+        assert!(material_source(&json!({"noiseVersion":value})).is_err());
+    }
+}
+
 pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> TaskResult {
     files::write_json(
         &browser.join("comparison.json"),
@@ -15,6 +35,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
     )?;
     fs::write(browser.join("mode.txt"), "Comparison incomplete\n")?;
     let manifest: Value = files::json(&native.join("manifest.json"))?;
+    let source_file = material_source(&manifest)?;
     let receipt: Value = files::json(&browser.join("receipt.json"))?;
     if manifest["schemaVersion"] != 1
         || receipt["schemaVersion"] != 1
@@ -50,7 +71,7 @@ pub(crate) fn run(root: &Path, native: &Path, browser: &Path, measure: bool) -> 
                 BTreeMap::new()
             };
             if input["sourceSha256"]
-                != files::digest(&directory.join("material.mix"))?.trim_start_matches("sha256:")
+                != files::digest(&directory.join(source_file))?.trim_start_matches("sha256:")
                 || input["acceptanceSha256"]
                     != files::digest(&directory.join("acceptance.json"))?
                         .trim_start_matches("sha256:")

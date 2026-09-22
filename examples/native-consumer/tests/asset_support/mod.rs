@@ -1,5 +1,5 @@
 use mixture_core::ImageBinding;
-pub const SOURCE: &[u8] = include_bytes!("../image-input.mix");
+pub const SOURCE: &[u8] = include_bytes!("../asset-input.mix");
 pub const SIZES: [[u32; 2]; 2] = [[1024, 1024], [65, 3]];
 pub fn pixels([w, h]: [u32; 2]) -> Vec<u8> {
     (0..w * h)

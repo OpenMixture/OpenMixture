@@ -1,4 +1,4 @@
-# Built-in node contracts, version 1
+# Versioned built-in node contracts
 
 English | [简体中文](./node-contracts.zh-CN.md)
 
@@ -8,7 +8,7 @@ The twelve version-1 contracts in [mixture-core](../crates/mixture-core/src/regi
 
 ## Common rules
 
-All twelve node types require `version: 1`. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
+The latest catalog has thirteen node types. `fractal-noise` supports versions 1 and 2; all other types require `version: 1`. See [stable value noise](./stable-noise.md) for explicit v2 migration and rounding. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` requires an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 

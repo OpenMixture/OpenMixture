@@ -4,8 +4,9 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { createHash } from 'node:crypto';
 const root = resolve(import.meta.dirname, '../..');
-const [destination, runtimeRevision] = process.argv.slice(2);
-if (!destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-materials.mjs <new-directory> <runtime-engine-revision>');
+const [destination, runtimeRevision, migration] = process.argv.slice(2);
+if (migration !== undefined && migration !== '--noise-v2') throw new Error('Unknown material migration option');
+if (!destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-materials.mjs <new-directory> <runtime-engine-revision> [--noise-v2]');
 const out = resolve(destination);
 if (existsSync(out)) throw new Error('Reference directory already exists; select a fresh run directory');
 const git = (...args) => execFileSync('git', args, {cwd:root,encoding:'utf8'}).trim();
@@ -32,11 +33,11 @@ const cli=join(root,'target',profile,process.platform==='win32'?'mixture.exe':'m
 const backend=process.env.MIXTURE_GPU_BACKEND;
 if(!['metal','vulkan','dx12'].includes(backend))throw new Error('Set MIXTURE_GPU_BACKEND explicitly');
 const policy=['--backend',backend,...(process.env.MIXTURE_GPU_SOFTWARE==='1'?['--software']:[])];
-const manifest={schemaVersion:1,engineRevision:git('rev-parse','HEAD'),engineDirty:Boolean(git('status','--porcelain')),runtimeRevision,
+const manifest={schemaVersion:1,...(migration ? {noiseVersion:2} : {}),engineRevision:git('rev-parse','HEAD'),engineDirty:Boolean(git('status','--porcelain')),runtimeRevision,
  startedAt:new Date().toISOString(),nativeProfile:profile,configuredDx12Compiler:compiler,
  preparationSha256:sha(readFileSync(import.meta.filename)),nativeBinarySha256:sha(readFileSync(cli)),cases:[]};
 for(const material of ['glazed-ceramic','leather','wood']){
- const fixture=join(root,'fixtures/materials',material), source=readFileSync(join(fixture,'material.mix'));
+ const fixture=join(root,'fixtures/materials',material), sourcePath=join(fixture,migration ? 'material-noise-v2.mix' : 'material.mix'), source=readFileSync(sourcePath);
  const acceptance=JSON.parse(readFileSync(join(fixture,'acceptance.json')));
  for(const item of acceptance.cases){
   const overrides=item.variant?JSON.parse(readFileSync(join(fixture,'variants',`${item.variant}.json`))).overrides:{};
@@ -44,8 +45,8 @@ for(const material of ['glazed-ceramic','leather','wood']){
   const options=['--size','1024','--output','baseColor,normal,roughness,height'];
   for(const [id,value] of Object.entries(overrides))options.push('--set',`${id}=${JSON.stringify(value)}`);
   const run=(args)=>JSON.parse(execFileSync(cli,args,{cwd:root,env:nativeEnv,encoding:'utf8',maxBuffer:8*1024*1024}));
-  const inspection=run(['inspect',join(fixture,'material.mix'),'--plan','--json',...options]);
-  const render=run(['render',join(fixture,'material.mix'),'--out',folder,'--json',...policy,...options]);
+  const inspection=run(['inspect',sourcePath,'--plan','--json',...options]);
+  const render=run(['render',sourcePath,'--out',folder,'--json',...policy,...options]);
   if(process.env.MIXTURE_GPU_EXPECT_ADAPTER && !JSON.stringify(render.context.adapter).includes(process.env.MIXTURE_GPU_EXPECT_ADAPTER))throw new Error('Unexpected native adapter');
   writeFileSync(join(folder,'native.json'),JSON.stringify({inspection,render},null,2));
   manifest.cases.push({material,id:item.id,sourceBase64:source.toString('base64'),sourceSha256:sha(source),overrides,

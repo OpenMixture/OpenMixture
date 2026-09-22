@@ -179,10 +179,18 @@ pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::transform_2d::CONTRACT,
     &crate::nodes::warp::CONTRACT,
 ];
-/// Find the supported contract by exact type ID. Check its version separately.
+/// Find the latest supported contract by exact type ID.
 pub fn node_contract(type_id: &str) -> Option<&'static NodeContract> {
     BUILT_INS
         .iter()
         .copied()
         .find(|contract| contract.type_id == type_id)
+}
+
+/// Resolve an explicit source version, including retained legacy noise semantics.
+pub fn node_contract_version(type_id: &str, version: u32) -> Option<&'static NodeContract> {
+    if type_id == "fractal-noise" && version == 1 {
+        return Some(&crate::nodes::fractal_noise::LEGACY_CONTRACT);
+    }
+    node_contract(type_id).filter(|contract| contract.version == version)
 }

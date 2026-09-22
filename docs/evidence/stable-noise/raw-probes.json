@@ -1,0 +1,611 @@
+{
+  "scope": "Diagnostic production shader probes; Vulkan captured before clean commit, shader hashes retained; DX12 captured after 991ae1d; SDK package acceptance is separate",
+  "rows": [
+    {
+      "id": "seed0",
+      "parameters": [
+        0,
+        1,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          0,
+          1,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "999609229d8bc9faa3fd52ee01a5334466f38715ccc5b60193207436e5b5735f",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "999609229d8bc9faa3fd52ee01a5334466f38715ccc5b60193207436e5b5735f",
+          "normal": "69a1d46ffd6761b7f8f559eaf1b3bffac1d6ff6334c338b64a10c911d056e2f2",
+          "replay-normal": "69a1d46ffd6761b7f8f559eaf1b3bffac1d6ff6334c338b64a10c911d056e2f2"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    },
+    {
+      "id": "resource",
+      "parameters": [
+        29,
+        32,
+        4,
+        2,
+        1056964608,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          29,
+          32,
+          4,
+          2,
+          1056964608,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "f92f5b1f8403079f622967aa0389e42b961c64b4903cea47b3e148934c53e473",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "f92f5b1f8403079f622967aa0389e42b961c64b4903cea47b3e148934c53e473",
+          "normal": "f5bcbc95ee92d33bc8a1dcb759b7af30ecb9df07456d487747a1554b42a371b3",
+          "replay-normal": "f5bcbc95ee92d33bc8a1dcb759b7af30ecb9df07456d487747a1554b42a371b3"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    },
+    {
+      "id": "scale7",
+      "parameters": [
+        29,
+        7,
+        4,
+        2,
+        1056964608,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          29,
+          7,
+          4,
+          2,
+          1056964608,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "1c02a9dda6eb8c9ad9cd6869c8caf277a83a84519ed6c3a31137461c09c1afdd",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "1c02a9dda6eb8c9ad9cd6869c8caf277a83a84519ed6c3a31137461c09c1afdd",
+          "normal": "c4198e5074ecd1e2e52efeb484b5e5cf758534d32410dfd286636b880d4f9850",
+          "replay-normal": "c4198e5074ecd1e2e52efeb484b5e5cf758534d32410dfd286636b880d4f9850"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    },
+    {
+      "id": "max",
+      "parameters": [
+        4294967295,
+        128,
+        6,
+        2,
+        1065353216,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          4294967295,
+          128,
+          6,
+          2,
+          1065353216,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "1c8d4c0c649f335ecfaa7126c9a13d41a0edcfc8dee2e97e2085c470b4e31911",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "1c8d4c0c649f335ecfaa7126c9a13d41a0edcfc8dee2e97e2085c470b4e31911",
+          "normal": "4b3925665dc628e214c1eead9ec183c2fa2e4c0066b0dbb114ecc3f54a3ae37f",
+          "replay-normal": "4b3925665dc628e214c1eead9ec183c2fa2e4c0066b0dbb114ecc3f54a3ae37f"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    },
+    {
+      "id": "decimal",
+      "parameters": [
+        17,
+        13,
+        6,
+        2,
+        1036831949,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          17,
+          13,
+          6,
+          2,
+          1036831949,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "eb43de406094632970ee070a16a6600d36f4e9b2e7bfcf6eb614d7e6fd94dcd8",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "eb43de406094632970ee070a16a6600d36f4e9b2e7bfcf6eb614d7e6fd94dcd8",
+          "normal": "82c813021fceb96d4fd5c497f6bf68c89fc9b480c627d3105e2585a025f5ead2",
+          "replay-normal": "82c813021fceb96d4fd5c497f6bf68c89fc9b480c627d3105e2585a025f5ead2"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    },
+    {
+      "id": "zero",
+      "parameters": [
+        29,
+        7,
+        6,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "browser": {
+        "parameters": [
+          29,
+          7,
+          6,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        "adapter": {
+          "vendor": "nvidia",
+          "architecture": "pascal",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": false
+        },
+        "browser": "153.0.8010.48",
+        "replaySha256": "67bd24171288d4cb0dd2f5929017cc1ac553321a7a2301bf38433c54140e5624",
+        "shaders": {
+          "fractal-noise": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+          "height-to-normal": "c0bbbc2a24c030c489e3cf2d2cb7926bd8fa63af67353df5655a12c8dd67ee47"
+        },
+        "digests": {
+          "noise": "67bd24171288d4cb0dd2f5929017cc1ac553321a7a2301bf38433c54140e5624",
+          "normal": "b6d71769fba95b20455f58f3f4ca5209d40340e81a42a5c38e6f600f087103df",
+          "replay-normal": "b6d71769fba95b20455f58f3f4ca5209d40340e81a42a5c38e6f600f087103df"
+        }
+      },
+      "nativeAdapters": [
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Vulkan",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "NVIDIA",
+          "driverInfo": "582.66"
+        },
+        {
+          "name": "NVIDIA GeForce GT 1030",
+          "deviceType": "DiscreteGpu",
+          "backend": "Dx12",
+          "vendor": 4318,
+          "device": 7425,
+          "driver": "32.0.15.8266",
+          "driverInfo": ""
+        }
+      ],
+      "vulkanComparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "dx12Comparison": {
+        "kind": "diagnostic-not-qualification",
+        "noiseChangedPixels": 0,
+        "noise": [],
+        "normal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        },
+        "sameInputNormal": {
+          "rawChanged": 0,
+          "changedComponents": 0,
+          "maxComponentDelta": 0,
+          "overLimit": []
+        }
+      },
+      "shaders": {
+        "vulkan": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511",
+        "dx12": "76014b168b506e51f142bc6eff0f8ace97d4018d17537f4f8a219fdd90762511"
+      }
+    }
+  ]
+}

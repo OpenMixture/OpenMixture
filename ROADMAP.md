@@ -2,13 +2,19 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
+**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+
 **Current status (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
 **M6A-05 qualification, 2026-09-21:** [Retained acceptance](./docs/evidence/m6a-05/README.md) closes comprehensive qualification for the recorded Linux software matrix: eight resource channel comparisons are byte-exact, Scalar and three-material regressions and all six required checks pass. Windows hardware parity remains failed and outside accepted coverage; the ≤1 gate is unchanged. Subsequently integrated into main and [published as browser 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.md); Rust crates remain unpublished.
 
 This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.md) retains the first delivery, support limits and defect handoff. [INITIAL_PRS](./INITIAL_PRS.md), [M4_PRS](./M4_PRS.md) and [M5_PRS](./M5_PRS.md) retain historical implementation plans; their former next steps are not current execution instructions.
 
+**Windows numerical investigation, 2026-09-22:** [Reproduction and isolation](./docs/evidence/windows-numerics/README.md) locate the recorded resource-normal failure upstream in noise arithmetic/half rounding; identical-height normal replay is exact. An FMA-only experiment still fails a legal scale and is not a runtime fix. Hardware qualification remains open; a numerical/version decision is the next prerequisite for a semantic repair.
+
 ## Current direction — Post-Alpha
+
+**NUM-01, implemented and qualified within recorded scope:** the authorized [stable value-noise migration](./docs/stable-noise.md) implements `fractal-noise@2` in the unpublished 0.4 candidate. [Retained evidence](./docs/evidence/stable-noise/README.md) closes the measured Windows Vulkan/DX12-versus-Chrome resource/Scalar regression (max difference 0), passes the migrated software material matrix and all six CI checks, and retains before/after visual review. This does not publish 0.4, qualify old 0.3 hardware pixels, or close unrelated cellular/warp precision limits.
 
 **M6B-05 qualification complete:** [Retained acceptance](./docs/evidence/m6b-05/README.md) closes M6-B implementation/qualification for the recorded Linux software matrix: 16 package channel comparisons are exact, independent source/archive consumers and existing materials pass, and all six required checks succeed. Windows hardware normal parity remains failed. Rust 0.5.0 / browser 0.5.0-alpha.0 remain unpublished; stack integration and release are separate.
 

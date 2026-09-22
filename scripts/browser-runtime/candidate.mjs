@@ -207,8 +207,8 @@ export function validateEvidence(candidate, native, material, comparison, browse
   assert.equal(probeResult.mixedCode, 'MIX_BROWSER_BUILD_MISMATCH');
 }
 
-export async function verify(product, output, nativeDirectory, browserDirectory) {
-  await save(join(output, 'qualification.json'), { ok: false, status: 'incomplete' });
+export async function verify(product, output, nativeDirectory, browserDirectory, receiptName = 'qualification.json') {
+  await save(join(output, receiptName), { ok: false, status: 'incomplete' });
   await installed(product, output);
   const candidate = await json(join(output, 'candidate.json'));
   const paths = [join(nativeDirectory, 'manifest.json'), join(browserDirectory, 'receipt.json'),
@@ -220,14 +220,19 @@ export async function verify(product, output, nativeDirectory, browserDirectory)
   assert.equal(evidence[1].manifestSha256, hash(bytes[0]));
   assert.equal(evidence[2].nativeManifestSha256, `sha256:${hash(bytes[0])}`);
   assert.equal(evidence[2].browserReceiptSha256, `sha256:${hash(bytes[1])}`);
-  await save(join(output, 'qualification.json'), { schemaVersion: 1, ok: true, candidate,
+  await save(join(output, receiptName), { schemaVersion: 1, ok: true, candidate,
     evidence: paths.map((path, i) => ({ path, sha256: hash(bytes[i]) })), completedAt: new Date().toISOString(),
     scope: 'Pinned Chromium candidate qualification; not default-browser support or npm publication' });
 }
 
+export async function verifyNoiseMigration(product, output, nativeDirectory, browserDirectory) {
+  assert.equal((await json(join(nativeDirectory, 'manifest.json'))).noiseVersion, 2);
+  await verify(product, output, nativeDirectory, browserDirectory, 'noise-v2-qualification.json');
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const [mode, ...args] = process.argv.slice(2);
-  const operation = { stage, installed, probe, verify }[mode];
-  assert.ok(operation && args.length === operation.length, 'Usage: candidate.mjs stage <package-dir> <product> <new-evidence-dir> <engine-sha> <consumer-sha> | installed/probe <product> <evidence-dir> | verify <product> <evidence-dir> <native-dir> <browser-dir>');
+  const operation = { stage, installed, probe, verify, 'verify-noise-v2': verifyNoiseMigration }[mode];
+  assert.ok(operation && args.length === operation.length, 'Usage: candidate.mjs stage <package-dir> <product> <new-evidence-dir> <engine-sha> <consumer-sha> | installed/probe <product> <evidence-dir> | verify/verify-noise-v2 <product> <evidence-dir> <native-dir> <browser-dir>');
   await operation(...args);
 }

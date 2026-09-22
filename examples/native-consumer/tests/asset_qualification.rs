@@ -148,3 +148,32 @@ fn package_matrix_gpu() {
         "Native/browser package delta exceeded unchanged limit 1; inspect receipt"
     );
 }
+
+#[test]
+fn package_noise_migration_is_explicit_and_versioned() {
+    let size = [65, 3];
+    let data = pixels(size);
+    let request = request(size, 0.5);
+    let v1 = archive(size);
+    let legacy = AssetView::load(&v1, &Default::default()).unwrap();
+    let before = legacy.prepare(&request).unwrap();
+    let mut migrated: serde_json::Value = serde_json::from_slice(SOURCE).unwrap();
+    for node in migrated["nodes"].as_array_mut().unwrap() {
+        if node["type"] == "fractal-noise" {
+            node["version"] = json!(2);
+        }
+    }
+    let source = serde_json::to_vec(&migrated).unwrap();
+    let v2 = mixture_asset::write(&source, &[binding(size, &data)], &Default::default()).unwrap();
+    let asset = AssetView::load(&v2, &Default::default()).unwrap();
+    let after = asset.prepare(&request).unwrap();
+    let doc = MaterialDocument::decode(&source, &Default::default())
+        .unwrap()
+        .into_validated(&Default::default())
+        .unwrap();
+    let loose = prepare(&doc, &request, &[binding(size, &data)], &Default::default()).unwrap();
+    assert_eq!(after.plan().hash(), loose.plan().hash());
+    assert_ne!(before.plan().hash(), after.plan().hash());
+    assert_eq!(legacy.source(), SOURCE);
+    assert_eq!(asset.source(), source);
+}
