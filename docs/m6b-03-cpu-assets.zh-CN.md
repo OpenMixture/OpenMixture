@@ -29,6 +29,8 @@ Core 导出 `resources::{valid_image_id, image_identity, document_image_ids, ima
 
 ## 复现
 
+[本地验证回执](./evidence/m6b-03/README.zh-CN.md)记录精确测试提交、命令、真实缓冲测量和隔离归档来源。
+
 ```sh
 cargo test --locked -p mixture-asset -- --nocapture
 cargo xtask test-core

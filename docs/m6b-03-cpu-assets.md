@@ -29,6 +29,8 @@ Buffer accounting uses D+M scratch conservatively even when borrowed slices avoi
 
 ## Reproduce
 
+[Local verification receipt](./evidence/m6b-03/README.md) records the exact tested commit, commands, actual buffer measurements and isolated archive provenance.
+
 ```sh
 cargo test --locked -p mixture-asset -- --nocapture
 cargo xtask test-core
