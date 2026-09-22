@@ -8,7 +8,7 @@
 
 [qualification-plan.json](./qualification-plan.json) 保留冻结用例和预算。本候选尚无接受的 golden、人工评审或完整跨端结论，不得仅因源码可渲染就安装 golden。MAT-01d 须提供完整矩阵、PBR 评审、包／公开浏览器消费及留存证据。
 
-候选 [Native 矩阵测试](../../../examples/native-consumer/tests/brick_material.rs) 通过公开 API 渲染全部二十组用例／尺寸，保留八十张通道 PNG，验证重复像素精确一致、描述符／pass 预算、独立参数效果和默认降采样，并测量一次冷渲染和五次热渲染。回执只是部分引擎证据，不代表材质验收。浏览器对照、周期原点探针、混叠压力、耗时预算判定、包往返及人工 PBR 评审仍是独立的未完成门槛。
+候选 [Native 矩阵测试](../../../examples/native-consumer/tests/brick_material.rs) 通过公开 API 渲染全部二十组用例／尺寸，保留八十张通道 PNG，验证重复像素精确一致、描述符／pass 预算、独立参数效果和默认降采样，验证包往返的源码／计划／像素精确一致，并在实测适配器匹配冻结硬件／软件目标时执行一次冷渲染和五次热渲染预算。回执只是部分引擎证据，不代表材质验收。候选浏览器消费者渲染相同二十组用例。`node scripts/browser-runtime/check-brick.mjs <candidate-qualification> <fresh-output>` 将八十组对照绑定到源码／构建身份，并以 release 模式运行 Native 工具。周期原点探针、混叠压力及人工 PBR 评审仍待完成。未知适配器不获得耗时预算认证；debug 耗时不认证 release 性能。
 
 在仓库根目录使用 PowerShell 运行，明确选择后端，每次指定新输出目录：
 

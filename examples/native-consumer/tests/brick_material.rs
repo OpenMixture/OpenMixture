@@ -4,7 +4,7 @@ use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions, RenderOutpu
 use serde_json::{Value, json};
 use std::{collections::BTreeMap, path::Path, time::Instant};
 
-fn plan(source: &[u8], controls: &Value, changes: &Value, size: [u32; 2]) -> RenderPlan {
+fn request(controls: &Value, changes: &Value, size: [u32; 2]) -> CompileRequest {
     let mut request = CompileRequest {
         size,
         outputs: vec![
@@ -22,6 +22,11 @@ fn plan(source: &[u8], controls: &Value, changes: &Value, size: [u32; 2]) -> Ren
                 .insert(id.as_str().unwrap().into(), value.clone());
         }
     }
+    request
+}
+
+fn plan(source: &[u8], controls: &Value, changes: &Value, size: [u32; 2]) -> RenderPlan {
+    let request = request(controls, changes, size);
     let document = MaterialDocument::decode(source, &request.limits)
         .unwrap()
         .into_validated(&request.limits)
@@ -212,6 +217,21 @@ fn save(output: &RenderOutput, directory: &Path, stem: &str) {
     }
 }
 
+fn compare_browser(output: &RenderOutput, directory: &Path, stem: &str) -> Vec<Value> {
+    output.channels().iter().map(|channel| {
+        let file = std::fs::File::open(directory.join(format!("{stem}-{}.png", channel.channel.as_str()))).unwrap();
+        let mut reader = png::Decoder::new(std::io::BufReader::new(file)).read_info().unwrap();
+        assert_eq!([reader.info().width, reader.info().height], channel.size);
+        assert_eq!(reader.info().color_type, png::ColorType::Rgba);
+        assert_eq!(reader.info().bit_depth, png::BitDepth::Eight);
+        assert_eq!(reader.output_buffer_size().unwrap(), channel.pixels().len());
+        let mut bytes = vec![0; channel.pixels().len()];
+        reader.next_frame(&mut bytes).unwrap();
+        let max = bytes.iter().zip(channel.pixels()).map(|(a,b)| a.abs_diff(*b)).max().unwrap();
+        json!({"channel":channel.channel.as_str(),"maxComponentDelta":max,"components":bytes.len()})
+    }).collect()
+}
+
 #[test]
 fn downsample_metric_detects_each_rgb_component_and_ignores_alpha() {
     let low = [10, 20, 30, 0];
@@ -240,7 +260,17 @@ fn brick_material_public_gpu_matrix() {
     for name in ["material.mix", "controls.json", "qualification-plan.json"] {
         std::fs::copy(fixture.join(name), destination.join(name)).unwrap();
     }
+    let asset_limits = mixture_asset::AssetLimits::default();
+    let archive = mixture_asset::write(&source, &[], &asset_limits).unwrap();
+    assert_eq!(
+        archive,
+        mixture_asset::write(&source, &[], &asset_limits).unwrap()
+    );
+    std::fs::write(destination.join("material.mixpack"), &archive).unwrap();
+    let asset = mixture_asset::AssetView::load(&archive, &asset_limits).unwrap();
+    assert_eq!(asset.source(), source);
     let mut gpu = renderer();
+    let browser_directory = std::env::var("MIXTURE_BRICK_BROWSER_DIR").ok();
     let mut rows = Vec::new();
     let mut defaults = BTreeMap::new();
     for case in matrix["cases"].as_array().unwrap() {
@@ -251,13 +281,29 @@ fn brick_material_public_gpu_matrix() {
             ];
             let plan = plan(&source, &controls, &case["overrides"], size);
             let output = pollster::block_on(gpu.render(&plan)).unwrap();
+            if let Ok(expected) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
+                assert!(
+                    output.report().adapter.name.contains(&expected),
+                    "unexpected adapter"
+                );
+            }
             let repeat = pollster::block_on(gpu.render(&plan)).unwrap();
+            let prepared = asset
+                .prepare(&request(&controls, &case["overrides"], size))
+                .unwrap();
+            assert_eq!(prepared.plan().hash(), plan.hash());
+            let packaged = pollster::block_on(gpu.render_prepared(&prepared)).unwrap();
             assert_eq!(output.channels().len(), 4);
             for channel in output.channels() {
                 assert_eq!(
                     channel.pixels(),
                     pixels(&repeat, channel.channel),
                     "repeated pixels"
+                );
+                assert_eq!(
+                    channel.pixels(),
+                    pixels(&packaged, channel.channel),
+                    "package pixels"
                 );
             }
             assert!(output.report().pass_count as u64 <= matrix["maxPasses"].as_u64().unwrap());
@@ -272,9 +318,14 @@ fn brick_material_public_gpu_matrix() {
                 destination,
                 &format!("{id}-{}x{}", size[0], size[1]),
             );
-            rows.push(
-                json!({"case":id,"size":size,"repeatExact":true,"execution":output.report()}),
-            );
+            let browser = browser_directory.as_ref().map(|path| {
+                compare_browser(
+                    &output,
+                    Path::new(path),
+                    &format!("{id}-{}x{}", size[0], size[1]),
+                )
+            });
+            rows.push(json!({"case":id,"size":size,"repeatExact":true,"packageExact":true,"execution":output.report(),"browserComparison":browser}));
             if id == "default" && matches!(size, [256, 256] | [1024, 1024]) {
                 defaults.insert(size[0], output);
             }
@@ -304,20 +355,56 @@ fn brick_material_public_gpu_matrix() {
         }
         let mut warm = times[1..].to_vec();
         warm.sort_by(f64::total_cmp);
-        timing.push(json!({"size":size,"adapter":adapter,"coldMs":times[0],"warmMs":&times[1..],"warmMedianMs":warm[warm.len()/2]}));
+        let budget = ["hardware", "software"].into_iter().find_map(|policy| {
+            let budget = &matrix["timing"][policy];
+            adapter["name"]
+                .as_str()
+                .unwrap()
+                .contains(budget["adapter"].as_str().unwrap())
+                .then_some(budget)
+        });
+        let budget_passed = budget.map(|budget| {
+            let warm_key = if size == 1024 {
+                "warmMedian1024Ms"
+            } else {
+                "warmMedian2048Ms"
+            };
+            warm[warm.len() / 2] <= budget[warm_key].as_f64().unwrap()
+                && (size != 1024 || times[0] <= budget["cold1024Ms"].as_f64().unwrap())
+        });
+        timing.push(json!({"size":size,"adapter":adapter,"coldMs":times[0],"warmMs":&times[1..],"warmMedianMs":warm[warm.len()/2],"budgetPassed":budget_passed}));
     }
     let downsample_ok = downsampling.iter().all(|v| {
         v["meanRgbError"].as_array().unwrap().iter().all(|x| {
             x.as_f64().unwrap() <= matrix["maxDefaultDownsampleMeanError"].as_f64().unwrap()
         })
     });
+    let timing_ok = timing.iter().all(|row| row["budgetPassed"] != false);
+    let browser_ok = rows.iter().all(|row| {
+        row["browserComparison"]
+            .as_array()
+            .is_none_or(|comparisons| {
+                comparisons.iter().all(|v| {
+                    v["maxComponentDelta"].as_u64().unwrap()
+                        <= matrix["maxCrossRuntimeComponentError"].as_u64().unwrap()
+                })
+            })
+    });
     std::fs::write(report_path, serde_json::to_vec_pretty(&json!({
-        "schemaVersion":1,"completed":true,"ok":downsample_ok,"debugAssertions":cfg!(debug_assertions),
-        "scope":"native matrix, repeatability, descriptor bounds and downsampling; timing measured only",
+        "schemaVersion":1,"completed":true,"ok":downsample_ok && timing_ok && browser_ok,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser_directory.is_some(),
+        "scope":"native matrix, repeatability, package roundtrip, descriptor bounds, downsampling and matched-adapter timing budgets",
         "materialAccepted":false,"cases":rows,"structure":structure,"downsampling":downsampling,"timing":timing
     })).unwrap()).unwrap();
     assert!(
         downsample_ok,
         "default downsample error exceeds frozen gate; see receipt"
+    );
+    assert!(
+        timing_ok,
+        "frozen timing budget failed; start PERF-MAT using retained measurements"
+    );
+    assert!(
+        browser_ok,
+        "Native/browser component error exceeds frozen gate; see receipt"
     );
 }

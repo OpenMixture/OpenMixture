@@ -48,7 +48,7 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 
 export function assertBrowserReport(report, mode = 'registry') {
   assert.ok(['candidate', 'registry'].includes(mode));
-  assert.equal(report.stats.expected, mode === 'candidate' ? 16 : 13, 'all public consumer tests must execute');
+  assert.equal(report.stats.expected, mode === 'candidate' ? 17 : 13, 'all public consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -78,7 +78,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0' };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_BRICK_TESTS: mode === 'candidate' ? '1' : '0' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
@@ -115,6 +115,13 @@ export async function qualify(mode, packageDirectory, output) {
       archive = join(packageDirectory, basename(expected.tarball.replaceAll('\\', '/')));
       validateCandidate(expected, await readFile(archive), record.consumerRevision);
       version = expected.runtimeVersion;
+      await mkdir(join(staging, 'public/brick-paving'));
+      record.brickFixtures = {};
+      for (const name of ['material.mix', 'controls.json', 'qualification-plan.json']) {
+        const original = join(root, 'fixtures/materials/brick-paving', name);
+        record.brickFixtures[name] = hash(await readFile(original));
+        await cp(original, join(staging, 'public/brick-paving', name));
+      }
       execFileSync('cargo', ['run','--locked','--manifest-path',join(root,'examples/native-consumer/Cargo.toml'),'--target-dir',join(root,'target/native-consumer'),'--example','asset-fixtures','--',join(staging,'public/m6b05')], {cwd:root,stdio:'pipe'});
       record.assetFixtures = {};
       for (const name of ['1024x1024.mixpack','65x3.mixpack']) record.assetFixtures[name] = hash(await readFile(join(staging,'public/m6b05',name)));
