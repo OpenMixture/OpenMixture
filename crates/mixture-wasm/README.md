@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**M6B-04 (2026-09-22):** [CLI/browser asset adapters](../../docs/m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+
 The browser compilation and transport boundary for OpenMixture M5. This unpublished crate calls `mixture-core` for strict raw-source decoding, validation, catalog and immutable compilation, and calls `mixture-wgpu` for explicit browser WebGPU acquisition and asynchronous rendering. It introduces no pixel code or product state.
 
 Public consumers install the independently built `@openmixture/runtime` npm archive. Its facade owns safe JS argument capture and single-render/destroy scheduling. Rust returns fresh catalog/binding metadata and JS-owned RGBA8 copies, and preserves core/GPU diagnostic evidence. Typed u64 values project as bigint; validated numeric parameter values remain numbers. Generated wasm-bindgen glue is an implementation detail.

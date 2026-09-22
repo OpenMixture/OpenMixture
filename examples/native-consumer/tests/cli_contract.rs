@@ -134,6 +134,7 @@ impl Harness {
             }
             "doctor" => context_envelope(&value),
             "render" => render_envelope(&value),
+            "asset" => assert_eq!(value["schemaVersion"], 1),
             _ => panic!("unexpected test command"),
         }
         value
@@ -177,7 +178,11 @@ fn diagnostic_envelope(value: &Value) {
                     .as_object()
                     .unwrap()
                     .values()
-                    .all(|v| v.is_boolean() || v.as_u64().is_some() || v.is_string())
+                    .all(|v| v.is_boolean()
+                        || v.as_u64().is_some()
+                        || v.is_string()
+                        || (diagnostic["stage"] == "package"
+                            && v.as_array().is_some_and(|a| a.iter().all(Value::is_string))))
             );
         }
         assert!(
@@ -532,6 +537,7 @@ fn cli_contract_cpu() {
         );
         assert!(String::from_utf8_lossy(&output.stderr).contains("Usage:"));
     }
+    asset_workflow(&mut h, None);
     h.finish();
 }
 
@@ -774,5 +780,174 @@ fn cli_contract_gpu() {
             b"consumer-owned marker"
         );
     }
+    asset_workflow(&mut h, Some(&gpu_args));
     h.finish();
+}
+
+fn asset_workflow(h: &mut Harness, gpu: Option<&[&str]>) {
+    let source=br#"{"version":1,"nodes":[{"id":"base","type":"constant-color","version":1},{"id":"image","type":"image-input","version":1,"parameters":{"resourceId":"Input"}},{"id":"out","type":"material-output","version":1}],"edges":[{"from":{"nodeId":"base","portId":"color"},"to":{"nodeId":"out","portId":"baseColor"}},{"from":{"nodeId":"image","portId":"value"},"to":{"nodeId":"out","portId":"height"}}],"exposedParameters":[{"id":"source","nodeId":"image","parameterId":"resourceId"}]}"#;
+    fs::write(h.directory.join("asset.mix"), source).unwrap();
+    fs::write(
+        h.directory.join("pixels.rgba"),
+        [128, 37, 91, 255].repeat(65 * 3),
+    )
+    .unwrap();
+    for (name, out) in [
+        ("asset-pack", "asset.mixpack"),
+        ("asset-pack-repeat", "repeat.mixpack"),
+    ] {
+        h.json(
+            name,
+            &[
+                "asset",
+                "pack",
+                "asset.mix",
+                "--size",
+                "65x3",
+                "--image",
+                "Input",
+                "pixels.rgba",
+                "--out",
+                out,
+                "--json",
+            ],
+            0,
+        );
+    }
+    let bytes = fs::read(h.directory.join("asset.mixpack")).unwrap();
+    assert_eq!(bytes, fs::read(h.directory.join("repeat.mixpack")).unwrap());
+    fs::create_dir(h.directory.join("moved")).unwrap();
+    fs::rename(
+        h.directory.join("asset.mixpack"),
+        h.directory.join("moved/renamed.data"),
+    )
+    .unwrap();
+    fs::remove_file(h.directory.join("asset.mix")).unwrap();
+    fs::remove_file(h.directory.join("pixels.rgba")).unwrap();
+    let metadata = h.json(
+        "asset-inspect",
+        &["asset", "inspect", "moved/renamed.data", "--json"],
+        0,
+    );
+    assert_eq!(metadata["asset"]["resources"][0]["id"], "Input");
+    assert!(metadata["plan"].is_null());
+    assert!(metadata["render"].is_null());
+    let plan = h.json(
+        "asset-plan",
+        &[
+            "asset",
+            "inspect",
+            "moved/renamed.data",
+            "--plan",
+            "--size",
+            "65x3",
+            "--output",
+            "height",
+            "--json",
+        ],
+        0,
+    )["plan"]
+        .clone();
+    if let Some(gpu) = gpu {
+        let mut args = vec![
+            "asset",
+            "render",
+            "moved/renamed.data",
+            "--size",
+            "65x3",
+            "--output",
+            "height",
+            "--out",
+            "asset-png",
+            "--json",
+        ];
+        args.extend_from_slice(gpu);
+        let rendered = h.json("asset-render", &args, 0);
+        assert_eq!(rendered["render"]["planHash"], plan["hash"]);
+        let decoded = pixels(
+            &h.directory,
+            &rendered["render"]["outputs"][0],
+            &plan["outputs"][0],
+        );
+        assert!(
+            decoded
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .all(|p| *p == [128, 128, 128, 255])
+        );
+    } else {
+        let rejected = h.json(
+            "asset-override",
+            &[
+                "asset",
+                "inspect",
+                "moved/renamed.data",
+                "--plan",
+                "--size",
+                "65x3",
+                "--set",
+                r#"source="Input""#,
+                "--json",
+            ],
+            2,
+        );
+        assert_eq!(
+            rejected["diagnostics"][0]["code"],
+            "MIX_PACKAGE_RESOURCE_OVERRIDE"
+        );
+        let rejected = h.json(
+            "asset-budget",
+            &[
+                "asset",
+                "inspect",
+                "moved/renamed.data",
+                "--package-buffer-bytes",
+                "1",
+                "--json",
+            ],
+            2,
+        );
+        assert_eq!(
+            rejected["diagnostics"][0]["code"],
+            "MIX_PACKAGE_LIMIT_EXCEEDED"
+        );
+        h.json(
+            "asset-no-gpu",
+            &[
+                "asset",
+                "render",
+                "moved/renamed.data",
+                "--size",
+                "65x3",
+                "--output",
+                "height",
+                "--out",
+                "no-asset-png",
+                "--backend",
+                "none",
+                "--json",
+            ],
+            1,
+        );
+        assert!(!h.directory.join("no-asset-png").exists());
+        fs::write(h.directory.join("bad.mixpack"), &bytes[..bytes.len() - 1]).unwrap();
+        let rejected = h.json(
+            "asset-bad-before-gpu",
+            &[
+                "asset",
+                "render",
+                "bad.mixpack",
+                "--out",
+                "bad-output",
+                "--backend",
+                "none",
+                "--json",
+            ],
+            2,
+        );
+        assert_eq!(rejected["diagnostics"][0]["code"], "MIX_PACKAGE_INVALID");
+        assert!(rejected["render"].is_null());
+        assert!(!h.directory.join("bad-output").exists());
+    }
 }

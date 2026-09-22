@@ -437,8 +437,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "mixture-asset"
+version = "0.5.0"
+dependencies = [
+ "mixture-core",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "mixture-core"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -449,6 +459,7 @@ dependencies = [
 name = "mixture-native-consumer"
 version = "0.0.0"
 dependencies = [
+ "mixture-asset",
  "mixture-core",
  "mixture-wgpu",
  "png",
@@ -458,7 +469,7 @@ dependencies = [
 
 [[package]]
 name = "mixture-wgpu"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "futures-channel",
  "half",

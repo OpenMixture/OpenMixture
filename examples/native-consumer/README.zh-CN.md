@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+M6B-03：[共享 CPU 资产 codec](../../docs/m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
+
 本应用拥有自己的 Cargo workspace、锁文件和 [input.mix](./input.mix)，仅导入公开的 `mixture-core`、`mixture-wgpu`，以及用于报告的 `serde_json`、用于驱动原生 future 的 `pollster`。它没有直接 wgpu 依赖、私有导入或生产方拥有的运行时资源。两个 path 依赖定位公开源码 crate；PR-015 另行验证[真实本地归档消费](../../docs/package-consumption.zh-CN.md)。
 
 ## CPU 检查

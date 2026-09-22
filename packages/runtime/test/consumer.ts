@@ -22,6 +22,15 @@ const pixels: Uint8Array = result.channels[0].pixels;
 const count: bigint = result.report.passCount;
 const hits: number = result.report.pipelineCache.hits;
 const destroyed: Promise<void> = gpu.destroy();
+const packageReport = module.inspectPackage(new Uint8Array(), { packageLimits: { packageBytes: 4096n } });
+const packageSize: bigint = packageReport.packageBytes;
+const packageRender: Promise<RenderResult> = gpu.renderPackage(new Uint8Array(), { size: [2,2] });
+// @ts-expect-error Package inputs are bytes, not source strings or URLs.
+module.inspectPackage('asset.mixpack');
+// @ts-expect-error Package requests cannot override their resource bank.
+gpu.renderPackage(new Uint8Array(), { resources: [] });
+// @ts-expect-error Package policy counters retain bigint.
+module.inspectPackage(new Uint8Array(), { packageLimits: { packageBytes: 4096 } });
 const failure = new MixtureRuntimeError('render', { diagnostics: [], evidence: null });
 const code: string | undefined = failure.code;
 // @ts-expect-error A failure without diagnostics or browserFailure has no code.

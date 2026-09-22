@@ -1,4 +1,6 @@
 //! Browser transport only. Core owns parsing/compilation; wgpu owns every pixel.
+mod assets;
+pub use assets::{default_package_limits, inspect_package, prepare_package};
 
 use std::collections::BTreeMap;
 
@@ -103,12 +105,16 @@ impl mixture_core::ImageData for BrowserImage {
 /// Internal synchronous capture handle; the public facade never exposes it.
 #[wasm_bindgen]
 pub struct BrowserPrepared {
+    prepared: PreparedRender,
+}
+
+struct SourceInput {
     document: ValidatedDocument,
     request: CompileRequest,
     prepared: PreparedRender,
 }
 
-fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<BrowserPrepared, JsValue> {
+fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<SourceInput, JsValue> {
     let wire: Request = serde_wasm_bindgen::from_value(options)
         .map_err(|error| invalid(operation, &error.to_string()))?;
     let outputs = wire
@@ -150,7 +156,7 @@ fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<BrowserPr
         mixture_core::prepare_from(&document, &request, &bindings, &wire.resource_limits).map_err(
             |error| engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e),
         )?;
-    Ok(BrowserPrepared {
+    Ok(SourceInput {
         document,
         request,
         prepared,
@@ -299,7 +305,9 @@ pub fn default_resource_limits() -> Result<JsValue, JsValue> {
 /// Capture all selected pixels before the public render call returns.
 #[wasm_bindgen]
 pub fn prepare_source(source: &[u8], request: JsValue) -> Result<BrowserPrepared, JsValue> {
-    prepare(source, request, "render")
+    prepare(source, request, "render").map(|input| BrowserPrepared {
+        prepared: input.prepared,
+    })
 }
 
 /// Build identity injected by the producer's package build command.
@@ -367,9 +375,7 @@ impl BrowserGpu {
 
     /// Compile source and execute the existing immutable RenderPlan, asynchronously.
     pub async fn render(&mut self, input: BrowserPrepared) -> Result<JsValue, JsValue> {
-        let BrowserPrepared {
-            document, prepared, ..
-        } = input;
+        let BrowserPrepared { prepared } = input;
         let plan = prepared.plan();
         let renderer = self
             .renderer
@@ -397,7 +403,7 @@ impl BrowserGpu {
         field(
             &result,
             "documentVersion",
-            &JsValue::from(document.document().version),
+            &JsValue::from(plan.document_version()),
         )?;
         field(&result, "plan", &project(&plan)?)?;
         field(&result, "report", &project(output.report())?)?;

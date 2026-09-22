@@ -14,6 +14,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 mixture-core.workspace = true
+mixture-asset.workspace = true
 mixture-wgpu.workspace = true
 serde.workspace = true
 serde_json.workspace = true

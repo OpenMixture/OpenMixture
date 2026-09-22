@@ -2,25 +2,27 @@
 
 English | [简体中文](./package-consumption.zh-CN.md)
 
+M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
+
 PR-015 implements `cargo xtask package-check`. It creates actual local Cargo archives, verifies them outside the producing repository, builds the independent Rust consumer and the CLI from those archives, and exercises their CPU contracts. Explicit `gpu-smoke` repeats package verification and adds real packaged GPU/CLI consumption. This establishes the local M4 package gate without publishing a crate or distributing a binary. [Acceptance evidence](./evidence/pr-015/README.md) records the exact runs.
 
 ## Archive and dependency boundary
 
-M6A-03 also runs the public prepared-image GPU consumer against extracted archives. Verification cleans the four local packages from the shared build target before building, preserving only external dependency caches: archive mtimes must not allow stale same-version runtime code to pass. See the [Native resource implementation](./m6a-03-native-resources.md) for the current 0.3.0 source contract; version descriptions below retain the PR-015 history.
+M6A-03 also runs the public prepared-image GPU consumer against extracted archives. Verification cleans the five local packages from the shared build target before building, preserving only external dependency caches: archive mtimes must not allow stale same-version runtime code to pass. See the [Native resource implementation](./m6a-03-native-resources.md) for the original resource contract; the current asset contract is linked above.
 
-The three product packages remain version `0.1.0` and `publish = false`. Workspace path dependencies now also require exactly `=0.1.0`; Cargo's normalized archive manifests retain that version and remove producer paths. The consumer's source-path manifest in the repository stays unchanged.
+The four product packages (core, asset, wgpu, CLI) are version `0.5.0` and `publish = false`. Workspace path dependencies require exactly `=0.5.0`; Cargo's normalized archive manifests retain that version and remove producer paths. The consumer's repository manifest uses three source-path library dependencies.
 
 | Package contents | Verification |
 |---|---|
 | `Cargo.toml` and Cargo's original-manifest copy | Version, disabled publication, target paths and dependency requirements are checked through resolved metadata. |
-| `src/**` | Extracted file hashes must match the producer package inputs. Core/wgpu unit tests and Rustdoc examples build inside the isolated workspace. |
-| wgpu `shaders/**` | All nine embedded kernels ship. Removing packaged `constant.wgsl` must produce a real compilation failure; the bytes are restored afterward and all extracted files rechecked. |
+| `src/**` | Extracted file hashes must match the producer package inputs. Core/asset/wgpu unit tests and Rustdoc examples build inside the isolated workspace. |
+| wgpu `shaders/**` | All eleven embedded kernels ship. Removing packaged `constant.wgsl` must produce a real compilation failure; the bytes are restored afterward and all extracted files rechecked. |
 | Both README languages and both license texts | Required archive entries; license bytes must match the repository's MIT/Apache-2.0 texts. |
 | wgpu `src/testdata/*.mix` | Three source-embedded unit-test inputs remain package-local and byte-identical to canonical constant-scalar/transform-2d/warp fixtures. |
 
-Repository integration tests, full node/material fixture collections and historical evidence are not package runtime dependencies. Source-embedded unit tests are included and executed. There is no new package, runtime dependency, shader implementation or pixel algorithm.
+Repository integration tests, full node/material fixture collections and historical evidence are not package runtime dependencies. Source-embedded unit tests are included and executed. M6B-03 adds only the optional CPU asset crate; no external dependency, shader implementation or pixel algorithm is added.
 
-The checker uses `cargo package --locked --offline --no-verify --exclude-lockfile --allow-dirty` for all three packages. Cargo's usual verification and package-lock generation would try to resolve unpublished peers through a registry; these steps are deliberately replaced by the explicit local verifier below. `--allow-dirty` captures reviewable uncommitted implementation work; source/archive hashes, rather than a clean-VCS claim, identify it. Cargo documents manifest normalization and these switches in [cargo package](https://doc.rust-lang.org/cargo/commands/cargo-package.html).
+The checker uses `cargo package --locked --offline --no-verify --exclude-lockfile --allow-dirty` for all four packages. Cargo's usual verification and package-lock generation would try to resolve unpublished peers through a registry; these steps are deliberately replaced by the explicit local verifier below. `--allow-dirty` captures reviewable uncommitted implementation work; source/archive hashes, rather than a clean-VCS claim, identify it. Cargo documents manifest normalization and these switches in [cargo package](https://doc.rust-lang.org/cargo/commands/cargo-package.html).
 
 These local source archives intentionally omit `Cargo.lock`. They are not advertised as registry-installable archives or inputs to `cargo install --locked`. The verifier ships its resolved lock as separate evidence and retains both committed repository/consumer locks unchanged. Actual publication remains disabled; any future distribution must review its final lock/registry/install policy separately.
 
@@ -30,8 +32,8 @@ Manifest identity and target containment use canonical filesystem paths, includi
 
 1. Snapshot source/build inputs, check duplicated licenses and the three unit fixtures, and fetch only the committed lock's public dependencies.
 2. Generate archives, validate member paths/required files, extract into a fresh OS temporary directory **outside** the producer repository, and compare extracted source bytes with the snapshot. Archives themselves are never rewritten.
-3. Copy the independent application's own source, tests and `.mix` input into that directory. Only its staging manifest changes: replace the two producer paths with exact version requirements and join a disposable verification workspace. No source or runtime behavior is rewritten.
-4. Resolve core/wgpu with `[patch.crates-io]` pointing solely at their extracted directories. All three normalized packages plus the application are members of this isolated workspace. No Mixture registry substitute or producer path is accepted; the resolved package and target paths must match the extraction tree.
+3. Copy the independent application's own source, tests and `.mix` input into that directory. Only its staging manifest changes: replace the three producer paths with exact version requirements and join a disposable verification workspace. No source or runtime behavior is rewritten.
+4. Resolve core/asset/wgpu with `[patch.crates-io]` pointing solely at their extracted directories. All four normalized packages plus the application are members of this isolated workspace. No Mixture registry substitute or producer path is accepted; the resolved package and target paths must match the extraction tree.
 5. Seed a disposable lock from the committed workspace lock. One offline metadata pass may add the local application and prune unused packages; external **name/version/source/checksum** identities must remain a subset of the committed pins. All subsequent builds, tests, docs and process-contract tests run `--offline --locked`.
 6. Build and test the isolated workspace, including source-embedded unit tests, independent CPU tests and Rustdoc examples; build Rustdoc with warnings denied. A retained compiler cache under `target/package-consumer` holds build artifacts, not source assets. This is filesystem/source-resolution isolation, not an OS security sandbox or a cache-free build claim.
 7. Delete the packaged constant shader, run a real failing check, restore it even after a command failure, and ensure every extracted package file still matches its original hash. Missing assets must not pass through a cached successful build.

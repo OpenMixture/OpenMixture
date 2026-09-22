@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](../../docs/m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+
 OpenMixture M5 的浏览器编译和传输边界。此未发布 crate 调用 `mixture-core` 完成严格原始源码解析、校验、目录和不可变计划编译，调用 `mixture-wgpu` 完成显式浏览器 WebGPU 获取和异步渲染。不增加像素代码或产品状态。
 
 公开消费者安装独立构建的 `@openmixture/runtime` npm 归档。其 facade 负责安全 JS 参数捕获和单渲染/destroy 调度。Rust 返回独立目录/绑定元数据及 JS 自有 RGBA8 副本，并保留 core/GPU 诊断证据。u64 投影为 bigint，已验证数值参数保持 number。生成的 wasm-bindgen 胶水属于实现细节。

@@ -1,0 +1,255 @@
+{
+  "kind": "M6B-02-design-experiment-not-runtime-qualification",
+  "sourceRevision": "a08e34809925b83f07d941d28f058d0f4f7fe3b2",
+  "dirty": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "host": "Windows-11-10.0.26100-SP0",
+  "probeSha256": "35f5d46ce8ffeae6bf07e10e79a85d03b46f003433b365441ff0abbddf8efe2f",
+  "rows": [
+    {
+      "case": "normal",
+      "resourceCount": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "directoryBytes": 4195771,
+      "directoryFiles": 3,
+      "sourceBytes": 1060,
+      "manifestBytes": 407,
+      "resourceBytes": 4194304,
+      "representations": {
+        "jsonBase64": {
+          "bytes": 5594488,
+          "overheadBytes": 1398717,
+          "sha256": "d2d72cd72e609adfc854a2e2d633a625c9fb36dbb6f3db4f21d21d7e1549ba62",
+          "decode": {
+            "seconds": 0.024216099991463125,
+            "pythonTracedPeakBytes": 15384434,
+            "decodedPayloadBytes": 4195771
+          }
+        },
+        "zipStored": {
+          "bytes": 4196103,
+          "overheadBytes": 332,
+          "sha256": "d2ae24ddb128d4e8712836ce7fee069b91c6be5956f17158f917410212508af8",
+          "decode": {
+            "seconds": 0.004652200033888221,
+            "pythonTracedPeakBytes": 4242354,
+            "decodedPayloadBytes": 4195771
+          }
+        },
+        "ustar": {
+          "bytes": 4198912,
+          "overheadBytes": 3141,
+          "sha256": "6ef2725203861ad4308606af31b1c3c7d4e54cdd6ed04607553e32251f2f11b7",
+          "decode": {
+            "seconds": 0.001296499976888299,
+            "pythonTracedPeakBytes": 4208396,
+            "decodedPayloadBytes": 4195771
+          }
+        }
+      },
+      "plannedBufferLedger": {
+        "nativeBorrowed": 4195771,
+        "nativeOwned": 8394683,
+        "browserConservative": 12593595,
+        "note": "Analytical live byte-buffer bounds, not measured Rust/WASM allocation or process RSS; excludes caller input, typed objects and output buffers"
+      }
+    },
+    {
+      "case": "maximumResources",
+      "resourceCount": 8,
+      "size": [
+        2048,
+        1024
+      ],
+      "directoryBytes": 67112543,
+      "directoryFiles": 10,
+      "sourceBytes": 1711,
+      "manifestBytes": 1968,
+      "resourceBytes": 67108864,
+      "representations": {
+        "jsonBase64": {
+          "bytes": 89483790,
+          "overheadBytes": 22371247,
+          "sha256": "93a860667b00490cc83a9ec85e59469aa1ad43dde83453929823eef2aec4406b",
+          "decode": {
+            "seconds": 0.3250069000059739,
+            "pythonTracedPeakBytes": 178972164,
+            "decodedPayloadBytes": 67112543
+          }
+        },
+        "zipStored": {
+          "bytes": 67113631,
+          "overheadBytes": 1088,
+          "sha256": "946a5530c79f8da0da98605079054c062a1ee268f38a7945afe87b0264f13344",
+          "decode": {
+            "seconds": 0.04816530004609376,
+            "pythonTracedPeakBytes": 67122844,
+            "decodedPayloadBytes": 67112543
+          }
+        },
+        "ustar": {
+          "bytes": 67119104,
+          "overheadBytes": 6561,
+          "sha256": "4d1a719b08af017aa1073b1c5c4a70a6ea4d042cf22dd35e2979354f931a39d2",
+          "decode": {
+            "seconds": 0.013582900050096214,
+            "pythonTracedPeakBytes": 67128922,
+            "decodedPayloadBytes": 67112543
+          }
+        }
+      },
+      "plannedBufferLedger": {
+        "nativeBorrowed": 67112543,
+        "nativeOwned": 134231647,
+        "browserConservative": 201350751,
+        "note": "Analytical live byte-buffer bounds, not measured Rust/WASM allocation or process RSS; excludes caller input, typed objects and output buffers"
+      }
+    }
+  ],
+  "corpus": [
+    {
+      "file": "valid.mixpack",
+      "bytes": 5120,
+      "sha256": "b229aa66620cbc18145e5a678d7124b0d50b8b2a5b86c2229fbf8992ca4be4b7",
+      "expectedCode": null
+    },
+    {
+      "file": "truncated.mixpack",
+      "bytes": 4607,
+      "sha256": "cc1c7800a126399c6a6cb686aed7eccab82e682924232344ce460b81c8ac87e4",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "trailing.mixpack",
+      "bytes": 5121,
+      "sha256": "1fe70f36d3cf2b7cda241549bd6d23fed5188f61f91d241138e7831dcf86bfff",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "duplicate-entry.mixpack",
+      "bytes": 6144,
+      "sha256": "096e02e0fe6c81115062408f073b66ef04d614236d567c4e8a4f1a6016c61448",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "parent.mixpack",
+      "bytes": 5120,
+      "sha256": "b083e39b5e519b3d3e210c77eab2def4b23ea090ee6d5d79408a6306d53c131a",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "absolute.mixpack",
+      "bytes": 5120,
+      "sha256": "38ccb87588a9ee36a418efca58b77aea6b2b55f4eafb6b86e62a1488aa0acb49",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "drive.mixpack",
+      "bytes": 5120,
+      "sha256": "7b97f65edf8832d97b9682730929cd6c12807fd83a138a7a60ac7ac8dad3da37",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "backslash.mixpack",
+      "bytes": 5120,
+      "sha256": "0647f9d7bba2539987cfe24653d9a11e8c19537e89ef962872cfbc12e3b9c93a",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "checksum.mixpack",
+      "bytes": 5120,
+      "sha256": "acce4d4d6e1a126a69081761bb709cd1e6d55e1a12bbe43e8406b53e188393ee",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "symlink.mixpack",
+      "bytes": 5120,
+      "sha256": "7017bd4a01cf538a2941275c2d690177e5ecc0122f2087aef1a10391e4cc787f",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "oversized-entry.mixpack",
+      "bytes": 5120,
+      "sha256": "45a2dda75f7e0fa26eda553fc74b370b7c415dea396a755bd375c525db126e86",
+      "expectedCode": "MIX_PACKAGE_LIMIT_EXCEEDED"
+    },
+    {
+      "file": "unsupported-version.mixpack",
+      "bytes": 5120,
+      "sha256": "317f2f57d20eab1bca7b7c222d4b84368989af7f01a980403ea1457cbe96f968",
+      "expectedCode": "MIX_PACKAGE_UNSUPPORTED_VERSION"
+    },
+    {
+      "file": "digest-mismatch.mixpack",
+      "bytes": 5120,
+      "sha256": "4b349bd84f3b40dad7ce14ba8c2476de4e7604a36dc3bfeb7d38105bf8eec1ac",
+      "expectedCode": "MIX_PACKAGE_CONTENT_MISMATCH"
+    },
+    {
+      "file": "duplicate-json-key.mixpack",
+      "bytes": 5120,
+      "sha256": "46f62981f5d23e2cfe576fbbe0a610da1658734ac48c794bc2237d6d08ca125e",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "too-many-resources.mixpack",
+      "bytes": 15872,
+      "sha256": "1538016d62dc6f22d5439d4bc66439a76a6747468689c740d744f920ece4beb3",
+      "expectedCode": "MIX_PACKAGE_LIMIT_EXCEEDED"
+    },
+    {
+      "file": "integer-overflow.mixpack",
+      "bytes": 5120,
+      "sha256": "292655b0741cdf81373adde9b913dbf920f551987ba74313f293512d14a320d0",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "dimension-limit.mixpack",
+      "bytes": 5120,
+      "sha256": "8db660abf6ccad6449249482ebb6ebcc1f80925328f76a104d7cf4dc19648524",
+      "expectedCode": "MIX_PACKAGE_LIMIT_EXCEEDED"
+    },
+    {
+      "file": "stride.mixpack",
+      "bytes": 5120,
+      "sha256": "f5a851ed0a61ba8852e459415175f99ce47d0bdccdf286fba969050c202c1ca3",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "length.mixpack",
+      "bytes": 5120,
+      "sha256": "886025aa8240df3a976f90e8fbd6138506b8ecdf0a9daa8599c8b86a9480bf26",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "unknown-format.mixpack",
+      "bytes": 5120,
+      "sha256": "fb8a7d7a535e5e0f27b9db26abd50b3bdec2092c7f3cae4188d036c0340e3881",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "duplicate-id.mixpack",
+      "bytes": 7680,
+      "sha256": "130c4e8b3e40815b347351b77b546f1605cdb5f4e474f7ec38f2eb916862d2e7",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    },
+    {
+      "file": "nonzero-padding.mixpack",
+      "bytes": 5120,
+      "sha256": "a5535ffb98db64cad74543e13add1e32477f3427c9a9cbf1bb50dd1f3b2ae1cd",
+      "expectedCode": "MIX_PACKAGE_INVALID"
+    }
+  ],
+  "limits": {
+    "packageBytes": 70254592,
+    "manifestBytes": 65536,
+    "sourceBytes": 2097152,
+    "resources": 8,
+    "resourceBytes": 67108864,
+    "packageBufferBytes": 211812352
+  },
+  "scope": "Python stdlib decode measurements validate representation costs and fixture byte identity; planned Rust buffer bounds require allocator/lifetime regression tests in M6B-03/04. Corpus rejection codes are contract expectations, not passed runtime tests."
+}

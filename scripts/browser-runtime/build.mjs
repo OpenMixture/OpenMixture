@@ -39,9 +39,9 @@ async function collect(directory) {
     else paths.push(name);
   }
 }
-for (const directory of ['crates/mixture-core/src', 'crates/mixture-wgpu/src', 'crates/mixture-wgpu/shaders',
+for (const directory of ['crates/mixture-asset/src', 'crates/mixture-core/src', 'crates/mixture-wgpu/src', 'crates/mixture-wgpu/shaders',
   'crates/mixture-wasm', 'packages/runtime', 'scripts/browser-runtime']) await collect(directory);
-for (const path of ['crates/mixture-core/Cargo.toml', 'crates/mixture-wgpu/Cargo.toml']) paths.push(path);
+for (const path of ['crates/mixture-asset/Cargo.toml', 'crates/mixture-core/Cargo.toml', 'crates/mixture-wgpu/Cargo.toml']) paths.push(path);
 const digest = createHash('sha256');
 const compilerVersion = command('rustc', ['--version', '--verbose']);
 const compilationEnvironment = Object.fromEntries(Object.entries(process.env).filter(([key]) =>

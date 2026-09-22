@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "kind": "M6B-01-entry-measurement-not-format-or-GPU-acceptance",
+  "completedAt": "2026-09-22T05:28:27.858Z",
+  "sourceRevision": "c2a08e14be9991d75df24e0f045d842d8db4b570",
+  "dirty": true,
+  "node": "v24.21.0",
+  "host": {
+    "platform": "win32",
+    "release": "10.0.26100",
+    "arch": "x64"
+  },
+  "probeSha256": "cc81e108457c7e5e9d9342b745b9dd1a2266fcdca2b6691de2f50f993c337ef6",
+  "cliSha256": "f85fa28d498cbef9e6e78e28708bb6fec7603e257ec203064ab2c01fb5f8cea1",
+  "sourceSha256": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+  "resourceSha256": "929919ac36cee7f4c5073f1b860ba93d54f5946334d4136e83b4faa83af3b5d9",
+  "validation": {
+    "args": [
+      "validate",
+      "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+      "--json"
+    ],
+    "exitCode": 0,
+    "report": {
+      "ok": true,
+      "diagnostics": []
+    },
+    "stderr": ""
+  },
+  "baseColor": {
+    "args": [
+      "inspect",
+      "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+      "--plan",
+      "--size",
+      "1024",
+      "--output",
+      "baseColor",
+      "--json"
+    ],
+    "exitCode": 0,
+    "report": {
+      "schemaVersion": 2,
+      "plan": {
+        "version": 2,
+        "documentVersion": 1,
+        "size": [
+          1024,
+          1024
+        ],
+        "materialOutput": {
+          "id": "out",
+          "typeId": "material-output",
+          "version": 1
+        },
+        "passes": [
+          {
+            "id": 0,
+            "origin": {
+              "source": "node",
+              "node": {
+                "id": "base",
+                "typeId": "constant-color",
+                "version": 1
+              }
+            },
+            "kernel": {
+              "id": "constant",
+              "value": [
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            "output": 0,
+            "outputDesc": {
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba16float",
+              "kind": "color"
+            },
+            "dispatch": [
+              128,
+              128,
+              1
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "channel": "baseColor",
+            "kind": "color",
+            "input": {
+              "source": "connected",
+              "from": {
+                "nodeId": "base",
+                "portId": "color"
+              }
+            },
+            "resource": 0
+          }
+        ],
+        "estimates": {
+          "resourceCount": 0,
+          "resourceUploadBytes": 0,
+          "resourceTextureBytes": 0,
+          "resourceStagingBytes": 0,
+          "textureBytes": 8388608,
+          "uniformBytes": 16,
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": 8388608,
+          "readbackBytes": 8388608,
+          "cumulativeReadbackBytes": 8388608,
+          "cumulativeBytes": 16777232,
+          "peakBytes": 16777232
+        },
+        "imageResources": [],
+        "hash": "sha256:19c9f6e38323a475ed7e31919ec090b3938f9e1a68a1d65444dce7eaab83e362"
+      },
+      "ok": true,
+      "diagnostics": []
+    },
+    "stderr": ""
+  },
+  "missing": {
+    "args": [
+      "inspect",
+      "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+      "--plan",
+      "--size",
+      "1024",
+      "--output",
+      "height,normal",
+      "--json"
+    ],
+    "exitCode": 2,
+    "report": {
+      "schemaVersion": 2,
+      "plan": null,
+      "ok": false,
+      "diagnostics": [
+        {
+          "code": "MIX_RESOURCE_MISSING",
+          "stage": "compile",
+          "severity": "error",
+          "message": "Selected image node has no resource binding.",
+          "documentPath": "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+          "nodeId": "image",
+          "parameterId": "resourceId",
+          "evidence": {
+            "resourceId": "heightSource"
+          },
+          "suggestion": "Supply unique referenced resource IDs and same-size tightly packed rgba8-linear bytes within the explicit resource policy."
+        }
+      ]
+    },
+    "stderr": ""
+  },
+  "adjacent": {
+    "args": [
+      "inspect",
+      "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+      "--plan",
+      "--size",
+      "1024",
+      "--output",
+      "height,normal",
+      "--json"
+    ],
+    "exitCode": 2,
+    "report": {
+      "schemaVersion": 2,
+      "plan": null,
+      "ok": false,
+      "diagnostics": [
+        {
+          "code": "MIX_RESOURCE_MISSING",
+          "stage": "compile",
+          "severity": "error",
+          "message": "Selected image node has no resource binding.",
+          "documentPath": "D:\\Coding\\OpenMixture\\tmp\\m6b-01-entry\\material.mix",
+          "nodeId": "image",
+          "parameterId": "resourceId",
+          "evidence": {
+            "resourceId": "heightSource"
+          },
+          "suggestion": "Supply unique referenced resource IDs and same-size tightly packed rgba8-linear bytes within the explicit resource policy."
+        }
+      ]
+    },
+    "stderr": ""
+  },
+  "sizes": {
+    "sourceBytes": 1157,
+    "packedResourceBytes": 4194304,
+    "sourceAndResourceBytes": 4195461,
+    "base64PayloadBytes": 5592408,
+    "experimentalJsonBytes": 5593949,
+    "experimentalJsonSha256": "442b1b7a14903b0dff916957dc88a9f3a7bb22b71b6a96744bfdfa608e36a9b8",
+    "base64ExpansionRatio": 1.333333969116211
+  },
+  "conclusion": "Source validates and resource-free slicing works. Copying .mix alone or next to raw pixels cannot recover the binding. An explicit portable binding/identity contract is missing; this does not prove a binary container or compression is necessary."
+}

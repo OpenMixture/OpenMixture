@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**M6B-04 (2026-09-22):** [CLI/browser asset adapters](../../docs/m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+
 ENG-03 provides a small engine-owned Vite/TypeScript example using only `@openmixture/runtime`'s public entry. It loads the included `.mix`, overrides exposed parameters, selects channels, renders through WebGPU and destroys the GPU instance in `finally`. Displayed pixels remain owned after destruction. It has no Studio dependency, engine-source import, Rust compilation step, alternate renderer or product editor.
 
 ## Run the published package

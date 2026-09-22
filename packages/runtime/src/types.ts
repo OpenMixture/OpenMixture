@@ -8,6 +8,15 @@ export interface SafetyLimits {
   outputDimension: bigint; requestedOutputs: bigint; transientBytes: bigint;
 }
 export interface ResourceLimits { resourceCount: bigint; resourcePixels: bigint; resourceBytes: bigint; }
+export interface PackageLimits { packageBytes: bigint; manifestBytes: bigint; packageBufferBytes: bigint; }
+export interface PackageOptions { limits?: Partial<SafetyLimits>; resourceLimits?: Partial<ResourceLimits>; packageLimits?: Partial<PackageLimits>; }
+export interface PackageRenderRequest extends Omit<RenderRequest, 'resources'> { packageLimits?: Partial<PackageLimits>; }
+export interface PackageInspection {
+  schemaVersion: 1; packageVersion: 1; packageSha256: string; packageBytes: bigint;
+  sourceSha256: string; sourceBytes: bigint;
+  resources: Array<{ id: string; path: string; width: number; height: number; format: 'rgba8-linear'; bytesPerRow: bigint; byteLength: bigint; contentDigest: string }>;
+  buffers: { jsPackageBytes: bigint; rustPackageBytes: bigint; chargedBytes: bigint };
+}
 export interface ImageBinding {
   id: string; width: number; height: number; format: 'rgba8-linear'; bytesPerRow: number; data: Uint8Array;
 }
@@ -23,7 +32,7 @@ export interface BuildInfo {
 export interface Diagnostic {
   code: string; stage: string; severity: 'error' | 'warning' | 'info'; message: string;
   nodeId?: string; portId?: string; parameterId?: string; documentPath?: string;
-  evidence?: Record<string, string | bigint | boolean>; suggestion?: string;
+  evidence?: Record<string, ProjectedValue>; suggestion?: string;
 }
 export interface BrowserFailure { code: string; operation: string; message: string; evidence?: unknown; suggestion?: string; }
 export type ParameterKind = { type: 'float' | 'integer'; min: number; max: number }
@@ -76,6 +85,7 @@ export interface RenderResult { documentVersion: number; plan: RenderPlan; chann
 export interface GpuRuntime {
   readonly context: Record<string, ProjectedValue>;
   render(source: Source, request?: RenderRequest): Promise<RenderResult>;
+  renderPackage(bytes: Uint8Array, request?: PackageRenderRequest): Promise<RenderResult>;
   destroy(): Promise<void>;
 }
 export interface RuntimeModule {
@@ -83,5 +93,6 @@ export interface RuntimeModule {
   getNodeCatalog(): NodeContract[];
   validate(source: Source, request?: RenderRequest): ValidationResult;
   inspect(source: Source, request?: RenderRequest): Inspection;
+  inspectPackage(bytes: Uint8Array, options?: PackageOptions): PackageInspection;
   createGpu(options?: { powerPreference?: 'low-power' | 'high-performance' }): Promise<GpuRuntime>;
 }

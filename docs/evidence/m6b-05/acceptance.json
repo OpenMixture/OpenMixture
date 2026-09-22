@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "workItem": "M6B-05",
+  "pullRequest": "https://github.com/OpenMixture/OpenMixture/pull/45",
+  "acceptedScope": "Recorded Linux software matrix. Implementation/qualification complete; integration and publication separate. Windows hardware cross-runtime normal parity remains failed.",
+  "source": {
+    "head": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19",
+    "testedIntegration": "189059f7eca172c8179f416f404f9418a08e3e1d",
+    "dirty": false,
+    "localTestedCommit": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19",
+    "sha256": {
+      "Cargo.lock": "72cad9ad1b2574bcfd666d1dd9ddeb9a5741c4849c57e3636153a96865cc80e8",
+      "examples\\native-consumer\\tests\\asset_qualification.rs": "b65cd7bc965151ca9cdcb28350a75afbb062675524c8c177e325516416a8f304",
+      "examples\\native-consumer\\tests\\asset_support\\mod.rs": "5012bb1be9377da8b7ab91470bc5aa1b92ceca213a42220d1f3d311f42f0f5e0",
+      "examples\\native-consumer\\tests\\image-input.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+      "examples\\browser-consumer\\tests\\assets.spec.mjs": "eca4ed48792c5b310f6ba78ec588e914a9789c07434ab66605d7560172d01f78",
+      "scripts\\browser-runtime\\asset-matrix.mjs": "45613a44c9af64fae748a9517762c012cf1c724b61a88193d1f40e04c6f1effe"
+    }
+  },
+  "recordedAt": "2026-09-22T10:07:20.387188+00:00",
+  "timezone": "Asia/Shanghai",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:57:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712247923/job/106695352359",
+      "name": "Chromium WebGPU material matrix",
+      "startedAt": "2026-09-22T09:46:13Z",
+      "status": "COMPLETED",
+      "workflowName": "Browser material qualification"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:49:31Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712248026/job/106695353940",
+      "name": "WASM and npm package",
+      "startedAt": "2026-09-22T09:46:13Z",
+      "status": "COMPLETED",
+      "workflowName": "Browser runtime package"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:55:41Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712247884/job/106695352338",
+      "name": "Pinned SwiftShader Vulkan materials and packaged consumption",
+      "startedAt": "2026-09-22T09:46:13Z",
+      "status": "COMPLETED",
+      "workflowName": "GPU material acceptance"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:51:58Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712247891/job/106695351180",
+      "name": "Check (ubuntu-latest)",
+      "startedAt": "2026-09-22T09:46:11Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:53:47Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712247891/job/106695351586",
+      "name": "Check (macos-latest)",
+      "startedAt": "2026-09-22T09:46:19Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-22T09:55:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/OpenMixture/OpenMixture/actions/runs/35712247891/job/106695351691",
+      "name": "Check (windows-latest)",
+      "startedAt": "2026-09-22T09:46:13Z",
+      "status": "COMPLETED",
+      "workflowName": "Non-GPU checks"
+    }
+  ],
+  "package": {
+    "file": "openmixture-runtime-0.5.0-alpha.0.tgz",
+    "sha256": "c1593834217d7a50e1a8abf72cf18937d6ec7350a45495755fbaaae17a1a8f81",
+    "bytes": 437115,
+    "buildId": "sha256:ece8fb3e2aa0516a4c6bf70428afc27f83452057de5643525c96cef4728f8365",
+    "downloadedAndRehashed": true
+  },
+  "ciArtifacts": [
+    {
+      "id": 10687810595,
+      "node_id": "MDg6QXJ0aWZhY3QxMDY4NzgxMDU5NQ==",
+      "name": "chromium-material-matrix",
+      "size_in_bytes": 121078991,
+      "url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10687810595",
+      "archive_download_url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10687810595/zip",
+      "expired": false,
+      "digest": "sha256:28c580572c8e37cb30a41570330ae01ac3e1d6de7350ea012a497ae2c00f1788",
+      "created_at": "2026-09-22T09:57:11Z",
+      "updated_at": "2026-09-22T09:57:11Z",
+      "expires_at": "2026-10-22T09:57:06Z",
+      "workflow_run": {
+        "id": 35712247923,
+        "repository_id": 1341360232,
+        "head_repository_id": 1341360232,
+        "head_branch": "codex/m6b-05-qualification",
+        "head_sha": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19"
+      }
+    },
+    {
+      "id": 10688180687,
+      "node_id": "MDg6QXJ0aWZhY3QxMDY4ODE4MDY4Nw==",
+      "name": "swiftshader-material-evidence",
+      "size_in_bytes": 43619829,
+      "url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10688180687",
+      "archive_download_url": "https://api.github.com/repos/OpenMixture/OpenMixture/actions/artifacts/10688180687/zip",
+      "expired": false,
+      "digest": "sha256:437fc863f3884baf7f96dd6d7e265ea9afe392e827c0cad8ef232211029ee713",
+      "created_at": "2026-09-22T09:55:39Z",
+      "updated_at": "2026-09-22T09:55:39Z",
+      "expires_at": "2026-10-22T09:55:35Z",
+      "workflow_run": {
+        "id": 35712247884,
+        "repository_id": 1341360232,
+        "head_repository_id": 1341360232,
+        "head_branch": "codex/m6b-05-qualification",
+        "head_sha": "92e1a5c7e671595eac57d3b62d5fbaa48d7c9e19"
+      }
+    }
+  ],
+  "runs": {
+    "browser": 35712247923,
+    "gpu": 35712247884,
+    "cpu": 35712247891,
+    "wasm": 35712248026,
+    "attempt": 1
+  },
+  "results": {
+    "nativeSourceCases": 8,
+    "nativeArchiveCases": 8,
+    "browserCandidateTests": 16,
+    "registryTests": 13,
+    "assetChannelComparisons": 16,
+    "maxAssetComponentDelta": 0,
+    "exactLoosePackagePixels": true,
+    "repeatedLoadsPerCasePerRuntime": 2,
+    "liveBytesAfterEachRender": 0,
+    "materialCases": 11,
+    "materialChannels": 44,
+    "localCargoXtaskCheck": "passed",
+    "qualificationGuardTests": 7,
+    "windowsCandidateTests": 16,
+    "windowsFailedNormalMaxima1K": [
+      0,
+      1,
+      4,
+      8
+    ]
+  },
+  "visualReview": {
+    "reviewer": "Codex agent; not maintainer approval",
+    "contact": "contact.png",
+    "sha256": "ddebb502eef369fd971beca494a153294a2be965da50dc022c43570f342ff1ac",
+    "sampling": "1K panels select source (4*x,4*y), height/normal rows and weights 0/0.25/0.5/1 columns. Rectangular controls are nearest-neighbor previews (last source column cropped in 256px panel).",
+    "originalPngs": {
+      "asset-1024x1024-0-height.png": {
+        "sha256": "4ee3b4991b2693cba22155626fe0c73dbc1887049d7a60a651852577210cb1e8",
+        "bytes": 30033
+      },
+      "asset-1024x1024-0-normal.png": {
+        "sha256": "0bca188f377c508b3b2c6d6c61517a7193f7c1a25497b6216091b27653e7e0b1",
+        "bytes": 172382
+      },
+      "asset-1024x1024-0.25-height.png": {
+        "sha256": "89387150d636c7ea8074d64a222f06db4476618e16d129033a80d802cdbd0c99",
+        "bytes": 567191
+      },
+      "asset-1024x1024-0.25-normal.png": {
+        "sha256": "f4b215d6e77b072b77e906ee66bc05cb3f357ff4375c94e12fefa60ee19be5cf",
+        "bytes": 2214085
+      },
+      "asset-1024x1024-0.5-height.png": {
+        "sha256": "ac3e327eadfc6bdb1fe454ea445d8ced9cd445ff5292cff26d233da8eb6b62c0",
+        "bytes": 714736
+      },
+      "asset-1024x1024-0.5-normal.png": {
+        "sha256": "2ff7d8937b8cdfb3b8b917e653deff4df4aac328b03f1d57ddbdf266f9805182",
+        "bytes": 2783080
+      },
+      "asset-1024x1024-1-height.png": {
+        "sha256": "082795644150fbd27825a56d094d2ff536e55d06e1bc92f322edbacb69599f62",
+        "bytes": 878158
+      },
+      "asset-1024x1024-1-normal.png": {
+        "sha256": "d8d6693d1389311e852e5f03c444f3bd9075ec6b9cbe185a3c627527d620f495",
+        "bytes": 2971693
+      },
+      "asset-65x3-0-height.png": {
+        "sha256": "af43ee31e42ca9e4f90d0ab47c4ef51822f3bc5b791a74f6f9499f234fc268f0",
+        "bytes": 319
+      },
+      "asset-65x3-0-normal.png": {
+        "sha256": "67eaba40d296cb0988b4ddbfe01fa2128cecd4db654b88d4b969c5e6cf369e67",
+        "bytes": 271
+      },
+      "asset-65x3-0.25-height.png": {
+        "sha256": "956c68484b6dd5155fe8e064711b54c455093673d8a58fdb983de3aa47bbe291",
+        "bytes": 638
+      },
+      "asset-65x3-0.25-normal.png": {
+        "sha256": "0064ffc7097146f34e968016da69c319b41f05795e73b6b7ad1afa33687242f3",
+        "bytes": 781
+      },
+      "asset-65x3-0.5-height.png": {
+        "sha256": "5f71fecdcb556724f5bd8b6fe58a4761cac33144864b6af3ef525666d2ee92bf",
+        "bytes": 674
+      },
+      "asset-65x3-0.5-normal.png": {
+        "sha256": "48676169f56885a1a79dd5e21f276b10aa32b211c9b7d431c665d71515493dc8",
+        "bytes": 805
+      },
+      "asset-65x3-1-height.png": {
+        "sha256": "212f85fda585c1d1eeee11d6c93ee6e1df97029a1784ed3483c63be514a6b943",
+        "bytes": 678
+      },
+      "asset-65x3-1-normal.png": {
+        "sha256": "d595c893e03815e5eb9e14b39431825ed7e8324c926ff9ce7355d275e67d459f",
+        "bytes": 775
+      }
+    }
+  },
+  "retention": "Selected reports, contact and failure are retained in Git. Full originals, npm/Cargo archive bytes, complete logs and staging remain temporary local/CI artifacts; expiry is recorded. Hashes do not recover expired artifacts. Reproduction creates a new run."
+}
