@@ -449,6 +449,10 @@ pub struct RenderPlan {
     hash: PlanHash,
 }
 impl RenderPlan {
+    /// Source document schema version retained by the compiled plan.
+    pub fn document_version(&self) -> u32 {
+        self.data.document_version
+    }
     /// Selected external image identities, sorted by logical ID; never raw pixels.
     pub fn image_resources(&self) -> &[crate::ImageResource] {
         &self.data.image_resources

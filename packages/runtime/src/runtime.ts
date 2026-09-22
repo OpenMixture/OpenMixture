@@ -1,5 +1,7 @@
 import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, Inspection, ParameterValue, RenderRequest, RenderResult, RuntimeModule, SafetyLimits, ResourceLimits, ImageBinding, Source, ValidationResult } from './types.js';
 import type { BindingRequest, Bindings, Failure } from './bindings.js';
+import type { PackageLimits } from './types.js';
+import type { PackageBindingRequest, PreparedBinding, GpuBinding } from './bindings.js';
 
 const U32_MAX = 4294967295;
 const U64_MAX = 18446744073709551615n;
@@ -204,6 +206,41 @@ function sourceLimit(operation: string, configured: bigint, observed: bigint) {
     suggestion: 'Reduce the source or explicitly select a different safety policy.' }] });
 }
 
+function packageBudget(operation: string, name: keyof PackageLimits, configured: bigint, observed: bigint) {
+  if (observed <= configured) return;
+  throw new MixtureRuntimeError(operation, { diagnostics: [{code:'MIX_PACKAGE_LIMIT_EXCEEDED',stage:'package',severity:'error',
+    message:'Package budget exceeded.',evidence:{limit:name,configured,observed},suggestion:'Reduce the asset or choose a policy within the v1 ceilings.'}] });
+}
+
+function capturePackage(source: unknown, options: unknown, operation: string, safety: Readonly<SafetyLimits>, resources: Readonly<ResourceLimits>, ceilings: Readonly<PackageLimits>, render: boolean): [Uint8Array<ArrayBuffer>, PackageBindingRequest] {
+  const captured = record(options === undefined ? {} : options, operation, 'package options', render ? ['size','channels','overrides','limits','resourceLimits','packageLimits'] : ['limits','resourceLimits','packageLimits']);
+  const packageLimits = {...ceilings};
+  if ('packageLimits' in captured) {
+    for (const [key,value] of Object.entries(record(captured.packageLimits,operation,'packageLimits',Object.keys(ceilings)))) {
+      if (typeof value !== 'bigint' || value < 0n || value > U64_MAX) throw invalid(operation,'Package limits must be nonnegative u64 bigints');
+      packageBudget(operation,key as keyof PackageLimits,ceilings[key as keyof PackageLimits],value);
+      packageLimits[key as keyof PackageLimits] = value;
+    }
+  }
+  delete captured.packageLimits;
+  const request = captureRequest(captured,operation,safety,resources);
+  // Do not enumerate millions of indexed byte properties. Only intrinsic view
+  // state matters; reject caller-owned overrides without invoking accessors.
+  if (!(source instanceof Uint8Array) || Object.getPrototypeOf(source) !== Uint8Array.prototype) throw invalid(operation,'Package bytes must be an ordinary Uint8Array');
+  for (const key of ['buffer','byteOffset','byteLength','length','slice','subarray','set']) {
+    if (Object.getOwnPropertyDescriptor(source,key)) throw invalid(operation,'Package views cannot override intrinsic byte properties');
+  }
+  let view: Uint8Array<ArrayBuffer>;
+  try { view = imageBytes(source,operation); } catch { throw invalid(operation,'Package bytes must be a non-detached, non-shared, non-resizable ordinary view'); }
+  const length = BigInt(view.byteLength);
+  packageBudget(operation,'packageBytes',packageLimits.packageBytes,length);
+  packageBudget(operation,'packageBufferBytes',packageLimits.packageBufferBytes,2n*length);
+  let bytes: Uint8Array<ArrayBuffer>;
+  try { bytes = new Uint8Array(view.byteLength); Uint8Array.prototype.set.call(bytes,view); }
+  catch { throw new MixtureRuntimeError(operation,{diagnostics:[{code:'MIX_PACKAGE_ALLOCATION_FAILED',stage:'package',severity:'error',message:'Cannot allocate the accepted package snapshot.'}]}); }
+  return [bytes,{request,packageLimits}];
+}
+
 export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo): RuntimeModule {
   const actual = bindings.build_info();
   for (const key of ['buildId', 'apiSchemaVersion', 'runtimeVersion', 'engineVersion', 'engineRevision', 'engineDirty'] as const) {
@@ -211,6 +248,7 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
   }
   const defaultLimits = Object.freeze(bindings.default_limits());
   const defaultResources = Object.freeze(bindings.default_resource_limits());
+  const defaultPackages = Object.freeze(bindings.default_package_limits());
   function cpu(operation: 'inspect', source: Source, options?: RenderRequest): Inspection;
   function cpu(operation: 'validate', source: Source, options?: RenderRequest): ValidationResult;
   function cpu(operation: 'inspect' | 'validate', source: Source, options?: RenderRequest): ValidationResult {
@@ -228,6 +266,7 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
       catch (error) { if (error instanceof MixtureRuntimeError && error.diagnostics.length) return { ok: false, diagnostics: error.diagnostics }; throw error; }
     },
     inspect: (source, request) => cpu('inspect', source, request),
+    inspectPackage: (bytes, options) => boundary('inspectPackage', () => bindings.inspect_package(...capturePackage(bytes,options,'inspectPackage',defaultLimits,defaultResources,defaultPackages,false))),
     async createGpu(options = {}) {
       const captured = captureOptions(options, 'createGpu', ['powerPreference']);
       const power = captured.powerPreference ?? 'high-performance';
@@ -235,28 +274,32 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
       if (globalThis.isSecureContext !== true || !(globalThis.navigator as (Navigator & { gpu?: unknown }) | undefined)?.gpu) {
         throw browserError('createGpu', 'WEBGPU_UNAVAILABLE', 'WebGPU requires a supported browser and secure serving context');
       }
-      let low;
+      let low: GpuBinding;
       try { low = await bindings.create_gpu(power); }
       catch (error) { throw normalizeError('createGpu', error); }
       let closing = false;
       let active: Promise<RenderResult> | null = null;
       let destroyed: Promise<void> | null = null;
       const context = low.context_report();
+      function accept(operation: string, capture: () => PreparedBinding): Promise<RenderResult> {
+        if (closing) return Promise.reject(browserError(operation,'RUNTIME_DESTROYED','Runtime destruction has started'));
+        if (active) return Promise.reject(browserError(operation,'RUNTIME_BUSY','This runtime already has an accepted render'));
+        let prepared: PreparedBinding;
+        try { prepared = capture(); } catch (error) { return Promise.reject(normalizeError(operation,error)); }
+        active = Promise.resolve().then(() => low.render(prepared))
+          .catch(error => { throw normalizeError(operation,error); }).finally(() => { active = null; });
+        return active;
+      }
       return Object.freeze<GpuRuntime>({ context,
         render(source, options = {}) {
-          if (closing) return Promise.reject(browserError('render', 'RUNTIME_DESTROYED', 'Runtime destruction has started'));
-          if (active) return Promise.reject(browserError('render', 'RUNTIME_BUSY', 'This runtime already has an accepted render'));
-          let prepared;
-          try {
+          return accept('render', () => {
             const request = captureRequest(options, 'render', defaultLimits, defaultResources);
             const bytes = captureSource(source, request.limits.decodedBytes, 'render');
-            prepared = bindings.prepare_source(bytes, request);
-          } catch (error) { return Promise.reject(normalizeError('render', error)); }
-          // Acceptance and input capture precede the first asynchronous yield.
-          active = Promise.resolve().then(() => low.render(prepared))
-            .catch(error => { throw normalizeError('render', error); })
-            .finally(() => { active = null; });
-          return active;
+            return bindings.prepare_source(bytes, request);
+          });
+        },
+        renderPackage(bytes, options = {}) {
+          return accept('renderPackage', () => bindings.prepare_package(...capturePackage(bytes,options,'renderPackage',defaultLimits,defaultResources,defaultPackages,true)));
         },
         destroy() {
           if (destroyed) return destroyed;

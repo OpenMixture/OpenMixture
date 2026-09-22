@@ -3,6 +3,28 @@ use mixture_asset::{AssetLimits, AssetView, OwnedAsset, write};
 use mixture_core::{CompileRequest, ImageBinding, MaterialDocument, OutputChannel};
 
 const VALID: &[u8] = include_bytes!("../../../fixtures/packages/mixpack-v1/valid.mixpack");
+
+#[test]
+fn adapter_retained_bytes_share_the_codec_budget() {
+    let limits = AssetLimits::default();
+    let owned = OwnedAsset::from_vec(VALID.to_vec(), &limits).unwrap();
+    let required = owned.view().loading_buffer_bytes();
+    let mut exact = limits;
+    exact.package.package_buffer_bytes = VALID.len() as u64 + required;
+    let reserved = exact.with_retained_bytes(VALID.len() as u64).unwrap();
+    OwnedAsset::from_vec(VALID.to_vec(), &reserved).unwrap();
+    exact.package.package_buffer_bytes -= 1;
+    let reserved = exact.with_retained_bytes(VALID.len() as u64).unwrap();
+    assert_eq!(
+        OwnedAsset::from_vec(VALID.to_vec(), &reserved)
+            .unwrap_err()
+            .code(),
+        "MIX_PACKAGE_LIMIT_EXCEEDED"
+    );
+    assert!(limits.with_retained_bytes(u64::MAX).is_err());
+    exact.package.package_buffer_bytes = limits.package.package_buffer_bytes + 1;
+    assert!(exact.with_retained_bytes(1).is_err());
+}
 fn request(outputs: Vec<OutputChannel>) -> CompileRequest {
     CompileRequest {
         size: [2, 2],

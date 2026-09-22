@@ -1,6 +1,7 @@
 //! Thin command dispatch and presentation for Mixture.
 
 mod commands {
+    pub mod asset;
     mod compile_options;
     pub mod doctor;
     mod document_io;
@@ -26,6 +27,7 @@ Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
        mixture render <file.mix> --out <directory> [--json] [--size 64]
                       [--output baseColor,...] [--set publicId=<JSON>]
        mixture --help
+       mixture asset pack|inspect|render --help
        mixture --version
 
 Doctor verifies checker compute/readback; --skip-probe reports unverified.
@@ -54,6 +56,7 @@ fn main() -> ExitCode {
         [command, rest @ ..] if command == OsStr::new("render") => commands::render::run(rest),
         [command, rest @ ..] if command == OsStr::new("inspect") => commands::inspect::run(rest),
         [command, rest @ ..] if command == OsStr::new("validate") => commands::validate::run(rest),
+        [command, rest @ ..] if command == OsStr::new("asset") => commands::asset::run(rest),
         _ => {
             eprintln!("Invalid or unimplemented command.\n\n{HELP}");
             ExitCode::from(2)

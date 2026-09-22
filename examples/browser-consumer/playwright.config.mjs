@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   testMatch: process.env.MIXTURE_RESOURCE_TESTS !== '0' ? '*.spec.mjs' : 'sdk.spec.mjs',
+  testIgnore: process.env.MIXTURE_ASSET_TESTS === '1' ? [] : ['assets.spec.mjs'],
   workers: 1,
   retries: 0,
   timeout: 60_000,

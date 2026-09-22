@@ -26,6 +26,7 @@ const POLICY: &[(&str, &[&str])] = &[
         "mixture-cli",
         &[
             "mixture-core",
+            "mixture-asset",
             "mixture-wgpu",
             "pollster",
             "serde_json",
@@ -41,6 +42,7 @@ const POLICY: &[(&str, &[&str])] = &[
         "mixture-wasm",
         &[
             "mixture-core",
+            "mixture-asset",
             "mixture-wgpu",
             "serde",
             "serde_json",
@@ -200,6 +202,7 @@ mod tests {
         let mut metadata = baseline();
         metadata["workspace_members"] = json!([
             "mixture-core",
+            "mixture-asset",
             "mixture-wgpu",
             "mixture-cli",
             "xtask",

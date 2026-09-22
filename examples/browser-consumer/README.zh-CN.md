@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](../../docs/m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+
 ENG-03 提供引擎自有的小型 Vite／TypeScript 示例，仅使用 `@openmixture/runtime` 公开入口。它加载自带 `.mix`、覆盖公开参数、选择通道、通过 WebGPU 渲染，并在 `finally` 中销毁 GPU 实例。显示像素在销毁后仍由调用方持有。不依赖 Studio，不导入引擎源码，不需要 Rust 编译步骤，不添加其他渲染器或产品编辑器。
 
 ## 运行已发布包

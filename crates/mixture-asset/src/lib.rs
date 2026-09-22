@@ -141,6 +141,10 @@ impl<'a> AssetView<'a> {
     pub fn resources(&self) -> &[Resource] {
         &self.parsed.manifest.resources
     }
+    /// Retained archive capacity plus conservative source/manifest scratch.
+    pub fn loading_buffer_bytes(&self) -> u64 {
+        self.owned_bytes + self.parsed.scratch()
+    }
     /// Borrow the packed bytes of one logical resource.
     pub fn image(&self, id: &str) -> Option<&[u8]> {
         self.resources()

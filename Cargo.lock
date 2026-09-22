@@ -450,6 +450,7 @@ dependencies = [
 name = "mixture-cli"
 version = "0.5.0"
 dependencies = [
+ "mixture-asset",
  "mixture-core",
  "mixture-wgpu",
  "png",
@@ -472,6 +473,7 @@ name = "mixture-wasm"
 version = "0.5.0"
 dependencies = [
  "js-sys",
+ "mixture-asset",
  "mixture-core",
  "mixture-wgpu",
  "serde",

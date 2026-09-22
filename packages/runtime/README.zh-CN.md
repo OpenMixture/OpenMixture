@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](../../docs/m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+
 这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.3.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
 
 ```ts

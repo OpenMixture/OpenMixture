@@ -2,6 +2,8 @@
 
 English | [简体中文](./development.zh-CN.md)
 
+**M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+
 M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
 
 ## Foundation, diagnostics, and GPU context status
@@ -76,9 +78,9 @@ For the M5 browser start, the only allowed direct dependency edges in the produc
 | `mixture-core` | Runtime `serde`, `serde_json` with `float_roundtrip`, and `sha2` |
 | `mixture-asset` | Core and existing `serde`, `serde_json`, `sha2`; CPU-only byte codec |
 | `mixture-wgpu` | Workspace `mixture-core`, `wgpu`, `serde`, `half`; browser-target-only `futures-channel`, `web-time`; dev-only `pollster`, `serde_json`, `naga` |
-| `mixture-cli` | Workspace `mixture-core`, `mixture-wgpu`, `pollster`, `serde`, `serde_json`, `png` |
+| `mixture-cli` | Workspace `mixture-core`, `mixture-asset`, `mixture-wgpu`, `pollster`, `serde`, `serde_json`, `png` |
 | `xtask` | `pulldown-cmark`, `serde_json`, `png`, `serde`, `sha2` |
-| `mixture-wasm` | Workspace `mixture-core`, `mixture-wgpu`, `serde`, `serde_json`; `wasm-bindgen`, `wasm-bindgen-futures`, `js-sys`, `serde-wasm-bindgen` |
+| `mixture-wasm` | Workspace `mixture-core`, `mixture-asset`, `mixture-wgpu`, `serde`, `serde_json`; `wasm-bindgen`, `wasm-bindgen-futures`, `js-sys`, `serde-wasm-bindgen` |
 
 Core uses `serde` for typed source data, diagnostics, and limits; PR-005 promotes the already-locked `serde_json` to a runtime dependency for strict bounded decoding and deterministic serialization. Its `float_roundtrip` feature fixes a reproduced one-bit numeric drift across source round trips; no new package or dependency version is needed. PR-006 adds `sha2` for stable SHA-256 plan hashing; its dependency closure is added to the lockfile without upgrading existing packages. The tooling uses `pulldown-cmark` to parse Markdown and `serde_json` to read Cargo metadata. Only `mixture-wgpu` directly depends on `wgpu`; `serde` encodes capability reports. `pollster` drives async acquisition at the CLI/test boundary, while `serde_json` formats CLI reports and test assertions. `half` decodes GPU half-float readback; dev-only `naga` validates WGSL without a GPU. CLI `png` encodes images, and tooling `png` decodes them for golden comparison. Core remains GPU-free. The native backend feature policy is documented in [the GPU guide](./gpu-context.md). PR-008 adds only existing workspace `serde` and `sha2` as direct tooling dependencies for strict acceptance records and candidate integrity, with no package/version additions or upgrades. All resolved dependency versions are recorded in [Cargo.lock](../Cargo.lock).
 

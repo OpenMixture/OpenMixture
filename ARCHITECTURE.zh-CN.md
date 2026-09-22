@@ -742,4 +742,4 @@ M6A-02 已实现 Core 资源语义和计划 v2。[M6A-03](./docs/m6a-03-native-r
 M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵，并在 ADR 0007 明确补充范围。保留的 Windows 硬件一致性失败尚未解决；不改变像素语义或数值门槛。
 ## M6B-03 可移植输入边界
 
-[ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。M6B-03 实现可选 crate 与共用 Core 辅助函数；当前仅 Native 消费者依赖 codec，CLI/WASM 适配属 M6B-04。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。
+[ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。M6B-03 实现可选 crate 与共用 Core 辅助函数。[M6B-04](./docs/m6b-04-adapters.zh-CN.md)将 CLI 文件 I/O 与 WASM 字节传输接到同一 codec，均准备 Core 拥有的快照并复用 wgpu；适配器持有字节与 codec 共用预算，包括 JS 和 Rust 两份包副本。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。

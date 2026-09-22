@@ -10,7 +10,7 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 ## Current direction — Post-Alpha
 
-**M6B-03 implemented:** [shared CPU codec](./docs/m6b-03-cpu-assets.md) provides canonical USTAR writing, borrowed/owned loading, integrity/closure checks and Core preparation, with independent Native/archive ownership and budget coverage. Source advances to unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Next is **M6B-04 CLI/browser adapters**; combined pixel qualification remains M6B-05.
+**M6B-04 implemented:** [CLI/browser adapters](./docs/m6b-04-adapters.md) share the CPU codec, with explicit file authoring/inspection/rendering and bounded public byte APIs. Rust 0.5.0 / browser 0.5.0-alpha.0 remain unpublished. Next: **M6B-05 qualification and closeout**.
 
 **M6-B started, 2026-09-22:** the maintainer selected portable asset packaging as the next main increment. [M6B-01](./docs/m6b-portable-assets.md) establishes the measured offline-delivery gap and the M6B-02–05 format/implementation/qualification sequence. This kickoff does not implement a loader, select a binary format or publish a package.
 
@@ -21,7 +21,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | M6-B: M6B-01/02 design and M6B-03 CPU codec are implemented on the review branch. Next M6B-04 adapters, then M6B-05 qualification. |
+| Active increment | M6-B: M6B-01/02 design, M6B-03 codec and M6B-04 adapters are implemented on the review branch. Next M6B-05 qualification. |
 | Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
 | Conditional candidates | Decide native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 

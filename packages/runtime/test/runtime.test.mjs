@@ -6,10 +6,47 @@ const policy = { decodedBytes: 2097152n, nodes: 128n, edges: 512n, exposedParame
 const resourcePolicy = { resourceCount: 8n, resourcePixels: 16777216n, resourceBytes: 67108864n };
 const captureRequest = (options, operation) => captureWithLimits(options, operation, policy, resourcePolicy);
 const build = { runtimeVersion: 'test', apiSchemaVersion: 1, engineVersion: 'test', engineRevision: null, engineDirty: false, buildId: 'test' };
-const defaults = { default_resource_limits: () => ({ ...resourcePolicy }),
+const defaults = { default_package_limits: () => ({packageBytes:70254592n,manifestBytes:65536n,packageBufferBytes:211812352n}), default_resource_limits: () => ({ ...resourcePolicy }),
   prepare_source: (bytes, request) => structuredClone({ bytes, request }), default_limits: () => ({ ...policy }), build_info: () => ({ ...build }), node_catalog: () => [],
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
+
+test('package input capture checks views and both transfer buffers before binding entry', () => {
+  let calls=0, observed;
+  const module=createRuntimeModule({...defaults,inspect_package(bytes,options){calls++;observed={bytes,options};return {}; }},build);
+  const buffer=new Uint8Array([9,1,2,3,9]);const view=buffer.subarray(1,4);
+  module.inspectPackage(view,{packageLimits:{packageBytes:3n,packageBufferBytes:6n}});
+  buffer.fill(0);assert.deepEqual([...observed.bytes],[1,2,3]);assert.equal(observed.bytes.byteOffset,0);assert.equal(calls,1);
+  for(const options of [{packageLimits:{packageBytes:2n}},{packageLimits:{packageBufferBytes:5n}},{packageLimits:{manifestBytes:65537n}}]) {
+    assert.throws(()=>module.inspectPackage(new Uint8Array(3),options),e=>e.code==='MIX_PACKAGE_LIMIT_EXCEEDED');
+  }
+  let getters=0;
+  const hostile=new Uint8Array(3);Object.defineProperty(hostile,'byteOffset',{get(){getters++;return 0;}});
+  for(const bytes of [hostile,new Uint8Array(new SharedArrayBuffer(3)),new Uint8Array(new ArrayBuffer(3,{maxByteLength:6})),new Uint16Array(3),'url',new Proxy(new Uint8Array(3),{})]) assert.throws(()=>module.inspectPackage(bytes),invalid);
+  const detached=new Uint8Array(3);structuredClone(detached.buffer,{transfer:[detached.buffer]});assert.throws(()=>module.inspectPackage(detached),invalid);
+  for(const options of [{get packageLimits(){getters++;return {};}},{packageLimits:{get packageBytes(){getters++;return 3n;}}},{packageLimits:{packageBytes:3}},{resources:[]},{size:[2,2]}]) assert.throws(()=>module.inspectPackage(new Uint8Array(3),options),invalid);
+  assert.equal(getters,0);assert.equal(calls,1);
+});
+
+test('package preparation is synchronous, shares busy/destroy, and recovers after rejection', async () => {
+  const secure=Object.getOwnPropertyDescriptor(globalThis,'isSecureContext'),navigator=Object.getOwnPropertyDescriptor(globalThis,'navigator');
+  Object.defineProperty(globalThis,'isSecureContext',{value:true,configurable:true});Object.defineProperty(globalThis,'navigator',{value:{gpu:{}},configurable:true});
+  try {
+    let captures=0,received,settle,released=0;
+    const module=createRuntimeModule({...defaults,prepare_package(bytes,options){captures++;if(bytes[0]===0)throw {diagnostics:[{code:'MIX_PACKAGE_INVALID',stage:'package',severity:'error',message:'bad'}]};return {bytes:bytes.slice(),options:structuredClone(options)};},create_gpu:async()=>({context_report:()=>({}),render:input=>{received=input;return new Promise(resolve=>{settle=resolve;});},destroy(){released++;},free(){}})},build);
+    const gpu=await module.createGpu();await assert.rejects(gpu.renderPackage(new Uint8Array([0])),e=>e.code==='MIX_PACKAGE_INVALID');
+    const bytes=new Uint8Array([1,2]),options={size:[2,2],overrides:{weight:0.25}};
+    const pending=gpu.renderPackage(bytes,options);bytes.fill(9);options.size[0]=1;options.overrides.weight=1;
+    let getters=0;const hostile={get size(){getters++;return [1,1];}};
+    await assert.rejects(gpu.renderPackage(new Uint8Array(),hostile),e=>e.code==='MIX_BROWSER_RUNTIME_BUSY');
+    await assert.rejects(gpu.render('{}',hostile),e=>e.code==='MIX_BROWSER_RUNTIME_BUSY');
+    assert.equal(captures,2);assert.equal(getters,0);assert.deepEqual([...received.bytes],[1,2]);assert.deepEqual(received.options.request.size,[2,2]);
+    assert.equal(JSON.parse(received.options.request.overridesJson).weight,0.25);
+    const destroyed=gpu.destroy();assert.equal(gpu.destroy(),destroyed);
+    await assert.rejects(gpu.renderPackage(new Uint8Array(),hostile),e=>e.code==='MIX_BROWSER_RUNTIME_DESTROYED');assert.equal(captures,2);assert.equal(getters,0);
+    settle({channels:[]});await pending;await destroyed;assert.equal(released,1);
+  }finally{for(const [key,value] of [['isSecureContext',secure],['navigator',navigator]])if(value)Object.defineProperty(globalThis,key,value);else delete globalThis[key];}
+});
 
 test('errors without diagnostics or a browser failure have no code', () => {
   assert.equal(new MixtureRuntimeError('render', {}).code, undefined);

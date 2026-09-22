@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**M6B-04 (2026-09-22):** [CLI/browser asset adapters](../../docs/m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+
 A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. The published Alpha is `@openmixture/runtime@0.3.0-alpha.0`; see the [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha) for exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0`. It adds no TypeScript renderer, hidden device, worker or fallback.
 
 ```ts

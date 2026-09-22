@@ -32,6 +32,8 @@ test('archive paths cannot escape the installed package', () => {
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
+  assertBrowserReport({...report,stats:{...report.stats,expected:15}},'candidate');
+  assert.throws(()=>assertBrowserReport(report,'candidate'));
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
   }
@@ -69,7 +71,7 @@ test('ENG-04 native and browser hosts consume the same source fixture', async ()
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
-  assertBrowserReport(report, 'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:15}}, 'candidate');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
   assertBrowserReport(report, 'registry');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));

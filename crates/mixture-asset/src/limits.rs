@@ -31,6 +31,14 @@ pub struct AssetLimits {
     pub resources: ResourceLimits,
 }
 impl AssetLimits {
+    /// Check policy and account for simultaneously retained adapter buffers.
+    /// Returned policy reserves that charge before the codec allocates or captures.
+    pub fn with_retained_bytes(self, bytes: u64) -> Result<Self, AssetError> {
+        let mut limits = self.checked()?;
+        limits.buffers(bytes)?;
+        limits.package.package_buffer_bytes -= bytes;
+        Ok(limits)
+    }
     pub(crate) fn checked(mut self) -> Result<Self, AssetError> {
         let max = PackageLimits::default();
         limit(

@@ -42,6 +42,8 @@ jobs:
           node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs
       - name: Build the actual npm archive
         run: node scripts/browser-runtime/build.mjs
+      - name: Verify public CPU package loading in actual WASM
+        run: node scripts/browser-runtime/check-assets.mjs
       - name: Retain package and build identity
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:

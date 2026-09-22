@@ -2,6 +2,8 @@
 
 English | [简体中文](./m6b-portable-assets.zh-CN.md)
 
+**M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+
 Status: M6-B explicitly started by the maintainer on 2026-09-22. This first slice establishes a reproducible delivery problem, bounded requirements and the implementation sequence. It does not implement a loader, select a binary format, change an architecture boundary, or publish a package. The next slice is M6B-02 format/ownership selection. All API and command names for future work remain unimplemented until their owning PR lands.
 
 ## First consumer outcome

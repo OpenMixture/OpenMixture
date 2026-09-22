@@ -2,6 +2,8 @@
 
 [English](./development.md) | 简体中文
 
+**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](./m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+
 M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
 
 ## 基础工程、诊断与 GPU 上下文状态
@@ -76,9 +78,9 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 | `mixture-core` | 运行时使用 `serde`、启用 `float_roundtrip` 的 `serde_json` 及 `sha2` |
 | `mixture-asset` | Core 及已有 `serde`、`serde_json`、`sha2`；纯 CPU 字节 codec |
 | `mixture-wgpu` | 工作区内的 `mixture-core`、`wgpu`、`serde`、`half`；仅浏览器目标使用 `futures-channel`、`web-time`；仅开发时使用 `pollster`、`serde_json`、`naga` |
-| `mixture-cli` | 工作区内的 `mixture-core`、`mixture-wgpu`、`pollster`、`serde`、`serde_json`、`png` |
+| `mixture-cli` | 工作区内的 `mixture-core`、`mixture-asset`、`mixture-wgpu`、`pollster`、`serde`、`serde_json`、`png` |
 | `xtask` | `pulldown-cmark`、`serde_json`、`png`、`serde`、`sha2` |
-| `mixture-wasm` | 工作区内的 `mixture-core`、`mixture-wgpu`、`serde`、`serde_json`；`wasm-bindgen`、`wasm-bindgen-futures`、`js-sys`、`serde-wasm-bindgen` |
+| `mixture-wasm` | 工作区内的 `mixture-core`、`mixture-asset`、`mixture-wgpu`、`serde`、`serde_json`；`wasm-bindgen`、`wasm-bindgen-futures`、`js-sys`、`serde-wasm-bindgen` |
 
 核心使用 `serde` 处理类型化源数据、诊断和限制；PR-005 将已锁定的 `serde_json` 提升为运行时依赖，用于严格有界解码与确定性序列化。`float_roundtrip` 特性修复了已复现的源数据往返一位浮点偏差；不需要新增包或依赖版本。PR-006 添加 `sha2` 用于稳定 SHA-256 计划哈希，将其依赖闭包加入锁文件，不升级已有包。工具使用 `pulldown-cmark` 解析 Markdown，使用 `serde_json` 读取 Cargo 元数据。只有 `mixture-wgpu` 直接依赖 `wgpu`，其 `serde` 用于编码能力报告。`pollster` 在 CLI／测试边界驱动异步获取，`serde_json` 用于 CLI 报告和测试断言。`half` 解码 GPU 半精度回读，开发依赖 `naga` 在无 GPU 环境验证 WGSL。CLI 的 `png` 编码图像，工具的 `png` 解码图像用于基准比较。核心仍不依赖 GPU。原生后端特性策略见 [GPU 指南](./gpu-context.zh-CN.md)。PR-008 仅将现有工作区 `serde` 和 `sha2` 加为工具直接依赖，用于严格验收记录及候选完整性，没有新增或升级软件包／版本。全部已解析依赖版本记录在 [Cargo.lock](../Cargo.lock) 中。
 
