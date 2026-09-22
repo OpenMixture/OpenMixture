@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "workItem": "M6B-04",
+  "pullRequest": "https://github.com/OpenMixture/OpenMixture/pull/44",
+  "source": {
+    "commit": "3fef6093f186e56b2d1311722ccb03711df69dd8",
+    "dirty": false,
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+    "node": "v24.21.0",
+    "os": "Windows-11-10.0.26100-SP0",
+    "arch": "AMD64",
+    "sha256": {
+      "Cargo.lock": "72cad9ad1b2574bcfd666d1dd9ddeb9a5741c4849c57e3636153a96865cc80e8",
+      "rust-toolchain.toml": "c910997cb152c6dc8ed13b1fdf9fa28a4ed30d6776123e27dd6170e5c66067a0",
+      "examples/browser-consumer/package-lock.json": "da3260d7087692fef06fca2c2d3215e328caddbbf7333e8d818dd246e4b1f6da",
+      "examples/browser-consumer/public/asset.mix": "ca3996221ac0be990e76c1c5797c1ef0b2812e1e726e5bf7de4085525cc2b91a",
+      "examples/browser-consumer/public/asset.mixpack": "6dc66adfab06c5ae7a0e8ea7edc989d33c00f817e04354d70e5ae20a4c38f0b7",
+      "examples/browser-consumer/tests/assets.spec.mjs": "81c2e7cc93786b14a768f5c0ac3c1fe65d03af5915d9fb29503d8a3f89d81f6e",
+      "examples/native-consumer/tests/cli_contract.rs": "6092d9e4ab6c232dc28effd4cf5cc91a630b3b40fb66d8de0be51b2b0e534df3"
+    }
+  },
+  "run": {
+    "origin": "local",
+    "recordedAt": "2026-09-22T09:17:31.624911+00:00",
+    "timezone": "Asia/Shanghai",
+    "ciStatus": "Pending at record creation; not claimed as accepted."
+  },
+  "checks": {
+    "cargo xtask check": "passed (format, dependency policy, clippy, tests, source consumers, isolated archives, docs and links)",
+    "npm test --prefix packages/runtime": "9 passed including type contracts",
+    "node --test scripts/browser-runtime/consumer.test.mjs": "6 passed",
+    "publicWasmCorpus": 22,
+    "nativeCliInvocations": 15,
+    "browser": {
+      "startTime": "2026-09-22T09:13:07.925Z",
+      "duration": 11796.925,
+      "expected": 15,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "native": {
+    "policy": {
+      "backend": "dx12",
+      "software": false
+    },
+    "adapter": {
+      "backend": "Dx12",
+      "device": 7425,
+      "deviceType": "DiscreteGpu",
+      "driver": "32.0.15.8266",
+      "driverInfo": "",
+      "name": "NVIDIA GeForce GT 1030",
+      "vendor": 4318
+    },
+    "size": [
+      65,
+      3
+    ],
+    "channels": [
+      "height"
+    ],
+    "planHash": "sha256:e775f2dd21dbe1874e45584ff6bf10b7e5a2c624ce01c5933146ee5b473fae09",
+    "expectedRgba": [
+      128,
+      128,
+      128,
+      255
+    ],
+    "all195PixelsExact": true,
+    "allocations": {
+      "cumulativeBytes": 6196,
+      "liveBytes": 0,
+      "peakBytes": 6196,
+      "peakStagingBytes": 3840,
+      "releasedBytes": 6196,
+      "resourceCount": 1,
+      "resourceStagingBytes": 1536,
+      "resourceTextureBytes": 780,
+      "resourceUploadBytes": 780,
+      "reusedBytes": 0,
+      "stagingBytes": 3840,
+      "stagingCount": 2,
+      "textureBytes": 2340,
+      "textureCount": 2,
+      "uniformBytes": 16,
+      "uniformCount": 1
+    }
+  },
+  "browser": {
+    "channel": "chrome",
+    "args": [
+      "--enable-unsafe-webgpu",
+      "--ignore-gpu-blocklist"
+    ],
+    "toolchain": {
+      "npm": "11.19.0",
+      "playwright": "1.63.0",
+      "vite": "8.3.0",
+      "typescript": "5.9.3"
+    },
+    "startedAt": "2026-09-22T09:12:42.540Z",
+    "finishedAt": "2026-09-22T09:13:19.766Z",
+    "evidence": {
+      "failures": [
+        "MIX_PACKAGE_RESOURCE_OVERRIDE",
+        "MIX_PACKAGE_LIMIT_EXCEEDED"
+      ],
+      "busy": "MIX_BROWSER_RUNTIME_BUSY",
+      "closing": "MIX_BROWSER_RUNTIME_DESTROYED",
+      "sameDestroy": true,
+      "hash": "sha256:e775f2dd21dbe1874e45584ff6bf10b7e5a2c624ce01c5933146ee5b473fae09",
+      "looseHash": "sha256:e775f2dd21dbe1874e45584ff6bf10b7e5a2c624ce01c5933146ee5b473fae09",
+      "adapter": {
+        "name": "",
+        "deviceType": "Other",
+        "backend": "BrowserWebGpu",
+        "vendor": 0,
+        "device": 0,
+        "driver": "",
+        "driverInfo": ""
+      },
+      "allocations": {
+        "resourceCount": "1",
+        "resourceUploadBytes": "780",
+        "resourceTextureBytes": "780",
+        "resourceStagingBytes": "1536",
+        "textureCount": "2",
+        "textureBytes": "2340",
+        "uniformCount": "1",
+        "uniformBytes": "16",
+        "stagingCount": "2",
+        "stagingBytes": "3840",
+        "peakStagingBytes": "3840",
+        "cumulativeBytes": "6196",
+        "peakBytes": "6196",
+        "liveBytes": "0",
+        "releasedBytes": "6196",
+        "reusedBytes": "0"
+      },
+      "package": "6dc66adfab06c5ae7a0e8ea7edc989d33c00f817e04354d70e5ae20a4c38f0b7",
+      "buffers": {
+        "jsPackageBytes": "4608",
+        "rustPackageBytes": "4608",
+        "chargedBytes": "10077"
+      }
+    }
+  },
+  "package": {
+    "build": {
+      "runtimeVersion": "0.5.0-alpha.0",
+      "apiSchemaVersion": 2,
+      "engineVersion": "0.5.0",
+      "engineRevision": "3fef6093f186e56b2d1311722ccb03711df69dd8",
+      "engineDirty": false,
+      "buildId": "sha256:dc370a1fc8bd984aff1afe459435cbf9e69d1c1c5476e12c33a9f84f5fd023d6"
+    },
+    "archive": "openmixture-runtime-0.5.0-alpha.0.tgz",
+    "bytes": 437335,
+    "sha256": "c4a6feb2bf6d26ae4b6fe609f426afab66d8da7404b40ab9581c9f7ef9bda216",
+    "wasmSha256": "050dd2a310b610847a4854df6b93a50b7cb5ff335745f12cae0233256f0d78c9"
+  },
+  "largeInspection": {
+    "gpuAcquired": false,
+    "ledgerOnlyNotRss": true,
+    "measurements": [
+      {
+        "file": "tmp/m6b04-large/normal.mixpack",
+        "report": {
+          "schemaVersion": 1,
+          "packageVersion": 1,
+          "packageSha256": "9cb1823dd74ba45684212cde543ae4fca64e38333033b6c286e5c28b90d4a15c",
+          "packageBytes": "4197888",
+          "sourceSha256": "ca1f27bd6adcb9e3c2864c375ea8aeb2410d91f551841b47d593b215732b3a8d",
+          "sourceBytes": "471",
+          "resources": [
+            {
+              "id": "Input",
+              "path": "images/0000.rgba",
+              "width": 1024,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "4096",
+              "byteLength": "4194304",
+              "contentDigest": "bd5a3d1bdc61359f3b707b17a98f05120d548d635dde171f5771e88e404886d1"
+            }
+          ],
+          "buffers": {
+            "jsPackageBytes": "4197888",
+            "rustPackageBytes": "4197888",
+            "chargedBytes": "8396646"
+          }
+        }
+      },
+      {
+        "file": "tmp/m6b04-large/maximum.mixpack",
+        "report": {
+          "schemaVersion": 1,
+          "packageVersion": 1,
+          "packageSha256": "4d91028c952c99f8e6f8e08d0398521b7c726880e0ca31aabec8216085c6fa38",
+          "packageBytes": "67118592",
+          "sourceSha256": "14c37e81424e30d20bd1d2f73ce988ec72b1adc4b34752995d84b1ce5539cc0a",
+          "sourceBytes": "1073",
+          "resources": [
+            {
+              "id": "Input",
+              "path": "images/0000.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input1",
+              "path": "images/0001.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input2",
+              "path": "images/0002.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input3",
+              "path": "images/0003.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input4",
+              "path": "images/0004.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input5",
+              "path": "images/0005.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input6",
+              "path": "images/0006.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            },
+            {
+              "id": "Input7",
+              "path": "images/0007.rgba",
+              "width": 2048,
+              "height": 1024,
+              "format": "rgba8-linear",
+              "bytesPerRow": "8192",
+              "byteLength": "8388608",
+              "contentDigest": "fa6d07da8eca8371080a0f4c94f5451c28f0fc397bf1eae71a0b9eb41fc9f9f1"
+            }
+          ],
+          "buffers": {
+            "jsPackageBytes": "67118592",
+            "rustPackageBytes": "67118592",
+            "chargedBytes": "134240169"
+          }
+        }
+      }
+    ]
+  },
+  "failedAttempt": {
+    "browserChannel": "chromium",
+    "error": "browserType.launch: spawn UNKNOWN",
+    "testsExpected": 15,
+    "failedBeforePageExecution": 14,
+    "nonBrowserBuildTestPassed": 1,
+    "localReport": "tmp/m6b04-browser-consumer/test-results/report.json",
+    "reportSha256": "5a331e9b71236339d195129150688a7508e90121480749711319f8f929378983"
+  },
+  "scope": "Adapter implementation verification only. M6B-05 combined package/material matrix, six-check closeout and publication are not accepted by this receipt.",
+  "retention": "This summary retains decisive measurements; executable fixtures/tests are tracked. Full logs, archives, pixels, staging and large generated inputs are ignored local artifacts with no promised retention. Reproduction produces a new run."
+}

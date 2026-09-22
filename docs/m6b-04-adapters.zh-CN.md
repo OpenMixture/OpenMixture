@@ -67,3 +67,5 @@ node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/m
 CPU WASM 验证器仅导入构建后的公共包，检查全部 22 个格式语料及精确传输预算；包目录参数后可追加大归档路径以测量实际复制。报告为 `tmp/m6b04-wasm-assets.json`。独立浏览器 fixture 为 [asset.mix](../examples/browser-consumer/public/asset.mix) 与 [asset.mixpack](../examples/browser-consumer/public/asset.mixpack)：65×3 原始像素重复 `[128,37,91,255]`，以上述 CLI 命令、ID `Input` 打包。height 输出须重复 `[128,128,128,255]`，包/散装计划哈希须一致。
 
 候选浏览器验收运行 15 项，新增 CPU 包检查及真实 WebGPU 生命周期/所有权/预算渲染；registry 0.3.0-alpha.0 保留 13 项，因为已发布版本没有包 API。Native 源码与隔离归档 CLI 消费者打包/移动/检查资产，在获取 GPU 前拒绝坏包；现有显式 GPU 消费套件额外检查包像素。原材质门禁仍须通过。完整四权重、非对称对照、重复装载、Native/browser 包矩阵及六检查收尾仍属 M6B-05。不包含发布、Studio 修改、节点迁移或平台支持扩展。
+
+本地结果及精确被测版本见[验证记录](./evidence/m6b-04/README.zh-CN.md)。
