@@ -740,3 +740,7 @@ ENG-04 adds scalar-blend v1: twelve node types map to ten WGSL kernels. Renderer
 M6A-02 implements Core resource semantics and plan v2. [M6A-03](./docs/m6a-03-native-resources.md) adds public prepared-resource execution, per-render RGBA8 uploads and accounting through the sole wgpu executor. Existing twelve-node pixel semantics remain unchanged. [M6A-04](./docs/m6a-04-browser-resources.md) adds synchronous browser capture through Core adapter byte sources and the same prepared executor. Final image qualification remains M6A-05.
 
 M6A-05 [qualification](./docs/evidence/m6a-05/README.md) closes the recorded Linux software matrix, with an explicit ADR 0007 scope addendum. The retained Windows hardware parity failure remains unresolved; no pixel semantics or numerical gates change.
+
+## NUM-01 versioned value-noise arithmetic
+
+[Stable value noise](./docs/stable-noise.md) adds fractal-noise v2 with Q0.24 value evaluation in the existing WGSL kernel. The catalog still has thirteen types/eleven kernels; v1 and cellular behavior remain available. Explicit node version and StableValue lowering distinguish hashes without changing .mix v1 or plan/API schema 2. The unpublished 0.4 candidate and migrated material sources require their own qualification.

@@ -9,3 +9,7 @@ cargo xtask test-node fractal-noise
 ```
 
 See [the contract](../../../docs/node-contracts.md), [cases](./cases.json), and [input](./input.mix). Tests validate invalid cases before GPU work, preserve golden files, and save actual adapter/plan evidence under `tmp/node-tests/<backend>/`. The shader is the only pixel implementation.
+
+## Version 2
+
+[NUM-01](../../../docs/stable-noise.md) adds `stable.mix`, small rectangular/boundary cases and a separate exact `stable-defaults-129x65.rgba`. The new baseline was captured on Windows GT 1030 Vulkan and is checked with zero tolerance on every adapter, including pinned software CI. Original v1 baselines are unchanged. Production arithmetic is tested against independent u64/f64 operations, and both versions retain seed/cache/octave invariants.

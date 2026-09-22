@@ -172,6 +172,8 @@ pub enum KernelId {
 pub enum NoiseBasis {
     /// Quintic-interpolated periodic lattice values.
     Value,
+    /// Version 2 value noise with deterministic Q0.24 evaluation and rounding.
+    StableValue,
     /// Gap between nearest two jittered-cell distances in a wrapped 3x3 neighborhood.
     Cellular,
 }

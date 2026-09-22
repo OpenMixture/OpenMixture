@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "tiles",
+      "type": "checker",
+      "version": 1,
+      "parameters": {
+        "cellsX": 8,
+        "cellsY": 8,
+        "colorA": [
+          0.72,
+          0.78,
+          0.73,
+          1.0
+        ],
+        "colorB": [
+          0.025,
+          0.12,
+          0.17,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "glaze",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.82,
+          0.9,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "finish",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "screen",
+        "opacity": 0.12
+      }
+    },
+    {
+      "id": "roughness",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.2
+      }
+    },
+    {
+      "id": "gloss-range",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "outputMin": 0.05,
+        "outputMax": 0.65
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "tiles",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "finish",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "glaze",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "finish",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "finish",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "roughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "gloss-range",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "gloss-range",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "tilesX",
+      "nodeId": "tiles",
+      "parameterId": "cellsX"
+    },
+    {
+      "id": "tilesY",
+      "nodeId": "tiles",
+      "parameterId": "cellsY"
+    },
+    {
+      "id": "glaze",
+      "nodeId": "finish",
+      "parameterId": "opacity"
+    },
+    {
+      "id": "roughness",
+      "nodeId": "roughness",
+      "parameterId": "value"
+    }
+  ]
+}

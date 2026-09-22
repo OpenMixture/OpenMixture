@@ -18,7 +18,7 @@ for (const name of ['fractal-noise', 'height-to-normal']) {
 const replay = replayPath ? (await readFile(replayPath)).toString('base64') : null;
 const parameters = JSON.parse(process.env.MIXTURE_NUMERICAL_PARAMETERS ?? '[29,32,4,0,1056964608,0,0,0]');
 if (!Array.isArray(parameters) || parameters.length !== 8 || parameters.some(v=>!Number.isInteger(v) || v<0 || v>0xffffffff)
-    || parameters[1]<1 || parameters[1]>128 || parameters[2]<1 || parameters[2]>6 || parameters[3]>1
+    || parameters[1]<1 || parameters[1]>128 || parameters[2]<1 || parameters[2]>6 || parameters[3]>2
     || parameters[4]>0x3f800000) throw Error('invalid diagnostic parameters');
 if (process.env.MIXTURE_NUMERICAL_SHADER) shaders['fractal-noise'] = await readFile(process.env.MIXTURE_NUMERICAL_SHADER, 'utf8');
 const server = createServer((_req, res) => res.end('<!doctype html><title>Mixture numerical probe</title>'));

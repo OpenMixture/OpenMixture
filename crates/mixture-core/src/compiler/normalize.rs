@@ -2,7 +2,7 @@
 use super::*;
 use crate::{
     MaterialDocument,
-    registry::{ParameterKind, node_contract},
+    registry::{ParameterKind, node_contract_version},
 };
 use serde_json::json;
 
@@ -58,7 +58,7 @@ pub fn normalize(
         else {
             return Err(invariant("Validated override target node is missing."));
         };
-        let Some(parameter) = node_contract(&node.type_id)
+        let Some(parameter) = node_contract_version(&node.type_id, node.version)
             .and_then(|contract| contract.parameter(&binding.parameter_id))
         else {
             return Err(invariant("Validated override target parameter is missing."));
@@ -91,7 +91,7 @@ pub fn normalize(
         return Err(as_compile_error(&report, document, request));
     }
     for node in &mut source.nodes {
-        let contract = node_contract(&node.type_id)
+        let contract = node_contract_version(&node.type_id, node.version)
             .ok_or_else(|| invariant("Validated node contract is missing."))?;
         for parameter in contract.parameters {
             let value = node

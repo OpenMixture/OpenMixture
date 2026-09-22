@@ -12,6 +12,8 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 ## Current direction — Post-Alpha
 
+**NUM-01, in progress:** the maintainer authorized explicit noise-semantic migration and material requalification. [Stable value noise](./docs/stable-noise.md) implements `fractal-noise@2` in the unpublished 0.4 candidate, with committed migrated material inputs and unchanged quality gates. This is implementation/qualification work, not publication or acceptance of the old 0.3 hardware route.
+
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).
 
 Maintain one main feature increment plus necessary maintenance. ENG-01–04 are complete; their outcomes and acceptance boundaries are retained under completed milestones below, not queued for another implementation round.

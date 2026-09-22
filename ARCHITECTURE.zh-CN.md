@@ -740,3 +740,7 @@ ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Ren
 M6A-02 已实现 Core 资源语义和计划 v2。[M6A-03](./docs/m6a-03-native-resources.zh-CN.md)通过唯一 wgpu 执行器增加公开准备资源执行、每次渲染 RGBA8 上传及计数。现有十二种节点像素语义不变。[M6A-04](./docs/m6a-04-browser-resources.zh-CN.md)通过 Core 适配字节源同步捕获浏览器图像，并复用准备资源执行器。最终图像资格仍属 M6A-05。
 
 M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵，并在 ADR 0007 明确补充范围。保留的 Windows 硬件一致性失败尚未解决；不改变像素语义或数值门槛。
+
+## NUM-01 版本化 value-noise 算术
+
+[稳定 value noise](./docs/stable-noise.zh-CN.md)在现有 WGSL kernel 中增加 fractal-noise v2 的 Q0.24 value 计算。目录仍有十三种类型/十一个 kernel，v1 与 cellular 行为继续可用。显式节点版本和 StableValue 降低区分哈希，不改变 .mix v1 或 plan/API schema 2。未发布的 0.4 候选和迁移材质源码需独立验收。

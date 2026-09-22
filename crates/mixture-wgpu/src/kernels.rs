@@ -158,6 +158,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             let basis = match basis {
                 NoiseBasis::Value => 0,
                 NoiseBasis::Cellular => 1,
+                NoiseBasis::StableValue => 2,
             };
             let mut bytes: Vec<_> = [*seed, *scale, *octaves, basis]
                 .into_iter()

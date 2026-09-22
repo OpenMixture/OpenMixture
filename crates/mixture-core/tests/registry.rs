@@ -14,7 +14,7 @@ fn registry_matches_reviewed_type_versions() {
             ("checker", 1),
             ("constant-color", 1),
             ("constant-scalar", 1),
-            ("fractal-noise", 1),
+            ("fractal-noise", 2),
             ("gradient-map", 1),
             ("height-to-normal", 1),
             ("image-input", 1),

@@ -167,7 +167,7 @@ fn main() {
         .unwrap_or([29, 32, 4, 0, 0.5f32.to_bits(), 0, 0, 0]);
     assert!((1..=128).contains(&parameters[1]));
     assert!((1..=6).contains(&parameters[2]));
-    assert!(parameters[3] <= 1);
+    assert!(parameters[3] <= 2);
     assert!((0.0..=1.0).contains(&f32::from_bits(parameters[4])));
     std::fs::write(
         output.join("parameters.json"),
