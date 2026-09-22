@@ -8,6 +8,8 @@ English | [简体中文](./ROADMAP.zh-CN.md)
 
 This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.md) retains the first delivery, support limits and defect handoff. [INITIAL_PRS](./INITIAL_PRS.md), [M4_PRS](./M4_PRS.md) and [M5_PRS](./M5_PRS.md) retain historical implementation plans; their former next steps are not current execution instructions.
 
+**Windows numerical investigation, 2026-09-22:** [Reproduction and isolation](./docs/evidence/windows-numerics/README.md) locate the recorded resource-normal failure upstream in noise arithmetic/half rounding; identical-height normal replay is exact. An FMA-only experiment still fails a legal scale and is not a runtime fix. Hardware qualification remains open; a numerical/version decision is the next prerequisite for a semantic repair.
+
 ## Current direction — Post-Alpha
 
 OpenMixture independently chooses scope, priority, acceptance and release cadence. Work may originate from approved milestones, maintainer-defined engine use cases, measurements, regressions or external issues. Downstream requests are planning inputs, not a prerequisite for engine work. Studio owns its upgrades, product acceptance, deployment and user trials under the [project boundary](./AGENTS.md).

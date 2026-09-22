@@ -8,6 +8,8 @@
 
 本页负责当前引擎优先级。[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付、支持限制及缺陷交接。[INITIAL_PRS](./INITIAL_PRS.zh-CN.md)、[M4_PRS](./M4_PRS.zh-CN.md) 和 [M5_PRS](./M5_PRS.zh-CN.md)保留历史实施计划，其中当时的下一步不再作为当前执行指令。
 
+**Windows 数值调查，2026-09-22：** [复现与隔离](./docs/evidence/windows-numerics/README.zh-CN.md)将已记录的资源法线失败定位至上游噪声算术/半精度舍入，相同高度重算法线完全一致。仅改 FMA 的实验仍在合法 scale 上失败，不是运行时修复。硬件验收仍未关闭，语义修复之前需先决定数值与版本契约。
+
 ## 当前方向 — Post-Alpha
 
 OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可以来自批准的里程碑、维护者定义的引擎用例、测量、回归或外部 issue。下游需求是规划输入，不是引擎工作的前置条件。依据[项目边界](./AGENTS.zh-CN.md)，Studio 自行负责升级、产品验收、部署和用户试用。

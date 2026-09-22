@@ -1,0 +1,179 @@
+{
+  "kind": "diagnostic-not-qualification",
+  "noiseChangedPixels": 9,
+  "noise": [
+    {
+      "x": 590,
+      "y": 190,
+      "nativeBits": 14648,
+      "browserBits": 14647,
+      "native": 0.65234375,
+      "browser": 0.65185546875
+    },
+    {
+      "x": 704,
+      "y": 223,
+      "nativeBits": 14455,
+      "browserBits": 14454,
+      "native": 0.55810546875,
+      "browser": 0.5576171875
+    },
+    {
+      "x": 547,
+      "y": 249,
+      "nativeBits": 13202,
+      "browserBits": 13201,
+      "native": 0.236572265625,
+      "browser": 0.2364501953125
+    },
+    {
+      "x": 428,
+      "y": 403,
+      "nativeBits": 13993,
+      "browserBits": 13992,
+      "native": 0.416259765625,
+      "browser": 0.416015625
+    },
+    {
+      "x": 509,
+      "y": 460,
+      "nativeBits": 13919,
+      "browserBits": 13918,
+      "native": 0.398193359375,
+      "browser": 0.39794921875
+    },
+    {
+      "x": 303,
+      "y": 508,
+      "nativeBits": 13684,
+      "browserBits": 13683,
+      "native": 0.3408203125,
+      "browser": 0.340576171875
+    },
+    {
+      "x": 330,
+      "y": 694,
+      "nativeBits": 14008,
+      "browserBits": 14007,
+      "native": 0.419921875,
+      "browser": 0.419677734375
+    },
+    {
+      "x": 324,
+      "y": 763,
+      "nativeBits": 13836,
+      "browserBits": 13837,
+      "native": 0.3779296875,
+      "browser": 0.378173828125
+    },
+    {
+      "x": 845,
+      "y": 965,
+      "nativeBits": 13954,
+      "browserBits": 13955,
+      "native": 0.40673828125,
+      "browser": 0.406982421875
+    }
+  ],
+  "normal": {
+    "rawChanged": 81,
+    "changedComponents": 39,
+    "maxComponentDelta": 8,
+    "overLimit": [
+      {
+        "x": 591,
+        "y": 190,
+        "component": 0,
+        "a": 171,
+        "b": 167,
+        "delta": 4
+      },
+      {
+        "x": 590,
+        "y": 191,
+        "component": 0,
+        "a": 69,
+        "b": 72,
+        "delta": 3
+      },
+      {
+        "x": 590,
+        "y": 191,
+        "component": 1,
+        "a": 236,
+        "b": 238,
+        "delta": 2
+      },
+      {
+        "x": 590,
+        "y": 191,
+        "component": 2,
+        "a": 161,
+        "b": 159,
+        "delta": 2
+      },
+      {
+        "x": 703,
+        "y": 223,
+        "component": 0,
+        "a": 161,
+        "b": 169,
+        "delta": 8
+      },
+      {
+        "x": 703,
+        "y": 223,
+        "component": 1,
+        "a": 9,
+        "b": 12,
+        "delta": 3
+      },
+      {
+        "x": 705,
+        "y": 223,
+        "component": 1,
+        "a": 71,
+        "b": 69,
+        "delta": 2
+      },
+      {
+        "x": 704,
+        "y": 224,
+        "component": 0,
+        "a": 209,
+        "b": 205,
+        "delta": 4
+      },
+      {
+        "x": 704,
+        "y": 224,
+        "component": 1,
+        "a": 222,
+        "b": 225,
+        "delta": 3
+      },
+      {
+        "x": 429,
+        "y": 403,
+        "component": 0,
+        "a": 94,
+        "b": 90,
+        "delta": 4
+      },
+      {
+        "x": 303,
+        "y": 507,
+        "component": 1,
+        "a": 121,
+        "b": 119,
+        "delta": 2
+      }
+    ]
+  },
+  "sameInputNormal": {
+    "rawChanged": 0,
+    "changedComponents": 0,
+    "maxComponentDelta": 0,
+    "overLimit": []
+  }
+}
