@@ -437,8 +437,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "mixture-asset"
+version = "0.5.0"
+dependencies = [
+ "mixture-core",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "mixture-cli"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "mixture-core",
  "mixture-wgpu",
@@ -450,7 +460,7 @@ dependencies = [
 
 [[package]]
 name = "mixture-core"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -459,7 +469,7 @@ dependencies = [
 
 [[package]]
 name = "mixture-wasm"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "js-sys",
  "mixture-core",
@@ -473,7 +483,7 @@ dependencies = [
 
 [[package]]
 name = "mixture-wgpu"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "futures-channel",
  "half",
@@ -1341,7 +1351,7 @@ dependencies = [
 
 [[package]]
 name = "xtask"
-version = "0.3.0"
+version = "0.5.0"
 dependencies = [
  "png",
  "pulldown-cmark",

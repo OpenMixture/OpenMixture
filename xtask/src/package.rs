@@ -10,7 +10,12 @@ use std::{
     process::{Command, Output},
     time::{SystemTime, UNIX_EPOCH},
 };
-const PACKAGES: [&str; 3] = ["mixture-core", "mixture-wgpu", "mixture-cli"];
+const PACKAGES: [&str; 4] = [
+    "mixture-core",
+    "mixture-asset",
+    "mixture-wgpu",
+    "mixture-cli",
+];
 const APP: &str = "mixture-native-consumer";
 type Policy<'a> = (&'a str, bool, Option<&'a str>);
 
@@ -249,13 +254,13 @@ fn names(metadata: &Value) -> TaskResult<BTreeMap<String, &Value>> {
 }
 fn validate_resolution(metadata: &Value, lab: &Path, version: &str) -> TaskResult {
     let packages = names(metadata)?;
-    if packages.len() != 4
+    if packages.len() != PACKAGES.len() + 1
         || metadata["workspace_members"]
             .as_array()
-            .is_none_or(|m| m.len() != 4)
+            .is_none_or(|m| m.len() != PACKAGES.len() + 1)
     {
         return Err(
-            "isolated workspace must contain three archived packages and the independent consumer"
+            "isolated workspace must contain four archived packages and the independent consumer"
                 .into(),
         );
     }
@@ -445,6 +450,8 @@ fn verify(
                 "-p",
                 "mixture-core",
                 "-p",
+                "mixture-asset",
+                "-p",
                 "mixture-wgpu",
                 "-p",
                 "mixture-cli",
@@ -524,7 +531,7 @@ fn verify(
     )?;
     let mut manifest = fs::read_to_string(root.join("examples/native-consumer/Cargo.toml"))?;
     manifest = replace_once(&manifest, "[workspace]\n", "")?;
-    for name in ["mixture-core", "mixture-wgpu"] {
+    for name in ["mixture-core", "mixture-asset", "mixture-wgpu"] {
         manifest = replace_once(
             &manifest,
             &format!("{name} = {{ path = \"../../crates/{name}\" }}"),
@@ -537,7 +544,7 @@ fn verify(
         .chain(PACKAGES.map(|name| format!("packages/{name}-{version}")))
         .collect();
     let workspace = format!(
-        "[workspace]\nmembers = {}\nresolver = \"3\"\n\n[patch.crates-io]\nmixture-core = {{ path = \"packages/mixture-core-{version}\" }}\nmixture-wgpu = {{ path = \"packages/mixture-wgpu-{version}\" }}\n",
+        "[workspace]\nmembers = {}\nresolver = \"3\"\n\n[patch.crates-io]\nmixture-core = {{ path = \"packages/mixture-core-{version}\" }}\nmixture-asset = {{ path = \"packages/mixture-asset-{version}\" }}\nmixture-wgpu = {{ path = \"packages/mixture-wgpu-{version}\" }}\n",
         serde_json::to_string(&members)?
     );
     fs::write(lab.join("Cargo.toml"), &workspace)?;
@@ -582,7 +589,7 @@ fn verify(
     let target = root.join("target/package-consumer");
     // Archives preserve old mtimes. A shared target can otherwise reuse a prior
     // local crate at the same version despite different extracted source bytes.
-    // Rebuild the four local packages, retaining only external dependency caches.
+    // Rebuild the five local packages, retaining only external dependency caches.
     capture(
         cargo(lab)
             .args([
@@ -593,6 +600,8 @@ fn verify(
                 APP,
                 "-p",
                 "mixture-core",
+                "-p",
+                "mixture-asset",
                 "-p",
                 "mixture-wgpu",
                 "-p",
@@ -828,7 +837,7 @@ mod tests {
             "dependencies":[{"name":"mixture-core","req":"=0.1.0","source":"registry+https://github.com/rust-lang/crates.io-index"}],
             "targets":[{"src_path":if name==APP{lab.join("consumer/src/main.rs")}else{lab.join(format!("packages/{name}-0.1.0/src/lib.rs"))}}]
         })).collect();
-        json!({"packages":packages,"workspace_members":["a","b","c","d"]})
+        json!({"packages":packages,"workspace_members":PACKAGES.into_iter().chain([APP]).collect::<Vec<_>>()})
     }
     #[test]
     fn resolution_rejects_registry_fallback_producer_paths_and_wrong_versions() {

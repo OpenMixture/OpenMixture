@@ -10,7 +10,7 @@ This page owns current engine priorities. [Alpha closeout](./docs/browser-alpha.
 
 ## Current direction — Post-Alpha
 
-**M6B-02 selected design:** [format, Rust ownership and memory budgets](./docs/m6b-package-format.md) are specified in ADR 0008 with measured alternatives and a malformed-input corpus. Next is **M6B-03 shared CPU loader/writer**; no runtime codec or release is claimed by design completion.
+**M6B-03 implemented:** [shared CPU codec](./docs/m6b-03-cpu-assets.md) provides canonical USTAR writing, borrowed/owned loading, integrity/closure checks and Core preparation, with independent Native/archive ownership and budget coverage. Source advances to unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Next is **M6B-04 CLI/browser adapters**; combined pixel qualification remains M6B-05.
 
 **M6-B started, 2026-09-22:** the maintainer selected portable asset packaging as the next main increment. [M6B-01](./docs/m6b-portable-assets.md) establishes the measured offline-delivery gap and the M6B-02–05 format/implementation/qualification sequence. This kickoff does not implement a loader, select a binary format or publish a package.
 
@@ -21,7 +21,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Rust 0.3.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | M6-B: M6B-01 entry and M6B-02 format/ownership/budget design are recorded. Next implement the shared CPU loader/writer in M6B-03 under ADR 0008; adapters and qualification follow separately. |
+| Active increment | M6-B: M6B-01/02 design and M6B-03 CPU codec are implemented on the review branch. Next M6B-04 adapters, then M6B-05 qualification. |
 | Current qualification | [M6A-05 evidence](./docs/evidence/m6a-05/README.md) binds the software matrix, archive, six checks, reviewed pixels and unresolved hardware failure. |
 | Conditional candidates | Decide native distribution, graph reuse and GPU interop separately against concrete problems. Measurements or regressions drive performance and numerical maintenance; these are not a mandatory serial feature chain. |
 

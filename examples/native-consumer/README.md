@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+M6B-03: the [shared CPU asset codec](../../docs/m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
+
 This application has its own Cargo workspace, lockfile and [input.mix](./input.mix). It imports only the public `mixture-core` and `mixture-wgpu` crates, plus `serde_json` for reports and `pollster` to drive native futures. It has no direct wgpu dependency, private imports or producer-owned runtime assets. The two path dependencies locate public source crates; PR-015 separately verifies [actual local archive consumption](../../docs/package-consumption.md).
 
 ## CPU check

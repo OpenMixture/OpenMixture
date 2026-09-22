@@ -25,32 +25,7 @@ pub(crate) fn compile<D: crate::resources::ImageData>(
         .ok_or_else(|| invariant("Validated material output is missing."))?;
     let mut channels = request.outputs.clone();
     channels.sort();
-    let mut pending = Vec::new();
-    for channel in &channels {
-        if let Some(InputSource::Connected { from }) =
-            normalized.inner.input_source(&sink.id, channel.as_str())
-        {
-            pending.push(from.node_id);
-        }
-    }
-    let mut selected = BTreeSet::new();
-    while let Some(id) = pending.pop() {
-        if !selected.insert(id.clone()) {
-            continue;
-        }
-        let node = nodes
-            .get(id.as_str())
-            .ok_or_else(|| invariant("Selected node is missing."))?;
-        let contract = node_contract(&node.type_id)
-            .ok_or_else(|| invariant("Selected contract is missing."))?;
-        for port in contract.inputs {
-            if let Some(InputSource::Connected { from }) =
-                normalized.inner.input_source(&node.id, port.id)
-            {
-                pending.push(from.node_id);
-            }
-        }
-    }
+    let selected = selected_nodes(normalized, request)?;
     let snapshots =
         crate::resources::capture(normalized, request, bindings, resource_limits, &selected)?;
     // Dependencies are sets of producer nodes, so binding one producer twice
@@ -447,4 +422,50 @@ fn estimates(
         cumulative_bytes: add(resident, cumulative_readback_bytes)?,
         peak_bytes: add(resident, readback_buffer_bytes)?,
     })
+}
+
+pub(crate) fn selected_nodes(
+    normalized: &NormalizedDocument,
+    request: &CompileRequest,
+) -> Result<BTreeSet<String>, CompileError> {
+    let document = normalized.document();
+    let nodes: BTreeMap<_, _> = document
+        .nodes
+        .iter()
+        .map(|node| (node.id.as_str(), node))
+        .collect();
+    let sink = document
+        .nodes
+        .iter()
+        .find(|node| node.type_id == "material-output")
+        .ok_or_else(|| invariant("Validated material output is missing."))?;
+    let mut channels = request.outputs.clone();
+    channels.sort();
+    let mut pending = Vec::new();
+    for channel in &channels {
+        if let Some(InputSource::Connected { from }) =
+            normalized.inner.input_source(&sink.id, channel.as_str())
+        {
+            pending.push(from.node_id);
+        }
+    }
+    let mut selected = BTreeSet::new();
+    while let Some(id) = pending.pop() {
+        if !selected.insert(id.clone()) {
+            continue;
+        }
+        let node = nodes
+            .get(id.as_str())
+            .ok_or_else(|| invariant("Selected node is missing."))?;
+        let contract = node_contract(&node.type_id)
+            .ok_or_else(|| invariant("Selected contract is missing."))?;
+        for port in contract.inputs {
+            if let Some(InputSource::Connected { from }) =
+                normalized.inner.input_source(&node.id, port.id)
+            {
+                pending.push(from.node_id);
+            }
+        }
+    }
+    Ok(selected)
 }

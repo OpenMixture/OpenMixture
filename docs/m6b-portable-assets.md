@@ -6,7 +6,9 @@ Status: M6-B explicitly started by the maintainer on 2026-09-22. This first slic
 
 ## First consumer outcome
 
-**M6B-02 update:** [format/ownership/budget selection](./m6b-package-format.md) and [ADR 0008](./decisions/0008-portable-assets.md) now select canonical uncompressed USTAR, a separate optional Rust CPU codec boundary and explicit buffer limits. Measured alternatives and malformed-input fixtures are retained. The next implementation slice is M6B-03; no loader exists yet. The kickoff statements above describe M6B-01 historically.
+**M6B-03 update:** the [shared CPU codec](./m6b-03-cpu-assets.md) now implements deterministic writing, borrowed/owned loading and Core preparation. Kickoff statements below remain historical; CLI/browser package APIs await M6B-04 and pixel qualification awaits M6B-05.
+
+**M6B-02 historical update:** [format/ownership/budget selection](./m6b-package-format.md) and [ADR 0008](./decisions/0008-portable-assets.md) now select canonical uncompressed USTAR, a separate optional Rust CPU codec boundary and explicit buffer limits. Measured alternatives and malformed-input fixtures are retained. The next implementation slice is M6B-03; no loader exists yet. The kickoff statements above describe M6B-01 historically.
 
 A caller can move **one offline asset** containing one unchanged `.mix v1` document and its existing `rgba8-linear` height resources to a different directory or machine. A Native public consumer and the browser public package can inspect it without a GPU, then prepare the same content-bound plan and render through the existing wgpu path. The recipient supplies bytes and rendering options; no author-machine paths, companion-file search, URLs, service account or network resolution is required. CLI file handling is an adapter over the same loader, not another implementation.
 

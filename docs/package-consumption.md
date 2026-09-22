@@ -2,6 +2,8 @@
 
 English | [简体中文](./package-consumption.zh-CN.md)
 
+M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
+
 PR-015 implements `cargo xtask package-check`. It creates actual local Cargo archives, verifies them outside the producing repository, builds the independent Rust consumer and the CLI from those archives, and exercises their CPU contracts. Explicit `gpu-smoke` repeats package verification and adds real packaged GPU/CLI consumption. This establishes the local M4 package gate without publishing a crate or distributing a binary. [Acceptance evidence](./evidence/pr-015/README.md) records the exact runs.
 
 ## Archive and dependency boundary

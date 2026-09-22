@@ -2,7 +2,7 @@
 
 [English](./m6b-package-format.md) | 简体中文
 
-**2026-09-22 选定设计；M6B-03/04 尚待实现。** [ADR 0008](./decisions/0008-portable-assets.zh-CN.md)与本契约完成 [M6-B](./m6b-portable-assets.zh-CN.md) 的格式选择切片。集成接受设计，不表示装载器可用或已发布。本 PR 不改变产品 API、crate、依赖或版本。
+**M6B-03 实现更新：** [共享 Rust CPU codec](./m6b-03-cpu-assets.zh-CN.md)已落地。以下为 M6B-02 选定的字节/所有权契约；CLI/浏览器适配与综合验收仍待 M6B-04/05。设计 PR 未改代码，实现 PR 引入新 crate 和 0.5 版本。
 
 ## 选择与证据
 
@@ -53,11 +53,11 @@ ZIP 对照依据 [PKWARE 规范](https://pkware.cachefly.net/webdocs/casestudies
 
 合法请求把完整已验证绑定表交给现有 `prepare`；Core 使用当前切片规则，验证已提供但未用的绑定，仅哈希/捕获所选资源，并保留缺失/未知/尺寸规则。包路径与松散源码加相同完整绑定表必须有相同计划哈希、分配和各后端像素。包闭包比松散可选绑定更严格，在通道切片前检查。
 
-## Rust 所有权与拟定公共边界
+## Rust 所有权与公共边界
 
-在 **M6B-03 引入 `mixture-asset`**，本次不创建。这是可选的公共 CPU codec/API 依赖边界：`mixture-core` 使用者无需编译或信任归档解码器；Native 消费者和 `mixture-wasm` 需要同一 codec，不能把它放在 CLI、JS 或生成绑定中。依赖为 `mixture-asset -> mixture-core` 及已有 workspace serde/serde_json/sha2；`mixture-cli`、`mixture-wasm -> mixture-asset`。Core/wgpu 不反向依赖 asset。此 crate 不拥有文件系统、浏览器、GPU、异步 worker 或进程全局状态。Core 只暴露可复用资源元数据/摘要/引用辅助函数；包错误与归档策略不进入 Core。
+**M6B-03 已引入 `mixture-asset`**，见上述实现指南。这是可选的公共 CPU codec/API 依赖边界：`mixture-core` 使用者无需编译或信任归档解码器；Native 消费者和 `mixture-wasm` 需要同一 codec，不能把它放在 CLI、JS 或生成绑定中。依赖为 `mixture-asset -> mixture-core` 及已有 workspace serde/serde_json/sha2；M6B-04 计划增加 `mixture-cli`、`mixture-wasm -> mixture-asset`。Core/wgpu 不反向依赖 asset。此 crate 不拥有文件系统、浏览器、GPU、异步 worker 或进程全局状态。Core 只暴露可复用资源元数据/摘要/引用辅助函数；包错误与归档策略不进入 Core。
 
-拟定 API 角色（尚不可调用）：不可变借用 `AssetView<'a>` 验证归档并暴露只读条目切片；自有资产保留一份移动或受检复制的缓冲区。检查操作无 GPU 地验证全部完整性/闭包。准备同步调用 Core，返回现有 `PreparedRender`，其所选快照独立于 view 生存。Rust 借用防止检查/准备期间修改，view 不得超出来源生命周期。Native writer 接受已验证源码/绑定，哈希输入，一次保留检查过的最终尺寸并确定性写入；不采用倍增缓冲区或文件系统遍历。writer/loader 共用 manifest 模型，不共写图执行。
+API 角色（Rust 已可调用）：不可变借用 `AssetView<'a>` 验证归档并暴露只读条目切片；自有资产保留一份移动或受检复制的缓冲区。检查操作无 GPU 地验证全部完整性/闭包。准备同步调用 Core，返回现有 `PreparedRender`，其所选快照独立于 view 生存。Rust 借用防止检查/准备期间修改，view 不得超出来源生命周期。Native writer 接受已验证源码/绑定，哈希输入，一次保留检查过的最终尺寸并确定性写入；不采用倍增缓冲区或文件系统遍历。writer/loader 共用 manifest 模型，不共写图执行。
 
 浏览器适配在任何 await 前同步捕获已接受 Uint8Array 与选项，拒绝共享/可调整大小/已分离/accessor 输入、非法 offset/length，不做类型强转，然后转移到 Rust 自有字节。busy/closing 拒绝先于复制。保守地把 JS 与 Rust 两份包同时和 Core 所选快照计入预算，不依赖 JS 及时 GC。准备完成后、GPU 执行前释放传输包缓冲区；`PreparedRender`/输出生命周期和销毁遵循既有契约。浏览器创作 UI 和任意文件解包不在范围内。
 
@@ -87,4 +87,4 @@ ZIP 对照依据 [PKWARE 规范](https://pkware.cachefly.net/webdocs/casestudies
 
 外层包版本 1；`.mix v1`、显式节点版本、计划 v2、API schema 2 不变。包检查有独立报告 schema 1。现有浏览器 API 保留，包 API 为新增。实现目标是高于 0.3 和独立 0.4 维护候选的下一未发布次版本：**Rust 0.5.0 / browser 0.5.0-alpha.0**。M6B-03 在改版本前须核对远端/源码版本占用，若冲突，以文档选择下一个 minor，不能重用版本/字节。本次不授权发布。
 
-[已提交二进制 fixture](../fixtures/packages/mixpack-v1/cases.json)包含标准工具可读的合法资产及畸形/版本/哈希/路径/尺寸/重复负例。错误码是契约预期，**不是 Rust 解析测试已通过**；解析器尚未实现。M6B-03 补齐全部语料回归、源码/哈希不符、零/等值/超限、完整闭包、每个头字段、各边界溢出/截断、借用/自有生命周期、确定性与独立 tar 读取。M6B-04 覆盖浏览器复制预算、offset view、修改、busy/destroy/拒绝；M6B-05 比较松散/打包计划和像素、四权重、65×3、打包 Native/browser 消费者、已有材质及六项 CI。保留 v1/噪声历史，包验收不扩展数值支持范围。
+[已提交二进制 fixture](../fixtures/packages/mixpack-v1/cases.json)包含标准工具可读的合法资产及畸形/版本/哈希/路径/尺寸/重复负例。这些契约预期现由 M6B-03 Rust 回归测试执行，覆盖全部语料回归、源码/哈希不符、零/等值/超限、完整闭包、每个头字段、各边界溢出/截断、借用/自有生命周期、确定性与独立 tar 读取。M6B-04 覆盖浏览器复制预算、offset view、修改、busy/destroy/拒绝；M6B-05 比较松散/打包计划和像素、四权重、65×3、打包 Native/browser 消费者、已有材质及六项 CI。保留 v1/噪声历史，包验收不扩展数值支持范围。

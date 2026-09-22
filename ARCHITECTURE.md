@@ -717,9 +717,9 @@ A change requires an architecture decision record when it introduces or changes:
 
 An ADR must include context, decision, alternatives, consequences, migration, and verification. It must also update this document when the accepted decision changes a normative rule.
 
-## M6B-02 selected portable input boundary — implementation pending
+## M6B-03 portable input boundary
 
-[ADR 0008](./docs/decisions/0008-portable-assets.md) selects [canonical uncompressed USTAR assets](./docs/m6b-package-format.md) and authorizes an optional `mixture-asset` public CPU codec crate in M6B-03. It depends on Core; CLI and WASM depend on the codec, while Core/wgpu never do. The codec owns bounded archive bytes, manifest/integrity and package diagnostics, not graph/resource semantics, filesystem extraction or pixel execution. Core supplies reusable resource metadata/digest/reference helpers; wgpu remains unchanged. No crate or dependency is added by the design PR. This narrowly enables producer-owned input transport outside Core; existing exclusions of editor/export/ZIP responsibilities from Core remain.
+[ADR 0008](./docs/decisions/0008-portable-assets.md) selects [canonical uncompressed USTAR assets](./docs/m6b-package-format.md) and authorizes an optional `mixture-asset` public CPU codec crate in M6B-03. It depends on Core; CLI and WASM depend on the codec, while Core/wgpu never do. The codec owns bounded archive bytes, manifest/integrity and package diagnostics, not graph/resource semantics, filesystem extraction or pixel execution. Core supplies reusable resource metadata/digest/reference helpers; wgpu remains unchanged. M6B-03 implements the optional crate and shared Core helpers; only Native consumers depend on the codec so far. CLI/WASM adapters follow in M6B-04. This narrowly enables producer-owned input transport outside Core; existing exclusions of editor/export/ZIP responsibilities from Core remain.
 
 ## PR-010 measured resampling slice
 

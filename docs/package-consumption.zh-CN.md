@@ -2,6 +2,8 @@
 
 [English](./package-consumption.md) | 简体中文
 
+M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
+
 PR-015 实现 `cargo xtask package-check`：生成真实本地 Cargo 归档，在生产仓库外验证，从归档构建独立 Rust 消费者和 CLI，并执行 CPU 契约。显式 `gpu-smoke` 重复包验证，并添加真实软件包 GPU／CLI 消费。这完成本地 M4 包门槛，不发布 crate 或分发二进制。[验收证据](./evidence/pr-015/README.zh-CN.md)记录确切运行。
 
 ## 归档与依赖边界

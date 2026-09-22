@@ -19,7 +19,7 @@ const integrity = bytes => `sha512-${createHash('sha512').update(bytes).digest('
 
 export function candidateManifests(manifest, lock, version, bytes) {
   const published = '0.3.0-alpha.0';
-  assert.equal(version, '0.3.0-alpha.0', 'review the candidate compatibility contract before upgrading');
+  assert.equal(version, '0.5.0-alpha.0', 'review the candidate compatibility contract before upgrading');
   assert.equal(manifest.dependencies['@openmixture/runtime'], published, 'example must pin the exact published version');
   assert.equal(lock.lockfileVersion, 3);
   assert.equal(lock.packages[''].dependencies['@openmixture/runtime'], published);

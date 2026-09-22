@@ -6,7 +6,9 @@
 
 ## 首个消费者目标
 
-**M6B-02 更新：** [格式/所有权/预算选择](./m6b-package-format.zh-CN.md)及 [ADR 0008](./decisions/0008-portable-assets.zh-CN.md)现选定规范未压缩 USTAR、独立可选 Rust CPU codec 边界与明确缓冲上限，替代方案测量及畸形输入 fixture 已留存。下一实现切片为 M6B-03，装载器尚未实现；上文启动状态保留 M6B-01 历史描述。
+**M6B-03 更新：** [共享 CPU codec](./m6b-03-cpu-assets.zh-CN.md)现已实现，提供确定性写入、借用/拥有装载和 Core 准备。下面的启动记录保留历史；CLI/浏览器包 API 尚待 M6B-04，像素验收尚待 M6B-05。
+
+**M6B-02 历史更新：** [格式/所有权/预算选择](./m6b-package-format.zh-CN.md)及 [ADR 0008](./decisions/0008-portable-assets.zh-CN.md)现选定规范未压缩 USTAR、独立可选 Rust CPU codec 边界与明确缓冲上限，替代方案测量及畸形输入 fixture 已留存。下一实现切片为 M6B-03，装载器尚未实现；上文启动状态保留 M6B-01 历史描述。
 
 调用方能把包含一份不变的 `.mix v1` 文档及其现有 `rgba8-linear` 高度资源的**单个离线资产**搬到另一个目录或机器。Native 公共消费者与浏览器公共包能在无 GPU 时检查它，随后准备相同的内容绑定计划，通过现有 wgpu 路径渲染。接收方提供字节和渲染选项，不需要作者机器路径、伴随文件搜索、URL、服务账号或网络解析。CLI 文件处理是相同装载器的适配层，不另写一套实现。
 

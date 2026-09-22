@@ -50,6 +50,10 @@ const POLICY: &[(&str, &[&str])] = &[
             "serde-wasm-bindgen",
         ],
     ),
+    (
+        "mixture-asset",
+        &["mixture-core", "serde", "serde_json", "sha2"],
+    ),
 ];
 
 pub(super) fn check(root: &Path) -> TaskResult {
@@ -64,7 +68,7 @@ pub(super) fn check(root: &Path) -> TaskResult {
         .into());
     }
     validate(&serde_json::from_slice(&output.stdout)?)?;
-    println!("Dependency policy passed (five unpublished crates, wgpu confined to mixture-wgpu).");
+    println!("Dependency policy passed (six unpublished crates, wgpu confined to mixture-wgpu).");
     Ok(())
 }
 
@@ -87,7 +91,7 @@ fn validate(metadata: &Value) -> TaskResult {
     }
     if actual.len() != POLICY.len() || members.len() != POLICY.len() {
         return Err(
-            "The M5 workspace requires exactly mixture-core, mixture-wgpu, mixture-cli, mixture-wasm, and xtask".into(),
+            "The M6-B workspace requires exactly mixture-core, mixture-asset, mixture-wgpu, mixture-cli, mixture-wasm, and xtask".into(),
         );
     }
     for (name, allowed) in POLICY {
@@ -96,7 +100,7 @@ fn validate(metadata: &Value) -> TaskResult {
             .ok_or_else(|| format!("missing workspace crate: {name}"))?;
         if !package["publish"].as_array().is_some_and(Vec::is_empty) {
             return Err(format!(
-                "{name}: Cargo publication must remain disabled during the M5 browser implementation"
+                "{name}: Cargo publication must remain disabled during qualification"
             )
             .into());
         }
@@ -224,7 +228,7 @@ mod tests {
 
     #[test]
     fn rejects_gpu_dependency_outside_executor_and_blocking_executor_dependencies() {
-        for index in [0, 2, 3, 4] {
+        for index in [0, 2, 3, 4, 5] {
             let mut metadata = baseline();
             metadata["packages"][index]["dependencies"] = json!([{"name": "wgpu", "kind": "dev"}]);
             assert!(validate(&metadata).is_err());

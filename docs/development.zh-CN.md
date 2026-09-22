@@ -2,6 +2,8 @@
 
 [English](./development.md) | 简体中文
 
+M6B-03：[共享 CPU 资产 codec](./m6b-03-cpu-assets.zh-CN.md)已提供独立 `mixture-asset` 公共 API；源码与隔离归档消费者均覆盖它，Rust 0.5.0 未发布。
+
 ## 基础工程、诊断与 GPU 上下文状态
 
 仓库已本地实现[初始计划](../INITIAL_PRS.zh-CN.md)中的 PR-001 至 PR-010。陶瓷、皮革和木材观感均已获用户接受。[M3 评审](./m3-review.zh-CN.md)及[复现脚本](./reviews/m3/README.zh-CN.md)记录本地验收、release 性能和原生消费者缺口。[M4 PR-011](../M4_PRS.zh-CN.md)现已实现[独立公开 Rust 消费者](./native-sdk.zh-CN.md)及纯 CPU `test-consumer`，包含显式 GPU 所有权检查和 1K release 证据。PR-012 添加 [CLI 报告／退出码契约](./cli-contract.zh-CN.md)、完整人类可读诊断上下文及独立 CLI 进程测试。PR-013 添加 [GPU 失败原因、丢失生命周期及清理](./gpu-failures.zh-CN.md)。PR-014 添加[最新请求与有界保留](./stale-results.zh-CN.md)。PR-015 通过 `package-check` 添加[隔离本地包验证](./package-consumption.zh-CN.md)，并提供[兼容性](./compatibility.zh-CN.md)及 [M4 退出／发布评估](./release.zh-CN.md)。M4 验收现已包含[三平台 CPU 及 Linux SwiftShader CI](./evidence/remote-ci/README.zh-CN.md)。远端门槛及[有界 M5 浏览器验收](./evidence/m5-05/README.zh-CN.md)已完成。[首次 npm Alpha](./evidence/npm-alpha/README.zh-CN.md)已发布；Rust crate 仍未发布。当前优先级遵循 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)。
@@ -72,6 +74,7 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 | 软件包 | 允许的依赖 |
 | --- | --- |
 | `mixture-core` | 运行时使用 `serde`、启用 `float_roundtrip` 的 `serde_json` 及 `sha2` |
+| `mixture-asset` | Core 及已有 `serde`、`serde_json`、`sha2`；纯 CPU 字节 codec |
 | `mixture-wgpu` | 工作区内的 `mixture-core`、`wgpu`、`serde`、`half`；仅浏览器目标使用 `futures-channel`、`web-time`；仅开发时使用 `pollster`、`serde_json`、`naga` |
 | `mixture-cli` | 工作区内的 `mixture-core`、`mixture-wgpu`、`pollster`、`serde`、`serde_json`、`png` |
 | `xtask` | `pulldown-cmark`、`serde_json`、`png`、`serde`、`sha2` |
@@ -79,9 +82,9 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 
 核心使用 `serde` 处理类型化源数据、诊断和限制；PR-005 将已锁定的 `serde_json` 提升为运行时依赖，用于严格有界解码与确定性序列化。`float_roundtrip` 特性修复了已复现的源数据往返一位浮点偏差；不需要新增包或依赖版本。PR-006 添加 `sha2` 用于稳定 SHA-256 计划哈希，将其依赖闭包加入锁文件，不升级已有包。工具使用 `pulldown-cmark` 解析 Markdown，使用 `serde_json` 读取 Cargo 元数据。只有 `mixture-wgpu` 直接依赖 `wgpu`，其 `serde` 用于编码能力报告。`pollster` 在 CLI／测试边界驱动异步获取，`serde_json` 用于 CLI 报告和测试断言。`half` 解码 GPU 半精度回读，开发依赖 `naga` 在无 GPU 环境验证 WGSL。CLI 的 `png` 编码图像，工具的 `png` 解码图像用于基准比较。核心仍不依赖 GPU。原生后端特性策略见 [GPU 指南](./gpu-context.zh-CN.md)。PR-008 仅将现有工作区 `serde` 和 `sha2` 加为工具直接依赖，用于严格验收记录及候选完整性，没有新增或升级软件包／版本。全部已解析依赖版本记录在 [Cargo.lock](../Cargo.lock) 中。
 
-[依赖检查](../xtask/src/dependencies.rs)约束五个 crate 的边界、双许可证元数据、禁用发布，以及上述直接依赖允许列表。它检查架构和范围，不是漏洞数据库检查或传递依赖许可证审计。引入依赖时，在负责该依赖的实施 PR 中扩展策略并说明必要性，保持[架构文档](../ARCHITECTURE.zh-CN.md)要求的方向。
+[依赖检查](../xtask/src/dependencies.rs)约束六个 crate 的边界、双许可证元数据、禁用发布，以及上述直接依赖允许列表。它检查架构和范围，不是漏洞数据库检查或传递依赖许可证审计。引入依赖时，在负责该依赖的实施 PR 中扩展策略并说明必要性，保持[架构文档](../ARCHITECTURE.zh-CN.md)要求的方向。
 
-[原生消费者](../examples/native-consumer/Cargo.toml)是独立单包工作区，拥有已提交的锁文件；`test-consumer` 检查该边界，不加入引擎工作区。它通过源码 path 使用 `mixture-core`／`mixture-wgpu`，并精确固定生产方已使用的 `pollster` 和 `serde_json` 版本。PR-012 添加仅开发时使用的 `png = "=0.18.1"`，解码 CLI 已完成输出；锁文件新增九项，版本均与产品已解析版本相同。产品锁文件及依赖策略不变。path 依赖及已构建 CLI 验证不证明软件包内容。
+[原生消费者](../examples/native-consumer/Cargo.toml)是独立单包工作区，拥有已提交的锁文件；`test-consumer` 检查该边界，不加入引擎工作区。它通过源码 path 使用 `mixture-core`／`mixture-asset`／`mixture-wgpu`，并精确固定生产方已使用的 `pollster` 和 `serde_json` 版本。PR-012 添加仅开发时使用的 `png = "=0.18.1"`，解码 CLI 已完成输出；锁文件新增九项，版本均与产品已解析版本相同。产品锁文件及依赖策略不变。path 依赖及已构建 CLI 验证不证明软件包内容。
 
 ## CLI 行为与后续工作
 

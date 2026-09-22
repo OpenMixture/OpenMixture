@@ -2,6 +2,8 @@
 
 English | [简体中文](./native-sdk.zh-CN.md)
 
+M6B-03: the [shared CPU asset codec](./m6b-03-cpu-assets.md) provides an independent `mixture-asset` public API, covered by source and isolated archive consumers; Rust 0.5.0 is unpublished.
+
 **M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
 
 PR-011 verifies the existing public Rust path with an [independent application](../examples/native-consumer/README.md). It adds no renderer facade, runtime crate, node, shader, document version or dependency to the product crates. The project remains pre-alpha: PR-012 separately verifies the [CLI contract](./cli-contract.md), PR-013 defines [device-loss/OOM classification and cleanup](./gpu-failures.md), PR-014 adds [consumer-owned freshness](./stale-results.md), and PR-015 verifies [actual local package consumption](./package-consumption.md). See the [M4 exit/release assessment](./release.md).
