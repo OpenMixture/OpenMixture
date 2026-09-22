@@ -2,9 +2,9 @@
 
 English | [简体中文](./stable-noise.zh-CN.md)
 
-**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-The maintainer authorized explicit noise-semantic migration and material requalification on 2026-09-22, following the [Windows investigation](./evidence/windows-numerics/README.md). This change implements `fractal-noise@2` in the unpublished **0.4.0-alpha.0** candidate. It does not publish the candidate or retrospectively qualify 0.3.0 hardware pixels.
+The maintainer authorized explicit noise-semantic migration and material requalification on 2026-09-22, following the [Windows investigation](./evidence/windows-numerics/README.md). This change implements `fractal-noise@2` in the integrated, unpublished **0.5.0-alpha.0** candidate (earlier 0.4 builds remain historical evidence). It does not publish the candidate or retrospectively qualify 0.3.0 hardware pixels.
 
 ## Contract and compatibility
 
@@ -25,7 +25,7 @@ Six octaves bound sums and total weights to `6*2^24`; doubled division remainder
 
 ## Explicit migration and evidence
 
-To migrate a document, change only the selected `fractal-noise` node versions from 1 to 2, retain the original document, and review new height/normal pixels before adopting it. The repository provides `material-noise-v2.mix` next to each of the three original material fixtures. The original `material.mix` files and goldens remain v1 regression inputs; they are not overwritten to absorb changed semantics. Public Native resource and Scalar fixtures now select v2. The independent browser consumer uses explicit v2 fixture files for the 0.4 candidate and the unchanged v1 files for the exact published 0.3 registry baseline.
+To migrate a document, change only the selected `fractal-noise` node versions from 1 to 2, retain the original document, and review new height/normal pixels before adopting it. The repository provides `material-noise-v2.mix` next to each of the three original material fixtures. The original `material.mix` files and goldens remain v1 regression inputs; they are not overwritten to absorb changed semantics. Public Native resource and Scalar fixtures now select v2. The independent browser consumer uses explicit v2 fixture files for the 0.5 candidate and the unchanged v1 files for the exact published 0.3 registry baseline.
 
 The producer-owned material preparation accepts an explicit migration option:
 
@@ -41,4 +41,4 @@ This selects committed migrated sources; it does not transform inputs silently. 
 
 The [retained qualification](./evidence/stable-noise/README.md) binds the clean Windows candidate, all 13 SDK tests, exact public resource/Scalar height and normal comparisons on Vulkan and DX12 against Chrome, six exact raw f16 diagnostic cases on both backends (including scale 7), and all six required CI checks. The migrated 11-case/44-channel software matrix passes unchanged quality gates. Before/after contact sheets and agent review are retained; they do not assert human visual approval. The historical Windows failure remains correct for v1 and the published 0.3 release; full arbitrary hardware graphs remain outside this bounded result.
 
-Out of scope: automatic document rewriting, publishing 0.4, cellular/warp numerical redesign, texture-format changes, threshold relaxation, Studio upgrades and deployment.
+Out of scope: automatic document rewriting, publishing a package, cellular/warp numerical redesign, texture-format changes, threshold relaxation, Studio upgrades and deployment.

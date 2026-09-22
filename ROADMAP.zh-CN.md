@@ -2,21 +2,21 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。源码版本为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
-**当前状态（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
+**历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
 **M6A-05 验收，2026-09-21：** [留存验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。随后已集成 main 并[发布浏览器 0.3.0-alpha.0](./docs/evidence/npm-030-alpha/README.zh-CN.md)，Rust crate 仍未发布。
 
 本页负责当前引擎优先级。[Alpha 收尾](./docs/browser-alpha.zh-CN.md)保留首次交付、支持限制及缺陷交接。[INITIAL_PRS](./INITIAL_PRS.zh-CN.md)、[M4_PRS](./M4_PRS.zh-CN.md) 和 [M5_PRS](./M5_PRS.zh-CN.md)保留历史实施计划，其中当时的下一步不再作为当前执行指令。
 
-**Windows 数值调查，2026-09-22：** [复现与隔离](./docs/evidence/windows-numerics/README.zh-CN.md)将已记录的资源法线失败定位至上游噪声算术/半精度舍入，相同高度重算法线完全一致。仅改 FMA 的实验仍在合法 scale 上失败，不是运行时修复。硬件验收仍未关闭，语义修复之前需先决定数值与版本契约。
+**NUM-01 之前的 Windows 调查历史（2026-09-22）：** [复现与隔离](./docs/evidence/windows-numerics/README.zh-CN.md)将已记录的资源法线失败定位至上游噪声算术/半精度舍入，相同高度重算法线完全一致。仅改 FMA 的实验仍在合法 scale 上失败，不是运行时修复。硬件验收仍未关闭，语义修复之前需先决定数值与版本契约。
 
 ## 当前方向 — Post-Alpha
 
-**NUM-01，已实现并在记录范围内验收：** 已授权的[稳定 value noise 迁移](./docs/stable-noise.zh-CN.md)在未发布的 0.4 候选中实现 `fractal-noise@2`。[留存证据](./docs/evidence/stable-noise/README.zh-CN.md)关闭测量的 Windows Vulkan/DX12 相对 Chrome 资源/Scalar 回归（最大差 0），迁移软件材质矩阵及六项 CI 全部通过，前后视觉评审已留存。这不发布 0.4、不追认旧 0.3 硬件像素，也不关闭其他 cellular/warp 精度限制。
+**NUM-01，已实现并在记录范围内验收：** 已授权的[稳定 value noise 迁移](./docs/stable-noise.zh-CN.md)在已集成、未发布的 0.5 候选中实现 `fractal-noise@2`。[留存证据](./docs/evidence/stable-noise/README.zh-CN.md)关闭测量的 Windows Vulkan/DX12 相对 Chrome 资源/Scalar 回归（最大差 0），迁移软件材质矩阵及六项 CI 全部通过，前后视觉评审已留存。这不发布包、不追认旧 0.3 硬件像素，也不关闭其他 cellular/warp 精度限制。
 
-**M6B-05 综合验收完成：** [留存验收](./docs/evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成 M6-B 实现/验收：16 个包通道精确一致，独立源码/归档消费及原材质通过，六项必需检查成功。Windows 硬件法线对照仍失败。Rust 0.5.0 / browser 0.5.0-alpha.0 未发布，PR 栈集成与发布单独处理。
+**M6B-05 综合验收完成：** [留存验收](./docs/evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成 M6-B 实现/验收：16 个包通道精确一致，独立源码/归档消费及原材质通过，六项必需检查成功。冻结 v1 输入的 Windows 硬件法线对照仍失败；NUM-01 单独验收显式 v2 value-noise 输入。Rust 0.5.0 / browser 0.5.0-alpha.0 未发布，PR 栈已集成，发布仍单独处理。
 
 **M6-B 已启动，2026-09-22：** 维护者选择可移植资产打包作为下一主要增量。[M6B-01](./docs/m6b-portable-assets.zh-CN.md)建立实测离线分发缺口及 M6B-02–05 格式/实现/验收顺序。本次启动不实现装载器、不选定二进制格式、不发布包。
 
@@ -26,9 +26,9 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 
 | 规划状态 | 当前内容 |
 |---|---|
-| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。Rust 0.3.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | M6-B 实现及有界验收已在评审栈完成；集成/发布单独处理，不自动启动下一功能。 |
-| 当前验收 | [M6B-05](./docs/evidence/m6b-05/README.zh-CN.md)：精确候选、Native 源码/归档及浏览器矩阵、材质与六检查，保留 Windows 硬件限制。 |
+| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。当前 Rust 0.5.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
+| 当前增量 | M6-B 与 NUM-01 实现、有界验收及 main 集成已完成；发布单独处理，不自动启动下一功能。 |
+| 当前验收 | [M6B-05](./docs/evidence/m6b-05/README.zh-CN.md)：精确候选、Native 源码/归档及浏览器矩阵、材质与六检查，保留 v1 Windows 硬件失败，显式 v2 value-noise 修复单独验收。 |
 | 条件式候选 | 原生分发、图复用和 GPU 互操作分别按明确问题决定。性能与数值维护由测量或回归驱动，不构成必须串行完成的功能链。 |
 
 按选定合同中的任务顺序推进，分别记录设计集成、实现及验收证据。Studio 的升级、部署及产品验收不是引擎规划或发布的前置条件。
@@ -44,12 +44,12 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 
 ## M6 — 资源与可移植打包
 
-两个方向保持独立。M6-A 已实现并在记录的软件矩阵内验收；M6-B 现已明确选定，从实测需求开始，不预选二进制格式。
+M6-A 与 M6-B 均已实现、集成并在各自记录的软件矩阵内验收。下表保留各方向的范围边界。
 
 | 方向 | 进入决策 | 有界目标 |
 |---|---|---|
-| M6-A — 外部图像输入 | M6A-01 选定[外部高度合同](./docs/m6a-resource-contract.zh-CN.md)供设计集成。M6A-02–05 已在功能分支栈交付实现及有界验收，不要求容器或 Studio 资源面板。 | 调用方提供资源；引擎验证身份、尺寸、格式、预算，上传并管理 GPU 生命周期。网络／文件／权限归调用方；CLI 解码属于适配层。 |
-| M6-B — 可移植资产打包 | [M6B-01](./docs/m6b-portable-assets.zh-CN.md)记录可移植绑定缺口与单资产离线用例；M6B-02 选择格式/所有权。 | Native/browser 共用装载、可检查资源身份、有界内存与路径安全；保留松散输入语义，在 M6B-05 验收精确候选。 |
+| M6-A — 外部图像输入 | M6A-01 选定[外部高度合同](./docs/m6a-resource-contract.zh-CN.md)供设计集成。M6A-02–05 已在 main 交付实现及有界验收，不要求容器或 Studio 资源面板。 | 调用方提供资源；引擎验证身份、尺寸、格式、预算，上传并管理 GPU 生命周期。网络／文件／权限归调用方；CLI 解码属于适配层。 |
+| M6-B — 可移植资产打包 | [M6B-01](./docs/m6b-portable-assets.zh-CN.md)记录可移植绑定缺口与单资产离线用例；M6B-02 选择 USTAR 格式/所有权，M6B-03–05 已实现、验收并集成。 | Native/browser 共用装载、可检查资源身份、有界内存与路径安全；保留松散输入语义，在 M6B-05 验收精确候选。 |
 
 M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、装载器、适配层与验收仍是独立工作项。资源缓存、去重、增量上传和旧格式转换另需测量或明确问题。不授权内置 URL 下载器、市场、通用资源管理器或在运行时文档中加入编辑器状态。
 
@@ -131,6 +131,6 @@ ENG-03 必须保留已有固定 Studio 消费者检查及其历史证据。先�
 
 **浏览器检查点，2026-09-14：** [M5-02／M5-03 本地验收](./docs/evidence/m5-02-03/README.zh-CN.md)关闭记录的 Chromium／macOS 环境内初始浏览器执行与隔离 tarball 消费门槛。接下来是 M5-04 Player MVP，再完成 M5-05 完整浏览器验收。
 
-**当前里程碑：** M4、M4.1 与 [M5 的有界浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成。Studio MVP 已在记录环境内验收；npm 发布和引擎 M6 尚未启动。
+**M5 历史检查点：** M4、M4.1 与 [M5 的有界浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成。Studio MVP 已在记录环境内验收；npm 发布和引擎 M6 尚未启动。
 
-**实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。
+**M4 历史实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。

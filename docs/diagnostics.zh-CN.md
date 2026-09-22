@@ -143,7 +143,7 @@ cargo xtask check
 
 核心现在运行时使用 `serde`、`serde_json` 和 `sha2`。PR-006 添加 SHA-256 计划哈希；PR-005 将现有已锁定 JSON 依赖提升为运行时依赖，用于严格解码和确定性序列化。[依赖策略](./development.zh-CN.md)继续隔离 GPU、CLI 和浏览器运行时边界。PR-002 未引入 `.mix` 格式字段、图实现、GPU 依赖、着色器、CLI 运行时命令或自动修复。GPU 获取、棋盘格执行与 doctor 另有专门文档。PR-002 未关闭 M0 远端 CI 门槛；此后已记录的[远端 CI 验收](./evidence/remote-ci/README.zh-CN.md)关闭了该门槛。
 
-PR-006 `inspect --plan` 编译后返回 `0`，源文件／请求无效返回 `2`，源文件／报告 I/O 失败返回 `1`。编译失败保留现有结构化诊断码并使用 `stage: "compile"`；源解码／验证阶段保持区分。JSON 在共享报告字段之外添加 `schemaVersion: 1` 和 `plan`（失败时为 null）。见[计划检查](./render-plan.zh-CN.md)。
+PR-006 `inspect --plan` 编译后返回 `0`，源文件／请求无效返回 `2`，源文件／报告 I/O 失败返回 `1`。编译失败保留现有结构化诊断码并使用 `stage: "compile"`；源解码／验证阶段保持区分。JSON 在共享报告字段之外添加 `schemaVersion: 2` 和 `plan`（失败时为 null）。见[计划检查](./render-plan.zh-CN.md)。
 
 PR-007 图 `render` 遵循相同的输入／运行退出码策略，在获取上下文前验证并编译。GPU 失败保留阶段／来源及已知适配器／计划证据。后续文件写入失败时，报告仍列出已完成输出。见[渲染报告](./graph-rendering.zh-CN.md)。
 

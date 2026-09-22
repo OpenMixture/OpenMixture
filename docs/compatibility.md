@@ -2,11 +2,7 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
-**Integration review (2026-09-22):** M6-B is now integrated into main. NUM-01 is being reconciled with that baseline under PR #40, retaining unpublished Rust 0.5.0 / browser 0.5.0-alpha.0. Its earlier 0.4 receipts remain historical. Loose resource/Scalar qualification explicitly selects noise v2; portable asset regression keeps a separate v1 fixture. No stored document or asset is automatically migrated. Fresh combined checks are required before merge.
-
-**M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
-
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 **2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Runtime and Studio material comparisons share this profile; current reports omit superseded sparse-pixel verdicts. Native goldens and exact checker checks remain unchanged. New browser support still needs source-bound qualification.
 
@@ -14,18 +10,18 @@ English | [简体中文](./compatibility.zh-CN.md)
 
 **M5 acceptance, 2026-09-15:** [Browser acceptance](./evidence/m5-05/README.md) closes M5-05 for the recorded macOS/Linux Chromium matrix: each environment passes 11 post-freeze 1K cases/44 channel comparisons, semantics/quality gates and 12 additional lifecycle renders, alongside independent product isolation, 28 browser contracts and normal production static deployment. Complete pixels and provenance are retained. Alpha readiness is bounded to tested coverage; npm remains unpublished and Studio/M6 require separate decisions. Earlier dated entries below retain their historical status.
 
-This records the tested pre-alpha `0.1.0` boundaries after PR-011–015. It consolidates existing contracts and their review requirements; it does not introduce a 1.0 support guarantee, a binary ABI, an older-format migration promise or automatic GPU recovery. All packages remain unpublished. Several local implementation commits share version `0.1.0`, so retain the implementing commit, lockfile and archive hashes when identifying a build. [PR-015 evidence](./evidence/pr-015/README.md) identifies this one.
+This page records current source contracts. The earlier [PR-015 record](./evidence/pr-015/README.md) retains its 0.1.0 acceptance boundaries; old results do not qualify a new build. Identify builds by source commit, lockfile and archive hashes. This table promises neither a binary ABI nor arbitrary hardware support.
 
 ## Version and data boundaries
 
 | Boundary | Current contract | Change review |
 |---|---|---|
 | Source `.mix` | Strict UTF-8 JSON, document version `1`; unknown/duplicate fields, unsupported versions and invalid values fail explicitly. | Never reinterpret a field under the same version. Format changes follow the architecture's version/migration tests and bilingual guide requirements. No legacy format decoder or migration exists. |
-| Nodes | Eleven built-ins, independent node version `1`; ten pixel kernels. IDs, ports, parameter types/ranges/defaults and explicit seeds come from core. | Semantic changes require deliberate node/format version decisions, contracts, fixtures and golden evidence; no duplicate catalog or silent default change. |
-| RenderPlan | Plan version `1`; immutable compiled semantics and deterministic canonical ordering. | Review serialization and exact hash snapshots. A changed compiler representation or semantic input may invalidate saved plans/hashes; `.mix` remains the source of truth. |
-| CLI reports | `schemaVersion: 1` where implemented; `validate` retains its original unversioned `{ok, diagnostics}` envelope. | Preserve each command's presence/null/omission rules and exits; update independent process tests and docs with deliberate wire changes. Do not invent a version field for existing validate output. |
+| Nodes | Thirteen built-in types, eleven pixel kernels; `fractal-noise` supports explicit versions `1` and `2`, other nodes require `1`. IDs, ports, parameter types/ranges/defaults and explicit seeds come from core. | Semantic changes require deliberate node/format version decisions, contracts, fixtures and golden evidence; no duplicate catalog or silent default change. |
+| RenderPlan | Plan version `2`; immutable compiled semantics and deterministic canonical ordering. | Review serialization and exact hash snapshots. A changed compiler representation or semantic input may invalidate saved plans/hashes; `.mix` remains the source of truth. |
+| CLI reports | Schema `2` for `inspect --plan` and graph `render`; schema `1` for doctor, fixed checker and asset envelopes; `validate` retains its original unversioned `{ok, diagnostics}` envelope. | Preserve each command's presence/null/omission rules and exits; update independent process tests and docs with deliberate wire changes. Do not invent a version field for existing validate output. |
 | Diagnostics | Stable code/stage/context vocabulary for this build; messages and native sources remain descriptive evidence. | Additions require vocabulary/consumer review. Strict older decoders can reject new code strings even when the enclosing CLI schema version stays `1`. |
-| Rust packages | Source APIs at `0.2.0`, exact peer-package requirements; compilation against the recorded dependency lock. | Review source compatibility and public dependency exposure. Package metadata alone cannot certify arbitrary dependency upgrades or a cross-version binary ABI. |
+| Rust packages | Source APIs at `0.5.0`, exact peer-package requirements; compilation against the recorded dependency lock. | Review source compatibility and public dependency exposure. Package metadata alone cannot certify arbitrary dependency upgrades or a cross-version binary ABI. |
 
 The [format guide](./file-format.md), [node contracts](./node-contracts.md), [plan guide](./render-plan.md), [CLI contract](./cli-contract.md) and [diagnostic vocabulary](./diagnostics.md) define the detailed executable behavior. Existing tests/stable public behavior retain the authority order in [AGENTS.md](../AGENTS.md).
 
@@ -59,6 +55,6 @@ PR-015 verifies normalized local archive contents, exact peer versions and packa
 
 Before a later change, identify affected source/node/plan/report/Rust boundaries; update the smallest decisive tests and both doc languages, explain any compatibility impact and migration/recompile needs, and record the implementation revision. Architecture changes or new compatibility promises still require the existing ADR process. No automatic next implementation train or expanded node vocabulary is approved by this record.
 
-## ENG-04 compatibility and unpublished versions
+## ENG-04 compatibility history
 
-The source packages advance to Rust 0.2.0 because adding ScalarBlend to the exhaustive public KernelId/KernelInvocation enums may break downstream exhaustive matches. No non_exhaustive retrofit or other API redesign is made. The browser candidate advances to 0.2.0-alpha.0; API schema 1, .mix version 1 and plan version/hash domain remain unchanged. Serialized existing variants and old plan hash snapshots remain unchanged. Public npm 0.1.0-alpha.0 stays pinned in the registry consumer and must reject scalar-blend with MIX_NODE_UNKNOWN_TYPE. Candidate installation changes only the staged runtime archive/version/integrity; frozen tool dependencies and the pinned disposable Studio source remain intact. Rust packages and the new browser candidate are unpublished; this work does not authorize publication.
+The [Scalar composition record](./eng-04-scalar-blend.md) retains the original 0.2 API change. See the table above for current schemas and [release status](./release.md) for published versions.

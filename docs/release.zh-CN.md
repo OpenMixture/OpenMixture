@@ -2,11 +2,11 @@
 
 [English](./release.md) | 简体中文
 
-**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+**已集成状态（2026-09-22）：** [M6-B #45](https://github.com/OpenMixture/OpenMixture/pull/45) 和 [NUM-01 #40](https://github.com/OpenMixture/OpenMixture/pull/40)，以及前置 PR #39、#41–44，已合入 `main` 的 `ac219c901e52e3f079c16a931ed4463465756ba5`。该提交六项必需检查全部通过：[三平台 CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781509)、[软件 GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781245)、[WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781222)、[Chromium 材质](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781440)。源码版本为 **Rust 0.5.0 / browser 0.5.0-alpha.0**，均未发布。最新记录的浏览器发布版为 **0.3.0-alpha.0**；Rust crate 仍未发布。
 
-**M6B-05，2026-09-22：** [可移植资产验收](./evidence/m6b-05/README.zh-CN.md)在记录的 Linux 软件矩阵内完成：源码/归档与浏览器消费、16 个包精确对照、原材质及六检查全部通过。Windows 硬件法线一致性仍未合格。0.5.0 / 0.5.0-alpha.0 未发布，集成和发布单独处理，下方早期状态保留为历史。
+**Windows 验收范围：** [旧 v1 资源/资产输入](./evidence/m6b-05/README.zh-CN.md)仍保留法线最大差 8/255 的失败记录（门槛 ≤1/255）。显式迁移为 `fractal-noise@2` 的 **value** 输入已通过记录的 GT 1030 Vulkan/DX12 对 Chrome 资源及 Scalar 验收，高度/法线最大差为 **0**，见[NUM-01 证据](./evidence/stable-noise/README.zh-CN.md)。两者测试不同节点版本，不是相互矛盾的结果。可移植资产回归仍使用冻结 v1 输入；现有文档不自动迁移。软件 CI 通过不认证任意 Windows 材质图、显卡、cellular 或 warp。早期 0.4 候选证据保留其原始构建身份。
 
-**当前发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。Windows 硬件资源法线一致性仍未通过，不扩大支持范围。
+**当前发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。该已发布版本的 v1 Windows 硬件资源法线一致性仍未通过；上文 v2 修复尚未发布。
 
 **M6A-05 验收，2026-09-21：** [留存验收](./evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。0.3.0 Rust 源码 / 0.3.0-alpha.0、API schema 2 浏览器候选均未发布。实现 PR 集成和发布仍是独立动作。
 

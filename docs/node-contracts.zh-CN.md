@@ -2,9 +2,9 @@
 
 [English](./node-contracts.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-[mixture-core](../crates/mixture-core/src/registry.rs)中的十二个版本 1 契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十三种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 

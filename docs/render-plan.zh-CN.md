@@ -2,7 +2,9 @@
 
 [English](./render-plan.md) | 简体中文
 
-**M6A-02 更新：** [M6A-02 Core 实现](./m6a-02-core-resources.zh-CN.md)现提供资源引用、不可变准备请求及内容绑定计划 v2。Rust 源码为 0.3.0，未发布浏览器候选为 0.3.0-alpha.0／API schema 2；inspect 和图 render 报告 schema 为 2。[M6A-03 Native 路径](./m6a-03-native-resources.zh-CN.md)现可执行准备后的图像；[M6A-04 浏览器资源](./m6a-04-browser-resources.zh-CN.md)现增加同步捕获和公开渲染，最终跨平台资格仍属 M6A-05。以下历史版本说明须按此更新理解。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
+
+[资源准备契约](./m6a-02-core-resources.zh-CN.md)定义 `PreparedRender`、计划 v2 的 `imageResources` 身份和外部图像预算；下文无资源图示例继续使用 `compile`。
 
 PR-006 实现纯 CPU 编译和 `inspect --plan`。[编译器](../crates/mixture-core/src/compiler.rs)负责参数覆盖语义、依赖裁剪、排序、类型化降级、分配估算及哈希；[RenderPlan](../crates/mixture-core/src/plan.rs)定义与后端无关的类型。PR-007 [图执行](./graph-rendering.zh-CN.md)实现穷尽 WGSL 映射。固定棋盘格像素保持不变，共享的 48 字节 uniform 在该指南中说明。
 
@@ -23,7 +25,7 @@ cargo xtask check
 
 `inspect` 与验证命令共享有界源文件加载器：默认策略最多读取 2 MiB 加一个检测字节。编译前验证整个源文档，包括未请求的分支。命令不获取适配器、不写入输入文件。选项可位于路径之前；以 `-` 开头的路径前使用 `--`。
 
-JSON 模式输出一份含 `schemaVersion: 1`、`plan`、`ok` 和 `diagnostics` 的报告。成功时包含计划及空诊断数组；失败时 `plan: null`，并包含共享的有序诊断及传入路径。人类可读模式显示 pass 来源、kernel、资源映射、连接／默认输出来源、哈希及估算。退出码 `0` 表示编译成功，`2` 表示调用／源文档／请求无效，`1` 表示文件／报告 I/O 失败。CLI 语法错误、重复选项／覆盖 ID 或无效覆盖 JSON 向 stderr 输出用法；语义失败使用所选报告模式。
+JSON 模式输出一份含 `schemaVersion: 2`、`plan`、`ok` 和 `diagnostics` 的报告。成功时包含计划及空诊断数组；失败时 `plan: null`，并包含共享的有序诊断及传入路径。人类可读模式显示 pass 来源、kernel、资源映射、连接／默认输出来源、哈希及估算。退出码 `0` 表示编译成功，`2` 表示调用／源文档／请求无效，`1` 表示文件／报告 I/O 失败。CLI 语法错误、重复选项／覆盖 ID 或无效覆盖 JSON 向 stderr 输出用法；语义失败使用所选报告模式。
 
 ## 公共 API 与规范化源文档
 
@@ -67,6 +69,8 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 | `heightToNormal`／`HeightToNormal` | 标量 `input: ResourceId`，f32 `strength` | 16 |
 | `transform2d`／`Transform2d` | 源节点 `transform-2d`；`input: ResourceId`、`scale: [u32; 2]`、`quarter_turns: u32`、`offset: [f32; 2]` | 32 |
 | `warp`／`Warp` | 源节点 `warp`；`input: ResourceId`、`displacement: ResourceId`、`strength: [f32; 2]` | 16 |
+| `scalarBlend`／`ScalarBlend` | Scalar `a`／`b` ResourceId，`weight: f32` | 16 |
+| `imageInput`／`ImageInput` | 已准备的外部图像 `resource_id` | 16 |
 
 `KernelInvocation::id()` 穷尽匹配；`inputs()` 按绑定顺序提供类型化输入。计划没有任意参数 JSON，也没有第二份无类型输入列表。`PassOrigin` 保留节点 ID／类型／版本，或生成默认值的所属节点与端口。`PlanOutput` 保留通道类型、连接端点或显式默认值及真实逻辑资源。`RenderPlan` 的公共 API 不可变，不允许反序列化或通过公开构造函数伪造引用／哈希。
 
@@ -80,7 +84,7 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 ## 分配估算契约
 
-计划版本 1 假定简单的执行顺序：所有 pass 纹理和 uniform 保留至执行／回读结束；按请求通道顺序逐个分配、释放一个 staging 缓冲区。没有提前释放或资源池。估算的是逻辑 GPU 分配字节，不是驱动测量值，也不包含 CPU 内存、PNG 分配、着色器／管线内存或设备分配粒度。
+计划版本 2 假定简单的执行顺序：所有 pass 纹理和 uniform 保留至执行／回读结束；按请求通道顺序逐个分配、释放一个 staging 缓冲区。没有提前释放或资源池。估算的是逻辑 GPU 分配字节，不是驱动测量值，也不包含 CPU 内存、PNG 分配、着色器／管线内存或设备分配粒度。
 
 令 `W`／`H` 为尺寸，`P` 为 pass 数，`O` 为请求通道数，`U` 为含填充的 uniform 总字节数，`T = W × H × 8`，`R = ceil(W × 8 / 256) × 256 × H`：
 
@@ -99,7 +103,7 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 ## 稳定哈希契约
 
-`plan.version` 为 `1`。`hash` 是 `sha256:` 加 64 位小写十六进制。哈希输入精确为 `mixture-render-plan-v1` 的字节、一个 NUL 字节，再接不含 `hash` 的计划主体紧凑 UTF-8 JSON。`RenderPlan::hash_input()` 为使用方返回这些字节。根字段顺序为 `version`、`documentVersion`、`size`、`materialOutput`、`passes`、`outputs`、`estimates`；嵌套顺序由类型化序列化器和[已检入快照](../crates/mixture-core/tests/snapshots/)固定。这是版本化序列化契约，不是通用的键字典序 JSON。修改键顺序、数值格式、降级或内存语义时，需要对照该版本审查。
+`plan.version` 为 `2`。`hash` 是 `sha256:` 加 64 位小写十六进制。哈希输入精确为 `mixture-render-plan-v2` 的字节、一个 NUL 字节，再接不含 `hash` 的计划主体紧凑 UTF-8 JSON。`RenderPlan::hash_input()` 为使用方返回这些字节。根字段顺序为 `version`、`documentVersion`、`size`、`materialOutput`、`passes`、`outputs`、`estimates`、`imageResources`；嵌套顺序由类型化序列化器和[已检入快照](../crates/mixture-core/tests/snapshots/)固定。这是版本化序列化契约，不是通用的键字典序 JSON。修改键顺序、数值格式、降级或内存语义时，需要对照该版本审查。
 
 主体包含源文档版本、选中节点／所属节点的 ID、类型与版本、有效类型化参数（含覆盖结果）、输出来源、请求通道、尺寸、pass／资源标识、描述、dispatch 及确定性估算。节点 ID 为诊断／排序而保留；节点重命名不属于图同构规范化。
 
@@ -115,10 +119,10 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 PR-006 在固定工具链上的本地定向检查与工作区检查通过，当时尚无远端跨平台 CI 结果。现已关闭已记录的[远端 CI 门槛](./evidence/remote-ci/README.zh-CN.md)。PR-007 添加了通过唯一 `wgpu` 图渲染器[执行这些类型化调用](./graph-rendering.zh-CN.md)的能力，并提供全部六个 M2 节点的像素夹具。PR-008 添加了[材质基准工具](./material-goldens.zh-CN.md)；已完成的 [M3 评审](./m3-review.zh-CN.md)记录了三种材质的人工接受。
 
-PR-009 添加类型化 `FractalNoise`、`GradientMap` 和 `HeightToNormal` 调用，不改变计划版本 1 或原计划／哈希快照。噪声上传全部 u32 种子位，哈希包含种子、基底、scale、octave 及 persistence 语义；编译器保留 Scalar／Color／Normal 类型化连接并正常裁剪新分支。公共 [M3 API 测试](../crates/mixture-core/tests/m3_nodes.rs)验证默认值、必填种子、降级、分支裁剪及哈希敏感性。
+历史 PR-009 添加类型化 `FractalNoise`、`GradientMap` 和 `HeightToNormal` 调用，不改变计划版本 1 或原计划／哈希快照。噪声上传全部 u32 种子位，哈希包含种子、基底、scale、octave 及 persistence 语义；编译器保留 Scalar／Color／Normal 类型化连接并正常裁剪新分支。公共 [M3 API 测试](../crates/mixture-core/tests/m3_nodes.rs)验证默认值、必填种子、降级、分支裁剪及哈希敏感性。
 
-PR-010 添加类型化 `Transform2d` 和 `Warp` 调用，作为 v1 源节点目录的兼容新增扩展。文档版本和计划版本仍为 `1`；现有哈希前缀、原计划／哈希快照以及现有材质像素基准保持不变。新调用沿用相同的类型化序列化、有效参数哈希及依赖裁剪规则。公共[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖降级后的默认值、整数字段、有序及重复的标量绑定、uniform 大小、未请求分支裁剪、参数哈希敏感性、源顺序等价性，以及缺失连接或连接类型错误的拒绝行为。
+历史 PR-010 添加类型化 `Transform2d` 和 `Warp` 调用，作为 v1 源节点目录的兼容新增扩展。文档版本和计划版本仍为 `1`；现有哈希前缀、原计划／哈希快照以及现有材质像素基准保持不变。新调用沿用相同的类型化序列化、有效参数哈希及依赖裁剪规则。公共[重采样 API 测试](../crates/mixture-core/tests/resampling.rs)覆盖降级后的默认值、整数字段、有序及重复的标量绑定、uniform 大小、未请求分支裁剪、参数哈希敏感性、源顺序等价性，以及缺失连接或连接类型错误的拒绝行为。
 
-## ENG-04 兼容性与未发布版本
+## ENG-04 兼容性历史
 
-源码 Rust 包升级到 0.2.0，因为公开且穷尽的 KernelId／KernelInvocation 枚举新增 ScalarBlend 可能破坏下游穷尽匹配。不顺带增加 non_exhaustive 或重设计 API。浏览器候选升级到 0.2.0-alpha.0；API schema 1、.mix v1 及计划版本／哈希域保持不变。已有变体序列化及旧计划哈希快照不变。注册表消费者仍固定公开 npm 0.1.0-alpha.0，并须以 MIX_NODE_UNKNOWN_TYPE 拒绝 scalar-blend。候选安装仅调整暂存 runtime 归档／版本／完整性，工具依赖及固定的一次性 Studio 源码保持不变。Rust 包及新浏览器候选均未发布，本项工作不授权发布。
+[Scalar 组合记录](./eng-04-scalar-blend.zh-CN.md)保留当时的 0.2 API 变更。当前版本与 schema 以[兼容性记录](./compatibility.zh-CN.md)和[发布状态](./release.zh-CN.md)为准。

@@ -2,6 +2,8 @@
 
 [English](./m6b-package-format.md) | 简体中文
 
+**实施状态：** M6B-03–05 已实现本契约并完成有界验收，见[资产验收](./m6b-05-qualification.zh-CN.md)。下文版本选型过程属于 M6B-02 设计历史；当前源码与发布状态见[发布指南](./release.zh-CN.md)。
+
 **M6B-03 实现更新：** [共享 Rust CPU codec](./m6b-03-cpu-assets.zh-CN.md)已落地。以下为 M6B-02 选定的字节/所有权契约；CLI/浏览器适配与综合验收仍待 M6B-04/05。设计 PR 未改代码，实现 PR 引入新 crate 和 0.5 版本。
 
 ## 选择与证据

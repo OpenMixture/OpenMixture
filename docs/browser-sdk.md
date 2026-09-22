@@ -2,11 +2,11 @@
 
 English | [简体中文](./browser-sdk.zh-CN.md)
 
-**M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
+[Asset adapter APIs](./m6b-04-adapters.md) define the implemented `inspectPackage` / `renderPackage`, synchronous byte capture and package memory budgets.
 
-**Current status (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](../ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
+**Historical checkpoint (2026-09-20):** Native M4/M4.1, bounded M5, the recorded Studio MVP and ordinary Windows Chrome/Edge/Firefox qualification are complete within their recorded scope. The npm Alpha `@openmixture/runtime@0.1.0-alpha.0` is published, and exact registry-version consumption passes the recorded Studio gates. Rust crates remain unpublished; both browser checks are required on main. The [Post-Alpha roadmap](../ROADMAP.md) owns current work; first-delivery evidence remains in Alpha closeout. M6 remains unscheduled.
 
 The dated checkpoints below retain their status at the time; they are not the current backlog.
 
@@ -150,9 +150,9 @@ Player/Studio product work remains consumer-owned. Engine capability work may al
 
 ENG-03 adds an [independent browser SDK example and qualification entry](../examples/browser-consumer/README.md) using this public contract. Candidate and exact registry builds are verified separately; the pinned Studio material and wider contract coverage remain required.
 
-## ENG-04 compatibility and unpublished versions
+## ENG-04 compatibility history
 
-The source packages advance to Rust 0.2.0 because adding ScalarBlend to the exhaustive public KernelId/KernelInvocation enums may break downstream exhaustive matches. No non_exhaustive retrofit or other API redesign is made. The browser candidate advances to 0.2.0-alpha.0; API schema 1, .mix version 1 and plan version/hash domain remain unchanged. Serialized existing variants and old plan hash snapshots remain unchanged. Public npm 0.1.0-alpha.0 stays pinned in the registry consumer and must reject scalar-blend with MIX_NODE_UNKNOWN_TYPE. Candidate installation changes only the staged runtime archive/version/integrity; frozen tool dependencies and the pinned disposable Studio source remain intact. Rust packages and the new browser candidate are unpublished; this work does not authorize publication.
+The [Scalar composition record](./eng-04-scalar-blend.md) retains the original 0.2 API change. See [compatibility](./compatibility.md) and [release status](./release.md) for current versions and schemas.
 
 ## M6A-04 image requests
 

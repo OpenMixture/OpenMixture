@@ -2,9 +2,9 @@
 
 [English](./stable-noise.md) | 简体中文
 
-**集成评审（2026-09-22）：** M6-B 已集成到 main；PR #40 正将 NUM-01 与该基线组合，保留未发布 Rust 0.5.0 / browser 0.5.0-alpha.0，早期 0.4 记录保持历史身份。散装资源/Scalar 验收显式使用噪声 v2，可移植资产回归保留独立 v1 fixture；不自动迁移已有文档/资产，合并前须通过组合后的新检查。
+**当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-维护者在 2026-09-22 的 [Windows 调查](./evidence/windows-numerics/README.zh-CN.md)之后，授权显式迁移噪声语义并重新验收材质。本变更在未发布的 **0.4.0-alpha.0** 候选中实现 `fractal-noise@2`，不发布该候选，也不追认 0.3.0 的硬件像素。
+维护者在 2026-09-22 的 [Windows 调查](./evidence/windows-numerics/README.zh-CN.md)之后，授权显式迁移噪声语义并重新验收材质。本变更在已集成、未发布的 **0.5.0-alpha.0** 候选中（早期 0.4 构建保留为历史证据）实现 `fractal-noise@2`，不发布该候选，也不追认 0.3.0 的硬件像素。
 
 ## 契约与兼容性
 
@@ -25,7 +25,7 @@
 
 ## 显式迁移与证据
 
-迁移文档时，只将选定 `fractal-noise` 节点版本从 1 改为 2，保留原文档，并在采用前评审新高度/法线像素。仓库在三个原材质 fixture 旁提供 `material-noise-v2.mix`。原 `material.mix` 和 golden 保持为 v1 回归输入，不覆盖它们来吸收语义变化。公共 Native 资源及 Scalar fixture 现选择 v2。独立浏览器消费者对 0.4 候选使用显式 v2 文件，对精确已发布 0.3 registry 基线使用未改动的 v1 文件。
+迁移文档时，只将选定 `fractal-noise` 节点版本从 1 改为 2，保留原文档，并在采用前评审新高度/法线像素。仓库在三个原材质 fixture 旁提供 `material-noise-v2.mix`。原 `material.mix` 和 golden 保持为 v1 回归输入，不覆盖它们来吸收语义变化。公共 Native 资源及 Scalar fixture 现选择 v2。独立浏览器消费者对 0.5 候选使用显式 v2 文件，对精确已发布 0.3 registry 基线使用未改动的 v1 文件。
 
 引擎拥有的材质准备工具支持显式迁移选项：
 
@@ -41,4 +41,4 @@ node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native-v2 <full-t
 
 [留存验收](./evidence/stable-noise/README.zh-CN.md)绑定干净 Windows 候选、13 项 SDK 测试、Vulkan/DX12 相对 Chrome 的公共资源/Scalar 高度法线逐字节一致结果、两个后端六组原始 f16 完全一致的诊断（含 scale 7），以及全部六项必需 CI。迁移后的软件矩阵 11 用例/44 通道通过不变的质量门禁。前后对照图与代理评审已留存，不声称人类视觉批准。历史 Windows 失败对 v1 及已发布的 0.3 仍成立；任意完整硬件图不属于本次有界结论。
 
-不在范围内：自动改写文档、发布 0.4、cellular/warp 数值重设计、纹理格式变更、放宽阈值、Studio 升级与部署。
+不在范围内：自动改写文档、发布包、cellular/warp 数值重设计、纹理格式变更、放宽阈值、Studio 升级与部署。

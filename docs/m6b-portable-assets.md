@@ -2,21 +2,15 @@
 
 English | [简体中文](./m6b-portable-assets.zh-CN.md)
 
-**M6B-05, 2026-09-22:** [Portable asset qualification](./evidence/m6b-05/README.md) is complete within the recorded Linux software matrix. Source/archive and browser consumption, 16 exact package comparisons, existing materials and all six checks pass. Windows hardware normal parity remains unqualified. 0.5.0 / 0.5.0-alpha.0 remain unpublished; integration and release are separate. Earlier status entries below are historical.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-**M6B-04 (2026-09-22):** [CLI/browser asset adapters](./m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
-
-Status: M6-B explicitly started by the maintainer on 2026-09-22. This first slice establishes a reproducible delivery problem, bounded requirements and the implementation sequence. It does not implement a loader, select a binary format, change an architecture boundary, or publish a package. The next slice is M6B-02 format/ownership selection. All API and command names for future work remain unimplemented until their owning PR lands.
+M6B-01–05 are complete and integrated: canonical USTAR v1, the shared Rust CPU codec, CLI/browser adapters and [comprehensive qualification](./m6b-05-qualification.md) are implemented. The original use case and design rationale follow; release status owns current versions and hardware scope.
 
 ## First consumer outcome
 
-**M6B-03 update:** the [shared CPU codec](./m6b-03-cpu-assets.md) now implements deterministic writing, borrowed/owned loading and Core preparation. Kickoff statements below remain historical; CLI/browser package APIs await M6B-04 and pixel qualification awaits M6B-05.
-
-**M6B-02 historical update:** [format/ownership/budget selection](./m6b-package-format.md) and [ADR 0008](./decisions/0008-portable-assets.md) now select canonical uncompressed USTAR, a separate optional Rust CPU codec boundary and explicit buffer limits. Measured alternatives and malformed-input fixtures are retained. The next implementation slice is M6B-03; no loader exists yet. The kickoff statements above describe M6B-01 historically.
-
 A caller can move **one offline asset** containing one unchanged `.mix v1` document and its existing `rgba8-linear` height resources to a different directory or machine. A Native public consumer and the browser public package can inspect it without a GPU, then prepare the same content-bound plan and render through the existing wgpu path. The recipient supplies bytes and rendering options; no author-machine paths, companion-file search, URLs, service account or network resolution is required. CLI file handling is an adapter over the same loader, not another implementation.
 
-Use the existing `image-input` / `scalar-blend` height-normal fixture, one 1024×1024 image, weights 0/0.25/0.5/1 and a small asymmetric image control. No new node, image semantics, sampler, resolution conversion, graph syntax or pixel kernel is needed. This scope is independent of NUM-01: the initial baseline is main `c2a08e14be9991d75df24e0f045d842d8db4b570` / 0.3.0, not the unmerged 0.4 noise branch. Later qualification must identify the exact integrated node versions; packaging must never silently migrate them.
+Use the existing `image-input` / `scalar-blend` height-normal fixture, one 1024×1024 image, weights 0/0.25/0.5/1 and a small asymmetric image control. No new node, image semantics, sampler, resolution conversion, graph syntax or pixel kernel is needed. This scope is independent of NUM-01: the initial baseline is main `c2a08e14be9991d75df24e0f045d842d8db4b570` / 0.3.0, without the then-separate 0.4 noise branch. That frozen asset fixture still retains v1; new qualification must identify the exact integrated node versions; packaging must never silently migrate them.
 
 ## Measured entry problem
 

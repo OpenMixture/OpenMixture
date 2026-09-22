@@ -2,7 +2,9 @@
 
 English | [简体中文](./cli-contract.zh-CN.md)
 
-**M6A-02 update:** [M6A-02 Core implementation](./m6a-02-core-resources.md) now provides resource references, immutable prepared requests and content-bound plan v2. Rust source is 0.3.0; the unpublished browser candidate is 0.3.0-alpha.0/API schema 2, with schema 2 inspect/graph-render reports. The [M6A-03 Native path](./m6a-03-native-resources.md) now executes prepared images; [M6A-04 browser resources](./m6a-04-browser-resources.md) now add synchronous capture and public rendering. Final cross-platform qualification remains M6A-05. Read historical version descriptions below in that context.
+**Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
+
+The [asset CLI contract](./m6b-04-adapters.md) adds the schema-1 envelopes, file rules and memory budgets for `asset pack` / `inspect` / `render`; nested graph-render reports use schema 2 as documented here.
 
 PR-012 verifies consumption of the built `mixture` executable from an [independent Rust test program](../examples/native-consumer/tests/cli_contract.rs), with its own input and output directory. It repairs human diagnostic context and records the existing JSON and exit behavior. It does not introduce a schema version, change pixel semantics, or complete the remaining [M4 work](../M4_PRS.md).
 
@@ -27,11 +29,11 @@ The following fields describe the current wire contract. Use field names rather 
 | Command | Required top-level fields | Presence on failure |
 |---|---|---|
 | `validate` | `ok: boolean`, `diagnostics: array` | Same two fields; this original envelope has **no `schemaVersion` field**. |
-| `inspect --plan` | `schemaVersion: 1`, `plan: object or null`, `ok`, `diagnostics` | `plan` is present and null. |
+| `inspect --plan` | `schemaVersion: 2`, `plan: object or null`, `ok`, `diagnostics` | `plan` is present and null. |
 | `doctor` | `schemaVersion: 1`, `verdict: string`, `requested: object`, `adapter: object or null`, `device: object or null`, `computeProbe: string`, `readbackProbe: string`, `ok`, `diagnostics` | Adapter/device fields remain present; selected adapter evidence can survive device-request failure. `execution` is an **optional, omitted** checker report, present only for a completed probe. |
-| `render` | `schemaVersion: 1`, `input: string`, `outputDirectory: string`, `planHash: string or null`, `context: object or null`, `execution: object or null`, `outputs: array`, `ok`, `diagnostics` | `planHash`, `context` and `execution` remain **present**, using null when unavailable. `outputs` contains only completed file writes. |
+| `render` | `schemaVersion: 2`, `input: string`, `outputDirectory: string`, `planHash: string or null`, `context: object or null`, `execution: object or null`, `outputs: array`, `ok`, `diagnostics` | `planHash`, `context` and `execution` remain **present**, using null when unavailable. `outputs` contains only completed file writes. |
 
-`schemaVersion`, plan `version`, source `documentVersion` and node versions describe different boundaries. The current inspection body is [RenderPlan v1](./render-plan.md): `version`, `documentVersion`, `size: [width,height]`, `materialOutput`, `passes`, `outputs`, `estimates` and `hash`. Pass/resource IDs and byte estimates are nonnegative integers; `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Core owns plan serialization and hashing. CLI requests with reordered channels compile to the same canonical plan; changing a meaningful override changes its hash, while slicing out an unused branch can remove its work.
+`schemaVersion`, plan `version`, source `documentVersion` and node versions describe different boundaries. The current inspection body is [RenderPlan v2](./render-plan.md): `version`, `documentVersion`, `size: [width,height]`, `materialOutput`, `passes`, `outputs`, `estimates`, `imageResources` and `hash`. Pass/resource IDs and byte estimates are nonnegative integers; `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Core owns plan serialization and hashing. CLI requests with reordered channels compile to the same canonical plan; changing a meaningful override changes its hash, while slicing out an unused branch can remove its work.
 
 ## Diagnostic data and human context
 

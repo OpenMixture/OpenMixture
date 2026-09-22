@@ -2,6 +2,8 @@
 
 English | [简体中文](./m6b-package-format.zh-CN.md)
 
+**Implementation status:** M6B-03–05 implement this contract and complete bounded qualification; see [asset qualification](./m6b-05-qualification.md). The version-selection procedure below is M6B-02 design history; current source and publication status are in the [release guide](./release.md).
+
 **M6B-03 implementation update:** the [shared Rust CPU codec](./m6b-03-cpu-assets.md) is implemented. The following is the selected M6B-02 byte/ownership contract; CLI/browser adapters and combined qualification remain M6B-04/05. The design PR changed no code; the implementation PR introduces the crate and 0.5 version.
 
 ## Selection and evidence
