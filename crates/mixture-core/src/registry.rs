@@ -163,7 +163,7 @@ impl NodeContract {
         self.parameters.iter().find(|p| p.id == id)
     }
 }
-/// The fifteen reviewed node contracts in lexical type-ID order.
+/// The sixteen reviewed node contracts in lexical type-ID order.
 pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::blend::CONTRACT,
     &crate::nodes::brick_pattern::CONTRACT,
@@ -178,6 +178,7 @@ pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::material_output::CONTRACT,
     &crate::nodes::scalar_blend::CONTRACT,
     &crate::nodes::scalar_mask_blend::CONTRACT,
+    &crate::nodes::scalar_morphology::CONTRACT,
     &crate::nodes::transform_2d::CONTRACT,
     &crate::nodes::warp::CONTRACT,
 ];

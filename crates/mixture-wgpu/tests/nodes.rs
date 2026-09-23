@@ -7,7 +7,8 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 14] = [
+const NODES: [&str; 15] = [
+    "scalar-morphology",
     "scalar-mask-blend",
     "brick-pattern",
     "constant-scalar",
@@ -27,6 +28,8 @@ const NODES: [&str; 14] = [
 mod brick_probe;
 #[path = "support/fixed_noise_probe.rs"]
 mod fixed_noise_probe;
+#[path = "support/morphology_probe.rs"]
+mod morphology_probe;
 #[path = "support/normal_probe.rs"]
 mod normal_probe;
 #[path = "support/precision_probe.rs"]
@@ -820,4 +823,20 @@ mod image_probe;
 #[ignore = "requires GPU; cargo xtask test-node image-input"]
 fn node_image_input_gpu() {
     image_probe::run();
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node scalar-morphology"]
+fn node_scalar_morphology_gpu() {
+    run_node("scalar-morphology");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = morphology_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("scalar-morphology-probes.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
 }

@@ -159,6 +159,8 @@ pub enum KernelId {
     ScalarBlend,
     /// Spatial masked normalized scalar interpolation.
     ScalarMaskBlend,
+    /// Wrapped single-axis neighborhood minimum or maximum.
+    ScalarMorphology,
     /// Periodic explicitly seeded scalar noise.
     FractalNoise,
     /// Scalar-to-color linear gradient.
@@ -191,6 +193,24 @@ pub enum BlendMode {
     Multiply,
     /// Screen the two RGB values.
     Screen,
+}
+/// Scalar neighborhood reduction, independent of backend discriminants.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum MorphologyOperation {
+    /// Minimum of normalized neighborhood samples.
+    Erode,
+    /// Maximum of normalized neighborhood samples.
+    Dilate,
+}
+/// Axis of a separable scalar neighborhood.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum MorphologyAxis {
+    /// Horizontal texel offsets.
+    X,
+    /// Vertical texel offsets.
+    Y,
 }
 /// Typed kernel arguments and logical input bindings, with f32 GPU parameters.
 /// There is no arbitrary JSON, shader source, or redundant untyped input list.
@@ -265,6 +285,17 @@ pub enum KernelInvocation {
         mask: ResourceId,
         /// Overall opacity in [0, 1].
         opacity: f32,
+    },
+    /// Wrapped separable neighborhood reduction with integer texel radius.
+    ScalarMorphology {
+        /// Required scalar source.
+        input: ResourceId,
+        /// Minimum or maximum reduction.
+        operation: MorphologyOperation,
+        /// Axis along which samples are taken.
+        axis: MorphologyAxis,
+        /// Inclusive distance in output texels, from zero through sixteen.
+        radius: u32,
     },
     /// Color blend with two color textures and one scalar mask.
     Blend {
@@ -341,6 +372,7 @@ impl KernelInvocation {
             Self::Blend { .. } => KernelId::Blend,
             Self::ScalarBlend { .. } => KernelId::ScalarBlend,
             Self::ScalarMaskBlend { .. } => KernelId::ScalarMaskBlend,
+            Self::ScalarMorphology { .. } => KernelId::ScalarMorphology,
             Self::FractalNoise { .. } => KernelId::FractalNoise,
             Self::GradientMap { .. } => KernelId::GradientMap,
             Self::HeightToNormal { .. } => KernelId::HeightToNormal,
@@ -357,6 +389,7 @@ impl KernelInvocation {
             | Self::Checker { .. }
             | Self::FractalNoise { .. } => [None, None, None],
             Self::Levels { input, .. }
+            | Self::ScalarMorphology { input, .. }
             | Self::GradientMap { input, .. }
             | Self::HeightToNormal { input, .. }
             | Self::Transform2d { input, .. } => [Some(*input), None, None],
@@ -380,6 +413,7 @@ impl KernelInvocation {
             | Self::Constant { .. }
             | Self::ScalarBlend { .. }
             | Self::ScalarMaskBlend { .. }
+            | Self::ScalarMorphology { .. }
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,

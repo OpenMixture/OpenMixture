@@ -68,3 +68,5 @@ npm Alpha 已在记录范围内发布。公开 Rust API 可通过源码／本地
 ENG-04 增加第九项测试：候选及精确注册表 0.3.0-alpha.0 均在 1K 下渲染四种权重的双 Scalar 夹具。0.1.0-alpha.0 拒绝新类型的历史测试证据保留在 ENG-04 记录中。候选安装仅修改暂存 runtime 版本／归档／完整性。见 [ENG-04](../../docs/eng-04-scalar-blend.zh-CN.md)及[新发行记录](../../docs/evidence/npm-030-alpha/README.zh-CN.md)。
 
 M6A-04 候选模式要求全部 13 项测试：原九项加四项资源测试，覆盖同步快照、偏移视图、非法缓冲区、生命周期及冻结 M6A-03 的 1K 图像／噪声组合。注册表 0.3.0-alpha.0 模式同样要求全部 13 项，不跳过用例来凑通过。通过 `check-resources.mjs` 独立对照 Native，固定最大分量差 ≤1；[范围和已知硬件失败](../../docs/m6a-04-browser-resources.zh-CN.md)不能被接口通过替代。
+
+MAT-02b 候选模式现必需 18 项测试，包括 `morphology.spec.mjs` 的 192 组周期形态处理用例及精确重复检查。仅候选验收通过 `MIXTURE_MORPHOLOGY_TESTS=1` 显式包含该测试；精确已发布注册表消费保持 13 项。[形态处理夹具指南](../../fixtures/nodes/scalar-morphology/README.zh-CN.md)定义独立 Native 对照命令。本次增加引擎验收，不是 Studio 升级或材质接受。

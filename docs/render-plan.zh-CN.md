@@ -70,6 +70,7 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 | `transform2d`／`Transform2d` | 源节点 `transform-2d`；`input: ResourceId`、`scale: [u32; 2]`、`quarter_turns: u32`、`offset: [f32; 2]` | 32 |
 | `warp`／`Warp` | 源节点 `warp`；`input: ResourceId`、`displacement: ResourceId`、`strength: [f32; 2]` | 16 |
 | `scalarBlend`／`ScalarBlend` | Scalar `a`／`b` ResourceId，`weight: f32` | 16 |
+| `scalarMorphology` / `ScalarMorphology` | Scalar `input: ResourceId`, `operation: MorphologyOperation`, `axis: MorphologyAxis`, `radius: u32` | 16 |
 | `imageInput`／`ImageInput` | 已准备的外部图像 `resource_id` | 16 |
 
 `KernelInvocation::id()` 穷尽匹配；`inputs()` 按绑定顺序提供类型化输入。计划没有任意参数 JSON，也没有第二份无类型输入列表。`PassOrigin` 保留节点 ID／类型／版本，或生成默认值的所属节点与端口。`PlanOutput` 保留通道类型、连接端点或显式默认值及真实逻辑资源。`RenderPlan` 的公共 API 不可变，不允许反序列化或通过公开构造函数伪造引用／哈希。

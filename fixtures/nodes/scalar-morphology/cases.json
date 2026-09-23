@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "node": "scalar-morphology",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "overrides": {},
+      "size": [
+        19,
+        11
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "overrides": {
+        "radius": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "wide-x",
+      "overrides": {
+        "radius": 16,
+        "operation": "dilate"
+      },
+      "size": [
+        1,
+        17
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "wide-y",
+      "overrides": {
+        "radius": 16,
+        "axis": "y"
+      },
+      "size": [
+        17,
+        1
+      ],
+      "outputs": [
+        "height"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "overrides": {
+        "radius": -1
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "radius": 17
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "radius": 1.5
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "axis": "z"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    },
+    {
+      "overrides": {
+        "operation": "blur"
+      },
+      "code": "MIX_PARAMETER_INVALID_VALUE"
+    }
+  ]
+}

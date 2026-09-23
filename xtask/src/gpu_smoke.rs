@@ -224,6 +224,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             | "blend"
             | "scalar-blend"
             | "scalar-mask-blend"
+            | "scalar-morphology"
             | "brick-pattern"
             | "material-output"
             | "fractal-noise"

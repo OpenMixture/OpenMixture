@@ -8,7 +8,7 @@ test('brick material candidate renders the complete frozen public matrix', async
   const controls = JSON.parse(await read('controls.json'));
   const matrix = JSON.parse(await read('qualification-plan.json'));
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.6.0-alpha.0');
+  expect(['0.6.0-alpha.0', '0.7.0-alpha.0']).toContain(expectedBuild.runtimeVersion);
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));
   const rows = [];

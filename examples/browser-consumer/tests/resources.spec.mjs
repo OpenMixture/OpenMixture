@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readFile, writeFile } from 'node:fs/promises';
 
 const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-const fixture = expectedBuild.runtimeVersion === '0.6.0-alpha.0' ? 'image-input-v2.mix' : 'image-input.mix';
+const fixture = ['0.6.0-alpha.0', '0.7.0-alpha.0'].includes(expectedBuild.runtimeVersion) ? 'image-input-v2.mix' : 'image-input.mix';
 const source = await readFile(new URL(`../public/${fixture}`, import.meta.url), 'utf8');
 async function host(page) {
   await page.goto('tests/contracts.html');
