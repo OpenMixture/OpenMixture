@@ -1,0 +1,696 @@
+{
+  "kind": "stage-decoded-comparison",
+  "qualified": false,
+  "nativeReceipt": {
+    "kind": "painted-metal-stage-diagnostic",
+    "qualification": false,
+    "sourceCommit": "92fc9d1502d40037227b606f3caf2f3ad82f5819",
+    "workingTreeStatus": "",
+    "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+    "scriptSha256": "98b48a233f51b7b23757715a9a0afa56bbc02850b8f11dcf31a4484200d2848d",
+    "cliSha256": "0c7df8979197d1c0fd3b7696854a39c4bd5136902973795c78b1cfd756dd5014",
+    "size": [
+      1024,
+      1024
+    ],
+    "rows": [
+      {
+        "stage": "macro",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/macro.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/macro",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "fd5a2a296e845c98a7afe5eb323106f97d466beb3baac2303cf00f5c9fe20480",
+        "planHash": "sha256:c10f66d16a0f722776a1ea9ada71b18ab812484f06dd4fd148d0a951e8f75e9f"
+      },
+      {
+        "stage": "exposure",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/exposure.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/exposure",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "1abae9f4a223ba9fc8b26037103281f9da0bda92afb12e3aa873156930a7bff8",
+        "planHash": "sha256:ce4b5e497f8056ae65549a0077078cbd14146ac90d701a225019f4bf82368bb8"
+      },
+      {
+        "stage": "erodeX",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/erodeX.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/erodeX",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "3cb337ecc193a8aed3e1aed666295523652b3dfe9fa482dc56b32a976788a746",
+        "planHash": "sha256:706274cea77c5314a451062b90b4ba27f930b6e382b4bdff3562b163d1579dd2"
+      },
+      {
+        "stage": "erodeY",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/erodeY.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/erodeY",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "764c79657660e792bd7522235f38234e4dd9954db21d4bbf60954a58cd6fdb96",
+        "planHash": "sha256:d8f33ee27aa4519246b125c5e56c7b2bdfdec84ef60ae1251910cd75fd645c75"
+      },
+      {
+        "stage": "band",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/band.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/band",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "b0c261e6e98b617567ad43d3f2ef51a1269db4405fbdb96f9ed926e814e8a0d1",
+        "planHash": "sha256:c1af7c5bf0f061d03b808116d7c49e9ed92772d2983c75f2637762cc2498a571"
+      },
+      {
+        "stage": "rustSpread",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/rustSpread.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/rustSpread",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "07b7408ea85fb21c528f4516bdd70ad8211a4616b6fcb0760d027a297ee10133",
+        "planHash": "sha256:d89433bfdd7bf76338dc16474f2c5fe1e98271269cc5a84244c5de9124739646"
+      },
+      {
+        "stage": "detailNoise",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/detailNoise.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/detailNoise",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "fb7d58a844a26704f97674fb738208870fa0b82995bca633f8f5f52b16948851",
+        "planHash": "sha256:a3c2d5a3ebb6216c46b8ca7fee7b1393235b0df0debf6e41fbf6d2fba03888e1"
+      },
+      {
+        "stage": "detail",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/detail.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/detail",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "885b8c72a1103359d57d635e994fbe5b19b2bc12d6583fee0deae127ab3692dd",
+        "planHash": "sha256:b824dd109795db289f0d590d8d34ac718d1bf59201beab881a6e699d44040dbc"
+      },
+      {
+        "stage": "rustMask",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/rustMask.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/rustMask",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "72e2cfe137ac2832ffbc7cb2b554c18ea45ab7ad877eafd232024b0c9bb12efc",
+        "planHash": "sha256:13d65252fb3cc458de6cd23b539940684d10c97aec00d2c7840fc5276bf1ca12"
+      },
+      {
+        "stage": "coatingHeight",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/coatingHeight.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/coatingHeight",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "283bb7611f43e6a75f8157440a49aa2fc2864c581930d2fdba9cc8d28ea1d55b",
+        "planHash": "sha256:9527721d2c94f6b57f0d3bef55b8e7c0c686cf8fb3c614aa2839c146115c30f4"
+      },
+      {
+        "stage": "height",
+        "command": [
+          "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+          "render",
+          "tmp/painted-metal-stages/height.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp/painted-metal-stages/height",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+        "planHash": "sha256:92411899bf3b6ac15c729f889f39d0826988e2b106e9003b415aa66ed969faf3"
+      }
+    ]
+  },
+  "controlReceipt": {
+    "kind": "painted-metal-stage-diagnostic",
+    "qualification": false,
+    "sourceCommit": "611e9c4afad7e4b6558a1c5a4bf538d13196650e",
+    "workingTreeStatus": " M .github/workflows/browser-materials.yml\n?? docs/evidence/perf-mat-numerics/\n?? scripts/probe-painted-metal.py\n",
+    "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+    "scriptSha256": "98b48a233f51b7b23757715a9a0afa56bbc02850b8f11dcf31a4484200d2848d",
+    "cliSha256": "09bbde00ecade1e65441d2a1a20254c723754b140fb0e8b78bf6b05bdcf21571",
+    "size": [
+      1024,
+      1024
+    ],
+    "rows": [
+      {
+        "stage": "macro",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\macro.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\macro",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "cff877e868fcc89f8bd2142fb2b42f2f3e090183ef763f2271a1790a133dca35",
+        "planHash": "sha256:c10f66d16a0f722776a1ea9ada71b18ab812484f06dd4fd148d0a951e8f75e9f"
+      },
+      {
+        "stage": "exposure",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\exposure.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\exposure",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "41503611bed254b163bfe1714796183b550a2f932f53f92a0d532bef1c6bf0d6",
+        "planHash": "sha256:ce4b5e497f8056ae65549a0077078cbd14146ac90d701a225019f4bf82368bb8"
+      },
+      {
+        "stage": "erodeX",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\erodeX.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\erodeX",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "5beffb353c8c28c65c52d53ec303f24068a5303fc190e0143a2a1a4df626fa04",
+        "planHash": "sha256:706274cea77c5314a451062b90b4ba27f930b6e382b4bdff3562b163d1579dd2"
+      },
+      {
+        "stage": "erodeY",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\erodeY.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\erodeY",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "b7539c6b2e493e4f2bb39fa98c4444aff6f504ea66835e15c16de0abb1076f85",
+        "planHash": "sha256:d8f33ee27aa4519246b125c5e56c7b2bdfdec84ef60ae1251910cd75fd645c75"
+      },
+      {
+        "stage": "band",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\band.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\band",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "6ab935d1263d0b63efafb113bd757a7c8cfe8e5e3cf79ebc34be8d6b7b324244",
+        "planHash": "sha256:c1af7c5bf0f061d03b808116d7c49e9ed92772d2983c75f2637762cc2498a571"
+      },
+      {
+        "stage": "rustSpread",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\rustSpread.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\rustSpread",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "e5a0b451c6c3e8f84585882619de602cdf7b19e9c9c8ec3df8a843e68149e5a3",
+        "planHash": "sha256:d89433bfdd7bf76338dc16474f2c5fe1e98271269cc5a84244c5de9124739646"
+      },
+      {
+        "stage": "detailNoise",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\detailNoise.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\detailNoise",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "0ff9b07e7b5c5f1a5d75510baf76d018026d13410648ef395587813e1486dea4",
+        "planHash": "sha256:a3c2d5a3ebb6216c46b8ca7fee7b1393235b0df0debf6e41fbf6d2fba03888e1"
+      },
+      {
+        "stage": "detail",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\detail.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\detail",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "ab26eaeaace51674447deb2c9ac774dc29039d8eff53c8763d29dc551460677f",
+        "planHash": "sha256:b824dd109795db289f0d590d8d34ac718d1bf59201beab881a6e699d44040dbc"
+      },
+      {
+        "stage": "rustMask",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\rustMask.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\rustMask",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "9f92c178cd751656234408e7a96dc3fa17767e42900c35c6c24dd4710b11d519",
+        "planHash": "sha256:13d65252fb3cc458de6cd23b539940684d10c97aec00d2c7840fc5276bf1ca12"
+      },
+      {
+        "stage": "coatingHeight",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\coatingHeight.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\coatingHeight",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "18ae63d79a8597526bab19552f9e56d9c65bf989ec6c1068b5c1f9cba6cbe522",
+        "planHash": "sha256:9527721d2c94f6b57f0d3bef55b8e7c0c686cf8fb3c614aa2839c146115c30f4"
+      },
+      {
+        "stage": "height",
+        "command": [
+          "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+          "render",
+          "tmp\\reuse-stages-checked-2\\height.mix",
+          "--size",
+          "1024",
+          "--output",
+          "height,normal",
+          "--backend",
+          "vulkan",
+          "--software",
+          "--out",
+          "tmp\\reuse-stages-checked-2\\height",
+          "--json"
+        ],
+        "exitCode": 0,
+        "sourceSha256": "e1caa0c25a0dc2c47dd0b7d44b7b7ab3ec5532a10d4df766344c1cd3d0fe743b",
+        "planHash": "sha256:92411899bf3b6ac15c729f889f39d0826988e2b106e9003b415aa66ed969faf3"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "stage": "macro",
+      "planHash": "sha256:c10f66d16a0f722776a1ea9ada71b18ab812484f06dd4fd148d0a951e8f75e9f",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "fc4816c50528f3fcf9e0db21629cc1d15682235a0c77302f01e65589e7e6bfa2",
+          "controlPngSha256": "fc4816c50528f3fcf9e0db21629cc1d15682235a0c77302f01e65589e7e6bfa2"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "1ab694964943d537486f4e44aca73f1bb3d169ac92be41684f3e21fa7b47eeb3",
+          "controlPngSha256": "1ab694964943d537486f4e44aca73f1bb3d169ac92be41684f3e21fa7b47eeb3"
+        }
+      }
+    },
+    {
+      "stage": "exposure",
+      "planHash": "sha256:ce4b5e497f8056ae65549a0077078cbd14146ac90d701a225019f4bf82368bb8",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "1cb3c55245110da40e28addf93eafd2527cf8594ad171f24d00518ce1e8410b5",
+          "controlPngSha256": "1cb3c55245110da40e28addf93eafd2527cf8594ad171f24d00518ce1e8410b5"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "252ff25ff413f87ad69c64536ba0445daac1fa02400ac0dd58352a7050d4ac1e",
+          "controlPngSha256": "252ff25ff413f87ad69c64536ba0445daac1fa02400ac0dd58352a7050d4ac1e"
+        }
+      }
+    },
+    {
+      "stage": "erodeX",
+      "planHash": "sha256:706274cea77c5314a451062b90b4ba27f930b6e382b4bdff3562b163d1579dd2",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "109bdec09b67219ef09212c3a7a0b53665dc45f17f15c72f8d6e4f3f4f9c4f3b",
+          "controlPngSha256": "109bdec09b67219ef09212c3a7a0b53665dc45f17f15c72f8d6e4f3f4f9c4f3b"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "576a6180de8a1f5aee848147a2189a53a8941ca70350bc88a90b1f226c4ebdc8",
+          "controlPngSha256": "576a6180de8a1f5aee848147a2189a53a8941ca70350bc88a90b1f226c4ebdc8"
+        }
+      }
+    },
+    {
+      "stage": "erodeY",
+      "planHash": "sha256:d8f33ee27aa4519246b125c5e56c7b2bdfdec84ef60ae1251910cd75fd645c75",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "0d1486c97a7424814c2e7d6e21c4d8a8c357a45e179c37cd17c8c20313fcdf0b",
+          "controlPngSha256": "0d1486c97a7424814c2e7d6e21c4d8a8c357a45e179c37cd17c8c20313fcdf0b"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "d455b0ac2272342b5de620cc75dac2383258d799f49070f973d124eabbd1a1cd",
+          "controlPngSha256": "d455b0ac2272342b5de620cc75dac2383258d799f49070f973d124eabbd1a1cd"
+        }
+      }
+    },
+    {
+      "stage": "band",
+      "planHash": "sha256:c1af7c5bf0f061d03b808116d7c49e9ed92772d2983c75f2637762cc2498a571",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "89874b08589b96f62b67bbbcf50cdec42e98f92d08d4e30363a58d3c0eb72f61",
+          "controlPngSha256": "89874b08589b96f62b67bbbcf50cdec42e98f92d08d4e30363a58d3c0eb72f61"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "c7f4f58f58ae0388fbcea592770f0d82bba7b2728a618f8570e29479977632bb",
+          "controlPngSha256": "c7f4f58f58ae0388fbcea592770f0d82bba7b2728a618f8570e29479977632bb"
+        }
+      }
+    },
+    {
+      "stage": "rustSpread",
+      "planHash": "sha256:d89433bfdd7bf76338dc16474f2c5fe1e98271269cc5a84244c5de9124739646",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "cc8d7c7c2ecf506790caf0a7c77767cde731e81ce42e4a92c5f13242ac4a7bc8",
+          "controlPngSha256": "cc8d7c7c2ecf506790caf0a7c77767cde731e81ce42e4a92c5f13242ac4a7bc8"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "b48c2e950f0a3ef8983156201445ddb03658301fbc531d526ca5bceeab79999f",
+          "controlPngSha256": "b48c2e950f0a3ef8983156201445ddb03658301fbc531d526ca5bceeab79999f"
+        }
+      }
+    },
+    {
+      "stage": "detailNoise",
+      "planHash": "sha256:a3c2d5a3ebb6216c46b8ca7fee7b1393235b0df0debf6e41fbf6d2fba03888e1",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "45cc23c16ac094c7f48b34934feb50627e3d441df9c01a4537da818be45ff980",
+          "controlPngSha256": "45cc23c16ac094c7f48b34934feb50627e3d441df9c01a4537da818be45ff980"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "179b44c7dcf266171db47b8ff20d51e77ac7424297297d6bfb14c349a556168b",
+          "controlPngSha256": "179b44c7dcf266171db47b8ff20d51e77ac7424297297d6bfb14c349a556168b"
+        }
+      }
+    },
+    {
+      "stage": "detail",
+      "planHash": "sha256:b824dd109795db289f0d590d8d34ac718d1bf59201beab881a6e699d44040dbc",
+      "channels": {
+        "height": {
+          "max": 1,
+          "changedPixels": 5269,
+          "nativePngSha256": "45d4313bff939eecd4b6914d5fb372af779730a9bc7511a7a086c11b6d359d16",
+          "controlPngSha256": "673091333dd42e163a89a4f6763be72ded5db58ed7ea84bd2719c18b93e8c439"
+        },
+        "normal": {
+          "max": 16,
+          "changedPixels": 62663,
+          "nativePngSha256": "ebef1d46492efc3a9ee87429154b082d239f58633a5219771dce095360e77ab0",
+          "controlPngSha256": "a37211e2505dd6c8297a32ea3516eb6522b1507ea6c3fc78029a019feb011715"
+        }
+      }
+    },
+    {
+      "stage": "rustMask",
+      "planHash": "sha256:13d65252fb3cc458de6cd23b539940684d10c97aec00d2c7840fc5276bf1ca12",
+      "channels": {
+        "height": {
+          "max": 1,
+          "changedPixels": 475,
+          "nativePngSha256": "003adcf001f3d26199f9965bfcef7f2498a3b7fdae6bc0bb2c88cca739020195",
+          "controlPngSha256": "78160dfc4974d7c01cdb57282af11c1bd6ec8e8c0c48198736f4618150a418c5"
+        },
+        "normal": {
+          "max": 8,
+          "changedPixels": 33189,
+          "nativePngSha256": "38f482936284f0caa1c9cf4b27ffd5ea1d7d985fb9db29dacad29d645ddf256f",
+          "controlPngSha256": "5bceede694951aff391950c9f702b7517bb7a6bde1a884b812f83a5bde8c972d"
+        }
+      }
+    },
+    {
+      "stage": "coatingHeight",
+      "planHash": "sha256:9527721d2c94f6b57f0d3bef55b8e7c0c686cf8fb3c614aa2839c146115c30f4",
+      "channels": {
+        "height": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "08b52f6b6cad0677f8624bd276398ec34a07c81ce37d33354ae020257dd568bb",
+          "controlPngSha256": "08b52f6b6cad0677f8624bd276398ec34a07c81ce37d33354ae020257dd568bb"
+        },
+        "normal": {
+          "max": 0,
+          "changedPixels": 0,
+          "nativePngSha256": "d43a1e0e57c5cbd4a4edbcfe56bc3cfab933e88cfb1d5ff7b9e571c4f723e5dc",
+          "controlPngSha256": "d43a1e0e57c5cbd4a4edbcfe56bc3cfab933e88cfb1d5ff7b9e571c4f723e5dc"
+        }
+      }
+    },
+    {
+      "stage": "height",
+      "planHash": "sha256:92411899bf3b6ac15c729f889f39d0826988e2b106e9003b415aa66ed969faf3",
+      "channels": {
+        "height": {
+          "max": 1,
+          "changedPixels": 3,
+          "nativePngSha256": "f44f98f6e4d62944e4c85c5d0521e48f66d35474479969ee063c0ee5b17aafd0",
+          "controlPngSha256": "cd7ec6d2dfadbd7ec3ef7bcf740fdea232296072ab6e807fa2dfa0013e835d2a"
+        },
+        "normal": {
+          "max": 4,
+          "changedPixels": 422,
+          "nativePngSha256": "b98a71d2b56f771f2f67ffeb38fd6cb0698d2ed4dd94f37729c2712594b64c00",
+          "controlPngSha256": "710f62af48630894dea92bfd8b567a17308e222475ced82d383260a08e190c59"
+        }
+      }
+    }
+  ]
+}

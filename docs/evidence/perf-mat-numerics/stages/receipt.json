@@ -1,0 +1,66 @@
+{
+  "qualified": false,
+  "run": 35869537767,
+  "attempt": 1,
+  "head": "6a1cb2bae434278d0834cec4d43685933dc0f6c9",
+  "merge": "92fc9d1502d40037227b606f3caf2f3ad82f5819",
+  "artifact": 10754816938,
+  "artifactBytes": 108291314,
+  "expiresAt": "2026-10-23T13:59:32Z",
+  "firstObservedStage": "detail",
+  "candidateCause": "gamma-one levels pow evaluation before half midpoint rounding; literal Linux probe pending",
+  "files": {
+    "comparison.json": {
+      "sha256": "48ebad63d6e94d4c80720e45e4110ec1ada9e0f64d3ca2ee7effe1359a3ddeb4",
+      "bytes": 24798
+    },
+    "compare.py": {
+      "sha256": "12980e4f4204416ea37f34d04c78c1caa5b879ff3725267d484d9620e3bc88b0",
+      "bytes": 1848
+    },
+    "linux-receipt.json": {
+      "sha256": "a1c9b310ab56142a877601af0e91d057710e390dd8b5ecd1234c336ef485be47",
+      "bytes": 7417
+    },
+    "linux-detail.mix": {
+      "sha256": "885b8c72a1103359d57d635e994fbe5b19b2bc12d6583fee0deae127ab3692dd",
+      "bytes": 12171
+    },
+    "linux-detail.json": {
+      "sha256": "d1aaf746c791213bd89f9e6f9cafb0e834685b6b1f2b0ea523dc97f9b63b79e6",
+      "bytes": 16795
+    },
+    "linux-detail-height.png": {
+      "sha256": "45d4313bff939eecd4b6914d5fb372af779730a9bc7511a7a086c11b6d359d16",
+      "bytes": 353636
+    },
+    "linux-detail-normal.png": {
+      "sha256": "ebef1d46492efc3a9ee87429154b082d239f58633a5219771dce095360e77ab0",
+      "bytes": 2161328
+    },
+    "windows-receipt.json": {
+      "sha256": "14854b98e524c9f7bcea17e21cb1390cbc03d0526136d53744b5cb18231af7b1",
+      "bytes": 8010
+    },
+    "windows-detail.mix": {
+      "sha256": "ab26eaeaace51674447deb2c9ac774dc29039d8eff53c8763d29dc551460677f",
+      "bytes": 12856
+    },
+    "windows-detail.json": {
+      "sha256": "a6fd19ce05cf59fd3386d1187ea74ba646095032185151b6dd160172ff9711ee",
+      "bytes": 16734
+    },
+    "windows-detail-height.png": {
+      "sha256": "673091333dd42e163a89a4f6763be72ded5db58ed7ea84bd2719c18b93e8c439",
+      "bytes": 353869
+    },
+    "windows-detail-normal.png": {
+      "sha256": "a37211e2505dd6c8297a32ea3516eb6522b1507ea6c3fc78029a019feb011715",
+      "bytes": 2159476
+    },
+    "windows-linear.json": {
+      "sha256": "e98cb655abad98a697d9adfe4f5a96d2a0d131e5e4f78474856f53f72db20d8f",
+      "bytes": 21613
+    }
+  }
+}

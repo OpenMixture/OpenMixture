@@ -17,3 +17,11 @@ python scripts/probe-painted-metal.py --cli target/release/mixture --output tmp/
 ```
 
 Windows 使用实际 CLI 路径；输出目录不得已存在。脚本只依赖 Python 标准库。WSL 实验已停止，不将其构建或结果作为验收证据。Agent Guide 影响：未改变操作规则；此记录保留失败证据，诊断保持既有六项门槛。
+
+## 首个差异阶段 — 2026-09-23
+
+[运行 35869537767](https://github.com/OpenMixture/OpenMixture/actions/runs/35869537767)复现失败门槛，并成功采集全部十一阶段。[源码／产物记录](./stages/receipt.json)与[解码对照](./stages/comparison.json)绑定 Linux Native release 输出及此前 Windows Native 软件执行对照。派生图对象和计划哈希均相同。Macro、exposure、erodeX/Y、band、rustSpread、detailNoise、coatingHeight 的高度和法线像素完全一致。首个观察到差异的阶段是 `detail`：高度有 5,269 个像素不同（最大 1），法线有 62,663 个不同（最大 16）。随后 RustMask 出现差异，最终高度／法线在 1K 重现完整材质的 3／422 个差异像素、最大差异 1／4。这是 Native 软件执行诊断，不是另一份已接受的浏览器矩阵。
+
+`detail` 节点是 gamma=1、[0,1] → [0.5,1] 映射的 `levels@1`。留存的 [Linux](./stages/linux-detail.mix)与 [Windows](./stages/windows-detail.mix)请求及其高度／法线图片保存首个差异证据。其余完整阶段 PNG 是产物 `10754816938` 中的普通诊断输出（2026-10-23 到期）；留存的[比较脚本](./stages/compare.py)需要 Pillow 及两个完整阶段目录才能重现解码比较。哈希不能替代未留存的图片。
+
+gamma=1 的 `pow` 在半精度舍入中点附近求值是当前假设，尚未由 Linux 独立用例确认。诊断现在另渲染十二个不含噪声的 1x1 字面量对照：精确端点，以及仿射结果落在舍入中点的半精度可表示输入。独立常量参考采用 binary16 最近偶数舍入；两个饱和减法及精确端点放大器分别将正、负半精度步长误差暴露到高度／粗糙度。预期误差像素为 `[0,0,0,255]`。Windows 软件执行的十二例均为零，Linux 结果待采集。这些报告仍属诊断，此处不改变生产着色器、版本、容差或迁移策略。

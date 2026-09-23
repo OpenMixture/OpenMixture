@@ -1,0 +1,246 @@
+{
+  "kind": "painted-metal-stage-diagnostic",
+  "qualification": false,
+  "sourceCommit": "611e9c4afad7e4b6558a1c5a4bf538d13196650e",
+  "workingTreeStatus": " M .github/workflows/browser-materials.yml\n?? docs/evidence/perf-mat-numerics/\n?? scripts/probe-painted-metal.py\n",
+  "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+  "scriptSha256": "98b48a233f51b7b23757715a9a0afa56bbc02850b8f11dcf31a4484200d2848d",
+  "cliSha256": "09bbde00ecade1e65441d2a1a20254c723754b140fb0e8b78bf6b05bdcf21571",
+  "size": [
+    1024,
+    1024
+  ],
+  "rows": [
+    {
+      "stage": "macro",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\macro.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\macro",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "cff877e868fcc89f8bd2142fb2b42f2f3e090183ef763f2271a1790a133dca35",
+      "planHash": "sha256:c10f66d16a0f722776a1ea9ada71b18ab812484f06dd4fd148d0a951e8f75e9f"
+    },
+    {
+      "stage": "exposure",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\exposure.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\exposure",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "41503611bed254b163bfe1714796183b550a2f932f53f92a0d532bef1c6bf0d6",
+      "planHash": "sha256:ce4b5e497f8056ae65549a0077078cbd14146ac90d701a225019f4bf82368bb8"
+    },
+    {
+      "stage": "erodeX",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\erodeX.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\erodeX",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "5beffb353c8c28c65c52d53ec303f24068a5303fc190e0143a2a1a4df626fa04",
+      "planHash": "sha256:706274cea77c5314a451062b90b4ba27f930b6e382b4bdff3562b163d1579dd2"
+    },
+    {
+      "stage": "erodeY",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\erodeY.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\erodeY",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "b7539c6b2e493e4f2bb39fa98c4444aff6f504ea66835e15c16de0abb1076f85",
+      "planHash": "sha256:d8f33ee27aa4519246b125c5e56c7b2bdfdec84ef60ae1251910cd75fd645c75"
+    },
+    {
+      "stage": "band",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\band.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\band",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "6ab935d1263d0b63efafb113bd757a7c8cfe8e5e3cf79ebc34be8d6b7b324244",
+      "planHash": "sha256:c1af7c5bf0f061d03b808116d7c49e9ed92772d2983c75f2637762cc2498a571"
+    },
+    {
+      "stage": "rustSpread",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\rustSpread.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\rustSpread",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "e5a0b451c6c3e8f84585882619de602cdf7b19e9c9c8ec3df8a843e68149e5a3",
+      "planHash": "sha256:d89433bfdd7bf76338dc16474f2c5fe1e98271269cc5a84244c5de9124739646"
+    },
+    {
+      "stage": "detailNoise",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\detailNoise.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\detailNoise",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "0ff9b07e7b5c5f1a5d75510baf76d018026d13410648ef395587813e1486dea4",
+      "planHash": "sha256:a3c2d5a3ebb6216c46b8ca7fee7b1393235b0df0debf6e41fbf6d2fba03888e1"
+    },
+    {
+      "stage": "detail",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\detail.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\detail",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "ab26eaeaace51674447deb2c9ac774dc29039d8eff53c8763d29dc551460677f",
+      "planHash": "sha256:b824dd109795db289f0d590d8d34ac718d1bf59201beab881a6e699d44040dbc"
+    },
+    {
+      "stage": "rustMask",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\rustMask.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\rustMask",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "9f92c178cd751656234408e7a96dc3fa17767e42900c35c6c24dd4710b11d519",
+      "planHash": "sha256:13d65252fb3cc458de6cd23b539940684d10c97aec00d2c7840fc5276bf1ca12"
+    },
+    {
+      "stage": "coatingHeight",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\coatingHeight.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\coatingHeight",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "18ae63d79a8597526bab19552f9e56d9c65bf989ec6c1068b5c1f9cba6cbe522",
+      "planHash": "sha256:9527721d2c94f6b57f0d3bef55b8e7c0c686cf8fb3c614aa2839c146115c30f4"
+    },
+    {
+      "stage": "height",
+      "command": [
+        "C:\\Users\\krapnik\\.codex\\tmp\\openmixture-mat01c-build\\debug\\mixture.exe",
+        "render",
+        "tmp\\reuse-stages-checked-2\\height.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp\\reuse-stages-checked-2\\height",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "e1caa0c25a0dc2c47dd0b7d44b7b7ab3ec5532a10d4df766344c1cd3d0fe743b",
+      "planHash": "sha256:92411899bf3b6ac15c729f889f39d0826988e2b106e9003b415aa66ed969faf3"
+    }
+  ]
+}

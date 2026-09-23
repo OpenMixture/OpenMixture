@@ -1,0 +1,246 @@
+{
+  "kind": "painted-metal-stage-diagnostic",
+  "qualification": false,
+  "sourceCommit": "92fc9d1502d40037227b606f3caf2f3ad82f5819",
+  "workingTreeStatus": "",
+  "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+  "scriptSha256": "98b48a233f51b7b23757715a9a0afa56bbc02850b8f11dcf31a4484200d2848d",
+  "cliSha256": "0c7df8979197d1c0fd3b7696854a39c4bd5136902973795c78b1cfd756dd5014",
+  "size": [
+    1024,
+    1024
+  ],
+  "rows": [
+    {
+      "stage": "macro",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/macro.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/macro",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "fd5a2a296e845c98a7afe5eb323106f97d466beb3baac2303cf00f5c9fe20480",
+      "planHash": "sha256:c10f66d16a0f722776a1ea9ada71b18ab812484f06dd4fd148d0a951e8f75e9f"
+    },
+    {
+      "stage": "exposure",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/exposure.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/exposure",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "1abae9f4a223ba9fc8b26037103281f9da0bda92afb12e3aa873156930a7bff8",
+      "planHash": "sha256:ce4b5e497f8056ae65549a0077078cbd14146ac90d701a225019f4bf82368bb8"
+    },
+    {
+      "stage": "erodeX",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/erodeX.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/erodeX",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "3cb337ecc193a8aed3e1aed666295523652b3dfe9fa482dc56b32a976788a746",
+      "planHash": "sha256:706274cea77c5314a451062b90b4ba27f930b6e382b4bdff3562b163d1579dd2"
+    },
+    {
+      "stage": "erodeY",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/erodeY.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/erodeY",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "764c79657660e792bd7522235f38234e4dd9954db21d4bbf60954a58cd6fdb96",
+      "planHash": "sha256:d8f33ee27aa4519246b125c5e56c7b2bdfdec84ef60ae1251910cd75fd645c75"
+    },
+    {
+      "stage": "band",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/band.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/band",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "b0c261e6e98b617567ad43d3f2ef51a1269db4405fbdb96f9ed926e814e8a0d1",
+      "planHash": "sha256:c1af7c5bf0f061d03b808116d7c49e9ed92772d2983c75f2637762cc2498a571"
+    },
+    {
+      "stage": "rustSpread",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/rustSpread.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/rustSpread",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "07b7408ea85fb21c528f4516bdd70ad8211a4616b6fcb0760d027a297ee10133",
+      "planHash": "sha256:d89433bfdd7bf76338dc16474f2c5fe1e98271269cc5a84244c5de9124739646"
+    },
+    {
+      "stage": "detailNoise",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/detailNoise.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/detailNoise",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "fb7d58a844a26704f97674fb738208870fa0b82995bca633f8f5f52b16948851",
+      "planHash": "sha256:a3c2d5a3ebb6216c46b8ca7fee7b1393235b0df0debf6e41fbf6d2fba03888e1"
+    },
+    {
+      "stage": "detail",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/detail.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/detail",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "885b8c72a1103359d57d635e994fbe5b19b2bc12d6583fee0deae127ab3692dd",
+      "planHash": "sha256:b824dd109795db289f0d590d8d34ac718d1bf59201beab881a6e699d44040dbc"
+    },
+    {
+      "stage": "rustMask",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/rustMask.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/rustMask",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "72e2cfe137ac2832ffbc7cb2b554c18ea45ab7ad877eafd232024b0c9bb12efc",
+      "planHash": "sha256:13d65252fb3cc458de6cd23b539940684d10c97aec00d2c7840fc5276bf1ca12"
+    },
+    {
+      "stage": "coatingHeight",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/coatingHeight.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/coatingHeight",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "283bb7611f43e6a75f8157440a49aa2fc2864c581930d2fdba9cc8d28ea1d55b",
+      "planHash": "sha256:9527721d2c94f6b57f0d3bef55b8e7c0c686cf8fb3c614aa2839c146115c30f4"
+    },
+    {
+      "stage": "height",
+      "command": [
+        "/home/runner/work/OpenMixture/OpenMixture/target/release/mixture",
+        "render",
+        "tmp/painted-metal-stages/height.mix",
+        "--size",
+        "1024",
+        "--output",
+        "height,normal",
+        "--backend",
+        "vulkan",
+        "--software",
+        "--out",
+        "tmp/painted-metal-stages/height",
+        "--json"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+      "planHash": "sha256:92411899bf3b6ac15c729f889f39d0826988e2b106e9003b415aa66ed969faf3"
+    }
+  ]
+}
