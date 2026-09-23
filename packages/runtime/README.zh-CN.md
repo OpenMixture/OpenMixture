@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**工作候选（2026-09-23）：** 源码构建产出未发布 0.8.0-alpha.0，使用 API／计划 schema 3 及 Core 所有的物理纹理槽。重编译源请求并使旧计划／哈希缓存失效；.mix／.mixpack 保持 v1。完整验收仍待完成，见[纹理复用](../../docs/perf-mat-texture-reuse.zh-CN.md)。下方注册表安装仍固定已发布 0.3.0-alpha.0。
+
 **M6B-04（2026-09-22）：** [CLI/浏览器资产适配](../../docs/m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
 
 这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.3.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
@@ -45,9 +47,9 @@ npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 
-需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-0.3.0-alpha.0.tgz`、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-0.3.0-alpha.0.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
+需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-0.8.0-alpha.0.tgz`、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-0.8.0-alpha.0.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
 
-Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、资源打包、取消和零拷贝纹理仍不支持。
+Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、浏览器资产编写、取消和零拷贝纹理仍不支持。
 
 当前已发布版本为 0.3.0-alpha.0／API schema 2／计划 v2，包含 image-input Core 合同；M6A-04 已让 `validate`、`inspect`、`render` 接受资源数组及显式资源限制。注册表安装仍使用上方精确已发布版本。
 
