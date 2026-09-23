@@ -88,7 +88,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 MAT-02／03／04 遵循相同的契约 → 最小实现切面 → 材质证据 → 验收顺序。在进入阶段时结合前一阶段经验拆成实际工作项；现在不指定推测性节点 ID 或发布版本。
 
-[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，工作中的节点实现选定 0.7 并加入两个评审过的身份；验收／集成仍待完成。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；预计的 2K 内存失败须先实测再启动 PERF-MAT，不放宽冻结预算。
+[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，工作中的节点实现选定 0.7 并加入两个评审过的身份；验收／集成仍待完成。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；[真实 2K 失败与有效 1K 基线](./docs/evidence/perf-mat-before/README.zh-CN.md)现已启动 PERF-MAT，不放宽冻结预算。[ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md)选定有界分配／版本变更：PERF-MATa 保留证据与契约，PERF-MATb 一起实现 Core 调度、wgpu 复用及薄版本投影，PERF-MATc 验收像素、成本、生命周期及公开消费者。Plan／API v3 和 0.8 候选在首次实现时启用，本设计不实现它们。MAT-02 仍是唯一活跃材质增量，其完整材质门槛及 MAT-03／04 仍为必需。
 
 ### 共同材质验收与所有权
 

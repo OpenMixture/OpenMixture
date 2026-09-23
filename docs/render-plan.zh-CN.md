@@ -86,6 +86,8 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 ## 分配估算契约
 
+[ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)在 MAT-02 实测失败后选定未来 v3 物理槽模型。本设计尚未实现；以下 v2 规则仍描述可执行行为。
+
 计划版本 2 假定简单的执行顺序：所有 pass 纹理和 uniform 保留至执行／回读结束；按请求通道顺序逐个分配、释放一个 staging 缓冲区。没有提前释放或资源池。估算的是逻辑 GPU 分配字节，不是驱动测量值，也不包含 CPU 内存、PNG 分配、着色器／管线内存或设备分配粒度。
 
 令 `W`／`H` 为尺寸，`P` 为 pass 数，`O` 为请求通道数，`U` 为含填充的 uniform 总字节数，`T = W × H × 8`，`R = ceil(W × 8 / 256) × 256 × H`：

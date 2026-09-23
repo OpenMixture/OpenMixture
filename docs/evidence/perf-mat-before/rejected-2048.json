@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 2,
+  "plan": null,
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED",
+      "stage": "compile",
+      "severity": "error",
+      "message": "transientBytes limit exceeded: configured 536870912, observed 805306832",
+      "documentPath": "tmp/painted-metal-default.mix",
+      "evidence": {
+        "configured": 536870912,
+        "limit": "transientBytes",
+        "observed": 805306832
+      },
+      "suggestion": "Reduce the request to the configured limit; raise limits only through an explicit caller policy."
+    }
+  ]
+}

@@ -86,6 +86,8 @@ The executor binds the uniform at `0`, output texture at `1`, and `input` at `2`
 
 ## Allocation estimate contract
 
+[ADR 0009](./decisions/0009-transient-texture-reuse.md) selects a future v3 physical-slot model after the measured MAT-02 failure. It is unimplemented in this design; the v2 rules below still describe executable behavior.
+
 Plan version 2 assumes a deliberately simple execution schedule: retain every pass texture and uniform until execution/readback finish; read requested channels sequentially, allocating and releasing one staging buffer for each. There is no early release or resource pool. The estimates are logical GPU allocation bytes, not driver measurements, CPU memory, PNG allocations, shader/pipeline memory, or device allocation granularity.
 
 Let `W`/`H` be dimensions, `P` be pass count, `O` be requested channel count, `U` be total padded uniform bytes, `T = W × H × 8`, and `R = ceil(W × 8 / 256) × 256 × H`:

@@ -1,0 +1,685 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "zero",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0
+      }
+    },
+    {
+      "id": "macro",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 1729,
+        "scale": 8,
+        "octaves": 3,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "exposure",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.4,
+        "inputMax": 0.6000000000000001,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "erodeX",
+      "type": "scalar-morphology",
+      "version": 1,
+      "parameters": {
+        "operation": "erode",
+        "axis": "x",
+        "radius": 4
+      }
+    },
+    {
+      "id": "erodeY",
+      "type": "scalar-morphology",
+      "version": 1,
+      "parameters": {
+        "operation": "erode",
+        "axis": "y",
+        "radius": 4
+      }
+    },
+    {
+      "id": "band",
+      "type": "scalar-subtract",
+      "version": 1
+    },
+    {
+      "id": "rustSpread",
+      "type": "scalar-blend",
+      "version": 1,
+      "parameters": {
+        "weight": 0.2
+      }
+    },
+    {
+      "id": "detailNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 65537,
+        "scale": 32,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "detail",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "rustMask",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 0.8
+      }
+    },
+    {
+      "id": "paintColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.04,
+          0.12,
+          0.2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "substrateColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.3,
+          0.32,
+          0.34,
+          1
+        ]
+      }
+    },
+    {
+      "id": "rustColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.25,
+          0.06,
+          0.015,
+          1
+        ]
+      }
+    },
+    {
+      "id": "coatingColor",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "baseColor",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "coatingRoughness",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.6,
+        "outputMax": 0.25
+      }
+    },
+    {
+      "id": "rustRoughness",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.9
+      }
+    },
+    {
+      "id": "roughness",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "coatingHeight",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.25,
+        "outputMax": 0.2
+      }
+    },
+    {
+      "id": "rustHeight",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.225
+      }
+    },
+    {
+      "id": "height",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "metallic",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "parameters": {
+        "strength": 0.5
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "macro",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "exposure",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "erodeX",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "erodeX",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "erodeY",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "band",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "erodeY",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "band",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "band",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rustSpread",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rustSpread",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "detailNoise",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "detail",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "zero",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rustMask",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustSpread",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rustMask",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "detail",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "rustMask",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "paintColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "substrateColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "coatingColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "baseColor",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "baseColor",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustMask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "baseColor",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "coatingRoughness",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "coatingRoughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "roughness",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustRoughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "roughness",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustMask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "roughness",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "coatingHeight",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "coatingHeight",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "height",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustHeight",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "height",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustMask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "height",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "metallic",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "zero",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "metallic",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "rustMask",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "metallic",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "baseColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "metallic",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "metallic"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "roughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "macroSeed",
+      "nodeId": "macro",
+      "parameterId": "seed"
+    },
+    {
+      "id": "exposureScale",
+      "nodeId": "macro",
+      "parameterId": "scale"
+    },
+    {
+      "id": "exposureInputMin",
+      "nodeId": "exposure",
+      "parameterId": "inputMin"
+    },
+    {
+      "id": "exposureInputMax",
+      "nodeId": "exposure",
+      "parameterId": "inputMax"
+    },
+    {
+      "id": "exposureOutputMin",
+      "nodeId": "exposure",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "exposureOutputMax",
+      "nodeId": "exposure",
+      "parameterId": "outputMax"
+    },
+    {
+      "id": "radiusX",
+      "nodeId": "erodeX",
+      "parameterId": "radius"
+    },
+    {
+      "id": "radiusY",
+      "nodeId": "erodeY",
+      "parameterId": "radius"
+    },
+    {
+      "id": "rustFill",
+      "nodeId": "rustSpread",
+      "parameterId": "weight"
+    },
+    {
+      "id": "detailSeed",
+      "nodeId": "detailNoise",
+      "parameterId": "seed"
+    },
+    {
+      "id": "detailMin",
+      "nodeId": "detail",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "rustAmount",
+      "nodeId": "rustMask",
+      "parameterId": "opacity"
+    },
+    {
+      "id": "paintColor",
+      "nodeId": "paintColor",
+      "parameterId": "value"
+    },
+    {
+      "id": "substrateColor",
+      "nodeId": "substrateColor",
+      "parameterId": "value"
+    },
+    {
+      "id": "rustColor",
+      "nodeId": "rustColor",
+      "parameterId": "value"
+    },
+    {
+      "id": "paintRoughness",
+      "nodeId": "coatingRoughness",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "substrateRoughness",
+      "nodeId": "coatingRoughness",
+      "parameterId": "outputMax"
+    },
+    {
+      "id": "rustRoughness",
+      "nodeId": "rustRoughness",
+      "parameterId": "value"
+    },
+    {
+      "id": "paintHeight",
+      "nodeId": "coatingHeight",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "rustHeight",
+      "nodeId": "rustHeight",
+      "parameterId": "value"
+    },
+    {
+      "id": "normalStrength",
+      "nodeId": "normal",
+      "parameterId": "strength"
+    }
+  ]
+}
