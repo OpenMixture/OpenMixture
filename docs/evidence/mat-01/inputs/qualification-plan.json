@@ -1,0 +1,24 @@
+{
+  "status": "planned-mat-01a",
+  "materialId": "brick-paving",
+  "contract": "docs/mat-01-structured-materials.md",
+  "channels": ["baseColor", "normal", "roughness", "height"],
+  "sizes": [[256, 256], [1024, 1024], [2048, 2048], [257, 129]],
+  "patternDefaults": {"seed": 1729, "columns": 8, "rows": 8, "rowOffset": 0.5, "mortarX": 0.08, "mortarY": 0.08, "bevel": 0.08, "variation": 0.15},
+  "cases": [
+    {"id": "default", "overrides": {}},
+    {"id": "regular", "overrides": {"rowOffset": 0}},
+    {"id": "staggered", "overrides": {"rowOffset": 0.5, "columns": 6, "rows": 12}},
+    {"id": "varied", "overrides": {"variation": 0.5, "mortarX": 0.12, "bevel": 0.12}},
+    {"id": "second-seed", "overrides": {"seed": 4294967295}}
+  ],
+  "maxCrossRuntimeComponentError": 1,
+  "maxDefaultDownsampleMeanError": 4,
+  "maxPasses": 12,
+  "maxDescriptorPeakBytes": 469762048,
+  "timing": {
+    "warmSamples": 5,
+    "hardware": {"adapter": "NVIDIA GeForce GT 1030", "cold1024Ms": 5000, "warmMedian1024Ms": 500, "warmMedian2048Ms": 2000},
+    "software": {"adapter": "SwiftShader", "cold1024Ms": 30000, "warmMedian1024Ms": 10000, "warmMedian2048Ms": 40000}
+  }
+}

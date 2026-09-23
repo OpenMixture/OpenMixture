@@ -23,6 +23,8 @@ const NODES: [&str; 14] = [
     "transform-2d",
     "warp",
 ];
+#[path = "support/brick_probe.rs"]
+mod brick_probe;
 #[path = "support/fixed_noise_probe.rs"]
 mod fixed_noise_probe;
 #[path = "support/normal_probe.rs"]
@@ -291,6 +293,14 @@ fn node_scalar_mask_blend_gpu() {
 fn node_brick_pattern_gpu() {
     run_node("brick-pattern");
     let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = brick_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::write(
+            Path::new(&directory).join("brick-periodic-probes.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
     let mut renderer = Renderer::new(context);
     let bytes = source("brick-pattern", "input.mix");
     let mut request = CompileRequest {

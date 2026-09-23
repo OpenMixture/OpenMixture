@@ -1,5 +1,6 @@
 //! Private repository automation. No material or rendering semantics belong here.
 
+mod brick_material;
 mod consumer;
 mod dependencies;
 mod golden;

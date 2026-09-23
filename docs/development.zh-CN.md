@@ -90,6 +90,8 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 
 可执行程序名为 `mixture`。帮助／版本返回 `0`。`doctor` 验证真实棋盘格计算／回读，成功返回 `0` 和 `healthy`；显式 `--skip-probe` 返回 `unverified`。获取／探针失败返回 `1` 和 `unhealthy`。`render-builtin checker` 写入 PNG 后返回 `0`，运行失败返回 `1`，尺寸／预算无效返回 `2`。JSON 模式向 stdout 写入一份报告，人类可读模式包含相同的策略和能力证据。`validate` 对有效源文件返回 `0`，输入无效返回 `2`，文件／报告 I/O 失败返回 `1`，且不初始化 GPU。`inspect --plan` 编译成功返回 `0`，源文件／请求无效返回 `2`，文件／报告 I/O 失败返回 `1`，同样无需 GPU。`render` 在获取 GPU 前编译，全部请求 PNG 写入后返回 `0`，源文件／请求无效返回 `2`，GPU／编码／I/O 失败返回 `1`。无效选项和缺少命令返回 `2`，说明写入 stderr。输出 I/O 失败返回 `1`。见 [doctor 用法](./gpu-context.zh-CN.md)和[共享退出码策略](./diagnostics.zh-CN.md)。
 
+`test-material brick-paving` 运行 release 公开 Native 矩阵与包往返，向 `tmp/materials/brick-paving/` 写入新证据，并记录高频压力和匹配适配器的耗时预算。该材质性质门槛独立于原有三材质 golden 基准流程；浏览器与人工 PBR 验收仍单独处理。见[砖材质夹具指南](../fixtures/materials/brick-paving/README.zh-CN.md)。
+
 `test-format` 运行核心格式／验证／注册表测试及 CLI 验证测试。`test-plan` 运行核心计划／哈希测试与 CLI 检查测试。`test-node <id>` 验证夹具并显式运行所选 GPU 节点用例。`test-material <id>` 和 `golden check` 现已显式渲染 GPU 用例并比较材质验收，不修改基准。`golden update <id> --accept` 独立消费已审查的软件候选并拒绝 CI，见[完整工作流](./material-goldens.zh-CN.md)。
 
 `test-consumer` 将独立构建／测试／CPU 报告及每次先失效再标记完成的状态保存到 `tmp/consumer-check/`。它编译完整 GPU 调用路径及原生 `Send` 约束，但不初始化 wgpu。它还构建真实 CLI，并使用消费者自有文件显式运行 32 次 CPU 契约调用。完成状态的 `cliEvidence` 指向本次新 CLI 捕获目录；消费者普通 Cargo 测试保持 CLI 契约测试为忽略状态，直到这次显式调用。见[消费者指南](../examples/native-consumer/README.zh-CN.md)。
