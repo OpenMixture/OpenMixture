@@ -375,7 +375,7 @@ mod tests {
             CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile,
         };
         let document = MaterialDocument::decode(
-            include_bytes!("../../../fixtures/nodes/scalar-morphology/input.mix"),
+            include_bytes!("testdata/scalar-morphology.mix"),
             &SafetyLimits::default(),
         )
         .unwrap()

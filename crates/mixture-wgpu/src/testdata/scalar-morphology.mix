@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "input",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "morph",
+      "type": "scalar-morphology",
+      "version": 1
+    },
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "input",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "morph",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "morph",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "operation",
+      "nodeId": "morph",
+      "parameterId": "operation"
+    },
+    {
+      "id": "axis",
+      "nodeId": "morph",
+      "parameterId": "axis"
+    },
+    {
+      "id": "radius",
+      "nodeId": "morph",
+      "parameterId": "radius"
+    }
+  ]
+}
