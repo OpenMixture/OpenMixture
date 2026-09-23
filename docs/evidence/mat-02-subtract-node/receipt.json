@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "e7b25c4e36f6d7a2052fdba11d8cdfffad762a9d",
+  "sourceDirty": false,
+  "scope": "Windows GT 1030 subtraction node parity; not material acceptance or publication",
+  "browserCases": 64,
+  "nativeBackends": [
+    "Vulkan",
+    "Dx12"
+  ],
+  "maxComponentDelta": 0,
+  "exactPlanHashes": true,
+  "exactRepeat": true,
+  "humanApproval": false,
+  "sourceFiles": {
+    "Cargo.lock": "633a3590e2a785361db45d3a07a45e899ce3ff55e52dc3dc0351a6e528d01cbe",
+    "crates/mixture-core/src/nodes/scalar_subtract.rs": "293603dfeed9c647c7d9c77f4943b43f95b9ac0ac6afcedec505015a2ee0c870",
+    "crates/mixture-wgpu/shaders/nodes/scalar-subtract.wgsl": "9b7bcdae9bdaf0997c3c2603e1c7a45da8e15afaaef7ee0e25bcd356fe1d6c79",
+    "crates/mixture-wgpu/tests/support/subtract_probe.rs": "c877ecbfc355dc4e951bada5812b7abfdc866433e8d50f4f08518061305465b7",
+    "fixtures/nodes/scalar-subtract/input.mix": "841931a3ca7f752ea306ffa25c9d7cbd1e2133da7762a3e32ab59a32f7f16a08",
+    "fixtures/nodes/scalar-subtract/cases.json": "6c2f3f99ae3b5fd1b415ceec595327bf36b044426689728679d003cf3155ea5d",
+    "examples/browser-consumer/tests/subtract.spec.mjs": "e529104d5f141ee72b24e313cca3927828ee34aa92659bd9f6a224ac641cd746",
+    "examples/native-consumer/tests/subtract.rs": "a58c1256a5ee422589279e458822b66342a9a07d996d5be18d2564e3e0893ab9",
+    "scripts/browser-runtime/check-subtract.mjs": "ffb960a00ed09e1bdc9986282a09f5f7aa4b74e01f5ccbca19936424ce424f2e"
+  },
+  "files": {
+    "archive-receipt.json": "1c5bb0e07d7f7c367a3f17d87c39297c3dfbfb45ff7eb71ca2a439e567e5f51f",
+    "browser-qualification.json": "c7c4becc7cac00e082360043216288e4724cb528325c95cb08a899edfd305aec",
+    "browser.json": "bdcd893cf88fde486222e299114fb9c8e533e80cd652f5ebf770de92d9448b2b",
+    "comparison-vulkan.json": "301b27ba8bb314bdde8c4c7b36735bc131ab84fe7b9f951005007b8312d33081",
+    "native-vulkan.json": "2c73bfd9d5e25528d8b0ad642326b2519679d08df53dfd5119df4386bdbf7919",
+    "comparison-dx12.json": "46addc24e58e7f1e3f53222a8e388cb4b13dd9f39b7a32ca25da384a0a0914c3",
+    "native-dx12.json": "a762eb958ce5f8a2b5bf9a8b56809afe721988fcceabc25203e74900f1e74c3e"
+  },
+  "retention": "Selected complete pixel outputs and receipts retained in Git. Original archive and routine logs are ignored/finite CI artifacts; no durable external archive claim."
+}
