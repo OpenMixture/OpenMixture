@@ -152,3 +152,5 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 ```
 
 See [package resolution](../../docs/package-consumption.md), [compatibility](../../docs/compatibility.md) and [M4 exit/release status](../../docs/release.md). Publication is still disabled. The [remote CI record](../../docs/evidence/remote-ci/README.md) documents passing Linux/macOS/Windows CPU checks and the Linux pinned SwiftShader GPU workload; it does not certify untested hardware backends.
+
+MAT-02b adds `tests/morphology.rs`, an ignored real-GPU public consumer for 192 periodic support-set cases. It uses only public Core preparation and wgpu rendering, verifies exact repeats and analytical pixels, and compares exact browser bytes/plan hashes when `MIXTURE_MORPHOLOGY_BROWSER` names the browser receipt. `MIXTURE_MORPHOLOGY_EVIDENCE` selects its output receipt. Prefer the [comparison wrapper](../../fixtures/nodes/scalar-morphology/README.md), which verifies candidate provenance and runs the consumer with an explicit in-root target directory.

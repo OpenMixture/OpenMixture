@@ -4,11 +4,11 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-[mixture-core](../crates/mixture-core/src/registry.rs)中的十五种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十六种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 
-最新目录有十五个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+最新目录有十六个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -219,3 +219,7 @@ cargo xtask test-node warp
 ## brick-pattern
 
 MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value` 输出。完整[契约](./mat-01-structured-materials.zh-CN.md)规定必填种子、矩形重复、非零行偏移的偶数行约束、灰缝宽度、向内倒角、种子幅度及四样本滤波。[专项夹具](../fixtures/nodes/brick-pattern/README.zh-CN.md)验证布局和诊断。Core 负责全图及覆盖验证，唯一 WGSL 内核负责像素。已有身份、计划哈希与格式不变。候选实现与 MAT-01 材质／跨端验收分别记录。
+
+## scalar-morphology
+
+[Core 契约](../crates/mixture-core/src/nodes/scalar_morphology.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-morphology.wgsl)、[夹具](../fixtures/nodes/scalar-morphology/README.zh-CN.md)。必需 `in: Scalar`，输出 `value: Scalar`。枚举 `operation` 为 `erode`（默认）或 `dilate`；枚举 `axis` 为 `x`（默认）或 `y`；整数 `radius` 为 0..16（默认 2），单位是输出纹素。将有限红分量夹取至 [0,1]，沿所选轴在含端点的整数偏移 [-radius,+radius] 上取最小／最大值，坐标按该维度取模环绕。rgba16float 存储 `[value,0,0,1]`。半径零对规范化输入精确恒等；重复环绕样本及单像素轴合法。两轴组合为矩形 Chebyshev 邻域，不是圆盘。没有随机或滤波；腐蚀可消除细特征。离散半径依赖分辨率。[MAT-02 契约](./mat-02-layered-weathering.zh-CN.md)负责调用方宽度映射与冻结验收。每节点一个 16 字节 uniform `[operation,axis,radius,0]`，erode/x=0、dilate/y=1，一次 8x8 dispatch。既有语义／格式不变；0.7 改变下游 Rust 内核穷举匹配。

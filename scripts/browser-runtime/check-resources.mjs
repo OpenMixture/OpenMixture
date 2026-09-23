@@ -7,7 +7,7 @@ const [input, destination] = process.argv.slice(2).map(p=>resolve(p));
 assert.ok(input && destination, 'usage: check-resources.mjs <candidate-qualification> <fresh-output>');
 const receipt=JSON.parse(await readFile(join(input,'qualification.json')));
 assert.equal(receipt.ok,true);assert.equal(receipt.mode,'candidate');
-assert.equal(receipt.build.runtimeVersion,'0.6.0-alpha.0');
+assert.equal(receipt.build.runtimeVersion,'0.7.0-alpha.0');
 assert.equal(receipt.consumerRevision,execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim());
 await mkdir(destination);const expected=new Set([0,0.25,0.5,1].flatMap(w=>['height','normal'].map(c=>`resource-${w}-${c}.png`)));
 expected.add('resource-evidence.json');

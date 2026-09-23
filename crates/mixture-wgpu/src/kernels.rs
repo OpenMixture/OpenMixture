@@ -2,7 +2,9 @@
 use crate::operation::{GpuOperationError, checked};
 use mixture_core::{
     Stage,
-    plan::{BlendMode, KernelId, KernelInvocation, NoiseBasis},
+    plan::{
+        BlendMode, KernelId, KernelInvocation, MorphologyAxis, MorphologyOperation, NoiseBasis,
+    },
 };
 use serde::Serialize;
 
@@ -63,6 +65,14 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
                 include_str!("../shaders/nodes/scalar-mask-blend.wgsl")
             ),
             "scalar_mask_blend",
+        ),
+        KernelId::ScalarMorphology => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/scalar-morphology.wgsl")
+            ),
+            "scalar_morphology",
         ),
         KernelId::Blend => (
             concat!(
@@ -173,6 +183,25 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
         ]),
         KernelInvocation::ScalarBlend { weight, .. } => floats(&[*weight, 0., 0., 0.]),
         KernelInvocation::ScalarMaskBlend { opacity, .. } => floats(&[*opacity, 0., 0., 0.]),
+        KernelInvocation::ScalarMorphology {
+            operation,
+            axis,
+            radius,
+            ..
+        } => {
+            let operation: u32 = match operation {
+                MorphologyOperation::Erode => 0,
+                MorphologyOperation::Dilate => 1,
+            };
+            let axis: u32 = match axis {
+                MorphologyAxis::X => 0,
+                MorphologyAxis::Y => 1,
+            };
+            [operation, axis, *radius, 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect()
+        }
         KernelInvocation::Blend { mode, opacity, .. } => {
             let mode: u32 = match mode {
                 BlendMode::Normal => 0,
@@ -225,7 +254,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most thirteen kernel identities, including image upload.
+/// Pipeline lookups for one render call. The cache has at most fourteen kernel identities, including image upload.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -310,6 +339,7 @@ mod tests {
             (KernelId::Blend, 16),
             (KernelId::ScalarBlend, 16),
             (KernelId::ScalarMaskBlend, 16),
+            (KernelId::ScalarMorphology, 16),
             (KernelId::BrickPattern, 48),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
@@ -337,6 +367,35 @@ mod tests {
             assert!(
                 matches!(module.types[uniform.ty].inner,naga::TypeInner::Struct {span,..} if span==size)
             );
+        }
+    }
+    #[test]
+    fn morphology_parameter_upload_has_explicit_integer_discriminants() {
+        use mixture_core::{
+            CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile,
+        };
+        let document = MaterialDocument::decode(
+            include_bytes!("testdata/scalar-morphology.mix"),
+            &SafetyLimits::default(),
+        )
+        .unwrap()
+        .into_validated(&SafetyLimits::default())
+        .unwrap();
+        for (operation, op) in [("erode", 0u32), ("dilate", 1)] {
+            for (axis, ax) in [("x", 0u32), ("y", 1)] {
+                for radius in [0u32, 2, 16] {
+                    let plan=compile(&document,&CompileRequest {outputs:vec![OutputChannel::Height],overrides:serde_json::from_value(serde_json::json!({"operation":operation,"axis":axis,"radius":radius})).unwrap(),..Default::default()}).unwrap();
+                    let kernel = &plan.passes().last().unwrap().kernel;
+                    assert_eq!(
+                        parameters(kernel),
+                        [op, ax, radius, 0]
+                            .into_iter()
+                            .flat_map(u32::to_le_bytes)
+                            .collect::<Vec<_>>()
+                    );
+                    assert_eq!(kernel.uniform_bytes(), 16);
+                }
+            }
         }
     }
     #[test]

@@ -73,6 +73,8 @@ jobs:
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
+      - name: Compare scalar morphology across native and browser execution
+        run: node scripts/browser-runtime/check-morphology.mjs tmp/sdk-candidate tmp/sdk-morphology-comparison
       - name: Compare Scalar composition across native and browser execution
         run: node scripts/browser-runtime/check-scalar.mjs tmp/sdk-candidate tmp/sdk-scalar-comparison
       - name: Compare imported image resources across native and browser execution
@@ -161,6 +163,7 @@ jobs:
             tmp/sdk-resource-comparison/
             tmp/sdk-asset-comparison/
             tmp/sdk-brick-comparison/
+            tmp/sdk-morphology-comparison/
             tmp/sdk-registry/
           retention-days: 30
           if-no-files-found: error

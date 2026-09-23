@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. MAT-01 is accepted within its [recorded scope](./docs/evidence/mat-01/README.md) on the unpublished 0.6 candidate. MAT-01 nodes and qualification tooling are integrated through PRs #50–52 ([integration record](./docs/evidence/mat-01/integration/README.md)); human visual acceptance and post-merge checks are complete, with unpublished source manifests at 0.6.0 / 0.6.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
+**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. MAT-01 is accepted within its [recorded scope](./docs/evidence/mat-01/README.md) on the unpublished 0.6 candidate. MAT-01 nodes and qualification tooling are integrated through PRs #50–52 ([integration record](./docs/evidence/mat-01/integration/README.md)); human visual acceptance and post-merge checks are complete, with accepted source manifests at 0.6.0 / 0.6.0-alpha.0; the current MAT-02b working candidate is 0.7.0 / 0.7.0-alpha.0, not yet qualified; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
 
 **Historical checkpoint (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
@@ -26,8 +26,8 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 
 | Planning state | Current content |
 |---|---|
-| Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Current Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | MAT-02a layered-weathering contract and frozen qualification-plan preparation. MAT-01 nodes, fixture and tools are integrated and accepted within [recorded scope](./docs/evidence/mat-01/README.md). MAT-02 runtime implementation requires its own contract/catalog/version acceptance. Publication remains separate. |
+| Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Qualified Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
+| Active increment | MAT-02b scalar-morphology implementation under the integrated frozen contract (PR #55). MAT-01 nodes, fixture and tools are integrated and accepted within [recorded scope](./docs/evidence/mat-01/README.md). Morphology is a working candidate; subtraction and material qualification remain pending. Publication remains separate. |
 | Current qualification | [MAT-01](./docs/evidence/mat-01/README.md): frozen brick matrix, recorded software and GT 1030 Native/browser comparisons, retained human decision and six passing post-merge checks. Previous v1 Windows failures remain historical failures; no publication or general hardware guarantee. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 
@@ -61,7 +61,7 @@ Subgraphs and presets follow MAT-04 below; their format and implementation remai
 
 ## Material capability roadmap — staged delivery
 
-The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01 is accepted within its recorded scope and MAT-02a contract work is next; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
+The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01 is accepted within its recorded scope and MAT-02b node implementation is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
 
 The planning baseline had thirteen node types, image input, public parameters, eight material output channels and portable assets. MAT-01 adds two accepted node types for structured brick materials; later stages still need the processing vocabulary specified below. A channel slot is not a channel generator; a portable archive is not a reusable subgraph. Existing ceramic/leather/wood acceptance remains bounded and mandatory.
 
@@ -88,7 +88,7 @@ Work-item IDs below are not GitHub PR numbers. Each implementation seam uses an 
 
 MAT-02/03/04 use the same contract → minimal implementation seams → material evidence → qualification sequence. Break them into actual work items at entry, using lessons from the previous stage; do not assign speculative node IDs or shipping versions now.
 
-[MAT-02a selected contract](./docs/mat-02-layered-weathering.md) freezes the morphology/subtraction identities, caller graph/control mappings and [qualification plan](./fixtures/materials/painted-metal/qualification-plan.json), supported by source-bound existing-input feasibility. It selects an unpublished 0.7 candidate at first implementation; current manifests and executable catalog remain unchanged. MAT-01 exit is satisfied. After contract integration, MAT-02b implements each node through a separate PR; predicted 2K memory failure must be measured before PERF-MAT, without relaxing the frozen budget.
+[MAT-02a selected contract](./docs/mat-02-layered-weathering.md) freezes the morphology/subtraction identities, caller graph/control mappings and [qualification plan](./fixtures/materials/painted-metal/qualification-plan.json), supported by source-bound existing-input feasibility. It selects an unpublished 0.7 candidate at first implementation; the working morphology implementation now selects 0.7 and adds its reviewed identity; subtraction remains planned. MAT-01 exit is satisfied. After contract integration, MAT-02b implements each node through a separate PR; predicted 2K memory failure must be measured before PERF-MAT, without relaxing the frozen budget.
 
 ### Common material acceptance and ownership
 

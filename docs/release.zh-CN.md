@@ -2,6 +2,8 @@
 
 [English](./release.md) | 简体中文
 
+**MAT-02b 工作候选（2026-09-23）：** 源码清单因[已集成契约](./mat-02-layered-weathering.zh-CN.md)准入的 scalar-morphology@1 选定未发布 Rust 0.7.0 / browser 0.7.0-alpha.0。目录为十六种类型／十四种内核，下游 Rust 穷举匹配须处理 ScalarMorphology。节点／公开消费验收及涂漆金属材质接受仍待完成；最近已验收 MAT-01 基线为 0.6。格式、既有语义、历史失败、迁移策略及发布不变。
+
 **MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。[人工决定](./evidence/mat-01/human-decision.json)与合并后六项通过的检查完成记录的软件／GT 1030 范围内 MAT-01 验收；下方 0.5 基线保留为历史记录。未发布包，不改变格式或迁移规则。
 
 **已验收基线（2026-09-22）：** [M6-B #45](https://github.com/OpenMixture/OpenMixture/pull/45) 和 [NUM-01 #40](https://github.com/OpenMixture/OpenMixture/pull/40)，以及前置 PR #39、#41–44，已合入 `main` 的 `ac219c901e52e3f079c16a931ed4463465756ba5`。该提交六项必需检查全部通过：[三平台 CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781509)、[软件 GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781245)、[WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781222)、[Chromium 材质](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781440)。该检查点的源码版本为 **Rust 0.5.0 / browser 0.5.0-alpha.0**，均未发布。最新记录的浏览器发布版为 **0.3.0-alpha.0**；Rust crate 仍未发布。
@@ -88,7 +90,7 @@ macOS loader 路径是本地准备路径，不是可移植安装说明；按目�
 
 ## MAT-01 已验收、未发布候选
 
-源码清单为未发布 Rust 0.6.0 / browser 0.6.0-alpha.0，用于 [MAT-01 契约](./mat-01-structured-materials.zh-CN.md)。工作候选新增 BrickPattern 与 ScalarMaskBlend（十五种节点类型／十三种内核），下游 Rust 穷举匹配须处理两者。四通道砖材质夹具已在留存 MAT-01 范围内接受。现有格式／plan／API schema、旧节点语义及已发布归档不变。BrickPattern 已通过 [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50) 集成；组合与工具已通过 PR #51–52 集成，记录的机器门槛与人工接受关闭 MAT-01。不发布包。上方 0.5 检查点及绑定源码的证据继续保留其历史事实。
+已接受的 MAT-01 源码清单为未发布 Rust 0.6.0 / browser 0.6.0-alpha.0，用于 [MAT-01 契约](./mat-01-structured-materials.zh-CN.md)。工作候选新增 BrickPattern 与 ScalarMaskBlend（十五种节点类型／十三种内核），下游 Rust 穷举匹配须处理两者。四通道砖材质夹具已在留存 MAT-01 范围内接受。现有格式／plan／API schema、旧节点语义及已发布归档不变。BrickPattern 已通过 [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50) 集成；组合与工具已通过 PR #51–52 集成，记录的机器门槛与人工接受关闭 MAT-01。不发布包。上方 0.5 检查点及绑定源码的证据继续保留其历史事实。
 
 ## 本地未发布说明
 

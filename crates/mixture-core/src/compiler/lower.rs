@@ -278,6 +278,20 @@ impl Builder<'_> {
                 mask: binding("mask")?,
                 opacity: number(node, "opacity")?,
             },
+            "scalar-morphology" => KernelInvocation::ScalarMorphology {
+                input: binding("in")?,
+                operation: match parameter(node, "operation")?.as_str() {
+                    Some("erode") => MorphologyOperation::Erode,
+                    Some("dilate") => MorphologyOperation::Dilate,
+                    _ => return Err(invariant("Validated morphology operation is unsupported.")),
+                },
+                axis: match parameter(node, "axis")?.as_str() {
+                    Some("x") => MorphologyAxis::X,
+                    Some("y") => MorphologyAxis::Y,
+                    _ => return Err(invariant("Validated morphology axis is unsupported.")),
+                },
+                radius: integer(node, "radius")?,
+            },
             "blend" => {
                 let mode = match parameter(node, "mode")?.as_str() {
                     Some("normal") => BlendMode::Normal,
