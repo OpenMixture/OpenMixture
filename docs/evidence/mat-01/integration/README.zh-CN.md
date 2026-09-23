@@ -1,8 +1,8 @@
-# MAT-01 工具集成 — 材质接受待定
+# MAT-01 工具集成与阶段接受
 
 [English](./README.md) | 简体中文
 
-[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) 于 2026-09-23 03:56:42 UTC 合入，提交为 `0611d7273e368b12628bc827627779ea338dbb92`。两个节点已通过 PR #50–51 集成；本次集成公开消费者验收工具及留存候选证据。人工视觉接受仍待定，不启动 MAT-02 实现，也不发布包。
+[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) 于 2026-09-23 03:56:42 UTC 合入，提交为 `0611d7273e368b12628bc827627779ea338dbb92`。两个节点已通过 PR #50–51 集成；本次集成公开消费者验收工具及留存候选证据。后来的[人工决定](../human-decision.json)与通过的合并后检查在记录范围内关闭 MAT-01。可推进 MAT-02a 契约工作；MAT-02 运行时实现仍须先冻结其自身契约。不发布包。
 
 ## 被测源码与门槛
 
@@ -10,9 +10,9 @@ PR head `1dfb879b86998f038841931a6297676221d7ac4d` 的六项合并前检查全�
 
 [SDK 回执](./sdk-qualification.json)、[原始材质绑定](./browser-qualification.json)和[显式 noise-v2 绑定](./noise-v2-qualification.json)全部通过。它们绑定未发布归档 SHA-256 `302b5220c66b86e3e5102bae5d54f705c8c678c64c020e8924333d07a72f6181` 及运行时构建 `sha256:a4dbb21caada8e9d11260132cfd2c46f3b3aa394bc07115c17b97f478e29366f`。此前[脏源码失败](../ci-failure-4bf/README.zh-CN.md)仍保留失败结论；新的成功绑定验证了 Cargo 输出路径修复，未削弱干净源码检查。
 
-[砖材质比较](./brick-comparison.json)及其 [Native 矩阵](./brick-native.json)保留二十个用例、八十通道对照：最大分量差为 0，重复渲染与包往返全部精确一致。这是记录的 Linux 软件／Chromium 范围，不新增硬件认证。两份回执均保留 `materialAccepted: false`。独立来源的 [Windows 证据及人工评审图](../README.zh-CN.md)继续保留原始源码身份与待定的人工决定。
+[砖材质比较](./brick-comparison.json)及其 [Native 矩阵](./brick-native.json)保留二十个用例、八十通道对照：最大分量差为 0，重复渲染与包往返全部精确一致。这是记录的 Linux 软件／Chromium 范围，不新增硬件认证。两份回执均保留 `materialAccepted: false`。独立来源的 [Windows 证据及人工评审图](../README.zh-CN.md)继续保留原始源码身份，后来的人工决定单独记录。
 
-合并后的 main 检查独立记录，准备本记录时仍在运行：[CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332292)、[GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332264)、[WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332218)、[Chromium](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332263)。合并前结果不代表这些运行已通过。
+合并后的 main 提交 `0611d7273e368b12628bc827627779ea338dbb92` 六项检查全部通过（attempt 1）：[CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332292)、[GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332264)、[WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332218)、[Chromium](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332263)。这些结果已独立于合并前检查核实，不代表发布候选包。
 
 ## 留存
 

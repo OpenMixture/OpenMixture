@@ -1,8 +1,8 @@
-# MAT-01 tooling integration — material acceptance pending
+# MAT-01 tooling integration and stage acceptance
 
 English | [简体中文](./README.zh-CN.md)
 
-[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) merged as `0611d7273e368b12628bc827627779ea338dbb92` on 2026-09-23 at 03:56:42 UTC. The two nodes were integrated through PRs #50–51; this change integrates public-consumer qualification tools and retained candidate evidence. Human visual acceptance remains pending; MAT-02 implementation is not opened and no package is published.
+[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) merged as `0611d7273e368b12628bc827627779ea338dbb92` on 2026-09-23 at 03:56:42 UTC. The two nodes were integrated through PRs #50–51; this change integrates public-consumer qualification tools and retained candidate evidence. The later [human decision](../human-decision.json) and passing post-merge checks close MAT-01 within the recorded scope. MAT-02a contract work may proceed; MAT-02 runtime implementation still requires its own frozen contract. No package is published.
 
 ## Tested source and gates
 
@@ -10,9 +10,9 @@ All six required pre-merge checks passed for PR head `1dfb879b86998f038841931a62
 
 The [SDK receipt](./sdk-qualification.json), [original material binding](./browser-qualification.json), and [explicit noise-v2 binding](./noise-v2-qualification.json) all pass. They identify unpublished archive SHA-256 `302b5220c66b86e3e5102bae5d54f705c8c678c64c020e8924333d07a72f6181` and runtime build `sha256:a4dbb21caada8e9d11260132cfd2c46f3b3aa394bc07115c17b97f478e29366f`. The prior [dirty-source failure](../ci-failure-4bf/README.md) remains failed; the new successful binding verifies the Cargo output-path repair without weakening cleanliness checks.
 
-[Brick comparison](./brick-comparison.json) and its [Native matrix](./brick-native.json) retain twenty cases and eighty channel comparisons: maximum component difference 0, all repeat/package comparisons exact. This is recorded Linux software/Chromium coverage, not new hardware coverage. Both receipts retain `materialAccepted: false`. The independently sourced [Windows evidence and human review images](../README.md) retain their original source identity and pending human decision.
+[Brick comparison](./brick-comparison.json) and its [Native matrix](./brick-native.json) retain twenty cases and eighty channel comparisons: maximum component difference 0, all repeat/package comparisons exact. This is recorded Linux software/Chromium coverage, not new hardware coverage. Both receipts retain `materialAccepted: false`. The independently sourced [Windows evidence and human review images](../README.md) retain their original source identity, with the later human decision recorded separately.
 
-Post-merge main checks are separate and were still running when this record was prepared: [CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332292), [GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332264), [WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332218), [Chromium](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332263). Pre-merge results do not claim these runs passed.
+All six post-merge main checks passed on `0611d7273e368b12628bc827627779ea338dbb92` (attempt 1): [CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332292), [GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332264), [WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332218), [Chromium](https://github.com/OpenMixture/OpenMixture/actions/runs/35816332263). These results were verified independently of the pre-merge checks; they do not publish the candidate.
 
 ## Retention
 

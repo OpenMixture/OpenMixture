@@ -8,7 +8,7 @@
 
 ## 当前实现要点
 
-基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。已集成的 MAT-01 候选为未发布、尚未验收的 Rust 0.6.0 / browser 0.6.0-alpha.0；最近完整材质验收基线仍为 0.5；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
+基线核对于 2026-09-22：M6-A、M6-B 和 NUM-01 已集成。[发布状态](./docs/release.zh-CN.md)负责当前发布及平台验收声明，源码清单负责构建版本。已集成的 MAT-01 候选为未发布的 Rust 0.6.0 / browser 0.6.0-alpha.0，已在记录的软件与 GT 1030 范围内通过 MAT-01 验收；记录的浏览器发布版为 0.3.0-alpha.0。集成、验收、发布是不同状态，不得把历史里程碑计划当作当前待办。
 
 - **版本边界：** `.mix` 保持 v1，`RenderPlan` 与浏览器 API schema 为 v2。计划哈希域为 `mixture-render-plan-v2\0`，包含选中外部图像的身份。图 `render` 和 `inspect --plan` 报告为 schema 2；doctor、固定 checker、asset 外层报告为 schema 1；`validate` 保持无版本外层结构。见[兼容性](./docs/compatibility.zh-CN.md)。
 - **节点语义：** 十五种节点类型降级为十三种像素内核；`scalar-blend@1` 和 `image-input@1` 已实现。必须按显式类型/版本解析，`fractal-noise@1` 与 `@2` 共存。数量仅描述当前快照，不是准入目标或永久上限。
@@ -21,11 +21,11 @@
 
 ## 当前材质规划规则
 
-[材质能力路线图](./ROADMAP.zh-CN.md)选择 MAT-01 砖墙／铺地砖结构为下一增量，随后是 MAT-02 分层风化、MAT-03 编织表面及 MAT-04 图复用。这些是规划能力，不是已实现目录的扩张。从 MAT-01a 有界契约、目录／版本审查及冻结验收用例开始；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
+[材质能力路线图](./ROADMAP.zh-CN.md)记录 MAT-01 砖墙／铺地砖结构已接受，下一步为 MAT-02a 分层风化契约，随后是 MAT-03 编织表面及 MAT-04 图复用。后续能力仍是规划，不是已实现目录。每阶段实现前须冻结有界契约、目录／版本审查及验收用例；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
 
-[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。工作候选已实现 brick-pattern 与 scalar-mask-blend，四通道砖材质夹具为候选；MAT-01 材质验收尚未完成。[夹具指南](./fixtures/materials/brick-paving/README.zh-CN.md)记录候选 Native 矩阵工具，候选浏览器 CI 现要求二十组用例／八十通道对照。工具也检查包往返和匹配适配器的耗时预算；`test-node brick-pattern` 检查周期原点移位及原始 f16 范围；`test-material brick-paving` 运行 Native 矩阵并测量 64×64 格混叠限制。两个砖材质入口显式将 Cargo 构建输出放入 `target/native-consumer`；验收不能依赖私有 Git 排除配置或削弱干净源码检查。见 [CI 输出路径失败](./docs/evidence/mat-01/ci-failure-4bf/README.zh-CN.md)及隔离回归。固定 WebGPU PBR 评审工具仅负责消费者可视化；[Windows 候选证据](./docs/evidence/mat-01/README.zh-CN.md)留存所选完整像素及绑定源码的回执；人工 PBR 接受仍待完成。节点与验收工具已通过 PR #50–52 集成；[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)分别记录通过的合并前检查及合并后验证。集成不等于材质接受。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
+[MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。工作候选已实现 brick-pattern 与 scalar-mask-blend，四通道砖材质夹具已在冻结范围内接受；人工决定与合并后六项检查完成 MAT-01 材质验收。[夹具指南](./fixtures/materials/brick-paving/README.zh-CN.md)记录候选 Native 矩阵工具，候选浏览器 CI 现要求二十组用例／八十通道对照。工具也检查包往返和匹配适配器的耗时预算；`test-node brick-pattern` 检查周期原点移位及原始 f16 范围；`test-material brick-paving` 运行 Native 矩阵并测量 64×64 格混叠限制。两个砖材质入口显式将 Cargo 构建输出放入 `target/native-consumer`；验收不能依赖私有 Git 排除配置或削弱干净源码检查。见 [CI 输出路径失败](./docs/evidence/mat-01/ci-failure-4bf/README.zh-CN.md)及隔离回归。固定 WebGPU PBR 评审工具仅负责消费者可视化；[Windows 候选证据](./docs/evidence/mat-01/README.zh-CN.md)留存所选完整像素及绑定源码的回执；独立[人工决定](./docs/evidence/mat-01/human-decision.json)已接受这些视图。节点与验收工具已通过 PR #50–52 集成；[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)分别记录通过的合并前检查及合并后验证。人工决定与记录的机器门槛共同关闭本有界阶段；不能单凭集成声明接受。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。
 
-[MAT-02 前期设计](./docs/mat-02-layered-weathering.zh-CN.md)是草案，不是已准入节点或已接受材质。它提议由 Core／wgpu 负责的有界轴向 Scalar 形态处理及饱和减法，并复用既有组合。MAT-01 退出及 MAT-02a 目录／版本／验收计划接受仍是实现前置条件。[减法反例](./docs/evidence/mat-02-subtraction/README.zh-CN.md)记录干净源码中既有节点的组合限制，不是新节点验收。本次准备不改变运行时、格式或迁移规则；检查配对文档／链接，并保留六项既有门槛。
+[MAT-02 前期设计](./docs/mat-02-layered-weathering.zh-CN.md)是草案，不是已准入节点或已接受材质。它提议由 Core／wgpu 负责的有界轴向 Scalar 形态处理及饱和减法，并复用既有组合。MAT-01 退出条件已满足；MAT-02a 目录／版本／验收计划接受仍是实现前置条件。[减法反例](./docs/evidence/mat-02-subtraction/README.zh-CN.md)记录干净源码中既有节点的组合限制，不是新节点验收。本次准备不改变运行时、格式或迁移规则；检查配对文档／链接，并保留六项既有门槛。
 
 ## 本指南的强制维护要求
 

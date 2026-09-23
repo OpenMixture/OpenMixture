@@ -2,7 +2,7 @@
 
 English | [简体中文](./mat-02-layered-weathering.zh-CN.md)
 
-Status: preparatory design, 2026-09-23. MAT-01 remains the current implementation/acceptance increment. This document prepares MAT-02 under the [material roadmap](../ROADMAP.md); it does not accept a new catalog identity, start its runtime implementation, close MAT-01 or publish a package. Resolve the decisions and freeze the executable qualification plan before implementing the node.
+Status: preparatory design, 2026-09-23. MAT-01 exit is now satisfied by its retained machine and human evidence; MAT-02a contract work is next. This document prepares MAT-02 under the [material roadmap](../ROADMAP.md); it does not accept a new catalog identity, start its runtime implementation, close MAT-01 or publish a package. Resolve the decisions and freeze the executable qualification plan before implementing the node.
 
 ## Material and missing operation
 

@@ -2,7 +2,7 @@
 
 [English](./mat-01-structured-materials.md) | 简体中文
 
-状态：MAT-01a 实现契约，2026-09-23。MAT-01c 工作候选在未发布 0.6 中实现两个选定节点及四通道材质夹具；完整材质验收仍待完成。这是[材质路线图](../ROADMAP.zh-CN.md)下选定的有界设计，不代表材质已接受。MAT-01d 记录验收源码与评审。发布继续独立处理。[留存 Windows 候选证据](./evidence/mat-01/README.zh-CN.md)绑定 Native／浏览器矩阵、周期探针、压力限制及 PBR 视图；人工接受仍待完成。节点与工具现已集成，见独立的 [CI／集成记录](./evidence/mat-01/integration/README.zh-CN.md)。
+状态：MAT-01 已于 2026-09-23 在[留存验收范围](./evidence/mat-01/README.zh-CN.md)内接受。两个选定节点、四通道砖材质夹具及验收工具已集成于未发布 0.6。独立人工决定与合并后六项通过的检查关闭本阶段；[集成证据](./evidence/mat-01/integration/README.zh-CN.md)保留精确源码身份。这不完成 MAT-02～04、不发布包、不扩张硬件范围，也不改变冻结质量限制。
 
 ## 材质目标与审查后的目录增量
 
