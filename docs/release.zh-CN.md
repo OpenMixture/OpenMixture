@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**MAT-02b 工作候选（2026-09-23）：** 源码清单因[已集成契约](./mat-02-layered-weathering.zh-CN.md)准入的 scalar-morphology@1 与 scalar-subtract@1 选定未发布 Rust 0.7.0 / browser 0.7.0-alpha.0。目录为十七种类型／十五种内核，下游 Rust 穷举匹配须处理 ScalarMorphology 与 ScalarSubtract。节点／公开消费验收及涂漆金属材质接受仍待完成；最近已验收 MAT-01 基线为 0.6。格式、既有语义、历史失败、迁移策略及发布不变。
+**PERF-MAT 工作候选（2026-09-23）：** 源码清单为[单次渲染纹理复用](./perf-mat-texture-reuse.zh-CN.md)选定未发布 Rust 0.8.0／browser 0.8.0-alpha.0。Core 与 wgpu 实现一致物理槽调度；plan／hash／API 及图报告 schema 为 3。目录仍为十七种类型／十五种内核，.mix／.mixpack v1、节点语义和像素 golden 不变。消费者重编译源请求，使计划／哈希缓存失效。完整干净候选验收及涂漆金属接受仍待完成；最近已验收 MAT-01 基线为 0.6。已发布浏览器 0.3 分开处理，较早 0.7 节点证据保留原始源码／归档身份。
 
 **MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。[人工决定](./evidence/mat-01/human-decision.json)与合并后六项通过的检查完成记录的软件／GT 1030 范围内 MAT-01 验收；下方 0.5 基线保留为历史记录。未发布包，不改变格式或迁移规则。
 

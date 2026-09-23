@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "nodes": [
+    {"id":"a","type":"constant-scalar","version":1,"parameters":{"value":0.25}},
+    {"id":"b","type":"levels","version":1,"parameters":{"outputMin":1,"outputMax":0}},
+    {"id":"c","type":"levels","version":1,"parameters":{"outputMin":1,"outputMax":0}},
+    {"id":"d","type":"levels","version":1,"parameters":{"outputMin":1,"outputMax":0}},
+    {"id":"e","type":"levels","version":1,"parameters":{"outputMin":1,"outputMax":0}},
+    {"id":"z","type":"constant-color","version":1},
+    {"id":"out","type":"material-output","version":1}
+  ],
+  "edges": [
+    {"from":{"nodeId":"a","portId":"value"},"to":{"nodeId":"b","portId":"in"}},
+    {"from":{"nodeId":"b","portId":"value"},"to":{"nodeId":"c","portId":"in"}},
+    {"from":{"nodeId":"c","portId":"value"},"to":{"nodeId":"d","portId":"in"}},
+    {"from":{"nodeId":"d","portId":"value"},"to":{"nodeId":"e","portId":"in"}},
+    {"from":{"nodeId":"a","portId":"value"},"to":{"nodeId":"out","portId":"roughness"}},
+    {"from":{"nodeId":"b","portId":"value"},"to":{"nodeId":"out","portId":"metallic"}},
+    {"from":{"nodeId":"e","portId":"value"},"to":{"nodeId":"out","portId":"height"}},
+    {"from":{"nodeId":"e","portId":"value"},"to":{"nodeId":"out","portId":"opacity"}},
+    {"from":{"nodeId":"z","portId":"color"},"to":{"nodeId":"out","portId":"baseColor"}}
+  ]
+}

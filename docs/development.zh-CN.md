@@ -114,11 +114,11 @@ MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=1 cargo xtask trace-2k
 
 [跟踪任务](../xtask/src/golden/trace.rs)首先以 2048×2048 编译 `glazed-ceramic`、`leather` 和 `wood` 的每个配置用例，请求 `baseColor`、`normal`、`roughness` 和 `height`。三份夹具都必须存在且有效。任务先按估算 `peakBytes` 从大到小选取，再按 pass 数从大到小、材质名字典序、默认用例优先和用例 ID 字典序决定顺序，随后验证 `doctor` 并通过所请求的适配器渲染该精确计划。检查被拒绝时在 GPU 工作前停止；任务不提高安全限制。
 
-瞬态预算为**峰值存活描述符的 512 MiB（536,870,912 字节）**，与默认 `SafetyLimits::transient_bytes` 一致。顺序回读的累计分配可以大于峰值。[核心估算](./render-plan.zh-CN.md)假定所有 pass 纹理和 uniform 保留至执行／回读结束，同时最多只有一个 staging 缓冲区存活。别名通道仍各自回读一次。PR-010 测量现有调度，不添加最后使用者释放、兼容纹理复用或资源池；此类生命周期修改必须先有超预算或失败的实测工作负载作为依据。
+瞬态预算为**峰值存活描述符的 512 MiB（536,870,912 字节）**，与默认 `SafetyLimits::transient_bytes` 一致。顺序回读的累计分配可以大于峰值。[核心估算](./render-plan.zh-CN.md)计入物理纹理槽，并将这些槽和全部 uniform 保留至执行／回读结束，同时最多只有一个 staging 缓冲区存活。别名通道仍各自回读一次。[PERF-MAT 实现](./perf-mat-texture-reuse.zh-CN.md)依据保留的 2K 预算失败，在最后使用者之后复用兼容槽。历史 PR-010 结果描述此前的全部保留调度。
 
-`RenderReport.allocations` 是公开的 [AllocationReport](../crates/mixture-wgpu/src/allocations.rs)，CLI 将其序列化为 `execution.allocations`。它统计成功创建的纹理／uniform／staging 描述符，以及累计、峰值、存活、已释放和已复用字节。跟踪任务要求这些计数与所选计划一致，所有请求通道顺序回读完成，最终 `liveBytes` 为零，`releasedBytes` 等于 `cumulativeBytes`，且 `reusedBytes` 保持为零。释放计数记录 `destroy` 调用，不代表驱动或操作系统立即归还了物理内存。驱动分配粒度、着色器／管线／绑定组内存，以及 CPU 像素／PNG 缓冲区均不计入。管线缓存仍归 renderer 所有，不属于这些逐次调用计数。分配观测不改变核心计划、其估算或哈希。
+`RenderReport.allocations` 是公开的 [AllocationReport](../crates/mixture-wgpu/src/allocations.rs)，CLI 将其序列化为 `execution.allocations`。它统计成功创建的纹理／uniform／staging 描述符，以及累计、峰值、存活、已释放和已复用字节。跟踪任务要求这些计数与所选计划一致，所有请求通道顺序回读完成，最终 `liveBytes` 为零，`releasedBytes` 等于 `cumulativeBytes`，且 `reusedBytes` 等于 `logicalTextureBytes - textureBytes`。释放计数记录 `destroy` 调用，不代表驱动或操作系统立即归还了物理内存。驱动分配粒度、着色器／管线／绑定组内存，以及 CPU 像素／PNG 缓冲区均不计入。管线缓存仍归 renderer 所有，不属于这些逐次调用计数。分配观测不改变核心计划、其估算或哈希。
 
-成功运行后，`tmp/trace-2k/<run>/` 包含 `selection.json`、全部检查报告、`doctor.json`、`render.json`、四张 PNG 及其哈希、源码／夹具哈希、精确渲染参数与适配器设置，以及 `trace.json`。`pipelineMs`、`executionMs`、`readbackMs` 和 `totalMs` 是有限的 CPU 墙钟测量值，不声称使用 GPU 时间戳查询。任务拒绝运行期间发生变化的源码／夹具输入或 1K 基准。`latest-software.json` 或 `latest-hardware.json` 记录最近一次尝试；失败时保留已有 CLI JSON／stderr 和 `failure.json`。跟踪通过只证明该工作负载的简单调度有界。它不创建或更新 2K 像素基准，也不决定材质人工验收。远端验收由记录的 CI 运行建立，单次本地跟踪不能替代。
+成功运行后，`tmp/trace-2k/<run>/` 包含 `selection.json`、全部检查报告、`doctor.json`、`render.json`、四张 PNG 及其哈希、源码／夹具哈希、精确渲染参数与适配器设置，以及 `trace.json`。`pipelineMs`、`executionMs`、`readbackMs` 和 `totalMs` 是有限的 CPU 墙钟测量值，不声称使用 GPU 时间戳查询。任务拒绝运行期间发生变化的源码／夹具输入或 1K 基准。`latest-software.json` 或 `latest-hardware.json` 记录最近一次尝试；失败时保留已有 CLI JSON／stderr 和 `failure.json`。`m3-pooled-2k-allocation-trace` 结果证明该工作负载的物理槽调度有界；完整 PERF-MAT 验收仍单独进行。它不创建或更新 2K 像素基准，也不决定材质人工验收。远端验收由记录的 CI 运行建立，单次本地跟踪不能替代。
 
 ## CI 与里程碑证据
 

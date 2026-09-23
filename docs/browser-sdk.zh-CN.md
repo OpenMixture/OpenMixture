@@ -85,6 +85,8 @@ M5 返回既定 RGBA8 表示，不返回无损内部 `rgba16float` 纹理。产�
 
 Promise 完成前，返回像素必须复制到 JS 自有存储，绝不作为短生命周期 WASM 内存或已映射 GPU buffer 的别名。下一次渲染、WASM 内存增长和实例销毁后它们仍有效。修改一个返回通道不得修改另一个通道、先前保留的结果或引擎。JS 自有 buffer 的 GC 由消费者负责；`destroy` 不使保留结果脱离其 buffer。首版不承诺 GPUTexture 传递或零拷贝。
 
+未发布的 0.8 候选使用 API/计划 schema 3。计划公开 Core 所有的 `allocation`（`slots`、`resourceSlots`、`lastUses`）；估算增加 bigint `textureCount` 与 `logicalTextureBytes`。槽 ID 和最后使用索引为 u32 数字。见[纹理复用与迁移](./perf-mat-texture-reuse.zh-CN.md)；历史已发布 0.3 仍为 API/计划 2。
+
 结果保留编译计划哈希/版本、文档版本、请求尺寸/通道、可通过检查接口取得的有效计划描述、实际上下文证据及适用的执行指标。构建信息标识 npm runtime 版本、绑定/API schema 版本、Rust 引擎版本/修订，以及由 JS、声明和 WASM 共享的构建标识。缺失来源信息须显式说明；构建不能编造提交标识。包/绑定版本检查须在正常执行前拒绝混用产物。
 
 运行时/包版本、`.mix` 格式版本、节点版本、计划版本及产品发布版本是独立契约。产品 UI 发布不要求改变格式。计划哈希保留现有 core 语义；包版本、适配器名、耗时、URL 和产品 generation 不成为新的哈希输入。同一构建的 Native/浏览器比较必须使用完全相同的源码、覆盖、尺寸、通道与策略。

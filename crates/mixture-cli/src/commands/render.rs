@@ -77,7 +77,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         }
     };
     let mut report = Report {
-        schema_version: 2,
+        schema_version: 3,
         input: options.path.clone(),
         output_directory: options.out.clone(),
         plan_hash: None,
@@ -266,7 +266,7 @@ pub(super) fn prepared(
     prepared: mixture_core::PreparedRender,
 ) -> (impl Serialize, u8) {
     let mut report = Report {
-        schema_version: 2,
+        schema_version: 3,
         input: input.clone(),
         output_directory: out.clone(),
         plan_hash: None,

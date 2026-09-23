@@ -489,7 +489,7 @@ M1 和早期 M2 可以采用直观的分配方式，以保持清晰。M3 退出�
 - 显式保留输出资源，直到回读完成；
 - 有界的管线和资源缓存。
 
-[真实 MAT-02 2K 预算失败与有效 1K 基线](./docs/evidence/perf-mat-before/README.zh-CN.md)证明有界复用需求。[ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md)选定 Core 确定性最后使用／槽规划与 wgpu 单次渲染物理分配，固定输出，要求完整描述兼容，不改变 pass／着色器语义。设计要求实现时采用 plan／hash／API v3；在纵向实现集成并验收前，当前 v2 保留全部资源行为不变。本用例不引入通用分配器或全局池。
+[真实 MAT-02 2K 预算失败与有效 1K 基线](./docs/evidence/perf-mat-before/README.zh-CN.md)证明有界复用需求。[ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md)选定 Core 确定性最后使用／槽规划与 wgpu 单次渲染物理分配，固定输出，要求完整描述兼容，不改变 pass／着色器语义。工作中的 [0.8 实现](./docs/perf-mat-texture-reuse.zh-CN.md)采用 plan／hash／API v3 和单次渲染物理槽，完整验收待完成。历史 v2 保留全部资源证据不变。本用例不引入通用分配器或全局池。
 
 ### 9.5 管线缓存
 

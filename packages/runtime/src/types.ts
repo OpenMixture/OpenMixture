@@ -53,7 +53,7 @@ export interface ExposedParameter {
 }
 export interface PlanEstimates {
   resourceCount: bigint; resourceUploadBytes: bigint; resourceTextureBytes: bigint; resourceStagingBytes: bigint;
-  textureBytes: bigint; uniformBytes: bigint; paddedBytesPerRow: number;
+  textureCount: bigint; logicalTextureBytes: bigint; textureBytes: bigint; uniformBytes: bigint; paddedBytesPerRow: number;
   readbackBufferBytes: bigint; readbackBytes: bigint; cumulativeReadbackBytes: bigint;
   cumulativeBytes: bigint; peakBytes: bigint;
 }
@@ -63,6 +63,8 @@ export interface RenderPlan {
   passes: Array<{ id: number; origin: ProjectedValue; kernel: ProjectedValue; output: number;
     outputDesc: ProjectedValue; dispatch: [number, number, number] }>;
   outputs: Array<{ channel: ChannelId; kind: PortKind; input: InputSource; resource: number }>;
+  allocation: { slots: Array<{ width: number; height: number; format: 'rgba16float'; kind: PortKind }>;
+    resourceSlots: number[]; lastUses: number[] };
   imageResources: Array<{ id: string; format: string; width: number; height: number; bytesPerRow: bigint; contentDigest: string }>;
   estimates: PlanEstimates;
 }

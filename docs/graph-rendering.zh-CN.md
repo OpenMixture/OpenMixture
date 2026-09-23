@@ -70,9 +70,9 @@ renderer.clear_pipeline_cache();
 
 ## 缓存、生命周期与失败
 
-一个渲染器最多保留九条管线，以 `KernelId` 为键。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
+一个渲染器对每个已实现的 `KernelId` 最多保留一条管线。在同一渲染器内，设备、着色器 ABI／版本、局部工作组尺寸及存储格式固定，参数值和输出尺寸无需增加缓存键。只有管线创建成功后才填入缓存。`cached_pipeline_count()` 提供数量；`clear_pipeline_cache()` 及渲染器释放会释放保留句柄。每次渲染报告按 pass 统计命中／未命中，包括本次调用中较早 pass 建立的缓存复用。
 
-[每次调用的资源](../crates/mixture-wgpu/src/resources.rs)实现 [PR-006 生命周期模型](./render-plan.zh-CN.md)：全部 pass 纹理及含填充的 uniform 保留至执行和回读结束。每个请求通道使用一个 staging 缓冲区，在下一通道前完成映射、解包、解除映射与销毁。别名通道共享生产者纹理，但仍独立回读。成功或失败都会释放调用内的全部缓冲区／纹理。没有纹理池、最后使用者优化、pass 融合或磁盘缓存。
+[每次调用的资源](../crates/mixture-wgpu/src/resources.rs)执行 [Core 物理槽调度](./render-plan.zh-CN.md)：兼容逻辑结果严格在最后使用者之后复用槽，请求输出保持固定。全部物理槽及含填充的 uniform 保留至执行和回读结束。每个请求通道使用一个 staging 缓冲区，在下一通道前完成映射、解包、解除映射与销毁。别名通道共享生产者纹理，但仍独立回读。成功或失败都会释放调用内的全部缓冲区／纹理。槽仅属于单次调用；没有跨渲染资源池、pass 融合或磁盘缓存。
 
 分配前，执行器检查实际设备的纹理尺寸、最大缓冲区及工作组数量。图／请求安全上限已由编译器检查。GPU 着色器、管线、执行与回读使用配平的错误作用域和共享类型化诊断，保留原生错误来源。计划失败包含计划哈希，管线／分配失败在可用时标明 pass 和源节点。每次原生完成／映射等待限时 30 秒。耗时是 CPU 墙钟时间；峰值／累计字节是逻辑估算，不包含驱动／管线开销及 CPU／PNG 缓冲区。
 
@@ -94,7 +94,7 @@ renderer.clear_pipeline_cache();
 
 ## 报告
 
-JSON schema 版本 1 包含 `input`、`outputDirectory`、`planHash`、`context`、`execution`、`outputs`、`ok` 和 `diagnostics`。Context 记录实际选择并保留仅获取状态的 `unverified`；成功的 `execution` 报告才是渲染证据。源／编译失败时上下文与执行为 null；GPU 失败保留已获取上下文，编码／写入失败保留完成的执行及输出条目。
+图 JSON schema 版本 3 包含 `input`、`outputDirectory`、`planHash`、`context`、`execution`、`outputs`、`ok` 和 `diagnostics`。Context 记录实际选择并保留仅获取状态的 `unverified`；成功的 `execution` 报告才是渲染证据。源／编译失败时上下文与执行为 null；GPU 失败保留已获取上下文，编码／写入失败保留完成的执行及输出条目。
 
 `execution` 包含实际适配器、计划哈希、尺寸、已执行 pass 数、管线缓存查找、分配估算、紧密原始回读字节、累计填充映射字节、返回 RGBA8 字节及分阶段耗时。`outputs` 只列出成功写入文件的通道／类型／来源／尺寸／编码／路径／字节数。相同语义请求的计划哈希与 `inspect` 一致，适配器名称、路径和耗时均不进入哈希。
 
@@ -140,7 +140,7 @@ cargo xtask test-node warp
 
 两个节点测试集在固定 SwiftShader 通过，包含 17 个变换和 13 个扭曲[字面量 GPU 探针](../crates/mixture-wgpu/tests/support/resampling_probe.rs)、既有噪声的精确恒等比较、边界／无效输入夹具以及完整图因果／缓存检查。字面量探针验证 X／Y 环绕插值、旋转顺序、输出坐标位移场读取及 f16 恒等路径。节点测试继续使用显式适配器策略；报告和原始输出保存于 `tmp/node-tests/<backend>/`，并另存 `<node>-literal-probes.json` 证据。这验证节点语义；材质观感和里程碑验收使用独立的[材质验收](./material-goldens.zh-CN.md)。
 
-PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations: AllocationReport`。它记录成功创建的描述符：纹理／uniform 数量与字节数，staging 数量、累计字节和峰值存活字节，以及总累计、峰值、存活、已释放和已复用字节。当前成功渲染最终满足 `liveBytes = 0`、`releasedBytes = cumulativeBytes` 和 `reusedBytes = 0`。释放记录显式 `destroy` 调用，不代表驱动立即归还物理内存。驱动分配粒度、管线／绑定组开销及 CPU 像素／PNG 缓冲区不计入。这些观测不进入 `RenderPlan` 或其哈希。
+PR-010 添加 `execution.allocations`，公开 API 为 `RenderReport.allocations: AllocationReport`。它记录成功创建的描述符：纹理／uniform 数量与字节数，staging 数量、累计字节和峰值存活字节，以及总累计、峰值、存活、已释放和已复用字节。当前成功渲染最终满足 `liveBytes = 0`、`releasedBytes = cumulativeBytes` 和 `reusedBytes = logicalTextureBytes - textureBytes`。释放记录显式 `destroy` 调用，不代表驱动立即归还物理内存。驱动分配粒度、管线／绑定组开销及 CPU 像素／PNG 缓冲区不计入。这些观测不进入 `RenderPlan` 或其哈希。
 
 [PR-012 CLI 契约](./cli-contract.zh-CN.md)统一记录报告字段类型、null／省略规则、退出码和部分文件写入行为，并提供独立 PNG／元数据／覆盖检查。像素执行及编码语义不变。
 

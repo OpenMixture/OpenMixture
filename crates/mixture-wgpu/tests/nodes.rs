@@ -777,7 +777,14 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 report.allocations.released_bytes,
                 report.allocations.cumulative_bytes
             );
-            assert_eq!(report.allocations.reused_bytes, 0);
+            assert_eq!(
+                report.allocations.reused_bytes,
+                plan.estimates().logical_texture_bytes - plan.estimates().texture_bytes
+            );
+            assert_eq!(
+                report.allocations.texture_count,
+                plan.estimates().texture_count
+            );
             // Identical request counters must reset rather than accumulate.
             let again = pollster::block_on(renderer.render(&plan)).unwrap();
             assert_eq!(again.report().allocations, report.allocations);

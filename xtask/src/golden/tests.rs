@@ -12,7 +12,7 @@ fn material_render_requires_v2_and_consistent_execution_evidence() {
     let doctor = json!({"adapter":adapter});
     let hash = format!("sha256:{}", "a".repeat(64));
     let report = json!({
-        "schemaVersion":2,"ok":true,"diagnostics":[],"planHash":hash,
+        "schemaVersion":3,"ok":true,"diagnostics":[],"planHash":hash,
         "context":{"adapter":adapter},
         "execution":{"size":[acceptance.size,acceptance.size],"planHash":hash,
             "adapter":adapter,"readbackBytes":u64::from(acceptance.size).pow(2)*8*4},

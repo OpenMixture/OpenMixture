@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "exact-resource-free-plan-v2-to-v3-allocation",
+  "migrations": [
+    {
+      "material": "glazed-ceramic",
+      "case": "default",
+      "v2": "sha256:45f84ce18daa23f0e485f7048d9c3fdd9e4f8c26a1b41544c8dd8d67559cc94e",
+      "v3": "sha256:6d3ac7bdb847f1f43158b030fadc9298f7e2a9ef6c52739bb0cb698458032dd7"
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "fine-tiles",
+      "v2": "sha256:414df04be1b61b09fb2647dbbc8d805b09ac6d2870bbc657610f827de6e39e05",
+      "v3": "sha256:6ff6d3bebb1aed7fb31fa66c5799747bfe6eb31317e89705341ae9247609ca1c"
+    },
+    {
+      "material": "glazed-ceramic",
+      "case": "matte",
+      "v2": "sha256:5bd3aaead1e6336b1879ac7d58e5e180bd8d5875fea38c244925f57bd151e4cb",
+      "v3": "sha256:36aad1610b0751dc370d99c7d17752d0d8900ac6a09acf0b5b0760c1d38dff5f"
+    },
+    {
+      "material": "leather",
+      "case": "default",
+      "v2": "sha256:598de3754702f43fa8d17f91839d05cb384999d8b031df31e9c431c0a6ef51f2",
+      "v3": "sha256:168ac15119ef4188e826a81a7d14feb2bb6ba51d406bd589333309b12cf78613"
+    },
+    {
+      "material": "leather",
+      "case": "detail-min",
+      "v2": "sha256:17adf39bd43fad34dc2457ff59d471e383051c9a9c0de1a5122b21b5fe12931b",
+      "v3": "sha256:f97e91aed843fb00d0006c3563de3718b7773f747fa36c68539a5e1e13e1a634"
+    },
+    {
+      "material": "leather",
+      "case": "detail-max",
+      "v2": "sha256:8ee2c691229bde08950aeaee43c3bad60d0c8e394afe2dd229a2897a5e660dd1",
+      "v3": "sha256:e005dc3f35dfa30015d77b9a7229e83130db49cc8bcc1c78766939b425033862"
+    },
+    {
+      "material": "leather",
+      "case": "coarse-grain",
+      "v2": "sha256:cbd302dffd8a33906fb9203ffc2edc2174626524ff9962049f2f61421b4307f5",
+      "v3": "sha256:a9dccf0ae5bec8919bdd08f668aa90f1c26800f2101306bd7ae023ac4ae20012"
+    },
+    {
+      "material": "wood",
+      "case": "default",
+      "v2": "sha256:a609a6e26228293b9926aa3d8608c22f3bb86e8a093f81fdc5ac51f89d1826fa",
+      "v3": "sha256:b4d6681386156b8c14dcc267254734e0596cde3dffa2313b2983dc96c8970bb3"
+    },
+    {
+      "material": "wood",
+      "case": "coarse-grain",
+      "v2": "sha256:57a8ace5b72fe3aa7630d60a9d7e074f97b9ac70f510de717177b552a9222696",
+      "v3": "sha256:d53d1fa5b8496363d07eba471814d6b0e5bbfe6f2abbfd2c7c12377155ee8060"
+    },
+    {
+      "material": "wood",
+      "case": "straight-grain",
+      "v2": "sha256:76745e32099c0454ab80a53637fe9b04fbb56fbb0896178a2e3097d1882a4c68",
+      "v3": "sha256:42de3cb5424dc964f6b2c415a1483fd4738da6cac856a838e5a955a22427e3c3"
+    },
+    {
+      "material": "wood",
+      "case": "horizontal-grain",
+      "v2": "sha256:a44c5908ea5e40478b4805f6ba0775b5692088f62413929135b9734db723551f",
+      "v3": "sha256:636091a226e8ef4663afe86bb6608b5f74a3bfe93d0efa81989990c26de966a0"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-[资产 CLI 契约](./m6b-04-adapters.zh-CN.md)补充 `asset pack` / `inspect` / `render` 的 schema-1 外层报告、文件规则和内存预算；其嵌套图渲染报告沿用本文 schema 2。
+[资产 CLI 契约](./m6b-04-adapters.zh-CN.md)补充 `asset pack` / `inspect` / `render` 的 schema-1 外层报告、文件规则和内存预算；其嵌套图渲染报告沿用本文 schema 3。
 
 PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_contract.rs)消费已构建的 `mixture` 可执行文件，使用自有输入及输出目录。它修复人类可读诊断上下文，记录现有 JSON 和退出行为，不引入 schema 版本、不改变像素语义，也不完成其余 [M4 工作](../M4_PRS.zh-CN.md)。
 
@@ -29,11 +29,11 @@ PR-012 通过[独立 Rust 测试程序](../examples/native-consumer/tests/cli_co
 | 命令 | 必需顶层字段 | 失败时的字段存在规则 |
 |---|---|---|
 | `validate` | `ok: boolean`、`diagnostics: array` | 保持两个字段；该原始结构**没有 `schemaVersion` 字段**。 |
-| `inspect --plan` | `schemaVersion: 2`、`plan: object or null`、`ok`、`diagnostics` | `plan` 存在且为 null。 |
+| `inspect --plan` | `schemaVersion: 3`、`plan: object or null`、`ok`、`diagnostics` | `plan` 存在且为 null。 |
 | `doctor` | `schemaVersion: 1`、`verdict: string`、`requested: object`、`adapter: object or null`、`device: object or null`、`computeProbe: string`、`readbackProbe: string`、`ok`、`diagnostics` | adapter／device 字段始终存在；设备请求失败时可保留已选适配器证据。`execution` 是**可选、缺省时省略**的棋盘报告，仅完成探针时存在。 |
-| `render` | `schemaVersion: 2`、`input: string`、`outputDirectory: string`、`planHash: string or null`、`context: object or null`、`execution: object or null`、`outputs: array`、`ok`、`diagnostics` | `planHash`、`context`、`execution` **始终存在**，不可用时为 null。`outputs` 只包含已完成的文件写入。 |
+| `render` | `schemaVersion: 3`、`input: string`、`outputDirectory: string`、`planHash: string or null`、`context: object or null`、`execution: object or null`、`outputs: array`、`ok`、`diagnostics` | `planHash`、`context`、`execution` **始终存在**，不可用时为 null。`outputs` 只包含已完成的文件写入。 |
 
-`schemaVersion`、计划 `version`、源码 `documentVersion` 和节点版本描述不同边界。当前检查正文为 [RenderPlan v2](./render-plan.zh-CN.md)：`version`、`documentVersion`、`size: [width,height]`、`materialOutput`、`passes`、`outputs`、`estimates`、`imageResources`、`hash`。pass／资源 ID 和字节估算均为非负整数；`hash` 是 `sha256:` 加 64 个小写十六进制字符。核心拥有计划序列化及哈希。调整请求通道顺序仍编译为相同规范计划；改变有实际意义的覆盖值会改变哈希，而裁剪未使用分支可以消除其工作量。
+`schemaVersion`、计划 `version`、源码 `documentVersion` 和节点版本描述不同边界。当前检查正文为 [RenderPlan v3](./render-plan.zh-CN.md)：`version`、`documentVersion`、`size: [width,height]`、`materialOutput`、`passes`、`outputs`、`allocation`、`estimates`、`imageResources`、`hash`。pass／资源 ID 和字节估算均为非负整数；`hash` 是 `sha256:` 加 64 个小写十六进制字符。核心拥有计划序列化及哈希。调整请求通道顺序仍编译为相同规范计划；改变有实际意义的覆盖值会改变哈希，而裁剪未使用分支可以消除其工作量。
 
 ## 诊断数据与人类可读上下文
 

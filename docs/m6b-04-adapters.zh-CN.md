@@ -23,7 +23,7 @@ mixture asset render material.mixpack --size 65x3 --output height --out rendered
 
 三个命令都接受只能降低的十进制无符号 `--package-bytes`、`--manifest-bytes`、`--package-buffer-bytes`；默认/上限为 67 MiB、64 KiB、202 MiB。CLI 装载计入实际归档容量、源/manifest 暂存和选中资源快照；打包先为调用方仍持有的原始图像缓冲预留预算，再调用共用写入器。这是字节缓冲预算，不是进程 RSS 上限。
 
-JSON 资产外层 schema 为 1，含 `operation`、`input`、`ok`、`diagnostics` 和可空的 `asset`、`plan`、`render`。pack 增加 `output`、`writtenBytes`；render 嵌套现有 schema-2 渲染报告，保留适配器、PNG 与部分写入诊断。JSON u64 仍为数字，需要精确 u64 的 JavaScript 调用方应使用浏览器 API。退出码：0 成功，1 I/O/GPU 失败，2 非法调用/包/请求；调用语法错误按现有命令习惯写入 stderr。保留 Core 诊断码/阶段；包错误使用 `package` 阶段及类型化证据，包括资源覆盖 ID 数组。
+JSON 资产外层 schema 为 1，含 `operation`、`input`、`ok`、`diagnostics` 和可空的 `asset`、`plan`、`render`。pack 增加 `output`、`writtenBytes`；render 嵌套现有 schema-3 渲染报告，保留适配器、PNG 与部分写入诊断。JSON u64 仍为数字，需要精确 u64 的 JavaScript 调用方应使用浏览器 API。退出码：0 成功，1 I/O/GPU 失败，2 非法调用/包/请求；调用语法错误按现有命令习惯写入 stderr。保留 Core 诊断码/阶段；包错误使用 `package` 阶段及类型化证据，包括资源覆盖 ID 数组。
 
 ## 浏览器字节
 
@@ -44,7 +44,7 @@ try {
 } finally { await gpu.destroy(); }
 ```
 
-`RuntimeModule.inspectPackage(Uint8Array, PackageOptions?)` 在 `loadRuntime()` 后同步执行，纯 CPU。`PackageOptions` 仅包含可选 `limits`、`resourceLimits`、`packageLimits`，不接受渲染选项。`GpuRuntime.renderPackage(Uint8Array, PackageRenderRequest?)` 接受现有 size/channels/overrides/limits/resourceLimits 及 packageLimits，不接受散装 `resources`。部分包限制与 Rust 权威默认值合并。所有包字节限制及检查结果 u64 均为 `bigint`；API schema 仍为 2，包报告 schema 为 1。
+`RuntimeModule.inspectPackage(Uint8Array, PackageOptions?)` 在 `loadRuntime()` 后同步执行，纯 CPU。`PackageOptions` 仅包含可选 `limits`、`resourceLimits`、`packageLimits`，不接受渲染选项。`GpuRuntime.renderPackage(Uint8Array, PackageRenderRequest?)` 接受现有 size/channels/overrides/limits/resourceLimits 及 packageLimits，不接受散装 `resources`。部分包限制与 Rust 权威默认值合并。所有包字节限制及检查结果 u64 均为 `bigint`；API schema 为 3，包报告 schema 为 1。
 
 检查结果包含精确包/源 SHA-256 和长度、源版本、排序的资源身份/尺寸/行长/摘要，以及 `buffers.jsPackageBytes`、`rustPackageBytes`、`chargedBytes`。验证所有资源，但不捕获选中 Core 像素；即使 `navigator.gpu` 抛错也不触碰 GPU。
 

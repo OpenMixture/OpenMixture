@@ -25,7 +25,7 @@ cargo xtask check
 
 `inspect` 与验证命令共享有界源文件加载器：默认策略最多读取 2 MiB 加一个检测字节。编译前验证整个源文档，包括未请求的分支。命令不获取适配器、不写入输入文件。选项可位于路径之前；以 `-` 开头的路径前使用 `--`。
 
-JSON 模式输出一份含 `schemaVersion: 2`、`plan`、`ok` 和 `diagnostics` 的报告。成功时包含计划及空诊断数组；失败时 `plan: null`，并包含共享的有序诊断及传入路径。人类可读模式显示 pass 来源、kernel、资源映射、连接／默认输出来源、哈希及估算。退出码 `0` 表示编译成功，`2` 表示调用／源文档／请求无效，`1` 表示文件／报告 I/O 失败。CLI 语法错误、重复选项／覆盖 ID 或无效覆盖 JSON 向 stderr 输出用法；语义失败使用所选报告模式。
+JSON 模式输出一份含 `schemaVersion: 3`、`plan`、`ok` 和 `diagnostics` 的报告。成功时包含计划及空诊断数组；失败时 `plan: null`，并包含共享的有序诊断及传入路径。人类可读模式显示 pass 来源、kernel、资源映射、连接／默认输出来源、哈希及估算。退出码 `0` 表示编译成功，`2` 表示调用／源文档／请求无效，`1` 表示文件／报告 I/O 失败。CLI 语法错误、重复选项／覆盖 ID 或无效覆盖 JSON 向 stderr 输出用法；语义失败使用所选报告模式。
 
 ## 公共 API 与规范化源文档
 
@@ -86,28 +86,15 @@ assert_eq!(plan.estimates().peak_bytes, 5488);
 
 ## 分配估算契约
 
-[ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)在 MAT-02 实测失败后选定未来 v3 物理槽模型。本设计尚未实现；以下 v2 规则仍描述可执行行为。
+[ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)及[实现指南](./perf-mat-texture-reuse.zh-CN.md)定义 v3 单次渲染物理槽。`allocation.slots` 为完整描述，`resourceSlots` 映射逻辑 ID，`lastUses` 将请求输出固定到 pass 数量哨兵。复用选择最后使用严格早于生产者的最低编号兼容槽，pass 顺序和着色器不变。
 
-计划版本 2 假定简单的执行顺序：所有 pass 纹理和 uniform 保留至执行／回读结束；按请求通道顺序逐个分配、释放一个 staging 缓冲区。没有提前释放或资源池。估算的是逻辑 GPU 分配字节，不是驱动测量值，也不包含 CPU 内存、PNG 分配、着色器／管线内存或设备分配粒度。
+设 pass 数 `P`、物理槽数 `N`、`T=W*H*8`、对齐 uniform 总和 `U`、`R=ceil(W*8/256)*256*H`、请求通道数 `O`。无外部资源时，`textureCount=N`、`logicalTextureBytes=P*T`、`textureBytes=N*T`、`peakBytes=N*T+U+R`、`cumulativeBytes=N*T+U+O*R`；`readbackBufferBytes=R`、`readbackBytes=O*T`、`cumulativeReadbackBytes=O*R`。外部图像纹理／上传暂存仍保守地单独加计。槽及 uniform 保留至读回／清理，输出别名仍逐请求通道读回，无跨渲染池。
 
-令 `W`／`H` 为尺寸，`P` 为 pass 数，`O` 为请求通道数，`U` 为含填充的 uniform 总字节数，`T = W × H × 8`，`R = ceil(W × 8 / 256) × 256 × H`：
-
-| 报告字段 | 定义 |
-| --- | --- |
-| `textureBytes` | `P × T`，也是纹理峰值驻留字节数 |
-| `uniformBytes` | `U`，上表 uniform 大小之和 |
-| `paddedBytesPerRow` | `ceil(W × 8 / 256) × 256` |
-| `readbackBufferBytes` | `R`，一个驻留 staging 缓冲区 |
-| `readbackBytes` | `O × T`，紧密原始 rgba16float 输出字节数 |
-| `cumulativeReadbackBytes` | `O × R`，各次回读的累计 staging 分配 |
-| `cumulativeBytes` | `P × T + U + O × R` |
-| `peakBytes` | `P × T + U + R`，与 `limits.transient_bytes` 比较 |
-
-别名仍按每个请求通道回读一次。算术使用经检查的 u64 运算，staging 行跨度通过经检查的转换收窄为 u32。限制等于 `peakBytes` 时允许通过。65×3 的棋盘格加默认 roughness 有 2 个 pass、768 字节 staging 行、5488 峰值字节和 7792 累计字节。最后使用者释放、别名回读去重、资源池及驱动专属开销不属于本版本；修改该模型须明确决定计划版本。
+全部算术经检查，恰好等于预算可通过。估算覆盖 GPU 描述符，不含驱动开销、CPU 输出或 RSS。65x3 的棋盘格／默认粗糙度两个固定槽仍需 5488 峰值字节。默认涂漆金属五通道图有 23 个逻辑结果、14 个兼容物理槽，2048 估算为 503,316,944 字节；验收必须验证实际计数和像素。
 
 ## 稳定哈希契约
 
-`plan.version` 为 `2`。`hash` 是 `sha256:` 加 64 位小写十六进制。哈希输入精确为 `mixture-render-plan-v2` 的字节、一个 NUL 字节，再接不含 `hash` 的计划主体紧凑 UTF-8 JSON。`RenderPlan::hash_input()` 为使用方返回这些字节。根字段顺序为 `version`、`documentVersion`、`size`、`materialOutput`、`passes`、`outputs`、`estimates`、`imageResources`；嵌套顺序由类型化序列化器和[已检入快照](../crates/mixture-core/tests/snapshots/)固定。这是版本化序列化契约，不是通用的键字典序 JSON。修改键顺序、数值格式、降级或内存语义时，需要对照该版本审查。
+`plan.version` 为 `3`。`hash` 是 `sha256:` 加 64 位小写十六进制。哈希输入精确为 `mixture-render-plan-v3` 的字节、一个 NUL 字节，再接不含 `hash` 的计划主体紧凑 UTF-8 JSON。`RenderPlan::hash_input()` 为使用方返回这些字节。根字段顺序为 `version`、`documentVersion`、`size`、`materialOutput`、`passes`、`outputs`、`allocation`、`estimates`、`imageResources`；嵌套顺序由类型化序列化器和[已检入快照](../crates/mixture-core/tests/snapshots/)固定。这是版本化序列化契约，不是通用的键字典序 JSON。修改键顺序、数值格式、降级或内存语义时，需要对照该版本审查。
 
 主体包含源文档版本、选中节点／所属节点的 ID、类型与版本、有效类型化参数（含覆盖结果）、输出来源、请求通道、尺寸、pass／资源标识、描述、dispatch 及确定性估算。节点 ID 为诊断／排序而保留；节点重命名不属于图同构规范化。
 

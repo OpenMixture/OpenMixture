@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
-[MAT-02 layered-weathering preparation](./mat-02-layered-weathering.md) is a draft for the stage after MAT-01, with a proposed neighborhood operation and five-channel material acceptance design. It does not claim implementation or accepted pixels.
+[MAT-02 layered weathering](./mat-02-layered-weathering.md) freezes the active material contract; its morphology/subtraction nodes are integrated. [PERF-MAT texture reuse](./perf-mat-texture-reuse.md) addresses the measured 2K cost failure. Full material acceptance remains pending.
 
 The root documents are the active project contract:
 

@@ -1,4 +1,4 @@
-//! Straightforward per-render allocations; all textures/uniforms live until readback.
+//! Per-render physical slots; logical results reuse storage after their last consumer.
 use crate::{
     allocations::Allocations,
     operation::{GpuOperationError, checked},
@@ -10,7 +10,8 @@ use std::time::Duration;
 
 #[derive(Default)]
 pub(crate) struct Resources {
-    pub textures: Vec<wgpu::Texture>,
+    textures: Vec<wgpu::Texture>,
+    logical_slots: Vec<usize>,
     uniforms: Vec<wgpu::Buffer>,
     images: std::collections::BTreeMap<String, wgpu::Texture>,
     uploads: Vec<wgpu::Buffer>,
@@ -23,6 +24,20 @@ impl Drop for Resources {
     }
 }
 impl Resources {
+    pub fn readback_resource(
+        &mut self,
+        resource: usize,
+    ) -> Option<(&wgpu::Texture, &mut Allocations)> {
+        let slot = self.logical_slots.get(resource)?;
+        Some((self.textures.get(*slot)?, &mut self.allocations))
+    }
+
+    pub fn texture(&self, resource: usize) -> Option<&wgpu::Texture> {
+        self.logical_slots
+            .get(resource)
+            .and_then(|slot| self.textures.get(*slot))
+    }
+
     fn release(&mut self) {
         if self.uniforms.is_empty()
             && self.textures.is_empty()
@@ -32,6 +47,7 @@ impl Resources {
             return;
         }
         self.groups.clear();
+        self.logical_slots.clear();
         for buffer in self.uniforms.drain(..) {
             buffer.destroy();
         }
@@ -167,12 +183,64 @@ impl Resources {
         pipeline: &wgpu::ComputePipeline,
         kernel: &KernelInvocation,
         size: [u32; 2],
+        output_slot: usize,
     ) -> Result<(), GpuOperationError> {
         let bytes = crate::kernels::parameters(kernel);
+        if output_slot > self.textures.len() {
+            return Err(GpuOperationError::at(
+                Stage::GpuExecution,
+                "Physical texture slot is not consecutive.",
+            ));
+        }
+        for input in kernel.inputs() {
+            if self.logical_slots.get(input.index() as usize) == Some(&output_slot) {
+                return Err(GpuOperationError::at(
+                    Stage::GpuExecution,
+                    "Pass input and output share a physical slot.",
+                ));
+            }
+        }
+        let reused = output_slot < self.textures.len();
+        let texture_bytes = u64::from(size[0])
+            .checked_mul(u64::from(size[1]))
+            .and_then(|bytes| bytes.checked_mul(8))
+            .ok_or_else(|| {
+                GpuOperationError::at(
+                    Stage::GpuExecution,
+                    "Pass texture descriptor byte count overflowed.",
+                )
+            })?;
+        if !reused {
+            let texture = checked(
+                device,
+                Stage::GpuExecution,
+                "Could not allocate physical texture.",
+                || {
+                    device.create_texture(&wgpu::TextureDescriptor {
+                        label: Some("plan rgba16float slot"),
+                        size: extent(size),
+                        mip_level_count: 1,
+                        sample_count: 1,
+                        dimension: wgpu::TextureDimension::D2,
+                        format: wgpu::TextureFormat::Rgba16Float,
+                        usage: wgpu::TextureUsages::STORAGE_BINDING
+                            | wgpu::TextureUsages::TEXTURE_BINDING
+                            | wgpu::TextureUsages::COPY_SRC,
+                        view_formats: &[],
+                    })
+                },
+            )
+            .await?;
+            if let Err(error) = self.allocations.texture(texture_bytes) {
+                texture.destroy();
+                return Err(error);
+            }
+            self.textures.push(texture);
+        }
         let mut inputs = kernel
             .inputs()
             .map(|id| {
-                self.textures.get(id.index() as usize).ok_or_else(|| {
+                self.texture(id.index() as usize).ok_or_else(|| {
                     GpuOperationError::at(
                         Stage::GpuExecution,
                         "Plan input resource has no preceding producer.",
@@ -186,7 +254,10 @@ impl Resources {
                     .evidence("resourceId", resource_id.as_str())
             })?);
         }
-        let (texture, uniform, group) = checked(
+        let texture = self.textures.get(output_slot).ok_or_else(|| {
+            GpuOperationError::at(Stage::GpuExecution, "Output physical slot is missing.")
+        })?;
+        let (uniform, group) = checked(
             device,
             Stage::GpuExecution,
             "Could not allocate compute resources.",
@@ -195,18 +266,6 @@ impl Resources {
                     .iter()
                     .map(|texture| texture.create_view(&Default::default()))
                     .collect();
-                let texture = device.create_texture(&wgpu::TextureDescriptor {
-                    label: Some("plan rgba16float"),
-                    size: extent(size),
-                    mip_level_count: 1,
-                    sample_count: 1,
-                    dimension: wgpu::TextureDimension::D2,
-                    format: wgpu::TextureFormat::Rgba16Float,
-                    usage: wgpu::TextureUsages::STORAGE_BINDING
-                        | wgpu::TextureUsages::TEXTURE_BINDING
-                        | wgpu::TextureUsages::COPY_SRC,
-                    view_formats: &[],
-                });
                 let uniform = device.create_buffer(&wgpu::BufferDescriptor {
                     label: Some("typed kernel parameters"),
                     size: bytes.len() as u64,
@@ -235,24 +294,21 @@ impl Resources {
                     layout: &pipeline.get_bind_group_layout(0),
                     entries: &entries,
                 });
-                (texture, uniform, group)
+                (uniform, group)
             },
         )
         .await?;
-        let texture_bytes = u64::from(texture.width())
-            .checked_mul(u64::from(texture.height()))
-            .and_then(|bytes| bytes.checked_mul(8))
-            .ok_or_else(|| {
-                GpuOperationError::at(
-                    Stage::GpuExecution,
-                    "Pass texture descriptor byte count overflowed.",
-                )
-            })?;
-        self.allocations.pass(texture_bytes, uniform.size())?;
+        if let Err(error) = self.allocations.uniform(uniform.size()) {
+            uniform.destroy();
+            return Err(error);
+        }
         // Retain allocations before fallible upload so the guard also cleans errors.
-        self.textures.push(texture);
+        self.logical_slots.push(output_slot);
         self.uniforms.push(uniform);
         self.groups.push(group);
+        if reused {
+            self.allocations.reuse(texture_bytes)?;
+        }
         let uniform = self.uniforms.last().ok_or_else(|| {
             GpuOperationError::at(Stage::GpuExecution, "Missing uniform allocation.")
         })?;

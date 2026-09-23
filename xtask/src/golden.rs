@@ -400,7 +400,7 @@ fn validate_render(report: &Value, doctor: &Value, acceptance: &Acceptance) -> T
     let outputs = report["outputs"]
         .as_array()
         .ok_or("render report has no outputs")?;
-    if report["schemaVersion"] != 2
+    if report["schemaVersion"] != 3
         || report["ok"] != true
         || report["diagnostics"] != json!([])
         || report["execution"]["size"] != json!([acceptance.size, acceptance.size])

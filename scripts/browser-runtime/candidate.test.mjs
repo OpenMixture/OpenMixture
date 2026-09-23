@@ -7,7 +7,7 @@ import { consumerCompatibility, assertBuild, assertComparison, qualityProfile, q
 
 const bytes = Buffer.from('new candidate archive');
 const receipt = {
-  runtimeVersion: '0.7.0-alpha.0', apiSchemaVersion: 2, engineVersion: '0.1.0',
+  runtimeVersion: '0.8.0-alpha.0', apiSchemaVersion: 3, engineVersion: '0.1.0',
   engineRevision: 'a'.repeat(40), engineDirty: false, buildId: `sha256:${'b'.repeat(64)}`, sha256: hash(bytes),
   files: ['package.json', 'build-info.json', 'src/build-info.js', 'src/index.d.ts', 'src/runtime.d.ts', 'src/types.d.ts', 'src/bindings.d.ts', 'src/index.js',
     'src/runtime.js', 'wasm/bindings.mjs', 'wasm/mixture_wasm_bg.wasm'],
@@ -136,7 +136,7 @@ test('installed byte verification catches mixed components and a failed recheck 
 test('ENG-04 disposable host compatibility preserves all other test assertions', () => {
  const before = "expect(result.catalogSize).toBe(11);\nexpect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n});\nkeepLifecycleAndPixels();";
  const after = consumerCompatibility(before);
- assert.equal(after, "expect(result.catalogSize).toBe(17);\nexpect(explicit.runtimeVersion).toBe('0.7.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',\n});\nkeepLifecycleAndPixels();");
+ assert.equal(after, "expect(result.catalogSize).toBe(17);\nexpect(explicit.runtimeVersion).toBe('0.8.0-alpha.0');\nexpect(result.estimateTypes).toEqual({\n    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',\n    textureCount: 'bigint', logicalTextureBytes: 'bigint',\n});\nkeepLifecycleAndPixels();");
  assert.throws(()=>consumerCompatibility(before.replace("peakBytes: 'bigint'", "peakBytes: 'number'")));
  assert.throws(()=>consumerCompatibility(after)); assert.throws(()=>consumerCompatibility(before+before));
 });

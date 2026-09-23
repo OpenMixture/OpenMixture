@@ -13,6 +13,6 @@
 | [0006](./0006-browser-quality-gates.zh-CN.md) | 有界浏览器纹理一致性 | 实现决策；资格单独记录 |
 | [0007](./0007-external-image-resources.zh-CN.md) | 调用方提供外部图像输入 | M6A-02–05 已实现并在记录范围内验收 |
 | [0008](./0008-portable-assets.zh-CN.md) | 可选纯字节 USTAR 资产及 CPU codec 边界 | M6B-03–05 已实现并在记录范围内验收 |
-| [0009](./0009-transient-texture-reuse.zh-CN.md) | 单次渲染最后使用规划与兼容纹理槽 | 选定 PERF-MAT 设计；运行时未实现 |
+| [0009](./0009-transient-texture-reuse.zh-CN.md) | 单次渲染最后使用规划与兼容纹理槽 | 已接受设计；0.8 工作实现，完整验收待完成 |
 
 未来 ADR 必须包含背景、决策、备选方案、影响、迁移和验证。顺序编号，在此添加链接；契约变化时更新[架构](../../ARCHITECTURE.zh-CN.md)和[路线图](../../ROADMAP.zh-CN.md)。明确用新决策取代旧决策，不重写已接受决策的历史。

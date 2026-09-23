@@ -85,14 +85,16 @@ jobs:
         run: node scripts/browser-runtime/compare-assets.mjs tmp/sdk-candidate tmp/sdk-asset-comparison
       - name: Compare the frozen brick material matrix across Native and browser
         run: node scripts/browser-runtime/check-brick.mjs tmp/sdk-candidate tmp/sdk-brick-comparison
+      - name: Qualify public texture reuse, 2K costs and frozen timing budgets
+        run: node scripts/browser-runtime/check-reuse.mjs tmp/sdk-candidate tmp/sdk-reuse-comparison
       - name: Qualify the exact published version separately
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
-      - name: Verify exact v1 to v2 material plan migration without resetting goldens
+      - name: Verify exact v2 to v3 material allocation migration without resetting goldens
         run: |
           cargo build --locked -p mixture-cli
-          node scripts/verify-plan-v2.mjs
+          node scripts/verify-plan-v3.mjs
       - name: Check out pinned independent product
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
@@ -167,6 +169,7 @@ jobs:
             tmp/sdk-brick-comparison/
             tmp/sdk-morphology-comparison/
             tmp/sdk-subtract-comparison/
+            tmp/sdk-reuse-comparison/
             tmp/sdk-registry/
           retention-days: 30
           if-no-files-found: error
