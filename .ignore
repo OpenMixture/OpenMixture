@@ -1,0 +1,10 @@
+# Read by search tools (ripgrep, fd and agent search); Git and Cargo ignore this file.
+# Hides raw historical run output from searches. Receipts and summaries (*.json, *.md)
+# stay searchable, and every file remains tracked and linked from its evidence README.
+docs/evidence/**/*.log
+docs/evidence/**/*.stdout
+docs/evidence/**/*.stderr
+docs/evidence/**/*.rgba
+docs/evidence/**/*.zlib
+docs/evidence/**/*.tar.gz
+docs/evidence/**/cli-*-*/

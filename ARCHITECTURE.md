@@ -719,11 +719,15 @@ A change requires an architecture decision record when it introduces or changes:
 
 An ADR must include context, decision, alternatives, consequences, migration, and verification. It must also update this document when the accepted decision changes a normative rule.
 
-## M6B-03 portable input boundary
+## Dated change records
+
+The sections below were appended as each change landed. Their node/kernel counts, versions and "pending" statements describe that change at the time, not the current catalog or release; use [node contracts](./docs/node-contracts.md), [release status](./docs/release.md) and the owning ADRs for current facts. Normative rules above still apply.
+
+### M6B-03 portable input boundary
 
 [ADR 0008](./docs/decisions/0008-portable-assets.md) selects [canonical uncompressed USTAR assets](./docs/m6b-package-format.md) and authorizes an optional `mixture-asset` public CPU codec crate in M6B-03. It depends on Core; CLI and WASM depend on the codec, while Core/wgpu never do. The codec owns bounded archive bytes, manifest/integrity and package diagnostics, not graph/resource semantics, filesystem extraction or pixel execution. Core supplies reusable resource metadata/digest/reference helpers; wgpu remains unchanged. M6B-03 implements the optional crate and shared Core helpers. [M6B-04](./docs/m6b-04-adapters.md) connects CLI file I/O and WASM byte transfer to that codec; both prepare Core-owned snapshots and reuse wgpu. Adapter-retained bytes share the codec budget, including both JS and Rust package copies. This narrowly enables producer-owned input transport outside Core; existing exclusions of editor/export/ZIP responsibilities from Core remain.
 
-## PR-010 measured resampling slice
+### PR-010 measured resampling slice
 
 The catalog now has eleven node types and nine kernels. Scalar `transform-2d` and `warp` use explicit wrapped bilinear texture loads before color/normal derivation; document and node versions remain 1. Their additive typed payloads are documented in [node contracts](./docs/node-contracts.md). `RenderReport.allocations` records successful resource descriptor bytes separately from core estimates. The naive retain-all-pass-textures schedule remains in place; `trace-2k` ranks all three materials and their cases by peak estimate, then measures the largest against the existing 512 MiB budget. Counters exclude driver overhead and CPU buffers; destruction is not a claim of immediate physical memory reclamation. See [development and trace semantics](./docs/development.md). No new crate, format, dependency, cache, optimizer or renderer is introduced.
 
@@ -735,11 +739,11 @@ M5 browser start adds the actual `mixture-wasm` compilation boundary and keeps n
 
 Browser runtime qualification uses the bounded texture-agreement profile defined by [ADR 0006](./docs/decisions/0006-browser-quality-gates.md). Native pinned-software goldens remain exact regression evidence; cross-browser near-byte identity is not a support promise. Current comparator receipts separate semantic, structural, numerical and historical regression verdicts.
 
-## ENG-04 catalog extension
+### ENG-04 catalog extension
 
 ENG-04 adds scalar-blend v1: twelve node types map to ten WGSL kernels. Renderer-owned cache capacity is now ten kernel identities. Existing source semantics and serialized plans remain unchanged. See [the contract](./docs/eng-04-scalar-blend.md).
 
-## M6A-01 selected resource design — not implemented
+### M6A-01 selected resource design — implemented by M6A-02–05
 
 [ADR 0007](./docs/decisions/0007-external-image-resources.md) and the [minimal resource contract](./docs/m6a-resource-contract.md) select logical resource references inside existing node parameters, caller-owned linear RGBA8 input, Core-owned immutable capture/content identity and wgpu-owned upload/lifetime. Integration accepts the design; runtime implementation remains pending. This narrowly extends ADR 0003's resource-reference exclusion without adding embedded resources or changing the sole pixel executor. The implementation will introduce image-input v1, plan/hash v2 and API schema 2; existing architecture descriptions above remain the implemented baseline until their owning implementation changes land.
 
@@ -747,6 +751,6 @@ M6A-02 implements Core resource semantics and plan v2. [M6A-03](./docs/m6a-03-na
 
 M6A-05 [qualification](./docs/evidence/m6a-05/README.md) closes the recorded Linux software matrix, with an explicit ADR 0007 scope addendum. The retained Windows hardware parity failure remains unresolved; no pixel semantics or numerical gates change.
 
-## NUM-01 versioned value-noise arithmetic
+### NUM-01 versioned value-noise arithmetic
 
 [Stable value noise](./docs/stable-noise.md) adds fractal-noise v2 with Q0.24 value evaluation in the existing WGSL kernel. The catalog still has thirteen types/eleven kernels; v1 and cellular behavior remain available. Explicit node version and StableValue lowering distinguish hashes without changing .mix v1 or plan/API schema 2. The unpublished 0.4 candidate and migrated material sources require their own qualification.
