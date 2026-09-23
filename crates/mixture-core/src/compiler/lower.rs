@@ -278,6 +278,10 @@ impl Builder<'_> {
                 mask: binding("mask")?,
                 opacity: number(node, "opacity")?,
             },
+            "scalar-subtract" => KernelInvocation::ScalarSubtract {
+                a: binding("a")?,
+                b: binding("b")?,
+            },
             "scalar-morphology" => KernelInvocation::ScalarMorphology {
                 input: binding("in")?,
                 operation: match parameter(node, "operation")?.as_str() {

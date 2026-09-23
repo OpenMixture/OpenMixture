@@ -1,4 +1,4 @@
-//! Explicit static modules for the sixteen built-in node contracts; no pixel implementation.
+//! Explicit static modules for the seventeen built-in node contracts; no pixel implementation.
 pub(crate) mod blend;
 pub(crate) mod checker;
 pub(crate) mod constant_color;
@@ -8,6 +8,7 @@ pub(crate) mod material_output;
 pub(crate) mod scalar_blend;
 pub(crate) mod scalar_mask_blend;
 pub(crate) mod scalar_morphology;
+pub(crate) mod scalar_subtract;
 
 pub(crate) mod brick_pattern;
 pub(crate) mod fractal_noise;

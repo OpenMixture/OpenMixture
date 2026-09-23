@@ -154,3 +154,5 @@ MIXTURE_GPU_EXPECT_ADAPTER='Apple M5' cargo xtask gpu-smoke
 见[包解析](../../docs/package-consumption.zh-CN.md)、[兼容性](../../docs/compatibility.zh-CN.md)及 [M4 退出／发布状态](../../docs/release.zh-CN.md)。发布仍禁用。[远端 CI 记录](../../docs/evidence/remote-ci/README.zh-CN.md)记录已通过的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader GPU 工作负载，不认证未测试的硬件后端。
 
 MAT-02b 增加 `tests/morphology.rs`：覆盖 192 组周期支撑集合的真实 GPU 公开消费者测试，默认忽略。仅使用 Core 公开准备及 wgpu 渲染，检查精确重复和解析像素；`MIXTURE_MORPHOLOGY_BROWSER` 指向浏览器回执时，精确比较浏览器字节／计划哈希。`MIXTURE_MORPHOLOGY_EVIDENCE` 指定输出回执。优先使用[对照包装器](../../fixtures/nodes/scalar-morphology/README.zh-CN.md)，它验证候选来源并显式将消费者构建输出放入仓库内 target 目录。
+
+MAT-02b `tests/subtract.rs` 仅用 Core 公开编译与 wgpu 渲染验证 64 组直接／放大用例。`MIXTURE_SUBTRACT_BROWSER` 指向浏览器回执，`MIXTURE_SUBTRACT_EVIDENCE` 指向新输出文件。优先使用[减法对照包装器](../../fixtures/nodes/scalar-subtract/README.zh-CN.md)，绑定精确候选并保持显式 target 目录。该测试仅用于 GPU，普通 CPU 检查忽略它。

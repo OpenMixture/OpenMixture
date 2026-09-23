@@ -7,7 +7,8 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 15] = [
+const NODES: [&str; 16] = [
+    "scalar-subtract",
     "scalar-morphology",
     "scalar-mask-blend",
     "brick-pattern",
@@ -38,6 +39,8 @@ mod precision_probe;
 mod resampling_probe;
 #[path = "support/scalar_probe.rs"]
 mod scalar_probe;
+#[path = "support/subtract_probe.rs"]
+mod subtract_probe;
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Fixture {
@@ -738,6 +741,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
         "ScalarBlend",
         "ScalarMaskBlend",
         "ScalarMorphology",
+        "ScalarSubtract",
         "Transform2d",
         "Warp",
     ]
@@ -854,6 +858,22 @@ fn node_scalar_morphology_gpu() {
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(
             Path::new(&directory).join("scalar-morphology-probes.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node scalar-subtract"]
+fn node_scalar_subtract_gpu() {
+    run_node("scalar-subtract");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = subtract_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("scalar-subtract-probes.json"),
             serde_json::to_vec_pretty(&evidence).unwrap(),
         )
         .unwrap();

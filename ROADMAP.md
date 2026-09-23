@@ -27,7 +27,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Qualified Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | MAT-02b scalar-morphology implementation under the integrated frozen contract (PR #55). MAT-01 nodes, fixture and tools are integrated and accepted within [recorded scope](./docs/evidence/mat-01/README.md). Morphology is a working candidate; subtraction and material qualification remain pending. Publication remains separate. |
+| Active increment | MAT-02b morphology and saturating-subtraction implementations under the integrated frozen contract (PR #55). MAT-01 nodes, fixture and tools are integrated and accepted within [recorded scope](./docs/evidence/mat-01/README.md). Both nodes are working candidates; their qualification/integration and material qualification remain pending. Publication remains separate. |
 | Current qualification | [MAT-01](./docs/evidence/mat-01/README.md): frozen brick matrix, recorded software and GT 1030 Native/browser comparisons, retained human decision and six passing post-merge checks. Previous v1 Windows failures remain historical failures; no publication or general hardware guarantee. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 
@@ -88,7 +88,7 @@ Work-item IDs below are not GitHub PR numbers. Each implementation seam uses an 
 
 MAT-02/03/04 use the same contract → minimal implementation seams → material evidence → qualification sequence. Break them into actual work items at entry, using lessons from the previous stage; do not assign speculative node IDs or shipping versions now.
 
-[MAT-02a selected contract](./docs/mat-02-layered-weathering.md) freezes the morphology/subtraction identities, caller graph/control mappings and [qualification plan](./fixtures/materials/painted-metal/qualification-plan.json), supported by source-bound existing-input feasibility. It selects an unpublished 0.7 candidate at first implementation; the working morphology implementation now selects 0.7 and adds its reviewed identity; subtraction remains planned. MAT-01 exit is satisfied. After contract integration, MAT-02b implements each node through a separate PR; predicted 2K memory failure must be measured before PERF-MAT, without relaxing the frozen budget.
+[MAT-02a selected contract](./docs/mat-02-layered-weathering.md) freezes the morphology/subtraction identities, caller graph/control mappings and [qualification plan](./fixtures/materials/painted-metal/qualification-plan.json), supported by source-bound existing-input feasibility. It selects an unpublished 0.7 candidate at first implementation; the working node implementations select 0.7 and add both reviewed identities; qualification/integration remain pending. MAT-01 exit is satisfied. After contract integration, MAT-02b implements each node through a separate PR; predicted 2K memory failure must be measured before PERF-MAT, without relaxing the frozen budget.
 
 ### Common material acceptance and ownership
 
