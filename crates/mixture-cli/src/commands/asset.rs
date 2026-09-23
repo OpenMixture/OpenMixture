@@ -41,9 +41,7 @@ struct Failure {
 impl From<AssetError> for Failure {
     fn from(error: AssetError) -> Self {
         let diagnostics = match error {
-            AssetError::Package(d) => vec![
-                json!({"code":d.code,"stage":d.stage,"severity":"error","message":d.message,"evidence":d.evidence,"suggestion":d.suggestion}),
-            ],
+            AssetError::Package(d) => vec![json!(d)],
             AssetError::Document(e) => e.report().diagnostics().iter().map(|d| json!(d)).collect(),
             AssetError::Compile(e) => e.report().diagnostics().iter().map(|d| json!(d)).collect(),
         };
