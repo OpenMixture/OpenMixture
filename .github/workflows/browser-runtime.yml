@@ -29,9 +29,17 @@ jobs:
           node-version: 24.20.0
       - name: Match the recorded package manager
         run: npm install --global npm@11.19.0
+      - name: Install the repository Rust toolchain
+        run: rustup show active-toolchain
+      - name: Restore Rust build cache
+        # Speeds up rebuilds only; later steps still build and verify with --locked.
+        # Only main saves, so pull requests cannot replace the shared cache. The cached
+        # ~/.cargo/bin lets cargo install reuse the exact binding CLI below.
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Prepare the repository Rust target and exact binding CLI
         run: |
-          rustup show active-toolchain
           rustup target add wasm32-unknown-unknown
           cargo install wasm-bindgen-cli --version 0.2.128 --locked
       - name: Verify WASM compilation and JS boundary tests
