@@ -1,8 +1,8 @@
-# MAT-01 candidate qualification — human decision pending
+# MAT-01 qualification — accepted within recorded scope
 
 English | [简体中文](./README.zh-CN.md)
 
-This record retains the 2026-09-23 development-host results for clean source `7a92b82e8b60fd37bacc8304eaf72d1cfa407216`, not a declaration that MAT-01 or the roadmap is complete. [PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) owns the qualification tooling. Human PBR acceptance, final required CI and integration are still pending. Nothing is published.
+This record retains the 2026-09-23 development-host results for clean source `7a92b82e8b60fd37bacc8304eaf72d1cfa407216`, with the later [human decision](./human-decision.json) and [integration checks](./integration/README.md) closing MAT-01 within the limits below. MAT-02–04 and the full roadmap remain incomplete. [PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) owns the qualification tooling. The maintainer accepted the presented PBR views on 2026-09-23. Tooling is now integrated; the separate [CI/integration record](./integration/README.md) binds its later tested source without changing this Windows result. Nothing is published.
 
 ## Exact candidate and measured scope
 
@@ -24,7 +24,7 @@ Fixed WebGPU consumer views use a plane and sphere, 1×/3× tiling, the same cam
 
 [Default](./review/default-pbr.png) · [regular](./review/regular-pbr.png) · [staggered](./review/staggered-pbr.png) · [varied](./review/varied-pbr.png) · [second seed](./review/second-seed-pbr.png) · [overview](./review/overview.png).
 
-Agent inspection found readable brick/mortar structure, aligned channels, visible layout/edge/seed variation and no apparent new tiling discontinuity in these views. This is **agent review only**. The maintainer's decision has been requested and has not been received. The regenerated sheets are byte-identical to the five sheets presented for that decision. [Review binding](./review-binding.json) binds the tested source and retained file hashes; [preview receipt](./review/preview.json) records the browser, renderer-source hash and exact input PNG hashes. A future human decision must be recorded separately, not invented from test success or silence.
+Agent inspection found readable brick/mortar structure, aligned channels, visible layout/edge/seed variation and no apparent new tiling discontinuity in these views. This is **agent review only**. The subsequent [human decision](./human-decision.json) records the maintainer response, interpreted as meeting this stage target; it binds the unchanged reviewed bytes. The regenerated sheets are byte-identical to the five sheets presented for that decision. [Review binding](./review-binding.json) binds the tested source and retained file hashes; [preview receipt](./review/preview.json) records the browser, renderer-source hash and exact input PNG hashes. The original agent-only binding remains unchanged as historical evidence; the separate human receipt supplies the later decision.
 
 ## Reproduction and retention
 

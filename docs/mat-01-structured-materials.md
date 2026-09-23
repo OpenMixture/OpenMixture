@@ -2,7 +2,7 @@
 
 English | [简体中文](./mat-01-structured-materials.zh-CN.md)
 
-Status: MAT-01a implementation contract, 2026-09-23. The MAT-01c working candidate implements both selected nodes and a four-channel material fixture in unpublished 0.6; full material qualification remains pending. This is the bounded design selected under the [material roadmap](../ROADMAP.md), not material acceptance. MAT-01d records qualified sources and review. Publication remains separate. [Retained Windows candidate evidence](./evidence/mat-01/README.md) binds the Native/browser matrices, periodic probes, stress limits and PBR views; human acceptance and final CI/integration remain pending.
+Status: MAT-01 accepted within the [retained qualification scope](./evidence/mat-01/README.md), 2026-09-23. The two selected nodes, four-channel brick fixture and qualification tools are integrated in unpublished 0.6. The separate human decision and six passing post-merge checks close the stage; [integration evidence](./evidence/mat-01/integration/README.md) preserves exact source identities. This does not complete MAT-02–04, publish packages, expand hardware coverage or alter frozen quality limits.
 
 ## Material brief and reviewed catalog delta
 

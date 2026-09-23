@@ -1,8 +1,8 @@
-# MAT-01 候选验收 — 等待人工决定
+# MAT-01 验收 — 在记录范围内接受
 
 [English](./README.md) | 简体中文
 
-本记录保留 2026-09-23 开发主机对干净源码 `7a92b82e8b60fd37bacc8304eaf72d1cfa407216` 的结果，不声明 MAT-01 或整个路线图完成。[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52)负责验收工具。人工 PBR 接受、最终必需 CI 和集成仍待完成，未发布任何包。
+本记录保留 2026-09-23 开发主机对干净源码 `7a92b82e8b60fd37bacc8304eaf72d1cfa407216` 的结果，结合后来的[人工决定](./human-decision.json)与[集成检查](./integration/README.zh-CN.md)，在下述限制内关闭 MAT-01。MAT-02～04 及整个路线图仍未完成。[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52)负责验收工具。维护者已于 2026-09-23 接受提交的 PBR 视图。工具现已集成；独立 [CI／集成记录](./integration/README.zh-CN.md)绑定后来的被测源码，不改变本次 Windows 结果。未发布任何包。
 
 ## 精确候选与实测范围
 
@@ -24,7 +24,7 @@
 
 [默认](./review/default-pbr.png) · [规则](./review/regular-pbr.png) · [错行](./review/staggered-pbr.png) · [变化](./review/varied-pbr.png) · [第二种子](./review/second-seed-pbr.png) · [总览](./review/overview.png)。
 
-代理检查认为砖块／灰缝结构清楚、通道对齐，布局／边缘／种子变化可辨，视图中未见明显新增平铺断缝。这**仅是代理评审**。已请求维护者决定，尚未收到回复。重新生成的五张图与提交评审的图逐字节一致。[评审绑定](./review-binding.json)记录被测源码和留存文件摘要；[预览回执](./review/preview.json)记录浏览器、预览源码及输入 PNG 摘要。将来的人工决定须另行记录，不得由测试成功或沉默推断。
+代理检查认为砖块／灰缝结构清楚、通道对齐，布局／边缘／种子变化可辨，视图中未见明显新增平铺断缝。这**仅是代理评审**。后续[人工决定](./human-decision.json)记录维护者回复，按满足本阶段目标理解，并绑定未改变的评审字节。重新生成的五张图与提交评审的图逐字节一致。[评审绑定](./review-binding.json)记录被测源码和留存文件摘要；[预览回执](./review/preview.json)记录浏览器、预览源码及输入 PNG 摘要。原代理评审绑定作为历史证据保持不变，独立人工回执记录后来的决定。
 
 ## 复现与留存
 
