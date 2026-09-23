@@ -21,6 +21,8 @@
 
 ## 当前材质规划规则
 
+工作中的 [gamma=1 levels 修正](./docs/levels-linear-correction.zh-CN.md)在唯一 wgpu 着色器中跳过近似 `pow(t,1)`，求值既有线性恒等式。明确的兼容性决定保留 `levels@1`、Core／ABI／计划合同及哈希；绑定构建的像素可能改变。不迁移文档、不重置 golden。需要精确中点夹具、旧材质回归及完整 Native／浏览器验收；修正尚未接受。
+
 [材质能力路线图](./ROADMAP.zh-CN.md)记录 MAT-01 砖墙／铺地砖结构已接受，当前为 MAT-02 分层风化材质验收及实测触发的 PERF-MAT 支持，随后是 MAT-03 编织表面及 MAT-04 图复用。后续能力仍是规划，不是已实现目录。每阶段实现前须冻结有界契约、目录／版本审查及验收用例；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
 
 [MAT-01a 契约](./docs/mat-01-structured-materials.zh-CN.md)选定 brick-pattern@1 与 scalar-mask-blend@1，并冻结[验收用例／预算](./fixtures/materials/brick-paving/qualification-plan.json)。工作候选已实现 brick-pattern 与 scalar-mask-blend，四通道砖材质夹具已在冻结范围内接受；人工决定与合并后六项检查完成 MAT-01 材质验收。[夹具指南](./fixtures/materials/brick-paving/README.zh-CN.md)记录候选 Native 矩阵工具，候选浏览器 CI 现要求二十组用例／八十通道对照。工具也检查包往返和匹配适配器的耗时预算；`test-node brick-pattern` 检查周期原点移位及原始 f16 范围；`test-material brick-paving` 运行 Native 矩阵并测量 64×64 格混叠限制。两个砖材质入口显式将 Cargo 构建输出放入 `target/native-consumer`；验收不能依赖私有 Git 排除配置或削弱干净源码检查。见 [CI 输出路径失败](./docs/evidence/mat-01/ci-failure-4bf/README.zh-CN.md)及隔离回归。固定 WebGPU PBR 评审工具仅负责消费者可视化；[Windows 候选证据](./docs/evidence/mat-01/README.zh-CN.md)留存所选完整像素及绑定源码的回执；独立[人工决定](./docs/evidence/mat-01/human-decision.json)已接受这些视图。节点与验收工具已通过 PR #50–52 集成；[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)分别记录通过的合并前检查及合并后验证。人工决定与记录的机器门槛共同关闭本有界阶段；不能单凭集成声明接受。Core 负责语义／降级，wgpu 负责像素，适配层保持轻量；Studio 工作继续独立归属。契约因 Rust 内核穷举匹配变化而计划首次实现推进 0.6 候选；本设计本身不改变格式、节点行为、源码清单或迁移策略。各阶段须提供路线图要求的多分辨率、参数因果、接缝、PBR 视觉及 Native／浏览器公开消费证据，并通过已有材质回归和全部六项必需检查。保留历史失败，只认证实测硬件。发布继续单独处理。

@@ -245,6 +245,382 @@
           "tolerance": 1
         }
       ]
+    },
+    {
+      "id": "linear-midpoint-3967",
+      "overrides": {
+        "input": 0.67529296875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            214,
+            214,
+            214,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            214,
+            214,
+            214,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-3977",
+      "overrides": {
+        "input": 0.68310546875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            215,
+            215,
+            215,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            215,
+            215,
+            215,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-3987",
+      "overrides": {
+        "input": 0.69091796875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            216,
+            216,
+            216,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            216,
+            216,
+            216,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-39a3",
+      "overrides": {
+        "input": 0.70458984375,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            217,
+            217,
+            217,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            217,
+            217,
+            217,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-39c7",
+      "overrides": {
+        "input": 0.72216796875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            220,
+            220,
+            220,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            220,
+            220,
+            220,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-39e7",
+      "overrides": {
+        "input": 0.73779296875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            222,
+            222,
+            222,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            222,
+            222,
+            222,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-39f7",
+      "overrides": {
+        "input": 0.74560546875,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            223,
+            223,
+            223,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            223,
+            223,
+            223,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "linear-midpoint-3ab5",
+      "overrides": {
+        "input": 0.83837890625,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      },
+      "size": [
+        9,
+        3
+      ],
+      "outputs": [
+        "roughness"
+      ],
+      "passCount": 2,
+      "samples": [
+        {
+          "channel": "roughness",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            234,
+            234,
+            234,
+            255
+          ],
+          "tolerance": 0
+        },
+        {
+          "channel": "roughness",
+          "xy": [
+            8,
+            2
+          ],
+          "rgba": [
+            234,
+            234,
+            234,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
     }
   ],
   "invalidCases": [
