@@ -24,6 +24,7 @@ fn registry_matches_reviewed_type_versions() {
             ("scalar-blend", 1),
             ("scalar-mask-blend", 1),
             ("scalar-morphology", 1),
+            ("scalar-subtract", 1),
             ("transform-2d", 1),
             ("warp", 1)
         ]

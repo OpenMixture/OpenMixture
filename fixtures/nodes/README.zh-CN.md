@@ -25,3 +25,5 @@ PR-010 添加循环标量重采样与字面插值／旋转探针：
 - [warp](./warp/README.zh-CN.md)
 
 - [scalar-morphology](./scalar-morphology/README.zh-CN.md)
+
+- [scalar-subtract](./scalar-subtract/README.zh-CN.md)

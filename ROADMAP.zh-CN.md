@@ -27,7 +27,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-02b 在已集成冻结契约（PR #55）下实现 scalar-morphology。MAT-01 节点、夹具和工具已集成并在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内接受。形态处理已有工作候选；减法与材质验收仍待完成。发布继续独立处理。 |
+| 当前增量 | MAT-02b 在已集成冻结契约（PR #55）下实现 scalar-morphology 与饱和减法。MAT-01 节点、夹具和工具已集成并在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内接受。两个节点已有工作候选；节点验收／集成及材质验收仍待完成。发布继续独立处理。 |
 | 当前验收 | [MAT-01](./docs/evidence/mat-01/README.zh-CN.md)：冻结砖材质矩阵、记录的软件与 GT 1030 Native／浏览器对照、留存人工决定和合并后六项通过的检查。旧 v1 Windows 失败继续保留为历史失败；不发布包，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
@@ -88,7 +88,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 MAT-02／03／04 遵循相同的契约 → 最小实现切面 → 材质证据 → 验收顺序。在进入阶段时结合前一阶段经验拆成实际工作项；现在不指定推测性节点 ID 或发布版本。
 
-[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，工作中的形态处理实现现选定 0.7 并加入评审过的身份；减法仍待实现。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；预计的 2K 内存失败须先实测再启动 PERF-MAT，不放宽冻结预算。
+[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，工作中的节点实现选定 0.7 并加入两个评审过的身份；验收／集成仍待完成。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；预计的 2K 内存失败须先实测再启动 PERF-MAT，不放宽冻结预算。
 
 ### 共同材质验收与所有权
 

@@ -25,3 +25,5 @@ PR-010 adds periodic scalar resampling and literal interpolation/rotation probes
 - [warp](./warp/README.md)
 
 - [scalar-morphology](./scalar-morphology/README.md)
+
+- [scalar-subtract](./scalar-subtract/README.md)

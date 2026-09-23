@@ -74,7 +74,7 @@ export function validateCandidate(receipt, bytes, revision) {
 
 // Versioned expectations in the pinned disposable CI host only. Its repository is not edited.
 export function consumerCompatibility(source) {
-  const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(16);"],
+  const changes = [["expect(result.catalogSize).toBe(11);", "expect(result.catalogSize).toBe(17);"],
     ["expect(explicit.runtimeVersion).toBe('0.1.0-alpha.0');", "expect(explicit.runtimeVersion).toBe('0.7.0-alpha.0');"],
     ["    cumulativeBytes: 'bigint', peakBytes: 'bigint',",
       "    cumulativeBytes: 'bigint', peakBytes: 'bigint',\n    resourceCount: 'bigint', resourceUploadBytes: 'bigint',\n    resourceTextureBytes: 'bigint', resourceStagingBytes: 'bigint',"]];
@@ -113,7 +113,7 @@ export async function stage(packageDirectory, product, output, revision, consume
   await writeFile(testPath, adaptedTest);
   await save(join(output, 'consumer-compatibility.json'), { consumerRevision,
     originalSha256: hash(Buffer.from(originalTest)), adaptedSha256: hash(Buffer.from(adaptedTest)),
-    reason: 'MAT-02b: sixteen Core contracts including scalar-morphology, unpublished runtime 0.7.0-alpha.0 and four bigint resource estimates; three exact expectations updated',
+    reason: 'MAT-02b: seventeen Core contracts including scalar-morphology and scalar-subtract, unpublished runtime 0.7.0-alpha.0 and four bigint resource estimates; three exact expectations updated',
     original: originalTest, adapted: adaptedTest });
   const lockBytes = await readFile(join(product, 'package-lock.json'));
   const originalArchive = await readFile(join(product, vendor));

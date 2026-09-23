@@ -66,6 +66,14 @@ pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
             ),
             "scalar_mask_blend",
         ),
+        KernelId::ScalarSubtract => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/scalar-subtract.wgsl")
+            ),
+            "scalar_subtract",
+        ),
         KernelId::ScalarMorphology => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -149,7 +157,9 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             bytes.extend(floats(&[*variation, 0., 0., 0.]));
             bytes
         }
-        KernelInvocation::ImageInput { .. } => vec![0; 16],
+        KernelInvocation::ImageInput { .. } | KernelInvocation::ScalarSubtract { .. } => {
+            vec![0; 16]
+        }
         KernelInvocation::Constant { value } => floats(value),
         KernelInvocation::Checker {
             cells,
@@ -254,7 +264,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most fourteen kernel identities, including image upload.
+/// Pipeline lookups for one render call. The cache has at most fifteen kernel identities, including image upload.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -340,6 +350,7 @@ mod tests {
             (KernelId::ScalarBlend, 16),
             (KernelId::ScalarMaskBlend, 16),
             (KernelId::ScalarMorphology, 16),
+            (KernelId::ScalarSubtract, 16),
             (KernelId::BrickPattern, 48),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
@@ -397,6 +408,32 @@ mod tests {
                 }
             }
         }
+    }
+    #[test]
+    fn subtraction_has_a_reserved_zero_uniform_and_two_inputs() {
+        use mixture_core::{
+            CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile,
+        };
+        let doc = MaterialDocument::decode(
+            include_bytes!("testdata/scalar-subtract.mix"),
+            &SafetyLimits::default(),
+        )
+        .unwrap()
+        .into_validated(&SafetyLimits::default())
+        .unwrap();
+        let plan = compile(
+            &doc,
+            &CompileRequest {
+                outputs: vec![OutputChannel::Height],
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let kernel = &plan.passes().last().unwrap().kernel;
+        assert_eq!(kernel.id(), KernelId::ScalarSubtract);
+        assert_eq!(kernel.inputs().count(), 2);
+        assert_eq!(kernel.uniform_bytes(), 16);
+        assert_eq!(parameters(kernel), vec![0; 16]);
     }
     #[test]
     fn typed_parameter_uploads_match_shader_offsets_and_plan_estimates() {

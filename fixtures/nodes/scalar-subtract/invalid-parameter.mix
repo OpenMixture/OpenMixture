@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.5
+      }
+    },
+    {
+      "id": "b",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.499755859375
+      }
+    },
+    {
+      "id": "mix",
+      "type": "scalar-subtract",
+      "version": 1,
+      "parameters": {
+        "weight": 1
+      }
+    },
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "a",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "mix",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "b",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "mix",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "mix",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "a",
+      "nodeId": "a",
+      "parameterId": "value"
+    },
+    {
+      "id": "b",
+      "nodeId": "b",
+      "parameterId": "value"
+    }
+  ]
+}

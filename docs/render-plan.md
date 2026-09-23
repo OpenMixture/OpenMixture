@@ -71,6 +71,7 @@ Each selected pixel node emits one pass. An unconnected optional input emits a c
 | `warp` / `Warp` | `warp` source node; `input: ResourceId`, `displacement: ResourceId`, `strength: [f32; 2]` | 16 |
 | `scalarBlend` / `ScalarBlend` | Scalar `a`/`b` ResourceId, `weight: f32` | 16 |
 | `scalarMorphology` / `ScalarMorphology` | Scalar `input: ResourceId`, `operation: MorphologyOperation`, `axis: MorphologyAxis`, `radius: u32` | 16 |
+| `scalarSubtract` / `ScalarSubtract` | Scalar `a` / `b: ResourceId`; reserved zero uniform | 16 |
 | `imageInput` / `ImageInput` | Prepared external image `resource_id` | 16 |
 
 `KernelInvocation::id()` is exhaustive; `inputs()` exposes typed bindings in binding order. There is no arbitrary parameter JSON or second untyped input list in the plan. `PassOrigin` retains node ID/type/version or the owner and port of a synthesized default. `PlanOutput` retains channel kind, the connected endpoint or explicit default, and the actual logical resource. `RenderPlan` is immutable through its public API and cannot be deserialized or publicly constructed with forged references/hashes.

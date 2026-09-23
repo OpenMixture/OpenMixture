@@ -60,7 +60,7 @@ The machine-readable plan names exact presets, seeds, endpoints, probe fields/or
 
 ## Compatibility decisions and implementation order
 
-The two proposed nodes fit `.mix v1`, API/plan schema 2 and package v1 without changing existing node semantics. New Rust kernel variants affect exhaustive matches; select Rust 0.7.0 and browser 0.7.0-alpha.0 at the first new-node implementation. The integrated design PR left 0.6 manifests unchanged; the first morphology implementation now selects the 0.7 candidate. Subtraction and full material qualification remain pending. After both implementations the explicit catalog will contain seventeen node types lowering to fifteen kernels; this is a reviewed identity list change, not a count target. Old runtimes must reject the new identities explicitly. Do not auto-migrate documents or update old goldens.
+The two proposed nodes fit `.mix v1`, API/plan schema 2 and package v1 without changing existing node semantics. New Rust kernel variants affect exhaustive matches; select Rust 0.7.0 and browser 0.7.0-alpha.0 at the first new-node implementation. The integrated design PR left 0.6 manifests unchanged; the first morphology implementation now selects the 0.7 candidate. Both node identities now have working implementations; node qualification/integration and full material qualification remain pending. With both working implementations the explicit catalog contains seventeen node types lowering to fifteen kernels; this is a reviewed identity list change, not a count target. Old runtimes must reject the new identities explicitly. Do not auto-migrate documents or update old goldens.
 
 | Item | Deliverable / prerequisite |
 |---|---|

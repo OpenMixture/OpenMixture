@@ -161,6 +161,8 @@ pub enum KernelId {
     ScalarMaskBlend,
     /// Wrapped single-axis neighborhood minimum or maximum.
     ScalarMorphology,
+    /// Normalized saturating scalar subtraction.
+    ScalarSubtract,
     /// Periodic explicitly seeded scalar noise.
     FractalNoise,
     /// Scalar-to-color linear gradient.
@@ -297,6 +299,13 @@ pub enum KernelInvocation {
         /// Inclusive distance in output texels, from zero through sixteen.
         radius: u32,
     },
+    /// Pointwise max(clamp(a)-clamp(b), 0), retaining small half-representable differences.
+    ScalarSubtract {
+        /// Minuend scalar texture.
+        a: ResourceId,
+        /// Subtrahend scalar texture.
+        b: ResourceId,
+    },
     /// Color blend with two color textures and one scalar mask.
     Blend {
         /// First color texture.
@@ -373,6 +382,7 @@ impl KernelInvocation {
             Self::ScalarBlend { .. } => KernelId::ScalarBlend,
             Self::ScalarMaskBlend { .. } => KernelId::ScalarMaskBlend,
             Self::ScalarMorphology { .. } => KernelId::ScalarMorphology,
+            Self::ScalarSubtract { .. } => KernelId::ScalarSubtract,
             Self::FractalNoise { .. } => KernelId::FractalNoise,
             Self::GradientMap { .. } => KernelId::GradientMap,
             Self::HeightToNormal { .. } => KernelId::HeightToNormal,
@@ -398,7 +408,9 @@ impl KernelInvocation {
                 displacement,
                 ..
             } => [Some(*input), Some(*displacement), None],
-            Self::ScalarBlend { a, b, .. } => [Some(*a), Some(*b), None],
+            Self::ScalarBlend { a, b, .. } | Self::ScalarSubtract { a, b } => {
+                [Some(*a), Some(*b), None]
+            }
             Self::Blend { a, b, mask, .. } | Self::ScalarMaskBlend { a, b, mask, .. } => {
                 [Some(*a), Some(*b), Some(*mask)]
             }
@@ -414,6 +426,7 @@ impl KernelInvocation {
             | Self::ScalarBlend { .. }
             | Self::ScalarMaskBlend { .. }
             | Self::ScalarMorphology { .. }
+            | Self::ScalarSubtract { .. }
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,

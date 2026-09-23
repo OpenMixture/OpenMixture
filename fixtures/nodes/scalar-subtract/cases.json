@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "node": "scalar-subtract",
+  "source": "input.mix",
+  "cases": [
+    {
+      "id": "defaults",
+      "size": [
+        19,
+        11
+      ],
+      "overrides": {},
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "equal",
+      "size": [
+        19,
+        11
+      ],
+      "overrides": {
+        "a": 0.5,
+        "b": 0.5
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "one",
+      "size": [
+        1,
+        1
+      ],
+      "overrides": {
+        "a": 1,
+        "b": 0
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "zero-a",
+      "size": [
+        1,
+        17
+      ],
+      "overrides": {
+        "a": 0,
+        "b": 1
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "zero-b",
+      "size": [
+        17,
+        1
+      ],
+      "overrides": {
+        "a": 0.75,
+        "b": 0
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            191,
+            191,
+            191,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "negative",
+      "size": [
+        19,
+        11
+      ],
+      "overrides": {
+        "a": 0.25,
+        "b": 0.75
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "difference",
+      "size": [
+        19,
+        11
+      ],
+      "overrides": {
+        "a": 0.75,
+        "b": 0.25
+      },
+      "outputs": [
+        "height"
+      ],
+      "passCount": 3,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            128,
+            128,
+            128,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    },
+    {
+      "id": "half-ulp-difference",
+      "source": "amplified.mix",
+      "size": [
+        19,
+        11
+      ],
+      "overrides": {},
+      "outputs": [
+        "height"
+      ],
+      "passCount": 4,
+      "samples": [
+        {
+          "channel": "height",
+          "xy": [
+            0,
+            0
+          ],
+          "rgba": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "tolerance": 0
+        }
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "source": "invalid-parameter.mix",
+      "overrides": {},
+      "code": "MIX_PARAMETER_UNKNOWN"
+    }
+  ]
+}
