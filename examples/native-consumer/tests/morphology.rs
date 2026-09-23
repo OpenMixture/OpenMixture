@@ -117,7 +117,7 @@ fn public_morphology_supports_and_browser_parity() {
                         let actual = output.channels()[0].pixels();
                         assert_eq!(actual, repeat.channels()[0].pixels());
                         assert_eq!(output.report().allocations.live_bytes, 0);
-                        for (i, pixel) in actual.chunks_exact(4).enumerate() {
+                        for (i, pixel) in actual.as_chunks::<4>().0.iter().enumerate() {
                             let value = if expected.contains(&(i as u32)) {
                                 255
                             } else {
