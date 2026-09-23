@@ -2,6 +2,8 @@
 
 [English](./release.md) | 简体中文
 
+**MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。人工 PBR 接受仍待完成，因此不替代下方完整验收的 0.5 材质基线。未发布包，不改变格式或迁移规则。
+
 **已验收基线（2026-09-22）：** [M6-B #45](https://github.com/OpenMixture/OpenMixture/pull/45) 和 [NUM-01 #40](https://github.com/OpenMixture/OpenMixture/pull/40)，以及前置 PR #39、#41–44，已合入 `main` 的 `ac219c901e52e3f079c16a931ed4463465756ba5`。该提交六项必需检查全部通过：[三平台 CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781509)、[软件 GPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781245)、[WASM/npm](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781222)、[Chromium 材质](https://github.com/OpenMixture/OpenMixture/actions/runs/35719781440)。该检查点的源码版本为 **Rust 0.5.0 / browser 0.5.0-alpha.0**，均未发布。最新记录的浏览器发布版为 **0.3.0-alpha.0**；Rust crate 仍未发布。
 
 **Windows 验收范围：** [旧 v1 资源/资产输入](./evidence/m6b-05/README.zh-CN.md)仍保留法线最大差 8/255 的失败记录（门槛 ≤1/255）。显式迁移为 `fractal-noise@2` 的 **value** 输入已通过记录的 GT 1030 Vulkan/DX12 对 Chrome 资源及 Scalar 验收，高度/法线最大差为 **0**，见[NUM-01 证据](./evidence/stable-noise/README.zh-CN.md)。两者测试不同节点版本，不是相互矛盾的结果。可移植资产回归仍使用冻结 v1 输入；现有文档不自动迁移。软件 CI 通过不认证任意 Windows 材质图、显卡、cellular 或 warp。早期 0.4 候选证据保留其原始构建身份。

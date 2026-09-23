@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "mode": "candidate",
+  "ok": true,
+  "startedAt": "2026-09-22T19:39:12.790Z",
+  "verifierSha256": "64cc8c2e379b361b264846a01236f33a1b437a1398a2e3c64ab969d6613415f4",
+  "consumerRevision": "9345ac22d4da7dc6d55a2d62adc295b12b3dd501",
+  "consumerDirty": false,
+  "staging": "/tmp/mixture-browser-consumer-7sEanH",
+  "platform": "linux",
+  "arch": "x64",
+  "node": "v24.20.0",
+  "run": "35771446555",
+  "attempt": "1",
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "da3260d7087692fef06fca2c2d3215e328caddbbf7333e8d818dd246e4b1f6da",
+    "package.json": "c6eedbdee271a2ed1da64ab8b22406e9ee110ae8ec91e71b74a66dda5430f362",
+    "playwright.config.mjs": "3193507a474cb7aac39f7c9a84de253260088d558a07cac399726027a4e6afae",
+    "public/asset.mix": "ca3996221ac0be990e76c1c5797c1ef0b2812e1e726e5bf7de4085525cc2b91a",
+    "public/asset.mixpack": "6dc66adfab06c5ae7a0e8ea7edc989d33c00f817e04354d70e5ae20a4c38f0b7",
+    "public/image-input-v2.mix": "5ccd67650afe4dff85814c0e58f7ae9a321190574a924bd12b0841a4a97d9521",
+    "public/image-input.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "public/scalar-blend-v2.mix": "4003159cd9212bc2877520ed5173cd2607af39487043e327c81591d1f2303f42",
+    "public/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+    "README.md": "ed1f707662df10480506eb147df0ebfc10214fc90a27abfae2b0dd24f1df053d",
+    "README.zh-CN.md": "d1ac30d7d1b14c5e048db2a6d8f09b2e5a442f999ed20c126bce93a5237551ff",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/assets.spec.mjs": "eca4ed48792c5b310f6ba78ec588e914a9789c07434ab66605d7560172d01f78",
+    "tests/brick.spec.mjs": "3fe8774935a5960483946d89a92264f902731c6e56065374362bf913d2c24c8b",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/resources.spec.mjs": "e9cf856456e0d3ba5ae72ad9ca91e64a58a17579971fa587655e19425a870844",
+    "tests/sdk.spec.mjs": "09485a67cf72caa072453f21828181bb7385c4764010a5b781074d40ec673329",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "brickFixtures": {
+    "material.mix": "168c3ccfd67233a3cf9b8006b4bbd0925be84b643cf8df5fe9c4e358e983d74d",
+    "controls.json": "a7dccdd42d14c67a2d20f06722d84b14b470fad06e1833b6313f0cb87aff66c3",
+    "qualification-plan.json": "0f4a795d320f14fa885bc8be93f6c728a0fec92e7c6129f69abeb9e61cc6411e"
+  },
+  "assetFixtures": {
+    "1024x1024.mixpack": "8906ec7c349732d05e87b53f6a865baf4a8e77421675c5bc6e05a3297fd0f059",
+    "65x3.mixpack": "3bf5922469f191930cf6877de0dd4bfd08b3ab27785b45e8f1227ae0620eba74"
+  },
+  "build": {
+    "runtimeVersion": "0.6.0-alpha.0",
+    "apiSchemaVersion": 2,
+    "engineVersion": "0.6.0",
+    "engineRevision": "9345ac22d4da7dc6d55a2d62adc295b12b3dd501",
+    "engineDirty": false,
+    "buildId": "sha256:a4dbb21caada8e9d11260132cfd2c46f3b3aa394bc07115c17b97f478e29366f"
+  },
+  "archiveSha256": "302b5220c66b86e3e5102bae5d54f705c8c678c64c020e8924333d07a72f6181",
+  "archiveIntegrity": "sha512-lvVDPY5/kQ/ldcElURPidICX+dOr59eoPyswyJJfEXZZNCiTrd0XYWNDM7lt4YNSkDXU7K3hod9IlVTX9JOXzg==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "src/bindings.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "src/build-info.js": "e131ebb5e26198e029f68ed1800ad3a5c1f515d519e90947e9615e7c2ef310a5",
+    "src/index.js": "702126492ec5c76fdd817cfd096063b9520a8997cb906d897e414a4c653dd1b0",
+    "src/runtime.js": "64db5e6ef1ce8ab15fdebba72cb0ea32cf915b97d9ac932791b861362b01d1fc",
+    "src/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "build-info.json": "292eb1688e1de0f9ae86b043e35523b1f8f3e17a615f92928e8e64a4cbf6ec5b",
+    "package.json": "7a84bbc8dd209c13bc9036c045966f9f747c39a33a5da1f34b5e1ae3059a5d37",
+    "README.md": "68075bc75462b55b39729b2ce1442fd05d2b01f22d6392c9a81ae0e262ef6549",
+    "README.zh-CN.md": "6f67a02e237e7efa372053d1ff6632b2ffd00d53ec7f096726201d484502affd",
+    "wasm/bindings.mjs": "6d9e5550b9c20553bc3fce3ac1cad076f0ce03cde841025dcc710a1400388195",
+    "src/bindings.d.ts": "e3d5ce2d0e8141530f04b40c6a55c30113ef1a78d83b5ae32dceaf2b56e22978",
+    "src/index.d.ts": "2cdd9ed58f7ed6c400dc55a1611c361fc0492d3abc74d4256920d02bda98e17a",
+    "src/runtime.d.ts": "6f9b286e6442ee12dadd45068fbbc0367b2466a4f814cf022c4c5492fc5cc9c7",
+    "src/types.d.ts": "d1daa3c7888e25f49dc625938bb2de0057cbf482a52241033b3d80b62801fde8",
+    "wasm/mixture_wasm_bg.wasm": "70bf1492b4493d9fe452bbb08bedf6f3020d92bb13c8d549dc33f86fc3cafd7f"
+  },
+  "lockSha256": "4fd9941b0c5c8bddf27643695b2021f91fe4753116833358c361cf00521b5278",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist",
+    "--use-angle=swiftshader",
+    "--use-webgpu-adapter=swiftshader"
+  ],
+  "browserChannel": "chromium",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserTests": {
+    "startTime": "2026-09-22T19:40:06.718Z",
+    "duration": 103032.005,
+    "expected": 17,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "finishedAt": "2026-09-22T19:41:49.783Z"
+}

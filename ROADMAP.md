@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. The last qualified material checkpoint used Rust 0.5.0 / browser 0.5.0-alpha.0. MAT-01b is integrated through [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50), with unpublished source manifests at 0.6.0 / 0.6.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
+**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. The last qualified material checkpoint used Rust 0.5.0 / browser 0.5.0-alpha.0. MAT-01 nodes and qualification tooling are integrated through PRs #50–52 ([integration record](./docs/evidence/mat-01/integration/README.md)); human visual acceptance remains pending, with unpublished source manifests at 0.6.0 / 0.6.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
 
 **Historical checkpoint (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
@@ -26,8 +26,8 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 
 | Planning state | Current content |
 |---|---|
-| Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Current Rust 0.5.0 source is consumable; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | MAT-01 structured brick/paving material: the contract is recorded and MAT-01b/c candidate implementations provide both nodes and a four-channel fixture. Qualification and main integration remain pending; MAT-02 has not started. M6-B/NUM-01 publication remains separate. |
+| Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Current Rust 0.6.0 source is consumable; the last fully qualified material baseline remains 0.5; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
+| Active increment | MAT-01 structured brick/paving material: the contract is recorded and MAT-01b/c candidate implementations provide both nodes and a four-channel fixture. Nodes and tooling are integrated; human visual acceptance and post-merge verification remain separate. MAT-02 has a preparatory draft, with implementation waiting for MAT-01 exit. M6-B/NUM-01 publication remains separate. |
 | Current qualification | [M6B-05](./docs/evidence/m6b-05/README.md): exact candidate, Native source/archive and browser matrix, materials and six checks; v1 Windows hardware failure retained, explicit v2 value-noise repair qualified separately. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 

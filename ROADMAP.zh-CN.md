@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。最近材质验收检查点使用 Rust 0.5.0 / browser 0.5.0-alpha.0。MAT-01b 已通过 [PR #50](https://github.com/OpenMixture/OpenMixture/pull/50) 集成，未发布源码清单为 0.6.0 / 0.6.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。最近材质验收检查点使用 Rust 0.5.0 / browser 0.5.0-alpha.0。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受仍待完成，未发布源码清单为 0.6.0 / 0.6.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
@@ -26,8 +26,8 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 
 | 规划状态 | 当前内容 |
 |---|---|
-| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。当前 Rust 0.5.0 源码可消费，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-01 结构化砖墙／铺地砖材质：契约已记录，MAT-01b/c 候选实现提供两个节点及四通道夹具。验收和 main 集成仍待完成，MAT-02 尚未开始。M6-B／NUM-01 发布继续单独处理。 |
+| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。当前 Rust 0.6.0 源码可消费；最近完整材质验收基线仍为 0.5，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
+| 当前增量 | MAT-01 结构化砖墙／铺地砖材质：契约已记录，MAT-01b/c 候选实现提供两个节点及四通道夹具。节点与工具已集成，人工视觉接受与合并后验证继续独立记录。MAT-02 已有前期草案，实现仍须等待 MAT-01 退出。M6-B／NUM-01 发布继续单独处理。 |
 | 当前验收 | [M6B-05](./docs/evidence/m6b-05/README.zh-CN.md)：精确候选、Native 源码/归档及浏览器矩阵、材质与六检查，保留 v1 Windows 硬件失败，显式 v2 value-noise 修复单独验收。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 

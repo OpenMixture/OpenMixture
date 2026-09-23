@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-This record retains the 2026-09-23 development-host results for clean source `7a92b82e8b60fd37bacc8304eaf72d1cfa407216`, not a declaration that MAT-01 or the roadmap is complete. [PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) owns the qualification tooling. Human PBR acceptance, final required CI and integration are still pending. Nothing is published.
+This record retains the 2026-09-23 development-host results for clean source `7a92b82e8b60fd37bacc8304eaf72d1cfa407216`, not a declaration that MAT-01 or the roadmap is complete. [PR #52](https://github.com/OpenMixture/OpenMixture/pull/52) owns the qualification tooling. Human PBR acceptance remains pending. Tooling is now integrated; the separate [CI/integration record](./integration/README.md) binds its later tested source without changing this Windows result. Nothing is published.
 
 ## Exact candidate and measured scope
 

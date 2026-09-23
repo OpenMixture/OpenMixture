@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-本记录保留 2026-09-23 开发主机对干净源码 `7a92b82e8b60fd37bacc8304eaf72d1cfa407216` 的结果，不声明 MAT-01 或整个路线图完成。[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52)负责验收工具。人工 PBR 接受、最终必需 CI 和集成仍待完成，未发布任何包。
+本记录保留 2026-09-23 开发主机对干净源码 `7a92b82e8b60fd37bacc8304eaf72d1cfa407216` 的结果，不声明 MAT-01 或整个路线图完成。[PR #52](https://github.com/OpenMixture/OpenMixture/pull/52)负责验收工具。人工 PBR 接受仍待完成。工具现已集成；独立 [CI／集成记录](./integration/README.zh-CN.md)绑定后来的被测源码，不改变本次 Windows 结果。未发布任何包。
 
 ## 精确候选与实测范围
 
