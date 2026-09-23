@@ -86,7 +86,13 @@ jobs:
       - name: Compare the frozen brick material matrix across Native and browser
         run: node scripts/browser-runtime/check-brick.mjs tmp/sdk-candidate tmp/sdk-brick-comparison
       - name: Qualify public texture reuse, 2K costs and frozen timing budgets
+        id: texture-reuse
         run: node scripts/browser-runtime/check-reuse.mjs tmp/sdk-candidate tmp/sdk-reuse-comparison
+      - name: Retain bounded painted-metal stage diagnostics after reuse failure
+        if: failure() && steps.texture-reuse.outcome == 'failure'
+        run: |
+          cargo build --release --locked -p mixture-cli
+          python3 scripts/probe-painted-metal.py --cli target/release/mixture --output tmp/painted-metal-stages
       - name: Qualify the exact published version separately
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
@@ -170,6 +176,7 @@ jobs:
             tmp/sdk-morphology-comparison/
             tmp/sdk-subtract-comparison/
             tmp/sdk-reuse-comparison/
+            tmp/painted-metal-stages/
             tmp/sdk-registry/
           retention-days: 30
           if-no-files-found: error

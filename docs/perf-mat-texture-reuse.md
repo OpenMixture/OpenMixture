@@ -2,6 +2,8 @@
 
 English | [简体中文](./perf-mat-texture-reuse.zh-CN.md)
 
+The 611e9c4 candidate fails the Linux software painted-metal normal comparison. [Retained failure and bounded diagnostic](./evidence/perf-mat-numerics/README.md) record the unchanged gate and the limits of Windows before/after controls; PR #59 remains a draft.
+
 The working Rust 0.8.0 / browser 0.8.0-alpha.0 candidate implements [ADR 0009](./decisions/0009-transient-texture-reuse.md). Qualification, integration and publication remain separate. The [original 2K rejection and 1K pixels](./evidence/perf-mat-before/README.md) remain immutable; a successful development run does not close MAT-02.
 
 Prerequisites: PR #56 integrated morphology at `313074451cd6ddb5e5f82cce933c3d4fe3b4ed38`; PR #57 integrated subtraction at `cbeb367261bf09b3b7acd2540b4efbee3000e7e7`. The combined main source passed [three CPU checks](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101430), [GPU/package checks](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101419), [WASM packaging](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101468) and [Chromium qualification](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101483). PR #58 accepted the allocation design at `f8dccfee8b94015690a891d20c02d99479fda2b4` after all six final-head checks. These runs certify their exact 0.7 sources, not the new 0.8 candidate.

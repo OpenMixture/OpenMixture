@@ -2,6 +2,8 @@
 
 [English](./perf-mat-texture-reuse.md) | 简体中文
 
+611e9c4 候选未通过 Linux 软件执行的涂漆金属法线对照。[留存失败与限定诊断](./evidence/perf-mat-numerics/README.zh-CN.md)记录不变的门槛及 Windows 优化前后对照的证明范围；PR #59 保持草稿。
+
 工作中的 Rust 0.8.0／browser 0.8.0-alpha.0 候选实现 [ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)。验收、集成和发布仍分别处理。[原始 2K 拒绝及 1K 像素](./evidence/perf-mat-before/README.zh-CN.md)保持不变；开发运行成功不关闭 MAT-02。
 
 前置集成：PR #56 以 `313074451cd6ddb5e5f82cce933c3d4fe3b4ed38` 集成形态处理，PR #57 以 `cbeb367261bf09b3b7acd2540b4efbee3000e7e7` 集成减法。组合 main 源码通过[三平台 CPU](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101430)、[GPU／包检查](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101419)、[WASM 打包](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101468)及 [Chromium 验收](https://github.com/OpenMixture/OpenMixture/actions/runs/35832101483)。PR #58 在最终 head 六项检查通过后，以 `f8dccfee8b94015690a891d20c02d99479fda2b4` 接受分配设计。这些运行只证明各自精确 0.7 源码，不验收新的 0.8 候选。

@@ -1,0 +1,1328 @@
+{
+  "ok": true,
+  "browser": "153.0.8010.12",
+  "build": {
+    "runtimeVersion": "0.8.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.8.0",
+    "engineRevision": "9df804336d295c74b72f32b81371dc81a1b425b9",
+    "engineDirty": false,
+    "buildId": "sha256:f5a3ef59645371d9a548250659ba6a63037fea013e86ecb8a6eb533e0c8f9f40"
+  },
+  "rows": [
+    {
+      "id": "odd",
+      "size": [
+        65,
+        3
+      ],
+      "overrides": {
+        "radiusX": 1,
+        "radiusY": 1,
+        "macroSeed": 4294967295
+      },
+      "build": {
+        "runtimeVersion": "0.8.0-alpha.0",
+        "apiSchemaVersion": 3,
+        "engineVersion": "0.8.0",
+        "engineRevision": "9df804336d295c74b72f32b81371dc81a1b425b9",
+        "engineDirty": false,
+        "buildId": "sha256:f5a3ef59645371d9a548250659ba6a63037fea013e86ecb8a6eb533e0c8f9f40"
+      },
+      "planHash": "sha256:e9eaaf79417f04f815ea7a26273298b31122c74172e277603a170320a9eb8036",
+      "allocation": {
+        "slots": [
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 65,
+            "height": 3,
+            "format": "rgba16float",
+            "kind": "normal"
+          }
+        ],
+        "resourceSlots": [
+          0,
+          1,
+          0,
+          2,
+          0,
+          3,
+          4,
+          5,
+          4,
+          6,
+          7,
+          5,
+          8,
+          9,
+          10,
+          11,
+          4,
+          12,
+          6,
+          1,
+          0,
+          13,
+          2
+        ],
+        "lastUses": [
+          1,
+          17,
+          3,
+          20,
+          19,
+          22,
+          7,
+          8,
+          13,
+          15,
+          18,
+          19,
+          22,
+          17,
+          15,
+          18,
+          20,
+          22,
+          23,
+          23,
+          23,
+          23,
+          23
+        ]
+      },
+      "report": {
+        "planHash": "sha256:e9eaaf79417f04f815ea7a26273298b31122c74172e277603a170320a9eb8036",
+        "adapter": {
+          "name": "",
+          "deviceType": "Cpu",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 8192,
+            "maxTextureDimension2D": 8192,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 256,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 8,
+            "maxDynamicStorageBuffersPerPipelineLayout": 4,
+            "maxSampledTexturesPerShaderStage": 16,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 10,
+            "maxStorageTexturesPerShaderStage": 4,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "1073741824",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "1073741824",
+            "maxVertexAttributes": 16,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 256,
+            "maxComputeWorkgroupSizeX": 256,
+            "maxComputeWorkgroupSizeY": 256,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          65,
+          3
+        ],
+        "passCount": "23",
+        "pipelineCache": {
+          "hits": 14,
+          "misses": 9,
+          "entries": "9"
+        },
+        "estimates": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "logicalTextureBytes": "35880",
+          "textureBytes": "21840",
+          "uniformBytes": "464",
+          "paddedBytesPerRow": 768,
+          "readbackBufferBytes": "2304",
+          "readbackBytes": "7800",
+          "cumulativeReadbackBytes": "11520",
+          "cumulativeBytes": "33824",
+          "peakBytes": "24608"
+        },
+        "allocations": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "textureBytes": "21840",
+          "uniformCount": "23",
+          "uniformBytes": "464",
+          "stagingCount": "5",
+          "stagingBytes": "11520",
+          "peakStagingBytes": "2304",
+          "cumulativeBytes": "33824",
+          "peakBytes": "24608",
+          "liveBytes": "0",
+          "releasedBytes": "33824",
+          "reusedBytes": "14040"
+        },
+        "readbackBytes": "7800",
+        "mappedBytes": "11520",
+        "rgbaBytes": "3900",
+        "timings": {
+          "pipelineMs": 422.8,
+          "executionMs": 10.9,
+          "readbackMs": 11,
+          "totalMs": 477.2
+        }
+      },
+      "repeatExact": true,
+      "slicedExact": true,
+      "ownedAfterDestroy": true,
+      "files": [
+        {
+          "name": "odd-baseColor.png",
+          "channel": "baseColor",
+          "sha256": "740e8b49f0306d730c5b9c7a2771ef87d1127101db268d8dac3f7ceb1952b454"
+        },
+        {
+          "name": "odd-normal.png",
+          "channel": "normal",
+          "sha256": "ccc7cabf3e1c145118edf98699f5972a8a59ffafca439effe68985138ca3b037"
+        },
+        {
+          "name": "odd-roughness.png",
+          "channel": "roughness",
+          "sha256": "ee382b5b5272b27fcd449dbf64afd8e2a292fd80b138b30d9693657dd2703caa"
+        },
+        {
+          "name": "odd-metallic.png",
+          "channel": "metallic",
+          "sha256": "15462d3793f5cf5caf8f283a3bba7d55adb2e2355a5355fccb2ee85579619f4d"
+        },
+        {
+          "name": "odd-height.png",
+          "channel": "height",
+          "sha256": "4dbe0865539f912772ac593ccd5da6a04a44a492fe479e2179e89cdcd079eb34"
+        }
+      ]
+    },
+    {
+      "id": "intact",
+      "size": [
+        257,
+        129
+      ],
+      "overrides": {
+        "radiusX": 1,
+        "radiusY": 1,
+        "exposureInputMin": 0,
+        "exposureInputMax": 1,
+        "exposureOutputMin": 0,
+        "exposureOutputMax": 0
+      },
+      "build": {
+        "runtimeVersion": "0.8.0-alpha.0",
+        "apiSchemaVersion": 3,
+        "engineVersion": "0.8.0",
+        "engineRevision": "9df804336d295c74b72f32b81371dc81a1b425b9",
+        "engineDirty": false,
+        "buildId": "sha256:f5a3ef59645371d9a548250659ba6a63037fea013e86ecb8a6eb533e0c8f9f40"
+      },
+      "planHash": "sha256:1ddc240c9a8fc7874f61034df6449bfb29cdd6665b3cd7cdcc8d3e1483d0ef4b",
+      "allocation": {
+        "slots": [
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 257,
+            "height": 129,
+            "format": "rgba16float",
+            "kind": "normal"
+          }
+        ],
+        "resourceSlots": [
+          0,
+          1,
+          0,
+          2,
+          0,
+          3,
+          4,
+          5,
+          4,
+          6,
+          7,
+          5,
+          8,
+          9,
+          10,
+          11,
+          4,
+          12,
+          6,
+          1,
+          0,
+          13,
+          2
+        ],
+        "lastUses": [
+          1,
+          17,
+          3,
+          20,
+          19,
+          22,
+          7,
+          8,
+          13,
+          15,
+          18,
+          19,
+          22,
+          17,
+          15,
+          18,
+          20,
+          22,
+          23,
+          23,
+          23,
+          23,
+          23
+        ]
+      },
+      "report": {
+        "planHash": "sha256:1ddc240c9a8fc7874f61034df6449bfb29cdd6665b3cd7cdcc8d3e1483d0ef4b",
+        "adapter": {
+          "name": "",
+          "deviceType": "Cpu",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 8192,
+            "maxTextureDimension2D": 8192,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 256,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 8,
+            "maxDynamicStorageBuffersPerPipelineLayout": 4,
+            "maxSampledTexturesPerShaderStage": 16,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 10,
+            "maxStorageTexturesPerShaderStage": 4,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "1073741824",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "1073741824",
+            "maxVertexAttributes": 16,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 256,
+            "maxComputeWorkgroupSizeX": 256,
+            "maxComputeWorkgroupSizeY": 256,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          257,
+          129
+        ],
+        "passCount": "23",
+        "pipelineCache": {
+          "hits": 14,
+          "misses": 9,
+          "entries": "9"
+        },
+        "estimates": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "logicalTextureBytes": "6100152",
+          "textureBytes": "3713136",
+          "uniformBytes": "464",
+          "paddedBytesPerRow": 2304,
+          "readbackBufferBytes": "297216",
+          "readbackBytes": "1326120",
+          "cumulativeReadbackBytes": "1486080",
+          "cumulativeBytes": "5199680",
+          "peakBytes": "4010816"
+        },
+        "allocations": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "textureBytes": "3713136",
+          "uniformCount": "23",
+          "uniformBytes": "464",
+          "stagingCount": "5",
+          "stagingBytes": "1486080",
+          "peakStagingBytes": "297216",
+          "cumulativeBytes": "5199680",
+          "peakBytes": "4010816",
+          "liveBytes": "0",
+          "releasedBytes": "5199680",
+          "reusedBytes": "2387016"
+        },
+        "readbackBytes": "1326120",
+        "mappedBytes": "1486080",
+        "rgbaBytes": "663060",
+        "timings": {
+          "pipelineMs": 364.8,
+          "executionMs": 91.89999999999999,
+          "readbackMs": 23.099999999999998,
+          "totalMs": 494.7
+        }
+      },
+      "repeatExact": true,
+      "slicedExact": true,
+      "ownedAfterDestroy": true,
+      "files": [
+        {
+          "name": "intact-baseColor.png",
+          "channel": "baseColor",
+          "sha256": "4f97dbbea564c2eba9f8f7f1c7f9206f492087a455892df350e2eb1d37aebf9d"
+        },
+        {
+          "name": "intact-normal.png",
+          "channel": "normal",
+          "sha256": "82b45d0c026b11efd3fbaf203f562c3529c543b06fd2704473daf6bf982c9250"
+        },
+        {
+          "name": "intact-roughness.png",
+          "channel": "roughness",
+          "sha256": "9f83832cca37fb2e65d0781d88436e68fb91c96044bfba867fe40d19d87aac0b"
+        },
+        {
+          "name": "intact-metallic.png",
+          "channel": "metallic",
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "name": "intact-height.png",
+          "channel": "height",
+          "sha256": "628600b05bae4ca2c85886f2979d6cb7c01ce7f26e381b461755ea230a05c27b"
+        }
+      ]
+    },
+    {
+      "id": "default-1k",
+      "size": [
+        1024,
+        1024
+      ],
+      "overrides": {},
+      "build": {
+        "runtimeVersion": "0.8.0-alpha.0",
+        "apiSchemaVersion": 3,
+        "engineVersion": "0.8.0",
+        "engineRevision": "9df804336d295c74b72f32b81371dc81a1b425b9",
+        "engineDirty": false,
+        "buildId": "sha256:f5a3ef59645371d9a548250659ba6a63037fea013e86ecb8a6eb533e0c8f9f40"
+      },
+      "planHash": "sha256:8ae2dffdbbbb7ed774c621556d2a254d23a5ae749f31816c73f7e37541efe4c1",
+      "allocation": {
+        "slots": [
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 1024,
+            "height": 1024,
+            "format": "rgba16float",
+            "kind": "normal"
+          }
+        ],
+        "resourceSlots": [
+          0,
+          1,
+          0,
+          2,
+          0,
+          3,
+          4,
+          5,
+          4,
+          6,
+          7,
+          5,
+          8,
+          9,
+          10,
+          11,
+          4,
+          12,
+          6,
+          1,
+          0,
+          13,
+          2
+        ],
+        "lastUses": [
+          1,
+          17,
+          3,
+          20,
+          19,
+          22,
+          7,
+          8,
+          13,
+          15,
+          18,
+          19,
+          22,
+          17,
+          15,
+          18,
+          20,
+          22,
+          23,
+          23,
+          23,
+          23,
+          23
+        ]
+      },
+      "report": {
+        "planHash": "sha256:8ae2dffdbbbb7ed774c621556d2a254d23a5ae749f31816c73f7e37541efe4c1",
+        "adapter": {
+          "name": "",
+          "deviceType": "Cpu",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 8192,
+            "maxTextureDimension2D": 8192,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 256,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 8,
+            "maxDynamicStorageBuffersPerPipelineLayout": 4,
+            "maxSampledTexturesPerShaderStage": 16,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 10,
+            "maxStorageTexturesPerShaderStage": 4,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "1073741824",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "1073741824",
+            "maxVertexAttributes": 16,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 256,
+            "maxComputeWorkgroupSizeX": 256,
+            "maxComputeWorkgroupSizeY": 256,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          1024,
+          1024
+        ],
+        "passCount": "23",
+        "pipelineCache": {
+          "hits": 14,
+          "misses": 9,
+          "entries": "9"
+        },
+        "estimates": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "logicalTextureBytes": "192937984",
+          "textureBytes": "117440512",
+          "uniformBytes": "464",
+          "paddedBytesPerRow": 8192,
+          "readbackBufferBytes": "8388608",
+          "readbackBytes": "41943040",
+          "cumulativeReadbackBytes": "41943040",
+          "cumulativeBytes": "159384016",
+          "peakBytes": "125829584"
+        },
+        "allocations": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "textureBytes": "117440512",
+          "uniformCount": "23",
+          "uniformBytes": "464",
+          "stagingCount": "5",
+          "stagingBytes": "41943040",
+          "peakStagingBytes": "8388608",
+          "cumulativeBytes": "159384016",
+          "peakBytes": "125829584",
+          "liveBytes": "0",
+          "releasedBytes": "159384016",
+          "reusedBytes": "75497472"
+        },
+        "readbackBytes": "41943040",
+        "mappedBytes": "41943040",
+        "rgbaBytes": "20971520",
+        "timings": {
+          "pipelineMs": 368.9,
+          "executionMs": 2752.7,
+          "readbackMs": 369,
+          "totalMs": 3506.5
+        }
+      },
+      "repeatExact": true,
+      "slicedExact": true,
+      "ownedAfterDestroy": true,
+      "files": [
+        {
+          "name": "default-1k-baseColor.png",
+          "channel": "baseColor",
+          "sha256": "866a3a24b4c36f809c4ccfd253816e7462e20cc1f61a597e89c1d21710555774"
+        },
+        {
+          "name": "default-1k-normal.png",
+          "channel": "normal",
+          "sha256": "8f16edf19b879ed6da7b110abbf841760f8564ac51d5bcf613d59e0b50a4f234"
+        },
+        {
+          "name": "default-1k-roughness.png",
+          "channel": "roughness",
+          "sha256": "77e4e4ef41c5ab7f81c2f2e7c139c9b4f141c610680e931c6667705ed7e42836"
+        },
+        {
+          "name": "default-1k-metallic.png",
+          "channel": "metallic",
+          "sha256": "cda0057b92cddd0e19b0204a1d44839590b62562e2326cd305439ab8e43f022e"
+        },
+        {
+          "name": "default-1k-height.png",
+          "channel": "height",
+          "sha256": "debab4abda45475140ee947e26ac83a78edc3fe527d426cfd53dfaa84a2581b3"
+        }
+      ]
+    },
+    {
+      "id": "default-2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "overrides": {
+        "radiusX": 8,
+        "radiusY": 8
+      },
+      "build": {
+        "runtimeVersion": "0.8.0-alpha.0",
+        "apiSchemaVersion": 3,
+        "engineVersion": "0.8.0",
+        "engineRevision": "9df804336d295c74b72f32b81371dc81a1b425b9",
+        "engineDirty": false,
+        "buildId": "sha256:f5a3ef59645371d9a548250659ba6a63037fea013e86ecb8a6eb533e0c8f9f40"
+      },
+      "planHash": "sha256:b7efd11660507fd00a6bba7124b667735f77fc290baa9f50404917db504d0707",
+      "allocation": {
+        "slots": [
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "color"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "scalar"
+          },
+          {
+            "width": 2048,
+            "height": 2048,
+            "format": "rgba16float",
+            "kind": "normal"
+          }
+        ],
+        "resourceSlots": [
+          0,
+          1,
+          0,
+          2,
+          0,
+          3,
+          4,
+          5,
+          4,
+          6,
+          7,
+          5,
+          8,
+          9,
+          10,
+          11,
+          4,
+          12,
+          6,
+          1,
+          0,
+          13,
+          2
+        ],
+        "lastUses": [
+          1,
+          17,
+          3,
+          20,
+          19,
+          22,
+          7,
+          8,
+          13,
+          15,
+          18,
+          19,
+          22,
+          17,
+          15,
+          18,
+          20,
+          22,
+          23,
+          23,
+          23,
+          23,
+          23
+        ]
+      },
+      "report": {
+        "planHash": "sha256:b7efd11660507fd00a6bba7124b667735f77fc290baa9f50404917db504d0707",
+        "adapter": {
+          "name": "",
+          "deviceType": "Cpu",
+          "backend": "BrowserWebGpu",
+          "vendor": 0,
+          "device": 0,
+          "driver": "",
+          "driverInfo": "",
+          "supportedLimits": {
+            "maxTextureDimension1D": 8192,
+            "maxTextureDimension2D": 8192,
+            "maxTextureDimension3D": 2048,
+            "maxTextureArrayLayers": 256,
+            "maxBindGroups": 4,
+            "maxBindGroupsPlusVertexBuffers": 24,
+            "maxBindingsPerBindGroup": 1000,
+            "maxDynamicUniformBuffersPerPipelineLayout": 8,
+            "maxDynamicStorageBuffersPerPipelineLayout": 4,
+            "maxSampledTexturesPerShaderStage": 16,
+            "maxSamplersPerShaderStage": 16,
+            "maxStorageBuffersPerShaderStage": 10,
+            "maxStorageTexturesPerShaderStage": 4,
+            "maxUniformBuffersPerShaderStage": 12,
+            "maxBindingArrayElementsPerShaderStage": 0,
+            "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+            "maxBindingArraySamplerElementsPerShaderStage": 0,
+            "maxUniformBufferBindingSize": "65536",
+            "maxStorageBufferBindingSize": "1073741824",
+            "maxVertexBuffers": 8,
+            "maxBufferSize": "1073741824",
+            "maxVertexAttributes": 16,
+            "maxVertexBufferArrayStride": 2048,
+            "maxInterStageShaderVariables": 28,
+            "minUniformBufferOffsetAlignment": 256,
+            "minStorageBufferOffsetAlignment": 256,
+            "maxColorAttachments": 8,
+            "maxColorAttachmentBytesPerSample": 128,
+            "maxComputeWorkgroupStorageSize": 32768,
+            "maxComputeInvocationsPerWorkgroup": 256,
+            "maxComputeWorkgroupSizeX": 256,
+            "maxComputeWorkgroupSizeY": 256,
+            "maxComputeWorkgroupSizeZ": 64,
+            "maxComputeWorkgroupsPerDimension": 65535,
+            "maxImmediateSize": 0,
+            "maxNonSamplerBindings": 1000000,
+            "maxTaskWorkgroupTotalCount": 0,
+            "maxTaskWorkgroupsPerDimension": 0,
+            "maxMeshWorkgroupTotalCount": 0,
+            "maxMeshWorkgroupsPerDimension": 0,
+            "maxTaskInvocationsPerWorkgroup": 0,
+            "maxTaskInvocationsPerDimension": 0,
+            "maxMeshInvocationsPerWorkgroup": 0,
+            "maxMeshInvocationsPerDimension": 0,
+            "maxTaskPayloadSize": 0,
+            "maxMeshOutputVertices": 0,
+            "maxMeshOutputPrimitives": 0,
+            "maxMeshOutputLayers": 0,
+            "maxMeshMultiviewViewCount": 0,
+            "maxBlasPrimitiveCount": 0,
+            "maxBlasGeometryCount": 0,
+            "maxTlasInstanceCount": 0,
+            "maxAccelerationStructuresPerShaderStage": 0,
+            "maxBuffersAndAccelerationStructuresPerShaderStage": 28,
+            "maxMultiviewViewCount": 0,
+            "maxRayDispatchCount": 0,
+            "maxRayRecursionDepth": 0
+          },
+          "supportedFeatures": [
+            "BGRA8UNORM_STORAGE",
+            "CLIP_DISTANCES",
+            "DEPTH32FLOAT_STENCIL8",
+            "DEPTH_CLIP_CONTROL",
+            "FLOAT32_BLENDABLE",
+            "FLOAT32_FILTERABLE",
+            "INDIRECT_FIRST_INSTANCE",
+            "RG11B10UFLOAT_RENDERABLE",
+            "TEXTURE_COMPRESSION_ASTC",
+            "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+            "TEXTURE_COMPRESSION_BC",
+            "TEXTURE_COMPRESSION_BC_SLICED_3D",
+            "TEXTURE_COMPRESSION_ETC2",
+            "TIMESTAMP_QUERY"
+          ]
+        },
+        "size": [
+          2048,
+          2048
+        ],
+        "passCount": "23",
+        "pipelineCache": {
+          "hits": 14,
+          "misses": 9,
+          "entries": "9"
+        },
+        "estimates": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "logicalTextureBytes": "771751936",
+          "textureBytes": "469762048",
+          "uniformBytes": "464",
+          "paddedBytesPerRow": 16384,
+          "readbackBufferBytes": "33554432",
+          "readbackBytes": "167772160",
+          "cumulativeReadbackBytes": "167772160",
+          "cumulativeBytes": "637534672",
+          "peakBytes": "503316944"
+        },
+        "allocations": {
+          "resourceCount": "0",
+          "resourceUploadBytes": "0",
+          "resourceTextureBytes": "0",
+          "resourceStagingBytes": "0",
+          "textureCount": "14",
+          "textureBytes": "469762048",
+          "uniformCount": "23",
+          "uniformBytes": "464",
+          "stagingCount": "5",
+          "stagingBytes": "167772160",
+          "peakStagingBytes": "33554432",
+          "cumulativeBytes": "637534672",
+          "peakBytes": "503316944",
+          "liveBytes": "0",
+          "releasedBytes": "637534672",
+          "reusedBytes": "301989888"
+        },
+        "readbackBytes": "167772160",
+        "mappedBytes": "167772160",
+        "rgbaBytes": "83886080",
+        "timings": {
+          "pipelineMs": 351.2,
+          "executionMs": 11549.900000000001,
+          "readbackMs": 1411,
+          "totalMs": 13329.2
+        }
+      },
+      "repeatExact": true,
+      "slicedExact": true,
+      "ownedAfterDestroy": true,
+      "files": [
+        {
+          "name": "default-2k-baseColor.png",
+          "channel": "baseColor",
+          "sha256": "d3c97f8d64afaf4717da890ec7b1d5296fdff74ec06940a7b8bb107d48cef712"
+        },
+        {
+          "name": "default-2k-normal.png",
+          "channel": "normal",
+          "sha256": "d4009a8f0755446cb19602e9f1a5a8b40644db6e5af28bea824920250b5f0bcd"
+        },
+        {
+          "name": "default-2k-roughness.png",
+          "channel": "roughness",
+          "sha256": "362a51586f283af44f68514865f917e8eddc072c552021e5731104de3754c043"
+        },
+        {
+          "name": "default-2k-metallic.png",
+          "channel": "metallic",
+          "sha256": "f8efe3a5ff92291041abb465a75e902b03c8161261a00d88283f3d9ab3b4a9d9"
+        },
+        {
+          "name": "default-2k-height.png",
+          "channel": "height",
+          "sha256": "f57f9aa39808f0411f4a79e63a39a7f84d8b495c4060d4ce931b58772fc64c97"
+        }
+      ]
+    }
+  ]
+}

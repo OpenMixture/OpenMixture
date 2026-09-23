@@ -1,0 +1,8 @@
+   Compiling mixture-native-consumer v0.0.0 (/home/runner/work/OpenMixture/OpenMixture/examples/native-consumer)
+    Finished `release` profile [optimized] target(s) in 3.04s
+     Running tests/texture_reuse.rs (target/native-consumer/release/deps/texture_reuse-c783b6bba6f9c78b)
+
+thread 'public_reuse_preserves_outputs_packages_and_2k_budget' (15464) panicked at tests/texture_reuse.rs:269:5:
+retained PERF-MAT timing or parity failure
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test texture_reuse`
