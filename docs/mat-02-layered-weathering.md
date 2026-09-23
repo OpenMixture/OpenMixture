@@ -44,6 +44,8 @@ Base color first mixes paint/substrate with W, then rust with R. Metallic is `W*
 
 Public conceptual controls cover exposure amount, exposure scale, explicit macro/detail seeds, chipped-edge width, rust amount, paint/substrate/rust colors, their roughness values, paint thickness, rust relief and normal strength. They are caller-side parameter mappings until MAT-04. Prefer the existing catalog except for the demonstrated neighborhood and saturating-subtraction gaps. AO, curvature, blur, additional Scalar operators, material-layer types and new normal blending require a separate demonstrated failure before admission.
 
+The [concrete graph and control mapping](../fixtures/materials/painted-metal/README.md) now specifies a 23-pass recipe and a review-stage seven-preset/four-size/five-channel matrix. It is not an executable `.mix` or a frozen qualification plan. The static retain-all texture estimate already exceeds the unchanged 512 MiB ceiling; actual-graph measurements must precede a separate PERF-MAT lifetime/reuse change. This does not admit either proposed node.
+
 ## Qualification to freeze before implementation
 
 The machine-readable plan must name exact presets, seeds, endpoints, sample locations, tolerances and request mappings; the following requirements must not be weakened after viewing failures.
