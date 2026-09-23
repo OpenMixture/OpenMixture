@@ -1,0 +1,100 @@
+{
+  "status": "mat-02a-review-before-freeze",
+  "materialId": "painted-metal",
+  "contract": "docs/mat-02-layered-weathering.md",
+  "runtimeImplemented": false,
+  "channels": ["baseColor", "metallic", "roughness", "height", "normal"],
+  "sizes": [[256, 256], [1024, 1024], [2048, 2048], [257, 129]],
+  "defaults": {
+    "exposureAmount": 0.5,
+    "exposureScale": 8,
+    "macroSeed": 1729,
+    "detailSeed": 65537,
+    "edgeWidth": 4,
+    "rustAmount": 0.8,
+    "rustFill": 0.2,
+    "detailAmount": 0.5,
+    "paintColor": [0.04, 0.12, 0.2, 1],
+    "substrateColor": [0.3, 0.32, 0.34, 1],
+    "rustColor": [0.25, 0.06, 0.015, 1],
+    "paintRoughness": 0.6,
+    "substrateRoughness": 0.25,
+    "rustRoughness": 0.9,
+    "paintThickness": 0.05,
+    "rustRelief": 0.025,
+    "normalStrength": 0.5
+  },
+  "cases": [
+    {"id": "default", "controls": {}},
+    {"id": "intact", "controls": {"exposureAmount": 0, "detailAmount": 0}},
+    {"id": "exposed", "controls": {"exposureAmount": 1, "rustAmount": 0, "detailAmount": 0}},
+    {"id": "rusted", "controls": {"exposureAmount": 1, "rustAmount": 1, "rustFill": 1, "detailAmount": 0}},
+    {"id": "edge-rust", "controls": {"rustAmount": 1, "rustFill": 0, "detailAmount": 0, "edgeWidth": 8}},
+    {"id": "macro-seed", "controls": {"macroSeed": 4294967295}},
+    {"id": "detail-seed", "controls": {"detailSeed": 4294967295}}
+  ],
+  "maskRelations": {
+    "W": "exposure.value",
+    "I": "erodeY.value",
+    "B": "band.value = max(W-I,0)",
+    "S": "rustSpread.value = mix(B,W,rustFill)",
+    "D": "detail.value in [1-detailAmount,1]",
+    "R": "rustMask.value = rustAmount*S*D",
+    "metallic": "W*(1-R)"
+  },
+  "radiusMapping": {
+    "referenceSize": 1024,
+    "referenceWidthRange": [0, 8],
+    "referenceWidthType": "integer",
+    "formula": "width == 0 ? 0 : max(1,floor((width*axisLength+512)/1024))",
+    "maxAxisLength": 2048,
+    "nodeRange": [0, 16]
+  },
+  "endpointChecks": {
+    "positions": "all pixels at all four sizes",
+    "intact": {"baseColor": "paintColor", "metallic": 0, "roughness": "paintRoughness", "height": "0.2+paintThickness", "normal": [0.5, 0.5, 1]},
+    "exposed": {"baseColor": "substrateColor", "metallic": 1, "roughness": "substrateRoughness", "height": 0.2, "normal": [0.5, 0.5, 1]},
+    "rusted": {"baseColor": "rustColor", "metallic": 0, "roughness": "rustRoughness", "height": "0.2+rustRelief", "normal": [0.5, 0.5, 1]},
+    "comparison": "exact pixels against independent constant-node reference graphs using the same public executor and RGBA8 conversion"
+  },
+  "nodeProbes": {
+    "sizes": [[1, 1], [1, 17], [17, 1], [19, 11]],
+    "radii": [0, 1, 16],
+    "axes": ["x", "y"],
+    "operations": ["erode", "dilate"],
+    "fields": ["constant-zero", "constant-half", "constant-one", "origin-impulse", "center-impulse", "single-pixel-line", "center-rectangle", "wrapped-rectangle"],
+    "rawHalfTolerance": 0,
+    "subtractPairs": [[0, 0], [1, 0], [0, 1], [1, 1], [0.5, 0.5], [0.5, 0.499755859375], [0.25, 0.75]],
+    "periodicShifts": [[1, 0], [0, 1], [1, 1]],
+    "requirements": ["finite-normalized", "radius-zero-identity", "exact-affected-pixel-set", "erode<=input<=dilate", "radius-monotonicity", "axis-composition-equivalence", "wrapped-translation-equivalence"]
+  },
+  "causality": {
+    "size": [257, 129],
+    "edgeWidths": [0, 1, 4, 8],
+    "rustAmounts": [0, 0.5, 1],
+    "rustFills": [0, 0.5, 1],
+    "exposureAmounts": [0, 0.25, 0.5, 0.75, 1],
+    "colorReplacement": [0.8, 0.1, 0.4, 1],
+    "normalStrengths": [0, 0.5, 1],
+    "requirements": ["W-and-I-independent-of-rust-amount", "W-independent-of-edge-width", "B-zero-at-zero-radius-including-fractional-W", "B-monotonic-with-radius", "0<=R<=W<=1", "exposure-monotonic", "color-controls-affect-baseColor-only", "detail-seed-does-not-move-W", "normal-replay-from-final-height-exact", "seed-repeat-exact"]
+  },
+  "stress": [
+    {"id": "high-frequency", "controls": {"exposureScale": 64, "edgeWidth": 1}, "sizes": [[256, 256], [1024, 1024]]},
+    {"id": "subpixel-width", "controls": {"edgeWidth": 1}, "sizes": [[256, 256], [1024, 1024], [257, 129]]}
+  ],
+  "maxCrossRuntimeComponentError": 1,
+  "maxDefaultDownsampleMeanError": 4,
+  "downsampleChannels": ["height", "baseColor"],
+  "maxPasses": 24,
+  "maxDescriptorPeakBytes": 536870912,
+  "predictedGraphPasses": 23,
+  "predictedRetainAllTextureBytes2048": 771751936,
+  "resourceEstimateScope": "static texture-only estimate, not a compiled plan or GPU measurement; exceeds ceiling and requires actual-graph PERF-MAT investigation before acceptance",
+  "timing": {
+    "warmSamples": 5,
+    "hardware": {"adapter": "NVIDIA GeForce GT 1030", "cold1024Ms": 10000, "warmMedian1024Ms": 1000, "warmMedian2048Ms": 4000},
+    "software": {"adapter": "SwiftShader", "cold1024Ms": 60000, "warmMedian1024Ms": 20000, "warmMedian2048Ms": 80000}
+  },
+  "freezePrerequisites": ["review-concrete-graph-and-controls", "existing-node-input-downsample-feasibility", "explicit-catalog-and-0.7-version-decision"],
+  "acceptanceRequirements": ["exact-repeat", "exact-loose-package-roundtrip", "original-and-noise-v2-material-regressions", "software-Native-browser", "recorded-GT1030-Vulkan-DX12-Chrome", "metallic-aware-PBR-plane-sphere-tiling", "retained-human-decision", "six-required-checks"]
+}

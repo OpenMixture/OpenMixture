@@ -88,7 +88,7 @@ Work-item IDs below are not GitHub PR numbers. Each implementation seam uses an 
 
 MAT-02/03/04 use the same contract → minimal implementation seams → material evidence → qualification sequence. Break them into actual work items at entry, using lessons from the previous stage; do not assign speculative node IDs or shipping versions now.
 
-[MAT-02 preparatory design](./docs/mat-02-layered-weathering.md) records the neighborhood-morphology gap, a proposed contract, composition relationships and decisions to freeze at entry. Its node identity, candidate version and budgets are proposals, not catalog admission or implementation authorization. MAT-01 exit is satisfied; MAT-02 implementation still requires MAT-02a acceptance.
+[MAT-02a selected contract](./docs/mat-02-layered-weathering.md) freezes the morphology/subtraction identities, caller graph/control mappings and [qualification plan](./fixtures/materials/painted-metal/qualification-plan.json), supported by source-bound existing-input feasibility. It selects an unpublished 0.7 candidate at first implementation; current manifests and executable catalog remain unchanged. MAT-01 exit is satisfied. After contract integration, MAT-02b implements each node through a separate PR; predicted 2K memory failure must be measured before PERF-MAT, without relaxing the frozen budget.
 
 ### Common material acceptance and ownership
 

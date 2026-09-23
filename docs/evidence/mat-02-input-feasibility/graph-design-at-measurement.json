@@ -1,0 +1,31 @@
+{
+  "status": "design-only-not-a-mix-document",
+  "notes": "Explicit construction recipe for MAT-02a review. W, I, B, S, D, R are aliases in qualification-plan.json, not runtime expressions. Resolve controls in the caller before constructing a .mix v1 graph. Existing shaders round each stored intermediate to rgba16float.",
+  "nodes": [
+    {"id": "zero", "type": "constant-scalar", "version": 1, "parameters": {"value": 0}},
+    {"id": "macro", "type": "fractal-noise", "version": 2, "parameters": {"seed": "$macroSeed", "scale": "$exposureScale", "octaves": 3, "persistence": 0.5, "basis": "value"}},
+    {"id": "exposure", "type": "levels", "version": 1, "inputs": {"in": "macro.value"}, "parameters": {"inputMin": "$exposureInputMin", "inputMax": "$exposureInputMax", "gamma": 1, "outputMin": "$exposureOutputMin", "outputMax": "$exposureOutputMax"}},
+    {"id": "erodeX", "type": "scalar-morphology", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"operation": "erode", "axis": "x", "radius": "$radiusX"}},
+    {"id": "erodeY", "type": "scalar-morphology", "version": 1, "inputs": {"in": "erodeX.value"}, "parameters": {"operation": "erode", "axis": "y", "radius": "$radiusY"}},
+    {"id": "band", "type": "scalar-subtract", "version": 1, "inputs": {"a": "exposure.value", "b": "erodeY.value"}},
+    {"id": "rustSpread", "type": "scalar-blend", "version": 1, "inputs": {"a": "band.value", "b": "exposure.value"}, "parameters": {"weight": "$rustFill"}},
+    {"id": "detailNoise", "type": "fractal-noise", "version": 2, "parameters": {"seed": "$detailSeed", "scale": 32, "octaves": 2, "persistence": 0.5, "basis": "value"}},
+    {"id": "detail", "type": "levels", "version": 1, "inputs": {"in": "detailNoise.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$detailMin", "outputMax": 1}},
+    {"id": "rustMask", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "zero.value", "b": "rustSpread.value", "mask": "detail.value"}, "parameters": {"opacity": "$rustAmount"}},
+    {"id": "paintColor", "type": "constant-color", "version": 1, "parameters": {"value": "$paintColor"}},
+    {"id": "substrateColor", "type": "constant-color", "version": 1, "parameters": {"value": "$substrateColor"}},
+    {"id": "rustColor", "type": "constant-color", "version": 1, "parameters": {"value": "$rustColor"}},
+    {"id": "coatingColor", "type": "blend", "version": 1, "inputs": {"a": "paintColor.color", "b": "substrateColor.color", "mask": "exposure.value"}, "parameters": {"mode": "normal", "opacity": 1}},
+    {"id": "baseColor", "type": "blend", "version": 1, "inputs": {"a": "coatingColor.color", "b": "rustColor.color", "mask": "rustMask.value"}, "parameters": {"mode": "normal", "opacity": 1}},
+    {"id": "coatingRoughness", "type": "levels", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$paintRoughness", "outputMax": "$substrateRoughness"}},
+    {"id": "rustRoughness", "type": "constant-scalar", "version": 1, "parameters": {"value": "$rustRoughness"}},
+    {"id": "roughness", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "coatingRoughness.value", "b": "rustRoughness.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},
+    {"id": "coatingHeight", "type": "levels", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$paintHeight", "outputMax": 0.2}},
+    {"id": "rustHeight", "type": "constant-scalar", "version": 1, "parameters": {"value": "$rustHeight"}},
+    {"id": "height", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "coatingHeight.value", "b": "rustHeight.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},
+    {"id": "metallic", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "exposure.value", "b": "zero.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},
+    {"id": "normal", "type": "height-to-normal", "version": 1, "inputs": {"in": "height.value"}, "parameters": {"strength": "$normalStrength"}}
+  ],
+  "outputs": {"baseColor": "baseColor.color", "metallic": "metallic.value", "roughness": "roughness.value", "height": "height.value", "normal": "normal.normal"},
+  "inspectionAliases": {"W": "exposure.value", "I": "erodeY.value", "B": "band.value", "S": "rustSpread.value", "D": "detail.value", "R": "rustMask.value"}
+}

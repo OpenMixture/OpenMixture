@@ -1,8 +1,8 @@
-# MAT-02 — layered painted metal (draft contract)
+# MAT-02 — layered painted metal (selected contract)
 
 English | [简体中文](./mat-02-layered-weathering.zh-CN.md)
 
-Status: preparatory design, 2026-09-23. MAT-01 exit is now satisfied by its retained machine and human evidence; MAT-02a contract work is next. This document prepares MAT-02 under the [material roadmap](../ROADMAP.md); it does not accept a new catalog identity, start its runtime implementation, close MAT-01 or publish a package. Resolve the decisions and freeze the executable qualification plan before implementing the node.
+Status: MAT-02a selected implementation contract, 2026-09-23. MAT-01 exit is satisfied. This bounded review selects scalar-morphology@1 and scalar-subtract@1 with the [frozen graph/control/qualification design](../fixtures/materials/painted-metal/README.md). The [existing-input feasibility evidence](./evidence/mat-02-input-feasibility/README.md) supports the default downsample target only. No new runtime node is implemented or qualified by this document; implementation follows this contract through independent PRs. Publication remains separate.
 
 ## Material and missing operation
 
@@ -12,9 +12,9 @@ The current catalog already supplies `fractal-noise@2` value noise, `levels@1`, 
 
 The missing operation is a neighborhood minimum/maximum: existing pointwise remapping cannot erode a mask by a chosen spatial distance. Warping relocates samples and does not supply an erosion/dilation contract. A chipped-edge band must retain the original mask while subtracting its eroded interior; adjusting noise thresholds alone is not independent edge-width control.
 
-## Proposed scalar-morphology@1
+## Selected scalar-morphology@1
 
-One required `in: Scalar` input and one `value: Scalar` output. No random state. Proposed parameters:
+One required `in: Scalar` input and one `value: Scalar` output. No random state. Frozen parameters:
 
 | Parameter | Type / range | Default |
 |---|---|---|
@@ -28,13 +28,13 @@ An x instance followed by a y instance with equal radius produces a square Cheby
 
 Radius is deliberately a discrete texel count. The fixture consumer maps a public reference width (0..8 texels at 1024) to each axis using integer nearest rounding, `floor((referenceWidth * axisLength + 512) / 1024)`, with a minimum of one for nonzero reference width. The planned matrix is bounded to axes <=2048, so mapped radii remain <=16. This mapping belongs to the explicit fixture request builder, not hidden node semantics. Values outside the node range are rejected, never clamped. A square image has equal radii; rectangular outputs use independent x/y radii to preserve normalized axis width. Resolution rounding remains an explicit limitation, tested at small/odd sizes.
 
-Core owns the contract, validation, typed kernel parameters and hashing. wgpu owns the sole implementation and 16-byte u32 uniform `[operation,axis,radius,0]` with documented discriminants. Each instance is one 8x8 compute dispatch and one existing rgba16float intermediate; two-dimensional morphology uses two ordinary graph nodes. No new crate, implicit resource lookup, additional executor or multi-pass hidden node is proposed.
+Core owns the contract, validation, typed kernel parameters and hashing. wgpu owns the sole implementation and 16-byte u32 uniform `[operation,axis,radius,0]` with erode=0, dilate=1, x=0 and y=1 discriminants. Each instance is one 8x8 compute dispatch and one existing rgba16float intermediate; two-dimensional morphology uses two ordinary graph nodes. No new crate, implicit resource lookup, additional executor or multi-pass hidden node is proposed.
 
-## Proposed scalar-subtract@1
+## Selected scalar-subtract@1
 
-Required inputs `a: Scalar`, `b: Scalar`; output `value: Scalar`, no parameters or random state. For finite samples, clamp each input to [0,1], then return `max(a-b,0)` as `[value,0,0,1]` in rgba16float. Equal inputs produce exact zero; b=0 preserves normalized a; a<=b produces zero. This is saturating subtraction, not signed arithmetic or absolute difference. Core owns the contract/lowering and wgpu owns one pointwise WGSL kernel, using the existing empty-parameter uniform convention.
+Required inputs `a: Scalar`, `b: Scalar`; output `value: Scalar`, no parameters or random state. For finite samples, clamp each input to [0,1], then return `max(a-b,0)` as `[value,0,0,1]` in rgba16float. Equal inputs produce exact zero; b=0 preserves normalized a; a<=b produces zero. This is saturating subtraction, not signed arithmetic or absolute difference. Core owns the contract/lowering and wgpu owns one pointwise WGSL kernel, using a 16-byte reserved zero uniform `[0,0,0,0]` to preserve the existing uniform binding layout; no public parameter is introduced.
 
-This second candidate is justified by the inner edge band W-I. Masked interpolation with a zero endpoint computes W*(1-I), which incorrectly gives 0.25 for W=I=0.5 even at zero erosion radius. In exact arithmetic, three existing nodes can synthesize subtraction: invert b, mix a with that inverse at weight 0.5, then remap [0.5,1] to [0,1]. Their intermediate half-float storage can erase the band: for exactly representable a=0.5 and b=0.499755859375, rounding the inverse gives 0.5 and the composed result is zero, while a single subtraction retains 0.000244140625. This arithmetic counterexample motivates the single-pass contract; it is not GPU qualification. The [retained clean-source CLI reproduction](./evidence/mat-02-subtraction/README.md) confirms this composition loss on the recorded Vulkan/DX12 adapter. It supports the admission decision but does not accept a new kernel or material. Tests must include equal fractional fields, endpoints, ordering, exact half-representable differences and periodic inputs. Do not replace subtraction with that product or add unrelated arithmetic modes. Neither proposed identity is admitted until MAT-02a review.
+This second candidate is justified by the inner edge band W-I. Masked interpolation with a zero endpoint computes W*(1-I), which incorrectly gives 0.25 for W=I=0.5 even at zero erosion radius. In exact arithmetic, three existing nodes can synthesize subtraction: invert b, mix a with that inverse at weight 0.5, then remap [0.5,1] to [0,1]. Their intermediate half-float storage can erase the band: for exactly representable a=0.5 and b=0.499755859375, rounding the inverse gives 0.5 and the composed result is zero, while a single subtraction retains 0.000244140625. This arithmetic counterexample motivates the single-pass contract; it is not GPU qualification. The [retained clean-source CLI reproduction](./evidence/mat-02-subtraction/README.md) confirms this composition loss on the recorded Vulkan/DX12 adapter. It supports the admission decision but does not accept a new kernel or material. Tests must include equal fractional fields, endpoints, ordering, exact half-representable differences and periodic inputs. Do not replace subtraction with that product or add unrelated arithmetic modes. This MAT-02a review selects both identities for the bounded use case; executable catalog expectations change only in their implementation PRs.
 
 ## Composition and controls
 
@@ -44,21 +44,23 @@ Base color first mixes paint/substrate with W, then rust with R. Metallic is `W*
 
 Public conceptual controls cover exposure amount, exposure scale, explicit macro/detail seeds, chipped-edge width, rust amount, paint/substrate/rust colors, their roughness values, paint thickness, rust relief and normal strength. They are caller-side parameter mappings until MAT-04. Prefer the existing catalog except for the demonstrated neighborhood and saturating-subtraction gaps. AO, curvature, blur, additional Scalar operators, material-layer types and new normal blending require a separate demonstrated failure before admission.
 
-## Qualification to freeze before implementation
+The [concrete graph and control mapping](../fixtures/materials/painted-metal/README.md) now specifies a 23-pass recipe and a frozen seven-preset/four-size/five-channel matrix. The graph recipe is not an executable `.mix`. The static retain-all texture estimate already exceeds the unchanged 512 MiB ceiling; actual-graph measurements must precede a separate PERF-MAT lifetime/reuse change. The selected identities still require complete vertical implementation and qualification.
 
-The machine-readable plan must name exact presets, seeds, endpoints, sample locations, tolerances and request mappings; the following requirements must not be weakened after viewing failures.
+## Frozen qualification before implementation
+
+The machine-readable plan names exact presets, seeds, endpoints, probe fields/oracles, tolerances and request mappings; the following requirements must not be weakened after viewing failures.
 
 - Presets: default chipped paint, intact coating (W=0), exposed clean substrate (W=1,R=0), rusted exposed substrate (W=1,R=1), edge rust, changed macro seed and changed detail seed. Render all five material channels at 256², 1024², 2048² and 257x129. Endpoint presets must analytically reproduce their constant material values and neutral normals when detail is disabled.
 - Node probes: radius 0/1/16, both operations/axes, 1x1/1x17/17x1 and odd rectangles, constant fields, impulses, thin lines, centered rectangles and features crossing the periodic boundary. Assert exact expected interior values and affected pixel sets, min<=input<=max, monotonicity with radius, x/y composition equivalence and translated periodic equivalence. Independent scalar expected-value assertions in tests are allowed; no CPU rendering API or fallback is introduced.
 - Causality: increasing edge width expands B without changing W; zero width produces exactly zero B even for fractional W; rust amount changes R without changing W/I; seed changes are deterministic; amount endpoints are exact; color changes remain in baseColor. Check `R<=W`, metallic and roughness relationships, height ordering and normal consistency on the actual material, not only separate toy graphs.
 - Repeated same-adapter pixels and loose/package roundtrips are exact. Every Native/browser RGBA8 channel comparison keeps maximum component error <=1, including normal. Cover pinned software and the explicitly recorded GT 1030 Vulkan/DX12 versus Chrome paths; investigate failures without generalizing existing noise qualification.
-- Freeze default 256² versus downsampled 1024² height/baseColor mean-error limits before shader work. Start with the MAT-01 4/255 target, then establish feasibility from existing-node inputs and the specified morphology mapping. Record high-frequency and subpixel-width stress separately; never relabel a default failure as stress. The integer radius mapping is not a promise of exact resolution independence.
-- Initial resource ceiling: <=24 passes and <=512 MiB descriptor peak at 2048², with existing global safety limits unchanged. Target GT 1030 cold 1K <=10 s, five-warm median 1K <=1 s and 2K <=4 s; pinned software <=60 s / 20 s / 80 s respectively. These provisional design budgets must be frozen in the plan before implementation. An actual graph exceeding them triggers PERF-MAT measurements and a separate optimization slice, not a larger budget. Record the compiler's retain-all estimate before choosing an optimization.
+- Default 256² versus downsampled 1024² height/baseColor mean-error limits are frozen at 4/255. Retained existing-node input measurements support feasibility, not full-material acceptance; the specified discrete radius mapping remains required. Record high-frequency and subpixel-width stress separately; never relabel a default failure as stress. The integer radius mapping is not a promise of exact resolution independence.
+- Initial resource ceiling: <=24 passes and <=512 MiB descriptor peak at 2048², with existing global safety limits unchanged. Target GT 1030 cold 1K <=10 s, five-warm median 1K <=1 s and 2K <=4 s; pinned software <=60 s / 20 s / 80 s respectively. These budgets are now frozen in the plan before implementation; they are targets, not measured results. An actual graph exceeding them triggers PERF-MAT measurements and a separate optimization slice, not a larger budget. Record the compiler's retain-all estimate before choosing an optimization.
 - Preserve fixed-light/camera PBR views with metallic shading, plane/sphere, close-ups and repeated tiling. Extend the consumer preview to read the metallic map; dielectric-only MAT-01 views cannot qualify this material. Retain real human decisions and the reviewed bytes. Keep original and migrated material regressions, public package consumption, all six required CI checks and paired documentation.
 
 ## Compatibility decisions and implementation order
 
-The two proposed nodes fit `.mix v1`, API/plan schema 2 and package v1 without changing existing node semantics. New Rust kernel variants affect exhaustive matches; propose the next unpublished minor candidate (0.7), but select exact source versions only after MAT-01 integration state is rechecked. Old runtimes must reject the new identities explicitly. Do not auto-migrate documents or update old goldens.
+The two proposed nodes fit `.mix v1`, API/plan schema 2 and package v1 without changing existing node semantics. New Rust kernel variants affect exhaustive matches; select Rust 0.7.0 and browser 0.7.0-alpha.0 at the first new-node implementation. This design PR leaves current 0.6 manifests unchanged. After both implementations the explicit catalog will contain seventeen node types lowering to fifteen kernels; this is a reviewed identity list change, not a count target. Old runtimes must reject the new identities explicitly. Do not auto-migrate documents or update old goldens.
 
 | Item | Deliverable / prerequisite |
 |---|---|

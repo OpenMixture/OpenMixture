@@ -1,0 +1,5 @@
+# These measured bytes are bound by receipt.json; do not normalize line endings.
+*.json -text
+*.mix -text
+*.stderr.log -text
+reproduce.py -text

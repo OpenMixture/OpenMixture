@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "macro",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 1729,
+        "scale": 8,
+        "octaves": 3,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "exposure",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.4,
+        "inputMax": 0.6000000000000001,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "detailNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 65537,
+        "scale": 32,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "detail",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.5,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "paintColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.04,
+          0.12,
+          0.2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "substrateColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.3,
+          0.32,
+          0.34,
+          1
+        ]
+      }
+    },
+    {
+      "id": "coatingColor",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "coatingHeight",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.25,
+        "outputMax": 0.2
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1,
+      "parameters": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "macro",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "exposure",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "detailNoise",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "detail",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "paintColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "substrateColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "coatingColor",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "coatingHeight",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "coatingColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "coatingHeight",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "exposure",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "metallic"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "detail",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    }
+  ],
+  "exposedParameters": []
+}
