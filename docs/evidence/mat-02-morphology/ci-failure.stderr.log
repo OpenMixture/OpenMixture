@@ -1,0 +1,24 @@
+[1m[92m   Compiling[0m mixture-wgpu v0.7.0 (/home/runner/work/OpenMixture/OpenMixture/crates/mixture-wgpu)
+[1m[92m   Compiling[0m mixture-cli v0.7.0 (/home/runner/work/OpenMixture/OpenMixture/crates/mixture-cli)
+[1m[92m    Finished[0m `test` profile [unoptimized + debuginfo] target(s) in 6.87s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/mixture-6d0cb0a1426d1bcc)
+[1m[92m     Running[0m tests/cli.rs (target/debug/deps/cli-e5eba3f6c1e55db3)
+[1m[92m     Running[0m tests/diagnostics.rs (target/debug/deps/diagnostics-b7e1bae36a402705)
+[1m[92m     Running[0m tests/doctor.rs (target/debug/deps/doctor-b4d6e6c21a1ddc31)
+[1m[92m     Running[0m tests/inspect.rs (target/debug/deps/inspect-2daa2a4b8fedbdcd)
+[1m[92m     Running[0m tests/render.rs (target/debug/deps/render-7cb2ff461043d9c9)
+[1m[92m     Running[0m tests/render_builtin.rs (target/debug/deps/render_builtin-8f56965c897b2885)
+[1m[92m     Running[0m tests/validate.rs (target/debug/deps/validate-da026be97adef0ef)
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/mixture_wgpu-27f1e593d0f10196)
+readback failure cleanup: {"code":"MIX_READBACK_FAILED","stage":"readback","severity":"error","message":"Output resource is missing.","evidence":{"adapterName":"SwiftShader Device (LLVM 10.0.0)","allocationCumulativeBytes":2344,"allocationLiveBytes":0,"allocationPeakBytes":2344,"allocationReleasedBytes":2344,"allocationStagingCount":1,"allocationTextureCount":1,"allocationUniformCount":1,"backend":"Vulkan"},"suggestion":"Inspect the readback layout and driver evidence; rerun doctor on the same adapter."}
+device-loss mapping cleanup: {"code":"MIX_READBACK_FAILED","stage":"readback","severity":"error","message":"Readback mapping failed.","evidence":{"adapterName":"SwiftShader Device (LLVM 10.0.0)","allocationCumulativeBytes":1536,"allocationLiveBytes":0,"allocationPeakBytes":1536,"allocationReleasedBytes":1536,"allocationStagingCount":1,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Vulkan","cleanupCode":"MIX_READBACK_FAILED","cleanupDriverMessage":"Validation Error\n\nCaused by:\n  In Buffer::buffer_unmap\n    Buffer with 'staging before device destruction' label has been destroyed\n","cleanupMessage":"Could not unmap the texture readback buffer.","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","driverMessage":"Error occurred when trying to async map a buffer"},"suggestion":"Inspect the readback layout and driver evidence; rerun doctor on the same adapter."}
+[1m[92m     Running[0m tests/checker.rs (target/debug/deps/checker-ad130ce451f3053f)
+[1m[92m     Running[0m tests/context.rs (target/debug/deps/context-0a0fc4ce95d39272)
+[1m[92m     Running[0m tests/nodes.rs (target/debug/deps/nodes-7d331c8a26896f47)
+
+thread 'graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes' (7376) panicked at crates/mixture-wgpu/tests/nodes.rs:751:13:
+assertion failed: seen.len() <= 12
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+destroyed device, warmCache=false: {"code":"MIX_GPU_DEVICE_LOST","stage":"gpuExecution","severity":"error","message":"The GPU context received a device-loss notification.","evidence":{"adapterName":"SwiftShader Device (LLVM 10.0.0)","allocationCumulativeBytes":0,"allocationLiveBytes":0,"allocationPeakBytes":0,"allocationReleasedBytes":0,"allocationStagingCount":0,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Vulkan","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","failureReason":"deviceLost","planHash":"sha256:bff050909b8d2050b742a6e5636a4bd2b664b8708098be96c29d4efc603cdda5"},"suggestion":"Stop using this context. The application may explicitly acquire a new context; Mixture does not retry or recover automatically."}
+destroyed device, warmCache=true: {"code":"MIX_GPU_DEVICE_LOST","stage":"gpuExecution","severity":"error","message":"The GPU context received a device-loss notification.","evidence":{"adapterName":"SwiftShader Device (LLVM 10.0.0)","allocationCumulativeBytes":0,"allocationLiveBytes":0,"allocationPeakBytes":0,"allocationReleasedBytes":0,"allocationStagingCount":0,"allocationTextureCount":0,"allocationUniformCount":0,"backend":"Vulkan","deviceLost":true,"deviceLostMessage":"","deviceLostReason":"destroyed","failureReason":"deviceLost","planHash":"sha256:bff050909b8d2050b742a6e5636a4bd2b664b8708098be96c29d4efc603cdda5"},"suggestion":"Stop using this context. The application may explicitly acquire a new context; Mixture does not retry or recover automatically."}
+[1m[91merror[0m: test failed, to rerun pass `-p mixture-wgpu --test nodes`

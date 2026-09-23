@@ -725,6 +725,25 @@ fn graph_gpu_device_loss_with_warm_cache_is_typed() {
 #[test]
 #[ignore = "requires GPU; cargo xtask gpu-smoke"]
 fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
+    // Reviewed non-resource kernels exercised by NODES; image upload has a separate fixture.
+    let expected: std::collections::BTreeSet<String> = [
+        "Blend",
+        "BrickPattern",
+        "Checker",
+        "Constant",
+        "FractalNoise",
+        "GradientMap",
+        "HeightToNormal",
+        "Levels",
+        "ScalarBlend",
+        "ScalarMaskBlend",
+        "ScalarMorphology",
+        "Transform2d",
+        "Warp",
+    ]
+    .into_iter()
+    .map(str::to_owned)
+    .collect();
     let mut renderer = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
     let mut other = Renderer::new(pollster::block_on(GpuContext::request(options())).unwrap());
     let mut seen = std::collections::BTreeSet::new();
@@ -748,7 +767,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
                 seen.insert(format!("{:?}", pass.kernel.id()));
             }
             assert_eq!(renderer.cached_pipeline_count(), seen.len());
-            assert!(seen.len() <= 12);
+            assert!(seen.is_subset(&expected));
             assert_eq!(report.allocations.live_bytes, 0);
             assert_eq!(
                 report.allocations.released_bytes,
@@ -770,7 +789,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
             rows.push(json!({"node":name,"case":case.id,"execution":report,"repeatedExecution":again.report()}));
         }
     }
-    assert_eq!(seen.len(), 12);
+    assert_eq!(seen, expected);
     renderer.clear_pipeline_cache();
     assert_eq!(renderer.cached_pipeline_count(), 0);
     let plan = plan(

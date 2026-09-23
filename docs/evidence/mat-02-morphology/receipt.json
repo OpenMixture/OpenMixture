@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "ad70106fae586777597cf885268e1d19a66fe5d6",
+  "sourceDirty": false,
+  "scope": "Windows GT 1030 morphology node parity only; material and full integration acceptance pending",
+  "browserCases": 192,
+  "nativeBackends": [
+    "Vulkan",
+    "Dx12"
+  ],
+  "maxComponentDelta": 0,
+  "exactPlanHashes": true,
+  "exactRepeat": true,
+  "cpuRepositoryCheck": {
+    "result": "passed",
+    "sourceRevision": "ad70106fae586777597cf885268e1d19a66fe5d6",
+    "logRetention": "ignored tmp/morphology-check-ad70106.log"
+  },
+  "softwareCi": {
+    "result": "failed",
+    "runId": 35826916523,
+    "headRevision": "ad70106fae586777597cf885268e1d19a66fe5d6",
+    "actualCheckoutRevision": null,
+    "nodeProbeResult": "passed",
+    "failure": "graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes: seen.len() <= 12",
+    "artifactId": 10736095230
+  },
+  "sourceFiles": {
+    "Cargo.lock": "633a3590e2a785361db45d3a07a45e899ce3ff55e52dc3dc0351a6e528d01cbe",
+    "crates/mixture-core/src/nodes/scalar_morphology.rs": "eb088104e570a0e5848b50215c80b5714d221f11978a7a6a84266a584efbfb3a",
+    "crates/mixture-wgpu/shaders/nodes/scalar-morphology.wgsl": "48b7c6f0b7a76df961ed21e092a4b26a2b5568e9aaf78744c39d3d83678b651b",
+    "fixtures/nodes/scalar-morphology/input.mix": "7535e89604d992da627ac2b0b4a76453666ce9ee9e6d5f050547342d7b235a0b",
+    "fixtures/nodes/scalar-morphology/cases.json": "1d77bd27ab6f5ac8a57b98c2092b5fdb75bd0e7a75e45bf3a1176c934a13cca6",
+    "fixtures/materials/painted-metal/qualification-plan.json": "5a9459bf1e978df70014d25ae14c8a72fc981e17b2019bee4c7040c8fd99223c",
+    "examples/browser-consumer/tests/morphology.spec.mjs": "a72a2ba5c3564f0049da1fece102745820fe0330341a3e10e83837390e0dee9f",
+    "examples/native-consumer/tests/morphology.rs": "a52f51e11566f48e59a867efea83159ab4e1427cf0b3570ee8311846d3770799",
+    "scripts/browser-runtime/check-morphology.mjs": "9ebb5c7c622b528d148582bf6db32708fb2ca9d2386ca7027472aa738bcba010"
+  },
+  "files": {
+    "archive-receipt.json": "7165d6b39b5c27c3e9cca9cfd679e4aed9f8dcf53e3fe7ba687e55e652f89187",
+    "browser-qualification.json": "33075f290dd25d59bc8776d310a9485549111aac32b4460a719de4d0eb1bd23c",
+    "browser.json": "d906abd65cc676f36ea0078c566f490d51f9697f47308878c2d32b65581aa63f",
+    "ci-failure.stderr.log": "ee10048b9aa77ed8ee67a4b6f2e55f677a6f66c12a9ad60873e78290107398ad",
+    "ci-failure.stdout.log": "c80292327e99b35e1d559fd9708e924b52c8a346e6b73a4368febb642810ebed",
+    "comparison-dx12.json": "75981b3470e1c34f52ca6377b2fb4364afa5a77abf5c815bf2d81ee1515d2fee",
+    "comparison-vulkan.json": "5444e9a3d5c01f598383cf436e42d4fa4fe2ce6b2ccfd9bf2efde4f3376902ce",
+    "native-dx12.json": "c24908c020c6c487e74608e357bde8351b3f15ae73b65ad7d7135b2f8d233cd1",
+    "native-vulkan.json": "4cc429e659e7ee1ad17418cc3be51fc3c6d359a5ecd00a3b8842e83a8a55159e",
+    "support-review.png": "6b0cac16a1d96ad4227c327e871c7b4cb6f1e9d1cfd7d900c11ac2dd6aaa2bde"
+  },
+  "humanApproval": false,
+  "visualReview": "support-review.png shows literal browser masks; agent inspection only, no material PBR acceptance",
+  "retention": "Selected pixels/receipts and critical failure logs are retained in Git; compiler output, archive bytes and routine logs remain ignored/CI artifacts."
+}

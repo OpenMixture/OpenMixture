@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "mode": "candidate",
+  "ok": true,
+  "startedAt": "2026-09-23T06:30:47.991Z",
+  "verifierSha256": "52aede7a515e9711242cb2530a055211b2fe5f8774808312eb0bfbbeab962d3d",
+  "consumerRevision": "ad70106fae586777597cf885268e1d19a66fe5d6",
+  "consumerDirty": false,
+  "staging": "C:\\Users\\krapnik\\AppData\\Local\\Temp\\mixture-browser-consumer-zSqPZx",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.21.0",
+  "run": null,
+  "attempt": null,
+  "sourceFiles": {
+    ".gitignore": "f081d6ab1cfce0ea2fdd0bfe4eeb5de7d0180a061e8ee64c232c8078e4d4d442",
+    "index.html": "037394de86be36a4c3ff8a316b2c5917cbe3305a40f51ea0656abf4c9a636245",
+    "package-lock.json": "da3260d7087692fef06fca2c2d3215e328caddbbf7333e8d818dd246e4b1f6da",
+    "package.json": "c6eedbdee271a2ed1da64ab8b22406e9ee110ae8ec91e71b74a66dda5430f362",
+    "playwright.config.mjs": "2c2dbd07593e8a9f6bb9983b185af419598b1d2d8e29cb0d79ad816516a38ecb",
+    "public/asset.mix": "ca3996221ac0be990e76c1c5797c1ef0b2812e1e726e5bf7de4085525cc2b91a",
+    "public/asset.mixpack": "6dc66adfab06c5ae7a0e8ea7edc989d33c00f817e04354d70e5ae20a4c38f0b7",
+    "public/image-input-v2.mix": "5ccd67650afe4dff85814c0e58f7ae9a321190574a924bd12b0841a4a97d9521",
+    "public/image-input.mix": "b57da35237bcc02b46f8b09a74af66555a67a1bb0b834a5a37451339f42d983a",
+    "public/input.mix": "21ed0a6b2ae618f18da4fe1daf054aee6c10c8ce52d4671273174f5f4a6faa81",
+    "public/scalar-blend-v2.mix": "4003159cd9212bc2877520ed5173cd2607af39487043e327c81591d1f2303f42",
+    "public/scalar-blend.mix": "e2d75e9e4b10f9a85bf1615dc6a5d7d4049939b7eb4b5fd628235363d2054aea",
+    "README.md": "95e0bdf339be8ff5f23c74a8e70c9e1003803073e771344b326eaf4f59ef63fe",
+    "README.zh-CN.md": "2108d0d9ee0d5fea7341324fbf7c1c15a5d7b874c5daae79c0f54a23275ddb46",
+    "src/consumer.ts": "de4aed76bd379e4d891887ce86f8878fce1a3800a2ed21e4eeb08f42c6fb221e",
+    "src/main.ts": "d6cce916802602bc9dbb7d0d54ba1813b826d588f41ba3fcb75957d30572e46a",
+    "src/style.css": "b2c83f9d2bd278c766d48bb38c7d1a96d7838e0099081efa3a7496eadfc380a3",
+    "tests/assets.spec.mjs": "eca4ed48792c5b310f6ba78ec588e914a9789c07434ab66605d7560172d01f78",
+    "tests/brick.spec.mjs": "ec561db32dd2313eb64a0f3c50dce14b475c2bc96ec19df4e784ba76d65b61ba",
+    "tests/contracts.html": "6d5b842f00628c9534ce865d15baee12a1e3c3a82585adcff619980c4d5e22ed",
+    "tests/harness.ts": "2235c0e2d5d6b09e6696e3d3f36744c37e34a7a1e44077c323c91359c2c19248",
+    "tests/morphology.spec.mjs": "a72a2ba5c3564f0049da1fece102745820fe0330341a3e10e83837390e0dee9f",
+    "tests/resources.spec.mjs": "a7cfc3e62b34c4bf7492787c06d7c5aacb8ba6760354bf3d83250010a4451716",
+    "tests/sdk.spec.mjs": "83c0eff23f74b1d283e169694f4fe3b8aeaeec14536e7267f7133a080954268d",
+    "tsconfig.json": "b4c4a18bf04772768b3c2858f085ed1281dbae3efba3f4afa0927318cd12c7d9",
+    "vite.config.mjs": "8f33dc492ab6844b7cc8fb0c54f59be5eacabe7daf5b403763d98debf845164c"
+  },
+  "brickFixtures": {
+    "material.mix": "168c3ccfd67233a3cf9b8006b4bbd0925be84b643cf8df5fe9c4e358e983d74d",
+    "controls.json": "a7dccdd42d14c67a2d20f06722d84b14b470fad06e1833b6313f0cb87aff66c3",
+    "qualification-plan.json": "0f4a795d320f14fa885bc8be93f6c728a0fec92e7c6129f69abeb9e61cc6411e"
+  },
+  "assetFixtures": {
+    "1024x1024.mixpack": "8906ec7c349732d05e87b53f6a865baf4a8e77421675c5bc6e05a3297fd0f059",
+    "65x3.mixpack": "3bf5922469f191930cf6877de0dd4bfd08b3ab27785b45e8f1227ae0620eba74"
+  },
+  "build": {
+    "runtimeVersion": "0.7.0-alpha.0",
+    "apiSchemaVersion": 2,
+    "engineVersion": "0.7.0",
+    "engineRevision": "ad70106fae586777597cf885268e1d19a66fe5d6",
+    "engineDirty": false,
+    "buildId": "sha256:f43d152eae2c6773a117c06aedf9b5101f71d16629446a3e2b73cbcb3b0c959d"
+  },
+  "archiveSha256": "009bd4f451e4524f670cbfa0a34b3d687a49729ede9de9840df36466a8c0f662",
+  "archiveIntegrity": "sha512-xcOlDAbwVxPLagE/Jp2doBpkQvBzGGDxGfp3uH8sup1rqQGw81XMAw31UiPcjVRACBTqgVJLh6o3UWfyd4E8eA==",
+  "fileHashes": {
+    "LICENSE-APACHE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "b020c259dcfe6ff000542bcae123bfc7658717ee3e9697ce64da370b6553e3c7",
+    "src/bindings.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "src/build-info.js": "0c11890b7db3d09de39fdfd4fd0eef44d6cc83ff78036d8480ac34c650edae0b",
+    "src/index.js": "702126492ec5c76fdd817cfd096063b9520a8997cb906d897e414a4c653dd1b0",
+    "src/runtime.js": "64db5e6ef1ce8ab15fdebba72cb0ea32cf915b97d9ac932791b861362b01d1fc",
+    "src/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "build-info.json": "bcdc4729979c0ee39c976c53f599dd4263a237dc27781aef6d4c47c1b18cea92",
+    "package.json": "83c88b8d96151afb711e4a489f99d9dd375f0d2aed4f05ab2c837bb9b4277cab",
+    "README.md": "68075bc75462b55b39729b2ce1442fd05d2b01f22d6392c9a81ae0e262ef6549",
+    "README.zh-CN.md": "6f67a02e237e7efa372053d1ff6632b2ffd00d53ec7f096726201d484502affd",
+    "wasm/bindings.mjs": "14afd9847cd98d6a2b45de94ee6f1abaf95da739509aa714287bb40842a687f5",
+    "src/bindings.d.ts": "e3d5ce2d0e8141530f04b40c6a55c30113ef1a78d83b5ae32dceaf2b56e22978",
+    "src/index.d.ts": "7acba7265ee6fdf2fa1bcb26f45194cfe623256b998216126f3e68232ab0f20d",
+    "src/runtime.d.ts": "6f9b286e6442ee12dadd45068fbbc0367b2466a4f814cf022c4c5492fc5cc9c7",
+    "src/types.d.ts": "d1daa3c7888e25f49dc625938bb2de0057cbf482a52241033b3d80b62801fde8",
+    "wasm/mixture_wasm_bg.wasm": "7c810e2030b9b626289ec7d02ecb4ccff091afcf7f9c91499087b0a30cdd6f05"
+  },
+  "lockSha256": "4f5157aecd7480d08f02bcc241b394a29813f8bcd339961cc01db87548337038",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "browserChannel": "chrome",
+  "toolchain": {
+    "npm": "11.19.0",
+    "playwright": "1.63.0",
+    "vite": "8.3.0",
+    "typescript": "5.9.3"
+  },
+  "browserTests": {
+    "startTime": "2026-09-23T06:31:31.051Z",
+    "duration": 48744.161,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "finishedAt": "2026-09-23T06:32:19.862Z"
+}
