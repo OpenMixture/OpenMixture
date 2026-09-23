@@ -14,14 +14,16 @@ This page records current source contracts. The earlier [PR-015 record](./eviden
 
 ## Version and data boundaries
 
+[ADR 0009](./decisions/0009-transient-texture-reuse.md) selects plan/hash/API and graph-report v3 at first PERF-MAT implementation, with an unpublished 0.8 candidate, recompiled source requests and invalidated plan caches. This design changes no executable version; the table remains the current contract. `.mix` and package v1 stay unchanged.
+
 | Boundary | Current contract | Change review |
 |---|---|---|
 | Source `.mix` | Strict UTF-8 JSON, document version `1`; unknown/duplicate fields, unsupported versions and invalid values fail explicitly. | Never reinterpret a field under the same version. Format changes follow the architecture's version/migration tests and bilingual guide requirements. No legacy format decoder or migration exists. |
-| Nodes | Thirteen built-in types, eleven pixel kernels; `fractal-noise` supports explicit versions `1` and `2`, other nodes require `1`. IDs, ports, parameter types/ranges/defaults and explicit seeds come from core. | Semantic changes require deliberate node/format version decisions, contracts, fixtures and golden evidence; no duplicate catalog or silent default change. |
+| Nodes | Seventeen built-in types, fifteen pixel kernels in the working 0.7 candidate; `fractal-noise` supports explicit versions `1` and `2`, other nodes require `1`. IDs, ports, parameter types/ranges/defaults and explicit seeds come from core. | Semantic changes require deliberate node/format version decisions, contracts, fixtures and golden evidence; no duplicate catalog or silent default change. |
 | RenderPlan | Plan version `2`; immutable compiled semantics and deterministic canonical ordering. | Review serialization and exact hash snapshots. A changed compiler representation or semantic input may invalidate saved plans/hashes; `.mix` remains the source of truth. |
 | CLI reports | Schema `2` for `inspect --plan` and graph `render`; schema `1` for doctor, fixed checker and asset envelopes; `validate` retains its original unversioned `{ok, diagnostics}` envelope. | Preserve each command's presence/null/omission rules and exits; update independent process tests and docs with deliberate wire changes. Do not invent a version field for existing validate output. |
 | Diagnostics | Stable code/stage/context vocabulary for this build; messages and native sources remain descriptive evidence. | Additions require vocabulary/consumer review. Strict older decoders can reject new code strings even when the enclosing CLI schema version stays `1`. |
-| Rust packages | Source APIs at `0.5.0`, exact peer-package requirements; compilation against the recorded dependency lock. | Review source compatibility and public dependency exposure. Package metadata alone cannot certify arbitrary dependency upgrades or a cross-version binary ABI. |
+| Rust packages | Working source APIs at `0.7.0` (qualification/publication remain separate), exact peer-package requirements; compilation against the recorded dependency lock. | Review source compatibility and public dependency exposure. Package metadata alone cannot certify arbitrary dependency upgrades or a cross-version binary ABI. |
 
 The [format guide](./file-format.md), [node contracts](./node-contracts.md), [plan guide](./render-plan.md), [CLI contract](./cli-contract.md) and [diagnostic vocabulary](./diagnostics.md) define the detailed executable behavior. Existing tests/stable public behavior retain the authority order in [AGENTS.md](../AGENTS.md).
 

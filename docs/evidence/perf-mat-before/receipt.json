@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "e7b25c4e36f6d7a2052fdba11d8cdfffad762a9d",
+  "sourceDirty": false,
+  "scope": "PERF-MAT entry: actual default painted-metal 2K compilation failure and valid 1K five-channel Vulkan baseline; not material acceptance",
+  "recordedAt": "2026-09-23",
+  "timezone": "Asia/Shanghai",
+  "toolchain": {
+    "rust": "rustc 1.98.1 (48a229cea 2026-09-01)"
+  },
+  "humanApproval": false,
+  "warmTimingMeasured": false,
+  "measurementKind": "GPU descriptor accounting, not driver memory or process RSS",
+  "commands": [
+    "cargo build --locked -p mixture-cli",
+    "mixture inspect tmp/painted-metal-default.mix --plan --size 1024 --output baseColor,normal,roughness,metallic,height --json",
+    "mixture inspect tmp/painted-metal-default.mix --plan --size 2048 --output baseColor,normal,roughness,metallic,height --set radiusX=8 --set radiusY=8 --json",
+    "mixture render tmp/painted-metal-default.mix --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out tmp/painted-metal-1024-vulkan-e7b25c4 --json"
+  ],
+  "sourceFiles": {
+    "Cargo.lock": "633a3590e2a785361db45d3a07a45e899ce3ff55e52dc3dc0351a6e528d01cbe",
+    "crates/mixture-core/src/compiler/lower.rs": "5af3d5bb283f249a579d8c020618b22463662cdef1885b88a9a2978fc4554cd0",
+    "crates/mixture-core/src/plan.rs": "1854b6ecfaf0b2776bd154dc93d65af1d7a84882743a18877c63fae528ffc731",
+    "crates/mixture-wgpu/src/resources.rs": "b03fc1f7665a2bd0b28408f024aba14b0b700d01414b990e622767fb17dc9c8e",
+    "crates/mixture-wgpu/src/executor.rs": "be3b80482bf578540ccac6cb414550015a14a1bbcc5910d925c7ec927eaabd41",
+    "fixtures/materials/painted-metal/graph-design.json": "f2cba8333dc88dcc729370b7c342b7aa15b91a569002b5cbb47187fcdd6dd722",
+    "fixtures/materials/painted-metal/qualification-plan.json": "5a9459bf1e978df70014d25ae14c8a72fc981e17b2019bee4c7040c8fd99223c",
+    "crates/mixture-wgpu/shaders/nodes/blend.wgsl": "ffce5f2f1684a6fd5834686f6052890d861d09c3acbbcfab59410acbdd196ef5",
+    "crates/mixture-wgpu/shaders/nodes/brick-pattern.wgsl": "b2707980cc593f70615ce4883d14531c790c6e33e1fb47eaa3949d4dfae62150",
+    "crates/mixture-wgpu/shaders/nodes/checker.wgsl": "089d04ac234c1cfc225d61dabb98f955b1c7d90da7c993b8c5278f018248bd24",
+    "crates/mixture-wgpu/shaders/nodes/constant.wgsl": "3e71c6c25a44ae38c034bed7866cbb773dea2051a2afe1cb6422c79912614e11",
+    "crates/mixture-wgpu/shaders/nodes/fractal-noise.wgsl": "2c31a8e08262326e4e7d16286903a70e3f1216e26353c003fb615727016d2be4",
+    "crates/mixture-wgpu/shaders/nodes/gradient-map.wgsl": "b07a154743c869d92d43f918571e0efb2743128448ccdddbf948b9b0d214023a",
+    "crates/mixture-wgpu/shaders/nodes/height-to-normal.wgsl": "4900048ccd35c9be51395c2bdf2a90c2be7b0582338dbde21b9167aa539c8e89",
+    "crates/mixture-wgpu/shaders/nodes/image-input.wgsl": "78c5b0bde39c91b648ec960dc26f45bf1be91aa79462e4b369a1ff3eef16e226",
+    "crates/mixture-wgpu/shaders/nodes/levels.wgsl": "335bcc1f9dc9d7cde13846286d0113baa620d4a3555c141bf352a6e1cc838290",
+    "crates/mixture-wgpu/shaders/nodes/scalar-blend.wgsl": "2f2d3eebbaf56f0ddf9cbe0735f18cbbd2317b04119856d8cdead6d6bd010a78",
+    "crates/mixture-wgpu/shaders/nodes/scalar-mask-blend.wgsl": "aff2b275ea91d8ac1d7152a74f5137874d6e0e50862d79588d72b8c12180a776",
+    "crates/mixture-wgpu/shaders/nodes/scalar-morphology.wgsl": "48b7c6f0b7a76df961ed21e092a4b26a2b5568e9aaf78744c39d3d83678b651b",
+    "crates/mixture-wgpu/shaders/nodes/scalar-subtract.wgsl": "9b7bcdae9bdaf0997c3c2603e1c7a45da8e15afaaef7ee0e25bcd356fe1d6c79",
+    "crates/mixture-wgpu/shaders/nodes/transform-2d.wgsl": "b863119ee39924f5a57eb42b55e32af449a23dbcb82f5ca2effcd6d9a3fc39af",
+    "crates/mixture-wgpu/shaders/nodes/warp.wgsl": "0cfc85b503de8a595e43a06cf25f2b670c392da7dae4cf4801b9251a0203e5ba"
+  },
+  "files": {
+    "material.mix": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+    "plan-1024.json": "a0d7d124c7aac360dabbd3149ac97c50ea3dd8e7386aff0963d0797178ef6b32",
+    "rejected-2048.json": "5f51cef8f1225035c845774f7df155a52a2d94fc5add3268f8e0f7888a2622e8",
+    "render-1024-vulkan.json": "0e676f339e61b851be4aff7fc8bdd6d6669708c2a4bf535ff3a17a1e90e2fd71",
+    "baseColor-1024.png": "b4e4aa3ec8ed69396e70862876627d619c5ac05077e96de86de3129a4b927ef2",
+    "normal-1024.png": "bf99d26fef058ac42b474654c76c126440802f629561104bedd6bc9f422e01d9",
+    "roughness-1024.png": "e2b84a13fd5d9d7f25f51145a8fa23177d3da15907b1b1e7b47ed8cdd4d035e3",
+    "metallic-1024.png": "f4935ac7b27924e3f4e680c3ed2953d2394461bf712c2cb0410b3fbe42774b78",
+    "height-1024.png": "ac7da45013af097c7d9249084f7e48a9490aaf9db103a682d3307fb548798f92"
+  },
+  "limits": {
+    "transientBytes": 536870912,
+    "observed2048": 805306832
+  },
+  "retention": "Original selected input, reports and five PNG outputs are in Git. Build products and routine logs remain ignored; no original binary archive or external durable archive claimed."
+}
