@@ -78,3 +78,5 @@ Use [release status](./release.md) as the shared entry point for current state; 
 [M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and the v1 hardware failure; see [stable noise](./stable-noise.md) for the explicit v2 repair.
 
 [Browser 0.3.0 publication evidence](./evidence/npm-030-alpha/README.md) records main integration, frozen archive, publication and exact registry consumption.
+
+Retrieve historical attachments on demand using the [archive restore guide](./evidence/archives/README.md). Python 3.10+ standard-library tools verify original bytes, not pixel qualification. The CPU workflow runs `python scripts/evidence/test_restore.py` offline.

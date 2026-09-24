@@ -55,6 +55,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 - **数值：** 不得重置 golden，或把实测修复泛化到其记录节点和硬件之外。见[稳定噪声](./docs/stable-noise.zh-CN.md)。
 - **交付：** `main` 需要六项检查。仅文档的 PR 可跳过 GPU/浏览器任务；被跳过的检查不是验收证据。CPU 或软件检查通过不认证硬件像素。
 - **证据：** 普通运行输出留在 CI 产物或被忽略的 `tmp/` 中。除非目录已列入 `docs/evidence/retention-exceptions.txt` 并在 PR 中说明理由，`cargo xtask check` 会拒绝证据区域中的原始日志、归档和单次运行目录，以及任何超过 4 MiB 的文件。见[证据保留](./docs/evidence-policy.zh-CN.md)。
+- **历史附件：** 显式[归档恢复与验证](./docs/evidence/archives/README.zh-CN.md)由仓库工具负责。仅列明的快照使用维护者选定的证据 Release；保留原回执及当前 golden／人工评审图像，删除前验证已发布字节，不将归档存储视为产品发布或新资格认定。CPU 工作流执行离线恢复测试，普通构建不获取归档。
 
 ## 当前工作
 
@@ -128,7 +129,7 @@ OpenMixture 任务负责引擎代码、运行时契约、包、生产者侧验�
 | WASM／JS 生命周期或包适配 | `npm test --prefix packages/runtime`、干净 WASM/npm 构建、candidate 消费及受影响像素比较 |
 | 仓库自动化或 CI | 受影响的 `xtask` 测试或工作流 lint，以及 `cargo xtask check` |
 | 文档 | 核对来源、中英文同步、`cargo xtask links`；Windows 上串行运行 xtask |
-| 证据记录 | `cargo xtask evidence` 与 `cargo xtask links`；按[证据保留](./docs/evidence-policy.zh-CN.md)规则保留 |
+| 证据记录 | `cargo xtask evidence` 与 `cargo xtask links`；归档变更另运行 `python scripts/evidence/test_restore.py`，并按[证据保留](./docs/evidence-policy.zh-CN.md)执行实际恢复与成员校验 |
 | 公共 API | 下游示例或外部使用方夹具 |
 
 完整的平台与 GPU 矩阵由 CI 负责。跨端像素复现步骤：[浏览器资源](./docs/m6a-04-browser-resources.zh-CN.md)、[资产验收](./docs/m6b-05-qualification.zh-CN.md)、[稳定噪声](./docs/stable-noise.zh-CN.md)。

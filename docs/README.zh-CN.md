@@ -78,3 +78,5 @@
 [M6A-05 综合验收](./evidence/m6a-05/README.zh-CN.md)保留源码/归档绑定的软件矩阵、已审查联系表、回归门禁和 v1 硬件失败；显式 v2 修复见[稳定噪声](./stable-noise.zh-CN.md)。
 
 [浏览器 0.3.0 发布证据](./evidence/npm-030-alpha/README.zh-CN.md)记录 main 集成、冻结归档、发布及精确注册表消费。
+
+历史附件通过[归档恢复说明](./evidence/archives/README.zh-CN.md)按需取回；Python 3.10+ 标准库工具验证原始字节，不执行像素验收。CPU 工作流运行 `python scripts/evidence/test_restore.py` 离线测试。

@@ -166,3 +166,5 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 ## Noise-v2 验收
 
 [NUM-01](./stable-noise.zh-CN.md)定义显式迁移。`prepare-materials.mjs <fresh-output> <full-revision> --noise-v2`选择已提交的迁移材质输入，已有 `cargo xtask browser-material-check` 应用未改变的门禁。`candidate.mjs verify-noise-v2 <product> <candidate-evidence> <native-v2> <browser-v2>` 保留独立绑定记录。这些是引擎验收工具，不自动迁移文档或发布。
+
+历史附件通过[归档恢复说明](./evidence/archives/README.zh-CN.md)按需取回；Python 3.10+ 标准库工具验证原始字节，不执行像素验收。CPU 工作流运行 `python scripts/evidence/test_restore.py` 离线测试。

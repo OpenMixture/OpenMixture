@@ -1,12 +1,15 @@
 // Verify retained bytes and restore the exact saved-file comparison inputs.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFile, mkdir } from 'node:fs/promises';
+import { readFile, mkdir, access } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
+await access(join(root, 'saved-file-bundles.tar.gz')).catch(() => {
+  throw new Error('Historical attachment moved: run python scripts/evidence/restore.py alpha-04 <fresh-directory>, then run the verify.mjs inside that restored docs/evidence/alpha-04 directory. See docs/evidence/archives/README.md.');
+});
 const json = async path => JSON.parse(await readFile(path, 'utf8'));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const summary = await json(join(root, 'summary.json'));

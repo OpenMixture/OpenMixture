@@ -45,7 +45,7 @@ The maintainer recording an acceptance owns its retention decision. Before relyi
 
 When no usable durable archive is available, keep the minimum necessary acceptance content in Git and state which complete logs or incidental outputs will expire. If the intended audit requires the original full bundle, retain that bundle or narrow the claim; hashes and run IDs alone cannot support a claim of long-term full-run auditability. Expiry does not turn a previously recorded pass into a failure, but it limits later inspection of the original run. Record that limitation honestly.
 
-No external archive service or automatic preservation job is introduced by this policy. Superseded research may be pruned under the current-guidance rules above.
+The maintainer-selected [historical evidence Release](./evidence/archives/README.md) stores the explicitly listed ALPHA-04, M5-05 and early-run snapshots on demand. This is a bounded exception for complete historical attachments, not for current executable goldens or images bound to human acceptance. Keep decision records, critical failure/calibration evidence, named review images, identities and retrieval manifests in Git. Preserve original receipts; describe relocated paths in a separate mapping. Download and verify the archive and all members before removing current-tree attachments. Repository maintainers own retention without scheduled expiry; assets must not be replaced in place. No automatic preservation job or product release is introduced. Superseded research may be pruned under the current-guidance rules above.
 
 ## Preserve verification and ownership
 

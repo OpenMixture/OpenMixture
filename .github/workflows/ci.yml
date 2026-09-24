@@ -40,6 +40,8 @@ jobs:
           save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify repository and isolated packages
         run: cargo xtask check
+      - name: Verify offline evidence archive integrity and extraction guards
+        run: python scripts/evidence/test_restore.py
       - name: Retain local package verification evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
