@@ -64,6 +64,8 @@ Retention changes must not weaken failure propagation, source/archive checks, ma
 
 [Retention exceptions](./evidence/retention-exceptions.txt) list, per directory, how many such files are kept on purpose. The lines present when the guard was added record content that predates it. The guard reports stale counts, so the list shrinks when records are pruned. Promoting a failure log or a large accepted binary is still allowed: add or raise the directory's line in the same pull request and explain why the content must stay in Git. The guard reads only the Git index; it never deletes, moves or rewrites evidence, and pruning files does not shrink Git history.
 
+Existing history is not rewritten. A measurement on 2026-09-24 found about 234 MiB of compressed objects across all remote branches: about 213 MiB is still in the current `main` tree (about 160 MiB of PNGs and one 50 MiB archive), and only about 21 MiB exists solely in history. Raw logs and per-run output compress to under 1 MiB. A rewrite would change every commit identity cited by receipts, integration records and pull requests, and would force-push every branch, for a small saving. Revisit it only through a separate maintainer decision, for example together with moving large accepted binaries to durable external storage.
+
 ## Describe verification scope accurately
 
 These categories describe evidence coverage, not new support tiers or service guarantees. Exact accepted revisions, hosts, results, and limitations remain in [release status](./release.md) and its linked records.
