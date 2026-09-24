@@ -23,7 +23,7 @@ const SIZE_LIMIT: u64 = 4 << 20;
 
 pub(super) fn check(root: &Path) -> TaskResult {
     let tracked = tracked_blobs(root)?;
-    let exceptions = parse_exceptions(&std::fs::read_to_string(root.join(EXCEPTIONS))?)?;
+    let exceptions = parse_exceptions(&indexed_exceptions(root)?)?;
     let errors = verify(&tracked, &exceptions);
     if !errors.is_empty() {
         return Err(format!(
@@ -40,6 +40,19 @@ pub(super) fn check(root: &Path) -> TaskResult {
         exceptions.len()
     );
     Ok(())
+}
+
+/// Read the policy from the same index as the files being checked.
+fn indexed_exceptions(root: &Path) -> TaskResult<String> {
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .args(["show", &format!(":{EXCEPTIONS}")])
+        .output()?;
+    if !output.status.success() {
+        return Err(format!("Cannot read {EXCEPTIONS} from the Git index; stage the retention policy before checking evidence.").into());
+    }
+    Ok(String::from_utf8(output.stdout)?)
 }
 
 /// Every indexed blob with its stored size, in index order.
@@ -224,6 +237,49 @@ fn verify(tracked: &[(String, u64)], exceptions: &BTreeMap<String, usize>) -> Ve
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn unstaged_exceptions_cannot_authorize_indexed_files() {
+        let root = std::env::temp_dir().join(format!(
+            "mixture-evidence-index-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        std::fs::create_dir_all(root.join("docs/evidence/new")).unwrap();
+        let git = |args: &[&str]| {
+            let output = Command::new("git")
+                .arg("-C")
+                .arg(&root)
+                .args(args)
+                .output()
+                .unwrap();
+            assert!(output.status.success(), "{output:?}");
+        };
+        git(&["init", "--quiet"]);
+        assert!(indexed_exceptions(&root).is_err());
+        std::fs::write(root.join(EXCEPTIONS), "# no exceptions\n").unwrap();
+        std::fs::write(root.join("docs/evidence/new/run.log"), "output\n").unwrap();
+        git(&["add", "--", "docs/evidence"]);
+        std::fs::write(root.join(EXCEPTIONS), "1 docs/evidence/new\n").unwrap();
+        assert!(
+            check(&root).is_err(),
+            "unstaged exception must not authorize a log"
+        );
+        git(&["add", "--", EXCEPTIONS]);
+        assert!(
+            check(&root).is_ok(),
+            "staged exception must authorize the log"
+        );
+        std::fs::remove_file(root.join(EXCEPTIONS)).unwrap();
+        assert!(
+            check(&root).is_ok(),
+            "working-tree deletion must not change the index policy"
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
 
     fn tracked(entries: &[(&str, u64)]) -> Vec<(String, u64)> {
         entries
