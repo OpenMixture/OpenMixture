@@ -25,6 +25,7 @@ Python 3.10+ and its standard library are sufficient. Run from the repository ro
 ```bash
 python scripts/evidence/restore.py alpha-04 tmp/retained-alpha04
 node tmp/retained-alpha04/docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
+node docs/evidence/npm-alpha/verify.mjs --alpha04-root tmp/retained-alpha04/docs/evidence/alpha-04 tmp/npm-alpha-replay
 
 python scripts/evidence/restore.py m5-05 tmp/retained-m5
 python scripts/evidence/replay_m5.py tmp/retained-m5 tmp/m5-05-retained
@@ -32,7 +33,7 @@ python scripts/evidence/replay_m5.py tmp/retained-m5 tmp/m5-05-retained
 python scripts/evidence/restore.py early-runs tmp/retained-early
 ```
 
-The restore command verifies the pinned archive size and SHA-256 before reading its inventory, then verifies the complete member set, source snapshot, lengths and each file digest. It rejects traversal, links, ambiguous Windows paths and existing destinations. Failures leave no completed destination. `--archive <downloaded.zip>` performs the same checks offline. ZIPs include their original inventory; the M5 replay additionally verifies the original 250 logical-file index, and ALPHA-04's original verifier validates the nested 152-file bundle.
+The restore command verifies the pinned archive size and SHA-256 before reading its inventory, then verifies the complete member set, source snapshot, lengths and each file digest. It rejects traversal, links, ambiguous Windows paths and existing destinations. Failures leave no completed destination. `--archive <downloaded.zip>` performs the same checks offline. ZIPs include their original inventory; the M5 replay additionally verifies the original 250 logical-file index, and ALPHA-04's original verifier validates the nested 152-file bundle. The early npm publication replay reuses 88 ALPHA-04 files; its explicit `--alpha04-root` option restores all 104 registry-consumer files without rewriting its original receipts.
 
 `manifest.json` pins the transport identities. [Retrieval verification](./retrieval.json) records downloads from the published release; this is a storage-integrity check, not a new pixel qualification. The ZIPs preserve immutable Git blob bytes from `e249d57d9ce78e73bbe8da554a6fcce0f3375303`, avoiding checkout newline conversions. Rebuild with `python scripts/evidence/pack.py <fresh-directory>` in a clone containing that commit. Tool/zlib versions can affect ZIP compression; rebuilt archives must never silently replace pinned assets.
 

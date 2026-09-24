@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "storage-integrity-verification-not-new-pixel-qualification",
-  "verifiedAt": "2026-09-24T16:51:18.037813+00:00",
+  "verifiedAt": "2026-09-25T00:51:18.037813+08:00",
   "sourceCommit": "e249d57d9ce78e73bbe8da554a6fcce0f3375303",
   "host": {
     "os": "Windows-11-10.0.26100-SP0",
@@ -46,7 +46,8 @@
     "pr015OriginalCaptureManifest": {
       "verifiedFiles": 938,
       "mismatches": 0
-    }
+    },
+    "npmAlphaOriginalReplay": "104 files restored and verified, including 88 reused ALPHA-04 files"
   },
   "removed": {
     "files": 687,

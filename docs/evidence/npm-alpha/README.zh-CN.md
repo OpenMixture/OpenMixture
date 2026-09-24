@@ -35,4 +35,4 @@ cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-repl
 cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-replay/linux
 ```
 
-第二条命令要求全新输出目录，先验证旧包，再覆盖新的注册表消费者回执。新执行需检出上述 Studio 版本，运行 `npm ci`、`npm run check`、`npm run test:browser`、`npm run test:deployment`、`npm run test:ordinary -- chrome <new-output>` 和 `npm run test:studio -- <detached-native> <new-player>`，再用上述引擎命令比较。Linux 配方记录本机工具路径，复现时需相应准备。注册表元数据和 dist-tags 可变，历史快照不能替代新的远端回读。
+最后一条 Node 命令要求全新输出目录，先验证旧包，再覆盖新的注册表消费者回执。新执行需检出上述 Studio 版本，运行 `npm ci`、`npm run check`、`npm run test:browser`、`npm run test:deployment`、`npm run test:ordinary -- chrome <new-output>` 和 `npm run test:studio -- <detached-native> <new-player>`，再用上述引擎命令比较。Linux 配方记录本机工具路径，复现时需相应准备。注册表元数据和 dist-tags 可变，历史快照不能替代新的远端回读。

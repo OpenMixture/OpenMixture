@@ -25,6 +25,7 @@ PR-015 的八张 2K PNG 与保留的 wood 2K 图片逐字节相同。[迁移清�
 ```bash
 python scripts/evidence/restore.py alpha-04 tmp/retained-alpha04
 node tmp/retained-alpha04/docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
+node docs/evidence/npm-alpha/verify.mjs --alpha04-root tmp/retained-alpha04/docs/evidence/alpha-04 tmp/npm-alpha-replay
 
 python scripts/evidence/restore.py m5-05 tmp/retained-m5
 python scripts/evidence/replay_m5.py tmp/retained-m5 tmp/m5-05-retained
@@ -33,6 +34,8 @@ python scripts/evidence/restore.py early-runs tmp/retained-early
 ```
 
 恢复命令先核对固定归档长度与 SHA-256，再读取目录清单，验证完整成员集合、来源快照、每个文件的长度和摘要。拒绝路径穿越、链接、含糊的 Windows 路径及已存在目标；失败不会留下看似完成的恢复目录。`--archive <downloaded.zip>` 离线执行相同检查。ZIP 包含原始文件清单；M5 重放另校验原始 250 个逻辑文件索引，ALPHA-04 原验证器另校验嵌套的 152 个文件。
+
+早期 npm 发布重放复用了 88 个 ALPHA-04 文件；其显式 `--alpha04-root` 参数可恢复全部 104 个 registry 消费者文件，不改写原始回执。
 
 `manifest.json` 固定传输标识。[取回验证](./retrieval.json)记录从已发布 Release 下载的结果；这属于存储完整性检查，不是新像素资格认定。ZIP 保留 `e249d57d9ce78e73bbe8da554a6fcce0f3375303` 的不可变 Git blob 字节，避免检出换行转换。在含该提交的克隆中运行 `python scripts/evidence/pack.py <fresh-directory>` 可重建。工具／zlib 版本可能改变 ZIP 压缩字节；重建文件不得静默替换固定资产。
 
