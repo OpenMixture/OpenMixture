@@ -25,7 +25,7 @@ cargo xtask check
 cargo run --locked -p mixture-cli -- --help
 ```
 
-The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, workspace and independent-consumer tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
+The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, the evidence growth guard, Clippy, workspace and independent-consumer tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
 
 The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
 

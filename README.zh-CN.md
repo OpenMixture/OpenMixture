@@ -25,7 +25,7 @@ cargo xtask check
 cargo run --locked -p mixture-cli -- --help
 ```
 
-仓库固定使用 Rust 1.98.1 / edition 2024，并包含 `Cargo.lock`。检查覆盖格式、依赖边界、Clippy、工作区及独立消费者测试、rustdoc 和本地文档链接，无需 GPU。所有已实现命令和平台前置条件见[开发指南](./docs/development.zh-CN.md)。
+仓库固定使用 Rust 1.98.1 / edition 2024，并包含 `Cargo.lock`。检查覆盖格式、依赖边界、证据增长防护、Clippy、工作区及独立消费者测试、rustdoc 和本地文档链接，无需 GPU。所有已实现命令和平台前置条件见[开发指南](./docs/development.zh-CN.md)。
 
 核心现已提供[诊断与安全限制 API](./docs/diagnostics.zh-CN.md)，包含强类型错误、确定性 JSON 报告和七类显式资源上限。可通过 `cargo run --locked -p mixture-core --example diagnostics` 运行公共示例。
 
