@@ -4,7 +4,7 @@ use std::process::Command;
 
 #[test]
 fn supported_repository_checks_work_outside_the_workspace_directory() {
-    for command in ["--help", "deps", "links"] {
+    for command in ["--help", "deps", "evidence", "links"] {
         let output = Command::new(env!("CARGO_BIN_EXE_xtask"))
             .current_dir(std::env::temp_dir())
             .arg(command)

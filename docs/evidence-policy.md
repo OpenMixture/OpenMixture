@@ -55,6 +55,15 @@ Local documentation links must still resolve, and human acceptance bindings must
 
 Retention changes must not weaken failure propagation, source/archive checks, material comparisons, or independent consumer checks. File size alone is not a reason to split `xtask`, add a crate, or introduce a general evidence framework. Any future tooling change follows the owning command's focused checks and `cargo xtask check` under the [development workflow](./development.md).
 
+## Growth guard
+
+`cargo xtask evidence` runs inside `cargo xtask check`, and therefore in every required CPU check. It enforces the table above for tracked files ([implementation](../xtask/src/evidence.rs)):
+
+- Evidence areas (`docs/evidence/`, `docs/reviews/` and `fixtures/**/reports/`) reject raw `.log`, `.stdout` and `.stderr` output, `.tar.gz`, `.tgz` and `.zip` archives, and per-run `cli-<pid>-<time>` folders.
+- Any tracked file above 4 MiB is rejected, wherever it lives.
+
+[Retention exceptions](./evidence/retention-exceptions.txt) list, per directory, how many such files are kept on purpose. The lines present when the guard was added record content that predates it. The guard reports stale counts, so the list shrinks when records are pruned. Promoting a failure log or a large accepted binary is still allowed: add or raise the directory's line in the same pull request and explain why the content must stay in Git. The guard reads only the Git index; it never deletes, moves or rewrites evidence, and pruning files does not shrink Git history.
+
 ## Describe verification scope accurately
 
 These categories describe evidence coverage, not new support tiers or service guarantees. Exact accepted revisions, hosts, results, and limitations remain in [release status](./release.md) and its linked records.

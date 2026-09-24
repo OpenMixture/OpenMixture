@@ -55,6 +55,15 @@
 
 保留策略变更不得削弱失败传播、源码／归档检查、材质比较或独立消费者检查。文件体积本身不是拆分 `xtask`、添加 crate 或引入通用证据框架的理由。任何后续工具改动都应依照[开发工作流](./development.zh-CN.md)，运行所属命令的聚焦检查和 `cargo xtask check`。
 
+## 增长防护
+
+`cargo xtask evidence` 包含在 `cargo xtask check` 中，因此每项必需 CPU 检查都会执行。它对受跟踪文件执行上表规则（[实现](../xtask/src/evidence.rs)）：
+
+- 证据区域（`docs/evidence/`、`docs/reviews/` 及 `fixtures/**/reports/`）拒绝原始 `.log`、`.stdout`、`.stderr` 输出，`.tar.gz`、`.tgz`、`.zip` 归档，以及单次运行的 `cli-<pid>-<time>` 目录。
+- 任何超过 4 MiB 的受跟踪文件都会被拒绝，无论位于何处。
+
+[保留例外](./evidence/retention-exceptions.txt)按目录列出有意保留的此类文件数量。防护加入时已有的条目记录其之前的内容。防护会报告过期计数，因此清理记录后列表随之缩短。仍可将失败日志或大型已接受二进制文件保留为证据：在同一 PR 中新增或调高该目录的条目，并说明为何必须保留在 Git 中。防护只读取 Git 索引，不会删除、移动或改写证据；删除文件也不会缩小 Git 历史。
+
 ## 准确描述验证范围
 
 下列类别描述证据覆盖，不设立新的支持等级或服务保证。精确的已接受版本、主机、结果与限制仍见[发布状态](./release.zh-CN.md)及其链接记录。
