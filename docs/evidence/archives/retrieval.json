@@ -61,9 +61,8 @@
     "GitHub availability is not an immutable-storage guarantee; original Git history remains a recovery source."
   ],
   "currentTreeMeasurement": {
-    "scope": "staged tracked blob lengths, before this measurement field",
-    "bytes": 130761737,
-    "netReductionBytes": 151322761,
-    "note": "Metadata written after this measurement changes the final tree by less than 1 KiB."
+    "scope": "tracked Git blob lengths after retention and replay changes",
+    "bytes": 130763203,
+    "netReductionBytes": 151321295
   }
 }
