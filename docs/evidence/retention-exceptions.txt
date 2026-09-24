@@ -6,7 +6,7 @@
 # counts. Add or raise a line only for deliberately retained evidence under docs/evidence-policy.md
 # and justify it in the pull request. Keep lines sorted by directory.
 1 docs/evidence/alpha-03-configured
-2 docs/evidence/alpha-04
+1 docs/evidence/alpha-04
 1 docs/evidence/m5-05
 1 docs/evidence/mat-01/ci-failure-4bf
 4 docs/evidence/mat-02-input-feasibility
@@ -88,34 +88,10 @@
 4 docs/evidence/pr-015/golden/software/glazed-ceramic
 5 docs/evidence/pr-015/golden/software/leather
 5 docs/evidence/pr-015/golden/software/wood
-4 docs/evidence/pr-015/gpu-smoke/metal
-10 docs/evidence/pr-015/gpu-smoke/metal/consumer
-25 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000
-4 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000/full
-4 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000/override
-2 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000/partial
-2 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000/partial-human
-1 docs/evidence/pr-015/gpu-smoke/metal/consumer/cli-93800-1789116300154003000/sliced
-10 docs/evidence/pr-015/gpu-smoke/metal/consumer/latest-cli-93800-1789116301728673000
-4 docs/evidence/pr-015/gpu-smoke/software
-10 docs/evidence/pr-015/gpu-smoke/software/consumer
-25 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000
-4 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000/full
-4 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000/override
-2 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000/partial
-2 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000/partial-human
-1 docs/evidence/pr-015/gpu-smoke/software/consumer/cli-94603-1789116507092296000/sliced
-10 docs/evidence/pr-015/gpu-smoke/software/consumer/latest-cli-94603-1789116509026140000
-34 docs/evidence/pr-015/packages/cpu
-64 docs/evidence/pr-015/packages/cpu/cli-cpu
-34 docs/evidence/pr-015/packages/final-check-cpu
-64 docs/evidence/pr-015/packages/final-check-cpu/cli-cpu
-38 docs/evidence/pr-015/packages/metal
-64 docs/evidence/pr-015/packages/metal/cli-cpu
-20 docs/evidence/pr-015/packages/metal/cli-gpu
-38 docs/evidence/pr-015/packages/software
-64 docs/evidence/pr-015/packages/software/cli-cpu
-20 docs/evidence/pr-015/packages/software/cli-gpu
+4 docs/evidence/pr-015/packages/cpu
+4 docs/evidence/pr-015/packages/final-check-cpu
+6 docs/evidence/pr-015/packages/metal
+6 docs/evidence/pr-015/packages/software
 14 docs/evidence/pr-015/trace/metal
 14 docs/evidence/pr-015/trace/software
 1 docs/evidence/remote-ci
@@ -137,6 +113,4 @@
 2 fixtures/materials/wood/reports/2k
 13 fixtures/materials/wood/reports/2k/metal
 13 fixtures/materials/wood/reports/2k/software
-8 fixtures/materials/wood/reports/metal-gpu-smoke
 10 fixtures/materials/wood/reports/precision
-8 fixtures/materials/wood/reports/software-gpu-smoke

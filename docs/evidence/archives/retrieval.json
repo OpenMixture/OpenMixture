@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "storage-integrity-verification-not-new-pixel-qualification",
+  "verifiedAt": "2026-09-24T16:51:18.037813+00:00",
+  "sourceCommit": "e249d57d9ce78e73bbe8da554a6fcce0f3375303",
+  "host": {
+    "os": "Windows-11-10.0.26100-SP0",
+    "python": "3.12.14"
+  },
+  "releaseId": 395873982,
+  "releaseUrl": "https://github.com/OpenMixture/OpenMixture/releases/tag/evidence-archive-2026-09-25",
+  "retentionOwner": "OpenMixture repository maintainers",
+  "scheduledExpiry": null,
+  "groups": {
+    "alpha-04": {
+      "assetId": 586379954,
+      "url": "https://github.com/OpenMixture/OpenMixture/releases/download/evidence-archive-2026-09-25/alpha-04.zip",
+      "bytes": 53308433,
+      "sha256": "f9e5751cbdc9397d8af54d25f4ab96438efb7c737829b3d9ccc03665a142c1bd",
+      "verifiedFiles": 52,
+      "downloadedFromPublishedUrl": true,
+      "archiveAndAllMembersVerified": true
+    },
+    "m5-05": {
+      "assetId": 586381453,
+      "url": "https://github.com/OpenMixture/OpenMixture/releases/download/evidence-archive-2026-09-25/m5-05.zip",
+      "bytes": 108496938,
+      "sha256": "82f1dd5bf00da44c43f859fba1b4fc2363fc36c14fe6a2cd5ead373d0a744703",
+      "verifiedFiles": 227,
+      "downloadedFromPublishedUrl": true,
+      "archiveAndAllMembersVerified": true
+    },
+    "early-runs": {
+      "assetId": 586379473,
+      "url": "https://github.com/OpenMixture/OpenMixture/releases/download/evidence-archive-2026-09-25/early-runs.zip",
+      "bytes": 16669340,
+      "sha256": "2e39bdf0a686a1ae357d892e8b540fdbbfd1b747299fc1ec6b0a231fd4995186",
+      "verifiedFiles": 1173,
+      "downloadedFromPublishedUrl": true,
+      "archiveAndAllMembersVerified": true
+    }
+  },
+  "originalChecks": {
+    "alpha04OriginalVerifier": "passed, including nested bundle members",
+    "m5OriginalIndex": "250 logical files reconstructed and hash-verified",
+    "pr015OriginalCaptureManifest": {
+      "verifiedFiles": 938,
+      "mismatches": 0
+    }
+  },
+  "removed": {
+    "files": 687,
+    "bytes": 151514577,
+    "localSharedCopies": 8
+  },
+  "baselineTreeBytes": 282084498,
+  "limits": [
+    "No Git history rewrite or full-clone/pack-size reduction claim.",
+    "No new GPU execution, pixel qualification, or product publication.",
+    "GitHub availability is not an immutable-storage guarantee; original Git history remains a recovery source."
+  ],
+  "currentTreeMeasurement": {
+    "scope": "staged tracked blob lengths, before this measurement field",
+    "bytes": 130761737,
+    "netReductionBytes": 151322761,
+    "note": "Metadata written after this measurement changes the final tree by less than 1 KiB."
+  }
+}

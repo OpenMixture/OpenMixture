@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**存储更新（2026-09-25）：** 原始执行与验收结论不变。完整历史附件按[归档取回说明](../archives/README.zh-CN.md)获取；机器回执、原始哈希和捕获清单保持不变，须在恢复的完整快照中检查其原路径。当前目录保留关键记录与评审图像。
+
 **M5 工程门槛已在记录的矩阵内通过；运行时具备有限范围的 Alpha 发布决策条件，但仍未发布。** 本记录在此前 [M5-02／M5-03 验收](../m5-02-03/README.zh-CN.md)及独立 Player 流程基础上关闭 M5-05，不认证未测试浏览器，也不授权 Studio／M6。[引擎 PR #8](https://github.com/OpenMixture/OpenMixture/pull/8)负责比较工具、CI 与本评估；[产品 PR #5](https://github.com/OpenMixture/Studio/pull/5)负责包消费、浏览器压力与生产部署。
 
 ## 来源与先后顺序
@@ -37,29 +39,15 @@
 
 ## 保留与复现
 
-[证据索引](./evidence-index.json)保留两个已验收原生／浏览器包的全部 250 个逻辑文件，包括全部 176 份原生／浏览器通道 PNG、22 份比较图、manifest、回执及用例报告。相同字节共享按内容寻址的资源，或引用已有跟踪原生预期 PNG。2026-09-15 复制后已验证原始字节、大小与 SHA-256；校准报告使用的每个 PNG 摘要也均有保留。独立资源约 84 MB，CI 到期后仍可检查已接受内容。
+[证据索引](./evidence-index.json)保留两个已验收原生／浏览器包的全部 250 个逻辑文件，包括全部 176 份原生／浏览器通道 PNG、22 份比较图、manifest、回执及用例报告。相同字节共享按内容寻址的资源，或引用已有跟踪原生预期 PNG。2026-09-15 复制后已验证原始字节、大小与 SHA-256；校准报告使用的每个 PNG 摘要也均有保留。约 84 MB 独立资源原保留于 Git；按内容寻址的 PNG 附件现位于已验证归档，CI 到期后仍可检查已接受内容。
 
-已取回并检查 CI 产物 `chromium-material-matrix`，ID `10386545022`，服务摘要 `sha256:bc6f89d73ad7b200674ce72ee891ffb96676e48c61e9be233b540bf0b28f3878`，大小 53,651,974 字节，到期时间 2026-10-15T07:38:05Z。完整普通日志及附带构建输出仍位于临时目录或 30 天 CI 产物；Git 保留上述验收内容及关键校准失败。后续重跑是新证据，不能恢复缺失日志。
+已取回并检查 CI 产物 `chromium-material-matrix`，ID `10386545022`，服务摘要 `sha256:bc6f89d73ad7b200674ce72ee891ffb96676e48c61e9be233b540bf0b28f3878`，大小 53,651,974 字节，到期时间 2026-10-15T07:38:05Z。完整普通日志及附带构建输出仍位于临时目录或 30 天 CI 产物；专用归档保留完整矩阵；Git 保留记录、具名评审图像及关键校准失败。后续重跑是新证据，不能恢复缺失日志。
 
 在引擎仓库根目录，将已保留原始文件重建到新目录并验证，然后针对未变更契约重跑比较：
 
 ```bash
-python3 - <<'PYCODE'
-from pathlib import Path
-import hashlib, json
-root = Path.cwd()
-index = json.loads((root / "docs/evidence/m5-05/evidence-index.json").read_text())
-target = root / "tmp/m5-05-retained"
-target.mkdir(parents=True, exist_ok=False)
-for dataset, files in index["datasets"].items():
-    for item in files:
-        data = (root / item["storedPath"]).read_bytes()
-        assert len(data) == item["bytes"]
-        assert hashlib.sha256(data).hexdigest() == item["sha256"]
-        dest = target / dataset / item["file"]
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(data)
-PYCODE
+python scripts/evidence/restore.py m5-05 tmp/retained-m5
+python scripts/evidence/replay_m5.py tmp/retained-m5 tmp/m5-05-retained
 cargo xtask browser-material-check tmp/m5-05-retained/local-native tmp/m5-05-retained/local-browser
 cargo xtask browser-material-check tmp/m5-05-retained/linux-native tmp/m5-05-retained/linux-browser
 ```

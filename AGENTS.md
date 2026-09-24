@@ -55,6 +55,7 @@ When sources disagree: (1) executable tests and stable public behavior; (2) `ARC
 - **Numerics:** do not reset goldens or generalize a measured repair beyond its recorded nodes and hardware. See [stable noise](./docs/stable-noise.md).
 - **Delivery:** `main` requires six checks. Documentation-only PRs may skip the GPU/browser jobs; a skipped check is not qualification evidence. CPU or software passes never qualify hardware pixels.
 - **Evidence:** keep ordinary run output in CI artifacts or ignored `tmp/`. `cargo xtask check` rejects raw logs, archives and per-run folders in evidence areas, and any file above 4 MiB, unless the directory is listed in `docs/evidence/retention-exceptions.txt` with a PR justification. See [evidence retention](./docs/evidence-policy.md).
+- **Historical attachments:** repository tooling owns explicit [archive restore and verification](./docs/evidence/archives/README.md). Only the listed snapshots use the maintainer-selected evidence Release; retain original receipts and current goldens/human-review images, verify published bytes before removal, and never treat archive storage as product publication or new qualification. The CPU workflow runs offline restore tests; normal builds never fetch archives.
 
 ## Current work
 
@@ -128,7 +129,7 @@ Do not run the full GPU matrix for a one-line parser change, and do not finish a
 | WASM/JS lifecycle or package adapter | `npm test --prefix packages/runtime`, clean WASM/npm build, candidate consumption, affected pixel comparisons |
 | repository automation or CI | the affected `xtask` test or workflow lint, plus `cargo xtask check` |
 | documentation | check sources, synchronize languages, `cargo xtask links`; serialize xtask on Windows |
-| evidence records | `cargo xtask evidence` and `cargo xtask links`; retention per the [evidence policy](./docs/evidence-policy.md) |
+| evidence records | `cargo xtask evidence` and `cargo xtask links`; archive changes also run `python scripts/evidence/test_restore.py` and a real restore/member verification per the [evidence policy](./docs/evidence-policy.md) |
 | public API | downstream example or external-consumer fixture |
 
 CI owns the full platform and GPU matrix. Cross-runtime pixel recipes: [browser resources](./docs/m6a-04-browser-resources.md), [asset qualification](./docs/m6b-05-qualification.md), [stable noise](./docs/stable-noise.md).

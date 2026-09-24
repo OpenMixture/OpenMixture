@@ -26,7 +26,7 @@ Windows 和隔离 Linux 均通过公开类型、20 项单元测试、生产构�
 
 ## 保留与复现
 
-[重放索引](./replay-index.json)绑定全部 104 个 Windows／Linux 重放文件。88 个文件（包括重复 PNG 和比较）与既有 [ALPHA-04 包](../alpha-04/saved-file-bundles.tar.gz)字节一致，复用其保留内容。其余 16 个文件保留在 `replay/`；普通浏览器截图／下载保留在 `ordinary/`。[文件哈希](./files.json)绑定新增保留内容。完整普通日志、浏览器配置和 npm 缓存留在忽略的本地产物中，不作为长期证据。
+[重放索引](./replay-index.json)绑定全部 104 个 Windows／Linux 重放文件。88 个文件（包括重复 PNG 和比较）与既有 [ALPHA-04 包](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz)字节一致，复用其保留内容。其余 16 个文件保留在 `replay/`；普通浏览器截图／下载保留在 `ordinary/`。[文件哈希](./files.json)绑定新增保留内容。完整普通日志、浏览器配置和 npm 缓存留在忽略的本地产物中，不作为长期证据。
 
 ```sh
 node docs/evidence/npm-alpha/verify.mjs

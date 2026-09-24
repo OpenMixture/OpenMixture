@@ -26,7 +26,7 @@ These are new executions of registry-installed bytes. Saved material inputs and 
 
 ## Retention and reproduction
 
-[Replay index](./replay-index.json) binds all 104 Windows/Linux replay files. 88 files, including repeated PNGs and comparisons, are byte-identical to the existing [ALPHA-04 bundle](../alpha-04/saved-file-bundles.tar.gz) and reuse those retained bytes. The other 16 files are retained under `replay/`; ordinary screenshots/downloads are under `ordinary/`. [File hashes](./files.json) bind the new retained content. Full routine logs, browser profiles and npm caches remain ignored local output, not long-term evidence.
+[Replay index](./replay-index.json) binds all 104 Windows/Linux replay files. 88 files, including repeated PNGs and comparisons, are byte-identical to the existing [ALPHA-04 bundle](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz) and reuse those retained bytes. The other 16 files are retained under `replay/`; ordinary screenshots/downloads are under `ordinary/`. [File hashes](./files.json) bind the new retained content. Full routine logs, browser profiles and npm caches remain ignored local output, not long-term evidence.
 
 ```sh
 node docs/evidence/npm-alpha/verify.mjs

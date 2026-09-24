@@ -166,3 +166,5 @@ Candidate qualification requires a clean-source archive for HEAD. Registry quali
 ## Noise-v2 qualification
 
 [NUM-01](./stable-noise.md) defines the explicit migration. `prepare-materials.mjs <fresh-output> <full-revision> --noise-v2` selects committed migrated material inputs; the existing `cargo xtask browser-material-check` then applies unchanged gates. `candidate.mjs verify-noise-v2 <product> <candidate-evidence> <native-v2> <browser-v2>` retains a separate bound receipt. These are producer qualification tools, not automatic document migration or publication.
+
+Retrieve historical attachments on demand using the [archive restore guide](./evidence/archives/README.md). Python 3.10+ standard-library tools verify original bytes, not pixel qualification. The CPU workflow runs `python scripts/evidence/test_restore.py` offline.

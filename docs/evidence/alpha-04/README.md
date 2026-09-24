@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**Storage update (2026-09-25):** Original execution and acceptance conclusions are unchanged. Retrieve complete historical attachments using the [archive instructions](../archives/README.md). Machine receipts, original hashes and capture manifests are unchanged; inspect their paths in the complete restored snapshot. Critical records and review images remain here.
+
 **The recorded candidate and Studio upgrade gates pass.** [Release notes and support scope](../../browser-alpha-candidate.md) identify the unpublished `0.1.0-alpha.0` archive. This is a new execution against the exact candidate, not a comparison-only replay of old Studio pixels. Registry publication, hosted deployment, human trial results and ALPHA-05 branch-check enforcement remain separate.
 
 ## Bound sources and execution
@@ -35,17 +37,18 @@ The agent inspected all seven Windows native/Player/difference sheets plus Linux
 
 ## Retention and reproduction
 
-[Summary](./summary.json) hashes retained content. The [bundle](./saved-file-bundles.tar.gz) and [index](./evidence-index.json) retain all 152 source/native/Windows/Linux files, including every compared PNG, plan, context, screenshot and contact sheet. The actual runtime archive is retained alongside it. The verifier reads back every retained file and can restore/hash-check every bundle member:
+[Summary](./summary.json) hashes retained content. The [bundle](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz) and [index](./evidence-index.json) retain all 152 source/native/Windows/Linux files, including every compared PNG, plan, context, screenshot and contact sheet. The actual runtime archive is retained alongside it. The verifier reads back every retained file and can restore/hash-check every bundle member:
 
 ```sh
-node docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
+python scripts/evidence/restore.py alpha-04 tmp/retained-alpha04
+node tmp/retained-alpha04/docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
 cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/windows
 cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/linux
 ```
 
 For fresh execution, check out the two bound revisions, install the retained archive in Studio with its recorded lock, run `npm ci`, `npm run check`, `npm run test:browser`, `npm run test:deployment`, `npm run test:ordinary -- chrome <fresh-output>`, and `npm run capture:studio -- <fresh-downloads>`. In the engine run `MIXTURE_GPU_BACKEND=dx12 node scripts/browser-runtime/prepare-studio.mjs <fresh-native> 82b74707b2a8a998190e2f28b16f91fb9614486a <fresh-downloads>`; then Studio `npm run test:studio -- <fresh-native> <fresh-player>` and engine `cargo xtask studio-material-check <fresh-native> <fresh-player>`. Shell-specific environment assignment is required on PowerShell. The isolation recipe records exact local paths; provision its tools/paths before rerunning it.
 
-The first local capture failed because the default Playwright cache had a Windows side-by-side launch error; an existing same-version Chromium installation succeeded. The first full repository check reached packaged rustdoc, which exited with OS `STATUS_IN_PAGE_ERROR`; the final retry is recorded in integration verification. Neither failure was counted as a pass. Complete routine logs/compiler outputs and the original 55 MB CI download remain in ignored `tmp/alpha04-*`. CI artifact `10598493452` expires `2026-10-20T04:42:43Z`; retained critical content does not depend on that expiry, but complete CI pixel/log audit does. Git retains the full new Studio comparisons, not the full repeated CI bundle.
+The first local capture failed because the default Playwright cache had a Windows side-by-side launch error; an existing same-version Chromium installation succeeded. The first full repository check reached packaged rustdoc, which exited with OS `STATUS_IN_PAGE_ERROR`; the final retry is recorded in integration verification. Neither failure was counted as a pass. Complete routine logs/compiler outputs and the original 55 MB CI download remain in ignored `tmp/alpha04-*`. CI artifact `10598493452` expires `2026-10-20T04:42:43Z`; retained critical content does not depend on that expiry, but complete CI pixel/log audit does. The dedicated archive retains the full original Studio comparisons; Git retains the critical records and named comparison images, not the full repeated CI bundle.
 
 [Final local check](./local-check.json): after moving the old package cache aside, the complete `cargo xtask check` passed, including independent packages, Rustdoc and links in 185 documents. [Original cache failure](./cached-rustdoc-failure.txt) preserves the OS error; no source change bypassed a check. Current remote PR checks are verified separately.
 

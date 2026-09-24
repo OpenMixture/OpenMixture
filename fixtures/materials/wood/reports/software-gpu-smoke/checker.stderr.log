@@ -1,2 +1,0 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
-     Running `target/debug/mixture render-builtin checker --size 64 --out tmp/gpu-smoke/checker.png --json --backend vulkan --software`
