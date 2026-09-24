@@ -32,6 +32,12 @@ jobs:
       - name: Install the repository toolchain
         # rustup reads rust-toolchain.toml, including rustfmt and Clippy.
         run: rustup show active-toolchain
+      - name: Restore Rust build cache
+        # Speeds up rebuilds only; later steps still build and verify with --locked.
+        # Only main saves, so pull requests cannot replace the shared cache.
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify repository and isolated packages
         run: cargo xtask check
       - name: Retain local package verification evidence

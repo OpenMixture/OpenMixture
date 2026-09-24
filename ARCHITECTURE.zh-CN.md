@@ -719,7 +719,11 @@ M4 退出前，独立使用方必须仅通过公共 CLI 或 Rust API 完成使�
 
 ADR 必须包含背景、决策、备选方案、影响、迁移和验证。已接受决策改变规范规则时，还必须更新本文。
 
-## PR-010 实测重采样实现
+## 带日期的变更记录
+
+以下各节在每项变更落地时追加。其中的节点／内核数量、版本及“待完成”表述描述的是当时的状态，而不是当前目录或发布；当前事实以[节点契约](./docs/node-contracts.zh-CN.md)、[发布状态](./docs/release.zh-CN.md)及相应 ADR 为准。上文的规范性规则继续适用。
+
+### PR-010 实测重采样实现
 
 目录现有十一种节点与九个 kernel。标量 `transform-2d` 和 `warp` 在颜色／法线派生前使用显式循环双线性纹理读取；文档与节点版本仍为 1。新增类型化载荷见[节点契约](./docs/node-contracts.zh-CN.md)。`RenderReport.allocations` 在核心估算之外独立记录成功创建的资源描述符字节数。继续保留全部 pass 纹理的朴素生命周期；`trace-2k` 按峰值估算对三种材质的所有案例排序，再测量最大项是否符合既有 512 MiB 预算。计数不含驱动开销与 CPU 缓冲区；销毁不代表物理内存立即归还。见[开发与追踪语义](./docs/development.zh-CN.md)。不引入新 crate、格式、依赖、缓存、优化器或渲染器。
 
@@ -731,11 +735,11 @@ M5 浏览器启动增加实际的 `mixture-wasm` 编译边界，npm 资源留在
 
 浏览器运行时资格采用 [ADR 0006](./docs/decisions/0006-browser-quality-gates.zh-CN.md) 定义的有界纹理一致性规则。原生固定软件金图继续作为精确回归证据；跨浏览器接近逐字节一致不是支持承诺。当前比较收据分开语义、结构、数值和历史回归判定。
 
-## ENG-04 目录扩展
+### ENG-04 目录扩展
 
 ENG-04 增加 scalar-blend v1：十二种节点映射到十个 WGSL 核心。Renderer 自有缓存现有十种 kernel 身份。既有源码语义和计划序列化不变。见[契约](./docs/eng-04-scalar-blend.zh-CN.md)。
 
-## M6A-01 已选定资源设计 — 尚未实现
+### M6A-01 已选定资源设计 — 已由 M6A-02–05 实现
 
 [ADR 0007](./docs/decisions/0007-external-image-resources.zh-CN.md)及[最小资源合同](./docs/m6a-resource-contract.zh-CN.md)选定既有节点参数中的逻辑资源引用、调用方提供线性 RGBA8 输入、Core 拥有不可变捕获及内容身份、wgpu 拥有上传和生命周期。集成接受设计；运行时实现仍待完成。这有限扩展 ADR 0003 对资源引用的排除，不增加内嵌资源或改变唯一像素执行器。实现将引入 image-input v1、计划／哈希 v2 和 API schema 2；上方架构说明仍是当前已实现基线，直至对应实现变更落地。
 
@@ -743,10 +747,10 @@ M6A-02 已实现 Core 资源语义和计划 v2。[M6A-03](./docs/m6a-03-native-r
 
 M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵，并在 ADR 0007 明确补充范围。保留的 Windows 硬件一致性失败尚未解决；不改变像素语义或数值门槛。
 
-## NUM-01 版本化 value-noise 算术
+### NUM-01 版本化 value-noise 算术
 
 [稳定 value noise](./docs/stable-noise.zh-CN.md)在现有 WGSL kernel 中增加 fractal-noise v2 的 Q0.24 value 计算。目录仍有十三种类型/十一个 kernel，v1 与 cellular 行为继续可用。显式节点版本和 StableValue 降低区分哈希，不改变 .mix v1 或 plan/API schema 2。未发布的 0.4 候选和迁移材质源码需独立验收。
 
-## M6B-03 可移植输入边界
+### M6B-03 可移植输入边界
 
 [ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。M6B-03 实现可选 crate 与共用 Core 辅助函数。[M6B-04](./docs/m6b-04-adapters.zh-CN.md)将 CLI 文件 I/O 与 WASM 字节传输接到同一 codec，均准备 Core 拥有的快照并复用 wgpu；适配器持有字节与 codec 共用预算，包括 JS 和 Rust 两份包副本。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。

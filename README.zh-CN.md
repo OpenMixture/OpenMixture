@@ -4,11 +4,11 @@
 
 > 基于 Rust 和 `wgpu` 的小型材质图编译器与无界面纹理渲染器。
 
-**当前状态（2026-09-22）：** M6-A、M6-B 和稳定 value noise v2 已实现并集成。源码为未发布 Rust 0.5.0 / browser 0.5.0-alpha.0；浏览器发布版为 0.3.0-alpha.0。已发布包与源码的硬件验收范围不同，见[发布状态](./docs/release.zh-CN.md)。[路线图](./ROADMAP.zh-CN.md)负责当前优先级。
+**状态：** pre-alpha，Rust crate 尚未发布。当前构建版本以源码清单为准；已发布包、验收范围及硬件限制见[发布状态](./docs/release.zh-CN.md)。[路线图](./ROADMAP.zh-CN.md)负责当前优先级。
 
 [M6-A](./docs/m6a-resource-contract.zh-CN.md)提供外部图像资源、不可变准备请求和计划 v2；[M6-B](./docs/m6b-portable-assets.zh-CN.md)提供共享 CPU 资产 codec、CLI/浏览器适配及有界验收。[稳定噪声](./docs/stable-noise.zh-CN.md)提供显式 `fractal-noise@2` 迁移；旧文档保持原节点版本。
 
-**已实现：** PR-001 至 PR-015 提供十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器运行时](./docs/browser-runtime.zh-CN.md)已完成[记录的 macOS／Linux Chromium 材质验收](./docs/evidence/m5-05/README.zh-CN.md)，独立 [Studio](https://github.com/OpenMixture/Studio) 的 MVP 也已通过[记录的 macOS 保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。当前候选 CI 已独立构建并安装新包完成浏览器验收；每个交付候选仍须绑定自身的源码和归档结果。
+**已实现：** PR-001 至 PR-015 交付了最初的十一种节点，陶瓷、皮革和[木材](./fixtures/materials/wood/README.zh-CN.md)观感均已获接受。[M3 评审](./docs/m3-review.zh-CN.md)记录 1K release 耗时及有界 2K 分配证据。[M4 计划](./M4_PRS.zh-CN.md)验证[公开 Rust 消费路径](./docs/native-sdk.zh-CN.md)、[CLI 报告及退出码](./docs/cli-contract.zh-CN.md)、[GPU 失败与清理契约](./docs/gpu-failures.zh-CN.md)、[最新结果发布](./docs/stale-results.zh-CN.md)及[隔离 Cargo 软件包消费](./docs/package-consumption.zh-CN.md)。[M4 验收](./docs/release.zh-CN.md)包含已完成的[三平台 CPU 及 Linux SwiftShader CI 门槛](./docs/evidence/remote-ci/README.zh-CN.md)。[M5 浏览器运行时](./docs/browser-runtime.zh-CN.md)已完成[记录的 macOS／Linux Chromium 材质验收](./docs/evidence/m5-05/README.zh-CN.md)，独立 [Studio](https://github.com/OpenMixture/Studio) 的 MVP 也已通过[记录的 macOS 保存文件验收](./docs/evidence/studio-qualification/README.zh-CN.md)。当前候选 CI 已独立构建并安装新包完成浏览器验收；每个交付候选仍须绑定自身的源码和归档结果。
 
 `PR-001` 至 `PR-015` 是历史实施批次标识，不是 GitHub PR 编号。新变更遵循[仓库治理](./docs/governance.zh-CN.md)和[证据保留](./docs/evidence-policy.zh-CN.md)规则。
 
@@ -83,7 +83,7 @@ Mixture 的设计遵循以下不可破坏的保证：
 
 ## 命令接口
 
-`check`、`validate`、`inspect --plan`、`render`、`doctor` 和 `render-builtin checker` 已实现。选项、通道编码和报告见[计划检查](./docs/render-plan.zh-CN.md)及[图渲染](./docs/graph-rendering.zh-CN.md)。
+`check`、`validate`、`inspect --plan`、`render`、`doctor`、`render-builtin checker` 及 `asset pack|inspect|render` 已实现。选项、通道编码和报告见[计划检查](./docs/render-plan.zh-CN.md)、[图渲染](./docs/graph-rendering.zh-CN.md)及[资产适配层](./docs/m6b-04-adapters.zh-CN.md)。
 
 ```bash
 # Repository verification
@@ -173,13 +173,13 @@ cargo run -p mixture-cli -- render examples/blend.mix \
                          +-------------+
 ```
 
-未来的 `mixture-wasm` crate 必须保持为同一核心编译器和 `wgpu` 渲染器之上的轻量绑定层。
+`mixture-wasm`（及 `packages/runtime` npm 门面）与纯 CPU 的 `mixture-asset` 编解码器，都是同一核心编译器和 `wgpu` 渲染器之上的轻量层。
 
 完整的职责划分和执行模型见[架构文档](./ARCHITECTURE.zh-CN.md)。
 
 ## 仓库布局
 
-当前布局由三个产品 crate 和一个私有工具 crate 组成：
+当前布局由五个产品 crate 和一个私有工具 crate 组成：
 
 ```text
 mixture/
@@ -187,20 +187,24 @@ mixture/
 ├── crates/
 │   ├── mixture-core/       # document, validation, node contracts, compiler
 │   ├── mixture-wgpu/       # the only pixel executor
-│   └── mixture-cli/        # validate, inspect, doctor, render
+│   ├── mixture-asset/      # CPU-only .mixpack codec
+│   ├── mixture-cli/        # validate, inspect, doctor, render, asset
+│   └── mixture-wasm/       # thin browser bindings
+├── packages/runtime/       # public npm ESM runtime over mixture-wasm
 ├── xtask/                  # repository-only automation
+├── scripts/                # browser and material qualification scripts
 ├── fixtures/
 │   ├── nodes/              # focused node cases
-│   └── materials/          # golden material acceptance assets
-├── examples/               # small user-facing .mix documents
+│   ├── materials/          # golden material acceptance assets
+│   └── packages/           # .mixpack acceptance and rejection corpus
+├── examples/               # small .mix documents and independent consumers
 ├── docs/                   # focused design and usage guides
 ├── AGENTS.md
 ├── ARCHITECTURE.md
-├── ROADMAP.md
-└── INITIAL_PRS.md
+└── ROADMAP.md
 ```
 
-不要仅为划分概念而新增 crate。只有运行时、发布、依赖或构建边界无法在现有三个产品 crate 内清晰表达时，才需要新的 crate。
+不要仅为划分概念而新增 crate。只有运行时、发布、依赖或构建边界无法在现有产品 crate 内清晰表达时，才需要新的 crate。
 
 ## 基准材质
 
@@ -236,7 +240,9 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 - [路线图](./ROADMAP.zh-CN.md)：里程碑目标、退出标准和停止规则。
 - [初始 PR 实施计划](./INITIAL_PRS.zh-CN.md)：历史 M0–M3 实施批次及其验收要求。
 - [M4 实施计划](./M4_PRS.zh-CN.md)：已完成的原生消费者实施批次及其历史证据。
-- [M5 实施计划](./M5_PRS.zh-CN.md)：浏览器运行时、npm 包消费与独立 Player 的计划工作项。
+- [M5 实施计划](./M5_PRS.zh-CN.md)：浏览器运行时、npm 包消费与独立 Player 的已完成工作项。
+- [智能体操作手册](./docs/agent-playbooks.zh-CN.md)：节点、格式、着色器、基准、GPU 调试与性能等分任务流程。
+- [术语表](./docs/glossary.zh-CN.md)：里程碑与工作项 ID 及证据术语。
 - [浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)：软件包、初始化、输入／输出及生命周期要求，区分已实现棋盘格切片与剩余验收。
 - [仓库治理](./docs/governance.zh-CN.md)：集成分支、真实 GitHub PR 及必需检查规则。
 - [证据保留](./docs/evidence-policy.zh-CN.md)：已接受记录、临时运行输出及产物可用性。
@@ -245,7 +251,3 @@ Mixture 借鉴少量明确的设计思路，不照搬这些项目的完整产品
 ## 许可证
 
 可任选 [Apache-2.0](./LICENSE-APACHE) 或 [MIT](./LICENSE-MIT) 许可证使用。当前 pre-alpha 软件包保持 `publish = false`；发布需单独决定。
-
-[M6A-04 浏览器公开资源接口](./docs/m6a-04-browser-resources.zh-CN.md)在未发布候选中接通图像请求、同步快照和同源 Native／浏览器像素对照。
-
-**2026-09-22：** `@openmixture/runtime@0.3.0-alpha.0` 已发布，包含外部图像资源、API schema 2 和计划 v2。安装精确版本；[发行及迁移说明](./docs/evidence/npm-030-alpha/README.zh-CN.md)保留有限软件矩阵验收和未解决 Windows 硬件法线精度限制。Rust crate 仍未发布。

@@ -45,7 +45,7 @@ npm test --prefix packages/runtime
 node scripts/browser-runtime/build.mjs
 ```
 
-需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-0.3.0-alpha.0.tgz`、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-0.3.0-alpha.0.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
+需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-<version>.tgz`（`<version>` 取自 `package.json`）、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-<version>.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
 
 Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、资源打包、取消和零拷贝纹理仍不支持。
 

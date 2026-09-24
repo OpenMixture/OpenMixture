@@ -23,7 +23,7 @@ Core 导出 `resources::{valid_image_id, image_identity, document_image_ids, ima
 
 ## 错误与内存契约
 
-`AssetError::Package` 提供可序列化诊断，含稳定 `MIX_PACKAGE_*` 码、阶段、消息、证据与建议。`Document`、`Compile` 变体保留原始 Core 错误/报告及来源链。在 Core 验证覆盖 ID/类型后，即便 resourceRef 覆盖等于默认值或处于输出切片外，也会拒绝。其他覆盖沿用 Core 行为；没有改变语义的通用回退。
+`AssetError::Package` 提供可序列化诊断，含类型化 `PackageCode`（稳定的 `MIX_PACKAGE_*` 拼写）、阶段、`error` 严重级别、消息、证据与建议；CLI 与 WASM 直接序列化它，不再逐字段重建。`Document`、`Compile` 变体保留原始 Core 错误/报告及来源链。在 Core 验证覆盖 ID/类型后，即便 resourceRef 覆盖等于默认值或处于输出切片外，也会拒绝。其他覆盖沿用 Core 行为；没有改变语义的通用回退。
 
 检查所有源码/资源条目，包括断开的图像。索引前资源表限定为八项，仅接受精确序号名称。严格类型化 JSON 拒绝重复/未知字段、浮点/指数整数、负零、溢出和 BOM。规范头逐字节比较同时拒绝扩展字段、链接、路径穿越、非零填充和其他八进制写法。必须恰有两个终止块并抵达 EOF。全部摘要重算，写入不规范化源码字节。
 

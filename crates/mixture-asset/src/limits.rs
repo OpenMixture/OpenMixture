@@ -58,7 +58,10 @@ impl AssetLimits {
         )?;
         self.safety.decoded_bytes = self.safety.decoded_bytes.min(2 * 1024 * 1024);
         self.safety.output_dimension = self.safety.output_dimension.min(2048);
-        self.resources.resource_count = self.resources.resource_count.min(8);
+        self.resources.resource_count = self
+            .resources
+            .resource_count
+            .min(crate::manifest::MAX_RESOURCES as u64);
         self.resources.resource_pixels = self.resources.resource_pixels.min(16_777_216);
         self.resources.resource_bytes = self.resources.resource_bytes.min(64 * 1024 * 1024);
         Ok(self)
