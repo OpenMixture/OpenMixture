@@ -74,7 +74,7 @@ export async function writePaintedMetalRequests(destination) {
     sourceRevision: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
     workingTreeStatus: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }),
     sourceFile: 'material.mix', sourceSha256: hash(sourceBytes), qualificationPlanSha256: hash(planBytes),
-    builderSha256: hash(await readFile(fileURLToPath(import.meta.url))), rows };
+    builderSha256: hash(await readFile(fileURLToPath(import.meta.url))), causality: structuredClone(plan.causality), rows };
   await writeFile(join(destination, 'requests.json'), JSON.stringify(manifest, null, 2) + '\n');
   return manifest;
 }

@@ -34,6 +34,8 @@ assert.equal(browser.manifest.workingTreeStatus, '');
 assert.equal(createHash('sha256').update(JSON.stringify(browser.manifest, null, 2) + '\n').digest('hex'), receipt.paintedRequestsSha256);
 assert.equal(browser.packageSha256, receipt.paintedPackageSha256);
 const expectedRows = paintedMetalMatrix();
+const contract = JSON.parse(await readFile('fixtures/materials/painted-metal/qualification-plan.json'));
+assert.deepEqual(browser.manifest.causality, contract.causality);
 assert.deepEqual(browser.rows.map(r => r.id), expectedRows.map(r => r.id));
 assert.deepEqual(browser.manifest.rows, expectedRows);
 assert.equal(createHash('sha256').update(await readFile('docs/evidence/perf-mat-before/material.mix')).digest('hex'), browser.manifest.sourceSha256);
@@ -51,6 +53,16 @@ for (let i = 0; i < expectedRows.length; i++) {
   }
 }
 const browserDownsample = browser.rows.find(row => row.id === 'default-1024x1024').downsample;
+const browserControls = browser.rows.find(row => row.id === 'default-257x129').controls;
+assert.equal(browserControls.length, 11);
+assert.deepEqual(browserControls.map(row => row.control), [
+  'paintColor', 'substrateColor', 'rustColor', 'paintRoughness', 'substrateRoughness', 'rustRoughness',
+  'normalStrength', 'normalStrength', 'normalStrength', 'macroSeed', 'detailSeed',
+]);
+for (const row of browserControls) {
+  assert.equal(row.repeatExact, true);
+  assert.equal(row.isolationPassed, true);
+}
 assert.deepEqual(browserDownsample.map(row => row.channel), ['height', 'baseColor']);
 for (const row of browserDownsample) {
   assert.equal(row.passed, true);
@@ -83,6 +95,7 @@ assert.equal(native.ok, true); assert.equal(native.completed, true);
 assert.equal(native.debugAssertions, false); assert.equal(native.browserCompared, true);
 assert.equal(native.rows.length, 28); assert.equal(native.timing.length, 2);
 assert.equal(native.endpointChannels, 60, 'all endpoint channels must match independent constants');
+assert.deepEqual(native.controls, browserControls, 'both public hosts must prove the same control isolation and effects');
 assert.deepEqual(native.downsample.map(row => row.channel), ['height', 'baseColor']);
 for (const row of native.downsample) {
   assert.equal(row.passed, true);
