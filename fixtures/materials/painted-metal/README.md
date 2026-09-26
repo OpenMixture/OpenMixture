@@ -66,6 +66,19 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ign
 
 These checks do not replace browser raw-half evidence, other resolutions, periodic-seam/stress measurements or metallic PBR/human review. The public multi-resolution Native/browser matrix remains required.
 
+## Metallic PBR review views
+
+`scripts/painted-material-preview.mjs` visualizes already-rendered 1K maps from a successful clean-source Native/browser painted comparison directory. It verifies producer/contract/source identities and dimensions, reads all five channels for the seven frozen presets, and records every PNG and screenshot hash. It does not execute `.mix` or modify textures. Keep the MAT-01 dielectric renderer and its historical review bytes unchanged.
+
+```bash
+npm ci --ignore-scripts --prefix examples/browser-consumer
+node scripts/painted-material-preview.mjs <painted-comparison-directory> <fresh-preview-directory>
+```
+
+The controlled Chrome consumer uses metallic GGX shading with baseColor-driven conductor reflectance and suppressed metallic diffuse, fixed orthographic camera/key/fill lights, fixed tone mapping and an explicit ambient approximation. Each preset has plane/sphere, 1×/3× repeat and 4× close-up views plus five channel thumbnails. Height is shown but not displaced. A separate three-canvas check requires metallic 0/1 to change shading and metallic 0 to repeat exactly; these forced settings are excluded from the material screenshots. `MIXTURE_BROWSER_CHANNEL` may select an installed browser; the default is Chrome with the same recorded controlled WebGPU flags as the earlier preview.
+
+The fresh output contains seven PBR sheets, a static `index.html` gallery and `preview.json` binding producer build/revision, preview revision/dirty status, adapter/browser, input/screenshot/renderer hashes and shading-check results. `humanAccepted` and `materialAccepted` remain false. Agent image inspection is not a human decision. Retain selected reviewed images and an actual maintainer decision under the evidence policy before claiming visual acceptance; numeric passes alone do not accept smooth/chunky wear, weak rust visibility or close-up quantization. Periodic sampling measurements and high-frequency/subpixel stress remain independent gates.
+
 ## Exact caller controls
 
 Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.
