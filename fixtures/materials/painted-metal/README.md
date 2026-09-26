@@ -54,6 +54,18 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_raw_mask -- --ignore
 
 This gate does not qualify browser raw-half fields, complete metallic/roughness/height composition, normal replay, periodic seams, stress or PBR/human review. The separate public matrix and remaining material gates still apply.
 
+## Scalar composition and normal replay
+
+The ignored `graph_gpu_painted_composition_and_final_height_normal_replay` test covers all seven frozen presets at 257×129. It observes the actual W/R, coating/final height, coating/final roughness and metallic fields through the same raw-half instrumentation. Independent scalar assertions account for half storage between nodes, including constant rust height/roughness, check each composition and bound final height between the permitted substrate and paint endpoints. These finite per-pixel assertions are test oracles, not a CPU rendering API.
+
+The original five-output graph also returns its final height and normal as raw half bytes. The test uploads those exact height bytes to a separate probe texture and invokes the existing production height-to-normal WGSL via the normal pipeline factory. At normal strengths 0/0.5/1, the graph's stored height must stay identical and every replayed normal byte must match the graph output. No RGBA8 height reconstruction or CPU normal algorithm is used. This is test-only GPU instrumentation, using the same shader and readback/cleanup helpers, with no public API or runtime behavior change. `cargo xtask gpu-smoke` includes the test; its focused command is:
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ignored --nocapture
+```
+
+These checks do not replace browser raw-half evidence, other resolutions, periodic-seam/stress measurements or metallic PBR/human review. The public multi-resolution Native/browser matrix remains required.
+
 ## Exact caller controls
 
 Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.

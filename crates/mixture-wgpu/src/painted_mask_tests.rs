@@ -4,98 +4,113 @@ use mixture_core::{CompileRequest, MaterialDocument, compile};
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 
-const SOURCE: &str = concat!(
+pub(super) const SOURCE: &str = concat!(
     env!("CARGO_MANIFEST_DIR"),
     "/../../docs/evidence/perf-mat-before/material.mix"
 );
-const CONTRACT: &str = concat!(
+pub(super) const CONTRACT: &str = concat!(
     env!("CARGO_MANIFEST_DIR"),
     "/../../fixtures/materials/painted-metal/qualification-plan.json"
 );
 
 fn masks(context: &GpuContext, source: &[u8], changes: BTreeMap<String, Value>) -> Vec<Vec<f32>> {
+    scalar_fields(
+        context,
+        source,
+        changes,
+        &[
+            "exposure",
+            "erodeY",
+            "band",
+            "rustMask",
+            "rustSpread",
+            "detail",
+        ],
+    )
+}
+
+pub(super) fn scalar_fields(
+    context: &GpuContext,
+    source: &[u8],
+    changes: BTreeMap<String, Value>,
+    nodes: &[&str],
+) -> Vec<Vec<f32>> {
     let mut cache = PipelineCache::default();
-    [
-        "exposure",
-        "erodeY",
-        "band",
-        "rustMask",
-        "rustSpread",
-        "detail",
-    ]
-    .into_iter()
-    .map(|node| {
-        let mut source: Value = serde_json::from_slice(source).unwrap();
-        let edge = source["edges"]
-            .as_array_mut()
-            .unwrap()
-            .iter_mut()
-            .find(|edge| edge["to"]["nodeId"] == "out" && edge["to"]["portId"] == "height")
-            .unwrap();
-        edge["from"] = json!({"nodeId":node,"portId":"value"});
-        let request = CompileRequest {
-            size: [257, 129],
-            outputs: vec![
-                OutputChannel::BaseColor,
-                OutputChannel::Normal,
-                OutputChannel::Roughness,
-                OutputChannel::Metallic,
-                OutputChannel::Height,
-            ],
-            overrides: changes.clone(),
-            ..Default::default()
-        };
-        let document =
-            MaterialDocument::decode(&serde_json::to_vec(&source).unwrap(), &request.limits)
+    nodes
+        .iter()
+        .map(|node| {
+            let mut source: Value = serde_json::from_slice(source).unwrap();
+            let edge = source["edges"]
+                .as_array_mut()
                 .unwrap()
-                .into_validated(&request.limits)
+                .iter_mut()
+                .find(|edge| edge["to"]["nodeId"] == "out" && edge["to"]["portId"] == "height")
                 .unwrap();
-        let plan = compile(&document, &request).unwrap();
-        assert_eq!(
-            plan.passes().len(),
-            23,
-            "retain the complete material computation"
-        );
-        let kernels: Vec<_> = plan.passes().iter().map(|p| &p.kernel).collect();
-        let slots: Vec<_> = plan
-            .allocation()
-            .resource_slots()
-            .iter()
-            .map(|s| s.index() as usize)
-            .collect();
-        let output = plan
-            .outputs()
-            .iter()
-            .find(|o| o.channel == OutputChannel::Height)
+            edge["from"] = json!({"nodeId":node,"portId":"value"});
+            let request = CompileRequest {
+                size: [257, 129],
+                outputs: vec![
+                    OutputChannel::BaseColor,
+                    OutputChannel::Normal,
+                    OutputChannel::Roughness,
+                    OutputChannel::Metallic,
+                    OutputChannel::Height,
+                ],
+                overrides: changes.clone(),
+                ..Default::default()
+            };
+            let document =
+                MaterialDocument::decode(&serde_json::to_vec(&source).unwrap(), &request.limits)
+                    .unwrap()
+                    .into_validated(&request.limits)
+                    .unwrap();
+            let plan = compile(&document, &request).unwrap();
+            assert_eq!(
+                plan.passes().len(),
+                23,
+                "retain the complete material computation"
+            );
+            let kernels: Vec<_> = plan.passes().iter().map(|p| &p.kernel).collect();
+            let slots: Vec<_> = plan
+                .allocation()
+                .resource_slots()
+                .iter()
+                .map(|s| s.index() as usize)
+                .collect();
+            let output = plan
+                .outputs()
+                .iter()
+                .find(|o| o.channel == OutputChannel::Height)
+                .unwrap();
+            let result = pollster::block_on(execute_prepared(
+                context,
+                &mut cache,
+                plan.size(),
+                &kernels,
+                &[(output.resource.index() as usize, ReadbackFormat::RawHalf)],
+                &[],
+                &slots,
+            ))
             .unwrap();
-        let result = pollster::block_on(execute_prepared(
-            context,
-            &mut cache,
-            plan.size(),
-            &kernels,
-            &[(output.resource.index() as usize, ReadbackFormat::RawHalf)],
-            &[],
-            &slots,
-        ))
-        .unwrap();
-        assert_eq!(result.allocations.live_bytes, 0);
-        assert_eq!(
-            result.allocations.released_bytes,
-            result.allocations.cumulative_bytes
-        );
-        let (pixels, tail) = result.pixels[0].as_chunks::<8>();
-        assert!(tail.is_empty());
-        assert_eq!(pixels.len(), 257 * 129);
-        pixels
-            .iter()
-            .map(|pixel| {
-                let value = half::f16::from_bits(u16::from_le_bytes([pixel[0], pixel[1]])).to_f32();
-                assert!(value.is_finite() && (0.0..=1.0).contains(&value));
-                value
-            })
-            .collect()
-    })
-    .collect()
+            assert_eq!(result.allocations.live_bytes, 0);
+            assert_eq!(
+                result.allocations.released_bytes,
+                result.allocations.cumulative_bytes
+            );
+            let (pixels, tail) = result.pixels[0].as_chunks::<8>();
+            assert!(tail.is_empty());
+            assert_eq!(pixels.len(), 257 * 129);
+            pixels
+                .iter()
+                .map(|pixel| {
+                    let value =
+                        half::f16::from_bits(u16::from_le_bytes([pixel[0], pixel[1]])).to_f32();
+                    assert!(value.is_finite() && (0.0..=1.0).contains(&value));
+                    value
+                })
+                .collect()
+        })
+        .collect()
 }
 
 fn relations(fields: &[Vec<f32>]) {

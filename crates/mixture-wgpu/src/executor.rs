@@ -431,6 +431,10 @@ async fn execute_prepared<K: Copy + Into<ReadbackFormat>>(
 mod painted_mask_tests;
 
 #[cfg(test)]
+#[path = "painted_composition_tests.rs"]
+mod painted_composition_tests;
+
+#[cfg(test)]
 mod allocation_tests {
     use super::*;
     use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};

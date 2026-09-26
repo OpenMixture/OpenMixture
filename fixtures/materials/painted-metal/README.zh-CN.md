@@ -54,6 +54,18 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_raw_mask -- --ignore
 
 此门槛不验收浏览器原始 half 字段、完整金属度／粗糙度／高度合成、法线重建、周期接缝、压力或 PBR／人工评审。独立公开矩阵及其余材质门槛仍必须完成。
 
+## 标量合成与法线重放
+
+忽略执行的测试 `graph_gpu_painted_composition_and_final_height_normal_replay` 在 257×129 上覆盖全部七个冻结预设。它通过同一原始 half 测试设施观察真实 W/R、涂层／最终高度、涂层／最终粗糙度和金属度。独立标量断言计入各节点间的 half 存储舍入，包括常量锈蚀高度／粗糙度，逐像素检查合成关系，并将最终高度限制在允许的底材与涂层端点之间。这些有限逐像素断言是测试参考，不是 CPU 渲染 API。
+
+原始五输出图还回读最终高度与法线的原始 half 字节。测试把这些精确高度字节上传到独立探针纹理，经既有流水线工厂调用生产 height-to-normal WGSL。在 0/0.5/1 法线强度下，图的存储高度必须不变，重放法线的每个字节必须与图输出一致。不经 RGBA8 重建高度，也不采用 CPU 法线算法。此设施仅用于 GPU 测试，使用同一着色器及回读／清理辅助函数，不改变公开 API 或运行时行为。`cargo xtask gpu-smoke` 包含此测试，专项命令为：
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ignored --nocapture
+```
+
+这些检查不替代浏览器原始 half 证据、其他分辨率、周期接缝／压力测量或金属 PBR／人工评审。公开多分辨率 Native／浏览器矩阵仍必须完成。
+
 ## 精确调用方控制
 
 夹具请求构造器拒绝未知控制、非有限值和超出下列范围的值。这不是新增 Core API。先将预设控制覆盖默认值，再执行映射。宏观／细节种子均为显式 u32，即使关闭细节也保留两者。所有颜色采用 [0,1] 内线性 RGBA，alpha 固定为 1。
