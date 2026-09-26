@@ -11,7 +11,7 @@ const { chromium } = require('playwright');
 const browserChannel = process.env.MIXTURE_BROWSER_CHANNEL ?? 'chrome';
 const browserArgs = ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist'];
 const args = process.argv.slice(2);
-assert.equal(args.length, 2, 'usage: painted-material-preview.mjs <painted-comparison> <fresh-output>');
+assert.ok(args.length === 2 || args.length === 3, 'usage: painted-material-preview.mjs <painted-comparison> <fresh-output> [producer-plan.json]');
 const [input, output] = args.map(p => resolve(p));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const json = async path => JSON.parse(await readFile(path));
@@ -27,7 +27,9 @@ assert.equal(native.requestManifest.sourceRevision, comparison.revision);
 assert.equal(browserInput.consumerRevision, comparison.revision);
 assert.deepEqual(browserInput.build, comparison.build);
 const contractBytes = await readFile(new URL('../fixtures/materials/painted-metal/qualification-plan.json', import.meta.url));
-assert.equal(hash(contractBytes), native.requestManifest.qualificationPlanSha256);
+const producerPlan = args[2] ? await readFile(resolve(args[2])) : contractBytes;
+assert.equal(hash(producerPlan), native.requestManifest.qualificationPlanSha256, 'supply the exact producer plan snapshot when its bytes differ');
+assert.deepEqual(JSON.parse(producerPlan), JSON.parse(contractBytes), 'producer and preview must use the same frozen contract');
 assert.equal(hash(await readFile(join(input, 'material.mix'))), native.requestManifest.sourceSha256);
 const contract = JSON.parse(contractBytes);
 const cases = contract.cases.map(c => c.id);
@@ -76,6 +78,7 @@ try {
   }
   for (const name of ['comparison.json', 'browser-qualification.json']) await copyFile(join(input, name), join(output, name));
   await copyFile(join(input, 'native/native.json'), join(output, 'native.json'));
+  await writeFile(join(output, 'producer-plan.json'), producerPlan);
   await writeFile(join(output, 'index.html'), `<!doctype html><meta charset="utf-8"><title>Painted metal review</title>
 <style>body{font:16px system-ui;background:#15191f;color:#edf0f3;margin:28px}img{display:block;max-width:100%;height:auto}section{margin:36px 0}p{max-width:80ch;line-height:1.6}</style>
 <h1>Painted metal — review candidate</h1><p>Fixed camera and lights; metallic GGX, plane/sphere, repeated tiling and close-ups. These views show the generated maps. Height is not displaced. Human acceptance is pending.</p>
@@ -86,6 +89,7 @@ ${cases.map(id => `<section><h2>${id}</h2><img src="${id}-pbr.png" alt="${id}: p
     previewDirty: execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim().length > 0,
     browser: browser.version(), browserChannel, browserArgs, ...result, inputPngSha256: hashes, screenshotSha256: screenshots,
     previewHtmlSha256: hash(html), previewRunnerSha256: hash(await readFile(new URL(import.meta.url))),
+    producerPlanSha256: hash(producerPlan), previewPlanSha256: hash(contractBytes),
     metallicCheck: { dielectric: hash(probeBytes[0]), metal: hash(probeBytes[1]), repeat: hash(probeBytes[2]), changed: true, repeatExact: true },
     shading: 'metallic GGX, fixed key/fill and ambient approximation, no displacement; consumer visualization only',
   }, null, 2));

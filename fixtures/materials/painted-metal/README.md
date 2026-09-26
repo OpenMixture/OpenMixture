@@ -72,12 +72,14 @@ These checks do not replace browser raw-half evidence, other resolutions, period
 
 ```bash
 npm ci --ignore-scripts --prefix examples/browser-consumer
-node scripts/painted-material-preview.mjs <painted-comparison-directory> <fresh-preview-directory>
+node scripts/painted-material-preview.mjs <painted-comparison-directory> <fresh-preview-directory> [producer-plan.json]
 ```
 
 The controlled Chrome consumer uses metallic GGX shading with baseColor-driven conductor reflectance and suppressed metallic diffuse, fixed orthographic camera/key/fill lights, fixed tone mapping and an explicit ambient approximation. Each preset has plane/sphere, 1×/3× repeat and 4× close-up views plus five channel thumbnails. Height is shown but not displaced. A separate three-canvas check requires metallic 0/1 to change shading and metallic 0 to repeat exactly; these forced settings are excluded from the material screenshots. `MIXTURE_BROWSER_CHANNEL` may select an installed browser; the default is Chrome with the same recorded controlled WebGPU flags as the earlier preview.
 
 The fresh output contains seven PBR sheets, a static `index.html` gallery and `preview.json` binding producer build/revision, preview revision/dirty status, adapter/browser, input/screenshot/renderer hashes and shading-check results. `humanAccepted` and `materialAccepted` remain false. Agent image inspection is not a human decision. Retain selected reviewed images and an actual maintainer decision under the evidence policy before claiming visual acceptance; numeric passes alone do not accept smooth/chunky wear, weak rust visibility or close-up quantization. Periodic sampling measurements and high-frequency/subpixel stress remain independent gates.
+
+If a producer checkout used different line endings, supply its exact plan snapshot as the optional third argument. Its raw hash must match the original receipt and its parsed contract must equal the current frozen plan. The output preserves that snapshot and records both hashes; line-ending differences never rewrite historical identities.
 
 ## Exact caller controls
 
