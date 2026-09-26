@@ -118,6 +118,13 @@ fn relations(fields: &[Vec<f32>]) {
     }
 }
 
+fn bits(fields: &[Vec<f32>]) -> Vec<Vec<u32>> {
+    fields
+        .iter()
+        .map(|field| field.iter().map(|value| value.to_bits()).collect())
+        .collect()
+}
+
 #[test]
 #[ignore = "requires GPU; cargo xtask gpu-smoke"]
 fn graph_gpu_painted_raw_mask_relations_and_control_causality() {
@@ -137,8 +144,8 @@ fn graph_gpu_painted_raw_mask_relations_and_control_causality() {
         "fractional wear must be exercised"
     );
     assert_eq!(
-        baseline,
-        masks(&context, &source, defaults.clone()),
+        bits(&baseline),
+        bits(&masks(&context, &source, defaults.clone())),
         "seed repeat"
     );
     let mut cases = 2;
@@ -240,7 +247,7 @@ fn graph_gpu_painted_raw_mask_relations_and_control_causality() {
     assert_eq!(changed[..3], baseline[..3], "detail seed moved W/I/B");
     assert_ne!(changed[3], baseline[3], "detail seed must affect rust");
     assert_ne!(changed[5], baseline[5], "detail seed must affect detail");
-    assert_eq!(changed, masks(&context, &source, changes));
+    assert_eq!(bits(&changed), bits(&masks(&context, &source, changes)));
     cases += 2;
     eprintln!(
         "painted raw masks: {}",
