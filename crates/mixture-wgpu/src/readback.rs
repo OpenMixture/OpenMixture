@@ -5,6 +5,19 @@ use mixture_core::{Stage, registry::PortKind};
 #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 use std::{sync::mpsc, time::Duration};
 
+#[derive(Clone, Copy)]
+pub(crate) enum ReadbackFormat {
+    Rgba8(PortKind),
+    // Explicit per-call instrumentation, absent from production builds and APIs.
+    #[cfg(test)]
+    RawHalf,
+}
+impl From<PortKind> for ReadbackFormat {
+    fn from(kind: PortKind) -> Self {
+        Self::Rgba8(kind)
+    }
+}
+
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct ReadbackLayout {
     pub width: u32,
@@ -54,8 +67,9 @@ pub(crate) async fn read_pixels(
     device: &wgpu::Device,
     buffer: &wgpu::Buffer,
     layout: ReadbackLayout,
-    kind: PortKind,
+    kind: impl Into<ReadbackFormat>,
 ) -> Result<Vec<u8>, GpuOperationError> {
+    let kind = kind.into();
     let result = async {
         #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         let (sender, receiver) = mpsc::channel();
@@ -109,7 +123,11 @@ pub(crate) async fn read_pixels(
         })?;
         // The view is dropped before the cleanup scope, including on invalid data.
         match buffer.slice(..).get_mapped_range() {
-            Ok(view) => rgba16float_to_rgba8(&view, layout, kind),
+            Ok(view) => match kind {
+                ReadbackFormat::Rgba8(kind) => rgba16float_to_rgba8(&view, layout, kind),
+                #[cfg(test)]
+                ReadbackFormat::RawHalf => raw_half_bytes(&view, layout),
+            },
             Err(source) => Err(GpuOperationError::source_error(
                 Stage::Readback,
                 "Could not access mapped texture pixels.",
@@ -133,6 +151,20 @@ pub(crate) async fn read_pixels(
         (Err(error), Ok(())) | (Ok(_), Err(error)) => Err(error),
         (Ok(pixels), Ok(())) => Ok(pixels),
     }
+}
+
+#[cfg(test)]
+fn raw_half_bytes(bytes: &[u8], layout: ReadbackLayout) -> Result<Vec<u8>, GpuOperationError> {
+    if bytes.len() as u64 != layout.buffer_bytes {
+        return Err(GpuOperationError::at(
+            Stage::Readback,
+            "Raw probe layout mismatch.",
+        ));
+    }
+    Ok(bytes
+        .chunks_exact(layout.padded_row_bytes as usize)
+        .flat_map(|row| row[..layout.row_bytes as usize].iter().copied())
+        .collect())
 }
 
 fn rgba16float_to_rgba8(
@@ -200,6 +232,27 @@ fn linear_to_srgb(value: f32) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn raw_half_probe_preserves_sub_byte_precision_and_strips_row_padding() {
+        let layout = ReadbackLayout::new(1, 2).unwrap();
+        let mut padded = vec![0xab; layout.buffer_bytes as usize];
+        let first = [0.5, 0.5 - 1.0 / 4096.0, 1.0 / 4096.0, 1.0f32];
+        let second = [0.0, 0.25, 0.75, 1.0f32];
+        let bytes = |values: [f32; 4]| {
+            values
+                .into_iter()
+                .flat_map(|v| half::f16::from_f32(v).to_bits().to_le_bytes())
+                .collect::<Vec<_>>()
+        };
+        padded[..8].copy_from_slice(&bytes(first));
+        padded[256..264].copy_from_slice(&bytes(second));
+        assert_eq!(
+            raw_half_bytes(&padded, layout).unwrap(),
+            [bytes(first), bytes(second)].concat()
+        );
+        assert!(raw_half_bytes(&padded[..511], layout).is_err());
+    }
+
     #[test]
     fn readback_alignment_and_sizes_include_padding_without_overflow() {
         for (width, row, padded) in [

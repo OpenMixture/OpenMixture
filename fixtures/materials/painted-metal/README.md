@@ -42,6 +42,18 @@ At the frozen 257×129 size, the Native and browser matrix runners render the co
 
 These are delivered-byte causality checks on the actual graph, not proof of internal half-float mask inequalities or exact normal replay from the stored height. Raw-half W/I/B/R relations, exposure/width monotonicity, seed isolation of W, seams, stress and PBR/human review remain required. The request manifest binds the frozen causality inputs; no shader, runtime API or material contract changes.
 
+## Raw-half mask qualification
+
+The ignored `graph_gpu_painted_raw_mask_relations_and_control_causality` Rust test reads the measured material and frozen plan from the source checkout. It retains all 23 pixel computations and changes only the height output edge to observe W, I, B, R, S or D. Core compiles each alias and pins its output through the ordinary allocation plan. The sole executor runs the production kernels and normal copy/map/cleanup path. A private `cfg(test)` readback format returns tightly packed half bytes before RGBA8 conversion; no raw-output public API, shader variant, global capture buffer or alternate executor is added. Published builds retain only ordinary RGBA8 readback.
+
+At 257×129, nineteen cases check finite normalized values, I≤W, B=half(max(W−I,0)), B≤S≤W, R≤S≤W, detail bounds, exact zero-width B even at fractional W, monotonic band/exposure/rust controls, exact fill endpoints, rust-control isolation of W/I/B, detail-seed isolation of W/I/B and exact seeded repeats. Assertions inspect every raw pixel without a byte tolerance. The CPU readback probe verifies row-padding removal and preservation of a 1/4096 difference. `cargo xtask gpu-smoke` includes the test; the focused command below uses the same documented explicit GPU environment. Ordinary package unit-test compilation does not require repository fixtures; executing this ignored qualification does.
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_raw_mask -- --ignored --nocapture
+```
+
+This gate does not qualify browser raw-half fields, complete metallic/roughness/height composition, normal replay, periodic seams, stress or PBR/human review. The separate public matrix and remaining material gates still apply.
+
 ## Exact caller controls
 
 Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.
