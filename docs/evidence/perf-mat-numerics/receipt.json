@@ -1,0 +1,135 @@
+{
+  "kind": "unresolved-PERF-MAT-software-numerical-failure",
+  "accepted": false,
+  "ci": {
+    "run": 35836054345,
+    "attempt": 1,
+    "job": 107099754498,
+    "head": "611e9c4afad7e4b6558a1c5a4bf538d13196650e",
+    "testedMerge": "9df804336d295c74b72f32b81371dc81a1b425b9",
+    "artifactId": 10739483613,
+    "artifactBytes": 90012350,
+    "expiresAt": "2026-10-23T08:26:21Z",
+    "normalMaxDelta": {
+      "1024": 4,
+      "2048": 8
+    },
+    "maximumAllowed": 1,
+    "costAndTimingPassed": true
+  },
+  "windowsControl": {
+    "beforeSource": "ddb2e831e0397ccc0e07eebb27c8684166072a11",
+    "beforeVersion": "0.7.0",
+    "beforeProfile": "release",
+    "afterSource": "611e9c4afad7e4b6558a1c5a4bf538d13196650e",
+    "afterVersion": "0.8.0",
+    "afterProfile": "debug",
+    "sourceCleanAtBuild": true,
+    "size": [
+      1024,
+      1024
+    ],
+    "pngBytesExactBeforeAfter": {
+      "baseColor": true,
+      "normal": true,
+      "roughness": true,
+      "metallic": true,
+      "height": true
+    },
+    "timingsComparable": false,
+    "driver": "Chrome 153.0.8010.53 bundled vk_swiftshader.dll",
+    "driverSha256": "c4f4b89071b9a945034981f145eb5dc7975cdea2e845e43212205a73e822f31e"
+  },
+  "materialSha256": "130839b38635c4f50ee2931c2cd7ee77fbdd5d71f58006a33446c558e49f9b25",
+  "limits": "Windows software output matches retained Linux browser pixels; this does not prove the first divergent node or reproduce the pinned Linux native driver. No shader changed, tolerance relaxed or golden reset.",
+  "files": {
+    "ci-native.json": {
+      "sha256": "13822f83266b65840e35acbba677a7f58d2c73a981124163da4afd3257c3b139",
+      "bytes": 39488
+    },
+    "ci-browser.json": {
+      "sha256": "22ee23244ef2903fce57720d1b341b96db170dbf803abd39c0b2514031c89743",
+      "bytes": 39095
+    },
+    "ci-native-stderr.log": {
+      "sha256": "be42a7a89cd7b2f6b433c888249a1087421176ac62617e7598cab9144ac6ae4a",
+      "bytes": 572
+    },
+    "ci-browser-qualification.json": {
+      "sha256": "640dbebb172414411c6a51f0f8de8e943ce7a91bf3395d907af757c2476be5f0",
+      "bytes": 6460
+    },
+    "ci-archive-receipt.json": {
+      "sha256": "3925baeeab334c6f8ebd65036e263f6865c85461581016682e9424241aade83c",
+      "bytes": 1120
+    },
+    "windows-before-render.json": {
+      "sha256": "f5707ebf898b788d9e80187ed7a7b8192a1a2ec172ac0615e422ce9c9f6f447e",
+      "bytes": 17803
+    },
+    "windows-after-render.json": {
+      "sha256": "c72df1e159d84987686f69215f662405cd538a11b2becb3ac4e1a136e7d0d8d6",
+      "bytes": 17860
+    },
+    "windows-software-doctor.json": {
+      "sha256": "6d4d89f5f4b333e722a0dc40734d4d87017feddf241b33d6db9604a0fb0b0478",
+      "bytes": 14140
+    },
+    "decoded-comparison.json": {
+      "sha256": "3d51e31980b079d80512b0f426d07404b99061ad831d4ee02a974ad632fccfad",
+      "bytes": 7705
+    },
+    "ci-native-1k-normal.png": {
+      "sha256": "a5c3a61114962479817e89ccbc64324a2eee621cca48e582f1b761b0e50515f3",
+      "bytes": 971922
+    },
+    "ci-browser-1k-normal.png": {
+      "sha256": "0a6ff4591f3d1b523e141f64dc55e2984006c8c5e384381ae93efbbe628ff21e",
+      "bytes": 1222526
+    },
+    "ci-native-1k-height.png": {
+      "sha256": "7ae9bff34431985d9bf0532a54ecf4843f9e0447b055faf36caebca30b546d8f",
+      "bytes": 84931
+    },
+    "ci-browser-1k-height.png": {
+      "sha256": "dae1cfab2b20b217397e12dbcff35ec6ea752a9f8d5d5f4607503571c41fc6f1",
+      "bytes": 172173
+    },
+    "ci-native-2k-normal.png": {
+      "sha256": "911c1fc4939b662c89892dcf451f87c1c01a73354270b57b955d60c83e49902a",
+      "bytes": 3447392
+    },
+    "ci-browser-2k-normal.png": {
+      "sha256": "248b1d57490733af73327dcc9ddae04a64d6c7ef7d7ad636d2a10392eae34f2b",
+      "bytes": 4056604
+    },
+    "ci-native-2k-height.png": {
+      "sha256": "8ecce394c55719e9391521388bf57e3ef20ef7eedf4129c39ed413f3073a70a1",
+      "bytes": 202705
+    },
+    "ci-browser-2k-height.png": {
+      "sha256": "fe58f630a971db651e6703f7f8017b87a3f5388fd324308c2aba53b54f73ea53",
+      "bytes": 429128
+    },
+    "windows-before-baseColor.png": {
+      "sha256": "54dc649698debf8f5e781543d40ca1c98b8218772ce16e6f2adfe30b5763e371",
+      "bytes": 425614
+    },
+    "windows-before-normal.png": {
+      "sha256": "710f62af48630894dea92bfd8b567a17308e222475ced82d383260a08e190c59",
+      "bytes": 971836
+    },
+    "windows-before-roughness.png": {
+      "sha256": "65b1ce4b4e5e2ff2e63dd94f1f813c333898bcae10bf691a1d138999e96be12e",
+      "bytes": 216857
+    },
+    "windows-before-metallic.png": {
+      "sha256": "70b718e4fadc32d8ad76bac395a74df154b898d771194bad3a806fa94ab27b2e",
+      "bytes": 292990
+    },
+    "windows-before-height.png": {
+      "sha256": "cd7ec6d2dfadbd7ec3ef7bcf740fdea232296072ab6e807fa2dfa0013e835d2a",
+      "bytes": 84944
+    }
+  }
+}

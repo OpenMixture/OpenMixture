@@ -99,7 +99,7 @@ impl RenderOutput {
         &self.report
     }
 }
-/// Owns a single context and at most one pipeline per kernel. No resource pool or global cache.
+/// Owns one context and bounded pipelines. Physical slots are local to each render.
 pub struct Renderer {
     context: GpuContext,
     cache: PipelineCache,
@@ -164,6 +164,12 @@ impl Renderer {
             .iter()
             .map(|o| (o.resource.index() as usize, o.kind))
             .collect();
+        let slots: Vec<_> = plan
+            .allocation()
+            .resource_slots()
+            .iter()
+            .map(|slot| slot.index() as usize)
+            .collect();
         let result = execute_prepared(
             &self.context,
             &mut self.cache,
@@ -171,6 +177,7 @@ impl Renderer {
             &kernels,
             &mappings,
             snapshots,
+            &slots,
         )
         .await
         .map_err(|error| error.in_plan(plan))?;
@@ -235,7 +242,10 @@ pub(crate) async fn execute(
     outputs: &[(usize, PortKind)],
 ) -> Result<Executed, GpuOperationError> {
     require_resource_free(kernels).map_err(|error| error.in_context(context))?;
-    execute_prepared(context, cache, size, kernels, outputs, &[]).await
+    // Fixed checker/internal failure probes have explicit one-result storage;
+    // only compiler-produced graph plans select reusable slots.
+    let slots: Vec<_> = (0..kernels.len()).collect();
+    execute_prepared(context, cache, size, kernels, outputs, &[], &slots).await
 }
 async fn execute_prepared(
     context: &GpuContext,
@@ -244,6 +254,7 @@ async fn execute_prepared(
     kernels: &[&KernelInvocation],
     outputs: &[(usize, PortKind)],
     snapshots: &[ResourceSnapshot],
+    slots: &[usize],
 ) -> Result<Executed, GpuOperationError> {
     let total = Instant::now();
     let mut resources = Resources::default();
@@ -312,8 +323,14 @@ async fn execute_prepared(
         let pipeline_ms = pipeline_started.elapsed().as_secs_f64() * 1000.;
         for (index, (kernel, pipeline)) in kernels.iter().zip(&pipelines).enumerate() {
             context.ensure_available(Stage::GpuExecution)?;
+            let slot = slots.get(index).ok_or_else(|| {
+                GpuOperationError::at(
+                    Stage::GpuExecution,
+                    "Pass physical slot mapping is missing.",
+                )
+            })?;
             resources
-                .push(device, pipeline, kernel, size)
+                .push(device, pipeline, kernel, size, *slot)
                 .await
                 .map_err(|error| {
                     error
@@ -352,10 +369,11 @@ async fn execute_prepared(
             context
                 .ensure_available(Stage::Readback)
                 .map_err(GpuOperationError::after_compute)?;
-            let texture = resources.textures.get(*resource).ok_or_else(|| {
-                GpuOperationError::at(Stage::Readback, "Output resource is missing.")
-                    .after_compute()
-            })?;
+            let (texture, allocations) =
+                resources.readback_resource(*resource).ok_or_else(|| {
+                    GpuOperationError::at(Stage::Readback, "Output resource is missing.")
+                        .after_compute()
+                })?;
             pixels.push(
                 resources::read_texture(
                     device,
@@ -363,7 +381,7 @@ async fn execute_prepared(
                     texture,
                     layout,
                     *kind,
-                    &mut resources.allocations,
+                    allocations,
                 )
                 .await
                 .map_err(GpuOperationError::after_compute)?,
@@ -413,6 +431,131 @@ mod allocation_tests {
     use super::*;
     use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile};
 
+    fn reuse_plan(size: [u32; 2]) -> RenderPlan {
+        let document = MaterialDocument::decode(
+            include_bytes!("testdata/texture-reuse.mix"),
+            &SafetyLimits::default(),
+        )
+        .unwrap()
+        .into_validated(&SafetyLimits::default())
+        .unwrap();
+        compile(
+            &document,
+            &CompileRequest {
+                size,
+                outputs: vec![
+                    OutputChannel::Height,
+                    OutputChannel::Roughness,
+                    OutputChannel::Metallic,
+                    OutputChannel::Opacity,
+                ],
+                ..Default::default()
+            },
+        )
+        .unwrap()
+    }
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn graph_gpu_reuse_preserves_pinned_outputs_aliases_repeats_and_owned_pixels() {
+        for size in [[1, 1], [1, 17], [19, 11], [65, 3]] {
+            let plan = reuse_plan(size);
+            assert_eq!(
+                plan.allocation()
+                    .resource_slots()
+                    .iter()
+                    .map(|s| s.index())
+                    .collect::<Vec<_>>(),
+                [0, 1, 2, 3, 2]
+            );
+            let context =
+                pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+            let mut renderer = Renderer::new(context);
+            let first = pollster::block_on(renderer.render(&plan)).unwrap();
+            let second = pollster::block_on(renderer.render(&plan)).unwrap();
+            assert_eq!(first.report().allocations, second.report().allocations);
+            assert_eq!(second.report().pipeline_cache.misses, 0);
+            let allocations = &first.report().allocations;
+            let pixels = u64::from(size[0]) * u64::from(size[1]);
+            assert_eq!(allocations.texture_count, 4);
+            assert_eq!(allocations.uniform_count, 5);
+            assert_eq!(allocations.reused_bytes, pixels * 8);
+            assert_eq!(allocations.peak_bytes, plan.estimates().peak_bytes);
+            assert_eq!(allocations.live_bytes, 0);
+            assert_eq!(allocations.released_bytes, allocations.cumulative_bytes);
+            drop(renderer);
+            for (index, gray) in [64, 191, 64, 64].into_iter().enumerate() {
+                assert_eq!(
+                    first.channels()[index].pixels(),
+                    [gray, gray, gray, 255].repeat(pixels as usize)
+                );
+                assert_eq!(
+                    first.channels()[index].pixels(),
+                    second.channels()[index].pixels()
+                );
+            }
+        }
+    }
+
+    #[test]
+    #[ignore = "requires GPU; cargo xtask gpu-smoke"]
+    fn graph_gpu_reuse_rejects_same_pass_overlap_and_cleans_before_retry() {
+        let plan = reuse_plan([19, 11]);
+        let context =
+            pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+        let mut cache = PipelineCache::default();
+        let kernels: Vec<_> = plan.passes().iter().map(|p| &p.kernel).collect();
+        // Only an internal fault injection can forge this schedule; public plans are immutable.
+        let error = pollster::block_on(execute_prepared(
+            &context,
+            &mut cache,
+            plan.size(),
+            &kernels,
+            &[(4, PortKind::Scalar)],
+            &[],
+            &[0, 0, 0, 0, 0],
+        ))
+        .err()
+        .unwrap();
+        assert_eq!(
+            error.diagnostic().message,
+            "Pass input and output share a physical slot."
+        );
+        assert!(!error.compute_completed());
+        let allocations = error.allocations().unwrap();
+        assert_eq!(allocations.texture_count, 1);
+        assert_eq!(allocations.uniform_count, 1);
+        assert_eq!(allocations.live_bytes, 0);
+        assert_eq!(allocations.released_bytes, allocations.cumulative_bytes);
+        // Fail after real reuse and one completed readback, exercising unique
+        // physical destruction rather than only the early rejection path.
+        let late = pollster::block_on(execute_prepared(
+            &context,
+            &mut cache,
+            plan.size(),
+            &kernels,
+            &[(4, PortKind::Scalar), (usize::MAX, PortKind::Scalar)],
+            &[],
+            &[0, 1, 2, 3, 2],
+        ))
+        .err()
+        .unwrap();
+        assert_eq!(late.diagnostic().stage, Stage::Readback);
+        assert!(late.compute_completed());
+        let allocations = late.allocations().unwrap();
+        assert_eq!(allocations.texture_count, 4);
+        assert_eq!(allocations.staging_count, 1);
+        assert_eq!(allocations.reused_bytes, 19 * 11 * 8);
+        assert_eq!(allocations.live_bytes, 0);
+        assert_eq!(allocations.released_bytes, allocations.cumulative_bytes);
+        let mut renderer = Renderer::new(context);
+        let result = pollster::block_on(renderer.render(&plan)).unwrap();
+        assert_eq!(
+            result.channels()[2].pixels(),
+            [64, 64, 64, 255].repeat(19 * 11)
+        );
+    }
+
     #[test]
     #[ignore = "requires GPU; cargo xtask gpu-smoke"]
     fn image_gpu_partial_readback_failure_releases_uploads_and_allows_retry() {
@@ -457,6 +600,7 @@ mod allocation_tests {
                 &kernels,
                 &[(0, PortKind::Scalar), (usize::MAX, PortKind::Scalar)],
                 prepared.resources(),
+                &[0],
             ))
             .err()
             .unwrap();
@@ -473,6 +617,7 @@ mod allocation_tests {
                 &kernels,
                 &[(0, PortKind::Scalar)],
                 prepared.resources(),
+                &[0],
             ))
             .unwrap();
             assert_eq!(output.pixels[0], [64, 64, 64, 255].repeat(65 * 3));

@@ -2,6 +2,8 @@
 
 [English](./compatibility.md) | 简体中文
 
+工作中的 [gamma=1 levels 修正](./levels-linear-correction.zh-CN.md)明确保留 `levels@1` 及计划身份，修正既有线性恒等式。绑定着色器／构建的像素可能改变；源码 76e8039 通过[限定验收](./evidence/levels-linear-correction/README.zh-CN.md)，不允许源码迁移或 golden 重置。
+
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。运行时和 Studio 材质比较共用该规则；当前报告移除已替代的稀疏像素判定。原生金图及精确棋盘格检查不变。新浏览器支持仍需绑定源码的资格证据。
@@ -14,16 +16,16 @@
 
 ## 版本与数据边界
 
-[ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)选定首次 PERF-MAT 实现采用 plan／hash／API 及图报告 v3、未发布 0.8 候选，重编译源请求并使计划缓存失效。本设计不改变可执行版本，下表仍是当前契约。.mix 与 package v1 保持不变。
+[ADR 0009](./decisions/0009-transient-texture-reuse.zh-CN.md)由工作中的 [0.8 物理槽候选](./perf-mat-texture-reuse.zh-CN.md)实现，完整验收待完成。Plan／hash／API 及图报告为 v3；重编译 .mix 请求，使已存计划哈希失效。.mix 源及 package v1 不变。
 
 | 边界 | 当前契约 | 变更审查 |
 |---|---|---|
 | `.mix` 源码 | 严格 UTF-8 JSON，文档版本 `1`；未知／重复字段、不支持的版本及非法值明确失败。 | 不在同版本下重解释字段。格式改动遵循架构的版本／迁移测试与双语指南要求。没有旧格式解码器或迁移。 |
-| 节点 | 工作中的 0.7 候选有十七种内置节点、十五种像素内核；`fractal-noise` 支持显式版本 `1` 和 `2`，其余节点为 `1`。ID、端口、参数类型／范围／默认值及显式 seed 归 core。 | 语义改动需明确决定节点／格式版本，提供契约、夹具和基准证据；不复制目录或静默修改默认值。 |
-| RenderPlan | 计划版本 `2`；不可变编译语义及确定性规范顺序。 | 审查序列化和精确哈希快照。编译表示或语义输入变化可能令已存计划／哈希失效；`.mix` 仍是事实源。 |
-| CLI 报告 | `inspect --plan` 和图 `render` 为 schema `2`；doctor、固定 checker 和 asset 外层报告为 schema `1`；`validate` 保留原有无版本 `{ok, diagnostics}` 外层结构。 | 保留各命令字段存在／null／省略规则和退出码；有意修改线协议时同步独立进程测试和文档。不为既有 validate 输出虚构版本字段。 |
+| 节点 | 工作中的 0.8 候选有十七种内置节点、十五种像素内核；`fractal-noise` 支持显式版本 `1` 和 `2`，其余节点为 `1`。ID、端口、参数类型／范围／默认值及显式 seed 归 core。 | 语义改动需明确决定节点／格式版本，提供契约、夹具和基准证据；不复制目录或静默修改默认值。 |
+| RenderPlan | 计划版本 `3`；不可变编译语义及确定性规范顺序。 | 审查序列化和精确哈希快照。编译表示或语义输入变化可能令已存计划／哈希失效；`.mix` 仍是事实源。 |
+| CLI 报告 | `inspect --plan` 和图 `render` 为 schema `3`；doctor、固定 checker 和 asset 外层报告为 schema `1`；`validate` 保留原有无版本 `{ok, diagnostics}` 外层结构。 | 保留各命令字段存在／null／省略规则和退出码；有意修改线协议时同步独立进程测试和文档。不为既有 validate 输出虚构版本字段。 |
 | 诊断 | 本构建稳定的代码／阶段／上下文词汇；消息及原始来源为描述性证据。 | 新增项需审查词汇及消费者。即使 CLI 外层版本仍为 `1`，严格旧解码器也可能拒绝新代码字符串。 |
-| Rust 包 | 工作中的 `0.7.0` 源码 API（验收／发布分别处理），精确同组包版本要求；按已记录依赖锁编译。 | 审查源码兼容性及公开依赖暴露。包元数据不能认证任意依赖升级或跨版本二进制 ABI。 |
+| Rust 包 | 工作中的 `0.8.0` 源码 API（验收／发布分别处理），精确同组包版本要求；按已记录依赖锁编译。 | 审查源码兼容性及公开依赖暴露。包元数据不能认证任意依赖升级或跨版本二进制 ABI。 |
 
 [格式指南](./file-format.zh-CN.md)、[节点契约](./node-contracts.zh-CN.md)、[计划指南](./render-plan.zh-CN.md)、[CLI 契约](./cli-contract.zh-CN.md)及[诊断词汇](./diagnostics.zh-CN.md)定义详细可执行行为。既有测试／稳定公开行为继续遵守 [AGENTS.md](../AGENTS.zh-CN.md) 的权威顺序。
 

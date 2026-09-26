@@ -51,6 +51,8 @@ Defaults match the [PR-004 fixed checker](./builtin-checker.md). The graph contr
 
 ## levels
 
+`levels@1` now evaluates effective f32 gamma 1 with the exact identity `curved=t`, preserving the declared formula while avoiding approximate power at half midpoints. Other gamma values retain the power path. See the [correction and compatibility decision](./levels-linear-correction.md).
+
 [Contract module](../crates/mixture-core/src/nodes/levels.rs). Required input `in: Scalar`; output `value: Scalar`.
 
 | Parameter | Type / range | Default |

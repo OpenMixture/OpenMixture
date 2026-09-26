@@ -41,7 +41,7 @@ pub struct AllocationReport {
     pub live_bytes: u64,
     /// Descriptor bytes explicitly destroyed before this report was returned.
     pub released_bytes: u64,
-    /// Bytes served by resource reuse; zero for the current retain-all schedule.
+    /// Logical pass-result bytes served by already allocated physical slots.
     pub reused_bytes: u64,
 }
 
@@ -56,18 +56,28 @@ impl Allocations {
         self.report.clone()
     }
 
-    pub fn pass(&mut self, texture: u64, uniform: u64) -> Result<(), GpuOperationError> {
+    pub fn texture(&mut self, texture: u64) -> Result<(), GpuOperationError> {
         let stage = Stage::GpuExecution;
-        let bytes = add(texture, uniform, stage)?;
         let texture_count = add(self.report.texture_count, 1, stage)?;
-        let uniform_count = add(self.report.uniform_count, 1, stage)?;
         let texture_bytes = add(self.report.texture_bytes, texture, stage)?;
-        let uniform_bytes = add(self.report.uniform_bytes, uniform, stage)?;
-        self.allocate(bytes, stage)?;
+        self.allocate(texture, stage)?;
         self.report.texture_count = texture_count;
-        self.report.uniform_count = uniform_count;
         self.report.texture_bytes = texture_bytes;
+        Ok(())
+    }
+
+    pub fn uniform(&mut self, uniform: u64) -> Result<(), GpuOperationError> {
+        let stage = Stage::GpuExecution;
+        let uniform_count = add(self.report.uniform_count, 1, stage)?;
+        let uniform_bytes = add(self.report.uniform_bytes, uniform, stage)?;
+        self.allocate(uniform, stage)?;
+        self.report.uniform_count = uniform_count;
         self.report.uniform_bytes = uniform_bytes;
+        Ok(())
+    }
+
+    pub fn reuse(&mut self, bytes: u64) -> Result<(), GpuOperationError> {
+        self.report.reused_bytes = add(self.report.reused_bytes, bytes, Stage::GpuExecution)?;
         Ok(())
     }
 
@@ -150,10 +160,13 @@ mod tests {
     #[test]
     fn allocation_accounting_rejects_overflow_without_partial_counters() {
         let mut allocations = Allocations::default();
-        allocations.pass(64, 16).unwrap();
+        allocations.texture(64).unwrap();
+        allocations.uniform(16).unwrap();
         let before = allocations.report();
-        let error = allocations.pass(u64::MAX, 16).unwrap_err();
+        let error = allocations.texture(u64::MAX).unwrap_err();
         assert_eq!(error.diagnostic().stage, Stage::GpuExecution);
+        assert_eq!(allocations.report(), before);
+        assert!(allocations.uniform(u64::MAX).is_err());
         assert_eq!(allocations.report(), before);
         let error = allocations.staging(u64::MAX).unwrap_err();
         assert_eq!(error.diagnostic().stage, Stage::Readback);

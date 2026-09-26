@@ -34,13 +34,13 @@ fn inspection_snapshot_is_path_independent_and_never_changes_source() {
     let path = fixture("examples/checker.mix");
     let before = std::fs::read(&path).unwrap();
     let a = report(&run(&path, &["--plan", "--json"]), 0);
-    assert_eq!(a["schemaVersion"], 2);
+    assert_eq!(a["schemaVersion"], 3);
     assert_eq!(a["ok"], true);
     assert_eq!(a["diagnostics"], serde_json::json!([]));
     assert_eq!(
         a["plan"],
         serde_json::from_str::<Value>(include_str!(
-            "../../mixture-core/tests/snapshots/plan-v2-checker.json"
+            "../../mixture-core/tests/snapshots/plan-v3-checker.json"
         ))
         .unwrap()
     );
@@ -53,7 +53,7 @@ fn inspection_snapshot_is_path_independent_and_never_changes_source() {
     assert!(human.status.success());
     let text = String::from_utf8(human.stdout).unwrap();
     for expected in [
-        "Compiled RenderPlan v2: 64x64, 1 passes",
+        "Compiled RenderPlan v3: 64x64, 1 passes",
         "Hash: sha256:",
         "checker",
         "baseColor",

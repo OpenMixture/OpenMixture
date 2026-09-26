@@ -2,7 +2,7 @@
 
 English | [简体中文](./0009-transient-texture-reuse.zh-CN.md)
 
-Status: selected for PERF-MAT design review, 2026-09-23; accepted on integration. This document changes no executable version or allocation behavior. Implementation and qualification follow separately.
+Status: design accepted through PR #58, 2026-09-23. The [0.8 working implementation](../perf-mat-texture-reuse.md) applies the atomic Core/wgpu contract; integration and full qualification of that candidate remain pending. The original design PR changed no executable versions or allocation behavior.
 
 ## Context
 

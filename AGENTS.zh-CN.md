@@ -48,18 +48,18 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 边界要点
 
-- **版本：** `.mix` 与 `.mixpack` 为 v1，`RenderPlan` 与浏览器 API 为 v2。按显式节点类型/版本解析（`fractal-noise@1` 与 `@2` 共存），不得自动迁移文档。节点目录见 `registry.rs` 与[节点契约](./docs/node-contracts.zh-CN.md)，兼容性见[兼容性](./docs/compatibility.zh-CN.md)。
+- **版本：** `.mix` 与 `.mixpack` 为 v1，`RenderPlan` 与浏览器 API 为 v3。按显式节点类型/版本解析（`fractal-noise@1` 与 `@2` 共存），不得自动迁移文档。节点目录见 `registry.rs` 与[节点契约](./docs/node-contracts.zh-CN.md)，兼容性见[兼容性](./docs/compatibility.zh-CN.md)。
 - **外部资源：** 调用方提供紧密排列的 `rgba8-linear` 字节；Core 验证、同步捕获并返回不可变 `PreparedRender`；wgpu 负责上传。禁止隐式路径/URL 查找、PNG 解码或重采样。见[资源契约](./docs/m6a-resource-contract.zh-CN.md)。
 - **可移植资产：** `mixture-asset` 是唯一的 `.mixpack` 编解码器（规范 USTAR，纯 CPU）。裁剪前验证哈希与完整资源闭包；不提取路径；拒绝所有 `resourceRef` 覆盖。上限只能降低。见[格式](./docs/m6b-package-format.zh-CN.md)与[适配层](./docs/m6b-04-adapters.zh-CN.md)。
 - **浏览器：** `mixture-wasm` 与 `packages/runtime` 保持轻量。导入无副作用，加载与 GPU 创建显式执行；让出执行权前快照输入；每个实例一个 busy 槽。见[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)。
-- **数值：** 不得重置 golden，或把实测修复泛化到其记录节点和硬件之外。见[稳定噪声](./docs/stable-noise.zh-CN.md)。
+- **数值：** 不得重置 golden，或把实测修复泛化到其记录节点和硬件之外。见[稳定噪声](./docs/stable-noise.zh-CN.md)与有界 [gamma=1 修正](./docs/levels-linear-correction.zh-CN.md)；保留节点契约，改变的像素须绑定实现构建。
 - **交付：** `main` 需要六项检查。仅文档的 PR 可跳过 GPU/浏览器任务；被跳过的检查不是验收证据。CPU 或软件检查通过不认证硬件像素。
 - **证据：** 普通运行输出留在 CI 产物或被忽略的 `tmp/` 中。除非目录已列入 `docs/evidence/retention-exceptions.txt` 并在 PR 中说明理由，`cargo xtask check` 会拒绝证据区域中的原始日志、归档和单次运行目录，以及任何超过 4 MiB 的文件。见[证据保留](./docs/evidence-policy.zh-CN.md)。
 - **历史附件：** 显式[归档恢复与验证](./docs/evidence/archives/README.zh-CN.md)由仓库工具负责。仅列明的快照使用维护者选定的证据 Release；保留原回执及当前 golden／人工评审图像，删除前验证已发布字节，不将归档存储视为产品发布或新资格认定。CPU 工作流执行离线恢复测试，普通构建不获取归档。
 
 ## 当前工作
 
-遵循[路线图](./ROADMAP.zh-CN.md)的当前增量：[MAT-02 契约](./docs/mat-02-layered-weathering.zh-CN.md)下的 MAT-02b，以及按 [ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md) 进行的 PERF-MAT（尚未实现；首次实现须同时修改 Core 估算与 wgpu 执行器）。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。
+遵循[路线图](./ROADMAP.zh-CN.md)的当前增量：[MAT-02 契约](./docs/mat-02-layered-weathering.zh-CN.md)下的 MAT-02b，以及按 [ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md) 进行的 PERF-MAT（[工作实现](./docs/perf-mat-texture-reuse.zh-CN.md)同时修改 Core 估算与 wgpu 执行器；完整材质验收单独处理）。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。
 
 ## 速查
 

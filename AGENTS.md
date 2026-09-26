@@ -48,18 +48,18 @@ When sources disagree: (1) executable tests and stable public behavior; (2) `ARC
 
 ## Boundary essentials
 
-- **Versions:** `.mix` and `.mixpack` are v1; `RenderPlan` and the browser API are v2. Resolve explicit node type/version pairs (`fractal-noise@1` and `@2` coexist); never auto-migrate documents. The catalog lives in `registry.rs` and [node contracts](./docs/node-contracts.md). See [compatibility](./docs/compatibility.md).
+- **Versions:** `.mix` and `.mixpack` are v1; `RenderPlan` and the browser API are v3. Resolve explicit node type/version pairs (`fractal-noise@1` and `@2` coexist); never auto-migrate documents. The catalog lives in `registry.rs` and [node contracts](./docs/node-contracts.md). See [compatibility](./docs/compatibility.md).
 - **External resources:** callers supply packed `rgba8-linear` bytes; Core validates, captures synchronously and returns immutable `PreparedRender`; wgpu uploads. No implicit path/URL lookup, PNG decoding or resampling. See the [resource contract](./docs/m6a-resource-contract.md).
 - **Portable assets:** `mixture-asset` is the only `.mixpack` codec (canonical USTAR, CPU-only). Validate hashes and the full resource closure before slicing; never extract paths; reject every `resourceRef` override. Ceilings may only be lowered. See [format](./docs/m6b-package-format.md) and [adapters](./docs/m6b-04-adapters.md).
 - **Browser:** `mixture-wasm` and `packages/runtime` are thin. Import is inert; loading and GPU creation are explicit; snapshot inputs before yielding; one busy slot per instance. See the [browser SDK contract](./docs/browser-sdk.md).
-- **Numerics:** do not reset goldens or generalize a measured repair beyond its recorded nodes and hardware. See [stable noise](./docs/stable-noise.md).
+- **Numerics:** do not reset goldens or generalize a measured repair beyond its recorded nodes and hardware. See [stable noise](./docs/stable-noise.md) and the bounded [gamma-one correction](./docs/levels-linear-correction.md); retain node contracts while binding changed pixels to implementation builds.
 - **Delivery:** `main` requires six checks. Documentation-only PRs may skip the GPU/browser jobs; a skipped check is not qualification evidence. CPU or software passes never qualify hardware pixels.
 - **Evidence:** keep ordinary run output in CI artifacts or ignored `tmp/`. `cargo xtask check` rejects raw logs, archives and per-run folders in evidence areas, and any file above 4 MiB, unless the directory is listed in `docs/evidence/retention-exceptions.txt` with a PR justification. See [evidence retention](./docs/evidence-policy.md).
 - **Historical attachments:** repository tooling owns explicit [archive restore and verification](./docs/evidence/archives/README.md). Only the listed snapshots use the maintainer-selected evidence Release; retain original receipts and current goldens/human-review images, verify published bytes before removal, and never treat archive storage as product publication or new qualification. The CPU workflow runs offline restore tests; normal builds never fetch archives.
 
 ## Current work
 
-Follow the [roadmap](./ROADMAP.md)'s active increment: MAT-02b under the [MAT-02 contract](./docs/mat-02-layered-weathering.md), with PERF-MAT per [ADR 0009](./docs/decisions/0009-transient-texture-reuse.md) (unimplemented; its first implementation changes Core estimates and the wgpu executor together). Freeze each stage's contract and acceptance cases before implementation. Material qualification builds into `target/native-consumer` and must not weaken clean-source checks.
+Follow the [roadmap](./ROADMAP.md)'s active increment: MAT-02b under the [MAT-02 contract](./docs/mat-02-layered-weathering.md), with PERF-MAT per [ADR 0009](./docs/decisions/0009-transient-texture-reuse.md) (the [working implementation](./docs/perf-mat-texture-reuse.md) changes Core estimates and wgpu execution together; full material acceptance remains separate). Freeze each stage's contract and acceptance cases before implementation. Material qualification builds into `target/native-consumer` and must not weaken clean-source checks.
 
 ## Quick reference
 

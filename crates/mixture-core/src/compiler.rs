@@ -1,5 +1,6 @@
 //! Compile validated material graphs into deterministic, GPU-independent plans.
 
+mod allocation;
 pub(crate) mod lower;
 mod normalize;
 

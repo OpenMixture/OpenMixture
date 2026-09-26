@@ -55,7 +55,7 @@ fn public_core_resource_preparation_owns_input_and_rejects_missing_bindings() {
     pixels.fill(0);
     drop(pixels);
     assert_eq!(prepared.resources()[0].data(), &[128, 34, 56, 0]);
-    assert_eq!(prepared.plan().version(), 2);
+    assert_eq!(prepared.plan().version(), 3);
     assert_eq!(
         prepared.plan().image_resources()[0],
         *prepared.resources()[0].image()

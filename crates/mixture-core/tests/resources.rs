@@ -346,7 +346,7 @@ fn snapshot_and_plan_identity_are_content_bound_sorted_and_slice_local() {
     .unwrap();
     assert_eq!(
         serde_json::to_value(first.plan()).unwrap(),
-        serde_json::from_str::<Value>(include_str!("snapshots/plan-v2-images.json")).unwrap()
+        serde_json::from_str::<Value>(include_str!("snapshots/plan-v3-images.json")).unwrap()
     );
     pixels.fill(255);
     assert_eq!(first.resources()[0].data(), &(0u8..16).collect::<Vec<_>>());
@@ -397,13 +397,13 @@ fn snapshot_and_plan_identity_are_content_bound_sorted_and_slice_local() {
     )
     .unwrap();
     assert_eq!(first.plan().hash(), equivalent.plan().hash());
-    assert_eq!(first.plan().version(), 2);
+    assert_eq!(first.plan().version(), 3);
     assert!(
         first
             .plan()
             .hash_input()
             .unwrap()
-            .starts_with(b"mixture-render-plan-v2\0")
+            .starts_with(b"mixture-render-plan-v3\0")
     );
     // Frozen independently using Node crypto, not the production digest function.
     assert_eq!(

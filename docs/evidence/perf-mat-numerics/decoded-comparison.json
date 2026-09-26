@@ -1,0 +1,479 @@
+{
+  "baseColor": {
+    "nativeBrowserChanged": 100,
+    "max": 1,
+    "worst": [
+      {
+        "delta": 1,
+        "xy": [
+          951,
+          1002
+        ],
+        "native": [
+          145,
+          141,
+          144,
+          255
+        ],
+        "browser": [
+          145,
+          141,
+          143,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          308,
+          978
+        ],
+        "native": [
+          146,
+          141,
+          143,
+          255
+        ],
+        "browser": [
+          146,
+          141,
+          142,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          88,
+          968
+        ],
+        "native": [
+          133,
+          131,
+          136,
+          255
+        ],
+        "browser": [
+          133,
+          130,
+          136,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          299,
+          965
+        ],
+        "native": [
+          145,
+          139,
+          140,
+          255
+        ],
+        "browser": [
+          145,
+          138,
+          140,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          401,
+          961
+        ],
+        "native": [
+          143,
+          141,
+          145,
+          255
+        ],
+        "browser": [
+          143,
+          141,
+          144,
+          255
+        ]
+      }
+    ],
+    "oldWindowsSwiftVsCurrentLinuxNativeChanged": 100,
+    "oldWindowsSwiftVsCurrentLinuxBrowserChanged": 0
+  },
+  "height": {
+    "nativeBrowserChanged": 3,
+    "max": 1,
+    "worst": [
+      {
+        "delta": 1,
+        "xy": [
+          594,
+          869
+        ],
+        "native": [
+          53,
+          53,
+          53,
+          255
+        ],
+        "browser": [
+          54,
+          54,
+          54,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          125,
+          167
+        ],
+        "native": [
+          53,
+          53,
+          53,
+          255
+        ],
+        "browser": [
+          54,
+          54,
+          54,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          818,
+          164
+        ],
+        "native": [
+          55,
+          55,
+          55,
+          255
+        ],
+        "browser": [
+          56,
+          56,
+          56,
+          255
+        ]
+      }
+    ],
+    "oldWindowsSwiftVsCurrentLinuxNativeChanged": 3,
+    "oldWindowsSwiftVsCurrentLinuxBrowserChanged": 0
+  },
+  "normal": {
+    "nativeBrowserChanged": 422,
+    "max": 4,
+    "worst": [
+      {
+        "delta": 4,
+        "xy": [
+          950,
+          1008
+        ],
+        "native": [
+          93,
+          124,
+          250,
+          255
+        ],
+        "browser": [
+          93,
+          128,
+          250,
+          255
+        ]
+      },
+      {
+        "delta": 4,
+        "xy": [
+          949,
+          1007
+        ],
+        "native": [
+          100,
+          128,
+          252,
+          255
+        ],
+        "browser": [
+          104,
+          128,
+          253,
+          255
+        ]
+      },
+      {
+        "delta": 4,
+        "xy": [
+          950,
+          1006
+        ],
+        "native": [
+          89,
+          128,
+          249,
+          255
+        ],
+        "browser": [
+          89,
+          124,
+          249,
+          255
+        ]
+      },
+      {
+        "delta": 4,
+        "xy": [
+          929,
+          993
+        ],
+        "native": [
+          131,
+          128,
+          255,
+          255
+        ],
+        "browser": [
+          131,
+          124,
+          255,
+          255
+        ]
+      },
+      {
+        "delta": 4,
+        "xy": [
+          926,
+          993
+        ],
+        "native": [
+          124,
+          128,
+          255,
+          255
+        ],
+        "browser": [
+          124,
+          124,
+          255,
+          255
+        ]
+      }
+    ],
+    "oldWindowsSwiftVsCurrentLinuxNativeChanged": 422,
+    "oldWindowsSwiftVsCurrentLinuxBrowserChanged": 0
+  },
+  "roughness": {
+    "nativeBrowserChanged": 121,
+    "max": 1,
+    "worst": [
+      {
+        "delta": 1,
+        "xy": [
+          957,
+          1021
+        ],
+        "native": [
+          100,
+          100,
+          100,
+          255
+        ],
+        "browser": [
+          101,
+          101,
+          101,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          877,
+          1021
+        ],
+        "native": [
+          106,
+          106,
+          106,
+          255
+        ],
+        "browser": [
+          107,
+          107,
+          107,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          377,
+          995
+        ],
+        "native": [
+          89,
+          89,
+          89,
+          255
+        ],
+        "browser": [
+          90,
+          90,
+          90,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          376,
+          989
+        ],
+        "native": [
+          89,
+          89,
+          89,
+          255
+        ],
+        "browser": [
+          90,
+          90,
+          90,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          796,
+          973
+        ],
+        "native": [
+          95,
+          95,
+          95,
+          255
+        ],
+        "browser": [
+          96,
+          96,
+          96,
+          255
+        ]
+      }
+    ],
+    "oldWindowsSwiftVsCurrentLinuxNativeChanged": 121,
+    "oldWindowsSwiftVsCurrentLinuxBrowserChanged": 0
+  },
+  "metallic": {
+    "nativeBrowserChanged": 163,
+    "max": 1,
+    "worst": [
+      {
+        "delta": 1,
+        "xy": [
+          558,
+          1012
+        ],
+        "native": [
+          199,
+          199,
+          199,
+          255
+        ],
+        "browser": [
+          198,
+          198,
+          198,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          811,
+          1000
+        ],
+        "native": [
+          215,
+          215,
+          215,
+          255
+        ],
+        "browser": [
+          214,
+          214,
+          214,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          496,
+          997
+        ],
+        "native": [
+          217,
+          217,
+          217,
+          255
+        ],
+        "browser": [
+          216,
+          216,
+          216,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          371,
+          993
+        ],
+        "native": [
+          217,
+          217,
+          217,
+          255
+        ],
+        "browser": [
+          216,
+          216,
+          216,
+          255
+        ]
+      },
+      {
+        "delta": 1,
+        "xy": [
+          950,
+          989
+        ],
+        "native": [
+          207,
+          207,
+          207,
+          255
+        ],
+        "browser": [
+          206,
+          206,
+          206,
+          255
+        ]
+      }
+    ],
+    "oldWindowsSwiftVsCurrentLinuxNativeChanged": 163,
+    "oldWindowsSwiftVsCurrentLinuxBrowserChanged": 0
+  }
+}

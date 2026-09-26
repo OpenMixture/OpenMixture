@@ -163,4 +163,3 @@ Do not introduce a general optimizer, SSA, shader AST, or precision inference sy
 - Do not bypass required checks.
 - Do not merge a pull request that leaves the documented primary command path broken.
 - Retain accepted results and their required review content under the [evidence policy](./evidence-policy.md); preserve historical records and keep ordinary repeated output in CI artifacts or ignored local directories.
-

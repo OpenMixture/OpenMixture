@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 test('saturating subtraction preserves equal masks and the half-precision edge difference', async ({ page, browser }, testInfo) => {
   test.setTimeout(120_000);
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.7.0-alpha.0');
+  expect(expectedBuild.runtimeVersion).toBe('0.8.0-alpha.0');
   const source = await readFile(new URL('../public/scalar-subtract.mix', import.meta.url), 'utf8');
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));

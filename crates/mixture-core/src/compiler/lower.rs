@@ -97,7 +97,8 @@ pub(crate) fn compile<D: crate::resources::ImageData>(
             resource,
         });
     }
-    let mut estimates = estimates(request.size, &builder.passes, outputs.len())?;
+    let allocation = super::allocation::plan(&builder.passes, &outputs)?;
+    let mut estimates = estimates(request.size, &builder.passes, outputs.len(), &allocation)?;
     for snapshot in &snapshots {
         let image = snapshot.image();
         let texture = mul(mul(u64::from(image.width), u64::from(image.height))?, 4)?;
@@ -123,6 +124,7 @@ pub(crate) fn compile<D: crate::resources::ImageData>(
         material_output: identity(sink),
         passes: builder.passes,
         outputs,
+        allocation,
         estimates,
         image_resources: snapshots.iter().map(|s| s.image().clone()).collect(),
     })?;
@@ -345,7 +347,7 @@ impl Builder<'_> {
             },
             _ => {
                 return Err(invariant(
-                    "Selected node has no supported pixel invocation in plan version 2.",
+                    "Selected node has no supported pixel invocation in plan version 3.",
                 ));
             }
         };
@@ -428,12 +430,20 @@ fn estimates(
     size: [u32; 2],
     passes: &[ComputePass],
     outputs: usize,
+    allocation: &AllocationPlan,
 ) -> Result<PlanEstimates, CompileError> {
     let tight_row = mul(u64::from(size[0]), 8)?;
     let row = mul(add(tight_row, 255)? / 256, 256)?;
     let padded_bytes_per_row = u32::try_from(row).map_err(|_| overflow())?;
     let texture = mul(tight_row, u64::from(size[1]))?;
-    let texture_bytes = mul(texture, passes.len() as u64)?;
+    let logical_texture_bytes = mul(texture, passes.len() as u64)?;
+    let texture_count = allocation.slots().len() as u64;
+    let texture_bytes = allocation.slots().iter().try_fold(0, |bytes, desc| {
+        add(
+            bytes,
+            mul(mul(u64::from(desc.width), u64::from(desc.height))?, 8)?,
+        )
+    })?;
     let uniform_bytes = passes
         .iter()
         .try_fold(0, |bytes, pass| add(bytes, pass.kernel.uniform_bytes()))?;
@@ -446,6 +456,8 @@ fn estimates(
         resource_upload_bytes: 0,
         resource_texture_bytes: 0,
         resource_staging_bytes: 0,
+        texture_count,
+        logical_texture_bytes,
         texture_bytes,
         uniform_bytes,
         padded_bytes_per_row,

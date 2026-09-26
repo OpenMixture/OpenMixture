@@ -6,9 +6,9 @@ use sha2::{Digest, Sha256};
 use std::{fmt, str::FromStr};
 
 /// Version of the plan structure, lowering rules, memory model, and hash encoding.
-pub const PLAN_VERSION: u32 = 2;
+pub const PLAN_VERSION: u32 = 3;
 /// Domain separator prepended to canonical compact plan JSON when hashing.
-pub const PLAN_HASH_DOMAIN: &[u8] = b"mixture-render-plan-v2\0";
+pub const PLAN_HASH_DOMAIN: &[u8] = b"mixture-render-plan-v3\0";
 
 /// Material channel request in stable material-contract order.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize)]
@@ -92,7 +92,18 @@ impl ResourceId {
     }
 }
 
-/// One portable intermediate storage format in plan version 2.
+/// Zero-based physical texture slot within one render. Never a cross-render cache key.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+#[serde(transparent)]
+pub struct TextureSlotId(pub(crate) u32);
+impl TextureSlotId {
+    /// Stable index into the allocation plan's slot descriptors.
+    pub fn index(self) -> u32 {
+        self.0
+    }
+}
+
+/// One portable intermediate storage format in plan version 3.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 pub enum TextureFormat {
     /// Eight bytes per pixel, one mip, one layer, two-dimensional storage.
@@ -110,6 +121,28 @@ pub struct TextureDesc {
     pub format: TextureFormat,
     /// Logical interpretation of the stored components.
     pub kind: PortKind,
+}
+/// Compiler-owned per-render slot mapping. Inputs never alias a pass's output slot.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AllocationPlan {
+    pub(crate) slots: Vec<TextureDesc>,
+    pub(crate) resource_slots: Vec<TextureSlotId>,
+    pub(crate) last_uses: Vec<u32>,
+}
+impl AllocationPlan {
+    /// Physical descriptors in slot order, each allocated once per render.
+    pub fn slots(&self) -> &[TextureDesc] {
+        &self.slots
+    }
+    /// Logical-resource-indexed physical assignments, including pinned output aliases.
+    pub fn resource_slots(&self) -> &[TextureSlotId] {
+        &self.resource_slots
+    }
+    /// Logical-resource-indexed last consumer; pass count is the output pin sentinel.
+    pub fn last_uses(&self) -> &[u32] {
+        &self.last_uses
+    }
 }
 /// Source identity retained for diagnostics and deterministic pass ordering.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
@@ -418,7 +451,7 @@ impl KernelInvocation {
         .into_iter()
         .flatten()
     }
-    /// Uniform allocation assumed by plan version 2, including struct padding.
+    /// Uniform allocation assumed by plan version 3, including struct padding.
     pub fn uniform_bytes(&self) -> u64 {
         match self {
             Self::ImageInput { .. }
@@ -468,8 +501,8 @@ pub struct PlanOutput {
     pub resource: ResourceId,
 }
 /// Checked logical GPU allocation estimates, not driver measurements.
-/// All pass textures and uniforms remain resident; readbacks allocate and release
-/// one staging buffer per requested channel in sequence. No pooling or early release.
+/// Compatible logical results reuse per-call physical slots. Slots and uniforms
+/// remain resident; readbacks allocate one staging buffer per channel in sequence.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PlanEstimates {
@@ -481,7 +514,11 @@ pub struct PlanEstimates {
     pub resource_texture_bytes: u64,
     /// Conservative 256-byte-row-aligned upload staging bytes.
     pub resource_staging_bytes: u64,
-    /// Sum of all logical pass textures, also the peak resident texture bytes.
+    /// Number of physical pass-texture slots, excluding external images.
+    pub texture_count: u64,
+    /// Sum of all logical pass-result texture bytes before physical reuse.
+    pub logical_texture_bytes: u64,
+    /// Sum of physical pass-texture descriptors, also peak resident pass bytes.
     pub texture_bytes: u64,
     /// Sum of all padded uniform allocations.
     pub uniform_bytes: u64,
@@ -522,6 +559,7 @@ pub(crate) struct PlanData {
     pub material_output: NodeIdentity,
     pub passes: Vec<ComputePass>,
     pub outputs: Vec<PlanOutput>,
+    pub allocation: AllocationPlan,
     pub estimates: PlanEstimates,
     pub image_resources: Vec<crate::ImageResource>,
 }
@@ -566,7 +604,11 @@ impl RenderPlan {
     pub fn outputs(&self) -> &[PlanOutput] {
         &self.data.outputs
     }
-    /// Checked estimates for the declared naive lifetime model.
+    /// Deterministic physical slots and logical result lifetimes for this call.
+    pub fn allocation(&self) -> &AllocationPlan {
+        &self.data.allocation
+    }
+    /// Checked estimates for the declared per-call physical slot model.
     pub fn estimates(&self) -> &PlanEstimates {
         &self.data.estimates
     }
@@ -575,7 +617,7 @@ impl RenderPlan {
         &self.hash
     }
     /// Complete reproducible hash input: domain separator plus compact plan JSON,
-    /// excluding the hash itself. Field order is fixed by plan version 2.
+    /// excluding the hash itself. Field order is fixed by plan version 3.
     pub fn hash_input(&self) -> Result<Vec<u8>, CompileError> {
         let mut bytes = PLAN_HASH_DOMAIN.to_vec();
         bytes.extend(serde_json::to_vec(&self.data).map_err(crate::compiler::serialization_error)?);

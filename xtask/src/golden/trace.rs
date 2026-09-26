@@ -1,4 +1,4 @@
-//! A measured naive 2K workload selected from every M3 material case.
+//! A measured physical-slot 2K workload selected from every M3 material case.
 //! Selection/verification belongs to tooling; allocation and pixels stay in wgpu.
 
 use super::{
@@ -73,7 +73,7 @@ fn run_with_policy(root: &Path, backend: &str, software: &str) -> TaskResult {
     result?;
     files::write_json(&latest, &json!({"run":run,"ok":true}))?;
     println!(
-        "2K naive lifetime trace passed; evidence: {}",
+        "2K physical-slot lifetime trace passed; evidence: {}",
         output.join("trace.json").display()
     );
     Ok(())
@@ -228,14 +228,14 @@ fn trace(
     files::write_json(
         &output.join("trace.json"),
         &json!({
-            "schemaVersion":1,"kind":"m3-naive-2k-allocation-trace","ok":true,"size":[SIZE,SIZE],"transientBudgetBytes":BUDGET,
+            "schemaVersion":1,"kind":"m3-pooled-2k-allocation-trace","ok":true,"size":[SIZE,SIZE],"transientBudgetBytes":BUDGET,
             "policy":{"backend":backend,"software":software=="1","expectedAdapter":expected},"softwareSource":source,
             "ranking":ranking,"selected":{"material":selected.material,"case":selected.case,"overrides":selected.overrides},
             "requestedOutputs":CHANNELS,"planHash":selected.plan_hash,"execution":render["execution"],
             "inputs":inputs,"baselinesUnchanged":true,"artifacts":artifacts,
             "reproduce":{"command":"cargo xtask trace-2k","renderArguments":exact_render_arguments,"environment":{"MIXTURE_GPU_BACKEND":backend,"MIXTURE_GPU_SOFTWARE":software,"MIXTURE_GPU_EXPECT_ADAPTER":expected}},
             "allocationScope":"Successful texture/uniform/staging descriptors; driver/pipeline overhead and CPU PNG/RGBA buffers are excluded.",
-            "lifetimeDecision":"Measured naive peak fits the documented budget. No last-consumer release, pooling or compatible texture reuse is justified by this workload.",
+            "lifetimeDecision":"Plan v3 uses per-render compatible physical slots. This trace verifies the existing M3 workload after PERF-MAT; the separate painted-metal failure triggered the change.",
             "limits":"This fixed workload measurement is not a 2K golden or proof about every possible graph; GPU timings are CPU wall measurements around the recorded stages.",
             "remoteCi":"not inferred by this report; verify the CI run and revision separately"
         }),
@@ -309,22 +309,25 @@ fn validate_allocations(execution: &Value, passes: usize) -> TaskResult {
     ] {
         if number(actual, field)? != number(estimate, field)? {
             return Err(
-                format!("naive allocation count differs from plan estimate: {field}").into(),
+                format!("physical allocation count differs from plan estimate: {field}").into(),
             );
         }
     }
+    let reused = number(estimate, "logicalTextureBytes")?
+        .checked_sub(number(estimate, "textureBytes")?)
+        .ok_or("physical texture bytes exceed logical results")?;
     if number(execution, "passCount")? != passes as u64
         || number(actual, "peakBytes")? > BUDGET
         || number(actual, "liveBytes")? != 0
-        || number(actual, "reusedBytes")? != 0
+        || number(actual, "reusedBytes")? != reused
         || number(actual, "releasedBytes")? != number(actual, "cumulativeBytes")?
-        || number(actual, "textureCount")? != passes as u64
+        || number(actual, "textureCount")? != number(estimate, "textureCount")?
         || number(actual, "uniformCount")? != passes as u64
         || number(actual, "stagingCount")? != CHANNELS.len() as u64
         || number(actual, "stagingBytes")? != number(estimate, "cumulativeReadbackBytes")?
         || number(actual, "peakStagingBytes")? != number(estimate, "readbackBufferBytes")?
     {
-        return Err("2K trace did not prove a released, bounded naive allocation schedule".into());
+        return Err("2K trace did not prove a released, bounded physical-slot schedule".into());
     }
     for field in ["pipelineMs", "executionMs", "readbackMs", "totalMs"] {
         if execution["timings"][field]
@@ -365,9 +368,24 @@ mod tests {
         );
     }
     #[test]
-    fn trace_rejects_missing_counters_leaks_reuse_and_over_budget_measurements() {
-        let valid = json!({"passCount":2,"allocations":{"textureCount":2,"textureBytes":16,"uniformCount":2,"uniformBytes":32,"stagingCount":4,"stagingBytes":32,"peakStagingBytes":8,"cumulativeBytes":80,"peakBytes":56,"liveBytes":0,"releasedBytes":80,"reusedBytes":0},"estimates":{"textureBytes":16,"uniformBytes":32,"cumulativeReadbackBytes":32,"readbackBufferBytes":8,"cumulativeBytes":80,"peakBytes":56},"timings":{"pipelineMs":0,"executionMs":1,"readbackMs":2,"totalMs":3}});
+    fn trace_rejects_missing_counters_leaks_incorrect_reuse_and_over_budget_measurements() {
+        let valid = json!({"passCount":2,"allocations":{"textureCount":2,"textureBytes":16,"uniformCount":2,"uniformBytes":32,"stagingCount":4,"stagingBytes":32,"peakStagingBytes":8,"cumulativeBytes":80,"peakBytes":56,"liveBytes":0,"releasedBytes":80,"reusedBytes":0},"estimates":{"textureCount":2,"logicalTextureBytes":16,"textureBytes":16,"uniformBytes":32,"cumulativeReadbackBytes":32,"readbackBufferBytes":8,"cumulativeBytes":80,"peakBytes":56},"timings":{"pipelineMs":0,"executionMs":1,"readbackMs":2,"totalMs":3}});
         assert!(validate_allocations(&valid, 2).is_ok());
+        let mut pooled = valid.clone();
+        pooled["passCount"] = json!(3);
+        pooled["allocations"]["uniformCount"] = json!(3);
+        pooled["allocations"]["uniformBytes"] = json!(48);
+        pooled["allocations"]["reusedBytes"] = json!(8);
+        pooled["allocations"]["cumulativeBytes"] = json!(96);
+        pooled["allocations"]["releasedBytes"] = json!(96);
+        pooled["allocations"]["peakBytes"] = json!(72);
+        pooled["estimates"]["logicalTextureBytes"] = json!(24);
+        pooled["estimates"]["uniformBytes"] = json!(48);
+        pooled["estimates"]["cumulativeBytes"] = json!(96);
+        pooled["estimates"]["peakBytes"] = json!(72);
+        assert!(validate_allocations(&pooled, 3).is_ok());
+        pooled["allocations"]["reusedBytes"] = json!(0);
+        assert!(validate_allocations(&pooled, 3).is_err());
         for (field, value) in [
             ("liveBytes", json!(1)),
             ("releasedBytes", json!(79)),

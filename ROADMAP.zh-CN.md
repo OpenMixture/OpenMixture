@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；当前 MAT-02b 工作候选为尚未验收的 0.7.0 / 0.7.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；当前 PERF-MAT 工作候选为尚未验收的 0.8.0 / 0.8.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
@@ -27,7 +27,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-02b 在已集成冻结契约（PR #55）下实现 scalar-morphology 与饱和减法。MAT-01 节点、夹具和工具已集成并在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内接受。两个节点已有工作候选；节点验收／集成及材质验收仍待完成。发布继续独立处理。 |
+| 当前增量 | MAT-02b 在已集成冻结契约（PR #55）下实现 scalar-morphology 与饱和减法。MAT-01 节点、夹具和工具已集成并在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内接受。两个节点已通过 PR #56–57 集成，具有记录的节点证据及六项通过的组合 main 检查；完整材质验收仍待完成。发布继续独立处理。 |
 | 当前验收 | [MAT-01](./docs/evidence/mat-01/README.zh-CN.md)：冻结砖材质矩阵、记录的软件与 GT 1030 Native／浏览器对照、留存人工决定和合并后六项通过的检查。旧 v1 Windows 失败继续保留为历史失败；不发布包，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
@@ -88,7 +88,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 MAT-02／03／04 遵循相同的契约 → 最小实现切面 → 材质证据 → 验收顺序。在进入阶段时结合前一阶段经验拆成实际工作项；现在不指定推测性节点 ID 或发布版本。
 
-[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，工作中的节点实现选定 0.7 并加入两个评审过的身份；验收／集成仍待完成。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；[真实 2K 失败与有效 1K 基线](./docs/evidence/perf-mat-before/README.zh-CN.md)现已启动 PERF-MAT，不放宽冻结预算。[ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md)选定有界分配／版本变更：PERF-MATa 保留证据与契约，PERF-MATb 一起实现 Core 调度、wgpu 复用及薄版本投影，PERF-MATc 验收像素、成本、生命周期及公开消费者。Plan／API v3 和 0.8 候选在首次实现时启用，本设计不实现它们。MAT-02 仍是唯一活跃材质增量，其完整材质门槛及 MAT-03／04 仍为必需。
+[MAT-02a 选定契约](./docs/mat-02-layered-weathering.zh-CN.md)冻结形态处理／减法身份、调用方图／控制映射及[验收计划](./fixtures/materials/painted-metal/qualification-plan.json)，由绑定源码的既有输入可行性支持。首次实现选定未发布 0.7 候选，PR #56–57 已集成的节点实现选定 0.7 并加入两个评审过的身份；完整材质验收仍待完成。MAT-01 退出条件已满足。契约集成后，MAT-02b 通过独立 PR 实现两个节点；[真实 2K 失败与有效 1K 基线](./docs/evidence/perf-mat-before/README.zh-CN.md)现已启动 PERF-MAT，不放宽冻结预算。[ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md)选定有界分配／版本变更：PERF-MATa 保留证据与契约，PERF-MATb 一起实现 Core 调度、wgpu 复用及薄版本投影，PERF-MATc 验收像素、成本、生命周期及公开消费者。[工作中的 Core／wgpu 实现](./docs/perf-mat-texture-reuse.zh-CN.md)现选定 plan／API v3 及未发布 0.8 候选，完整源码绑定验收待完成。MAT-02 仍是唯一活跃材质增量，其完整材质门槛及 MAT-03／04 仍为必需。
 
 ### 共同材质验收与所有权
 

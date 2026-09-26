@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-CN.md)
 
 The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
-[MAT-02 layered weathering](./mat-02-layered-weathering.md) is the selected contract for the active material increment. The roadmap and release status own its implementation and qualification state.
+[MAT-02 layered weathering](./mat-02-layered-weathering.md) is the selected contract for the active material increment. The roadmap and release status own its implementation and qualification state. [PERF-MAT texture reuse](./perf-mat-texture-reuse.md) and the [gamma-one correction](./levels-linear-correction.md) address its measured blockers; full material acceptance remains pending.
 
 The root documents are the active project contract:
 

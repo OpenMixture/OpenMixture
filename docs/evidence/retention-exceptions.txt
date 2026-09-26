@@ -7,10 +7,12 @@
 # and justify it in the pull request. Keep lines sorted by directory.
 1 docs/evidence/alpha-03-configured
 1 docs/evidence/alpha-04
+3 docs/evidence/levels-linear-correction
 1 docs/evidence/m5-05
 1 docs/evidence/mat-01/ci-failure-4bf
 4 docs/evidence/mat-02-input-feasibility
 2 docs/evidence/mat-02-morphology
+1 docs/evidence/perf-mat-numerics
 7 docs/evidence/pr-011/checks
 12 docs/evidence/pr-011/checks/consumer
 9 docs/evidence/pr-011/gpu-smoke/metal

@@ -489,7 +489,7 @@ M1 and early M2 may allocate straightforwardly for clarity. Before M3 exits, the
 - explicit output pinning until readback completes;
 - bounded pipeline and resource caches.
 
-The [actual MAT-02 2K budget failure and valid 1K baseline](./docs/evidence/perf-mat-before/README.md) establish the requirement for bounded reuse. [ADR 0009](./docs/decisions/0009-transient-texture-reuse.md) selects deterministic Core last-use/slot planning and wgpu per-render physical allocation with pinned outputs, complete descriptor compatibility and unchanged pass/shader semantics. The design requires plan/hash/API v3 on implementation; current v2 retain-all behavior remains until that vertical change is integrated and qualified. Do not introduce a general allocator or global pool for this case.
+The [actual MAT-02 2K budget failure and valid 1K baseline](./docs/evidence/perf-mat-before/README.md) establish the requirement for bounded reuse. [ADR 0009](./docs/decisions/0009-transient-texture-reuse.md) selects deterministic Core last-use/slot planning and wgpu per-render physical allocation with pinned outputs, complete descriptor compatibility and unchanged pass/shader semantics. The working [0.8 implementation](./docs/perf-mat-texture-reuse.md) uses plan/hash/API v3 and per-render physical slots; full qualification remains pending. Historical v2 retain-all evidence remains unchanged. Do not introduce a general allocator or global pool for this case.
 
 ### 9.5 Pipeline cache
 

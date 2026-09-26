@@ -6,7 +6,7 @@
 
 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前引擎工作与验收标准。[浏览器运行时 Alpha 收尾](./browser-alpha.zh-CN.md)保留首次交付证据、支持限制和缺陷交接；带日期的 M5 记录保留历史状态。
 
-[MAT-02 分层风化](./mat-02-layered-weathering.zh-CN.md)是当前材质增量的选定契约，其实现与验收状态以路线图和发布状态为准。
+[MAT-02 分层风化](./mat-02-layered-weathering.zh-CN.md)是当前材质增量的选定契约，其实现与验收状态以路线图和发布状态为准。[PERF-MAT 纹理复用](./perf-mat-texture-reuse.zh-CN.md)与 [gamma=1 修正](./levels-linear-correction.zh-CN.md)处理实测阻碍；完整材质验收仍未完成。
 
 根目录文档是当前项目契约：
 

@@ -4,6 +4,7 @@ export default defineConfig({
   testDir: './tests',
   testMatch: process.env.MIXTURE_RESOURCE_TESTS !== '0' ? '*.spec.mjs' : 'sdk.spec.mjs',
   testIgnore: [
+    ...(process.env.MIXTURE_REUSE_TESTS === '1' ? [] : ['reuse.spec.mjs']),
     ...(process.env.MIXTURE_ASSET_TESTS === '1' ? [] : ['assets.spec.mjs']),
     ...(process.env.MIXTURE_SUBTRACT_TESTS === '1' ? [] : ['subtract.spec.mjs']),
     ...(process.env.MIXTURE_MORPHOLOGY_TESTS === '1' ? [] : ['morphology.spec.mjs']),

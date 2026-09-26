@@ -1,0 +1,5 @@
+# Preserve source-bound report bytes, including Windows CRLF line endings.
+*.json -text whitespace=cr-at-eol
+*.log -text whitespace=cr-at-eol
+*.mix -text whitespace=cr-at-eol
+stages/compare.py -text whitespace=cr-at-eol

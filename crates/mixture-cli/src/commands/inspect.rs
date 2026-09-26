@@ -61,7 +61,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         Err((diagnostics, exit)) => (None, diagnostics, exit),
     };
     let report = Report {
-        schema_version: 2,
+        schema_version: 3,
         plan,
         diagnostics: DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
             d.document_path = Some(options.path.to_string_lossy().into_owned());

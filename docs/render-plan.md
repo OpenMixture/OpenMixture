@@ -4,7 +4,7 @@ English | [简体中文](./render-plan.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-The [resource preparation contract](./m6a-02-core-resources.md) defines `PreparedRender`, plan-v2 `imageResources` identities and external-image budgets; resource-free examples below continue to use `compile`.
+The [resource preparation contract](./m6a-02-core-resources.md) defines `PreparedRender`, `imageResources` identities and external-image budgets; resource-free examples below continue to use `compile`.
 
 PR-006 implements CPU-only compilation and `inspect --plan`. [The compiler](../crates/mixture-core/src/compiler.rs) owns override semantics, dependency slicing, ordering, typed lowering, allocation estimates, and hashing. [RenderPlan](../crates/mixture-core/src/plan.rs) owns the backend-neutral vocabulary. PR-007 [graph execution](./graph-rendering.md) implements the exhaustive WGSL mapping. The fixed checker pixels remain unchanged; its shared 48-byte uniform is documented there.
 
@@ -25,7 +25,7 @@ cargo xtask check
 
 `inspect` shares the validator's bounded source loader: at most 2 MiB plus one detection byte under the default policy. It performs full source validation before compilation, including unrequested branches. It never acquires an adapter or writes the input. Options can precede the path; use `--` before a path beginning with `-`.
 
-JSON mode writes one report with `schemaVersion: 2`, `plan`, `ok`, and `diagnostics`. Success contains the plan and an empty diagnostic array. Failure contains `plan: null` and ordered shared diagnostics, including the supplied path. Human mode shows pass origins, kernels, resource mappings, connected/default output sources, hash, and estimates. Exit `0` means compiled, `2` means invalid invocation/source/request, and `1` means file/report I/O failure. Malformed CLI syntax, duplicate flags/override IDs, or malformed override JSON write usage to stderr; semantic failures use the chosen report mode.
+JSON mode writes one report with `schemaVersion: 3`, `plan`, `ok`, and `diagnostics`. Success contains the plan and an empty diagnostic array. Failure contains `plan: null` and ordered shared diagnostics, including the supplied path. Human mode shows pass origins, kernels, resource mappings, connected/default output sources, hash, and estimates. Exit `0` means compiled, `2` means invalid invocation/source/request, and `1` means file/report I/O failure. Malformed CLI syntax, duplicate flags/override IDs, or malformed override JSON write usage to stderr; semantic failures use the chosen report mode.
 
 ## Public API and normalized source
 
@@ -86,28 +86,15 @@ The executor binds the uniform at `0`, output texture at `1`, and `input` at `2`
 
 ## Allocation estimate contract
 
-[ADR 0009](./decisions/0009-transient-texture-reuse.md) selects a future v3 physical-slot model after the measured MAT-02 failure. It is unimplemented in this design; the v2 rules below still describe executable behavior.
+[ADR 0009](./decisions/0009-transient-texture-reuse.md) and the [implementation guide](./perf-mat-texture-reuse.md) define v3 per-render physical slots. `allocation.slots` contains full descriptors, `resourceSlots` maps logical IDs and `lastUses` pins requested outputs to the pass-count sentinel. Reuse selects the lowest compatible slot whose last use strictly precedes the producer; pass order and shaders stay unchanged.
 
-Plan version 2 assumes a deliberately simple execution schedule: retain every pass texture and uniform until execution/readback finish; read requested channels sequentially, allocating and releasing one staging buffer for each. There is no early release or resource pool. The estimates are logical GPU allocation bytes, not driver measurements, CPU memory, PNG allocations, shader/pipeline memory, or device allocation granularity.
+Let `P` be pass count, `N` physical slot count, `T=W*H*8`, `U` total padded uniforms, `R=ceil(W*8/256)*256*H`, and `O` requested channels. For resource-free plans, `textureCount=N`, `logicalTextureBytes=P*T`, `textureBytes=N*T`, `peakBytes=N*T+U+R`, and `cumulativeBytes=N*T+U+O*R`. `readbackBufferBytes=R`, `readbackBytes=O*T`, and `cumulativeReadbackBytes=O*R`. External-image texture/upload-staging bytes retain their conservative separate additions. Slots and uniforms remain allocated until readback/cleanup; aliases still read once per requested channel. No cross-render pool exists.
 
-Let `W`/`H` be dimensions, `P` be pass count, `O` be requested channel count, `U` be total padded uniform bytes, `T = W × H × 8`, and `R = ceil(W × 8 / 256) × 256 × H`:
-
-| Report field | Definition |
-| --- | --- |
-| `textureBytes` | `P × T`; also peak resident texture bytes |
-| `uniformBytes` | `U`, sum of the table's uniform sizes |
-| `paddedBytesPerRow` | `ceil(W × 8 / 256) × 256` |
-| `readbackBufferBytes` | `R`, one resident staging buffer |
-| `readbackBytes` | `O × T`, tight raw rgba16float output bytes |
-| `cumulativeReadbackBytes` | `O × R`, total staging allocation across readbacks |
-| `cumulativeBytes` | `P × T + U + O × R` |
-| `peakBytes` | `P × T + U + R`; checked against `limits.transient_bytes` |
-
-Aliases still read once per requested channel. Arithmetic uses checked u64 operations, with a checked u32 staging stride. A limit equal to `peakBytes` is accepted. At 65×3, checker plus default roughness has 2 passes, a 768-byte staging row, 5488 peak bytes, and 7792 cumulative bytes. Last-consumer release, alias-readback deduplication, pooling, and driver-specific overhead are outside this version; changes to this model require an explicit plan-version decision.
+All arithmetic is checked and an exact budget match is accepted. Estimates cover GPU descriptors, not driver overhead, CPU outputs or RSS. At 65x3 the two pinned checker/default-roughness slots still require 5488 peak bytes. The default painted-metal five-channel graph has 23 logical outputs, 14 compatible physical slots and 503,316,944 estimated bytes at 2048; qualification must verify actual counters and pixels.
 
 ## Stable hash contract
 
-`plan.version` is `2`. `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Hash input is exactly the bytes `mixture-render-plan-v2` followed by a NUL byte, then compact UTF-8 JSON of the plan body, excluding `hash`. `RenderPlan::hash_input()` returns those bytes for consumers. Root field order is `version`, `documentVersion`, `size`, `materialOutput`, `passes`, `outputs`, `estimates`, `imageResources`; nested ordering is fixed by the typed serializer and the [checked-in snapshots](../crates/mixture-core/tests/snapshots/). This is a versioned serialization contract, not generic alphabetically sorted JSON. Changing key order, number formatting, lowering, or memory semantics needs review against this version.
+`plan.version` is `3`. `hash` is `sha256:` plus 64 lowercase hexadecimal digits. Hash input is exactly the bytes `mixture-render-plan-v3` followed by a NUL byte, then compact UTF-8 JSON of the plan body, excluding `hash`. `RenderPlan::hash_input()` returns those bytes for consumers. Root field order is `version`, `documentVersion`, `size`, `materialOutput`, `passes`, `outputs`, `allocation`, `estimates`, `imageResources`; nested ordering is fixed by the typed serializer and the [checked-in snapshots](../crates/mixture-core/tests/snapshots/). This is a versioned serialization contract, not generic alphabetically sorted JSON. Changing key order, number formatting, lowering, or memory semantics needs review against this version.
 
 The body includes source document version, selected node/owner IDs, types and versions, effective typed parameters (including override results), output provenance, requested channels, dimensions, pass/resource identities, descriptions, dispatch, and deterministic estimates. Node IDs are semantically retained for diagnostics/order; renaming nodes is not graph-isomorphism normalization.
 

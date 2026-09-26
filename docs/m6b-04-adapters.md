@@ -23,7 +23,7 @@ Input must be an explicit regular file, not a directory or symlink. The adapter 
 
 All three commands accept lower-only unsigned decimal `--package-bytes`, `--manifest-bytes` and `--package-buffer-bytes`. Defaults/ceilings are 67 MiB, 64 KiB and 202 MiB. CLI loading charges actual archive capacity plus source/manifest scratch and selected captured resources. Authoring also reserves caller-retained raw image buffers before invoking the shared writer. These are byte-buffer budgets, not process RSS limits.
 
-JSON asset envelopes use schema 1 with `operation`, `input`, `ok`, `diagnostics`, and nullable `asset`, `plan`, `render`. Pack adds `output` and `writtenBytes`; render nests the existing schema-2 rendering report, including adapter, PNG and partial-write diagnostics. JSON u64 values remain numbers; JavaScript consumers needing exact u64 values should use the browser API. Exit codes: 0 success, 1 I/O/GPU failure, 2 invalid invocation/package/request. Invocation syntax errors go to stderr as in existing commands. Core diagnostic codes/stages are preserved; package failures have stage `package` and typed evidence (including the resource override ID array).
+JSON asset envelopes use schema 1 with `operation`, `input`, `ok`, `diagnostics`, and nullable `asset`, `plan`, `render`. Pack adds `output` and `writtenBytes`; render nests the existing schema-3 rendering report, including adapter, PNG and partial-write diagnostics. JSON u64 values remain numbers; JavaScript consumers needing exact u64 values should use the browser API. Exit codes: 0 success, 1 I/O/GPU failure, 2 invalid invocation/package/request. Invocation syntax errors go to stderr as in existing commands. Core diagnostic codes/stages are preserved; package failures have stage `package` and typed evidence (including the resource override ID array).
 
 ## Browser bytes
 
@@ -44,7 +44,7 @@ try {
 } finally { await gpu.destroy(); }
 ```
 
-`RuntimeModule.inspectPackage(Uint8Array, PackageOptions?)` is synchronous and CPU-only after `loadRuntime()`. `PackageOptions` contains optional `limits`, `resourceLimits`, `packageLimits`; it does not accept render options. `GpuRuntime.renderPackage(Uint8Array, PackageRenderRequest?)` accepts existing size/channels/overrides/limits/resourceLimits and packageLimits, but never loose `resources`. Partial package limits are merged with Rust-authoritative defaults. All package byte limits and inspection u64 fields are `bigint`; the API schema remains 2 and the package report schema is 1.
+`RuntimeModule.inspectPackage(Uint8Array, PackageOptions?)` is synchronous and CPU-only after `loadRuntime()`. `PackageOptions` contains optional `limits`, `resourceLimits`, `packageLimits`; it does not accept render options. `GpuRuntime.renderPackage(Uint8Array, PackageRenderRequest?)` accepts existing size/channels/overrides/limits/resourceLimits and packageLimits, but never loose `resources`. Partial package limits are merged with Rust-authoritative defaults. All package byte limits and inspection u64 fields are `bigint`; the API schema is 3 and the package report schema is 1.
 
 Inspection includes exact package/source SHA-256 and byte lengths, source version, sorted resource identities/dimensions/row sizes/hashes, and `buffers.jsPackageBytes`, `rustPackageBytes`, `chargedBytes`. It validates all stored resources without selected Core pixel capture. No GPU acquisition occurs, even when `navigator.gpu` throws.
 

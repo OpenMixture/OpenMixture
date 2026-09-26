@@ -1,0 +1,179 @@
+{
+  "version": 3,
+  "documentVersion": 1,
+  "size": [
+    2,
+    2
+  ],
+  "materialOutput": {
+    "id": "out",
+    "typeId": "material-output",
+    "version": 1
+  },
+  "passes": [
+    {
+      "id": 0,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "a",
+          "typeId": "image-input",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "imageInput",
+        "resourceId": "first"
+      },
+      "output": 0,
+      "outputDesc": {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "b",
+          "typeId": "image-input",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "imageInput",
+        "resourceId": "second"
+      },
+      "output": 1,
+      "outputDesc": {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "origin": {
+        "source": "node",
+        "node": {
+          "id": "mix",
+          "typeId": "scalar-blend",
+          "version": 1
+        }
+      },
+      "kernel": {
+        "id": "scalarBlend",
+        "a": 0,
+        "b": 1,
+        "weight": 0.5
+      },
+      "output": 2,
+      "outputDesc": {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      "dispatch": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "channel": "height",
+      "kind": "scalar",
+      "input": {
+        "source": "connected",
+        "from": {
+          "nodeId": "mix",
+          "portId": "value"
+        }
+      },
+      "resource": 2
+    }
+  ],
+  "allocation": {
+    "slots": [
+      {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      },
+      {
+        "width": 2,
+        "height": 2,
+        "format": "rgba16float",
+        "kind": "scalar"
+      }
+    ],
+    "resourceSlots": [
+      0,
+      1,
+      2
+    ],
+    "lastUses": [
+      2,
+      2,
+      3
+    ]
+  },
+  "estimates": {
+    "resourceCount": 2,
+    "resourceUploadBytes": 32,
+    "resourceTextureBytes": 32,
+    "resourceStagingBytes": 1024,
+    "textureCount": 3,
+    "logicalTextureBytes": 96,
+    "textureBytes": 96,
+    "uniformBytes": 48,
+    "paddedBytesPerRow": 256,
+    "readbackBufferBytes": 512,
+    "readbackBytes": 32,
+    "cumulativeReadbackBytes": 512,
+    "cumulativeBytes": 1712,
+    "peakBytes": 1712
+  },
+  "imageResources": [
+    {
+      "id": "first",
+      "format": "rgba8-linear",
+      "width": 2,
+      "height": 2,
+      "bytesPerRow": 8,
+      "contentDigest": "781dde1290998ab7c47a68780691e96c9b703cea9b2d91bee1514c210ff8afdb"
+    },
+    {
+      "id": "second",
+      "format": "rgba8-linear",
+      "width": 2,
+      "height": 2,
+      "bytesPerRow": 8,
+      "contentDigest": "7c20840286aa6ae0e8adf5a5c19a0f1e9c8a2a8f2e3c5a31717b1ab72322b9f7"
+    }
+  ],
+  "hash": "sha256:c419679ace8ae8d13c4d253504ba05af434fc62bc0f00f32e85f1e17cd30904a"
+}
