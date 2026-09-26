@@ -1,0 +1,38 @@
+{
+  "runtimeVersion": "0.8.0-alpha.0",
+  "apiSchemaVersion": 3,
+  "engineVersion": "0.8.0",
+  "engineRevision": "430bea6ee5c3ece895f3b89a4542a2c24032d4a1",
+  "engineDirty": false,
+  "buildId": "sha256:a5d5d234cc2fa885c02dffccfdcc15d6f8b809e507cc17055acf1cde45778ba9",
+  "tarball": "target/browser-runtime/openmixture-runtime-0.8.0-alpha.0.tgz",
+  "sha256": "7aefa4cf90dab7e459444d758b2627f8ae4ce3196747fffa09bf1a5f1cf7a974",
+  "toolchain": {
+    "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "bindgen": "wasm-bindgen 0.2.128",
+    "typescript": "5.9.3",
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "target": "wasm32-unknown-unknown"
+  },
+  "files": [
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+    "README.md",
+    "README.zh-CN.md",
+    "build-info.json",
+    "package.json",
+    "src/bindings.d.ts",
+    "src/bindings.js",
+    "src/build-info.js",
+    "src/index.d.ts",
+    "src/index.js",
+    "src/runtime.d.ts",
+    "src/runtime.js",
+    "src/types.d.ts",
+    "src/types.js",
+    "wasm/bindings.mjs",
+    "wasm/mixture_wasm_bg.wasm"
+  ],
+  "status": "built; browser acceptance is a separate verification"
+}

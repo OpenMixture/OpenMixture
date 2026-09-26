@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "completed": true,
+  "consumerRevision": "76e8039500ceaa849f7c3792c1712a1310ce824b",
+  "build": {
+    "runtimeVersion": "0.8.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.8.0",
+    "engineRevision": "76e8039500ceaa849f7c3792c1712a1310ce824b",
+    "engineDirty": false,
+    "buildId": "sha256:b01aef61feb3e1faa9a367af95c3462e1276ff8943fd9ce6b2403c94f4734502"
+  },
+  "comparisons": 80,
+  "native": "native/native-matrix.json",
+  "browser": "brick-browser.json",
+  "materialAccepted": false
+}

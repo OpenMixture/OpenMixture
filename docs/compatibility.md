@@ -2,6 +2,8 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
+The working [gamma-one levels correction](./levels-linear-correction.md) deliberately retains `levels@1` and plan identities while correcting the existing linear identity. Shader/build-bound pixels can change; [bounded qualification](./evidence/levels-linear-correction/README.md) passes on source 76e8039; no source migration or golden reset is allowed.
+
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
 **2026-09-20 gate redesign:** New runtime comparisons use [profile v2](./browser-quality.md): bounded amplitude, local bias and channel-specific responses. Runtime and Studio material comparisons share this profile; current reports omit superseded sparse-pixel verdicts. Native goldens and exact checker checks remain unchanged. New browser support still needs source-bound qualification.

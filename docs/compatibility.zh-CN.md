@@ -2,6 +2,8 @@
 
 [English](./compatibility.md) | 简体中文
 
+工作中的 [gamma=1 levels 修正](./levels-linear-correction.zh-CN.md)明确保留 `levels@1` 及计划身份，修正既有线性恒等式。绑定着色器／构建的像素可能改变；源码 76e8039 通过[限定验收](./evidence/levels-linear-correction/README.zh-CN.md)，不允许源码迁移或 golden 重置。
+
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
 **2026-09-20 门槛重设计：** 新运行时比较采用 [v2 规则](./browser-quality.zh-CN.md)：有界幅度、局部偏移和逐通道响应。运行时和 Studio 材质比较共用该规则；当前报告移除已替代的稀疏像素判定。原生金图及精确棋盘格检查不变。新浏览器支持仍需绑定源码的资格证据。

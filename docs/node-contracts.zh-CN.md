@@ -51,6 +51,8 @@
 
 ## levels
 
+`levels@1` 现在对有效 f32 gamma=1 使用精确恒等式 `curved=t`，保持声明公式并避免半精度中点处的近似幂运算；其他 gamma 保留幂路径。见[修正与兼容性决定](./levels-linear-correction.zh-CN.md)。
+
 [契约模块](../crates/mixture-core/src/nodes/levels.rs)。必填输入 `in: Scalar`，输出 `value: Scalar`。
 
 | 参数 | 类型／范围 | 默认值 |

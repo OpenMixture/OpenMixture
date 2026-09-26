@@ -25,3 +25,5 @@ Plan／hash v3、浏览器 API schema 3 和图 CLI 报告 schema 3 显式表达�
 独立 Native 探针需要设置 `MIXTURE_REUSE_ROOT` 为工作区，`MIXTURE_REUSE_EVIDENCE` 为父目录已存在的新目录，并明确 `MIXTURE_GPU_BACKEND`／`MIXTURE_GPU_SOFTWARE`；运行 `cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test texture_reuse -- --ignored --nocapture`。可选将 `MIXTURE_REUSE_BROWSER` 指向包含 `reuse-browser.json` 及 PNG 的对照目录。`MIXTURE_REUSE_BEFORE` 仅为实测 GT 1030 Vulkan 适配器选择复用前的留存目录，要求解码后的 1K 字节完全相同。失败的时间／一致性结果保留在 `native.json`；未知适配器的时间结果不具备资格，对照包装脚本要求匹配且通过预算。
 
 `cargo xtask trace-2k` 保持既有三材质工作负载、排序及 512 MiB 门槛；新的 `m3-pooled-2k-allocation-trace` 类型验证物理槽计数、预期复用、估算一致和清理。此回归与涂漆金属验收不同。完成仍须绑定干净候选源码的 1K 优化前后精确像素、2K 五通道真实执行、冻结冷／热时间、Native／浏览器及包消费、原始／显式 noise-v2 材质矩阵、六项 CI 和合并后检查。MAT-02 因果、接缝、金属 PBR 及人工审查仍待完成。
+
+[gamma=1 验收](./evidence/levels-linear-correction/README.zh-CN.md)在源码 76e8039 上关闭软件法线失败。使用同一修正着色器的独立复用前对照，与复用后的 1K 五通道完全一致；原修正前像素保持不变。此记录不关闭完整 MAT-02 验收或发布。
