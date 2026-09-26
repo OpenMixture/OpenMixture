@@ -126,3 +126,14 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_normal_periodic_boun
 ## 配方修订 2
 
 当前图／计划使用[零基底相对高度](../../../docs/mat-02-relative-height.zh-CN.md)。[原计划](./qualification-plan-v1.json)、[原设计](./graph-design-v1.json)及历史性能图保持不变。此前通过记录不能用于验收修订后的高度／法线像素。
+
+
+## 所选噪声输入的周期性
+
+`node_fractal_noise_gpu_periodic_material_inputs` 测试生产 `fractal-noise@2` 着色器：宏观噪声 scale=8、octaves=3、seed=1729 或 u32::MAX；细节噪声 scale=32、octaves=2、seed=65537 或 u32::MAX；压力噪声 scale=64、octaves=3、seed=1729，persistence 均为 0.5。覆盖全部四种材质尺寸。测试只修改 WGSL 测试副本中的采样原点调用，借用未使用的 uniform 填充字段；生产代码和 ABI 不变。探针有意传入一个周期之外的坐标，不预先取模。沿 x/y 移动完整周期，以及完整周期加内部偏移，必须精确重现原图对应位置的 half 像素。断言源码替换锚点唯一，非恒定基线避免恒定输出误通过。60 次整图比较覆盖有限值／范围及资源清理。
+
+```bash
+cargo test --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_periodic_material_inputs -- --ignored --nocapture
+```
+
+`cargo xtask test-node fractal-noise` 和完整 GPU smoke 也会选择该测试。设置 `MIXTURE_NODE_EVIDENCE_DIR` 可写入 `value-noise-periodic.json`；输出记录尺寸、种子、参数、偏移及适配器。这只证明所选材质输入的周期采样，不代表 v1／cellular 噪声、任意图、视觉接缝验收或浏览器原始 half 一致性。形态学／合成和材质视觉门槛仍需单独验证。

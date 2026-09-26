@@ -13,3 +13,5 @@ cargo xtask test-node fractal-noise
 ## 版本 2
 
 [NUM-01](../../../docs/stable-noise.zh-CN.md)增加 `stable.mix`、小矩形/边界用例及独立精确基线 `stable-defaults-129x65.rgba`。新基线捕获于 Windows GT 1030 Vulkan，在所有适配器（包括固定软件 CI）上以零容差检查。原 v1 基线不变。生产算术对照独立 u64/f64 运算，两个版本均保留 seed/cache/octave 不变量。
+
+[涂漆金属验收指南](../../materials/painted-metal/README.zh-CN.md)负责所选 v2 宏观／细节／压力输入的跨周期原点探针。该探针增加精确周期采样证据，不扩大 v1 或 cellular 的验收范围。

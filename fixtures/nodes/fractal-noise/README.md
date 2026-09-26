@@ -13,3 +13,5 @@ See [the contract](../../../docs/node-contracts.md), [cases](./cases.json), and 
 ## Version 2
 
 [NUM-01](../../../docs/stable-noise.md) adds `stable.mix`, small rectangular/boundary cases and a separate exact `stable-defaults-129x65.rgba`. The new baseline was captured on Windows GT 1030 Vulkan and is checked with zero tolerance on every adapter, including pinned software CI. Original v1 baselines are unchanged. Production arithmetic is tested against independent u64/f64 operations, and both versions retain seed/cache/octave invariants.
+
+The [painted-metal qualification guide](../../materials/painted-metal/README.md) owns the selected v2 macro/detail/stress unwrapped-origin probe. It adds exact periodic sampling evidence without extending the v1 or cellular qualification scope.
