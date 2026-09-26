@@ -59,7 +59,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 当前工作
 
-遵循[路线图](./ROADMAP.zh-CN.md)的当前增量：[MAT-02 契约](./docs/mat-02-layered-weathering.zh-CN.md)下的 MAT-02b，以及按 [ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md) 进行的 PERF-MAT（[工作实现](./docs/perf-mat-texture-reuse.zh-CN.md)同时修改 Core 估算与 wgpu 执行器；完整材质验收单独处理）。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。 调用方控制映射与公开 Native／浏览器矩阵由[涂漆金属夹具指南](./fixtures/materials/painted-metal/README.zh-CN.md)负责；保留精确图／请求／包身份、冻结像素及耗时门槛，并区分结构／PBR／人工验收门槛。 夹具指南同时负责常量参考、分辨率质量及公开参数隔离门槛，以及经同一执行器进行的仅限测试的原始 half 遮罩／合成观察及生产法线重放／周期边界检查和所选 v2 噪声输入的跨周期采样，不能单凭跨运行时像素一致推断这些性质。 配方修订 2 使用零基底相对高度改善 half 精度；保留修订 1 输入，按[修订契约](./docs/mat-02-relative-height.zh-CN.md)重新运行全部材质门槛。
+遵循[路线图](./ROADMAP.zh-CN.md)的当前增量：[MAT-02 契约](./docs/mat-02-layered-weathering.zh-CN.md)下的 MAT-02b，以及按 [ADR 0009](./docs/decisions/0009-transient-texture-reuse.zh-CN.md) 进行的 PERF-MAT（[工作实现](./docs/perf-mat-texture-reuse.zh-CN.md)同时修改 Core 估算与 wgpu 执行器；完整材质验收单独处理）。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。 调用方控制映射与公开 Native／浏览器矩阵由[涂漆金属夹具指南](./fixtures/materials/painted-metal/README.zh-CN.md)负责；保留精确图／请求／包身份、冻结像素及耗时门槛，并区分结构／PBR／人工验收门槛。 夹具指南同时负责常量参考、分辨率质量及公开参数隔离门槛，以及经同一执行器进行的仅限测试的原始 half 遮罩／合成观察及生产法线重放／周期边界检查和所选 v2 噪声输入的跨周期采样，以及绑定生产身份的金属度 PBR 视图和独立人工决定，不能单凭跨运行时像素一致推断这些性质。 配方修订 2 使用零基底相对高度改善 half 精度；保留修订 1 输入，按[修订契约](./docs/mat-02-relative-height.zh-CN.md)重新运行全部材质门槛。
 
 ## 速查
 

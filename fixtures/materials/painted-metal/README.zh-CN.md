@@ -66,6 +66,21 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ign
 
 这些检查不替代浏览器原始 half 证据、其他分辨率、周期接缝／压力测量或金属 PBR／人工评审。公开多分辨率 Native／浏览器矩阵仍必须完成。
 
+## 金属 PBR 评审视图
+
+`scripts/painted-material-preview.mjs` 将成功的干净源码 Native／浏览器涂漆材质对照目录中已经渲染的 1K 贴图用于可视化。它验证生产方／契约／源码身份和尺寸，读取七个冻结预设的五通道，并记录每张 PNG 与截图的哈希。不执行 `.mix`，也不修改纹理。保留 MAT-01 非金属渲染器及历史评审字节不变。
+
+```bash
+npm ci --ignore-scripts --prefix examples/browser-consumer
+node scripts/painted-material-preview.mjs <painted-comparison-directory> <fresh-preview-directory> [producer-plan.json]
+```
+
+受控 Chrome 使用金属 GGX 着色：由底色决定导体反射率，并抑制金属漫反射；固定正交相机、主光／补光、色调映射及明确的环境光近似。每个预设提供平面／球体、1×／3× 重复和 4× 近景，以及五通道缩略图。高度显示但不用于几何置换。独立三画布检查要求金属度 0／1 改变着色，金属度 0 精确重复；这些强制设置不出现在正式材质截图中。`MIXTURE_BROWSER_CHANNEL` 可指定已安装浏览器；默认 Chrome，使用与之前预览相同且被记录的受控 WebGPU 参数。
+
+新输出包含七张 PBR 图、静态 `index.html` 画廊及 `preview.json`，绑定生产构建／版本、预览版本／脏状态、适配器／浏览器、输入／截图／渲染器哈希和着色检查结果。`humanAccepted` 与 `materialAccepted` 保持 false。代理图像检查不是真人决定。在宣称视觉验收前，按证据策略保留选定评审图及实际维护者决定；数值通过不能替代对圆滑／块状磨损、锈色可见性不足或近景量化的判断。周期采样测量及高频／亚像素压力仍是独立门槛。
+
+若生产工作区使用了不同换行符，可通过第三个可选参数提供其精确计划快照。原始哈希必须匹配原记录，解析后的契约必须与当前冻结计划一致。输出保留该快照并记录两个哈希；换行差异不改写历史身份。
+
 ## 精确调用方控制
 
 夹具请求构造器拒绝未知控制、非有限值和超出下列范围的值。这不是新增 Core API。先将预设控制覆盖默认值，再执行映射。宏观／细节种子均为显式 u32，即使关闭细节也保留两者。所有颜色采用 [0,1] 内线性 RGBA，alpha 固定为 1。
