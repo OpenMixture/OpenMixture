@@ -88,6 +88,8 @@ jobs:
       - name: Qualify public texture reuse, 2K costs and frozen timing budgets
         id: texture-reuse
         run: node scripts/browser-runtime/check-reuse.mjs tmp/sdk-candidate tmp/sdk-reuse-comparison
+      - name: Compare the complete painted-metal matrix across Native and browser
+        run: node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
       - name: Retain bounded painted-metal stage diagnostics after reuse failure
         if: failure() && steps.texture-reuse.outcome == 'failure'
         run: |
@@ -176,6 +178,7 @@ jobs:
             tmp/sdk-morphology-comparison/
             tmp/sdk-subtract-comparison/
             tmp/sdk-reuse-comparison/
+            tmp/sdk-painted-comparison/
             tmp/painted-metal-stages/
             tmp/sdk-registry/
           retention-days: 30

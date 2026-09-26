@@ -15,6 +15,20 @@ node scripts/painted-metal-requests.mjs tmp/mat02-requests
 
 The output directory must be fresh. `requests.json` binds source bytes, the frozen plan, builder, revision and working-tree state; `material.mix` preserves the original graph bytes. CPU tests cover matrix completeness, invalid controls, endpoints, independent axis radii and snapshot isolation, and run in both existing browser CI workflows. Preparation alone neither renders pixels nor qualifies the material. Full Native/browser comparisons, raw-half relationships/causality, seams, package/repeat checks, release timing and metallic PBR/human acceptance remain required.
 
+
+## Public GPU matrix candidate
+
+The Native `painted_material` integration test and browser `painted.spec.mjs` consume the same 28 requests. They check all five channels, exact repeats, loose/package equivalence, sliced height, owned outputs after destruction and physical memory accounting. Native measures the frozen default 1K/2K cold/warm budgets in release mode and rejects unknown timing-adapter coverage. These matrix tools are candidates; their presence is not evidence of a passing run.
+
+For a Native run, set `MIXTURE_PAINTED_ROOT` to the repository, `MIXTURE_PAINTED_REQUESTS` to the generated request directory and `MIXTURE_PAINTED_EVIDENCE` to a fresh output directory. Explicitly set `MIXTURE_GPU_BACKEND=vulkan|dx12` and `MIXTURE_GPU_SOFTWARE=0|1`; `MIXTURE_GPU_EXPECT_ADAPTER` can enforce the recorded device.
+
+```bash
+cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test painted_material -- --ignored --nocapture
+node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
+```
+
+The second command consumes a successful independent SDK candidate run: candidate mode now requires 21 browser tests, including the full painted matrix. It checks exact source/request/package/build identities and reruns the Native matrix against every browser channel with the unchanged <=1/255 limit. The existing Chromium workflow invokes this comparison and retains its output. Registry mode stays at 13 tests; the published package does not support this material. Raw-half causality, periodic seam tests, endpoint/downsample acceptance, stress/PBR views and human decisions remain separate pending gates. `materialAccepted` stays false.
+
 ## Exact caller controls
 
 Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.

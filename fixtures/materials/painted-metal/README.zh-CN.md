@@ -15,6 +15,20 @@ node scripts/painted-metal-requests.mjs tmp/mat02-requests
 
 输出目录必须不存在。`requests.json` 绑定图字节、冻结计划、构建器、源码版本和工作区状态；`material.mix` 保留原始图字节。CPU 测试覆盖矩阵完整性、非法控制值、端点、独立轴半径与快照隔离，并在两个既有浏览器 CI 工作流中执行。准备请求不渲染像素，也不代表材质通过验收。完整 Native/browser 对照、原始半精度关系及参数因果、接缝、包与重复渲染、release 性能、金属 PBR 和人工验收仍是必要条件。
 
+
+## 公开 GPU 矩阵候选
+
+Native 的 `painted_material` 集成测试与浏览器的 `painted.spec.mjs` 共用 28 项请求，检查全部五通道、精确重复、普通图／包等价、高度切片、销毁后的输出所有权和物理内存计量。Native 在 release 模式测量冻结的默认 1K/2K 冷／热预算，拒绝没有对应预算的适配器。这些矩阵工具仍是候选，代码存在不代表运行已通过。
+
+Native 运行需设置 `MIXTURE_PAINTED_ROOT` 为仓库路径、`MIXTURE_PAINTED_REQUESTS` 为生成的请求目录、`MIXTURE_PAINTED_EVIDENCE` 为新的输出目录。显式设置 `MIXTURE_GPU_BACKEND=vulkan|dx12` 与 `MIXTURE_GPU_SOFTWARE=0|1`，可用 `MIXTURE_GPU_EXPECT_ADAPTER` 强制匹配记录的设备。
+
+```bash
+cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test painted_material -- --ignored --nocapture
+node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
+```
+
+第二条命令消费通过的独立 SDK 候选运行：候选模式现在必须执行 21 项浏览器测试，含完整涂漆金属矩阵。工具校验图／请求／包／构建身份，并重跑 Native 矩阵，对全部浏览器通道维持 <=1/255 门槛。既有 Chromium 工作流调用该对照并保留输出。registry 模式仍为 13 项测试；已发布包不支持此材质。原始半精度参数因果、周期接缝、端点／降采样验收、压力及 PBR 视图、人工决定仍是独立待完成门槛。`materialAccepted` 保持 false。
+
 ## 精确调用方控制
 
 夹具请求构造器拒绝未知控制、非有限值和超出下列范围的值。这不是新增 Core API。先将预设控制覆盖默认值，再执行映射。宏观／细节种子均为显式 u32，即使关闭细节也保留两者。所有颜色采用 [0,1] 内线性 RGBA，alpha 固定为 1。
