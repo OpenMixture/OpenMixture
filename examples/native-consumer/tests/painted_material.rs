@@ -1,4 +1,8 @@
 //! Frozen MAT-02 public matrix. Full structural/PBR acceptance remains separate.
+#[path = "support/painted_controls.rs"]
+mod painted_controls;
+#[path = "support/painted_quality.rs"]
+mod painted_quality;
 use mixture_core::{CompileRequest, MaterialDocument, OutputChannel, compile};
 use mixture_wgpu::{BackendPreference, GpuContext, GpuContextOptions, RenderOutput, Renderer};
 use serde_json::{Value, json};
@@ -111,6 +115,10 @@ fn painted_material_public_matrix() {
     );
     let mut rows = Vec::new();
     let mut timing = Vec::new();
+    let mut default_low = None;
+    let mut default_high = None;
+    let mut endpoint_channels = 0;
+    let mut controls = Vec::new();
     for (index, case) in cases.iter().enumerate() {
         let id = case["id"].as_str().unwrap();
         let size: [u32; 2] = serde_json::from_value(case["request"]["size"].clone()).unwrap();
@@ -220,6 +228,18 @@ fn painted_material_public_matrix() {
             });
             timing.push(json!({"size":size,"adapter":output.report().adapter,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPassed":passed}));
         }
+        let endpoints = painted_quality::endpoint_reference(
+            &mut gpu,
+            case["preset"].as_str().unwrap(),
+            &contract["defaults"],
+        )
+        .map(|reference| painted_quality::check_endpoint(&output, &reference));
+        if let Some(values) = &endpoints {
+            endpoint_channels += values.len();
+        }
+        if id == "default-257x129" {
+            controls = painted_controls::check(&mut gpu, &document, &request, &output, &contract);
+        }
         drop(gpu);
         let mut comparisons = Vec::new();
         for c in output.channels() {
@@ -256,11 +276,20 @@ fn painted_material_public_matrix() {
                 serde_json::to_value(plan.allocation()).unwrap()
             );
         }
-        rows.push(json!({"id":id,"size":size,"planHash":plan.hash().as_str(),"report":output.report(),"repeatExact":true,"packageExact":true,"slicedExact":true,"ownedAfterDestroy":true,"comparisons":comparisons}));
+        rows.push(json!({"id":id,"size":size,"planHash":plan.hash().as_str(),"report":output.report(),"repeatExact":true,"packageExact":true,"slicedExact":true,"ownedAfterDestroy":true,"comparisons":comparisons,"endpoints":endpoints}));
+        if id == "default-256x256" {
+            default_low = Some(output);
+        } else if id == "default-1024x1024" {
+            default_high = Some(output);
+        }
     }
     if let Some(browser) = &browser {
         assert_eq!(browser["rows"].as_array().unwrap().len(), rows.len());
     }
+    assert_eq!(endpoint_channels, 60);
+    assert_eq!(controls.len(), 11);
+    let downsample =
+        painted_quality::downsample(&default_low.unwrap(), &default_high.unwrap(), &contract);
     let ok = timing.len() == 2
         && timing.iter().all(|v| v["budgetPassed"] == true)
         && rows.iter().all(|r| {
@@ -269,6 +298,6 @@ fn painted_material_public_matrix() {
                     <= contract["maxCrossRuntimeComponentError"].as_u64().unwrap()
             })
         });
-    std::fs::write(receipt, serde_json::to_vec_pretty(&json!({"ok":ok,"completed":true,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser.is_some(),"requestManifest":manifest,"rows":rows,"timing":timing,"materialAccepted":false})).unwrap()).unwrap();
+    std::fs::write(receipt, serde_json::to_vec_pretty(&json!({"ok":ok,"completed":true,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser.is_some(),"requestManifest":manifest,"rows":rows,"timing":timing,"endpointChannels":endpoint_channels,"controls":controls,"downsample":downsample,"materialAccepted":false})).unwrap()).unwrap();
     assert!(ok, "retained MAT-02 timing or parity failure");
 }

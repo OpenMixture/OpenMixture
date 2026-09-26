@@ -27,7 +27,20 @@ cargo test --release --locked --all-features --manifest-path examples/native-con
 node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
 ```
 
-The second command consumes a successful independent SDK candidate run: candidate mode now requires 21 browser tests, including the full painted matrix. It checks exact source/request/package/build identities and reruns the Native matrix against every browser channel with the unchanged <=1/255 limit. The existing Chromium workflow invokes this comparison and retains its output. Registry mode stays at 13 tests; the published package does not support this material. Raw-half causality, periodic seam tests, endpoint/downsample acceptance, stress/PBR views and human decisions remain separate pending gates. `materialAccepted` stays false.
+The second command consumes a successful independent SDK candidate run: candidate mode now requires 21 browser tests, including the full painted matrix. It checks exact source/request/package/build identities and reruns the Native matrix against every browser channel with the unchanged <=1/255 limit. The existing Chromium workflow invokes this comparison and retains its output. Registry mode stays at 13 tests; the published package does not support this material. Raw-half causality, periodic seam tests, stress/PBR views and human decisions remain separate pending gates. `materialAccepted` stays false.
+
+
+## Endpoint and resolution-quality gates
+
+Both public hosts render independent constant reference graphs for intact paint, exposed substrate and fully rusted substrate. At all four frozen sizes, every pixel of all five channels must equal its constant reference, including the flat normal. The comparison requires all 60 endpoint-channel assertions. References use ordinary `.mix` nodes through the sole wgpu executor; they do not reuse the layered material topology or add a CPU renderer.
+
+Each host also compares default 256² height/baseColor against the exact 4×4 box mean of its delivered 1024² RGB bytes. The mean is not rounded back to an integer byte before measuring absolute error. Each RGB component must stay within the frozen 4/255 limit, and the comparison rejects missing or failed measurements. Alpha is opaque and excluded from the RGB measurement. Native oracle tests cover fractional means, distinct components, rectangular indexing and truncated inputs. This executes the existing contract; it changes no shader, format, threshold or golden. Full material acceptance still requires raw-half causality, periodic seams, stress and PBR/human review.
+
+## Public control isolation
+
+At the frozen 257×129 size, the Native and browser matrix runners render the complete default material with eleven individual control changes: each of the three colors, each of the three roughness endpoints, normal strengths 0/0.5/1, and independently incremented macro/detail seeds. Every variant is rendered twice. Color changes must affect baseColor only; roughness changes must affect roughness only; normal strength must affect normal only. A changed control must change at least one delivered pixel, while the unchanged normal-strength case must reproduce all channels exactly. Seed variants must change pixels and repeat exactly. Both hosts retain matching control/effect receipts, and comparison rejects missing cases.
+
+These are delivered-byte causality checks on the actual graph, not proof of internal half-float mask inequalities or exact normal replay from the stored height. Raw-half W/I/B/R relations, exposure/width monotonicity, seed isolation of W, seams, stress and PBR/human review remain required. The request manifest binds the frozen causality inputs; no shader, runtime API or material contract changes.
 
 ## Exact caller controls
 
