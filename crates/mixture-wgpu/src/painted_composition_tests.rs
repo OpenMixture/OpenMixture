@@ -18,6 +18,10 @@ fn mix(a: f32, b: f32, t: f32) -> f32 {
 }
 
 fn request(contract: &Value, preset: &Value) -> CompileRequest {
+    request_at_size(contract, preset, [257, 129])
+}
+
+fn request_at_size(contract: &Value, preset: &Value, size: [u32; 2]) -> CompileRequest {
     let mut controls = contract["defaults"].clone();
     for (key, value) in preset["controls"].as_object().unwrap() {
         controls[key] = value.clone();
@@ -57,18 +61,18 @@ fn request(contract: &Value, preset: &Value) -> CompileRequest {
         overrides.insert(key.into(), json!(value));
     }
     let width = controls["edgeWidth"].as_u64().unwrap();
-    for (key, size) in [("radiusX", 257), ("radiusY", 129)] {
+    for (key, length) in [("radiusX", size[0]), ("radiusY", size[1])] {
         overrides.insert(
             key.into(),
             json!(if width == 0 {
                 0
             } else {
-                ((width * size + 512) / 1024).max(1)
+                ((width * u64::from(length) + 512) / 1024).max(1)
             }),
         );
     }
     CompileRequest {
-        size: [257, 129],
+        size,
         outputs: vec![
             OutputChannel::BaseColor,
             OutputChannel::Normal,
@@ -337,5 +341,80 @@ fn graph_gpu_painted_composition_and_final_height_normal_replay() {
     eprintln!(
         "painted composition: {}",
         json!({"ok":true,"materialAccepted":false,"cases":cases,"normalStrengths":[0,0.5,1],"rawHalfExact":true,"adapter":context.report().adapter()})
+    );
+}
+
+// Rearrange captured pixels only. No height or normal values are computed here.
+fn periodic_shift(bytes: &[u8], size: [u32; 2], offset: [u32; 2]) -> Vec<u8> {
+    let [width, height] = size.map(|v| v as usize);
+    assert_eq!(bytes.len(), width * height * 8);
+    let mut shifted = vec![0; bytes.len()];
+    for y in 0..height {
+        for x in 0..width {
+            let source = (y * width + x) * 8;
+            let target = (((y + offset[1] as usize) % height) * width
+                + (x + offset[0] as usize) % width)
+                * 8;
+            shifted[target..target + 8].copy_from_slice(&bytes[source..source + 8]);
+        }
+    }
+    shifted
+}
+
+#[test]
+fn periodic_shift_moves_rectangular_pixels_across_both_boundaries() {
+    let bytes: Vec<u8> = (0..6).flat_map(|v| [v; 8]).collect();
+    let expected: Vec<u8> = [5, 4, 1, 0, 3, 2]
+        .into_iter()
+        .flat_map(|v| [v; 8])
+        .collect();
+    assert_eq!(periodic_shift(&bytes, [2, 3], [1, 1]), expected);
+    assert_eq!(periodic_shift(&expected, [2, 3], [1, 2]), bytes);
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+fn graph_gpu_painted_normal_periodic_boundaries() {
+    let source = std::fs::read(super::painted_mask_tests::SOURCE).unwrap();
+    let contract: Value =
+        serde_json::from_slice(&std::fs::read(super::painted_mask_tests::CONTRACT).unwrap())
+            .unwrap();
+    assert_eq!(
+        contract["sizes"],
+        json!([[256, 256], [1024, 1024], [2048, 2048], [257, 129]])
+    );
+    let context = pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
+    let mut rows = Vec::new();
+    for preset in contract["cases"].as_array().unwrap() {
+        for size in [[256, 256], [1024, 1024], [2048, 2048], [257, 129]] {
+            let request = request_at_size(&contract, preset, size);
+            let strength = request.overrides["normalStrength"].as_f64().unwrap() as f32;
+            let (height, normal) = capture(&context, &source, &request);
+            let offsets = [[1, 0], [0, 1], [size[0] / 2, size[1] / 2]];
+            for offset in offsets {
+                // Moving the old seam into the interior and interior pixels onto the
+                // seam must commute with the production periodic derivative kernel.
+                let replayed = replay_normal(
+                    &context,
+                    &periodic_shift(&height, size, offset),
+                    size,
+                    strength,
+                );
+                let expected = periodic_shift(&normal, size, offset);
+                assert!(
+                    replayed == expected,
+                    "normal periodicity {} at {size:?}, shift {offset:?}",
+                    preset["id"]
+                );
+            }
+            rows.push(
+                json!({"case":preset["id"],"size":size,"offsets":offsets,"rawHalfExact":true}),
+            );
+        }
+    }
+    assert_eq!(rows.len(), 28);
+    eprintln!(
+        "painted normal seams: {}",
+        json!({"ok":true,"materialAccepted":false,"rows":rows,"adapter":context.report().adapter(),"scope":"captured final-height normal derivative only; not complete graph periodicity or visual acceptance"})
     );
 }
