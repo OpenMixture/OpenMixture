@@ -26,7 +26,7 @@ Windows 和隔离 Linux 均通过公开类型、20 项单元测试、生产构�
 
 ## 保留与复现
 
-[重放索引](./replay-index.json)绑定全部 104 个 Windows／Linux 重放文件。88 个文件（包括重复 PNG 和比较）与既有 [ALPHA-04 包](../alpha-04/saved-file-bundles.tar.gz)字节一致，复用其保留内容。其余 16 个文件保留在 `replay/`；普通浏览器截图／下载保留在 `ordinary/`。[文件哈希](./files.json)绑定新增保留内容。完整普通日志、浏览器配置和 npm 缓存留在忽略的本地产物中，不作为长期证据。
+[重放索引](./replay-index.json)绑定全部 104 个 Windows／Linux 重放文件。88 个文件（包括重复 PNG 和比较）与既有 [ALPHA-04 包](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz)字节一致，复用其保留内容。其余 16 个文件保留在 `replay/`；普通浏览器截图／下载保留在 `ordinary/`。[文件哈希](./files.json)绑定新增保留内容。完整普通日志、浏览器配置和 npm 缓存留在忽略的本地产物中，不作为长期证据。
 
 ```sh
 node docs/evidence/npm-alpha/verify.mjs
@@ -35,4 +35,4 @@ cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-repl
 cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-replay/linux
 ```
 
-第二条命令要求全新输出目录，先验证旧包，再覆盖新的注册表消费者回执。新执行需检出上述 Studio 版本，运行 `npm ci`、`npm run check`、`npm run test:browser`、`npm run test:deployment`、`npm run test:ordinary -- chrome <new-output>` 和 `npm run test:studio -- <detached-native> <new-player>`，再用上述引擎命令比较。Linux 配方记录本机工具路径，复现时需相应准备。注册表元数据和 dist-tags 可变，历史快照不能替代新的远端回读。
+最后一条 Node 命令要求全新输出目录，先验证旧包，再覆盖新的注册表消费者回执。新执行需检出上述 Studio 版本，运行 `npm ci`、`npm run check`、`npm run test:browser`、`npm run test:deployment`、`npm run test:ordinary -- chrome <new-output>` 和 `npm run test:studio -- <detached-native> <new-player>`，再用上述引擎命令比较。Linux 配方记录本机工具路径，复现时需相应准备。注册表元数据和 dist-tags 可变，历史快照不能替代新的远端回读。

@@ -5,7 +5,13 @@ import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {join, dirname, resolve} from 'node:path';
 const root=fileURLToPath(new URL('.',import.meta.url));
-const old=resolve(root,'../alpha-04');
+const args=process.argv.slice(2);
+let old=resolve(root,'../alpha-04');
+if(args[0]==='--alpha04-root'){
+ assert.ok(args[1], '--alpha04-root requires the restored ALPHA-04 directory');
+ old=resolve(args[1]);args.splice(0,2);
+}
+assert.ok(args.length<=1, 'Usage: verify.mjs [--alpha04-root <restored-directory>] [fresh-replay-directory]');
 const json=async p=>JSON.parse((await readFile(p,'utf8')).replace(/^\uFEFF/,''));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 for(const [file,expected]of Object.entries(await json(join(root,'files.json')))){
@@ -40,8 +46,8 @@ for(const env of ['windows','linux']){
  const result=await json(comparisonPath);assert.equal(result.ok,true);assert.equal(result.cases.length,7);
 }
 assert.equal((await json(join(root,'ordinary/receipt.json'))).ok,true);
-if(process.argv[2]){
- const target=resolve(process.argv[2]);
+if(args[0]){
+ const target=resolve(args[0]);
  execFileSync(process.execPath,[join(old,'verify.mjs'),target],{stdio:'inherit'});
  for(const entry of index){
   const out=join(target,entry.path);

@@ -45,7 +45,7 @@ The maintainer recording an acceptance owns its retention decision. Before relyi
 
 When no usable durable archive is available, keep the minimum necessary acceptance content in Git and state which complete logs or incidental outputs will expire. If the intended audit requires the original full bundle, retain that bundle or narrow the claim; hashes and run IDs alone cannot support a claim of long-term full-run auditability. Expiry does not turn a previously recorded pass into a failure, but it limits later inspection of the original run. Record that limitation honestly.
 
-No external archive service or automatic preservation job is introduced by this policy. Superseded research may be pruned under the current-guidance rules above.
+The maintainer-selected [historical evidence Release](./evidence/archives/README.md) stores the explicitly listed ALPHA-04, M5-05 and early-run snapshots on demand. This is a bounded exception for complete historical attachments, not for current executable goldens or images bound to human acceptance. Keep decision records, critical failure/calibration evidence, named review images, identities and retrieval manifests in Git. Preserve original receipts; describe relocated paths in a separate mapping. Download and verify the archive and all members before removing current-tree attachments. Repository maintainers own retention without scheduled expiry; assets must not be replaced in place. No automatic preservation job or product release is introduced. Superseded research may be pruned under the current-guidance rules above.
 
 ## Preserve verification and ownership
 
@@ -54,6 +54,17 @@ The [golden workflow](./material-goldens.md) continues to separate rendering, vi
 Local documentation links must still resolve, and human acceptance bindings must still identify available content. The [link checker](../xtask/src/links.rs) excludes external URLs, so a passing link check does not establish artifact availability. Preserve source fixtures and the independent consumer inputs required by [isolated package verification](./package-consumption.md); historical evidence is not a package runtime dependency.
 
 Retention changes must not weaken failure propagation, source/archive checks, material comparisons, or independent consumer checks. File size alone is not a reason to split `xtask`, add a crate, or introduce a general evidence framework. Any future tooling change follows the owning command's focused checks and `cargo xtask check` under the [development workflow](./development.md).
+
+## Growth guard
+
+`cargo xtask evidence` runs inside `cargo xtask check`, and therefore in every required CPU check. It enforces the table above for tracked files ([implementation](../xtask/src/evidence.rs)):
+
+- Evidence areas (`docs/evidence/`, `docs/reviews/` and `fixtures/**/reports/`) reject raw `.log`, `.stdout` and `.stderr` output, `.tar.gz`, `.tgz` and `.zip` archives, and per-run `cli-<pid>-<time>` folders.
+- Any tracked file above 4 MiB is rejected, wherever it lives.
+
+[Retention exceptions](./evidence/retention-exceptions.txt) list, per directory, how many such files are kept on purpose. The lines present when the guard was added record content that predates it. The guard reports stale counts, so the list shrinks when records are pruned. Promoting a failure log or a large accepted binary is still allowed: add or raise the directory's line in the same pull request and explain why the content must stay in Git. The guard reads only the Git index; it never deletes, moves or rewrites evidence, and pruning files does not shrink Git history.
+
+Existing history is not rewritten. A measurement on 2026-09-24 found about 234 MiB of compressed objects across all remote branches: about 213 MiB is still in the current `main` tree (about 160 MiB of PNGs and one 50 MiB archive), and only about 21 MiB exists solely in history. Raw logs and per-run output compress to under 1 MiB. A rewrite would change every commit identity cited by receipts, integration records and pull requests, and would force-push every branch, for a small saving. Revisit it only through a separate maintainer decision, for example together with moving large accepted binaries to durable external storage.
 
 ## Describe verification scope accurately
 

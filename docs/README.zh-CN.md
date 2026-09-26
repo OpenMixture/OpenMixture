@@ -6,12 +6,14 @@
 
 [Post-Alpha 路线图](../ROADMAP.zh-CN.md)负责当前引擎工作与验收标准。[浏览器运行时 Alpha 收尾](./browser-alpha.zh-CN.md)保留首次交付证据、支持限制和缺陷交接；带日期的 M5 记录保留历史状态。
 
-[MAT-02 分层风化](./mat-02-layered-weathering.zh-CN.md)冻结当前材质契约，形态处理／减法节点已集成。[PERF-MAT 纹理复用](./perf-mat-texture-reuse.zh-CN.md)处理实测的 2K 成本失败。完整材质验收仍待完成。
+[MAT-02 分层风化](./mat-02-layered-weathering.zh-CN.md)是当前材质增量的选定契约，其实现与验收状态以路线图和发布状态为准。[PERF-MAT 纹理复用](./perf-mat-texture-reuse.zh-CN.md)与 [gamma=1 修正](./levels-linear-correction.zh-CN.md)处理实测阻碍；完整材质验收仍未完成。
 
 根目录文档是当前项目契约：
 
 - [项目使命与开始使用](../README.zh-CN.md)
 - [贡献者与智能体指南](../AGENTS.zh-CN.md)
+- [智能体操作手册](./agent-playbooks.zh-CN.md)
+- [术语表](./glossary.zh-CN.md)
 - [架构](../ARCHITECTURE.zh-CN.md)
 - [路线图](../ROADMAP.zh-CN.md)
 - [初始 PR 实施计划](../INITIAL_PRS.zh-CN.md)
@@ -76,3 +78,5 @@
 [M6A-05 综合验收](./evidence/m6a-05/README.zh-CN.md)保留源码/归档绑定的软件矩阵、已审查联系表、回归门禁和 v1 硬件失败；显式 v2 修复见[稳定噪声](./stable-noise.zh-CN.md)。
 
 [浏览器 0.3.0 发布证据](./evidence/npm-030-alpha/README.zh-CN.md)记录 main 集成、冻结归档、发布及精确注册表消费。
+
+历史附件通过[归档恢复说明](./evidence/archives/README.zh-CN.md)按需取回；Python 3.10+ 标准库工具验证原始字节，不执行像素验收。CPU 工作流运行 `python scripts/evidence/test_restore.py` 离线测试。

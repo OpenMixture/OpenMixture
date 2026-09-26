@@ -3,6 +3,7 @@
 mod brick_material;
 mod consumer;
 mod dependencies;
+mod evidence;
 mod golden;
 mod gpu_smoke;
 mod links;
@@ -20,7 +21,7 @@ type TaskResult<T = ()> = Result<T, Box<dyn Error>>;
 const HELP: &str = "Usage: cargo xtask <command>
 
 Available repository commands:
-  check       Format, dependency policy, Clippy, tests, consumer, packages, rustdoc, and doc links
+  check       Format, dependency and evidence policy, Clippy, tests, consumer, packages, rustdoc, doc links
   fmt         Check Rust formatting
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
@@ -43,6 +44,7 @@ Available repository commands:
   doc         Build workspace rustdoc, denying warnings
   deps        Check the current dependency and publication policy
   links       Check Markdown links to local files and directories
+  evidence    Reject unlisted raw run output, evidence archives and files above 4 MiB
 
 GPU and material checks are explicit; ordinary check/test do not acquire a GPU.";
 
@@ -105,6 +107,7 @@ fn run() -> TaskResult {
             for task in [
                 "fmt",
                 "deps",
+                "evidence",
                 "clippy",
                 "test",
                 "test-consumer",
@@ -116,8 +119,9 @@ fn run() -> TaskResult {
             }
             println!("All repository checks passed.");
         }
-        "fmt" | "deps" | "clippy" | "test" | "test-core" | "doc" | "links" | "gpu-smoke"
-        | "shader-check" | "test-format" | "test-plan" | "test-consumer" | "package-check" => {
+        "fmt" | "deps" | "evidence" | "clippy" | "test" | "test-core" | "doc" | "links"
+        | "gpu-smoke" | "shader-check" | "test-format" | "test-plan" | "test-consumer"
+        | "package-check" => {
             run_task(&root, command)?;
         }
         _ => return Err(format!("unknown or unimplemented command: {command}\n\n{HELP}").into()),
@@ -245,6 +249,7 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
         ),
         "deps" => dependencies::check(root),
         "links" => links::check(root),
+        "evidence" => evidence::check(root),
         "gpu-smoke" => gpu_smoke::run(root),
         "shader-check" => run_cargo(
             root,

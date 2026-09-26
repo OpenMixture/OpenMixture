@@ -1,9 +1,0 @@
-Unknown validate option: --unknown
-
-Usage: mixture validate <file.mix> [--json]
-
-Validate strict .mix v1 JSON, node contracts, ports, graph structure, and budgets.
-No GPU is initialized. Input is read up to the 2 MiB limit plus one detection byte.
---json writes one {ok, diagnostics} report to stdout.
-Exit 0: valid document; 1: file/report I/O failure; 2: invalid invocation or input.
-Use -- before a path starting with '-'. Files are never changed.

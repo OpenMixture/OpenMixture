@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**存储更新（2026-09-25）：** 普通 smoke 日志及逐次 CLI 输出已移至[完整历史归档](../../../../docs/evidence/archives/README.zh-CN.md)，使用 `early-runs` 组恢复；环境、测量、人工验收图像及失败／精度实验保持可查。下文描述原始运行，不声称全部附件仍在当前目录。
+
 全部三种材质在本地固定 SwiftShader Vulkan 与 Apple M5 Metal 上通过 1024×1024 检查。软件解码 RGBA 精确一致；硬件使用各材质声明的容差。[木材人工评审](./human-review.json)已接受。远端 CI 仍暂缓；工作流已加入相同的三材质检查与 2K 追踪，但不宣称远端结果。
 
 ## 材质比较

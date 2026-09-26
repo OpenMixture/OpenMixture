@@ -29,6 +29,7 @@ cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --json
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
 cargo xtask doc
 cargo xtask deps
+cargo xtask evidence
 cargo xtask links
 cargo test --locked -p mixture-core diagnostics
 cargo test --locked -p mixture-core limits
@@ -56,12 +57,13 @@ cargo xtask gpu-smoke
 
 1. `cargo fmt --all -- --check`。
 2. 基于 `cargo metadata` 的当前依赖策略检查。
-3. 覆盖工作区全部目标和特性的 Clippy，将警告视为错误。
-4. 工作区测试，包括 CLI 集成测试、工具测试和文档测试。
-5. `test-consumer`：独立 Cargo 元数据、格式化、Clippy、单元／进程测试、构建及公开 Rust CPU 调用，随后构建 CLI，在新工作目录显式执行独立 CPU 契约测试。
-6. `package-check`：真实本地归档、隔离源码／锁解析、单元测试／Rustdoc、缺失 shader 拒绝及独立 CPU 消费。
-7. 工作区 rustdoc 构建，将警告视为错误。
-8. 基础离线 Markdown 链接检查，确认所引用的本地文件和目录存在。
+3. 证据增长防护：受跟踪的原始运行输出、证据归档、单次运行 CLI 目录及超过 4 MiB 的文件，必须列入[保留例外](./evidence/retention-exceptions.txt)；见[证据保留](./evidence-policy.zh-CN.md)。
+4. 覆盖工作区全部目标和特性的 Clippy，将警告视为错误。
+5. 工作区测试，包括 CLI 集成测试、工具测试和文档测试。
+6. `test-consumer`：独立 Cargo 元数据、格式化、Clippy、单元／进程测试、构建及公开 Rust CPU 调用，随后构建 CLI，在新工作目录显式执行独立 CPU 契约测试。
+7. `package-check`：真实本地归档、隔离源码／锁解析、单元测试／Rustdoc、缺失 shader 拒绝及独立 CPU 消费。
+8. 工作区 rustdoc 构建，将警告视为错误。
+9. 基础离线 Markdown 链接检查，确认所引用的本地文件和目录存在。
 
 任何非预期子进程失败都会使整体检查失败；显式缺失 shader 探针必须失败，并作为负向测试校验。检查不会重写源文件、夹具或基准。Markdown 解析处理行内链接、引用式链接和图片，忽略代码示例；外部 URL、标题锚点、原始 HTML 链接和百分号编码本地路径不在基础检查支持范围内。使用普通相对路径；包含空格的路径使用尖括号。扫描时排除构建／输出目录。
 
@@ -164,3 +166,5 @@ node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
 ## Noise-v2 验收
 
 [NUM-01](./stable-noise.zh-CN.md)定义显式迁移。`prepare-materials.mjs <fresh-output> <full-revision> --noise-v2`选择已提交的迁移材质输入，已有 `cargo xtask browser-material-check` 应用未改变的门禁。`candidate.mjs verify-noise-v2 <product> <candidate-evidence> <native-v2> <browser-v2>` 保留独立绑定记录。这些是引擎验收工具，不自动迁移文档或发布。
+
+历史附件通过[归档恢复说明](./evidence/archives/README.zh-CN.md)按需取回；Python 3.10+ 标准库工具验证原始字节，不执行像素验收。CPU 工作流运行 `python scripts/evidence/test_restore.py` 离线测试。

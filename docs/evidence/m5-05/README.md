@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**Storage update (2026-09-25):** Original execution and acceptance conclusions are unchanged. Retrieve complete historical attachments using the [archive instructions](../archives/README.md). Machine receipts, original hashes and capture manifests are unchanged; inspect their paths in the complete restored snapshot. Critical records and review images remain here.
+
 **M5 engineering gates pass for the recorded matrix; the runtime is ready for a bounded Alpha release decision and remains unpublished.** This record closes M5-05 after the earlier [M5-02/M5-03 acceptance](../m5-02-03/README.md) and independent Player workflow. It does not certify untested browsers or authorize Studio/M6. [Engine PR #8](https://github.com/OpenMixture/OpenMixture/pull/8) owns comparison tooling, CI and this assessment; [product PR #5](https://github.com/OpenMixture/Studio/pull/5) owns packaged browser execution, stress and production deployment.
 
 ## Sources and ordering
@@ -37,29 +39,15 @@ The fresh [local isolation receipt](./local-isolation.json) proves both source c
 
 ## Retention and reproduction
 
-[Evidence index](./evidence-index.json) retains all 250 logical files from the two accepted native/browser bundles, including all 176 native/browser channel PNGs, 22 comparison sheets, manifests, receipts and case reports. Identical bytes share content-addressed assets or reference existing tracked native expected PNGs. Original bytes, sizes and SHA-256 values were verified after copying on 2026-09-15; every PNG digest used by the calibration reports is also present. This costs approximately 84 MB of distinct assets and preserves inspectable accepted content after CI expiry.
+[Evidence index](./evidence-index.json) retains all 250 logical files from the two accepted native/browser bundles, including all 176 native/browser channel PNGs, 22 comparison sheets, manifests, receipts and case reports. Identical bytes share content-addressed assets or reference existing tracked native expected PNGs. Original bytes, sizes and SHA-256 values were verified after copying on 2026-09-15; every PNG digest used by the calibration reports is also present. These approximately 84 MB of distinct assets were originally in Git; the content-addressed PNG attachments now live in the verified archive and remain inspectable after CI expiry.
 
-The CI artifact `chromium-material-matrix`, ID `10386545022`, was retrieved and checked. Its service digest is `sha256:bc6f89d73ad7b200674ce72ee891ffb96676e48c61e9be233b540bf0b28f3878`, size 53,651,974 bytes, expiry 2026-10-15T07:38:05Z. Complete ordinary logs and incidental build output remain temporary or in finite 30-day CI artifacts; Git retains the acceptance content above and the critical calibration failure. A later rerun is new evidence, not restoration of missing logs.
+The CI artifact `chromium-material-matrix`, ID `10386545022`, was retrieved and checked. Its service digest is `sha256:bc6f89d73ad7b200674ce72ee891ffb96676e48c61e9be233b540bf0b28f3878`, size 53,651,974 bytes, expiry 2026-10-15T07:38:05Z. Complete ordinary logs and incidental build output remain temporary or in finite 30-day CI artifacts; The dedicated archive retains the complete matrix; Git retains its records, named review images and critical calibration failure. A later rerun is new evidence, not restoration of missing logs.
 
 From the engine repository root, reconstruct and verify the retained original files into a fresh directory, then rerun comparison against the unchanged contracts:
 
 ```bash
-python3 - <<'PYCODE'
-from pathlib import Path
-import hashlib, json
-root = Path.cwd()
-index = json.loads((root / "docs/evidence/m5-05/evidence-index.json").read_text())
-target = root / "tmp/m5-05-retained"
-target.mkdir(parents=True, exist_ok=False)
-for dataset, files in index["datasets"].items():
-    for item in files:
-        data = (root / item["storedPath"]).read_bytes()
-        assert len(data) == item["bytes"]
-        assert hashlib.sha256(data).hexdigest() == item["sha256"]
-        dest = target / dataset / item["file"]
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(data)
-PYCODE
+python scripts/evidence/restore.py m5-05 tmp/retained-m5
+python scripts/evidence/replay_m5.py tmp/retained-m5 tmp/m5-05-retained
 cargo xtask browser-material-check tmp/m5-05-retained/local-native tmp/m5-05-retained/local-browser
 cargo xtask browser-material-check tmp/m5-05-retained/linux-native tmp/m5-05-retained/linux-browser
 ```

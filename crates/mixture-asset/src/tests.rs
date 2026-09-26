@@ -276,3 +276,48 @@ fn sorted_bindings_and_full_closure_do_not_depend_on_requested_outputs() {
         "MIX_PACKAGE_INVALID"
     );
 }
+#[test]
+fn excess_resource_rows_report_their_measured_count() {
+    let row = r#"{"id":"a","path":"images/0000.rgba","width":1,"height":1,"format":"rgba8-linear","bytesPerRow":4,"byteLength":4,"contentDigest":"x"}"#;
+    for count in [9, 12] {
+        let rows = vec![row; count].join(",");
+        let json = manifest().replace("\"resources\":[]", &format!("\"resources\":[{rows}]"));
+        let Err(AssetError::Package(d)) = manifest::decode(json.as_bytes()) else {
+            panic!("{count} rows must exceed the format ceiling");
+        };
+        assert_eq!(d.code, PackageCode::LimitExceeded);
+        assert_eq!(d.evidence["limit"], "resourceCount");
+        assert_eq!(d.evidence["observed"], count as u64);
+        assert_eq!(d.evidence["configured"], 8);
+    }
+    // Malformed rows keep the generic manifest failure instead of a count claim.
+    let json = manifest().replace("\"resources\":[]", "\"resources\":{}");
+    assert_eq!(
+        manifest::decode(json.as_bytes()).unwrap_err().code(),
+        "MIX_PACKAGE_INVALID"
+    );
+}
+#[test]
+fn package_codes_have_one_stable_serialized_spelling() {
+    let mut seen = BTreeSet::new();
+    for code in PackageCode::ALL {
+        assert!(code.as_str().starts_with("MIX_PACKAGE_"), "{code}");
+        assert!(seen.insert(code.as_str()), "{code}");
+        assert_eq!(serde_json::to_value(code).unwrap(), code.as_str());
+        assert_eq!(code.to_string(), code.as_str());
+    }
+    let AssetError::Package(d) = error::invalid("x") else {
+        unreachable!()
+    };
+    assert_eq!(
+        serde_json::to_value(&d).unwrap(),
+        serde_json::json!({
+            "code": "MIX_PACKAGE_INVALID",
+            "stage": "package",
+            "severity": "error",
+            "message": "x",
+            "evidence": {},
+            "suggestion": d.suggestion,
+        })
+    );
+}

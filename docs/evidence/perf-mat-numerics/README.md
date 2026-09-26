@@ -29,3 +29,5 @@ Gamma-one `pow` evaluation near half-float rounding midpoints is a hypothesis, n
 ## Literal follow-up
 
 [Linux run 35875437605](https://github.com/OpenMixture/OpenMixture/actions/runs/35875437605) completed the twelve original samples with zero error in both signed channels ([retained measurements](./linux-linear-followup.json)). Thus the original literal sample does not reproduce the material failure. A separate [gamma-one correction candidate](../../levels-linear-correction.md) adds exact fixture inputs within the observed differing bins and requires the complete frozen material comparison before acceptance. The earlier failed pixels remain unchanged.
+
+Retention exception: `ci-native-stderr.log` preserves the original failed Native comparison diagnostic used to justify the subsequent correction. It remains a failed historical result and its bound bytes are unchanged.

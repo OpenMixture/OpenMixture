@@ -9,7 +9,7 @@ mod manifest;
 mod tests;
 mod writer;
 
-pub use error::{AssetError, PackageDiagnostic};
+pub use error::{AssetError, PackageCode, PackageDiagnostic};
 use error::{invalid, limit};
 pub use limits::{AssetLimits, PackageLimits};
 pub use manifest::Resource;
@@ -185,7 +185,7 @@ impl<'a> AssetView<'a> {
             mixture_core::resources::image_references(&self.parsed.document, &request)?;
         if !references.overridden.is_empty() {
             return Err(AssetError::new(
-                "MIX_PACKAGE_RESOURCE_OVERRIDE",
+                error::PackageCode::ResourceOverride,
                 "Package v1 does not accept resourceRef overrides.",
             )
             .evidence("parameterIds", serde_json::json!(references.overridden)));
@@ -320,7 +320,7 @@ fn sha256(bytes: &[u8]) -> String {
 }
 fn mismatch(path: &str) -> AssetError {
     AssetError::new(
-        "MIX_PACKAGE_CONTENT_MISMATCH",
+        error::PackageCode::ContentMismatch,
         "Payload digest differs from the manifest.",
     )
     .evidence("entry", path)

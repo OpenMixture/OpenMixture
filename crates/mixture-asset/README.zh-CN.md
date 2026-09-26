@@ -27,4 +27,4 @@ assert_eq!(owned.prepare(&CompileRequest::default())?.plan().hash(), prepared.pl
 
 `AssetLimits` 组合现有 Core 策略及只能降低的包上限：67 MiB 归档、64 KiB manifest、2 MiB 源码、最多八张各轴不超过 2048 的同尺寸图像、64 MiB 资源和 202 MiB 计费字节缓冲。`preparation_buffer_bytes` 报告留存归档容量 + 保守源码/manifest 临时预算 + 所选快照。这不是 RSS；调用方输入、类型化对象、分配器开销和输出另计。调用方须自行累计同时存在的多个资产。
 
-`AssetError` 保留原始类型化 Core 错误，或提供具有稳定错误码、`package` 阶段和证据的 `PackageDiagnostic`。没有解包、压缩、外部资源查找、回退或隐式缓存。源码版本 0.5.0 尚未发布；CLI/浏览器包适配器属于后续工作。
+`AssetError` 保留原始类型化 Core 错误，或提供结构化 `PackageDiagnostic`：类型化 `PackageCode`（稳定的 `MIX_PACKAGE_*` 拼写）、`package` 阶段、`error` 严重级别、消息、证据与建议，序列化字段名与 Core 诊断一致。没有解包、压缩、外部资源查找、回退或隐式缓存。本 crate 尚未发布；CLI `asset` 命令与浏览器 `inspectPackage`/`renderPackage` 是其适配层。版本见[发布状态](../../docs/release.zh-CN.md)。

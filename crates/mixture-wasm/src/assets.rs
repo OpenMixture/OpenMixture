@@ -23,22 +23,13 @@ fn failure(operation: &str, error: AssetError) -> JsValue {
         }
         AssetError::Package(d) => {
             #[derive(Serialize)]
-            struct Diagnostic<'a> {
-                #[serde(flatten)]
-                diagnostic: &'a mixture_asset::PackageDiagnostic,
-                severity: &'static str,
-            }
-            #[derive(Serialize)]
             struct Failure<'a> {
                 operation: &'a str,
-                diagnostics: [Diagnostic<'a>; 1],
+                diagnostics: [&'a mixture_asset::PackageDiagnostic; 1],
             }
             project(&Failure {
                 operation,
-                diagnostics: [Diagnostic {
-                    diagnostic: &d,
-                    severity: "error",
-                }],
+                diagnostics: [&d],
             })
             .unwrap_or_else(|e| e)
         }

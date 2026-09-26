@@ -1,9 +1,12 @@
 use crate::AssetLimits;
-use crate::error::{AssetError, invalid, limit};
+use crate::error::{AssetError, PackageCode, invalid, limit};
 use serde::{
     Deserialize, Serialize,
-    de::{SeqAccess, Visitor},
+    de::{IgnoredAny, SeqAccess, Visitor},
 };
+
+/// Package v1 format ceiling for manifest resources; callers may only lower it.
+pub(crate) const MAX_RESOURCES: usize = 8;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
@@ -50,9 +53,10 @@ fn bounded_resources<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Vec<Resou
             f.write_str("at most eight resources")
         }
         fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<Self::Value, A::Error> {
+            // Allocation guard only: decode reports the measured count before this runs.
             let mut rows = Vec::new();
             while let Some(row) = seq.next_element::<Resource>()? {
-                if rows.len() == 8 {
+                if rows.len() == MAX_RESOURCES {
                     return Err(serde::de::Error::custom("package resource count exceeded"));
                 }
                 rows.push(row);
@@ -67,28 +71,28 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<Manifest, AssetError> {
     struct Version {
         version: u32,
     }
+    // Zero-sized rows count every entry without allocating; the manifest is already bounded.
+    #[derive(Deserialize)]
+    struct Count {
+        #[serde(default)]
+        resources: Option<Vec<IgnoredAny>>,
+    }
     let version: Version =
         serde_json::from_slice(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))?;
     if version.version != 1 {
         return Err(AssetError::new(
-            "MIX_PACKAGE_UNSUPPORTED_VERSION",
+            PackageCode::UnsupportedVersion,
             "Unsupported asset version.",
         )
         .evidence("observed", version.version));
     }
-    serde_json::from_slice(bytes).map_err(|e| {
-        if e.to_string().starts_with("package resource count exceeded") {
-            AssetError::new(
-                "MIX_PACKAGE_LIMIT_EXCEEDED",
-                "Resource count exceeds eight.",
-            )
-            .evidence("limit", "resourceCount")
-            .evidence("configured", 8)
-            .evidence("observed", 9)
-        } else {
-            invalid(format!("Invalid manifest: {e}"))
-        }
-    })
+    if let Ok(Count {
+        resources: Some(rows),
+    }) = serde_json::from_slice(bytes)
+    {
+        limit("resourceCount", rows.len() as u64, MAX_RESOURCES as u64)?;
+    }
+    serde_json::from_slice(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))
 }
 fn digest(value: &str) -> bool {
     value.len() == 64
