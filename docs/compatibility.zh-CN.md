@@ -2,7 +2,7 @@
 
 [English](./compatibility.md) | 简体中文
 
-工作中的 [gamma=1 levels 修正](./levels-linear-correction.zh-CN.md)明确保留 `levels@1` 及计划身份，修正既有线性恒等式。绑定着色器／构建的像素可能改变；验收待完成，不允许源码迁移或 golden 重置。
+工作中的 [gamma=1 levels 修正](./levels-linear-correction.zh-CN.md)明确保留 `levels@1` 及计划身份，修正既有线性恒等式。绑定着色器／构建的像素可能改变；源码 76e8039 通过[限定验收](./evidence/levels-linear-correction/README.zh-CN.md)，不允许源码迁移或 golden 重置。
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 

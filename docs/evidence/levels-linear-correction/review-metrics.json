@@ -1,0 +1,27 @@
+{
+  "comparison": "old native versus corrected native; distinct from cross-runtime gate",
+  "rows": [
+    {
+      "size": [
+        1024,
+        1024
+      ],
+      "beforeSha256": "a5c3a61114962479817e89ccbc64324a2eee621cca48e582f1b761b0e50515f3",
+      "afterSha256": "232965d85dee1d7a4b80cc778929251a496a2c8d2bb60f0cb373e93e1d91c120",
+      "maxComponentDifference": 4,
+      "changedPixels": 98,
+      "changedRatio": 9.34600830078125e-05
+    },
+    {
+      "size": [
+        2048,
+        2048
+      ],
+      "beforeSha256": "911c1fc4939b662c89892dcf451f87c1c01a73354270b57b955d60c83e49902a",
+      "afterSha256": "57c1ed8e597c93788bb05172354149b3aac2008702d51058f72ec0b3c0398912",
+      "maxComponentDifference": 8,
+      "changedPixels": 358,
+      "changedRatio": 8.535385131835938e-05
+    }
+  ]
+}

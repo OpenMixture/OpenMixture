@@ -2,7 +2,7 @@
 
 English | [简体中文](./compatibility.zh-CN.md)
 
-The working [gamma-one levels correction](./levels-linear-correction.md) deliberately retains `levels@1` and plan identities while correcting the existing linear identity. Shader/build-bound pixels can change; qualification is pending and no source migration or golden reset is allowed.
+The working [gamma-one levels correction](./levels-linear-correction.md) deliberately retains `levels@1` and plan identities while correcting the existing linear identity. Shader/build-bound pixels can change; [bounded qualification](./evidence/levels-linear-correction/README.md) passes on source 76e8039; no source migration or golden reset is allowed.
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 

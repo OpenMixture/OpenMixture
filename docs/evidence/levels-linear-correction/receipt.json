@@ -1,0 +1,203 @@
+{
+  "kind": "qualified-gamma-one-correction-and-allocation-control",
+  "source": "76e8039500ceaa849f7c3792c1712a1310ce824b",
+  "qualificationScope": "four painted-metal requests; 20 channels per Native/browser pairing; not full MAT-02 acceptance",
+  "ci": {
+    "merge": "430bea6ee5c3ece895f3b89a4542a2c24032d4a1",
+    "run": 35884528870,
+    "attempt": 1,
+    "artifact": 10763790398,
+    "artifactBytes": 213836291,
+    "expiresAt": "2026-10-23T16:12:39Z",
+    "maximumChannelDifference": 0,
+    "requiredRuns": {
+      "cpu": 35884528637,
+      "gpu": 35884528839,
+      "wasm": 35884528708,
+      "chromium": 35884528870
+    }
+  },
+  "hardware": {
+    "adapter": "NVIDIA GeForce GT 1030",
+    "backends": [
+      "Vulkan",
+      "DX12"
+    ],
+    "versus": "Chrome",
+    "maximumColorDifference": 1,
+    "maximumHeightNormalRoughnessMetallicDifference": 0
+  },
+  "allocationControl": {
+    "baseCommit": "e7b25c4e36f6d7a2052fdba11d8cdfffad762a9d",
+    "dirty": true,
+    "modifiedFiles": [
+      "crates/mixture-wgpu/shaders/nodes/levels.wgsl"
+    ],
+    "shaderSha256": "1a9dbe0932045303befec61261235e4cac035d3ae0021199abf484517f918dac",
+    "profile": "release",
+    "adapter": "NVIDIA GeForce GT 1030",
+    "backend": "Vulkan",
+    "size": [
+      1024,
+      1024
+    ],
+    "comparisons": {
+      "baseColor": {
+        "maxComponentDifference": 0,
+        "changedPixels": 0,
+        "decodedRgbaSha256": "f23fe599d45eed1720597ae5d0a53db2129324dd37982e34206aff7835a90016",
+        "controlPngSha256": "d982a3e756b00a525c8c7854330b2ddf1e2ca10eeb8f3ea3e7a1d475fcaf75a0",
+        "pooledPngSha256": "c9ada21aac683e343faec9a92e9d3e98efdc7782b09fbdde148336624bcacd4b"
+      },
+      "height": {
+        "maxComponentDifference": 0,
+        "changedPixels": 0,
+        "decodedRgbaSha256": "9965fcd5f3997d758bc859970929fd3d3bb5df58c983bd1886c110c906f5fe04",
+        "controlPngSha256": "ac7da45013af097c7d9249084f7e48a9490aaf9db103a682d3307fb548798f92",
+        "pooledPngSha256": "747c64adcfc9a99a7b2dfec88fc9a8079cc64eacb26959bffaefb080bfd52345"
+      },
+      "normal": {
+        "maxComponentDifference": 0,
+        "changedPixels": 0,
+        "decodedRgbaSha256": "d14cc65dfad2c800c0a3c42f89c20954ba60fe16f2628607136087a075d692e6",
+        "controlPngSha256": "bf99d26fef058ac42b474654c76c126440802f629561104bedd6bc9f422e01d9",
+        "pooledPngSha256": "232965d85dee1d7a4b80cc778929251a496a2c8d2bb60f0cb373e93e1d91c120"
+      },
+      "roughness": {
+        "maxComponentDifference": 0,
+        "changedPixels": 0,
+        "decodedRgbaSha256": "fce11453b8a433e2a5d59690f1ca2dc90ca59009ce838dac246ec94bffd57842",
+        "controlPngSha256": "e2b84a13fd5d9d7f25f51145a8fa23177d3da15907b1b1e7b47ed8cdd4d035e3",
+        "pooledPngSha256": "e242fd82f0406c542b5fecb067658e015b1a1862fdd9585eef7d7a99fecb3e1c"
+      },
+      "metallic": {
+        "maxComponentDifference": 0,
+        "changedPixels": 0,
+        "decodedRgbaSha256": "3f9e7163c8936956a9d76967afae55ca3db78a6f83493fae3f473e508063eff3",
+        "controlPngSha256": "f4935ac7b27924e3f4e680c3ed2953d2394461bf712c2cb0410b3fbe42774b78",
+        "pooledPngSha256": "1202479918bf9e8b3e03ab695f1f015dbad3561ff93e496d78e7817223e3b92f"
+      }
+    },
+    "scope": "retains original pre-reuse source plus exactly the gamma-one shader correction; original baseline is not reset"
+  },
+  "materialAccepted": false,
+  "published": false,
+  "files": {
+    "windows-archive-receipt.json": {
+      "bytes": 1122,
+      "sha256": "6a65a903237b9131a9dc48282a0f794b7d3fbc8f09645a4a0e1bea8e422f2480"
+    },
+    "windows-runtime.tgz": {
+      "bytes": 450678,
+      "sha256": "419228568cef2ab1334c66a028ebdf5065e3e8a1f2896364d958c8743871cd18"
+    },
+    "windows-browser.json": {
+      "bytes": 6415,
+      "sha256": "70c30f6154c0ba29a57a3d77284f9a70cd9aea3cf6eef08d01d133c14329a37f"
+    },
+    "ci-archive-receipt.json": {
+      "bytes": 1120,
+      "sha256": "c80fe5852e71eabffb80f6ede1889cfbfb769a3d1af0453a6f18d5df9d8b50ef"
+    },
+    "ci-runtime.tgz": {
+      "bytes": 450655,
+      "sha256": "7aefa4cf90dab7e459444d758b2627f8ae4ce3196747fffa09bf1a5f1cf7a974"
+    },
+    "ci-reuse-native.json": {
+      "bytes": 39534,
+      "sha256": "bebdfc223e2dd786b9701c8e0d3d6b77979cbb9c3e2c9739e1224bc9bd16f2f1"
+    },
+    "ci-reuse-browser.json": {
+      "bytes": 39119,
+      "sha256": "49bf2b4d3b638a7d43c470ca11ed0242d188d0696abae305fff25fa0830df317"
+    },
+    "ci-original-materials.json": {
+      "bytes": 4732,
+      "sha256": "9f32d34e41f2d84a755bf3751cb10a48dcf57270f6ab42668e5889a42e5a0b4f"
+    },
+    "ci-noise-v2-materials.json": {
+      "bytes": 4741,
+      "sha256": "ae573af7e0fd93ec490b2ae56fe689038ec691fea2bdff15a22989f452deaffe"
+    },
+    "vulkan-native.json": {
+      "bytes": 41537,
+      "sha256": "763e49fca8abb1ee222d988761dea4212fe981612e70083214c332451cab2989"
+    },
+    "dx12-native.json": {
+      "bytes": 37248,
+      "sha256": "fdf9c2c141e4362532dca8f7051f4c4211e916201d7805d6708386404f27d46d"
+    },
+    "retain-all-render.json": {
+      "bytes": 18545,
+      "sha256": "091b1f3ea719dda728049fb67dd111d178217605fdcebfdf355368eb562ddfbc"
+    },
+    "retain-all.patch": {
+      "bytes": 1070,
+      "sha256": "d6fca93c739e7f7b0410d28b9c3c645d958e50efcaa1eae862222026edb28a72"
+    },
+    "retain-all-build.log": {
+      "bytes": 719,
+      "sha256": "8909b116eb10f1406aad63f2ac72e970a878faeea72a6713ccda8b0f4136a661"
+    },
+    "vulkan-scalar.json": {
+      "bytes": 30267,
+      "sha256": "eadf37250678e1723ed7354f93caa3924d707c0b79dd482ae3c3b18a6f6f5799"
+    },
+    "vulkan-resources.json": {
+      "bytes": 33174,
+      "sha256": "7c99dd0ca09baffc75df7638a872f9b287b50c5572b84972d0a56d804855c2d2"
+    },
+    "vulkan-brick.json": {
+      "bytes": 524,
+      "sha256": "3cad419e55caeadc9c4b33b99e1e5ec96a055b18376f1b77ae4925c6cef71468"
+    },
+    "dx12-scalar.json": {
+      "bytes": 27339,
+      "sha256": "a55f4f57349770f49496f4021b39881ecd6647ae62f3657500e67aa5ad2b2535"
+    },
+    "dx12-resources.json": {
+      "bytes": 30246,
+      "sha256": "72f73eb4263197f42ca41f5c09a882f3828ddd77b70a17cacdcab19b5aecf0c2"
+    },
+    "dx12-brick.json": {
+      "bytes": 524,
+      "sha256": "3cad419e55caeadc9c4b33b99e1e5ec96a055b18376f1b77ae4925c6cef71468"
+    },
+    "corrected-native-1024-normal.png": {
+      "bytes": 971907,
+      "sha256": "232965d85dee1d7a4b80cc778929251a496a2c8d2bb60f0cb373e93e1d91c120"
+    },
+    "corrected-native-2048-normal.png": {
+      "bytes": 3447951,
+      "sha256": "57c1ed8e597c93788bb05172354149b3aac2008702d51058f72ec0b3c0398912"
+    },
+    "control-baseColor.png": {
+      "bytes": 425605,
+      "sha256": "d982a3e756b00a525c8c7854330b2ddf1e2ca10eeb8f3ea3e7a1d475fcaf75a0"
+    },
+    "control-height.png": {
+      "bytes": 84955,
+      "sha256": "ac7da45013af097c7d9249084f7e48a9490aaf9db103a682d3307fb548798f92"
+    },
+    "control-normal.png": {
+      "bytes": 971923,
+      "sha256": "bf99d26fef058ac42b474654c76c126440802f629561104bedd6bc9f422e01d9"
+    },
+    "control-roughness.png": {
+      "bytes": 216859,
+      "sha256": "e2b84a13fd5d9d7f25f51145a8fa23177d3da15907b1b1e7b47ed8cdd4d035e3"
+    },
+    "control-metallic.png": {
+      "bytes": 292980,
+      "sha256": "f4935ac7b27924e3f4e680c3ed2953d2394461bf712c2cb0410b3fbe42774b78"
+    },
+    "review-metrics.json": {
+      "sha256": "ee9f3a461145c3088e7890692e73f4795e038b2833c119f0fbbb565ecc42a5a3",
+      "bytes": 807
+    },
+    "review.html": {
+      "sha256": "35c4d3e0d1b08758ac44c09030186292386255e2e89cede8e505d46884a93871",
+      "bytes": 1730
+    }
+  }
+}

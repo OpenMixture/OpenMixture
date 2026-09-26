@@ -21,7 +21,7 @@
 
 ## 当前材质规划规则
 
-工作中的 [gamma=1 levels 修正](./docs/levels-linear-correction.zh-CN.md)在唯一 wgpu 着色器中跳过近似 `pow(t,1)`，求值既有线性恒等式。明确的兼容性决定保留 `levels@1`、Core／ABI／计划合同及哈希；绑定构建的像素可能改变。不迁移文档、不重置 golden。需要精确中点夹具、旧材质回归及完整 Native／浏览器验收；修正尚未接受。
+工作中的 [gamma=1 levels 修正](./docs/levels-linear-correction.zh-CN.md)在唯一 wgpu 着色器中跳过近似 `pow(t,1)`，求值既有线性恒等式。明确的兼容性决定保留 `levels@1`、Core／ABI／计划合同及哈希；绑定构建的像素可能改变。不迁移文档、不重置 golden。需要精确中点夹具、旧材质回归及完整 Native／浏览器验收；源码 76e8039 已在[记录的软件／GT 1030 范围](./docs/evidence/levels-linear-correction/README.zh-CN.md)内验收；集成及完整 MAT-02 验收分别处理。
 
 [材质能力路线图](./ROADMAP.zh-CN.md)记录 MAT-01 砖墙／铺地砖结构已接受，当前为 MAT-02 分层风化材质验收及实测触发的 PERF-MAT 支持，随后是 MAT-03 编织表面及 MAT-04 图复用。后续能力仍是规划，不是已实现目录。每阶段实现前须冻结有界契约、目录／版本审查及验收用例；只增加选定材质证明需要的原语。PERF-MAT 从实测开销失败启动。该顺序补全表达缺口，同时保持一个活动功能增量。
 
