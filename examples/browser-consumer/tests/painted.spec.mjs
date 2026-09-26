@@ -34,7 +34,7 @@ test('painted metal renders all frozen presets with repeat and package parity', 
   expect(manifest.rows).toHaveLength(28);
   const cases = manifest.rows.map(row => ({ id: row.id, ...row.request, endpointSource: endpointSource(row.preset, row.controls) }));
   for (const item of cases) {
-    const row = await page.evaluate(async ({ source, item, packageBytes }) => {
+    const row = await page.evaluate(async ({ source, item, packageBytes, causality }) => {
       const runtime = await window.sdk.loadRuntime();
       const channels = ['baseColor', 'normal', 'roughness', 'metallic', 'height'];
       const request = { size: item.size, channels, overrides: item.overrides };
@@ -45,6 +45,7 @@ test('painted metal renders all frozen presets with repeat and package parity', 
       const gpu = await runtime.createGpu();
       let result;
       let endpoints = null, downsample = null;
+      const controls = [];
       try {
         result = await gpu.render(source, request);
         const repeat = await gpu.render(source, request);
@@ -95,6 +96,33 @@ test('painted metal renders all frozen presets with repeat and package parity', 
           });
           delete window.paintedDefaultLow;
         }
+        if (item.id === 'default-257x129') {
+          if (JSON.stringify(item.size) !== JSON.stringify(causality.size)) throw Error('causality dimensions');
+          const variants = [
+            ...['paintColor', 'substrateColor', 'rustColor'].map(name => [name, causality.colorReplacement, 'baseColor']),
+            ...['paintRoughness', 'substrateRoughness', 'rustRoughness'].map(name => [name, 0, 'roughness']),
+            ...causality.normalStrengths.map(value => ['normalStrength', value, 'normal']),
+            ...['macroSeed', 'detailSeed'].map(name => [name, request.overrides[name] + 1, null]),
+          ];
+          for (const [control, value, affected] of variants) {
+            const variant = { ...request, overrides: { ...request.overrides, [control]: value } };
+            const output = await gpu.render(source, variant), repeat = await gpu.render(source, variant);
+            const changedChannels = [];
+            for (const channel of output.channels) {
+              const before = result.channels.find(c => c.channel === channel.channel).pixels;
+              const again = repeat.channels.find(c => c.channel === channel.channel).pixels;
+              if (channel.pixels.length !== before.length || channel.pixels.length !== again.length) throw Error('control output length');
+              if (channel.pixels.some((v, i) => v !== again[i])) throw Error(`repeat ${control}`);
+              if (channel.pixels.some((v, i) => v !== before[i])) {
+                if (affected && channel.channel !== affected) throw Error(`isolation ${control}: ${channel.channel}`);
+                changedChannels.push(channel.channel);
+              }
+            }
+            const unchanged = JSON.stringify(request.overrides[control]) === JSON.stringify(value);
+            if (unchanged !== (changedChannels.length === 0)) throw Error(`control effect ${control}`);
+            controls.push({ control, value, changedChannels, repeatExact: true, isolationPassed: true });
+          }
+        }
       } finally { await gpu.destroy(); await gpu.destroy(); }
       // Encode only after destruction to check owned output lifetime.
       const images = [];
@@ -106,8 +134,8 @@ test('painted metal renders all frozen presets with repeat and package parity', 
           sha256: [...new Uint8Array(await crypto.subtle.digest('SHA-256', c.pixels))].map(v => v.toString(16).padStart(2, '0')).join('') });
       }
       return { build: runtime.getBuildInfo(), planHash: result.plan.hash, allocation: inspected.plan.allocation,
-        report: result.report, endpoints, downsample, repeatExact: true, packageExact: true, slicedExact: true, ownedAfterDestroy: true, images };
-    }, { source, item, packageBytes });
+        report: result.report, endpoints, downsample, controls, repeatExact: true, packageExact: true, slicedExact: true, ownedAfterDestroy: true, images };
+    }, { source, item, packageBytes, causality: manifest.causality });
     expect(row.build).toEqual(expectedBuild);
     expect(row.images.map(v => v.channel).sort()).toEqual(['baseColor', 'height', 'metallic', 'normal', 'roughness']);
     const files = [];
@@ -121,6 +149,7 @@ test('painted metal renders all frozen presets with repeat and package parity', 
   }
   expect(rows.flatMap(row => row.endpoints ?? [])).toHaveLength(60);
   expect(rows.flatMap(row => row.downsample ?? [])).toHaveLength(2);
+  expect(rows.flatMap(row => row.controls)).toHaveLength(11);
   await writeFile(testInfo.outputPath('painted-browser.json'), JSON.stringify({
     ok: true, materialAccepted: false, manifest,
     packageSha256: createHash('sha256').update(Buffer.from(packageBytes)).digest('hex'),
