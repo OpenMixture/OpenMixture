@@ -8,6 +8,8 @@ import { readFile, mkdir, writeFile, copyFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 const require = createRequire(new URL('../examples/browser-consumer/package.json', import.meta.url));
 const { chromium } = require('playwright');
+const browserChannel = process.env.MIXTURE_BROWSER_CHANNEL ?? 'chrome';
+const browserArgs = ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist'];
 const args = process.argv.slice(2);
 assert.equal(args.length, 2, 'usage: painted-material-preview.mjs <painted-comparison> <fresh-output>');
 const [input, output] = args.map(p => resolve(p));
@@ -54,8 +56,7 @@ const server = createServer((req, res) => {
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 let browser;
 try {
-  browser = await chromium.launch({ channel: process.env.MIXTURE_BROWSER_CHANNEL ?? 'chrome', headless: true,
-    args: ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist'] });
+  browser = await chromium.launch({ channel: browserChannel, headless: true, args: browserArgs });
   const page = await browser.newPage({ viewport: { width: 1320, height: 1000 }, deviceScaleFactor: 1 });
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   await page.waitForFunction(() => window.previewResult, {}, { timeout: 120000 });
@@ -83,7 +84,7 @@ ${cases.map(id => `<section><h2>${id}</h2><img src="${id}-pbr.png" alt="${id}: p
     materialAccepted: false, producerRevision: comparison.revision, producerBuild: comparison.build,
     previewRevision: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
     previewDirty: execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim().length > 0,
-    browser: browser.version(), ...result, inputPngSha256: hashes, screenshotSha256: screenshots,
+    browser: browser.version(), browserChannel, browserArgs, ...result, inputPngSha256: hashes, screenshotSha256: screenshots,
     previewHtmlSha256: hash(html), previewRunnerSha256: hash(await readFile(new URL(import.meta.url))),
     metallicCheck: { dielectric: hash(probeBytes[0]), metal: hash(probeBytes[1]), repeat: hash(probeBytes[2]), changed: true, repeatExact: true },
     shading: 'metallic GGX, fixed key/fill and ambient approximation, no displacement; consumer visualization only',
