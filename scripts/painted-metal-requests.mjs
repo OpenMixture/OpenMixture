@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const planBytes = await readFile(new URL('../fixtures/materials/painted-metal/qualification-plan.json', import.meta.url));
 const plan = JSON.parse(planBytes);
-const sourceBytes = await readFile(new URL('../docs/evidence/perf-mat-before/material.mix', import.meta.url));
+const sourceBytes = await readFile(new URL('../fixtures/materials/painted-metal/material.mix', import.meta.url));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 
 function range(value, name, low, high, integer = false) {
@@ -45,8 +45,8 @@ export function paintedMetalRequest(changes = {}, size = [1024, 1024]) {
   Object.assign(overrides, {
     exposureInputMin: inputMin, exposureInputMax: endpoint ? 1 : inputMin + 0.2,
     exposureOutputMin: endpoint ? amount : 0, exposureOutputMax: endpoint ? amount : 1,
-    detailMin: 1 - controls.detailAmount, paintHeight: 0.2 + controls.paintThickness,
-    rustHeight: 0.2 + controls.rustRelief,
+    detailMin: 1 - controls.detailAmount, paintHeight: controls.paintThickness,
+    rustHeight: controls.rustRelief,
   });
   for (const [index, axis] of ['X', 'Y'].entries()) {
     overrides[`radius${axis}`] = controls.edgeWidth === 0 ? 0 :
@@ -70,7 +70,7 @@ export async function writePaintedMetalRequests(destination) {
   const rows = paintedMetalMatrix();
   for (const row of rows) assert.deepEqual(Object.keys(row.request.overrides).sort(), ids);
   await writeFile(join(destination, 'material.mix'), sourceBytes);
-  const manifest = { kind: 'mat02-material-requests', materialAccepted: false,
+  const manifest = { kind: 'mat02-material-requests', recipeRevision: plan.recipeRevision, materialAccepted: false,
     sourceRevision: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
     workingTreeStatus: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }),
     sourceFile: 'material.mix', sourceSha256: hash(sourceBytes), qualificationPlanSha256: hash(planBytes),

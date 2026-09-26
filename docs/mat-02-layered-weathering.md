@@ -70,3 +70,5 @@ The two proposed nodes fit `.mix v1`, API/plan schema 2 and package v1 without c
 | MAT-02d | Independent Native/browser exact candidate, package roundtrips, old/new material matrices, retained machine/human evidence, six checks and integration record. Publication remains separate. |
 
 The preparation here does not reorder stages. MAT-03 woven surfaces and MAT-04 reusable recipes remain part of the full roadmap; neither is replaced by this material or by fixture-only parameter mappings.
+
+The [recipe revision 2 amendment](./mat-02-relative-height.md) selects a zero substrate height for the current candidate. The original frozen recipe/plan remain preserved; numeric thresholds and required evidence do not change.

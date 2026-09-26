@@ -176,3 +176,5 @@ ENG-03 必须保留已有固定 Studio 消费者检查及其历史证据。先�
 **M5 历史检查点：** M4、M4.1 与 [M5 的有界浏览器验收](./docs/evidence/m5-05/README.zh-CN.md)已完成。Studio MVP 已在记录环境内验收；npm 发布和引擎 M6 尚未启动。
 
 **M4 历史实现状态：** PR-001 至 PR-015 已实现。`.mix` 图路径、十一个节点及三种已接受的 1K 材质具有本地 Metal 和固定 SwiftShader 证据；[M3 评审](./docs/m3-review.zh-CN.md)记录质量、release 测量及有界 2K 分配。[M4 计划](./M4_PRS.zh-CN.md)验证公开 Rust／CLI 契约、失败、过期结果、有界保留和实际包消费。版本 `8b43c84` 已完成[远端 CI 验收](./docs/evidence/remote-ci/README.zh-CN.md)，新增干净检出的 Linux／macOS／Windows CPU 检查及 Linux 固定 SwiftShader smoke、打包消费者、三种 1K 材质和 2K 跟踪。此前暂缓的 M0／M1 平台门槛已在此矩阵范围内关闭。兼容性及未测试硬件限制见[发布状态](./docs/release.zh-CN.md)。软件包仍未发布。轻量浏览器绑定和独立产品仓库现已存在；浏览器启动指南记录已实现的棋盘格切片和剩余 M5 门槛。
+
+MAT-02 配方修订 2 针对实测高度偏移精度损失作出显式候选修正，见[相对高度契约](./docs/mat-02-relative-height.zh-CN.md)。保留修订 1 证据及全部原有验收门槛，不代表 MAT-02 完成，也不提前启动 MAT-03/04。

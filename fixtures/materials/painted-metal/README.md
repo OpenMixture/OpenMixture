@@ -6,7 +6,7 @@ The [graph design](./graph-design.json) and [qualification plan](./qualification
 
 ## Implemented request preparation
 
-The [fixture request builder](../../../scripts/painted-metal-requests.mjs) validates the controls below and generates all seven presets × four sizes × five channels (140 channel comparisons per Native/browser pairing). It copies the exact executable graph from the [measured baseline](../../../docs/evidence/perf-mat-before/material.mix), preserves its topology/node versions, and emits ordinary public request overrides. Native and browser harnesses can consume the same JSON requests; no graph semantics move out of Core.
+The [fixture request builder](../../../scripts/painted-metal-requests.mjs) validates the controls below and generates all seven presets × four sizes × five channels (140 channel comparisons per Native/browser pairing). It copies the exact [revision 2 graph](./material.mix), preserves its topology/node versions, and emits ordinary public request overrides. Native and browser harnesses can consume the same JSON requests; no graph semantics move out of Core.
 
 ```bash
 node --test scripts/painted-metal-requests.test.mjs
@@ -94,8 +94,8 @@ Unknown controls, non-finite values and values outside these ranges must be reje
 | `rustAmount`, `rustFill`, `detailAmount` | Float [0,1] | Rust mask opacity, band-to-exposure interpolation weight, and detail levels outputMin=1-detailAmount respectively; outputMax=1. |
 | `paintColor`, `substrateColor`, `rustColor` | Linear RGBA | Corresponding constant-color value; alpha must remain 1. |
 | `paintRoughness`, `substrateRoughness`, `rustRoughness` | Float [0,1] | First two are coatingRoughness output endpoints; third is rustRoughness constant. Reversed levels output endpoints are intentional and supported. |
-| `paintThickness` | Float [0,0.5] | coatingHeight outputMin=0.2+paintThickness, outputMax=0.2. |
-| `rustRelief` | Float [0,paintThickness] | rustHeight constant=0.2+rustRelief; reject relief above thickness instead of silently clamping. |
+| `paintThickness` | Float [0,0.5] | coatingHeight outputMin=paintThickness, outputMax=0. |
+| `rustRelief` | Float [0,paintThickness] | rustHeight constant=rustRelief; reject relief above thickness instead of silently clamping. |
 | `normalStrength` | Float [0,8] | Existing height-to-normal strength. |
 
 Output names map to ordinary material-output ports when the real `.mix` is constructed. Inspection aliases expose intermediate masks only to qualification requests; they do not add material channel types or public expression syntax. Every render starts from the same graph topology, including endpoint presets, so controls cannot hide unwanted dependencies by replacing the graph. Dependency slicing for a requested output remains Core-owned.
@@ -122,3 +122,7 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_normal_periodic_boun
 ```
 
 The 28 cases contain 84 exact translation comparisons per adapter. The test runs in `cargo xtask gpu-smoke` and prints adapter identity and case/size/offset receipts. This specifically covers the final-height normal derivative. It does not establish periodicity of the upstream noise/mask composition, browser raw-half equivalence, absence of visually conspicuous seams, stress quality or human acceptance. No shader, runtime API, node version or golden changes.
+
+## Recipe revision 2
+
+The current graph/plan use [zero-relative height](../../../docs/mat-02-relative-height.md). The [original plan](./qualification-plan-v1.json), [original design](./graph-design-v1.json) and historical performance graph remain unchanged. Previously recorded passes do not qualify the revised height/normal pixels.
