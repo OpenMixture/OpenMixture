@@ -41,6 +41,22 @@ for (let i = 0; i < expectedRows.length; i++) {
   assert.deepEqual(browser.rows[i].size, expectedRows[i].request.size);
   assert.deepEqual(browser.rows[i].overrides, expectedRows[i].request.overrides);
   for (const flag of ['repeatExact', 'packageExact', 'slicedExact', 'ownedAfterDestroy']) assert.equal(browser.rows[i][flag], true);
+  if (['intact', 'exposed', 'rusted'].includes(expectedRows[i].preset)) {
+    const endpoints = browser.rows[i].endpoints;
+    assert.deepEqual(endpoints.map(row => row.channel).sort(), ['baseColor', 'height', 'metallic', 'normal', 'roughness']);
+    for (const row of endpoints) {
+      assert.equal(row.allPixelsExact, true);
+      assert.equal(row.expectedRgba8.length, 4);
+    }
+  }
+}
+const browserDownsample = browser.rows.find(row => row.id === 'default-1024x1024').downsample;
+assert.deepEqual(browserDownsample.map(row => row.channel), ['height', 'baseColor']);
+for (const row of browserDownsample) {
+  assert.equal(row.passed, true);
+  assert.equal(row.limit, 4);
+  assert.equal(row.componentMeanError.length, 3);
+  assert.ok(row.componentMeanError.every(value => Number.isFinite(value) && value >= 0 && value <= 4));
 }
 await mkdir(destination);
 await writeFile(join(destination, 'requests.json'), JSON.stringify(browser.manifest, null, 2) + '\n');
@@ -66,6 +82,14 @@ const native = JSON.parse(await readFile(join(destination, 'native/native.json')
 assert.equal(native.ok, true); assert.equal(native.completed, true);
 assert.equal(native.debugAssertions, false); assert.equal(native.browserCompared, true);
 assert.equal(native.rows.length, 28); assert.equal(native.timing.length, 2);
+assert.equal(native.endpointChannels, 60, 'all endpoint channels must match independent constants');
+assert.deepEqual(native.downsample.map(row => row.channel), ['height', 'baseColor']);
+for (const row of native.downsample) {
+  assert.equal(row.passed, true);
+  assert.equal(row.limit, 4);
+  assert.equal(row.componentMeanError.length, 3);
+  assert.ok(row.componentMeanError.every(value => Number.isFinite(value) && value >= 0 && value <= 4));
+}
 for (const row of native.timing) assert.equal(row.budgetPassed, true, 'matched frozen timing budget required');
 for (const row of native.rows) {
   assert.equal(row.comparisons.length, 5);
