@@ -54,8 +54,18 @@ test('brick comparison keeps a fresh checkout clean without private target ignor
     for (const row of rows) for (const channel of matrix.channels) {
       await writeFile(join(qualification, 'test-results', `${row.case}-${row.size[0]}x${row.size[1]}-${channel}.png`), 'routing-only fixture; pixels are not evaluated');
     }
+    const sibling = join(qualification, 'test-results/painted');
+    await mkdir(sibling);
+    const collision = `${rows[0].case}-${rows[0].size[0]}x${rows[0].size[1]}-${matrix.channels[0]}.png`;
+    await writeFile(join(sibling, collision), 'unrelated material with the same preset filename');
     execFileSync(process.execPath, [fileURLToPath(new URL('./check-brick.mjs', import.meta.url)), qualification, join(directory, 'comparison')], { cwd: directory, env, stdio: 'pipe' });
     assert.equal(JSON.parse(await readFile(join(directory, 'comparison/comparison.json'))).ok, true);
+    assert.equal(await readFile(join(directory, 'comparison', collision), 'utf8'), 'routing-only fixture; pixels are not evaluated');
+    await rm(join(qualification, 'test-results', collision));
+    assert.throws(() => execFileSync(process.execPath, [fileURLToPath(new URL('./check-brick.mjs', import.meta.url)), qualification, join(directory, 'comparison/missing')], { cwd: directory, env, stdio: 'pipe' }), 'a sibling must not substitute a missing brick image');
+    await writeFile(join(qualification, 'test-results', collision), 'routing-only fixture; pixels are not evaluated');
+    await writeFile(join(sibling, 'brick-browser.json'), JSON.stringify({ ok: true, build, rows }));
+    assert.throws(() => execFileSync(process.execPath, [fileURLToPath(new URL('./check-brick.mjs', import.meta.url)), qualification, join(directory, 'comparison/duplicate')], { cwd: directory, env, stdio: 'pipe' }), 'ambiguous brick receipts must be rejected');
     assert.equal(git('status', '--porcelain'), '', 'Cargo outputs must stay in the repository-owned ignored target directory');
   } finally {
     assert.equal(dirname(resolve(directory)), resolve(tmpdir()));

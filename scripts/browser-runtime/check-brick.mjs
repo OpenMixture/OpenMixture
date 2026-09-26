@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile, readdir, mkdir, copyFile, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { join, resolve, dirname } from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 
 const args = process.argv.slice(2);
@@ -24,20 +24,22 @@ const expected = new Set(matrix.cases.flatMap(c => matrix.sizes.flatMap(([w,h]) 
 expected.add('brick-browser.json');
 await mkdir(destination);
 await writeFile(join(destination, 'comparison.json'), JSON.stringify({ ok: false, completed: false }));
-const seen = new Set();
-async function collect(directory) {
+const reports = [];
+async function findReport(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name);
-    if (entry.isDirectory()) await collect(path);
-    else if (expected.has(entry.name)) {
-      assert.equal(seen.has(entry.name), false, `duplicate ${entry.name}`);
-      seen.add(entry.name);
-      await copyFile(path, join(destination, entry.name));
-    }
+    if (entry.isDirectory()) await findReport(path);
+    else if (entry.name === 'brick-browser.json') reports.push(path);
   }
 }
-await collect(join(input, 'test-results'));
-assert.equal(seen.size, 81);
+await findReport(join(input, 'test-results'));
+assert.equal(reports.length, 1, 'exactly one brick browser receipt is required');
+assert.equal(expected.size, 81);
+// Other material tests legitimately reuse preset/channel names. Only the files
+// beside the unique brick receipt belong to this matrix; siblings cannot fill gaps.
+for (const name of expected) {
+  await copyFile(join(dirname(reports[0]), name), join(destination, name));
+}
 const browser = JSON.parse(await readFile(join(destination, 'brick-browser.json')));
 assert.equal(browser.ok, true);
 assert.deepEqual(browser.build, receipt.build);
