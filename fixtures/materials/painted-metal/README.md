@@ -111,3 +111,14 @@ The 28 cases contain 84 exact translation comparisons per adapter. The test runs
 ## Recipe revision 2
 
 The current graph/plan use [zero-relative height](../../../docs/mat-02-relative-height.md). The [original plan](./qualification-plan-v1.json), [original design](./graph-design-v1.json) and historical performance graph remain unchanged. Previously recorded passes do not qualify the revised height/normal pixels.
+
+
+## Selected noise-input periodicity
+
+The production `fractal-noise@2` shader is exercised by `node_fractal_noise_gpu_periodic_material_inputs` with macro scale 8/octaves 3/seeds 1729 and u32::MAX, detail scale 32/octaves 2/seeds 65537 and u32::MAX, and stress scale 64/octaves 3/seed 1729, all at persistence 0.5. All four material sizes are covered. The test changes only the sampling-origin call in the test copy of WGSL, using otherwise unused uniform padding; production code and ABI remain unchanged. It deliberately passes coordinates beyond one tile without modulo normalization in the probe. Full x/y periods and a full-period-plus-interior shift must reproduce the corresponding original half pixels exactly. The source anchor is asserted unique; nonconstant baselines prevent a constant-output false pass. Sixty full-image comparisons cover finite/range checks and cleanup.
+
+```bash
+cargo test --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_periodic_material_inputs -- --ignored --nocapture
+```
+
+The test is also selected by `cargo xtask test-node fractal-noise` and full GPU smoke. `MIXTURE_NODE_EVIDENCE_DIR` optionally receives `value-noise-periodic.json`; the output records sizes, seeds, parameters, offsets and adapter. This establishes periodic sampling of the selected material inputs only, not v1/cellular noise, arbitrary graphs, visual seam acceptance or browser raw-half parity. Morphology/composition and visual material gates remain separate.

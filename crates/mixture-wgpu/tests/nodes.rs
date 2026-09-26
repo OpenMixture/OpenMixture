@@ -41,6 +41,8 @@ mod resampling_probe;
 mod scalar_probe;
 #[path = "support/subtract_probe.rs"]
 mod subtract_probe;
+#[path = "support/value_periodic_probe.rs"]
+mod value_periodic_probe;
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Fixture {
@@ -885,4 +887,20 @@ fn node_scalar_subtract_gpu() {
         )
         .unwrap();
     }
+}
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node fractal-noise"]
+fn node_fractal_noise_gpu_periodic_material_inputs() {
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = value_periodic_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("value-noise-periodic.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
+    eprintln!("value-noise periodic material inputs: {evidence}");
 }
