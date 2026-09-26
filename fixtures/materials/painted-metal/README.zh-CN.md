@@ -6,7 +6,7 @@
 
 ## 已实现的请求准备
 
-[夹具请求构建器](../../../scripts/painted-metal-requests.mjs)严格校验下述控制值，生成七种预设 × 四种尺寸 × 五个通道的请求（每组 Native/browser 配对共 140 项通道比较）。它复制[实测基线](../../../docs/evidence/perf-mat-before/material.mix)的可执行图字节，保持拓扑及节点版本，以普通公开请求覆盖参数。Native 与浏览器验收工具可共用这些 JSON 请求；图语义仍归 Core 所有。
+[夹具请求构建器](../../../scripts/painted-metal-requests.mjs)严格校验下述控制值，生成七种预设 × 四种尺寸 × 五个通道的请求（每组 Native/browser 配对共 140 项通道比较）。它复制[修订 2 图](./material.mix)的精确字节，保持拓扑及节点版本，以普通公开请求覆盖参数。Native 与浏览器验收工具可共用这些 JSON 请求；图语义仍归 Core 所有。
 
 ```bash
 node --test scripts/painted-metal-requests.test.mjs
@@ -79,8 +79,8 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ign
 | `rustAmount`、`rustFill`、`detailAmount` | 浮点 [0,1] | 分别映射锈迹遮罩 opacity、边带到裸露区域的插值权重、细节 levels 的 outputMin=1-detailAmount；outputMax=1。 |
 | `paintColor`、`substrateColor`、`rustColor` | 线性 RGBA | 对应 constant-color 值，alpha 须为 1。 |
 | `paintRoughness`、`substrateRoughness`、`rustRoughness` | 浮点 [0,1] | 前两者为 coatingRoughness 输出端点，第三者为 rustRoughness 常量。levels 反向输出端点是有意使用的既有能力。 |
-| `paintThickness` | 浮点 [0,0.5] | coatingHeight 的 outputMin=0.2+paintThickness、outputMax=0.2。 |
-| `rustRelief` | 浮点 [0,paintThickness] | rustHeight 常量=0.2+rustRelief；拒绝超过涂层厚度的值，不静默夹取。 |
+| `paintThickness` | 浮点 [0,0.5] | coatingHeight 的 outputMin=paintThickness、outputMax=0。 |
+| `rustRelief` | 浮点 [0,paintThickness] | rustHeight 常量=rustRelief；拒绝超过涂层厚度的值，不静默夹取。 |
 | `normalStrength` | 浮点 [0,8] | 既有 height-to-normal 的 strength。 |
 
 生成真实 `.mix` 时，输出名映射普通 material-output 端口。检查别名仅为验收请求暴露中间遮罩，不增加材质通道类型或公开表达式语法。所有渲染（包括端点预设）从相同图拓扑开始，不能靠替换图隐藏控制间的不当依赖。请求输出的依赖裁剪仍由 Core 负责。
@@ -107,3 +107,7 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_normal_periodic_boun
 ```
 
 28 个用例在每个适配器上包含 84 次精确平移比较。测试纳入 `cargo xtask gpu-smoke`，输出适配器身份及用例／尺寸／偏移记录。它仅覆盖最终高度的法线导数，不能证明上游噪声／遮罩合成周期性、浏览器原始 half 一致性、没有明显视觉接缝、压力场景质量或人工验收。未修改着色器、运行时 API、节点版本或黄金基线。
+
+## 配方修订 2
+
+当前图／计划使用[零基底相对高度](../../../docs/mat-02-relative-height.zh-CN.md)。[原计划](./qualification-plan-v1.json)、[原设计](./graph-design-v1.json)及历史性能图保持不变。此前通过记录不能用于验收修订后的高度／法线像素。

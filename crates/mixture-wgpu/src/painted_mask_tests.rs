@@ -6,7 +6,7 @@ use std::collections::BTreeMap;
 
 pub(super) const SOURCE: &str = concat!(
     env!("CARGO_MANIFEST_DIR"),
-    "/../../docs/evidence/perf-mat-before/material.mix"
+    "/../../fixtures/materials/painted-metal/material.mix"
 );
 pub(super) const CONTRACT: &str = concat!(
     env!("CARGO_MANIFEST_DIR"),

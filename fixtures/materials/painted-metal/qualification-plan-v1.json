@@ -1,8 +1,8 @@
 {
-  "status": "relative-height-candidate",
+  "status": "planned-mat-02a-frozen",
   "materialId": "painted-metal",
   "contract": "docs/mat-02-layered-weathering.md",
-  "runtimeImplemented": true,
+  "runtimeImplemented": false,
   "channels": [
     "baseColor",
     "metallic",
@@ -142,7 +142,7 @@
       "baseColor": "paintColor",
       "metallic": 0,
       "roughness": "paintRoughness",
-      "height": "paintThickness",
+      "height": "0.2+paintThickness",
       "normal": [
         0.5,
         0.5,
@@ -153,7 +153,7 @@
       "baseColor": "substrateColor",
       "metallic": 1,
       "roughness": "substrateRoughness",
-      "height": 0,
+      "height": 0.2,
       "normal": [
         0.5,
         0.5,
@@ -164,7 +164,7 @@
       "baseColor": "rustColor",
       "metallic": 0,
       "roughness": "rustRoughness",
-      "height": "rustRelief",
+      "height": "0.2+rustRelief",
       "normal": [
         0.5,
         0.5,
@@ -476,7 +476,5 @@
     "existing-node input feasibility; full material still requires its own 4/255 check",
     "selected scalar-morphology@1 and scalar-subtract@1; first implementation uses Rust 0.7.0/browser 0.7.0-alpha.0"
   ],
-  "freezeEvidence": "docs/evidence/mat-02-input-feasibility/README.md",
-  "recipeRevision": 2,
-  "previousPlan": "qualification-plan-v1.json"
+  "freezeEvidence": "docs/evidence/mat-02-input-feasibility/README.md"
 }

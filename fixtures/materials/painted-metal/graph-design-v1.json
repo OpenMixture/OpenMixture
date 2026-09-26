@@ -20,7 +20,7 @@
     {"id": "coatingRoughness", "type": "levels", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$paintRoughness", "outputMax": "$substrateRoughness"}},
     {"id": "rustRoughness", "type": "constant-scalar", "version": 1, "parameters": {"value": "$rustRoughness"}},
     {"id": "roughness", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "coatingRoughness.value", "b": "rustRoughness.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},
-    {"id": "coatingHeight", "type": "levels", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$paintHeight", "outputMax": 0}},
+    {"id": "coatingHeight", "type": "levels", "version": 1, "inputs": {"in": "exposure.value"}, "parameters": {"inputMin": 0, "inputMax": 1, "gamma": 1, "outputMin": "$paintHeight", "outputMax": 0.2}},
     {"id": "rustHeight", "type": "constant-scalar", "version": 1, "parameters": {"value": "$rustHeight"}},
     {"id": "height", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "coatingHeight.value", "b": "rustHeight.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},
     {"id": "metallic", "type": "scalar-mask-blend", "version": 1, "inputs": {"a": "exposure.value", "b": "zero.value", "mask": "rustMask.value"}, "parameters": {"opacity": 1}},

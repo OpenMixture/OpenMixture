@@ -52,11 +52,8 @@ fn request_at_size(contract: &Value, preset: &Value, size: [u32; 2]) -> CompileR
         ("exposureOutputMin", if endpoint { amount } else { 0. }),
         ("exposureOutputMax", if endpoint { amount } else { 1. }),
         ("detailMin", 1. - controls["detailAmount"].as_f64().unwrap()),
-        (
-            "paintHeight",
-            0.2 + controls["paintThickness"].as_f64().unwrap(),
-        ),
-        ("rustHeight", 0.2 + controls["rustRelief"].as_f64().unwrap()),
+        ("paintHeight", controls["paintThickness"].as_f64().unwrap()),
+        ("rustHeight", controls["rustRelief"].as_f64().unwrap()),
     ] {
         overrides.insert(key.into(), json!(value));
     }
@@ -269,7 +266,7 @@ fn graph_gpu_painted_composition_and_final_height_normal_replay() {
         for i in 0..wear.len() {
             assert_eq!(
                 coat_height[i],
-                mix(parameter("paintHeight"), 0.2, wear[i]),
+                mix(parameter("paintHeight"), 0., wear[i]),
                 "coating height {i}"
             );
             assert_eq!(
@@ -292,7 +289,7 @@ fn graph_gpu_painted_composition_and_final_height_normal_replay() {
                 "roughness {i}"
             );
             assert_eq!(metal[i], mix(wear[i], 0., rust[i]), "metallic {i}");
-            assert!(height[i] >= half(0.2) && height[i] <= half(parameter("paintHeight")));
+            assert!(height[i] >= 0. && height[i] <= half(parameter("paintHeight")));
         }
         let (captured_height, normal) = capture(&context, &source, &request);
         assert_eq!(

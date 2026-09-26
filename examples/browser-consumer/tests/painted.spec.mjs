@@ -4,9 +4,9 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 function endpointSource(preset, controls) {
   const values = {
-    intact: [controls.paintColor, controls.paintRoughness, 0, 0.2 + controls.paintThickness],
-    exposed: [controls.substrateColor, controls.substrateRoughness, 1, 0.2],
-    rusted: [controls.rustColor, controls.rustRoughness, 0, 0.2 + controls.rustRelief],
+    intact: [controls.paintColor, controls.paintRoughness, 0, controls.paintThickness],
+    exposed: [controls.substrateColor, controls.substrateRoughness, 1, 0],
+    rusted: [controls.rustColor, controls.rustRoughness, 0, controls.rustRelief],
   }[preset];
   if (!values) return null;
   const [color, roughness, metallic, height] = values;
