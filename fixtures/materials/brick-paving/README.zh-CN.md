@@ -35,3 +35,5 @@ cargo run --locked -p mixture-cli -- render fixtures/materials/brick-paving/mate
 受控 PBR 评审：先执行 `npm ci --ignore-scripts --prefix examples/browser-consumer`，再执行 `node scripts/brick-material-preview.mjs <native-evidence> <fresh-output>`。工具在 Chrome 中使用 WebGPU 显示已有 PNG，固定相机、光照和介电 GGX 参数，生成每个预设的平面／球体及 1×／3× 平铺图；不执行材质图、不做几何位移。回执绑定输入 PNG 与预览源码摘要，不会自动声明人工接受。
 
 已测开发主机限制：GT 1030 Vulkan 下，64×64 格／256² 的高度平均降采样误差约 14.13/255，baseColor 红通道约 7.99/255，超过默认 4/255 门槛。这个设置位于默认质量保证之外；保留测量，不重置门槛或自动修改输入。
+
+跨运行时收集器选择唯一的 `brick-browser.json` 回执，仅从该回执所在目录读取完整的冻结图片集合。其他材质测试可以使用相同预设／通道文件名，但不能补充缺失的砖材质图片。重复砖材质回执和缺失图片仍报错。隔离消费者回归覆盖重名、缺图替代和回执歧义。

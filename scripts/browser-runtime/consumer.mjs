@@ -1,5 +1,6 @@
 // Qualify the public SDK in a fresh engine-owned consumer outside the checkout.
 import assert from 'node:assert/strict';
+import { writePaintedMetalRequests } from '../painted-metal-requests.mjs';
 import { createHash } from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
@@ -48,7 +49,7 @@ export async function verifyInstalled(directory, expectedBuild, files) {
 
 export function assertBrowserReport(report, mode = 'registry') {
   assert.ok(['candidate', 'registry'].includes(mode));
-  assert.equal(report.stats.expected, mode === 'candidate' ? 20 : 13, 'all public consumer tests must execute');
+  assert.equal(report.stats.expected, mode === 'candidate' ? 21 : 13, 'all public consumer tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
 }
@@ -78,7 +79,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_REUSE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_SUBTRACT_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_MORPHOLOGY_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_BRICK_TESTS: mode === 'candidate' ? '1' : '0' };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_PAINTED_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_REUSE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_SUBTRACT_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_MORPHOLOGY_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_BRICK_TESTS: mode === 'candidate' ? '1' : '0' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
@@ -119,6 +120,10 @@ export async function qualify(mode, packageDirectory, output) {
       const reuseSource = join(root, 'docs/evidence/perf-mat-before/material.mix');
       record.reuseSourceSha256 = hash(await readFile(reuseSource));
       await cp(reuseSource, join(staging, 'public/reuse-material.mix'));
+      await writePaintedMetalRequests(join(staging, 'public/painted-metal'));
+      record.paintedRequestsSha256 = hash(await readFile(join(staging, 'public/painted-metal/requests.json')));
+      execFileSync('cargo', ['run', '--locked', '--manifest-path', join(root, 'examples/native-consumer/Cargo.toml'), '--target-dir', join(root, 'target/native-consumer'), '--example', 'painted-asset', '--', join(staging, 'public/painted-metal/material.mix'), join(staging, 'public/painted-metal/material.mixpack')], { cwd: root, stdio: 'pipe' });
+      record.paintedPackageSha256 = hash(await readFile(join(staging, 'public/painted-metal/material.mixpack')));
       record.brickFixtures = {};
       for (const name of ['material.mix', 'controls.json', 'qualification-plan.json']) {
         const original = join(root, 'fixtures/materials/brick-paving', name);
