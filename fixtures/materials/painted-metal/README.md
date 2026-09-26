@@ -42,6 +42,30 @@ At the frozen 257×129 size, the Native and browser matrix runners render the co
 
 These are delivered-byte causality checks on the actual graph, not proof of internal half-float mask inequalities or exact normal replay from the stored height. Raw-half W/I/B/R relations, exposure/width monotonicity, seed isolation of W, seams, stress and PBR/human review remain required. The request manifest binds the frozen causality inputs; no shader, runtime API or material contract changes.
 
+## Raw-half mask qualification
+
+The ignored `graph_gpu_painted_raw_mask_relations_and_control_causality` Rust test reads the measured material and frozen plan from the source checkout. It retains all 23 pixel computations and changes only the height output edge to observe W, I, B, R, S or D. Core compiles each alias and pins its output through the ordinary allocation plan. The sole executor runs the production kernels and normal copy/map/cleanup path. A private `cfg(test)` readback format returns tightly packed half bytes before RGBA8 conversion; no raw-output public API, shader variant, global capture buffer or alternate executor is added. Published builds retain only ordinary RGBA8 readback.
+
+At 257×129, nineteen cases check finite normalized values, I≤W, B=half(max(W−I,0)), B≤S≤W, R≤S≤W, detail bounds, exact zero-width B even at fractional W, monotonic band/exposure/rust controls, exact fill endpoints, rust-control isolation of W/I/B, detail-seed isolation of W/I/B and exact seeded repeats. Assertions inspect every raw pixel without a byte tolerance. The CPU readback probe verifies row-padding removal and preservation of a 1/4096 difference. `cargo xtask gpu-smoke` includes the test; the focused command below uses the same documented explicit GPU environment. Ordinary package unit-test compilation does not require repository fixtures; executing this ignored qualification does.
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_raw_mask -- --ignored --nocapture
+```
+
+This gate does not qualify browser raw-half fields, complete metallic/roughness/height composition, normal replay, periodic seams, stress or PBR/human review. The separate public matrix and remaining material gates still apply.
+
+## Scalar composition and normal replay
+
+The ignored `graph_gpu_painted_composition_and_final_height_normal_replay` test covers all seven frozen presets at 257×129. It observes the actual W/R, coating/final height, coating/final roughness and metallic fields through the same raw-half instrumentation. Independent scalar assertions account for half storage between nodes, including constant rust height/roughness, check each composition and bound final height between the permitted substrate and paint endpoints. These finite per-pixel assertions are test oracles, not a CPU rendering API.
+
+The original five-output graph also returns its final height and normal as raw half bytes. The test uploads those exact height bytes to a separate probe texture and invokes the existing production height-to-normal WGSL via the normal pipeline factory. At normal strengths 0/0.5/1, the graph's stored height must stay identical and every replayed normal byte must match the graph output. No RGBA8 height reconstruction or CPU normal algorithm is used. This is test-only GPU instrumentation, using the same shader and readback/cleanup helpers, with no public API or runtime behavior change. `cargo xtask gpu-smoke` includes the test; its focused command is:
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_painted_composition -- --ignored --nocapture
+```
+
+These checks do not replace browser raw-half evidence, other resolutions, periodic-seam/stress measurements or metallic PBR/human review. The public multi-resolution Native/browser matrix remains required.
+
 ## Exact caller controls
 
 Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.

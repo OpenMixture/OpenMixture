@@ -2,9 +2,11 @@
 use crate::{
     allocations::Allocations,
     operation::{GpuOperationError, checked},
-    readback::{ReadbackLayout, read_pixels},
+    readback::{ReadbackFormat, ReadbackLayout, read_pixels},
 };
-use mixture_core::{Stage, plan::KernelInvocation, registry::PortKind};
+#[cfg(test)]
+use mixture_core::registry::PortKind;
+use mixture_core::{Stage, plan::KernelInvocation};
 #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 use std::time::Duration;
 
@@ -401,7 +403,7 @@ pub(crate) async fn read_texture(
     queue: &wgpu::Queue,
     texture: &wgpu::Texture,
     layout: ReadbackLayout,
-    kind: PortKind,
+    kind: impl Into<ReadbackFormat>,
     allocations: &mut Allocations,
 ) -> Result<Vec<u8>, GpuOperationError> {
     let buffer = checked(

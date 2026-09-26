@@ -3,7 +3,7 @@ use crate::{
     AdapterDiagnostics, AllocationReport, ExecutionTimings, GpuContext, GpuOperationError,
     kernels::{PipelineCache, PipelineCacheReport},
     operation::checked,
-    readback::ReadbackLayout,
+    readback::{ReadbackFormat, ReadbackLayout},
     resources::{self, Resources},
 };
 use mixture_core::{
@@ -247,12 +247,12 @@ pub(crate) async fn execute(
     let slots: Vec<_> = (0..kernels.len()).collect();
     execute_prepared(context, cache, size, kernels, outputs, &[], &slots).await
 }
-async fn execute_prepared(
+async fn execute_prepared<K: Copy + Into<ReadbackFormat>>(
     context: &GpuContext,
     cache: &mut PipelineCache,
     size: [u32; 2],
     kernels: &[&KernelInvocation],
-    outputs: &[(usize, PortKind)],
+    outputs: &[(usize, K)],
     snapshots: &[ResourceSnapshot],
     slots: &[usize],
 ) -> Result<Executed, GpuOperationError> {
@@ -425,6 +425,14 @@ async fn execute_prepared(
         Err(error) => Err(error.with_allocations(allocations).in_context(context)),
     }
 }
+
+#[cfg(test)]
+#[path = "painted_mask_tests.rs"]
+mod painted_mask_tests;
+
+#[cfg(test)]
+#[path = "painted_composition_tests.rs"]
+mod painted_composition_tests;
 
 #[cfg(test)]
 mod allocation_tests {
