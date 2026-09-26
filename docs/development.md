@@ -29,6 +29,7 @@ cargo run --locked -p mixture-cli -- inspect examples/checker.mix --plan --json
 cargo run --locked -p mixture-cli -- validate examples/checker.mix --json
 cargo xtask doc
 cargo xtask deps
+cargo xtask evidence
 cargo xtask links
 cargo test --locked -p mixture-core diagnostics
 cargo test --locked -p mixture-core limits
@@ -56,12 +57,13 @@ The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Build/t
 
 1. `cargo fmt --all -- --check`.
 2. The current dependency policy against `cargo metadata`.
-3. Clippy on all workspace targets and features with warnings denied.
-4. Workspace tests, including CLI integration tests, tooling tests, and doctests.
-5. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and public-Rust CPU invocation, followed by a built CLI and the explicit independent CPU contract test in a fresh working directory.
-6. `package-check`: actual local archives, isolated source/lock resolution, unit tests/Rustdoc, missing-shader rejection and independent CPU consumption.
-7. Workspace rustdoc with warnings denied.
-8. Basic offline Markdown links to existing local files and directories.
+3. The evidence growth guard: tracked raw run output, evidence archives, per-run CLI folders and files above 4 MiB must be listed in [retention exceptions](./evidence/retention-exceptions.txt); see [evidence retention](./evidence-policy.md).
+4. Clippy on all workspace targets and features with warnings denied.
+5. Workspace tests, including CLI integration tests, tooling tests, and doctests.
+6. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and public-Rust CPU invocation, followed by a built CLI and the explicit independent CPU contract test in a fresh working directory.
+7. `package-check`: actual local archives, isolated source/lock resolution, unit tests/Rustdoc, missing-shader rejection and independent CPU consumption.
+8. Workspace rustdoc with warnings denied.
+9. Basic offline Markdown links to existing local files and directories.
 
 Every unexpected subprocess failure fails the enclosing check; the explicit missing-shader probe must fail and is validated as a negative test. Checks do not rewrite sources, fixtures, or baselines. Markdown parsing handles inline links, reference links, and images while ignoring code examples; external URLs, heading anchors, raw HTML links, and percent-encoded local paths are outside this basic check. Use ordinary relative paths, or angle brackets for paths with spaces. Build/output directories are excluded from discovery.
 
@@ -164,3 +166,5 @@ Candidate qualification requires a clean-source archive for HEAD. Registry quali
 ## Noise-v2 qualification
 
 [NUM-01](./stable-noise.md) defines the explicit migration. `prepare-materials.mjs <fresh-output> <full-revision> --noise-v2` selects committed migrated material inputs; the existing `cargo xtask browser-material-check` then applies unchanged gates. `candidate.mjs verify-noise-v2 <product> <candidate-evidence> <native-v2> <browser-v2>` retains a separate bound receipt. These are producer qualification tools, not automatic document migration or publication.
+
+Retrieve historical attachments on demand using the [archive restore guide](./evidence/archives/README.md). Python 3.10+ standard-library tools verify original bytes, not pixel qualification. The CPU workflow runs `python scripts/evidence/test_restore.py` offline.

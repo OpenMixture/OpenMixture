@@ -29,15 +29,19 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 | `Check (windows-latest)` | The same CPU checks on Windows |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux pinned software GPU smoke, source and packaged consumers, all three 1K materials, and largest-case 2K trace |
 | `WASM and npm package` | Locked WASM build, JavaScript/package contracts and exact npm archive generation |
-| `Chromium WebGPU material matrix` | Independent SDK candidate/registry consumption plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
+| `Chromium WebGPU material matrix` | Independent SDK candidate consumption (exact registry consumption on `main` and manual runs) plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
 
 Keep these check names stable. A renamed job or changed check source requires coordinated ruleset verification; never remove a required check to merge a failing change. Do not apply workflow path filters that can prevent a required check from being reported. Rule changes are themselves reviewed changes, with the live result recorded after application.
+
+The GPU and browser material workflows each start with a `Qualification scope` job running [qualification-scope.sh](../.github/scripts/qualification-scope.sh). A pull request whose every changed path is documentation-only (Markdown outside `crates/`, `packages/`, `fixtures/`, `examples/`, `xtask/` and `scripts/`, or anything under `docs/evidence/` and `docs/reviews/`) skips the heavy job; the skipped job still reports its unchanged required check as successful. Tool-read documentation such as `docs/*.json` and crate/npm READMEs always qualifies, as do pushes to `main`, manual runs and a failed scope job. A skipped check is not qualification evidence: acceptance records must cite runs that actually executed.
 
 ## CI triggers and retention
 
 The [CPU](../.github/workflows/ci.yml), [GPU](../.github/workflows/gpu-smoke.yml), [browser package](../.github/workflows/browser-runtime.yml) and [browser material](../.github/workflows/browser-materials.yml) workflows all run on pull requests, pushes to `main`, and manual dispatch. A normal push to a feature branch does not also start a branch-push run. A merged change still runs on `main`, verifying the integrated state. Existing per-workflow/ref concurrency cancels superseded runs without cancelling unrelated branches or PRs.
 
 The GPU job retains serial test execution and the pinned SwiftShader build cache. A cache hit still verifies the source revision, configures/builds the driver, and executes every acceptance gate. Cache state is not proof of a passing test.
+
+Every workflow restores a pinned `Swatinem/rust-cache` Cargo build cache after installing the repository toolchain. Only `main` saves it; pull requests restore. It speeds up compilation only: every step still builds with `--locked` and executes its gates, and the cached `~/.cargo/bin` lets the exact `wasm-bindgen-cli` install be reused.
 
 New uploaded CPU, GPU and browser evidence artifacts request 30 days of retention. Record the service-reported expiry for accepted runs; repository or service limits may shorten availability. This setting does not change existing artifacts retroactively. Ordinary run output stays in CI artifacts or ignored local directories. Accepted visual content, critical failure evidence, and summaries follow the [evidence retention policy](./evidence-policy.md); do not rely on expiring artifacts as the only long-term acceptance record.
 

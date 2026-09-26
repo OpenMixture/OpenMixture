@@ -14,8 +14,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  scope:
+    name: Qualification scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.scope.outputs.run }}
+    steps:
+      - name: Check out the merge commit and its base parent
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Skip qualification only for documentation-only pull requests
+        id: scope
+        run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
   swiftshader:
     name: Pinned SwiftShader Vulkan materials and packaged consumption
+    needs: scope
+    # A skipped job reports success to the unchanged required check. Run unless the
+    # scope job succeeded and explicitly classified the change as documentation-only.
+    if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -57,6 +76,12 @@ jobs:
           key: ${{ steps.swiftshader-cache.outputs.cache-primary-key }}
       - name: Install repository Rust toolchain
         run: rustup show active-toolchain
+      - name: Restore Rust build cache
+        # Speeds up rebuilds only; later steps still build and verify with --locked.
+        # Only main saves, so pull requests cannot replace the shared cache.
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify checker, graphs, nodes, doctor, and packaged consumers
         run: cargo xtask gpu-smoke
       - name: Compare all three materials at 1K

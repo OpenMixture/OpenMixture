@@ -29,3 +29,5 @@ gamma=1 的 `pow` 在半精度舍入中点附近求值是当前假设，尚未�
 ## 字面量后续结果
 
 [Linux 运行 35875437605](https://github.com/OpenMixture/OpenMixture/actions/runs/35875437605)完成原有十二个抽样，正负误差通道均为零（[留存测量](./linux-linear-followup.json)）。因此原抽样没有复现材质失败。独立的 [gamma=1 修正候选](../../levels-linear-correction.zh-CN.md)在观察到差异的数值区间内补充精确夹具输入，并要求完整冻结材质对照通过后才能接受。此前失败像素保持不变。
+
+保留例外：`ci-native-stderr.log` 保留用于支持后续修正的原始 Native 比较失败诊断。它仍是历史失败，绑定字节保持不变。

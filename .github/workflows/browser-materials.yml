@@ -10,8 +10,27 @@ concurrency:
   group: browser-materials-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  scope:
+    name: Qualification scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.scope.outputs.run }}
+    steps:
+      - name: Check out the merge commit and its base parent
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Skip qualification only for documentation-only pull requests
+        id: scope
+        run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
   materials:
     name: Chromium WebGPU material matrix
+    needs: scope
+    # A skipped job reports success to the unchanged required check. Run unless the
+    # scope job succeeded and explicitly classified the change as documentation-only.
+    if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 50
     env:
@@ -54,6 +73,12 @@ jobs:
           key: ${{ steps.swiftshader-cache.outputs.cache-primary-key }}
       - name: Install repository Rust toolchain
         run: rustup show active-toolchain
+      - name: Restore Rust build cache
+        # Speeds up rebuilds only; later steps still build and verify with --locked.
+        # Only main saves, so pull requests cannot replace the shared cache.
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify independent browser quality controls before material execution
         run: cargo xtask browser-quality-calibrate tmp/browser-quality-controls
       - name: Install Node
@@ -94,6 +119,8 @@ jobs:
           cargo build --release --locked -p mixture-cli
           python3 scripts/probe-painted-metal.py --cli target/release/mixture --output tmp/painted-metal-stages
       - name: Qualify the exact published version separately
+        # Network-dependent registry evidence runs on main and manual runs, not in pull-request gates.
+        if: github.event_name != 'pull_request'
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"

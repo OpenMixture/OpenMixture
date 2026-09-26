@@ -6,12 +6,14 @@ English | [简体中文](./README.zh-CN.md)
 
 The [Post-Alpha roadmap](../ROADMAP.md) owns current engine work and acceptance criteria. [Browser Runtime Alpha closeout](./browser-alpha.md) retains first-delivery evidence, support limits and defect handoffs; dated M5 records retain historical status.
 
-[MAT-02 layered weathering](./mat-02-layered-weathering.md) freezes the active material contract; its morphology/subtraction nodes are integrated. [PERF-MAT texture reuse](./perf-mat-texture-reuse.md) addresses the measured 2K cost failure. Full material acceptance remains pending.
+[MAT-02 layered weathering](./mat-02-layered-weathering.md) is the selected contract for the active material increment. The roadmap and release status own its implementation and qualification state. [PERF-MAT texture reuse](./perf-mat-texture-reuse.md) and the [gamma-one correction](./levels-linear-correction.md) address its measured blockers; full material acceptance remains pending.
 
 The root documents are the active project contract:
 
 - [Mission and setup](../README.md)
 - [Contributor and agent guide](../AGENTS.md)
+- [Agent playbooks](./agent-playbooks.md)
+- [Glossary](./glossary.md)
 - [Architecture](../ARCHITECTURE.md)
 - [Roadmap](../ROADMAP.md)
 - [Initial PR sequence](../INITIAL_PRS.md)
@@ -76,3 +78,5 @@ Use [release status](./release.md) as the shared entry point for current state; 
 [M6A-05 comprehensive qualification](./evidence/m6a-05/README.md) retains the source/archive-bound software matrix, reviewed contact sheet, regression gates and the v1 hardware failure; see [stable noise](./stable-noise.md) for the explicit v2 repair.
 
 [Browser 0.3.0 publication evidence](./evidence/npm-030-alpha/README.md) records main integration, frozen archive, publication and exact registry consumption.
+
+Retrieve historical attachments on demand using the [archive restore guide](./evidence/archives/README.md). Python 3.10+ standard-library tools verify original bytes, not pixel qualification. The CPU workflow runs `python scripts/evidence/test_restore.py` offline.

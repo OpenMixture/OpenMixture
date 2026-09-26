@@ -2,6 +2,8 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+**Storage update (2026-09-25):** Ordinary smoke logs and per-run CLI output now live in the [complete historical archive](../../../../docs/evidence/archives/README.md), restored with the `early-runs` group. Environment/measurement records, human acceptance images and failure/precision experiments remain inspectable. The account below describes the original runs, not the current location of every attachment.
+
 All three materials pass 1024×1024 checks locally on pinned SwiftShader Vulkan and Apple M5 Metal. Software decoded RGBA is exact; hardware uses each material's declared tolerance. [Human wood review](./human-review.json) is accepted. Remote CI remains deferred; the workflow now includes the same three-material check and 2K trace, but no remote result is claimed.
 
 ## Material comparisons

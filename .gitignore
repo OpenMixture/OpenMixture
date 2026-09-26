@@ -5,3 +5,4 @@
 Thumbs.db
 *.swp
 *.swo
+/scripts/evidence/__pycache__/

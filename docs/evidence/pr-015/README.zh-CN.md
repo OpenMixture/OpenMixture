@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**存储更新（2026-09-25）：** 原始执行与验收结论不变。完整历史附件按[归档取回说明](../archives/README.zh-CN.md)获取；机器回执、原始哈希和捕获清单保持不变，须在恢复的完整快照中检查其原路径。当前目录保留关键记录与评审图像。
+
 2026-09-11 在 macOS/aarch64 完成本地验收：真实 Cargo 包通过独立 CPU 与 GPU 消费验证。至此完成 M4 本地实现评估；远程平台门槛与发布仍未关闭。参见[包验证](../../package-consumption.zh-CN.md)、[兼容性](../../compatibility.zh-CN.md)和[发布评估](../../release.zh-CN.md)。
 
 实现提交为首次引入本目录的提交，基于 `30a190a41b8d425c40976a5cde8924e1e2ba9cd4`，分支为 `codex/pr-015-package-consumer`。运行验证的是提交前的工作区实现。[环境](./environment.json)、[源文件标识](./checks/verified-source-hashes.json)、[基线标识](./checks/baseline-hashes.json)和[归档清单](./capture-manifest.json)记录输入与归档输出，不声称二进制内含提交来源证明。
@@ -14,8 +16,8 @@
 | 定向工具测试与严格 clippy | [测试](./checks/tooling-tests.log)、[clippy](./checks/tooling-clippy.log) |
 | 独立源码消费者 CPU 契约 | [日志](./checks/test-consumer.log) |
 | 真实包 CPU 验证 | [日志](./checks/package-check.log)、[状态](./packages/cpu/status.json) |
-| Apple M5 / Metal GPU smoke 与包消费 | [Smoke 日志](./gpu-smoke/metal/command.log)、[包状态](./packages/metal/status.json) |
-| 固定 SwiftShader / Vulkan GPU smoke 与包消费 | [Smoke 日志](./gpu-smoke/software/command.log)、[包状态](./packages/software/status.json) |
+| Apple M5 / Metal GPU smoke 与包消费 | [Smoke 日志](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/pr-015/gpu-smoke/metal/command.log)、[包状态](./packages/metal/status.json) |
+| 固定 SwiftShader / Vulkan GPU smoke 与包消费 | [Smoke 日志](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/pr-015/gpu-smoke/software/command.log)、[包状态](./packages/software/status.json) |
 | 两种策略下三种材质的 1K 验证 | [运行索引](./runs.json)链接六份成功报告及产物。 |
 | 排序选出的最大 2K 工作负载 | [Metal trace](./trace/metal/trace.json)、[软件 trace](./trace/software/trace.json) |
 
@@ -30,3 +32,9 @@
 执行[发布检查表](../../release.zh-CN.md#可复现验证)中的命令；[GPU 指南](../../gpu-context.zh-CN.md)说明本地加载器准备方式。CPU `cargo xtask check` 现包含包验证，不获取适配器。两种 GPU 策略均显式指定，不存在执行器回退。
 
 范围包括包/源码资源验证、精确同伴版本、README/许可证入包及配套中英文兼容性/发布文档。版本仍为 `0.1.0` 且禁止发布；归档有意不含锁文件，使用单独的固定验证锁。没有更新锁文件、新增节点、修改 shader 语义或格式，也未引入产品 crate、运行时依赖、WebAssembly 或编辑器。原始文档与材质基线保持不变。不声称远程推送、CI 结果、合并、标签或分发已经完成。
+
+完整历史捕获（含逐次运行目录与共享 2K 图片）可恢复为：
+
+```bash
+python scripts/evidence/restore.py early-runs tmp/retained-early
+```

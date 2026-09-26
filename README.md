@@ -4,11 +4,11 @@ English | [简体中文](./README.zh-CN.md)
 
 > A small material-graph compiler and headless texture renderer built in Rust on top of `wgpu`.
 
-**Current status (2026-09-22):** M6-A, M6-B and stable value noise v2 are implemented and integrated. Source versions are unpublished Rust 0.5.0 / browser 0.5.0-alpha.0; the published browser package is 0.3.0-alpha.0. Published packages and current sources have different hardware qualification scopes; see [release status](./docs/release.md). The [roadmap](./ROADMAP.md) owns current priorities.
+**Status:** pre-alpha; Rust crates are unpublished. Source manifests own the current build versions, and [release status](./docs/release.md) owns published packages, qualification scope and hardware limits. The [roadmap](./ROADMAP.md) owns current priorities.
 
 [M6-A](./docs/m6a-resource-contract.md) provides external image resources, immutable prepared requests and plan v2. [M6-B](./docs/m6b-portable-assets.md) provides the shared CPU asset codec, CLI/browser adapters and bounded qualification. [Stable noise](./docs/stable-noise.md) supports explicit `fractal-noise@2` migration; old documents retain their node versions.
 
-**Implemented:** PR-001 through PR-015 deliver eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). The [M5 browser runtime](./docs/browser-runtime.md) passed the [recorded macOS/Linux Chromium material matrix](./docs/evidence/m5-05/README.md); the independent [Studio](https://github.com/OpenMixture/Studio) MVP passed its [recorded macOS saved-file qualification](./docs/evidence/studio-qualification/README.md). Current-candidate CI independently builds and installs a fresh package for browser qualification; every delivery candidate must still bind its own source and archive results.
+**Implemented:** PR-001 through PR-015 delivered the first eleven nodes and accepted ceramic, leather and [wood](./fixtures/materials/wood/README.md) appearances. The [M3 review](./docs/m3-review.md) records 1K release timings and bounded 2K allocation evidence. The [M4 train](./M4_PRS.md) verifies [public Rust consumption](./docs/native-sdk.md), [CLI reports and exit codes](./docs/cli-contract.md), [GPU failure and cleanup contracts](./docs/gpu-failures.md), [latest-result publication](./docs/stale-results.md), and [isolated Cargo package consumption](./docs/package-consumption.md). [M4 acceptance](./docs/release.md) includes the completed [three-platform CPU and Linux SwiftShader CI gates](./docs/evidence/remote-ci/README.md). The [M5 browser runtime](./docs/browser-runtime.md) passed the [recorded macOS/Linux Chromium material matrix](./docs/evidence/m5-05/README.md); the independent [Studio](https://github.com/OpenMixture/Studio) MVP passed its [recorded macOS saved-file qualification](./docs/evidence/studio-qualification/README.md). Current-candidate CI independently builds and installs a fresh package for browser qualification; every delivery candidate must still bind its own source and archive results.
 
 `PR-001` through `PR-015` are historical implementation batch identifiers, not GitHub pull request numbers. New changes follow the [repository governance](./docs/governance.md) and [evidence retention](./docs/evidence-policy.md) policies.
 
@@ -25,7 +25,7 @@ cargo xtask check
 cargo run --locked -p mixture-cli -- --help
 ```
 
-The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, Clippy, workspace and independent-consumer tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
+The repository pins Rust 1.98.1 / edition 2024 and includes `Cargo.lock`. The check covers formatting, dependency boundaries, the evidence growth guard, Clippy, workspace and independent-consumer tests, rustdoc, and local document links without a GPU. See [development instructions](./docs/development.md) for all implemented commands and platform prerequisites.
 
 The core's [diagnostics and safety-limit API](./docs/diagnostics.md) now provides typed errors, deterministic JSON reports, and seven explicit resource ceilings. Try its public example with `cargo run --locked -p mixture-core --example diagnostics`.
 
@@ -83,7 +83,7 @@ These may be reconsidered only after a real consumer demonstrates that the simpl
 
 ## Command surface
 
-`check`, `validate`, `inspect --plan`, `render`, `doctor`, and `render-builtin checker` are implemented. See [plan inspection](./docs/render-plan.md) and [graph rendering](./docs/graph-rendering.md) for options, channel encoding, and reports.
+`check`, `validate`, `inspect --plan`, `render`, `doctor`, `render-builtin checker` and `asset pack|inspect|render` are implemented. See [plan inspection](./docs/render-plan.md), [graph rendering](./docs/graph-rendering.md) and [asset adapters](./docs/m6b-04-adapters.md) for options, channel encoding, and reports.
 
 ```bash
 # Repository verification
@@ -173,13 +173,13 @@ UI layout, metadata, thumbnails, presets, resources, and engine targets are reje
                          +-------------+
 ```
 
-A future `mixture-wasm` crate must remain a thin binding over the same core compiler and `wgpu` renderer.
+`mixture-wasm` (with the `packages/runtime` npm facade) and the CPU-only `mixture-asset` codec are thin layers over the same core compiler and `wgpu` renderer.
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full ownership and execution model.
 
 ## Repository layout
 
-The current layout uses three product crates plus one private tooling crate:
+The current layout uses five product crates plus one private tooling crate:
 
 ```text
 mixture/
@@ -187,20 +187,24 @@ mixture/
 ├── crates/
 │   ├── mixture-core/       # document, validation, node contracts, compiler
 │   ├── mixture-wgpu/       # the only pixel executor
-│   └── mixture-cli/        # validate, inspect, doctor, render
+│   ├── mixture-asset/      # CPU-only .mixpack codec
+│   ├── mixture-cli/        # validate, inspect, doctor, render, asset
+│   └── mixture-wasm/       # thin browser bindings
+├── packages/runtime/       # public npm ESM runtime over mixture-wasm
 ├── xtask/                  # repository-only automation
+├── scripts/                # browser and material qualification scripts
 ├── fixtures/
 │   ├── nodes/              # focused node cases
-│   └── materials/          # golden material acceptance assets
-├── examples/               # small user-facing .mix documents
+│   ├── materials/          # golden material acceptance assets
+│   └── packages/           # .mixpack acceptance and rejection corpus
+├── examples/               # small .mix documents and independent consumers
 ├── docs/                   # focused design and usage guides
 ├── AGENTS.md
 ├── ARCHITECTURE.md
-├── ROADMAP.md
-└── INITIAL_PRS.md
+└── ROADMAP.md
 ```
 
-Do not add a new crate merely to create a conceptual boundary. A new crate requires a runtime, publication, dependency, or build boundary that cannot be represented cleanly inside the existing three product crates.
+Do not add a new crate merely to create a conceptual boundary. A new crate requires a runtime, publication, dependency, or build boundary that cannot be represented cleanly inside the existing product crates.
 
 ## Golden materials
 
@@ -236,7 +240,9 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 - [ROADMAP.md](./ROADMAP.md) — milestone outcomes, exit criteria, and stop rules.
 - [INITIAL_PRS.md](./INITIAL_PRS.md) — historical M0–M3 implementation batches and their acceptance requirements.
 - [M4_PRS.md](./M4_PRS.md) — completed native-consumer implementation batches and their historical evidence.
-- [M5_PRS.md](./M5_PRS.md) — planned browser runtime, npm package consumption and independent Player work items.
+- [M5_PRS.md](./M5_PRS.md) — completed browser runtime, npm package consumption and independent Player work items.
+- [Agent playbooks](./docs/agent-playbooks.md) — task-specific procedures for nodes, formats, shaders, goldens, GPU debugging and performance.
+- [Glossary](./docs/glossary.md) — milestone and work-item IDs and evidence terms.
 - [Browser SDK contract](./docs/browser-sdk.md) — package, initialization, input/output and lifetime requirements, with the implemented checker slice and remaining acceptance distinguished.
 - [Repository governance](./docs/governance.md) — integration branches, actual GitHub pull requests, and required-check policy.
 - [Evidence retention](./docs/evidence-policy.md) — accepted records, temporary run output, and artifact availability.
@@ -245,7 +251,3 @@ Mixture borrows a few focused ideas without copying the surrounding product scop
 ## License
 
 Licensed under either [Apache-2.0](./LICENSE-APACHE) or [MIT](./LICENSE-MIT), at your option. Current pre-alpha packages retain `publish = false`; publication requires a separate release decision.
-
-[M6A-04 browser resource APIs](./docs/m6a-04-browser-resources.md) connect image requests, synchronous snapshots and same-source Native/browser pixel comparison in the unpublished candidate.
-
-**2026-09-22:** `@openmixture/runtime@0.3.0-alpha.0` is published with external image resources, API schema 2 and plan v2. Install the exact version; [release/migration notes](./docs/evidence/npm-030-alpha/README.md) retain bounded software qualification and the unresolved Windows hardware normal-precision limit. Rust crates remain unpublished.

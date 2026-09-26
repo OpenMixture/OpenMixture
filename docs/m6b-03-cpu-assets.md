@@ -23,7 +23,7 @@ Core exports `resources::{valid_image_id, image_identity, document_image_ids, im
 
 ## Error and memory contract
 
-`AssetError::Package` provides a serialized diagnostic with stable `MIX_PACKAGE_*` code, stage, message, evidence and suggestion. `Document` and `Compile` variants retain the original Core error/report and source chain. Resource-reference overrides are rejected even when equal to the default and outside the output slice, after Core validates override IDs/types. Other overrides keep Core behavior. No catch-all fallback changes semantics.
+`AssetError::Package` provides a serialized diagnostic with a typed `PackageCode` (stable `MIX_PACKAGE_*` spelling), stage, `error` severity, message, evidence and suggestion; CLI and WASM serialize it directly rather than rebuilding the fields. `Document` and `Compile` variants retain the original Core error/report and source chain. Resource-reference overrides are rejected even when equal to the default and outside the output slice, after Core validates override IDs/types. Other overrides keep Core behavior. No catch-all fallback changes semantics.
 
 All source/resource entries are checked, including disconnected images. Resource tables are bounded to eight before indexing; only exact ordinal names are accepted. Strict typed JSON rejects duplicate/unknown fields, floats/exponents for integers, signed zero, overflow and BOM. Canonical header equality also rejects extension fields, links, traversal paths, nonzero padding and alternate octal encodings. Exactly two terminal blocks and EOF are required. Every digest is recomputed, and source bytes are never normalized for writing.
 

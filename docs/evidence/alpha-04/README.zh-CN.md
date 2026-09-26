@@ -2,6 +2,8 @@
 
 [English](./README.md) | 简体中文
 
+**存储更新（2026-09-25）：** 原始执行与验收结论不变。完整历史附件按[归档取回说明](../archives/README.zh-CN.md)获取；机器回执、原始哈希和捕获清单保持不变，须在恢复的完整快照中检查其原路径。当前目录保留关键记录与评审图像。
+
 **记录范围内的候选与 Studio 升级门槛通过。**[发布说明与支持范围](../../browser-alpha-candidate.zh-CN.md)标识未发布的 `0.1.0-alpha.0` 归档。这是准确候选的新执行，不是旧 Studio 像素的离线重比较。注册表发布、托管部署、真人试用结果及 ALPHA-05 必需检查生效仍属独立工作。
 
 ## 绑定源码与执行
@@ -35,17 +37,18 @@
 
 ## 保留与复现
 
-[摘要](./summary.json)记录保留内容哈希。[数据包](./saved-file-bundles.tar.gz)及[索引](./evidence-index.json)保留全部 152 个源码／原生／Windows／Linux 文件，包括每张比较 PNG、plan、上下文、截图与联系图，并保留实际 runtime 归档。校验器回读所有保留文件，可恢复并逐一校验数据包成员：
+[摘要](./summary.json)记录保留内容哈希。[数据包](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz)及[索引](./evidence-index.json)保留全部 152 个源码／原生／Windows／Linux 文件，包括每张比较 PNG、plan、上下文、截图与联系图，并保留实际 runtime 归档。校验器回读所有保留文件，可恢复并逐一校验数据包成员：
 
 ```sh
-node docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
+python scripts/evidence/restore.py alpha-04 tmp/retained-alpha04
+node tmp/retained-alpha04/docs/evidence/alpha-04/verify.mjs tmp/alpha04-replay
 cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/windows
 cargo xtask studio-material-check tmp/alpha04-replay/native tmp/alpha04-replay/linux
 ```
 
 重新执行时检出两个绑定修订，按记录锁在 Studio 安装保留归档，运行 `npm ci`、`npm run check`、`npm run test:browser`、`npm run test:deployment`、`npm run test:ordinary -- chrome <fresh-output>` 和 `npm run capture:studio -- <fresh-downloads>`。引擎运行 `MIXTURE_GPU_BACKEND=dx12 node scripts/browser-runtime/prepare-studio.mjs <fresh-native> 82b74707b2a8a998190e2f28b16f91fb9614486a <fresh-downloads>`；随后 Studio 运行 `npm run test:studio -- <fresh-native> <fresh-player>`，引擎运行 `cargo xtask studio-material-check <fresh-native> <fresh-player>`。PowerShell 须采用对应环境变量赋值语法。隔离步骤记录准确本地路径，重跑前须准备工具与路径。
 
-首次本地 capture 因默认 Playwright 缓存的 Windows 并行配置错误无法启动，换用已有同版本 Chromium 后成功。首次仓库总检查到达打包 rustdoc 时以 OS `STATUS_IN_PAGE_ERROR` 退出；最终重跑结果单独记录于整合验证。两次失败均未当作通过。完整例行日志／编译产物及原始 55 MB CI 下载仍位于忽略的 `tmp/alpha04-*`。CI artifact `10598493452` 到期时间为 `2026-10-20T04:42:43Z`；保留的关键内容不依赖其期限，但完整 CI 像素／日志审计依赖该制品。Git 保留完整的新 Studio 比较，不保留整份重复 CI 数据包。
+首次本地 capture 因默认 Playwright 缓存的 Windows 并行配置错误无法启动，换用已有同版本 Chromium 后成功。首次仓库总检查到达打包 rustdoc 时以 OS `STATUS_IN_PAGE_ERROR` 退出；最终重跑结果单独记录于整合验证。两次失败均未当作通过。完整例行日志／编译产物及原始 55 MB CI 下载仍位于忽略的 `tmp/alpha04-*`。CI artifact `10598493452` 到期时间为 `2026-10-20T04:42:43Z`；保留的关键内容不依赖其期限，但完整 CI 像素／日志审计依赖该制品。专用归档保留完整的原 Studio 比较；Git 保留关键记录与具名比较图，不保留整份重复 CI 数据包。
 
 [本地最终检查](./local-check.json)：移走旧打包缓存后，完整 `cargo xtask check` 通过（含独立包消费、Rustdoc 和 185 份文档链接）。[缓存失败原文](./cached-rustdoc-failure.txt)保留 OS 错误，未修改源码规避检查。PR 的当前远端检查另行验证。
 

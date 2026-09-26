@@ -26,7 +26,7 @@ These are new executions of registry-installed bytes. Saved material inputs and 
 
 ## Retention and reproduction
 
-[Replay index](./replay-index.json) binds all 104 Windows/Linux replay files. 88 files, including repeated PNGs and comparisons, are byte-identical to the existing [ALPHA-04 bundle](../alpha-04/saved-file-bundles.tar.gz) and reuse those retained bytes. The other 16 files are retained under `replay/`; ordinary screenshots/downloads are under `ordinary/`. [File hashes](./files.json) bind the new retained content. Full routine logs, browser profiles and npm caches remain ignored local output, not long-term evidence.
+[Replay index](./replay-index.json) binds all 104 Windows/Linux replay files. 88 files, including repeated PNGs and comparisons, are byte-identical to the existing [ALPHA-04 bundle](https://github.com/OpenMixture/OpenMixture/blob/e249d57d9ce78e73bbe8da554a6fcce0f3375303/docs/evidence/alpha-04/saved-file-bundles.tar.gz) and reuse those retained bytes. The other 16 files are retained under `replay/`; ordinary screenshots/downloads are under `ordinary/`. [File hashes](./files.json) bind the new retained content. Full routine logs, browser profiles and npm caches remain ignored local output, not long-term evidence.
 
 ```sh
 node docs/evidence/npm-alpha/verify.mjs
@@ -35,4 +35,4 @@ cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-repl
 cargo xtask studio-material-check tmp/npm-alpha-replay/native tmp/npm-alpha-replay/linux
 ```
 
-The second command requires a fresh output directory and verifies the old bundle before overlaying new registry-consumer receipts. For fresh execution, check out the Studio revision, run `npm ci`, `npm run check`, `npm run test:browser`, `npm run test:deployment`, `npm run test:ordinary -- chrome <new-output>`, and `npm run test:studio -- <detached-native> <new-player>`; compare with the engine command above. The Linux recipe records this host's tool paths and must be provisioned accordingly. Registry metadata and dist-tags are mutable; historical snapshots do not replace a fresh remote readback.
+The final Node command requires a fresh output directory and verifies the old bundle before overlaying new registry-consumer receipts. For fresh execution, check out the Studio revision, run `npm ci`, `npm run check`, `npm run test:browser`, `npm run test:deployment`, `npm run test:ordinary -- chrome <new-output>`, and `npm run test:studio -- <detached-native> <new-player>`; compare with the engine command above. The Linux recipe records this host's tool paths and must be provisioned accordingly. Registry metadata and dist-tags are mutable; historical snapshots do not replace a fresh remote readback.
