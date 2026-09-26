@@ -2,11 +2,22 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-These are design inputs for the [MAT-02 contract](../../../docs/mat-02-layered-weathering.md), not an implemented material or accepted result. [Graph design](./graph-design.json) is deliberately **not `.mix`**: the two new node identities are not implemented and its `$` values are caller substitutions, not a new runtime expression language. [Qualification plan](./qualification-plan.json) specifies seven presets × four sizes × five channels (140 comparisons per Native/browser pairing), and is frozen as `planned-mat-02a-frozen` after the bounded contract review and retained existing-input feasibility. This does not implement or qualify the material. Do not run it as a material fixture or report its numerical targets as measurements.
+The [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) retain the frozen MAT-02a contract. Both node identities are now implemented; complete material acceptance remains pending. The historical plan fields `runtimeImplemented: false` and `planned-mat-02a-frozen` describe its freeze state, not current implementation. The `$` recipe is not a runtime expression language or `.mix` document.
+
+## Implemented request preparation
+
+The [fixture request builder](../../../scripts/painted-metal-requests.mjs) validates the controls below and generates all seven presets × four sizes × five channels (140 channel comparisons per Native/browser pairing). It copies the exact executable graph from the [measured baseline](../../../docs/evidence/perf-mat-before/material.mix), preserves its topology/node versions, and emits ordinary public request overrides. Native and browser harnesses can consume the same JSON requests; no graph semantics move out of Core.
+
+```bash
+node --test scripts/painted-metal-requests.test.mjs
+node scripts/painted-metal-requests.mjs tmp/mat02-requests
+```
+
+The output directory must be fresh. `requests.json` binds source bytes, the frozen plan, builder, revision and working-tree state; `material.mix` preserves the original graph bytes. CPU tests cover matrix completeness, invalid controls, endpoints, independent axis radii and snapshot isolation, and run in both existing browser CI workflows. Preparation alone neither renders pixels nor qualifies the material. Full Native/browser comparisons, raw-half relationships/causality, seams, package/repeat checks, release timing and metallic PBR/human acceptance remain required.
 
 ## Exact caller controls
 
-Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a future fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.
+Unknown controls, non-finite values and values outside these ranges must be rejected by the fixture request builder. This is a fixture harness contract, not a new Core API. Merge preset controls over defaults before mapping. Explicit macro/detail seeds are u32; preserve both, including when detail is disabled. All colors are linear RGBA in [0,1] with alpha fixed at 1.
 
 | Public control | Range | Mapping |
 |---|---|---|
@@ -27,10 +38,10 @@ The conceptual formulas describe structure; actual references must honor each ex
 
 `detailAmount` modulates rust coverage, hence downstream relief/roughness/color; it does not move W. `rustFill=0` restricts rust to the eroded edge band, while `rustFill=1` permits coverage throughout exposure. Zero edge width forces B=0; it does not force R=0 when rustFill>0. Paint remains at or above the permitted rust/substrate height endpoints. This does not claim every transition height equals one endpoint.
 
-## Resource decision and freeze evidence
+## Historical resource decision and freeze evidence
 
 The explicit graph has 23 pixel nodes and one eventual structural material-output node. The 24-pass ceiling is retained. Using levels for the two coating endpoint interpolations avoids four redundant constant/interpolation passes while preserving their public controls; it changes no node implementation.
 
-The current executor retains every rgba16float intermediate. At 2048², 23 textures alone require **771,751,936 bytes**, above the unchanged **536,870,912-byte** descriptor ceiling, before uniforms and the sequential readback buffer. This is a static design estimate, not a compiled plan, measured GPU allocation or accepted performance result. Core also defaults to a 512 MiB transient-byte limit, so the current 2K graph is expected to be rejected before execution. Once its nodes exist, retain the actual structured 2K budget failure plus a valid 1K compiled plan and render baseline before opening a separate PERF-MAT lifetime/reuse slice. Both Core estimates and executor lifetimes must agree; do not raise the global limit to collect a passing 2K result. Do not raise the ceiling or add pass fusion/global caches to conceal the failure. The graph and quality goals stay fixed through that optimization.
+At design freeze, the executor retained every rgba16float intermediate. At 2048², 23 textures alone require **771,751,936 bytes**, above the unchanged **536,870,912-byte** descriptor ceiling, before uniforms and the sequential readback buffer. This is a static design estimate, not a compiled plan, measured GPU allocation or accepted performance result. Core also defaults to a 512 MiB transient-byte limit, so the current 2K graph is expected to be rejected before execution. Once its nodes exist, retain the actual structured 2K budget failure plus a valid 1K compiled plan and render baseline before opening a separate PERF-MAT lifetime/reuse slice. Both Core estimates and executor lifetimes must agree; do not raise the global limit to collect a passing 2K result. Do not raise the ceiling or add pass fusion/global caches to conceal the failure. The graph and quality goals stay fixed through that optimization.
 
 The [retained existing-input measurement](../../../docs/evidence/mat-02-input-feasibility/README.md) supports keeping the 4/255 target: maximum baseColor mean error 0.158619/255 and height 0.101737/255 on recorded GT 1030 Vulkan/DX12. The JSON freezes exact probe fields, finite-set analytical oracles and ABIs. The contract selects the two new identities and 0.7 candidate at first implementation. Existing-node feasibility does not qualify unimplemented morphology or the finished material. Admission, implementation, qualification and publication remain separate.
