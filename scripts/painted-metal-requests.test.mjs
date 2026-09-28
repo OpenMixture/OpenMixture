@@ -59,3 +59,27 @@ test('caller arrays and successive requests are isolated', () => {
   a.request.channels.length = 0;
   assert.equal(paintedMetalRequest().request.channels.length, 5);
 });
+import { readFile } from 'node:fs/promises';
+
+test('recipe revision 2 changes only height constants and keeps the original frozen gates', async () => {
+  const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url)));
+  const original = await read('../docs/evidence/perf-mat-before/material.mix');
+  const candidate = await read('../fixtures/materials/painted-metal/material.mix');
+  const coating = candidate.nodes.find(n => n.id === 'coatingHeight');
+  const rust = candidate.nodes.find(n => n.id === 'rustHeight');
+  assert.deepEqual([coating.parameters.outputMin, coating.parameters.outputMax, rust.parameters.value], [0.05, 0, 0.025]);
+  coating.parameters.outputMin = 0.25; coating.parameters.outputMax = 0.2; rust.parameters.value = 0.225;
+  assert.deepEqual(candidate, original, 'topology, masks, non-height channels and node versions must remain unchanged');
+  const previous = await read('../fixtures/materials/painted-metal/qualification-plan-v1.json');
+  const current = await read('../fixtures/materials/painted-metal/qualification-plan.json');
+  assert.equal(current.recipeRevision, 2);
+  assert.deepEqual([current.endpointChecks.intact.height, current.endpointChecks.exposed.height, current.endpointChecks.rusted.height], ['paintThickness', 0, 'rustRelief']);
+  for (const key of ['recipeRevision', 'previousPlan']) delete current[key];
+  current.status = previous.status; current.runtimeImplemented = previous.runtimeImplemented;
+  for (const id of ['intact','exposed','rusted']) current.endpointChecks[id].height = previous.endpointChecks[id].height;
+  assert.deepEqual(current, previous, 'no tolerance, size, control, stress, performance or acceptance gate may change');
+  for (const thickness of [0, 0.05, 0.5]) {
+    const { overrides } = paintedMetalRequest({ paintThickness: thickness, rustRelief: thickness / 2 }).request;
+    assert.equal(overrides.paintHeight, thickness); assert.equal(overrides.rustHeight, thickness / 2);
+  }
+});

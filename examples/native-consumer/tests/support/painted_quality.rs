@@ -22,14 +22,14 @@ pub(super) fn endpoint_reference(
             "paintColor",
             "paintRoughness",
             0.,
-            0.2 + defaults["paintThickness"].as_f64().unwrap(),
+            defaults["paintThickness"].as_f64().unwrap(),
         ),
-        "exposed" => ("substrateColor", "substrateRoughness", 1., 0.2),
+        "exposed" => ("substrateColor", "substrateRoughness", 1., 0.),
         "rusted" => (
             "rustColor",
             "rustRoughness",
             0.,
-            0.2 + defaults["rustRelief"].as_f64().unwrap(),
+            defaults["rustRelief"].as_f64().unwrap(),
         ),
         _ => return None,
     };

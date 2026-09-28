@@ -38,7 +38,7 @@ const contract = JSON.parse(await readFile('fixtures/materials/painted-metal/qua
 assert.deepEqual(browser.manifest.causality, contract.causality);
 assert.deepEqual(browser.rows.map(r => r.id), expectedRows.map(r => r.id));
 assert.deepEqual(browser.manifest.rows, expectedRows);
-assert.equal(createHash('sha256').update(await readFile('docs/evidence/perf-mat-before/material.mix')).digest('hex'), browser.manifest.sourceSha256);
+assert.equal(createHash('sha256').update(await readFile('fixtures/materials/painted-metal/material.mix')).digest('hex'), browser.manifest.sourceSha256);
 for (let i = 0; i < expectedRows.length; i++) {
   assert.deepEqual(browser.rows[i].size, expectedRows[i].request.size);
   assert.deepEqual(browser.rows[i].overrides, expectedRows[i].request.overrides);
@@ -72,7 +72,7 @@ for (const row of browserDownsample) {
 }
 await mkdir(destination);
 await writeFile(join(destination, 'requests.json'), JSON.stringify(browser.manifest, null, 2) + '\n');
-await copyFile('docs/evidence/perf-mat-before/material.mix', join(destination, 'material.mix'));
+await copyFile('fixtures/materials/painted-metal/material.mix', join(destination, 'material.mix'));
 await writeFile(join(destination, 'comparison.json'), '{"ok":false,"completed":false}');
 await copyFile(matches[0], join(destination, 'painted-browser.json'));
 const channels = ['baseColor', 'height', 'metallic', 'normal', 'roughness'];

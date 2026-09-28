@@ -70,7 +70,7 @@ fn painted_material_public_matrix() {
     let source = std::fs::read(inputs.join("material.mix")).unwrap();
     assert_eq!(
         source,
-        std::fs::read(root.join("docs/evidence/perf-mat-before/material.mix")).unwrap()
+        std::fs::read(root.join("fixtures/materials/painted-metal/material.mix")).unwrap()
     );
     let manifest: Value =
         serde_json::from_slice(&std::fs::read(inputs.join("requests.json")).unwrap()).unwrap();
