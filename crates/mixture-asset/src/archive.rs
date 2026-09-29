@@ -49,13 +49,13 @@ pub(crate) fn entry(
                 .and_then(|n| n.checked_add(u64::from(b - b'0')))
         })
         .ok_or_else(|| invalid("Size overflow."))?;
+    limit("entryBytes", size, max)?;
     let len = usize::try_from(size).map_err(|_| invalid("Host size overflow."))?;
     if raw != header(name, len)? {
         return Err(invalid("Noncanonical archive header.")
             .evidence("entry", name)
             .evidence("offset", start as u64));
     }
-    limit("entryBytes", size, max)?;
     let data_end = end
         .checked_add(len)
         .ok_or_else(|| invalid("Entry overflow."))?;
