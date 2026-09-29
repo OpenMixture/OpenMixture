@@ -91,7 +91,7 @@ Keep command meanings stable; label proposals as unimplemented until they exist.
 | `crates/mixture-core` | decoding, validation, node contracts (`src/nodes/`), compilation, plan hashing, resource identity, diagnostics | adapters, GPU resources, WGSL, file I/O, CLI formatting, bindings |
 | `crates/mixture-wgpu` | context, one WGSL kernel per `KernelId` (`shaders/nodes/`), pipelines, textures, readback, GPU diagnostics | `.mix` parsing, defaults, override semantics, a second catalog |
 | `crates/mixture-asset` | `.mixpack` bytes, deterministic writing, closure, package budgets | file/network I/O, GPU state, node semantics |
-| `crates/mixture-cli` | argument parsing, file I/O, PNG encoding, reports, exit codes | reusable logic (move it into a library) |
+| `crates/mixture-cli` | argument parsing, file I/O, PNG encoding, reports (non-UTF-8 paths as lossy display strings; asset diagnostics per the [adapter contract](./docs/m6b-04-adapters.md)), exit codes | reusable logic (move it into a library) |
 | `crates/mixture-wasm`, `packages/runtime` | bindings, explicit loading, input capture, error transfer, lifecycle | graph semantics, package parsing, rendering |
 | `xtask/`, `scripts/` | repository automation and qualification | runtime behavior |
 | `fixtures/`, `examples/` | node/material/package acceptance corpora; small user examples | — |

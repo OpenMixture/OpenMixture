@@ -25,6 +25,8 @@ All three commands accept lower-only unsigned decimal `--package-bytes`, `--mani
 
 JSON asset envelopes use schema 1 with `operation`, `input`, `ok`, `diagnostics`, and nullable `asset`, `plan`, `render`. Pack adds `output` and `writtenBytes`; render nests the existing schema-3 rendering report, including adapter, PNG and partial-write diagnostics. JSON u64 values remain numbers; JavaScript consumers needing exact u64 values should use the browser API. Exit codes: 0 success, 1 I/O/GPU failure, 2 invalid invocation/package/request. Invocation syntax errors go to stderr as in existing commands. Core diagnostic codes/stages are preserved; package failures have stage `package` and typed evidence (including the resource override ID array).
 
+Asset input I/O failures use `MIX_IO_READ_FAILED` at stage `parse`. Asset output creation/write/flush failures use the CLI-only code `MIX_IO_WRITE_FAILED` at stage `encoding`, with `path` and `sourceMessage` evidence (exit 1); it is not a Core diagnostic code. Report paths use lossy UTF-8 display strings while filesystem operations retain the original OS paths. `pack --size 0` uses shared Core request validation and returns `MIX_COMPILE_INVALID_REQUEST` at stage `compile` (exit 2), before file reads; pre-read allocation bounds remain enforced.
+
 ## Browser bytes
 
 ```typescript

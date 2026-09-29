@@ -48,15 +48,15 @@ struct OutputFile {
     source: InputSource,
     size: [u32; 2],
     encoding: OutputEncoding,
-    path: PathBuf,
+    path: String,
     written_bytes: u64,
 }
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 struct Report {
     schema_version: u32,
-    input: PathBuf,
-    output_directory: PathBuf,
+    input: String,
+    output_directory: String,
     plan_hash: Option<PlanHash>,
     context: Option<ContextReport>,
     execution: Option<RenderReport>,
@@ -78,8 +78,8 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
     };
     let mut report = Report {
         schema_version: 3,
-        input: options.path.clone(),
-        output_directory: options.out.clone(),
+        input: options.path.to_string_lossy().into_owned(),
+        output_directory: options.out.to_string_lossy().into_owned(),
         plan_hash: None,
         context: None,
         execution: None,
@@ -91,7 +91,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         Ok(()) => 0,
         Err((diagnostics, exit)) => {
             report.diagnostics = DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
-                d.document_path = Some(report.input.to_string_lossy().into_owned());
+                d.document_path = Some(report.input.clone());
                 d
             }));
             exit
@@ -174,7 +174,7 @@ fn execute_plan(
             source: channel.source.clone(),
             size: channel.size,
             encoding: channel.encoding,
-            path,
+            path: path.to_string_lossy().into_owned(),
             written_bytes: png.len() as u64,
         });
     }
@@ -247,11 +247,7 @@ fn human(out: &mut impl Write, report: &Report) -> io::Result<()> {
         writeln!(
             out,
             "Wrote {} ({}x{}, {:?}, {} PNG bytes)",
-            file.path.display(),
-            file.size[0],
-            file.size[1],
-            file.encoding,
-            file.written_bytes
+            file.path, file.size[0], file.size[1], file.encoding, file.written_bytes
         )?;
     }
     super::human_diagnostics::write(out, &report.diagnostics)?;
@@ -267,8 +263,8 @@ pub(super) fn prepared(
 ) -> (impl Serialize, u8) {
     let mut report = Report {
         schema_version: 3,
-        input: input.clone(),
-        output_directory: out.clone(),
+        input: input.to_string_lossy().into_owned(),
+        output_directory: out.to_string_lossy().into_owned(),
         plan_hash: None,
         context: None,
         execution: None,
@@ -287,7 +283,7 @@ pub(super) fn prepared(
         Ok(()) => 0,
         Err((diagnostics, exit)) => {
             report.diagnostics = DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
-                d.document_path = Some(report.input.to_string_lossy().into_owned());
+                d.document_path = Some(report.input.clone());
                 d
             }));
             exit
