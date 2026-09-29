@@ -8,6 +8,7 @@ mod golden;
 mod gpu_smoke;
 mod links;
 mod package;
+mod test_output;
 
 use std::{
     env,
@@ -251,17 +252,13 @@ fn run_task(root: &Path, task: &str) -> TaskResult {
         "links" => links::check(root),
         "evidence" => evidence::check(root),
         "gpu-smoke" => gpu_smoke::run(root),
-        "shader-check" => run_cargo(
-            root,
-            &[
-                "test",
-                "--locked",
-                "-p",
-                "mixture-wgpu",
-                "shader_validates_without_a_gpu",
-            ],
-            false,
-        ),
+        "shader-check" => test_output::run(cargo(root).args([
+            "test",
+            "--locked",
+            "-p",
+            "mixture-wgpu",
+            "shader_validates_without_a_gpu",
+        ])),
         _ => Err(format!("unknown task: {task}").into()),
     }
 }

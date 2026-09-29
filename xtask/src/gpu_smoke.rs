@@ -253,28 +253,26 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
     )?;
     let filter = format!("node_{}_gpu", node.replace('-', "_"));
     let directory = root.join("tmp/node-tests").join(&backend);
-    let status = cargo(root)
-        .args([
-            "test",
-            "--locked",
-            "--all-features",
-            "-p",
-            "mixture-wgpu",
-            "--test",
-            "nodes",
-            &filter,
-            "--",
-            "--exact",
-            "--ignored",
-            "--nocapture",
-        ])
-        .env("MIXTURE_GPU_BACKEND", &backend)
-        .env("MIXTURE_GPU_SOFTWARE", &software)
-        .env("MIXTURE_NODE_EVIDENCE_DIR", &directory)
-        .status()?;
-    if !status.success() {
-        return Err(format!("{node} GPU test failed ({status})").into());
-    }
+    crate::test_output::run(
+        cargo(root)
+            .args([
+                "test",
+                "--locked",
+                "--all-features",
+                "-p",
+                "mixture-wgpu",
+                "--test",
+                "nodes",
+                &filter,
+                "--",
+                "--exact",
+                "--ignored",
+                "--nocapture",
+            ])
+            .env("MIXTURE_GPU_BACKEND", &backend)
+            .env("MIXTURE_GPU_SOFTWARE", &software)
+            .env("MIXTURE_NODE_EVIDENCE_DIR", &directory),
+    )?;
     println!(
         "Node {node} passed; evidence: {}",
         directory.join(format!("{node}.json")).display()
