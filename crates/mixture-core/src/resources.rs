@@ -444,8 +444,8 @@ fn check_metadata<D: ImageData>(
             .with_evidence("observedLength", supplied_length),
         );
     }
-    usize::try_from(length)
-        .map_err(|_| arithmetic(b.id, "hostLength", length, usize::MAX as u64))?;
+    // An unrepresentable length already differs from ImageData::byte_len() (usize).
+    // Keep collecting budgets instead of replacing metadata errors on 32-bit hosts.
     Ok((count, length.max(supplied_length)))
 }
 

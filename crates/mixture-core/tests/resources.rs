@@ -5,6 +5,36 @@ use mixture_core::{
 };
 use serde_json::{Value, json};
 
+#[test]
+fn oversized_resource_preserves_metadata_and_budget_diagnostics_on_every_host() {
+    let image = ImageBinding {
+        id: "Image",
+        width: 32768,
+        height: 32768,
+        format: "wrong",
+        bytes_per_row: 131072,
+        data: &[],
+    };
+    let error =
+        resources::image_identity(&image, &SafetyLimits::default(), &ResourceLimits::default())
+            .unwrap_err();
+    let actual = codes(error);
+    for code in [
+        "MIX_RESOURCE_FORMAT_UNSUPPORTED",
+        "MIX_LIMIT_OUTPUT_DIMENSION_EXCEEDED",
+        "MIX_RESOURCE_LENGTH_MISMATCH",
+        "MIX_LIMIT_RESOURCE_PIXELS_EXCEEDED",
+        "MIX_LIMIT_RESOURCE_BYTES_EXCEEDED",
+    ] {
+        assert!(actual.iter().any(|value| value == code), "{actual:?}");
+    }
+    assert_eq!(
+        actual.len(),
+        6,
+        "Host representation must not replace or add metadata diagnostics"
+    );
+}
+
 fn source() -> Value {
     json!({"version":1,"nodes":[
         {"id":"color","type":"constant-color","version":1},

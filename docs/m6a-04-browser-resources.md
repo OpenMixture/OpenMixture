@@ -37,6 +37,8 @@ The TypeScript facade captures data descriptors and byte views without copying t
 
 For the browser implementation, each selected resource requires one engine-owned packed copy, below the contract's two-copy ceiling. `Uint8Array.copy_to` writes directly into the Core destination; no serialized pixel arrays or intermediate transfer Vec are built. No JS callbacks or asynchronous yields occur between validation and capture. Later caller mutation, detachment or metadata replacement cannot alter the accepted request. The internal WASM preparation handle is consumed by the asynchronous render and never exposed through the public package. Per-render snapshots and GPU descriptors are released on success/error; `destroy` waits for active work, remains idempotent, and preserves returned owned pixels.
 
+Image views with `byteLength > 0xFFFFFFFF` are rejected with `MIX_BROWSER_INVALID_ARGUMENT` before wasm32 transport; Rust also checks the JS length before narrowing. Proxy image views, Proxy source views and detached source views use the same argument code. The busy slot is reserved before capture can invoke a Proxy trap; reentrant render is busy, and reentrant destroy waits for that reserved call to settle, including capture failure. See the [runtime regressions](../packages/runtime/test/runtime.test.mjs).
+
 ## Verification
 
 Run `npm ci --prefix packages/runtime --ignore-scripts`, `npm test --prefix packages/runtime`, `cargo xtask test-core`, `cargo xtask test-plan`, `cargo xtask check`, and the Native image/lifetime gates from M6A-03. Build the clean candidate with `node scripts/browser-runtime/build.mjs`, then:
