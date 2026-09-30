@@ -11,6 +11,62 @@ const defaults = { default_package_limits: () => ({packageBytes:70254592n,manife
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
 
+test('proxy and detached bytes fail as invalid arguments before binding entry', () => {
+  const module = createRuntimeModule(defaults, build);
+  const detached = new Uint8Array(4);
+  structuredClone(detached.buffer, { transfer: [detached.buffer] });
+  for (const source of [detached, new Proxy(new Uint8Array(4), {})]) {
+    assert.throws(() => module.inspect(source), invalid);
+  }
+  assert.throws(() => module.inspect('{}', { resources: [{ id: 'Image', width: 1, height: 1,
+    format: 'rgba8-linear', bytesPerRow: 4, data: new Proxy(new Uint8Array(4), {}) }] }), invalid);
+});
+
+test('capture reserves the slot before reentrant render and destroy from proxy traps', { timeout: 3000 }, async () => {
+  const secure = Object.getOwnPropertyDescriptor(globalThis, 'isSecureContext');
+  const navigator = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
+  Object.defineProperty(globalThis, 'isSecureContext', { value: true, configurable: true });
+  Object.defineProperty(globalThis, 'navigator', { value: { gpu: {} }, configurable: true });
+  try {
+    for (const fails of [false, true]) {
+      let destroyed = 0, freed = 0, nested, closing, trapped = false;
+      const settlements = [];
+      const module = createRuntimeModule({ ...defaults, create_gpu: async () => ({
+        context_report: () => ({}), render: () => new Promise(resolve => { settlements.push(resolve); }),
+        destroy() { destroyed++; }, free() { freed++; },
+      }) }, build);
+      const gpu = await module.createGpu();
+      const options = new Proxy({}, { getPrototypeOf(target) {
+        if (!trapped) {
+          trapped = true;
+          nested = assert.rejects(gpu.render('{}'), e => e.code === 'MIX_BROWSER_RUNTIME_BUSY');
+          closing = gpu.destroy();
+          if (fails) throw new Error('capture failed');
+        }
+        return Reflect.getPrototypeOf(target);
+      } });
+      const pending = gpu.render('{}', options);
+      const completion = fails ? assert.rejects(pending) : pending;
+      // Observe the nested rejection immediately; a broken implementation accepts it.
+      await Promise.resolve();
+      if (!fails) {
+        assert.equal(destroyed, 0);
+        for (const settle of settlements) settle({ channels: [] });
+      }
+      await completion;
+      await nested;
+      await closing;
+      assert.equal(destroyed, 1);
+      assert.equal(freed, 1);
+      assert.equal(gpu.destroy(), closing);
+    }
+  } finally {
+    for (const [key, value] of [['isSecureContext', secure], ['navigator', navigator]]) {
+      if (value) Object.defineProperty(globalThis, key, value); else delete globalThis[key];
+    }
+  }
+});
+
 test('package input capture checks views and both transfer buffers before binding entry', () => {
   let calls=0, observed;
   const module=createRuntimeModule({...defaults,inspect_package(bytes,options){calls++;observed={bytes,options};return {}; }},build);
@@ -170,4 +226,23 @@ test('resource transport rejects unsafe buffers and shapes before entering Rust'
   assert.throws(() => captureRequest({ resources: [accessor] }, 'render'), invalid);
   assert.equal(calls, 0);
   assert.throws(() => captureRequest({ resources: [image(view)], resourceLimits: { resourceCount: 0n } }, 'render'), e => e.code === 'MIX_LIMIT_RESOURCE_COUNT_EXCEEDED');
+});
+
+
+test('image lengths above u32 are rejected before entering Rust', async () => {
+  // Substitute only the intrinsic length observation in an isolated module instance;
+  // no multi-gigabyte allocation and no caller-owned getter is trusted by production.
+  const prototype = Object.getPrototypeOf(Uint8Array.prototype);
+  const descriptor = Object.getOwnPropertyDescriptor(prototype, 'byteLength');
+  const data = new Uint8Array(4);
+  let runtime;
+  try {
+    Object.defineProperty(prototype, 'byteLength', { ...descriptor,
+      get() { return this === data ? 2 ** 32 : descriptor.get.call(this); } });
+    runtime = await import('../dist/runtime.js?oversized-image-test');
+  } finally { Object.defineProperty(prototype, 'byteLength', descriptor); }
+  const module = runtime.createRuntimeModule(defaults, build);
+  assert.throws(() => module.inspect('{}', { resources: [{ id: 'Image', width: 1, height: 1,
+    format: 'rgba8-linear', bytesPerRow: 4, data }] }), e => e.code === 'MIX_BROWSER_INVALID_ARGUMENT'
+      && e.message === 'Resource byte length exceeds the wasm32 view limit');
 });
