@@ -90,6 +90,18 @@ fn non_unicode_asset_paths_work_for_success_and_read_failures() {
     let output = directory.join(non_unicode());
     let mut arguments = args(&["asset", "pack", "examples/checker.mix", "--out"]);
     arguments.push(output.clone().into());
+    // Some filesystems (APFS) reject non-UTF-8 names; the report must still be complete.
+    if std::fs::File::create(&output).is_err() {
+        let failure = report(&arguments, 1);
+        assert_eq!(failure["diagnostics"][0]["code"], "MIX_IO_WRITE_FAILED");
+        assert_eq!(
+            failure["diagnostics"][0]["evidence"]["path"],
+            output.to_string_lossy().as_ref()
+        );
+        std::fs::remove_dir(&directory).unwrap();
+        return;
+    }
+    std::fs::remove_file(&output).unwrap();
     let value = report(&arguments, 0);
     assert_eq!(value["output"], output.to_string_lossy().as_ref());
     let mut arguments = args(&["asset", "inspect"]);
