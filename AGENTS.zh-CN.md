@@ -91,7 +91,7 @@ cargo run -p mixture-cli -- asset inspect <file.mixpack> --json
 | `crates/mixture-core` | 解码、验证、节点契约（`src/nodes/`）、编译、计划哈希、资源身份、诊断 | 适配器、GPU 资源、WGSL、文件 I/O、CLI 格式化、绑定 |
 | `crates/mixture-wgpu` | 上下文、每个 `KernelId` 唯一的 WGSL 内核（`shaders/nodes/`）、管线、纹理、回读、GPU 诊断 | `.mix` 解析、默认值、覆盖语义、第二份目录 |
 | `crates/mixture-asset` | `.mixpack` 字节、确定性写入、闭包、包预算 | 文件/网络 I/O、GPU 状态、节点语义 |
-| `crates/mixture-cli` | 参数解析、文件 I/O、PNG 编码、报告、退出码 | 可复用逻辑（应移入库） |
+| `crates/mixture-cli` | 参数解析、文件 I/O、PNG 编码、报告（非 UTF-8 路径使用有损显示字符串；资产诊断见[适配契约](./docs/m6b-04-adapters.zh-CN.md)）、退出码 | 可复用逻辑（应移入库） |
 | `crates/mixture-wasm`、`packages/runtime` | 绑定、显式加载、输入捕获、错误传递、生命周期 | 图语义、包解析、渲染 |
 | `xtask/`、`scripts/` | 仓库自动化与验收 | 运行时行为 |
 | `fixtures/`、`examples/` | 节点/材质/包验收语料；小型用户示例 | — |

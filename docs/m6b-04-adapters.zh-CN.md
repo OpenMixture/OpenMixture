@@ -25,6 +25,8 @@ mixture asset render material.mixpack --size 65x3 --output height --out rendered
 
 JSON 资产外层 schema 为 1，含 `operation`、`input`、`ok`、`diagnostics` 和可空的 `asset`、`plan`、`render`。pack 增加 `output`、`writtenBytes`；render 嵌套现有 schema-3 渲染报告，保留适配器、PNG 与部分写入诊断。JSON u64 仍为数字，需要精确 u64 的 JavaScript 调用方应使用浏览器 API。退出码：0 成功，1 I/O/GPU 失败，2 非法调用/包/请求；调用语法错误按现有命令习惯写入 stderr。保留 Core 诊断码/阶段；包错误使用 `package` 阶段及类型化证据，包括资源覆盖 ID 数组。
 
+资产输入 I/O 失败使用 `MIX_IO_READ_FAILED`、`parse` 阶段。资产输出创建／写入／刷新失败使用 CLI 专用 `MIX_IO_WRITE_FAILED`、`encoding` 阶段，证据包含 `path` 和 `sourceMessage`（退出码 1）；它不是 Core 诊断码。报告路径使用有损 UTF-8 显示字符串，文件系统操作仍保留原始 OS 路径。`pack --size 0` 委托共享 Core 请求验证，在读取文件前返回 `MIX_COMPILE_INVALID_REQUEST`、`compile` 阶段（退出码 2）；保留读取前的分配上限检查。
+
 ## 浏览器字节
 
 ```typescript
