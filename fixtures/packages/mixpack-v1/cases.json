@@ -130,5 +130,23 @@
     "bytes": 5120,
     "sha256": "a5535ffb98db64cad74543e13add1e32477f3427c9a9cbf1bb50dd1f3b2ae1cd",
     "expectedCode": "MIX_PACKAGE_INVALID"
+  },
+  {
+    "file": "document-array.mixpack",
+    "bytes": 5120,
+    "sha256": "7549ec600d83c9e5108a13a302a1dd09e2721f154de51c19a8898a89cff2602e",
+    "expectedCode": "MIX_PACKAGE_INVALID"
+  },
+  {
+    "file": "resource-array.mixpack",
+    "bytes": 5120,
+    "sha256": "4cf7b52cc2db3b4304aa468906937998827e490143d0311c66ef2ac05e4ac261",
+    "expectedCode": "MIX_PACKAGE_INVALID"
+  },
+  {
+    "file": "manifest-array.mixpack",
+    "bytes": 5120,
+    "sha256": "c292c2644af32f82ff2d4e4de51a5db43c77f56c16f970e1f0a4e6a48282079c",
+    "expectedCode": "MIX_PACKAGE_INVALID"
   }
 ]

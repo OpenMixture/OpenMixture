@@ -2,7 +2,7 @@ use crate::AssetLimits;
 use crate::error::{AssetError, PackageCode, invalid, limit};
 use serde::{
     Deserialize, Serialize,
-    de::{IgnoredAny, SeqAccess, Visitor},
+    de::{IgnoredAny, MapAccess, SeqAccess, Visitor, value::MapAccessDeserializer},
 };
 
 /// Package v1 format ceiling for manifest resources; callers may only lower it.
@@ -41,10 +41,28 @@ pub struct Resource {
 pub(crate) struct Manifest {
     pub format: String,
     pub version: u32,
+    #[serde(deserialize_with = "object")]
     pub document: Document,
     #[serde(deserialize_with = "bounded_resources")]
     pub resources: Vec<Resource>,
 }
+// Preserve streaming duplicate-field/type checks while refusing positional structs.
+fn object<'de, D: serde::Deserializer<'de>, T: Deserialize<'de>>(d: D) -> Result<T, D::Error> {
+    struct Object<T>(std::marker::PhantomData<T>);
+    impl<'de, T: Deserialize<'de>> Visitor<'de> for Object<T> {
+        type Value = T;
+        fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            f.write_str("a JSON object")
+        }
+        fn visit_map<A: MapAccess<'de>>(self, map: A) -> Result<T, A::Error> {
+            T::deserialize(MapAccessDeserializer::new(map))
+        }
+    }
+    d.deserialize_map(Object(std::marker::PhantomData))
+}
+#[derive(Deserialize)]
+struct ResourceObject(#[serde(deserialize_with = "object")] Resource);
+
 fn bounded_resources<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Vec<Resource>, D::Error> {
     struct Bounded;
     impl<'de> Visitor<'de> for Bounded {
@@ -55,7 +73,7 @@ fn bounded_resources<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Vec<Resou
         fn visit_seq<A: SeqAccess<'de>>(self, mut seq: A) -> Result<Self::Value, A::Error> {
             // Allocation guard only: decode reports the measured count before this runs.
             let mut rows = Vec::new();
-            while let Some(row) = seq.next_element::<Resource>()? {
+            while let Some(ResourceObject(row)) = seq.next_element::<ResourceObject>()? {
                 if rows.len() == MAX_RESOURCES {
                     return Err(serde::de::Error::custom("package resource count exceeded"));
                 }
@@ -78,7 +96,7 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<Manifest, AssetError> {
         resources: Option<Vec<IgnoredAny>>,
     }
     let version: Version =
-        serde_json::from_slice(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))?;
+        from_object(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))?;
     if version.version != 1 {
         return Err(AssetError::new(
             PackageCode::UnsupportedVersion,
@@ -92,7 +110,14 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<Manifest, AssetError> {
     {
         limit("resourceCount", rows.len() as u64, MAX_RESOURCES as u64)?;
     }
-    serde_json::from_slice(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))
+    from_object(bytes).map_err(|e| invalid(format!("Invalid manifest: {e}")))
+}
+/// Decode one complete JSON value whose top level must be an object.
+fn from_object<'de, T: Deserialize<'de>>(bytes: &'de [u8]) -> serde_json::Result<T> {
+    let mut deserializer = serde_json::Deserializer::from_slice(bytes);
+    let value = object(&mut deserializer)?;
+    deserializer.end()?;
+    Ok(value)
 }
 fn digest(value: &str) -> bool {
     value.len() == 64
