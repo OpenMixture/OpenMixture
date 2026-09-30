@@ -41,6 +41,8 @@ Core 负责两个契约、全图验证、覆盖验证、类型化降级及计划
 
 改变种子只影响幅度，不影响单元布局或间隙宽度。多个图案节点使用相同布局／种子参数即可对齐。variation 为零时生成轮廓／遮罩；高度与着色可使用独立 variation。生成器返回归一化起伏，不是物理高度。已有 levels 和 height-to-normal 设置最终尺度及法线强度。`mortarX=mortarY=bevel=variation=0` 不保证在精确单元边界上返回一，仍适用明确的 `d <= 0` 规则。
 
+只要 `bevel = 0`，距间隙边缘几个 ULP 内的样本就可能在不同设备上落到硬阶跃两侧，即使砂浆宽度非零也如此。采用 ≤1/255 门槛的跨端比较应使用 `bevel > 0`，或让采样点避开间隙边缘的几何布局。此说明记录已有着色器语义，不放宽门槛，也不修改 golden。
+
 ## scalar-mask-blend@1
 
 必需输入 `a: Scalar`、`b: Scalar`、`mask: Scalar`，输出 `value: Scalar`。一个 Float 参数 `opacity`，范围 [0,1]，默认 1。将有限输入样本限制到 [0,1]；令 `t=opacity*clamp(mask,0,1)`。t=0 时返回精确的已限制 a，t=1 时返回 b，否则返回 `clamp(a+(b-a)*t,0,1)`。以 `[value,0,0,1]` 存入 rgba16float。无重采样、alpha／颜色转换或新随机状态。端点情况下仍须提供、验证三个输入。周期性继承输入，不修复接缝。

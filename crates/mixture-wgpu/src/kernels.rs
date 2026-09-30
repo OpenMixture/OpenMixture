@@ -454,6 +454,55 @@ mod tests {
     }
 
     #[test]
+    fn brick_and_mask_uniforms_preserve_each_field_and_padding() {
+        let brick = KernelInvocation::BrickPattern {
+            cells: [3, 7],
+            seed: 19,
+            row_offset: 0.375,
+            mortar: [0.0625, 0.125],
+            bevel: 0.1875,
+            variation: 0.75,
+        };
+        let bytes = parameters(&brick);
+        assert_eq!(bytes.len(), 48);
+        assert_eq!(bytes.len() as u64, brick.uniform_bytes());
+        for (offset, value) in [(0, 3u32), (4, 7), (8, 19), (12, 0)] {
+            assert_eq!(&bytes[offset..offset + 4], &value.to_le_bytes());
+        }
+        for (offset, value) in [
+            (16, 0.375f32),
+            (20, 0.0625),
+            (24, 0.125),
+            (28, 0.1875),
+            (32, 0.75),
+        ] {
+            assert_eq!(&bytes[offset..offset + 4], &value.to_le_bytes());
+        }
+        assert_eq!(&bytes[36..48], &[0; 12]);
+        let request = mixture_core::CompileRequest::default();
+        let document = mixture_core::MaterialDocument::decode(
+            include_bytes!("testdata/constant-scalar.mix"),
+            &request.limits,
+        )
+        .unwrap()
+        .into_validated(&request.limits)
+        .unwrap();
+        let plan = mixture_core::compile(&document, &request).unwrap();
+        let resource = plan.passes()[0].output;
+        let mask = KernelInvocation::ScalarMaskBlend {
+            a: resource,
+            b: resource,
+            mask: resource,
+            opacity: 0.625,
+        };
+        let bytes = parameters(&mask);
+        assert_eq!(bytes.len(), 16);
+        assert_eq!(bytes.len() as u64, mask.uniform_bytes());
+        assert_eq!(&bytes[..4], &0.625f32.to_le_bytes());
+        assert_eq!(&bytes[4..], &[0; 12]);
+    }
+
+    #[test]
     fn resampling_parameter_uploads_match_typed_plan_and_shader_offsets() {
         use mixture_core::{
             CompileRequest, MaterialDocument, OutputChannel, SafetyLimits, compile,

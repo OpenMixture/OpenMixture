@@ -41,6 +41,8 @@ Cell randomness uses wrapping u32 arithmetic. Define `H(z)` by `z ^= z >> 16; z 
 
 Changing seed affects amplitudes only, never cell layout or gap width. Identical layout/seed parameters align multiple pattern nodes. Set variation to zero for a profile/mask; use independent variation values for height and coloring. The generator returns normalized relief, not physical height. Existing levels and height-to-normal nodes set the final scale and normal strength. `mortarX=mortarY=bevel=variation=0` is not guaranteed to return one on exact cell boundaries: the explicit `d <= 0` rule applies.
 
+For any `bevel = 0`, a sample within a few ULP of a gap edge can fall on opposite sides of the hard step on different devices, including when mortar widths are nonzero. Cross-runtime comparisons using the ≤1/255 gate should use `bevel > 0` or geometry whose samples avoid gap edges. This documents the existing shader semantics; it does not relax the gate or change goldens.
+
 ## scalar-mask-blend@1
 
 Required inputs `a: Scalar`, `b: Scalar`, `mask: Scalar`; output `value: Scalar`. One Float parameter `opacity` in [0,1], default 1. Clamp finite input samples to [0,1]; set `t=opacity*clamp(mask,0,1)`. Return the exact clamped `a` at t=0 and `b` at t=1, otherwise `clamp(a+(b-a)*t,0,1)`. Store `[value,0,0,1]` in rgba16float. No resampling, alpha/color conversion or new random state. All three inputs remain required and validated at endpoints. Periodicity follows its inputs; this node does not repair seams.
