@@ -1,4 +1,45 @@
 use super::*;
+
+#[test]
+fn manifest_rows_require_objects() {
+    let base: serde_json::Value = serde_json::from_str(&manifest()).unwrap();
+    let mut document_array = base.clone();
+    document_array["document"] = serde_json::json!(["material.mix", SOURCE.len(), sha256(SOURCE)]);
+    let mut resource_array = base.clone();
+    resource_array["resources"] = serde_json::json!([[
+        "Image",
+        "images/0000.rgba",
+        1,
+        1,
+        "rgba8-linear",
+        4,
+        4,
+        "0".repeat(64)
+    ]]);
+    for value in [
+        document_array,
+        resource_array,
+        serde_json::json!(["openmixture-asset", 1, base["document"], []]),
+    ] {
+        assert_eq!(
+            manifest::decode(&serde_json::to_vec(&value).unwrap())
+                .unwrap_err()
+                .code(),
+            "MIX_PACKAGE_INVALID"
+        );
+    }
+}
+
+#[test]
+fn oversized_u64_entry_is_a_policy_error_on_every_host() {
+    let mut header = archive::header("manifest.json", 0).unwrap();
+    header[124..136].copy_from_slice(b"40000000000\0");
+    header[148..156].fill(b' ');
+    let sum: u32 = header.iter().map(|b| u32::from(*b)).sum();
+    header[148..156].copy_from_slice(format!("{sum:06o}\0 ").as_bytes());
+    let error = archive::entry(&header, &mut 0, "manifest.json", 65536).unwrap_err();
+    assert_eq!(error.code(), "MIX_PACKAGE_LIMIT_EXCEEDED");
+}
 const SOURCE:&[u8]=br#"{"version":1,"nodes":[{"id":"base","type":"constant-color","version":1},{"id":"out","type":"material-output","version":1}],"edges":[{"from":{"nodeId":"base","portId":"color"},"to":{"nodeId":"out","portId":"baseColor"}}]}"#;
 fn archive(json: &[u8], source: &[u8]) -> Vec<u8> {
     let mut out = Vec::new();

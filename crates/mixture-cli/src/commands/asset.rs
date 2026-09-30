@@ -52,9 +52,14 @@ impl From<AssetError> for Failure {
     }
 }
 fn issue(code: &str, message: &str, evidence: Value, exit: u8) -> Failure {
+    let stage = match code {
+        "MIX_IO_READ_FAILED" => "parse",
+        "MIX_IO_WRITE_FAILED" => "encoding",
+        _ => "package",
+    };
     Failure {
         diagnostics: vec![
-            json!({"code":code,"stage":"package","severity":"error","message":message,"evidence":evidence,"suggestion":"Check explicit file paths, metadata and package policy."}),
+            json!({"code":code,"stage":stage,"severity":"error","message":message,"evidence":evidence,"suggestion":"Check explicit file paths, metadata and package policy."}),
         ],
         exit,
     }
@@ -88,7 +93,7 @@ fn read(path: &Path, max: u64) -> Result<Vec<u8>, Failure> {
         return Err(issue(
             "MIX_IO_READ_FAILED",
             "Expected an explicit regular input file",
-            json!({"path":path}),
+            json!({"path":path.to_string_lossy()}),
             1,
         ));
     }
@@ -118,7 +123,7 @@ fn read(path: &Path, max: u64) -> Result<Vec<u8>, Failure> {
         return Err(issue(
             "MIX_PACKAGE_INVALID",
             "Input changed while reading",
-            json!({"path":path}),
+            json!({"path":path.to_string_lossy()}),
             2,
         ));
     }
@@ -139,7 +144,7 @@ pub(crate) fn run(args: &[OsString]) -> ExitCode {
             return ExitCode::from(2);
         }
     };
-    let mut report = json!({"schemaVersion":1,"operation":options.operation,"input":options.input,"ok":false,"diagnostics":[],"asset":null,"plan":null,"render":null});
+    let mut report = json!({"schemaVersion":1,"operation":options.operation,"input":options.input.to_string_lossy(),"ok":false,"diagnostics":[],"asset":null,"plan":null,"render":null});
     let exit = match execute(&options, &mut report) {
         Ok(exit) => {
             report["ok"] = json!(exit == 0);
@@ -210,18 +215,12 @@ fn pack(o: &Options, limits: AssetLimits, report: &mut Value) -> Result<u8, Fail
         .request_ref()
         .map_err(|e| Failure::from(AssetError::Compile(e)))?;
     let [width, height] = request.size;
-    bound(
-        "outputDimension",
-        u64::from(width.max(height)),
-        limits.safety.output_dimension,
-    )?;
-    if width == 0 || height == 0 {
-        return Err(issue(
-            "MIX_PACKAGE_INVALID",
-            "Positive image dimensions required",
-            json!({}),
-            2,
-        ));
+    let diagnostics = request.validate();
+    if !diagnostics.diagnostics().is_empty() {
+        return Err(Failure {
+            diagnostics: diagnostics.diagnostics().iter().map(|d| json!(d)).collect(),
+            exit: 2,
+        });
     }
     bound(
         "resourceCount",
@@ -286,7 +285,7 @@ fn pack(o: &Options, limits: AssetLimits, report: &mut Value) -> Result<u8, Fail
             issue(
                 "MIX_IO_WRITE_FAILED",
                 "Cannot create asset output",
-                json!({"path":out,"sourceMessage":e.to_string()}),
+                json!({"path":out.to_string_lossy(),"sourceMessage":e.to_string()}),
                 1,
             )
         })?;
@@ -296,11 +295,11 @@ fn pack(o: &Options, limits: AssetLimits, report: &mut Value) -> Result<u8, Fail
             issue(
                 "MIX_IO_WRITE_FAILED",
                 "Cannot complete asset output",
-                json!({"path":out,"sourceMessage":e.to_string()}),
+                json!({"path":out.to_string_lossy(),"sourceMessage":e.to_string()}),
                 1,
             )
         })?;
-    report["output"] = json!(out);
+    report["output"] = json!(out.to_string_lossy());
     report["writtenBytes"] = json!(bytes.len());
     Ok(0)
 }

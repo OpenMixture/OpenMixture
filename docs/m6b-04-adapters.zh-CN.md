@@ -25,6 +25,8 @@ mixture asset render material.mixpack --size 65x3 --output height --out rendered
 
 JSON 资产外层 schema 为 1，含 `operation`、`input`、`ok`、`diagnostics` 和可空的 `asset`、`plan`、`render`。pack 增加 `output`、`writtenBytes`；render 嵌套现有 schema-3 渲染报告，保留适配器、PNG 与部分写入诊断。JSON u64 仍为数字，需要精确 u64 的 JavaScript 调用方应使用浏览器 API。退出码：0 成功，1 I/O/GPU 失败，2 非法调用/包/请求；调用语法错误按现有命令习惯写入 stderr。保留 Core 诊断码/阶段；包错误使用 `package` 阶段及类型化证据，包括资源覆盖 ID 数组。
 
+资产输入 I/O 失败使用 `MIX_IO_READ_FAILED`、`parse` 阶段。资产输出创建／写入／刷新失败使用 CLI 专用 `MIX_IO_WRITE_FAILED`、`encoding` 阶段，证据包含 `path` 和 `sourceMessage`（退出码 1）；它不是 Core 诊断码。报告路径使用有损 UTF-8 显示字符串，文件系统操作仍保留原始 OS 路径。`pack --size 0` 委托共享 Core 请求验证，在读取文件前返回 `MIX_COMPILE_INVALID_REQUEST`、`compile` 阶段（退出码 2）；保留读取前的分配上限检查。
+
 ## 浏览器字节
 
 ```typescript
@@ -66,7 +68,7 @@ node scripts/browser-runtime/check-assets.mjs
 node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/m6b04-browser-consumer
 ```
 
-CPU WASM 验证器仅导入构建后的公共包，检查全部 22 个格式语料及精确传输预算；包目录参数后可追加大归档路径以测量实际复制。报告为 `tmp/m6b04-wasm-assets.json`。独立浏览器 fixture 为 [asset.mix](../examples/browser-consumer/public/asset.mix) 与 [asset.mixpack](../examples/browser-consumer/public/asset.mixpack)：65×3 原始像素重复 `[128,37,91,255]`，以上述 CLI 命令、ID `Input` 打包。height 输出须重复 `[128,128,128,255]`，包/散装计划哈希须一致。
+CPU WASM 验证器仅导入构建后的公共包，检查已提交格式语料中的全部用例及精确传输预算；包目录参数后可追加大归档路径以测量实际复制。报告为 `tmp/m6b04-wasm-assets.json`。独立浏览器 fixture 为 [asset.mix](../examples/browser-consumer/public/asset.mix) 与 [asset.mixpack](../examples/browser-consumer/public/asset.mixpack)：65×3 原始像素重复 `[128,37,91,255]`，以上述 CLI 命令、ID `Input` 打包。height 输出须重复 `[128,128,128,255]`，包/散装计划哈希须一致。
 
 候选浏览器验收运行 15 项，新增 CPU 包检查及真实 WebGPU 生命周期/所有权/预算渲染；registry 0.3.0-alpha.0 保留 13 项，因为已发布版本没有包 API。Native 源码与隔离归档 CLI 消费者打包/移动/检查资产，在获取 GPU 前拒绝坏包；现有显式 GPU 消费套件额外检查包像素。原材质门禁仍须通过。完整四权重、非对称对照、重复装载、Native/browser 包矩阵及六检查收尾仍属 M6B-05。不包含发布、Studio 修改、节点迁移或平台支持扩展。
 

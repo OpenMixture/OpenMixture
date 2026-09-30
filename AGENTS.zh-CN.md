@@ -51,7 +51,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 - **版本：** `.mix` 与 `.mixpack` 为 v1，`RenderPlan` 与浏览器 API 为 v3。按显式节点类型/版本解析（`fractal-noise@1` 与 `@2` 共存），不得自动迁移文档。节点目录见 `registry.rs` 与[节点契约](./docs/node-contracts.zh-CN.md)，兼容性见[兼容性](./docs/compatibility.zh-CN.md)。
 - **外部资源：** 调用方提供紧密排列的 `rgba8-linear` 字节；Core 验证、同步捕获并返回不可变 `PreparedRender`；wgpu 负责上传。禁止隐式路径/URL 查找、PNG 解码或重采样。见[资源契约](./docs/m6a-resource-contract.zh-CN.md)。
 - **可移植资产：** `mixture-asset` 是唯一的 `.mixpack` 编解码器（规范 USTAR，纯 CPU）。裁剪前验证哈希与完整资源闭包；不提取路径；拒绝所有 `resourceRef` 覆盖。上限只能降低。见[格式](./docs/m6b-package-format.zh-CN.md)与[适配层](./docs/m6b-04-adapters.zh-CN.md)。
-- **浏览器：** `mixture-wasm` 与 `packages/runtime` 保持轻量。导入无副作用，加载与 GPU 创建显式执行；让出执行权前快照输入；每个实例一个 busy 槽。见[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)。
+- **浏览器：** `mixture-wasm` 与 `packages/runtime` 保持轻量。导入无副作用，加载与 GPU 创建显式执行；让出执行权前快照输入；每个实例一个 busy 槽，并在捕获可能触发调用方 Proxy trap 前预留；超过 `0xFFFFFFFF` 字节的图像视图在 wasm32 收窄前返回 `MIX_BROWSER_INVALID_ARGUMENT`。见[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)。
 - **数值：** 不得重置 golden，或把实测修复泛化到其记录节点和硬件之外。见[稳定噪声](./docs/stable-noise.zh-CN.md)与有界 [gamma=1 修正](./docs/levels-linear-correction.zh-CN.md)；保留节点契约，改变的像素须绑定实现构建。
 - **交付：** `main` 需要六项检查。仅文档的 PR 可跳过 GPU/浏览器任务；被跳过的检查不是验收证据。CPU 或软件检查通过不认证硬件像素。
 - **证据：** 普通运行输出留在 CI 产物或被忽略的 `tmp/` 中。除非目录已列入 `docs/evidence/retention-exceptions.txt` 并在 PR 中说明理由，`cargo xtask check` 会拒绝证据区域中的原始日志、归档和单次运行目录，以及任何超过 4 MiB 的文件。见[证据保留](./docs/evidence-policy.zh-CN.md)。
@@ -91,7 +91,7 @@ cargo run -p mixture-cli -- asset inspect <file.mixpack> --json
 | `crates/mixture-core` | 解码、验证、节点契约（`src/nodes/`）、编译、计划哈希、资源身份、诊断 | 适配器、GPU 资源、WGSL、文件 I/O、CLI 格式化、绑定 |
 | `crates/mixture-wgpu` | 上下文、每个 `KernelId` 唯一的 WGSL 内核（`shaders/nodes/`）、管线、纹理、回读、GPU 诊断 | `.mix` 解析、默认值、覆盖语义、第二份目录 |
 | `crates/mixture-asset` | `.mixpack` 字节、确定性写入、闭包、包预算 | 文件/网络 I/O、GPU 状态、节点语义 |
-| `crates/mixture-cli` | 参数解析、文件 I/O、PNG 编码、报告、退出码 | 可复用逻辑（应移入库） |
+| `crates/mixture-cli` | 参数解析、文件 I/O、PNG 编码、报告（非 UTF-8 路径使用有损显示字符串；资产诊断见[适配契约](./docs/m6b-04-adapters.zh-CN.md)）、退出码 | 可复用逻辑（应移入库） |
 | `crates/mixture-wasm`、`packages/runtime` | 绑定、显式加载、输入捕获、错误传递、生命周期 | 图语义、包解析、渲染 |
 | `xtask/`、`scripts/` | 仓库自动化与验收 | 运行时行为 |
 | `fixtures/`、`examples/` | 节点/材质/包验收语料；小型用户示例 | — |

@@ -169,15 +169,20 @@ const byteLengthOf = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteL
 const bufferOf = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'buffer')!.get!;
 
 export function copyBytes(source: unknown, operation: string, limit?: bigint): Uint8Array<ArrayBuffer> {
-  if (!(source instanceof Uint8Array) || Object.getPrototypeOf(source) !== Uint8Array.prototype) throw invalid(operation, 'Bytes must be an ordinary Uint8Array');
-  // Intrinsic access ignores caller-owned byteLength/buffer/slice overrides.
-  const buffer = bufferOf.call(source);
-  const length = byteLengthOf.call(source);
-  if (typeof SharedArrayBuffer !== 'undefined' && buffer instanceof SharedArrayBuffer) throw invalid(operation, 'Shared byte buffers are unsupported');
-  if (limit !== undefined && BigInt(length) > limit) throw sourceLimit(operation, limit, BigInt(length));
-  const copy = new Uint8Array(length);
-  Uint8Array.prototype.set.call(copy, source);
-  return copy;
+  try {
+    if (!(source instanceof Uint8Array) || Object.getPrototypeOf(source) !== Uint8Array.prototype) throw invalid(operation, 'Bytes must be an ordinary Uint8Array');
+    // Intrinsic access ignores caller-owned byteLength/buffer/slice overrides.
+    const buffer = bufferOf.call(source);
+    const length = byteLengthOf.call(source);
+    if (typeof SharedArrayBuffer !== 'undefined' && buffer instanceof SharedArrayBuffer) throw invalid(operation, 'Shared byte buffers are unsupported');
+    if (limit !== undefined && BigInt(length) > limit) throw sourceLimit(operation, limit, BigInt(length));
+    const copy = new Uint8Array(length);
+    Uint8Array.prototype.set.call(copy, source);
+    return copy;
+  } catch (error) {
+    if (error instanceof MixtureRuntimeError) throw error;
+    throw invalid(operation, 'Bytes must be a non-detached ordinary Uint8Array');
+  }
 }
 
 function resourceBudget(operation: string, name: keyof ResourceLimits, configured: bigint, observed: bigint) {
@@ -189,13 +194,20 @@ function resourceBudget(operation: string, name: keyof ResourceLimits, configure
 }
 
 function imageBytes(value: unknown, operation: string): Uint8Array<ArrayBuffer> {
-  if (!(value instanceof Uint8Array) || Object.getPrototypeOf(value) !== Uint8Array.prototype) throw invalid(operation, 'Resource data must be an ordinary Uint8Array');
-  const buffer = bufferOf.call(value);
-  const resizable = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'resizable')?.get;
-  if (!(buffer instanceof ArrayBuffer) || (resizable && resizable.call(buffer))) throw invalid(operation, 'Resource buffers must be non-shared and non-resizable');
-  try { new Uint8Array(buffer, 0, 0); } catch { throw invalid(operation, 'Detached resource buffer'); }
-  const offset = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteOffset')!.get!.call(value);
-  return new Uint8Array(buffer, offset, byteLengthOf.call(value));
+  try {
+    if (!(value instanceof Uint8Array) || Object.getPrototypeOf(value) !== Uint8Array.prototype) throw invalid(operation, 'Resource data must be an ordinary Uint8Array');
+    const buffer = bufferOf.call(value);
+    const resizable = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'resizable')?.get;
+    if (!(buffer instanceof ArrayBuffer) || (resizable && resizable.call(buffer))) throw invalid(operation, 'Resource buffers must be non-shared and non-resizable');
+    try { new Uint8Array(buffer, 0, 0); } catch { throw invalid(operation, 'Detached resource buffer'); }
+    const offset = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteOffset')!.get!.call(value);
+    const length = byteLengthOf.call(value);
+    if (length > U32_MAX) throw invalid(operation, 'Resource byte length exceeds the wasm32 view limit');
+    return new Uint8Array(buffer, offset, length);
+  } catch (error) {
+    if (error instanceof MixtureRuntimeError) throw error;
+    throw invalid(operation, 'Resource data must be a non-detached ordinary Uint8Array');
+  }
 }
 
 function sourceLimit(operation: string, configured: bigint, observed: bigint) {
@@ -284,11 +296,21 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
       function accept(operation: string, capture: () => PreparedBinding): Promise<RenderResult> {
         if (closing) return Promise.reject(browserError(operation,'RUNTIME_DESTROYED','Runtime destruction has started'));
         if (active) return Promise.reject(browserError(operation,'RUNTIME_BUSY','This runtime already has an accepted render'));
+        // Reserve a completion token before capture can invoke caller Proxy traps.
+        let resolve!: (result: RenderResult) => void;
+        let reject!: (error: unknown) => void;
+        const accepted = new Promise<RenderResult>((done, fail) => { resolve = done; reject = fail; });
+        active = accepted;
+        const release = () => { if (active === accepted) active = null; };
         let prepared: PreparedBinding;
-        try { prepared = capture(); } catch (error) { return Promise.reject(normalizeError(operation,error)); }
-        active = Promise.resolve().then(() => low.render(prepared))
-          .catch(error => { throw normalizeError(operation,error); }).finally(() => { active = null; });
-        return active;
+        try { prepared = capture(); } catch (error) {
+          release();
+          reject(normalizeError(operation,error));
+          return accepted;
+        }
+        Promise.resolve().then(() => low.render(prepared))
+          .catch(error => { throw normalizeError(operation,error); }).finally(release).then(resolve, reject);
+        return accepted;
       }
       return Object.freeze<GpuRuntime>({ context,
         render(source, options = {}) {

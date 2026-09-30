@@ -37,6 +37,8 @@ TypeScript 捕获数据属性和字节视图，不复制像素。同步 WASM 准
 
 浏览器实现对每个所选资源只保留一份引擎拥有的紧密像素副本，低于合同的两份上限。`Uint8Array.copy_to` 直接写入 Core 目标，不构建序列化像素数组或中转 Vec。验证和捕获之间不执行 JS 回调或异步让出。随后修改、脱离像素或替换元数据不会改变已接受请求。内部 WASM 准备句柄由异步渲染消费，不从公开包暴露。成功／失败后释放每次渲染快照及 GPU 描述符；`destroy` 等待活动工作、保持幂等，返回像素继续有效。
 
+`byteLength > 0xFFFFFFFF` 的图像视图在 wasm32 传输前以 `MIX_BROWSER_INVALID_ARGUMENT` 拒绝；Rust 也在收窄前检查 JS 长度。Proxy 图像视图、Proxy 源码视图和已脱离的源码视图使用相同参数错误码。在捕获可能触发 Proxy trap 前预留 busy 槽；重入 render 返回 busy，重入 destroy 等待该预留调用结束，包括捕获失败的情形。见[运行时回归测试](../packages/runtime/test/runtime.test.mjs)。
+
 ## 验证
 
 执行 `npm ci --prefix packages/runtime --ignore-scripts`、`npm test --prefix packages/runtime`、`cargo xtask test-core`、`cargo xtask test-plan`、`cargo xtask check`，以及 M6A-03 的 Native 图像／生命周期门槛。通过 `node scripts/browser-runtime/build.mjs` 构建干净候选后执行：

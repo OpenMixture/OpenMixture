@@ -25,6 +25,8 @@ All three commands accept lower-only unsigned decimal `--package-bytes`, `--mani
 
 JSON asset envelopes use schema 1 with `operation`, `input`, `ok`, `diagnostics`, and nullable `asset`, `plan`, `render`. Pack adds `output` and `writtenBytes`; render nests the existing schema-3 rendering report, including adapter, PNG and partial-write diagnostics. JSON u64 values remain numbers; JavaScript consumers needing exact u64 values should use the browser API. Exit codes: 0 success, 1 I/O/GPU failure, 2 invalid invocation/package/request. Invocation syntax errors go to stderr as in existing commands. Core diagnostic codes/stages are preserved; package failures have stage `package` and typed evidence (including the resource override ID array).
 
+Asset input I/O failures use `MIX_IO_READ_FAILED` at stage `parse`. Asset output creation/write/flush failures use the CLI-only code `MIX_IO_WRITE_FAILED` at stage `encoding`, with `path` and `sourceMessage` evidence (exit 1); it is not a Core diagnostic code. Report paths use lossy UTF-8 display strings while filesystem operations retain the original OS paths. `pack --size 0` uses shared Core request validation and returns `MIX_COMPILE_INVALID_REQUEST` at stage `compile` (exit 2), before file reads; pre-read allocation bounds remain enforced.
+
 ## Browser bytes
 
 ```typescript
@@ -66,7 +68,7 @@ node scripts/browser-runtime/check-assets.mjs
 node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/m6b04-browser-consumer
 ```
 
-The CPU WASM verifier imports only the public built package, tests all 22 codec corpus entries and exact transfer budgets, and can accept additional archive paths after the package-directory argument for larger copy measurements. Its report is `tmp/m6b04-wasm-assets.json`. The independent browser fixture is [asset.mix](../examples/browser-consumer/public/asset.mix) with [asset.mixpack](../examples/browser-consumer/public/asset.mixpack): 65×3 raw pixels repeating `[128,37,91,255]`, authored by the CLI command above with ID `Input`. Height output must repeat `[128,128,128,255]`; package and loose plan hashes must match.
+The CPU WASM verifier imports only the public built package, tests all entries in the checked-in codec corpus and exact transfer budgets, and can accept additional archive paths after the package-directory argument for larger copy measurements. Its report is `tmp/m6b04-wasm-assets.json`. The independent browser fixture is [asset.mix](../examples/browser-consumer/public/asset.mix) with [asset.mixpack](../examples/browser-consumer/public/asset.mixpack): 65×3 raw pixels repeating `[128,37,91,255]`, authored by the CLI command above with ID `Input`. Height output must repeat `[128,128,128,255]`; package and loose plan hashes must match.
 
 Candidate browser qualification runs 15 tests, adding CPU package inspection and real WebGPU lifecycle/ownership/budget rendering. Registry 0.3.0-alpha.0 qualification retains its 13 tests because that published version has no package API. Native source and isolated archive CLI consumers author/move/inspect the asset and reject bad bytes before GPU acquisition; the existing explicit GPU consumer suite additionally verifies package pixels. Existing material gates remain required. M6B-05 still owns the full four-weight, rectangular-control, repeated-load, Native/browser package matrix and all-six-check closeout. No publication, Studio changes, node migration or platform support expansion is included.
 

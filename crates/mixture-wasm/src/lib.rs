@@ -91,13 +91,36 @@ struct ImageRequest {
     data: Uint8Array,
 }
 
-struct BrowserImage(Uint8Array);
+struct BrowserImage {
+    data: Uint8Array,
+    length: usize,
+}
+fn image_length(length: f64) -> Option<usize> {
+    (length.is_finite() && length >= 0.0 && length <= u32::MAX as f64 && length.fract() == 0.0)
+        .then_some(length as usize)
+}
+impl BrowserImage {
+    fn new(data: Uint8Array, operation: &str) -> Result<Self, JsValue> {
+        // Read the JS number before js-sys's u32 length conversion can wrap.
+        let length = Reflect::get(&data, &JsValue::from_str("byteLength"))
+            .ok()
+            .and_then(|value| value.as_f64())
+            .and_then(image_length)
+            .ok_or_else(|| {
+                invalid(
+                    operation,
+                    "Resource byte length exceeds the wasm32 view limit",
+                )
+            })?;
+        Ok(Self { data, length })
+    }
+}
 impl mixture_core::ImageData for BrowserImage {
     fn byte_len(&self) -> usize {
-        self.0.length() as usize
+        self.length
     }
     fn copy_to(&self, target: &mut [u8]) -> Result<(), mixture_core::CompileError> {
-        self.0.copy_to(target);
+        self.data.copy_to(target);
         Ok(())
     }
 }
@@ -143,15 +166,17 @@ fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<SourceInp
     let bindings: Vec<_> = wire
         .resources
         .iter()
-        .map(|image| AdapterImageBinding {
-            id: &image.id,
-            width: image.width,
-            height: image.height,
-            format: &image.format,
-            bytes_per_row: image.bytes_per_row,
-            data: BrowserImage(image.data.clone()),
+        .map(|image| {
+            Ok(AdapterImageBinding {
+                id: &image.id,
+                width: image.width,
+                height: image.height,
+                format: &image.format,
+                bytes_per_row: image.bytes_per_row,
+                data: BrowserImage::new(image.data.clone(), operation)?,
+            })
         })
-        .collect();
+        .collect::<Result<_, JsValue>>()?;
     let prepared =
         mixture_core::prepare_from(&document, &request, &bindings, &wire.resource_limits).map_err(
             |error| engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e),
@@ -437,5 +462,24 @@ impl BrowserGpu {
         if let Some(renderer) = self.renderer.take() {
             renderer.context().device().destroy();
         }
+    }
+}
+
+#[cfg(test)]
+mod image_length_tests {
+    #[test]
+    fn image_length_rejects_wasm32_wraparound() {
+        for length in [
+            4294967296.0,
+            4294967300.0,
+            -1.0,
+            1.5,
+            f64::NAN,
+            f64::INFINITY,
+        ] {
+            assert_eq!(super::image_length(length), None);
+        }
+        assert_eq!(super::image_length(4294967295.0), Some(u32::MAX as usize));
+        assert_eq!(super::image_length(0.0), Some(0));
     }
 }
