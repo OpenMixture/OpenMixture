@@ -44,6 +44,40 @@ fn read_png(path: &Path, size: [u32; 2]) -> Vec<u8> {
     bytes
 }
 
+// Retain every delivered channel and, when supplied, compare the browser PNG.
+fn save_and_compare(
+    output: &RenderOutput,
+    id: &str,
+    size: [u32; 2],
+    destination: &Path,
+    browser_directory: Option<&str>,
+) -> Vec<Value> {
+    let mut comparisons = Vec::new();
+    for c in output.channels() {
+        let filename = format!("{id}-{}.png", c.channel.as_str());
+        let file = std::fs::File::create(destination.join(&filename)).unwrap();
+        let mut encoder = png::Encoder::new(file, size[0], size[1]);
+        encoder.set_color(png::ColorType::Rgba);
+        encoder.set_depth(png::BitDepth::Eight);
+        encoder
+            .write_header()
+            .unwrap()
+            .write_image_data(c.pixels())
+            .unwrap();
+        if let Some(directory) = browser_directory {
+            let other = read_png(&Path::new(directory).join(filename), size);
+            let max = other
+                .iter()
+                .zip(c.pixels())
+                .map(|(a, b)| a.abs_diff(*b))
+                .max()
+                .unwrap();
+            comparisons.push(json!({"channel":c.channel.as_str(),"maxComponentDelta":max}));
+        }
+    }
+    comparisons
+}
+
 fn same(a: &RenderOutput, b: &RenderOutput) {
     assert_eq!(a.channels().len(), b.channels().len());
     for (a, b) in a.channels().iter().zip(b.channels()) {
@@ -241,29 +275,8 @@ fn painted_material_public_matrix() {
             controls = painted_controls::check(&mut gpu, &document, &request, &output, &contract);
         }
         drop(gpu);
-        let mut comparisons = Vec::new();
-        for c in output.channels() {
-            let filename = format!("{id}-{}.png", c.channel.as_str());
-            let file = std::fs::File::create(destination.join(&filename)).unwrap();
-            let mut encoder = png::Encoder::new(file, size[0], size[1]);
-            encoder.set_color(png::ColorType::Rgba);
-            encoder.set_depth(png::BitDepth::Eight);
-            encoder
-                .write_header()
-                .unwrap()
-                .write_image_data(c.pixels())
-                .unwrap();
-            if let Some(directory) = &browser_directory {
-                let other = read_png(&Path::new(directory).join(filename), size);
-                let max = other
-                    .iter()
-                    .zip(c.pixels())
-                    .map(|(a, b)| a.abs_diff(*b))
-                    .max()
-                    .unwrap();
-                comparisons.push(json!({"channel":c.channel.as_str(),"maxComponentDelta":max}));
-            }
-        }
+        let comparisons =
+            save_and_compare(&output, id, size, destination, browser_directory.as_deref());
 
         if let Some(browser) = &browser {
             let row = &browser["rows"][rows.len()];
@@ -290,14 +303,86 @@ fn painted_material_public_matrix() {
     assert_eq!(controls.len(), 11);
     let downsample =
         painted_quality::downsample(&default_low.unwrap(), &default_high.unwrap(), &contract);
+    let stress_cases = manifest["stress"].as_array().unwrap();
+    let mut expected_stress = Vec::new();
+    for stress in contract["stress"].as_array().unwrap() {
+        for size in stress["sizes"].as_array().unwrap() {
+            expected_stress.push((stress["id"].clone(), size.clone()));
+        }
+    }
+    assert_eq!(
+        stress_cases
+            .iter()
+            .map(|r| (r["stress"].clone(), r["request"]["size"].clone()))
+            .collect::<Vec<_>>(),
+        expected_stress
+    );
+    let mut stress_rows = Vec::new();
+    let mut stress_outputs = std::collections::BTreeMap::new();
+    let mut gpu = renderer();
+    for (index, case) in stress_cases.iter().enumerate() {
+        let id = case["id"].as_str().unwrap();
+        let size: [u32; 2] = serde_json::from_value(case["request"]["size"].clone()).unwrap();
+        let overrides = case["request"]["overrides"].clone();
+        let request = CompileRequest {
+            size,
+            outputs: vec![
+                OutputChannel::BaseColor,
+                OutputChannel::Normal,
+                OutputChannel::Roughness,
+                OutputChannel::Metallic,
+                OutputChannel::Height,
+            ],
+            overrides: serde_json::from_value(overrides.clone()).unwrap(),
+            ..Default::default()
+        };
+        let document = MaterialDocument::decode(&source, &request.limits)
+            .unwrap()
+            .into_validated(&request.limits)
+            .unwrap();
+        let plan = compile(&document, &request).unwrap();
+        assert_eq!(plan.passes().len(), 23);
+        let output = pollster::block_on(gpu.render(&plan)).unwrap();
+        same(&output, &pollster::block_on(gpu.render(&plan)).unwrap());
+        let comparisons =
+            save_and_compare(&output, id, size, destination, browser_directory.as_deref());
+        if let Some(browser) = &browser {
+            let row = &browser["stress"][index];
+            assert_eq!(row["id"], id);
+            assert_eq!(row["size"], json!(size));
+            assert_eq!(row["overrides"], overrides);
+            assert_eq!(row["planHash"], plan.hash().as_str());
+        }
+        stress_rows.push(json!({"id":id,"stress":case["stress"],"size":size,"planHash":plan.hash().as_str(),"report":output.report(),"repeatExact":true,"comparisons":comparisons}));
+        stress_outputs.insert((case["stress"].as_str().unwrap().to_owned(), size), output);
+    }
+    drop(gpu);
+    let stress_downsample: Vec<_> = contract["stress"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter_map(|stress| {
+            let name = stress["id"].as_str().unwrap().to_owned();
+            let low = stress_outputs.get(&(name.clone(), [256, 256]))?;
+            let high = stress_outputs.get(&(name.clone(), [1024, 1024]))?;
+            Some(json!({"stress":name,"channels":painted_quality::stress_downsample(low, high, &contract)}))
+        })
+        .collect();
+    assert_eq!(stress_downsample.len(), 2);
+    if let Some(browser) = &browser {
+        assert_eq!(
+            browser["stress"].as_array().unwrap().len(),
+            stress_rows.len()
+        );
+    }
     let ok = timing.len() == 2
         && timing.iter().all(|v| v["budgetPassed"] == true)
-        && rows.iter().all(|r| {
+        && rows.iter().chain(&stress_rows).all(|r| {
             r["comparisons"].as_array().unwrap().iter().all(|c| {
                 c["maxComponentDelta"].as_u64().unwrap()
                     <= contract["maxCrossRuntimeComponentError"].as_u64().unwrap()
             })
         });
-    std::fs::write(receipt, serde_json::to_vec_pretty(&json!({"ok":ok,"completed":true,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser.is_some(),"requestManifest":manifest,"rows":rows,"timing":timing,"endpointChannels":endpoint_channels,"controls":controls,"downsample":downsample,"materialAccepted":false})).unwrap()).unwrap();
+    std::fs::write(receipt, serde_json::to_vec_pretty(&json!({"ok":ok,"completed":true,"debugAssertions":cfg!(debug_assertions),"browserCompared":browser.is_some(),"requestManifest":manifest,"rows":rows,"timing":timing,"endpointChannels":endpoint_channels,"controls":controls,"downsample":downsample,"stress":stress_rows,"stressDownsample":stress_downsample,"materialAccepted":false})).unwrap()).unwrap();
     assert!(ok, "retained MAT-02 timing or parity failure");
 }

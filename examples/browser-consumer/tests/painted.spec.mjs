@@ -147,12 +147,49 @@ test('painted metal renders all frozen presets with repeat and package parity', 
     delete row.images;
     rows.push({ ...item, ...row, files });
   }
+  // Frozen stress settings: repeat and retain pixels for Native comparison only.
+  expect(manifest.stress).toHaveLength(5);
+  const stress = [];
+  for (const item of manifest.stress.map(row => ({ id: row.id, stress: row.stress, ...row.request }))) {
+    const row = await page.evaluate(async ({ source, item }) => {
+      const runtime = await window.sdk.loadRuntime();
+      const request = { size: item.size, channels: ['baseColor', 'normal', 'roughness', 'metallic', 'height'], overrides: item.overrides };
+      const gpu = await runtime.createGpu();
+      let result;
+      try {
+        result = await gpu.render(source, request);
+        const repeat = await gpu.render(source, request);
+        if (result.plan.hash !== repeat.plan.hash) throw Error('stress plan identity');
+        for (const c of result.channels) {
+          const other = repeat.channels.find(v => v.channel === c.channel);
+          if (!other || c.pixels.some((v, i) => v !== other.pixels[i])) throw Error('stress repeat pixels');
+        }
+      } finally { await gpu.destroy(); }
+      const images = [];
+      for (const c of result.channels) {
+        const canvas = document.createElement('canvas');
+        canvas.width = item.size[0]; canvas.height = item.size[1];
+        canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(c.pixels), ...item.size), 0, 0);
+        images.push({ channel: c.channel, png: canvas.toDataURL('image/png').split(',')[1],
+          sha256: [...new Uint8Array(await crypto.subtle.digest('SHA-256', c.pixels))].map(v => v.toString(16).padStart(2, '0')).join('') });
+      }
+      return { planHash: result.plan.hash, report: result.report, repeatExact: true, images };
+    }, { source, item });
+    const files = [];
+    for (const image of row.images) {
+      const name = `${item.id}-${image.channel}.png`;
+      await writeFile(testInfo.outputPath(name), Buffer.from(image.png, 'base64'));
+      files.push({ name, channel: image.channel, sha256: image.sha256 });
+    }
+    delete row.images;
+    stress.push({ ...item, ...row, files });
+  }
   expect(rows.flatMap(row => row.endpoints ?? [])).toHaveLength(60);
   expect(rows.flatMap(row => row.downsample ?? [])).toHaveLength(2);
   expect(rows.flatMap(row => row.controls)).toHaveLength(11);
   await writeFile(testInfo.outputPath('painted-browser.json'), JSON.stringify({
     ok: true, materialAccepted: false, manifest,
     packageSha256: createHash('sha256').update(Buffer.from(packageBytes)).digest('hex'),
-    browser: browser.version(), build: expectedBuild, rows,
+    browser: browser.version(), build: expectedBuild, rows, stress,
   }, (_key, value) => typeof value === 'bigint' ? value.toString() : value, 2));
 });

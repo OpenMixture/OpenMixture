@@ -62,19 +62,27 @@ export function paintedMetalMatrix() {
   })));
 }
 
+// Frozen stress settings, recorded separately from the default quality guarantee.
+export function paintedMetalStress() {
+  return plan.stress.flatMap(stress => stress.sizes.map(size => ({
+    id: `stress-${stress.id}-${size[0]}x${size[1]}`, stress: stress.id,
+    ...paintedMetalRequest(stress.controls, size),
+  })));
+}
+
 export async function writePaintedMetalRequests(destination) {
   // Refuse an existing directory so partial or previous results cannot look fresh.
   await mkdir(destination);
   const source = JSON.parse(sourceBytes);
   const ids = source.exposedParameters.map(p => p.id).sort();
-  const rows = paintedMetalMatrix();
-  for (const row of rows) assert.deepEqual(Object.keys(row.request.overrides).sort(), ids);
+  const rows = paintedMetalMatrix(), stress = paintedMetalStress();
+  for (const row of [...rows, ...stress]) assert.deepEqual(Object.keys(row.request.overrides).sort(), ids);
   await writeFile(join(destination, 'material.mix'), sourceBytes);
   const manifest = { kind: 'mat02-material-requests', recipeRevision: plan.recipeRevision, materialAccepted: false,
     sourceRevision: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
     workingTreeStatus: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }),
     sourceFile: 'material.mix', sourceSha256: hash(sourceBytes), qualificationPlanSha256: hash(planBytes),
-    builderSha256: hash(await readFile(fileURLToPath(import.meta.url))), causality: structuredClone(plan.causality), rows };
+    builderSha256: hash(await readFile(fileURLToPath(import.meta.url))), causality: structuredClone(plan.causality), rows, stress };
   await writeFile(join(destination, 'requests.json'), JSON.stringify(manifest, null, 2) + '\n');
   return manifest;
 }
@@ -82,5 +90,5 @@ export async function writePaintedMetalRequests(destination) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   assert.equal(process.argv.length, 3, 'usage: node scripts/painted-metal-requests.mjs <fresh-directory>');
   const manifest = await writePaintedMetalRequests(resolve(process.argv[2]));
-  console.log(`Prepared ${manifest.rows.length} MAT-02 requests; no pixel qualification claimed.`);
+  console.log(`Prepared ${manifest.rows.length} MAT-02 requests and ${manifest.stress.length} stress requests; no pixel qualification claimed.`);
 }
