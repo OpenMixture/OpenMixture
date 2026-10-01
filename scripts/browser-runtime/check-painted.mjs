@@ -1,6 +1,6 @@
 // Bind the complete MAT-02 public matrix to one clean browser candidate.
 import assert from 'node:assert/strict';
-import { paintedMetalMatrix } from '../painted-metal-requests.mjs';
+import { paintedMetalMatrix, paintedMetalStress } from '../painted-metal-requests.mjs';
 import { readFile, readdir, mkdir, copyFile, writeFile } from 'node:fs/promises';
 import { join, resolve, dirname } from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -52,7 +52,15 @@ for (let i = 0; i < expectedRows.length; i++) {
     }
   }
 }
-const browserDownsample = browser.rows.find(row => row.id === 'default-1024x1024').downsample;
+const expectedStress = paintedMetalStress();
+assert.deepEqual(browser.manifest.stress, expectedStress);
+assert.deepEqual(browser.stress.map(r => r.id), expectedStress.map(r => r.id));
+for (let i = 0; i < expectedStress.length; i++) {
+  assert.deepEqual(browser.stress[i].size, expectedStress[i].request.size);
+  assert.deepEqual(browser.stress[i].overrides, expectedStress[i].request.overrides);
+  assert.equal(browser.stress[i].repeatExact, true);
+}
+const browserDownsample =browser.rows.find(row => row.id === 'default-1024x1024').downsample;
 const browserControls = browser.rows.find(row => row.id === 'default-257x129').controls;
 assert.equal(browserControls.length, 11);
 assert.deepEqual(browserControls.map(row => row.control), [
@@ -76,7 +84,7 @@ await copyFile('fixtures/materials/painted-metal/material.mix', join(destination
 await writeFile(join(destination, 'comparison.json'), '{"ok":false,"completed":false}');
 await copyFile(matches[0], join(destination, 'painted-browser.json'));
 const channels = ['baseColor', 'height', 'metallic', 'normal', 'roughness'];
-for (const row of browser.rows) {
+for (const row of [...browser.rows, ...browser.stress]) {
   assert.deepEqual(row.files.map(f => f.channel).sort(), channels);
   for (const file of row.files) {
     assert.equal(file.name, `${row.id}-${file.channel}.png`);
@@ -104,12 +112,23 @@ for (const row of native.downsample) {
   assert.ok(row.componentMeanError.every(value => Number.isFinite(value) && value >= 0 && value <= 4));
 }
 for (const row of native.timing) assert.equal(row.budgetPassed, true, 'matched frozen timing budget required');
-for (const row of native.rows) {
+assert.deepEqual(native.stress.map(r => r.id), expectedStress.map(r => r.id));
+for (const row of [...native.rows, ...native.stress]) {
   assert.equal(row.comparisons.length, 5);
   for (const c of row.comparisons) assert.ok(c.maxComponentDelta <= 1);
 }
+// Stress metrics are retained measurements; failing the default metric labels scope, not success.
+assert.deepEqual(native.stressDownsample.map(row => row.stress), ['high-frequency', 'subpixel-width']);
+for (const { channels } of native.stressDownsample) {
+  assert.deepEqual(channels.map(row => row.channel), ['height', 'baseColor']);
+  for (const row of channels) {
+    assert.equal(row.limit, 4);
+    assert.ok(row.componentMeanError.length === 3 && row.componentMeanError.every(v => Number.isFinite(v) && v >= 0));
+    assert.equal(row.passesDefaultMetric, row.componentMeanError.every(v => v <= 4));
+  }
+}
 await copyFile(join(input, 'qualification.json'), join(destination, 'browser-qualification.json'));
-await writeFile(join(destination, 'comparison.json'), JSON.stringify({ ok: true, completed: true, comparisons: 140,
+await writeFile(join(destination, 'comparison.json'), JSON.stringify({ ok: true, completed: true, comparisons: 140, stressComparisons: 25,
   revision: receipt.consumerRevision, build: receipt.build,
   native: 'native/native.json', browser: 'painted-browser.json', materialAccepted: false }, null, 2));
 console.log(`Public painted-metal matrix passed: ${destination}`);

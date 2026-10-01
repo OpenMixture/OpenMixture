@@ -1,6 +1,20 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { paintedMetalRequest, paintedMetalMatrix } from './painted-metal-requests.mjs';
+import { paintedMetalRequest, paintedMetalMatrix, paintedMetalStress } from './painted-metal-requests.mjs';
+
+test('stress requests keep frozen settings separate from the default matrix', () => {
+  const stress = paintedMetalStress();
+  assert.deepEqual(stress.map(row => row.id), ['stress-high-frequency-256x256', 'stress-high-frequency-1024x1024',
+    'stress-subpixel-width-256x256', 'stress-subpixel-width-1024x1024', 'stress-subpixel-width-257x129']);
+  const ids = new Set(paintedMetalMatrix().map(row => row.id));
+  for (const row of stress) {
+    assert.ok(!ids.has(row.id));
+    assert.equal(row.controls.edgeWidth, 1);
+    assert.equal(row.controls.exposureScale, row.stress === 'high-frequency' ? 64 : 8);
+    assert.deepEqual([row.request.overrides.radiusX, row.request.overrides.radiusY], [1, 1]);
+    assert.deepEqual(row.request.channels, ['baseColor', 'metallic', 'roughness', 'height', 'normal']);
+  }
+});
 
 test('frozen seven presets, four sizes and five channels remain complete', () => {
   const matrix = paintedMetalMatrix();

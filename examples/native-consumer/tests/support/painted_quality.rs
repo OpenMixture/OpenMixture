@@ -122,6 +122,26 @@ pub(super) fn downsample(low: &RenderOutput, high: &RenderOutput, contract: &Val
     }).collect()
 }
 
+// Stress uses the default metric for measurement only; a failure is recorded as
+// outside the default quality guarantee, never as a passing default case.
+pub(super) fn stress_downsample(
+    low: &RenderOutput,
+    high: &RenderOutput,
+    contract: &Value,
+) -> Vec<Value> {
+    assert_eq!(low.report().size, [256, 256]);
+    assert_eq!(high.report().size, [1024, 1024]);
+    let limit = contract["maxDefaultDownsampleMeanError"].as_f64().unwrap();
+    [OutputChannel::Height, OutputChannel::BaseColor].into_iter().map(|channel| {
+        let error = mean_error(pixels(low, channel), pixels(high, channel), 256, 256);
+        assert!(error.iter().all(|value| value.is_finite() && *value >= 0.));
+        let passes = error.iter().all(|value| *value <= limit);
+        json!({"channel":channel.as_str(),"componentMeanError":error,"limit":limit,"passesDefaultMetric":passes,
+            "qualityScope":if passes {"measured stress passes this metric only"} else {"outside default quality guarantee"},
+            "filter":"exact 4x4 box mean of delivered RGB bytes"})
+    }).collect()
+}
+
 #[test]
 fn box_mean_preserves_fractional_samples_and_component_identity() {
     let low = [10, 20, 30, 255];
