@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-[图设计](./graph-design.json)与[资格计划](./qualification-plan.json)保留 MAT-02a 的冻结契约。两个节点现已实现，完整材质验收仍未完成。计划中的 `runtimeImplemented: false` 与 `planned-mat-02a-frozen` 是冻结时的历史状态，不代表当前实现状态。含 `$` 的配方不是运行时表达式语言，也不是 `.mix` 文档。
+[图设计](./graph-design.json)与[资格计划](./qualification-plan.json)保留 MAT-02a 的冻结契约。两个节点已实现，材质已在 main `6b82a8a` 上[于记录范围内验收通过](../../../docs/evidence/mat-02/README.zh-CN.md)；下列门槛仍是回归义务。计划中的 `runtimeImplemented: false` 与 `planned-mat-02a-frozen` 是冻结时的历史状态，不代表当前实现状态。含 `$` 的配方不是运行时表达式语言，也不是 `.mix` 文档。
 
 ## 已实现的请求准备
 

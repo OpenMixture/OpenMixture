@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "mat02-reuse-pixel-control",
+  "sourceRevision": "6b82a8a525937d8e6e4ba72972f696dee3b88d94",
+  "workingTreeClean": true,
+  "adapter": "NVIDIA GeForce GT 1030",
+  "backend": "Vulkan",
+  "size": [
+    1024,
+    1024
+  ],
+  "candidateSource": "gt1030/reuse-vulkan.json default 1K public Native outputs (material: docs/evidence/perf-mat-before/material.mix)",
+  "method": "decoded 8-bit RGBA PNG pixels compared component by component; encoder bytes differ and are not compared",
+  "correctedRetainAllControl": [
+    {
+      "channel": "baseColor",
+      "reference": "docs/evidence/levels-linear-correction/control-baseColor.png",
+      "referenceSha256": "d982a3e756b00a525c8c7854330b2ddf1e2ca10eeb8f3ea3e7a1d475fcaf75a0",
+      "candidateSha256": "c9ada21aac683e343faec9a92e9d3e98efdc7782b09fbdde148336624bcacd4b",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "height",
+      "reference": "docs/evidence/levels-linear-correction/control-height.png",
+      "referenceSha256": "ac7da45013af097c7d9249084f7e48a9490aaf9db103a682d3307fb548798f92",
+      "candidateSha256": "747c64adcfc9a99a7b2dfec88fc9a8079cc64eacb26959bffaefb080bfd52345",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "metallic",
+      "reference": "docs/evidence/levels-linear-correction/control-metallic.png",
+      "referenceSha256": "f4935ac7b27924e3f4e680c3ed2953d2394461bf712c2cb0410b3fbe42774b78",
+      "candidateSha256": "1202479918bf9e8b3e03ab695f1f015dbad3561ff93e496d78e7817223e3b92f",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "normal",
+      "reference": "docs/evidence/levels-linear-correction/control-normal.png",
+      "referenceSha256": "bf99d26fef058ac42b474654c76c126440802f629561104bedd6bc9f422e01d9",
+      "candidateSha256": "232965d85dee1d7a4b80cc778929251a496a2c8d2bb60f0cb373e93e1d91c120",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "roughness",
+      "reference": "docs/evidence/levels-linear-correction/control-roughness.png",
+      "referenceSha256": "e2b84a13fd5d9d7f25f51145a8fa23177d3da15907b1b1e7b47ed8cdd4d035e3",
+      "candidateSha256": "e242fd82f0406c542b5fecb067658e015b1a1862fdd9585eef7d7a99fecb3e1c",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    }
+  ],
+  "originalPreCorrection": [
+    {
+      "channel": "baseColor",
+      "reference": "docs/evidence/perf-mat-before/baseColor-1024.png",
+      "differingComponents": 1,
+      "maxComponentDelta": 1
+    },
+    {
+      "channel": "height",
+      "reference": "docs/evidence/perf-mat-before/height-1024.png",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "metallic",
+      "reference": "docs/evidence/perf-mat-before/metallic-1024.png",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "normal",
+      "reference": "docs/evidence/perf-mat-before/normal-1024.png",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    },
+    {
+      "channel": "roughness",
+      "reference": "docs/evidence/perf-mat-before/roughness-1024.png",
+      "differingComponents": 0,
+      "maxComponentDelta": 0
+    }
+  ],
+  "interpretation": "Exact against the gamma-one corrected retain-all control; the single baseColor component against the original pre-correction record reproduces the documented levels correction, not a storage-reuse effect. MIXTURE_REUSE_BEFORE with the original pixels therefore fails by design and was not used for this receipt.",
+  "candidatePngsRetained": false
+}

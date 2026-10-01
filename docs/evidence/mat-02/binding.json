@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "6b82a8a525937d8e6e4ba72972f696dee3b88d94",
+  "sourceClean": true,
+  "ciRun": {
+    "id": 36878078015,
+    "attempt": 1,
+    "artifact": "chromium-material-matrix",
+    "artifactBytes": 376181194
+  },
+  "localBrowserCandidate": {
+    "buildId": "sha256:16a40a921641323f60797cc46b2e70f2b12057703064d558833f86f483705678",
+    "archiveSha256": "f5faeb147faf3db31b02418129e6f85772bc168fc09de8248712e775d0f8cce8"
+  },
+  "files": {
+    "ci-6b82a8a/browser-qualification.json": "0c3c9b385f10eaee31612b5c5efb5154fed7f59d91f75dd372081f64b8b1c962",
+    "ci-6b82a8a/comparison.json": "a4c0b7d547e277e5fde4b34bebd51a0f758181328b751c2699bccae9a415e476",
+    "ci-6b82a8a/native-swiftshader.json": "1860fdd340fa11eb84ac37d598d1f2ce8ccda42ea1c7750f397d5f4d3993b9b7",
+    "gt1030/browser-matrix.json": "43b5217bc545c1d481b3053c4efffdb66148ff0e01e363ad842d17f9ac3019ee",
+    "gt1030/browser-qualification.json": "c5b873623b6c6be2cac50d389ed436d83e09c1af32b927337379422ed725bb19",
+    "gt1030/comparison-dx12.json": "49ee5a53d0a32147722bce798c6a9ac4067343f4a4e4aa8b7c2d87d8fc6bdc3b",
+    "gt1030/comparison-vulkan.json": "49ee5a53d0a32147722bce798c6a9ac4067343f4a4e4aa8b7c2d87d8fc6bdc3b",
+    "gt1030/native-dx12.json": "027c7c562d81bc958531a5093f951453221140b0d11f5b0a6d972f0b7727aec0",
+    "gt1030/native-vulkan.json": "ded723f25e6e937e93799c8b05b6eeb9e709878332b3c16736f16a3f74643589",
+    "gt1030/reuse-control.json": "031a8a5c746fd0ba29680a16b1e23c4a956e6242c0cd114ad6041c9039c69645",
+    "gt1030/reuse-dx12.json": "99c506b0f2a4cfbf6d58bf382a9b529297e9b25bbc4f4393cc0b0502c8a879b7",
+    "gt1030/reuse-vulkan.json": "44b8f589ef9818002e7e2f5ddec911e3dffce76c41903949d2d22568afaddb79",
+    "gt1030/stress/stress-high-frequency-1024x1024-baseColor.png": "82133ab9978c9825b28b10e64d286722d57356363250c98395d67f4289f2cc54",
+    "gt1030/stress/stress-high-frequency-1024x1024-height.png": "5b25b7e4edc2476e58ceadd9dd8de7e2fb8ad93496cdff555813b918d8fc69c8",
+    "gt1030/stress/stress-high-frequency-256x256-baseColor.png": "bbb25e15e34b9a3fd1d57d90f961078139f58e716356b19b04caf7490a28dc22",
+    "gt1030/stress/stress-high-frequency-256x256-height.png": "e5f32a28e0c686e93e2c7a3a4a24219d7f837e28f83e40ae99ddcb1b26864896",
+    "gt1030/stress/stress-subpixel-width-1024x1024-baseColor.png": "c48e2330626f83bee7420b5f0a3741e9097a6c1b08b97fc9eef9cf3f1eaedf21",
+    "gt1030/stress/stress-subpixel-width-1024x1024-height.png": "b9f73529984c43616a2094e587e55b618a055afc8fed6a9f311fa2c79f8b8019",
+    "gt1030/stress/stress-subpixel-width-256x256-baseColor.png": "7a99117acfb2b75eecd89aa8298fdd23e6cd3c20a239500ed4dc18b1e6b5f776",
+    "gt1030/stress/stress-subpixel-width-256x256-height.png": "9097b9fa03377090c2ce51aa9e4c89eb2537c2b6a13490ecfbc652aff7420043"
+  }
+}
