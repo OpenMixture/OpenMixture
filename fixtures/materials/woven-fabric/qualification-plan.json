@@ -1,0 +1,577 @@
+{
+  "status": "draft",
+  "frozen": false,
+  "runtimeImplemented": false,
+  "materialAccepted": false,
+  "materialId": "woven-fabric",
+  "contract": "docs/mat-03-woven-surfaces.md",
+  "channels": [
+    "baseColor",
+    "metallic",
+    "roughness",
+    "height",
+    "normal"
+  ],
+  "sizes": [
+    [
+      256,
+      256
+    ],
+    [
+      1024,
+      1024
+    ],
+    [
+      2048,
+      2048
+    ],
+    [
+      257,
+      129
+    ]
+  ],
+  "defaults": {
+    "warpCount": 8,
+    "weftCount": 8,
+    "warpWidth": 0.7,
+    "weftWidth": 0.7,
+    "bevel": 0.08,
+    "relief": 0.025,
+    "underRatio": 0.5,
+    "detailAmount": 0.03,
+    "warpSeed": 1729,
+    "weftSeed": 65537,
+    "warpColor": [
+      0.22,
+      0.08,
+      0.035,
+      1
+    ],
+    "weftColor": [
+      0.38,
+      0.23,
+      0.1,
+      1
+    ],
+    "backingColor": [
+      0.015,
+      0.012,
+      0.01,
+      1
+    ],
+    "yarnRoughness": 0.8,
+    "backingRoughness": 0.95,
+    "normalStrength": 0.5
+  },
+  "cases": [
+    {
+      "id": "plain",
+      "controls": {}
+    },
+    {
+      "id": "varied",
+      "controls": {
+        "warpCount": 12,
+        "weftCount": 8,
+        "warpWidth": 0.6,
+        "weftWidth": 0.85,
+        "detailAmount": 0.08
+      }
+    },
+    {
+      "id": "no-detail",
+      "controls": {
+        "detailAmount": 0
+      }
+    },
+    {
+      "id": "flat",
+      "controls": {
+        "relief": 0
+      }
+    },
+    {
+      "id": "warp-seed",
+      "controls": {
+        "warpSeed": 4294967295
+      }
+    },
+    {
+      "id": "weft-seed",
+      "controls": {
+        "weftSeed": 4294967295
+      }
+    },
+    {
+      "id": "combined-low",
+      "controls": {
+        "warpCount": 4,
+        "weftCount": 4,
+        "warpWidth": 0.55,
+        "weftWidth": 0.55,
+        "bevel": 0.02,
+        "underRatio": 0.25,
+        "detailAmount": 0
+      }
+    },
+    {
+      "id": "combined-high",
+      "controls": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.9,
+        "weftWidth": 0.9,
+        "bevel": 0.12,
+        "relief": 0.05,
+        "underRatio": 0.75,
+        "detailAmount": 0.1
+      }
+    }
+  ],
+  "independentControlSweeps": {
+    "size": [
+      257,
+      129
+    ],
+    "warpCount": [
+      4,
+      8,
+      32
+    ],
+    "weftCount": [
+      4,
+      8,
+      32
+    ],
+    "warpWidth": [
+      0.55,
+      0.7,
+      0.9
+    ],
+    "weftWidth": [
+      0.55,
+      0.7,
+      0.9
+    ],
+    "bevel": [
+      0.02,
+      0.08,
+      0.12
+    ],
+    "relief": [
+      0,
+      0.025,
+      0.05
+    ],
+    "underRatio": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "detailAmount": [
+      0,
+      0.03,
+      0.1
+    ],
+    "normalStrength": [
+      0,
+      0.5,
+      1
+    ],
+    "yarnRoughness": [
+      0,
+      0.8,
+      1
+    ],
+    "backingRoughness": [
+      0,
+      0.95,
+      1
+    ],
+    "warpColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ],
+    "weftColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ],
+    "backingColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ]
+  },
+  "stress": [
+    {
+      "id": "dense-thin",
+      "controls": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.55,
+        "weftWidth": 0.55
+      },
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "qualityLabel": "outside default and varied downsample guarantee; parity and repeats still required"
+    }
+  ],
+  "maxCrossRuntimeComponentError": 1,
+  "maxDefaultAndVariedDownsampleMeanError": 4,
+  "downsamplePairs": [
+    {
+      "from": [
+        1024,
+        1024
+      ],
+      "to": [
+        256,
+        256
+      ],
+      "box": 4
+    },
+    {
+      "from": [
+        2048,
+        2048
+      ],
+      "to": [
+        1024,
+        1024
+      ],
+      "box": 2
+    }
+  ],
+  "downsampleChannels": [
+    "baseColor",
+    "height"
+  ],
+  "proposedRawHalfMaxCompositionTolerance": 0.0009765625,
+  "maxPasses": 64,
+  "maxDescriptorPeakBytes": 536870912,
+  "predictedGraphPasses": 40,
+  "predictedRetainAllTextureBytes2048": 1342177280,
+  "resourceEstimateScope": "Historical retain-all texture-only arithmetic, not the governing plan-v3 budget measurement. reviewMeasurements records actual compilation: 2K rejected at observed 570426320 bytes against unchanged 536870912. No 2K GPU allocation or render occurred.",
+  "timing": {
+    "warmSamples": 5,
+    "hardware": {
+      "adapter": "NVIDIA GeForce GT 1030",
+      "backends": [
+        "vulkan",
+        "dx12"
+      ],
+      "cold1024Ms": 10000,
+      "warmMedian1024Ms": 1000,
+      "warmMedian2048Ms": 4000
+    },
+    "software": {
+      "adapter": "pinned SwiftShader",
+      "cold1024Ms": 60000,
+      "warmMedian1024Ms": 20000,
+      "warmMedian2048Ms": 80000
+    }
+  },
+  "requirements": [
+    "crossing-center-parity-and-order",
+    "continuous-thread-centers",
+    "independent-axis-width-spacing",
+    "independent-grain-seeds",
+    "finite-normalized",
+    "flat-zero-height-neutral-normal",
+    "constant-zero-metallic",
+    "raw-height-production-normal-replay-exact",
+    "unwrapped-periodic-probes",
+    "seed-repeat-exact",
+    "loose-package-exact",
+    "Native-browser-all-components-within-one",
+    "producer-bound-PBR-plane-sphere-tiling-closeup",
+    "retained-human-decision",
+    "existing-material-regressions",
+    "independent-package-consumption",
+    "six-required-checks"
+  ],
+  "freezeBlockers": [
+    "Resolve measured 2K compile-time descriptor-budget failure by recipe change or a separately scoped measured PERF-MAT slice; never raise the 536870912-byte limit",
+    "full crossing-region and odd-size Q transition probes",
+    "normal and directional-detail metrics with exact thresholds",
+    "Resolve flat-topped thread profiles and visually unresolved default directional grain; complete workload timing and remaining environment qualification",
+    "maintainer family/control/catalog review"
+  ],
+  "candidateNodes": [],
+  "evidence": {
+    "rendered": true,
+    "scope": "Two 1K Native Vulkan review renders only; material remains unimplemented as a committed fixture and unaccepted",
+    "receipt": "tmp/mat03-review-amendment/receipt.json",
+    "retention": "ignored-local-only"
+  },
+  "reviewMeasurements": {
+    "status": "review-observations-not-qualification",
+    "timestamp": "2026-10-02T07:19:01.059Z",
+    "sourceRevision": "7555c8b25558fb7a2aedd2a14adc2474b6562006",
+    "mainRevision": "5785068d8d3e49a503bfe30cb1d90d28f0bc548e",
+    "workingTreeClean": true,
+    "cli": {
+      "path": "target/native-consumer/release/mixture.exe",
+      "sha256": "fef524c3023013ff33d8605dbc4d2bab85f48f0fc56e7e2347328c0d5817fd58",
+      "buildCommand": "cargo build --release --locked -p mixture-cli --target-dir target/native-consumer"
+    },
+    "inputIdentity": {
+      "graphDesignSha256": "5f47344745d4770ec05fe70645fbd76d879654ee4224ee21d8c5317034f9ca7e",
+      "qualificationPlanSha256": "cbebfc2ee22553af96f59fddb427ba7db32a390112560ad41aca2555746cc4c0",
+      "cargoLockSha256": "230fc8833bb2a9fbf827f7dbbe2decf411fd8d1217d215efe22f02c969205fd2",
+      "resolverSha256": "43fc0a2ae06e0a898445ace7520269ea21206daa43b7af9711fa11ffac17d50e",
+      "qualificationPlanIdentityScope": "Pre-amendment plan bytes at measured sourceRevision; this amended plan was not the measured input"
+    },
+    "resolvedDocuments": {
+      "plain": {
+        "path": "tmp\\mat03-review-amendment\\plain.mix",
+        "sha256": "ec785ab015b1b15adc2b765fb7adbf8daf168047cf915182b8ef4186e6b7e6fd"
+      },
+      "varied": {
+        "path": "tmp\\mat03-review-amendment\\varied.mix",
+        "sha256": "85f5108113a542bbb0ced5a04c9a4257165e8febd9672761d72b59ec286e09fb"
+      },
+      "flat": {
+        "path": "tmp\\mat03-review-amendment\\flat.mix",
+        "sha256": "2949d52120820455df488a2baa3dfab0664d4ee9f0bb354e822d18be8cec275e"
+      },
+      "combined-low": {
+        "path": "tmp\\mat03-review-amendment\\combined-low.mix",
+        "sha256": "4c2df0bf2be08035be4d7c6098953aed7d9a70046471fc7caf1b12ca03d4f45f"
+      },
+      "combined-high": {
+        "path": "tmp\\mat03-review-amendment\\combined-high.mix",
+        "sha256": "13ecf20bd9953a1d07de6571e742ed5b2ca0d2828a26cc0eefd300637bf5c22f"
+      }
+    },
+    "commands": [
+      {
+        "id": "validate-plain",
+        "args": [
+          "validate",
+          "tmp\\mat03-review-amendment\\plain.mix",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "validate-varied",
+        "args": [
+          "validate",
+          "tmp\\mat03-review-amendment\\varied.mix",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "validate-flat",
+        "args": [
+          "validate",
+          "tmp\\mat03-review-amendment\\flat.mix",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "validate-combined-low",
+        "args": [
+          "validate",
+          "tmp\\mat03-review-amendment\\combined-low.mix",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "validate-combined-high",
+        "args": [
+          "validate",
+          "tmp\\mat03-review-amendment\\combined-high.mix",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "inspect-1024",
+        "args": [
+          "inspect",
+          "tmp\\mat03-review-amendment\\plain.mix",
+          "--plan",
+          "--size",
+          "1024",
+          "--output",
+          "baseColor,normal,roughness,metallic,height",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "inspect-2048",
+        "args": [
+          "inspect",
+          "tmp\\mat03-review-amendment\\plain.mix",
+          "--plan",
+          "--size",
+          "2048",
+          "--output",
+          "baseColor,normal,roughness,metallic,height",
+          "--json"
+        ],
+        "exitCode": 2
+      },
+      {
+        "id": "doctor",
+        "args": [
+          "doctor",
+          "--backend",
+          "vulkan",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "render-plain",
+        "args": [
+          "render",
+          "tmp\\mat03-review-amendment\\plain.mix",
+          "--size",
+          "1024",
+          "--output",
+          "baseColor,normal,roughness,metallic,height",
+          "--backend",
+          "vulkan",
+          "--out",
+          "tmp\\mat03-review-amendment\\plain-1024",
+          "--json"
+        ],
+        "exitCode": 0
+      },
+      {
+        "id": "render-varied",
+        "args": [
+          "render",
+          "tmp\\mat03-review-amendment\\varied.mix",
+          "--size",
+          "1024",
+          "--output",
+          "baseColor,normal,roughness,metallic,height",
+          "--backend",
+          "vulkan",
+          "--out",
+          "tmp\\mat03-review-amendment\\varied-1024",
+          "--json"
+        ],
+        "exitCode": 0
+      }
+    ],
+    "validation": {
+      "cases": [
+        "plain",
+        "varied",
+        "flat",
+        "combined-low",
+        "combined-high"
+      ],
+      "allPassed": true,
+      "diagnostics": []
+    },
+    "plain1024": {
+      "planVersion": 3,
+      "planHash": "sha256:d844adb388dec32d3de2187f5b18687abcfd26b45c21917ba594c25cf2618531",
+      "passCount": 40,
+      "physicalTextureCount": 16,
+      "peakBytes": 142607312,
+      "logicalTextureBytes": 335544320
+    },
+    "plain2048": {
+      "phase": "compile",
+      "rejected": true,
+      "exitCode": 2,
+      "code": "MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED",
+      "configured": 536870912,
+      "limit": "transientBytes",
+      "observed": 570426320,
+      "gpuExecuted": false,
+      "resolution": "Recipe change or separately scoped measured PERF-MAT; do not raise the limit"
+    },
+    "rendered": {
+      "cases": [
+        "plain",
+        "varied"
+      ],
+      "size": [
+        1024,
+        1024
+      ],
+      "channels": [
+        "baseColor",
+        "metallic",
+        "roughness",
+        "height",
+        "normal"
+      ],
+      "adapter": {
+        "name": "NVIDIA GeForce GT 1030",
+        "backend": "Vulkan",
+        "driver": "NVIDIA",
+        "driverInfo": "582.66"
+      },
+      "outputSha256": {
+        "plain-1024/baseColor.png": "1e5e632ec6b0a8f314f10360f9b011d386cd39ac70d7d0ba53ffe6964f9c2978",
+        "plain-1024/height.png": "ebadb5844f46eab7cdde743309d7d912b92d8538e52d52962000f36521168534",
+        "plain-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "plain-1024/normal.png": "41978060913078cb60218b344b935daa8b7b1786d68ae3150987ef90cc346a56",
+        "plain-1024/roughness.png": "8b6b36e6650c4b7487e776e8dfc5c1c9dbb590dbb81f9fe08f32e5ef71fe7e56",
+        "varied-1024/baseColor.png": "032c0487e34a3ad2b8a693d63e73005b1815e6e7585519d3cbbb13f70ec2f30f",
+        "varied-1024/height.png": "fcd1b849acb4cd4b53fff7684b696f604da635ad187a50e2bdb0f2d030609af1",
+        "varied-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "varied-1024/normal.png": "98b94afa5cecd9727c92cf258b308e110925a0ccf68d25e5d9d1502e6cb96936",
+        "varied-1024/roughness.png": "77cc3c339683f8a5b182b36afbd569ad563713c50197f40f03a8dcbb29e9ffd9"
+      }
+    },
+    "visualReview": {
+      "observer": "agent inspection of original baseColor and normal PNGs; no PBR/human acceptance",
+      "observations": [
+        "Plain over/under alternation is visible",
+        "Varied 12x8 counts and unequal widths are visible; not a complete independent-control causality test",
+        "Cross-sections read as flat-topped planks with narrow bevel edges rather than rounded yarn",
+        "Default directional grain is not visibly resolved at detailAmount=0.03 and relief=0.025"
+      ],
+      "newNodeJustified": false
+    },
+    "scopeExclusions": [
+      "Native/browser parity",
+      "DX12 and software GPU qualification",
+      "2K render",
+      "timing-budget qualification",
+      "complete structural/odd-size/normal probes",
+      "PBR/human acceptance"
+    ],
+    "retention": {
+      "directory": "tmp/mat03-review-amendment",
+      "policy": "Ignored local resolver, generated .mix documents, raw stdout/stderr, receipt and ten PNGs; not durable retained acceptance evidence. Source-bound summary retained in this draft. Reproduce from recorded source revision and documented mapping; hashes do not guarantee artifact availability."
+    }
+  }
+}
