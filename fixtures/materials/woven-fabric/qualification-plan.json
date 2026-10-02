@@ -1,0 +1,328 @@
+{
+  "status": "draft",
+  "frozen": false,
+  "runtimeImplemented": false,
+  "materialAccepted": false,
+  "materialId": "woven-fabric",
+  "contract": "docs/mat-03-woven-surfaces.md",
+  "channels": [
+    "baseColor",
+    "metallic",
+    "roughness",
+    "height",
+    "normal"
+  ],
+  "sizes": [
+    [
+      256,
+      256
+    ],
+    [
+      1024,
+      1024
+    ],
+    [
+      2048,
+      2048
+    ],
+    [
+      257,
+      129
+    ]
+  ],
+  "defaults": {
+    "warpCount": 8,
+    "weftCount": 8,
+    "warpWidth": 0.7,
+    "weftWidth": 0.7,
+    "bevel": 0.08,
+    "relief": 0.025,
+    "underRatio": 0.5,
+    "detailAmount": 0.03,
+    "warpSeed": 1729,
+    "weftSeed": 65537,
+    "warpColor": [
+      0.22,
+      0.08,
+      0.035,
+      1
+    ],
+    "weftColor": [
+      0.38,
+      0.23,
+      0.1,
+      1
+    ],
+    "backingColor": [
+      0.015,
+      0.012,
+      0.01,
+      1
+    ],
+    "yarnRoughness": 0.8,
+    "backingRoughness": 0.95,
+    "normalStrength": 0.5
+  },
+  "cases": [
+    {
+      "id": "plain",
+      "controls": {}
+    },
+    {
+      "id": "varied",
+      "controls": {
+        "warpCount": 12,
+        "weftCount": 8,
+        "warpWidth": 0.6,
+        "weftWidth": 0.85,
+        "detailAmount": 0.08
+      }
+    },
+    {
+      "id": "no-detail",
+      "controls": {
+        "detailAmount": 0
+      }
+    },
+    {
+      "id": "flat",
+      "controls": {
+        "relief": 0
+      }
+    },
+    {
+      "id": "warp-seed",
+      "controls": {
+        "warpSeed": 4294967295
+      }
+    },
+    {
+      "id": "weft-seed",
+      "controls": {
+        "weftSeed": 4294967295
+      }
+    },
+    {
+      "id": "combined-low",
+      "controls": {
+        "warpCount": 4,
+        "weftCount": 4,
+        "warpWidth": 0.55,
+        "weftWidth": 0.55,
+        "bevel": 0.02,
+        "underRatio": 0.25,
+        "detailAmount": 0
+      }
+    },
+    {
+      "id": "combined-high",
+      "controls": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.9,
+        "weftWidth": 0.9,
+        "bevel": 0.12,
+        "relief": 0.05,
+        "underRatio": 0.75,
+        "detailAmount": 0.1
+      }
+    }
+  ],
+  "independentControlSweeps": {
+    "size": [
+      257,
+      129
+    ],
+    "warpCount": [
+      4,
+      8,
+      32
+    ],
+    "weftCount": [
+      4,
+      8,
+      32
+    ],
+    "warpWidth": [
+      0.55,
+      0.7,
+      0.9
+    ],
+    "weftWidth": [
+      0.55,
+      0.7,
+      0.9
+    ],
+    "bevel": [
+      0.02,
+      0.08,
+      0.12
+    ],
+    "relief": [
+      0,
+      0.025,
+      0.05
+    ],
+    "underRatio": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "detailAmount": [
+      0,
+      0.03,
+      0.1
+    ],
+    "normalStrength": [
+      0,
+      0.5,
+      1
+    ],
+    "yarnRoughness": [
+      0,
+      0.8,
+      1
+    ],
+    "backingRoughness": [
+      0,
+      0.95,
+      1
+    ],
+    "warpColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ],
+    "weftColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ],
+    "backingColor": [
+      [
+        0.8,
+        0.1,
+        0.4,
+        1
+      ]
+    ]
+  },
+  "stress": [
+    {
+      "id": "dense-thin",
+      "controls": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.55,
+        "weftWidth": 0.55
+      },
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "qualityLabel": "outside default and varied downsample guarantee; parity and repeats still required"
+    }
+  ],
+  "maxCrossRuntimeComponentError": 1,
+  "maxDefaultAndVariedDownsampleMeanError": 4,
+  "downsamplePairs": [
+    {
+      "from": [
+        1024,
+        1024
+      ],
+      "to": [
+        256,
+        256
+      ],
+      "box": 4
+    },
+    {
+      "from": [
+        2048,
+        2048
+      ],
+      "to": [
+        1024,
+        1024
+      ],
+      "box": 2
+    }
+  ],
+  "downsampleChannels": [
+    "baseColor",
+    "height"
+  ],
+  "proposedRawHalfMaxCompositionTolerance": 0.0009765625,
+  "maxPasses": 64,
+  "maxDescriptorPeakBytes": 536870912,
+  "predictedGraphPasses": 40,
+  "predictedRetainAllTextureBytes2048": 1342177280,
+  "resourceEstimateScope": "Static full-output image estimate only; no compiled plan or measurements. Includes constant texture nodes; excludes buffers/readback/driver overhead.",
+  "timing": {
+    "warmSamples": 5,
+    "hardware": {
+      "adapter": "NVIDIA GeForce GT 1030",
+      "backends": [
+        "vulkan",
+        "dx12"
+      ],
+      "cold1024Ms": 10000,
+      "warmMedian1024Ms": 1000,
+      "warmMedian2048Ms": 4000
+    },
+    "software": {
+      "adapter": "pinned SwiftShader",
+      "cold1024Ms": 60000,
+      "warmMedian1024Ms": 20000,
+      "warmMedian2048Ms": 80000
+    }
+  },
+  "requirements": [
+    "crossing-center-parity-and-order",
+    "continuous-thread-centers",
+    "independent-axis-width-spacing",
+    "independent-grain-seeds",
+    "finite-normalized",
+    "flat-zero-height-neutral-normal",
+    "constant-zero-metallic",
+    "raw-height-production-normal-replay-exact",
+    "unwrapped-periodic-probes",
+    "seed-repeat-exact",
+    "loose-package-exact",
+    "Native-browser-all-components-within-one",
+    "producer-bound-PBR-plane-sphere-tiling-closeup",
+    "retained-human-decision",
+    "existing-material-regressions",
+    "independent-package-consumption",
+    "six-required-checks"
+  ],
+  "freezeBlockers": [
+    "source-bound existing-node feasibility renders",
+    "full crossing-region and odd-size Q transition probes",
+    "normal and directional-detail metrics with exact thresholds",
+    "approve workload budgets and environment identities",
+    "maintainer family/control/catalog review"
+  ],
+  "candidateNodes": [],
+  "evidence": {
+    "rendered": false,
+    "receipt": null
+  }
+}

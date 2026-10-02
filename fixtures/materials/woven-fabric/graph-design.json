@@ -1,0 +1,563 @@
+{
+  "status": "draft",
+  "runtimeImplemented": false,
+  "frozen": false,
+  "materialId": "woven-fabric",
+  "notes": "Design only, not executable .mix or a runtime expression language. All identities exist. Caller resolves $ parameters. No pixels measured.",
+  "controlMapping": {
+    "warpGap": "1-warpWidth",
+    "weftGap": "1-weftWidth",
+    "halfWarpCount": "warpCount/2",
+    "crossingOffsetX": "0.5/warpCount",
+    "detailMin": "1-detailAmount",
+    "underHeight": "relief*underRatio",
+    "direct": [
+      "warpCount",
+      "weftCount",
+      "bevel",
+      "relief",
+      "warpSeed",
+      "weftSeed",
+      "warpColor",
+      "weftColor",
+      "backingColor",
+      "yarnRoughness",
+      "backingRoughness",
+      "normalStrength"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "zero",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0
+      }
+    },
+    {
+      "id": "one",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 1
+      }
+    },
+    {
+      "id": "warpBrick",
+      "type": "brick-pattern",
+      "version": 1,
+      "parameters": {
+        "seed": 0,
+        "columns": "$warpCount",
+        "rows": 1,
+        "rowOffset": 0,
+        "mortarX": "$warpGap",
+        "mortarY": 0,
+        "bevel": "$bevel",
+        "variation": 0
+      }
+    },
+    {
+      "id": "warpShift",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "warpBrick.value"
+      },
+      "parameters": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": 0,
+        "offsetY": 0.5
+      }
+    },
+    {
+      "id": "warpProfileDifference",
+      "type": "scalar-subtract",
+      "version": 1,
+      "inputs": {
+        "a": "warpBrick.value",
+        "b": "warpShift.value"
+      },
+      "parameters": {}
+    },
+    {
+      "id": "warpProfileHalf",
+      "type": "scalar-blend",
+      "version": 1,
+      "inputs": {
+        "a": "warpShift.value",
+        "b": "warpProfileDifference.value"
+      },
+      "parameters": {
+        "weight": 0.5
+      }
+    },
+    {
+      "id": "warpProfile",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "warpProfileHalf.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 0.5,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "weftBrick",
+      "type": "brick-pattern",
+      "version": 1,
+      "parameters": {
+        "seed": 0,
+        "columns": 1,
+        "rows": "$weftCount",
+        "rowOffset": 0,
+        "mortarX": 0,
+        "mortarY": "$weftGap",
+        "bevel": "$bevel",
+        "variation": 0
+      }
+    },
+    {
+      "id": "weftShift",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "weftBrick.value"
+      },
+      "parameters": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": 0.5,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "weftProfileDifference",
+      "type": "scalar-subtract",
+      "version": 1,
+      "inputs": {
+        "a": "weftBrick.value",
+        "b": "weftShift.value"
+      },
+      "parameters": {}
+    },
+    {
+      "id": "weftProfileHalf",
+      "type": "scalar-blend",
+      "version": 1,
+      "inputs": {
+        "a": "weftShift.value",
+        "b": "weftProfileDifference.value"
+      },
+      "parameters": {
+        "weight": 0.5
+      }
+    },
+    {
+      "id": "weftProfile",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "weftProfileHalf.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 0.5,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "crossingBrick",
+      "type": "brick-pattern",
+      "version": 1,
+      "parameters": {
+        "seed": 0,
+        "columns": "$halfWarpCount",
+        "rows": "$weftCount",
+        "rowOffset": 0.5,
+        "mortarX": 0.45,
+        "mortarY": 0,
+        "bevel": 0.025,
+        "variation": 0
+      }
+    },
+    {
+      "id": "crossing",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "crossingBrick.value"
+      },
+      "parameters": {
+        "scaleX": 1,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": "$crossingOffsetX",
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "warpNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": "$warpSeed",
+        "scale": 2,
+        "octaves": 1,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "warpDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "warpNoise.value"
+      },
+      "parameters": {
+        "scaleX": 4,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "warpDetail",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "warpDirection.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$detailMin",
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "warpDetailed",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "zero.value",
+        "b": "warpProfile.value",
+        "mask": "warpDetail.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "warpOrder",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "crossing.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$underHeight",
+        "outputMax": "$relief"
+      }
+    },
+    {
+      "id": "warpHeight",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "zero.value",
+        "b": "warpOrder.value",
+        "mask": "warpDetailed.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "weftNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": "$weftSeed",
+        "scale": 2,
+        "octaves": 1,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "weftDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "weftNoise.value"
+      },
+      "parameters": {
+        "scaleX": 4,
+        "scaleY": 1,
+        "quarterTurns": 1,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "weftDetail",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "weftDirection.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$detailMin",
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "weftDetailed",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "zero.value",
+        "b": "weftProfile.value",
+        "mask": "weftDetail.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "weftOrder",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "crossing.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$relief",
+        "outputMax": "$underHeight"
+      }
+    },
+    {
+      "id": "weftHeight",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "zero.value",
+        "b": "weftOrder.value",
+        "mask": "weftDetailed.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "heightDifference",
+      "type": "scalar-subtract",
+      "version": 1,
+      "inputs": {
+        "a": "warpHeight.value",
+        "b": "weftHeight.value"
+      },
+      "parameters": {}
+    },
+    {
+      "id": "heightHalf",
+      "type": "scalar-blend",
+      "version": 1,
+      "inputs": {
+        "a": "weftHeight.value",
+        "b": "heightDifference.value"
+      },
+      "parameters": {
+        "weight": 0.5
+      }
+    },
+    {
+      "id": "height",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "heightHalf.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 0.5,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "backingColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": "$backingColor"
+      }
+    },
+    {
+      "id": "warpColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": "$warpColor"
+      }
+    },
+    {
+      "id": "weftColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": "$weftColor"
+      }
+    },
+    {
+      "id": "backingWarp",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "backingColor.color",
+        "b": "warpColor.color",
+        "mask": "warpProfile.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "backingWeft",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "backingColor.color",
+        "b": "weftColor.color",
+        "mask": "weftProfile.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "warpTop",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "backingWeft.color",
+        "b": "warpColor.color",
+        "mask": "warpProfile.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "weftTop",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "backingWarp.color",
+        "b": "weftColor.color",
+        "mask": "weftProfile.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "baseColor",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "weftTop.color",
+        "b": "warpTop.color",
+        "mask": "crossing.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "coverage",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "warpProfile.value",
+        "b": "one.value",
+        "mask": "weftProfile.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "roughness",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "coverage.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$backingRoughness",
+        "outputMax": "$yarnRoughness"
+      }
+    },
+    {
+      "id": "normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "inputs": {
+        "in": "height.value"
+      },
+      "parameters": {
+        "strength": "$normalStrength"
+      }
+    }
+  ],
+  "outputs": {
+    "baseColor": "baseColor.color",
+    "metallic": "zero.value",
+    "roughness": "roughness.value",
+    "height": "height.value",
+    "normal": "normal.normal"
+  },
+  "inspectionAliases": {
+    "W": "warpProfile.value",
+    "F": "weftProfile.value",
+    "Q": "crossing.value",
+    "warpHeight": "warpHeight.value",
+    "weftHeight": "weftHeight.value",
+    "coverage": "coverage.value"
+  },
+  "predictedGraphPasses": 40
+}
