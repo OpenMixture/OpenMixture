@@ -2,7 +2,7 @@
 
 [English](./README.md) | 简体中文
 
-[契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)、[图设计](./graph-design.json)及[验收计划](./qualification-plan.json)均为 **draft，未冻结**，`runtimeImplemented: false`。本切片没有可执行材质、请求构造器、编织测试命令、渲染回执或接受像素。现有节点已实现，不代表此材质已实现。`$` 值是调用方占位符，不是 `.mix` 语法或运行时表达式语言。
+[契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)、[图设计](./graph-design.json)及[验收计划](./qualification-plan.json)均为 **draft，未冻结**，`runtimeImplemented: false`。本切片不提交可执行材质、请求构造器或编织测试命令。忽略的 `tmp/` 中现有临时解析文档及两次 Native 评审渲染；它们不是接受像素或完整材质实现。现有节点已实现，不代表此材质已实现。`$` 值是调用方占位符，不是 `.mix` 语法或运行时表达式语言。
 
 ## 构造与调用方映射
 
@@ -29,8 +29,29 @@
 
 全部用例要求精确重放、包等价及 <=1/255 跨运行时分量误差。零起伏必须产生零高度和中性法线；所有用例金属度为零。契约另外要求原始高度法线重放、周期平移探针、独立轴／种子因果性及 PBR／人工评审。计划中的冻结阻碍尚未解决；建议断言不是已实现工具。
 
-2K 全保留纹理静态估计为 40×2048×2048×8 = 1,342,177,280 字节；不是 plan-v3 物理峰值，且不含缓冲区／读回／驱动开销。拟议上限为 64 passes、512 MiB 描述符峰值及计划中分别定义的硬件／软件耗时。冻结前获取真实编译器／资源／耗时测量，不启动推测性优化。
+应以复用后的实际 plan-v3 编译期峰值为准：**2K 的 570,426,320 字节超出 536,870,912（512 MiB）而失败**。此冻结阻碍必须通过配方变更或单独划定范围的实测 PERF-MAT 切片解决，绝不提高上限。历史全保留纹理算术 40×2048×2048×8 = 1,342,177,280 字节仅作背景；它不是调度后的描述符峰值，也不是冻结决定的依据。64-pass 目标和独立硬件／软件耗时目标仍为草案；本评审不验收耗时，也不实现优化。
+
+## 已复现的评审观察与命令
+
+2026-10-02 测量的干净分支为 `7555c8b25558fb7a2aedd2a14adc2474b6562006`，基于 main `5785068d8d3e49a503bfe30cb1d90d28f0bc548e`。[计划](./qualification-plan.json)的 `reviewMeasurements` 保留 release 二进制／输入哈希、修订前原始计划身份、解析文档哈希、精确 CLI 参数／退出码及输出哈希。本次修订不是被测源码。
+
+无需提交解析器即可复现：使用该源码版本的图与计划，合并默认值／用例控制，并递归应用上表参数映射。输出 `{version:1,nodes,edges}`：复制各节点 id／type／version／已解析 parameters；把设计中 `inputs` 的 `source.port` 引用转换为 `from:{nodeId:source,portId:port}` 与 `to:{nodeId:target,portId:inputName}` 边；追加 ID 为 `material` 的 `material-output@1`，将每个设计输出别名接到相应材质通道。不要在 `.mix` 保留设计专用字段或占位符。把五个解析用例写入新建的忽略目录。以下 `mixture` 指 `target/native-consumer/release/mixture.exe`；stdout JSON 与 stderr 分开保存并检查退出码：
+
+```text
+cargo build --release --locked -p mixture-cli --target-dir target/native-consumer
+mixture validate <case.mix> --json
+mixture inspect <plain.mix> --plan --size 1024 --output baseColor,normal,roughness,metallic,height --json
+mixture inspect <plain.mix> --plan --size 2048 --output baseColor,normal,roughness,metallic,height --json
+mixture doctor --backend vulkan --json
+mixture render <case.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
+```
+
+plain、varied、flat、combined-low、combined-high 全部验证通过，各零诊断（退出 0）。plain 1K 检查编译出 **40 passes、16 个物理纹理、peakBytes 142,607,312、logicalTextureBytes 335,544,320**（退出 0）。plain 2K 检查返回 **MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED**，configured **536,870,912**、observed **570,426,320**（退出 2，未执行 GPU）。成功复现预期拒绝不等于通过材质预算。
+
+plain／varied 的 1K 五通道渲染在 **NVIDIA GeForce GT 1030／Vulkan／NVIDIA 582.66** 上成功。代理观察原始 baseColor／normal 贴图，可见交替交叉及 varied 的 12×8 数量／不等宽度。横截面读作窄斜边的平顶木板；默认 detailAmount=0.03 只缩放 relief=0.025，未见清晰方向纹理。这些是决定 2 下尚未解决的质量风险，不证明缺少节点或完整独立控制因果性。本次不提新节点。
+
+临时解析器、生成图、原始输入快照、原始 JSON／stderr、回执和十张 PNG 保留在忽略的 `tmp/mat03-review-amendment/`。这是本地评审保留，不是持久接受证据；哈希标识字节但不保证可获取。未执行 PBR／人工接受、Native／浏览器一致性、DX12／软件验收、耗时门槛或完整结构／奇数尺寸探针。
 
 ## 证据与下一次评审
 
-后续冻结 PR 前先阅读契约中的五项维护者决定。首先只通过公开 Native／浏览器消费者构造并渲染既有节点可行性图，保留源码／请求／构建／适配器身份及失败结果。不能仅因配方较大便提出新节点。经证明的缺口需要单独的最小身份／ABI／版本评审。验收构建使用 `target/native-consumer`，普通输出使用忽略的 `tmp/` 或 CI artifact。按[证据政策](../../../docs/evidence-policy.zh-CN.md)保留接受图像和人工决定。本次不改变既有黄金图、清单、运行时或 Studio 内容。
+后续冻结 PR 前先阅读契约中的五项维护者决定。有限 Native 评审现已记录 2K 预算拒绝及视觉风险；解决这些问题并完成剩余公开 Native／浏览器可行性工作，保留源码／请求／构建／适配器身份及失败结果。不能仅因配方较大便提出新节点。经证明的缺口需要单独的最小身份／ABI／版本评审。验收构建使用 `target/native-consumer`，普通输出使用忽略的 `tmp/` 或 CI artifact。按[证据政策](../../../docs/evidence-policy.zh-CN.md)保留接受图像和人工决定。本次不改变既有黄金图、清单、运行时或 Studio 内容。

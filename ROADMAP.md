@@ -94,7 +94,7 @@ MAT-02/03/04 use the same contract → minimal implementation seams → material
 
 ### MAT-03a entry and stop boundary
 
-The maintainer selected MAT-03. This slice delivers only the [bounded woven contract draft](./docs/mat-03-woven-surfaces.md) and [graph/qualification drafts](./fixtures/materials/woven-fabric/README.md): plain and varied plain weave, existing-node feasibility, independent axis controls, crossing order, sampling limits, budgets and review questions. Existing composition is feasible at contract level; pixel quality is unmeasured and no new node is proposed here. A later MAT-03a PR must resolve source-bound feasibility measurements and catalog/version review before freezing the plan. Stop before node/runtime implementation, material acceptance or publication.
+The maintainer selected MAT-03. This slice delivers only the [bounded woven contract draft](./docs/mat-03-woven-surfaces.md) and [graph/qualification drafts](./fixtures/materials/woven-fabric/README.md): plain and varied plain weave, existing-node feasibility, independent axis controls, crossing order, sampling limits, budgets and review questions. Existing composition is feasible at contract level; limited Native review has reproduced a 2K compile-time budget failure and unresolved profile/grain quality risks. No new node is proposed here. A later MAT-03a PR must resolve source-bound feasibility measurements and catalog/version review before freezing the plan. Stop before node/runtime implementation, material acceptance or publication.
 
 ### Common material acceptance and ownership
 

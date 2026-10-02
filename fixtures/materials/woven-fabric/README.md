@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-The [contract](../../../docs/mat-03-woven-surfaces.md), [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) are **draft, not frozen**, with `runtimeImplemented: false`. No executable material, request builder, woven test command, render receipt or accepted pixels exist in this slice. Existing node implementations are available; that does not mean this material is implemented. `$` values are caller-side placeholders, not `.mix` syntax or a runtime expression language.
+The [contract](../../../docs/mat-03-woven-surfaces.md), [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) are **draft, not frozen**, with `runtimeImplemented: false`. No executable material, request builder or woven test command is committed in this slice. Temporary resolved documents and two Native review renders now exist under ignored `tmp/`; they are not accepted pixels or a completed material implementation. Existing node implementations are available; that does not mean this material is implemented. `$` values are caller-side placeholders, not `.mix` syntax or a runtime expression language.
 
 ## Construction and caller mapping
 
@@ -29,8 +29,29 @@ Eight base cases × four sizes × five channels give 160 channel comparisons per
 
 All cases require exact repeats, package equivalence and <=1/255 cross-runtime components. Flat relief must produce zero height and neutral normal; metallic is zero in every case. The contract also requires raw-height normal replay, periodic translation probes, independent axis/seed causality and PBR/human review. The plan's freeze blockers are unresolved; proposed assertions are not implemented tooling.
 
-The static retain-all 2K texture estimate is 40×2048×2048×8 = 1,342,177,280 bytes. It is not plan-v3 physical peak and excludes buffers/readback/driver overhead. Proposed limits are 64 passes, 512 MiB descriptor peak and the plan's separate hardware/software timing targets. Obtain real compiler/resource/timing measurements before freezing these targets; do not start speculative optimization.
+The governing measurement is the actual plan-v3 compile-time peak after reuse: **2K fails at 570,426,320 bytes against 536,870,912 (512 MiB)**. Resolve this freeze blocker through recipe change or a separately scoped measured PERF-MAT slice, never by raising the limit. The historical retain-all texture arithmetic, 40×2048×2048×8 = 1,342,177,280 bytes, is background only; it is not the scheduled descriptor peak and does not govern the freeze decision. The 64-pass target and separate hardware/software timing targets remain draft; this review does not qualify timing or implement optimization.
+
+## Reproduced review observations and commands
+
+The clean measured branch was `7555c8b25558fb7a2aedd2a14adc2474b6562006`, based on main `5785068d8d3e49a503bfe30cb1d90d28f0bc548e`, on 2026-10-02. The [plan](./qualification-plan.json) retains `reviewMeasurements`: release binary/input hashes, original pre-amendment plan identity, resolved-document hashes, exact CLI arguments/exits and output hashes. These amendments were not the measured source.
+
+To reproduce without a checked-in resolver, use that source revision's graph and plan, merge defaults/case controls and apply the mapping above recursively to parameters. Emit `{version:1,nodes,edges}`: copy each node's id/type/version/resolved parameters, convert each design `inputs` reference `source.port` to an edge `from:{nodeId:source,portId:port}` and `to:{nodeId:target,portId:inputName}`; append `material-output@1` with ID `material`, and wire every design output alias to its matching material channel. Do not leave design-only fields or placeholders in the `.mix`. Preserve the five resolved cases in a fresh ignored directory. Invoke `target/native-consumer/release/mixture.exe` as `mixture` below; keep stdout JSON separate from stderr and check exits:
+
+```text
+cargo build --release --locked -p mixture-cli --target-dir target/native-consumer
+mixture validate <case.mix> --json
+mixture inspect <plain.mix> --plan --size 1024 --output baseColor,normal,roughness,metallic,height --json
+mixture inspect <plain.mix> --plan --size 2048 --output baseColor,normal,roughness,metallic,height --json
+mixture doctor --backend vulkan --json
+mixture render <case.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
+```
+
+Validation passed for plain, varied, flat, combined-low and combined-high, each with zero diagnostics (exit 0). Plain 1K inspection compiled **40 passes, 16 physical textures, peakBytes 142,607,312 and logicalTextureBytes 335,544,320** (exit 0). Plain 2K inspection returned **MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED**, configured **536,870,912**, observed **570,426,320** (exit 2, no GPU execution). Do not treat that expected reproduction of a rejection as a material budget pass.
+
+Plain/varied 1K five-channel renders succeeded on **NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66**. Agent inspection of original baseColor/normal maps shows alternating crossings and the varied 12×8 counts/unequal widths. The cross-sections read as flat-topped planks with narrow bevel edges; default directional grain is not visibly resolved at detailAmount=0.03, which only scales relief=0.025. These are unresolved decision-2 quality risks, not proof of a missing node or full independent-control causality. No new node is proposed.
+
+The temporary resolver, generated graphs, original input snapshots, raw JSON/stderr, receipt and ten PNGs remain in ignored `tmp/mat03-review-amendment/`. This is local review retention, not durable accepted evidence; hashes identify bytes but do not ensure availability. No PBR/human acceptance, Native/browser parity, DX12/software qualification, timing gate or full structural/odd-size probe was performed.
 
 ## Evidence and next review
 
-Read the contract's five maintainer decisions before a later freeze PR. First build/render only an existing-node feasibility graph through public Native/browser consumers, preserving source/request/build/adapter identity and failures. No new-node proposal is justified merely by the recipe's size. Any demonstrated gap requires a separate minimal identity/ABI/version review. Qualification builds use `target/native-consumer`; ordinary output uses ignored `tmp/` or CI artifacts. Retain accepted images and human decisions under the [evidence policy](../../../docs/evidence-policy.md). No existing golden, manifest, runtime or Studio content changes here.
+Read the contract's five maintainer decisions before a later freeze PR. The limited Native review now records a 2K budget rejection and visual risks; resolve them and complete the remaining public Native/browser feasibility work with source/request/build/adapter identity and failures preserved. No new-node proposal is justified merely by the recipe's size. Any demonstrated gap requires a separate minimal identity/ABI/version review. Qualification builds use `target/native-consumer`; ordinary output uses ignored `tmp/` or CI artifacts. Retain accepted images and human decisions under the [evidence policy](../../../docs/evidence-policy.md). No existing golden, manifest, runtime or Studio content changes here.
