@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "completed": true,
+  "comparisons": 140,
+  "stressComparisons": 25,
+  "revision": "6b82a8a525937d8e6e4ba72972f696dee3b88d94",
+  "build": {
+    "runtimeVersion": "0.8.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.8.0",
+    "engineRevision": "6b82a8a525937d8e6e4ba72972f696dee3b88d94",
+    "engineDirty": false,
+    "buildId": "sha256:5c1af7cb25017c46df48e3729634ac1795e0e4552f102b3ef4bd74acbcf3babb"
+  },
+  "native": "native/native.json",
+  "browser": "painted-browser.json",
+  "materialAccepted": false
+}

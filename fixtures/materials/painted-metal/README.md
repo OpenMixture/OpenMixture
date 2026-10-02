@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-The [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) retain the frozen MAT-02a contract. Both node identities are now implemented; complete material acceptance remains pending. The historical plan fields `runtimeImplemented: false` and `planned-mat-02a-frozen` describe its freeze state, not current implementation. The `$` recipe is not a runtime expression language or `.mix` document.
+The [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) retain the frozen MAT-02a contract. Both node identities are implemented, and the material is [accepted within recorded scope](../../../docs/evidence/mat-02/README.md) at main `6b82a8a`; the gates below remain regression obligations. The historical plan fields `runtimeImplemented: false` and `planned-mat-02a-frozen` describe its freeze state, not current implementation. The `$` recipe is not a runtime expression language or `.mix` document.
 
 ## Implemented request preparation
 

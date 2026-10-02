@@ -2,6 +2,8 @@
 
 [English](./release.md) | 简体中文
 
+**MAT-02 已验收候选（2026-10-02）：** main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` 上未发布的 Rust 0.8.0／browser 0.8.0-alpha.0 在 [MAT-02 记录](./evidence/mat-02/README.zh-CN.md)范围内完成涂漆金属及 PERF-MAT 纹理复用验收：合并后六项检查、SwiftShader Native／Chromium 精确一致、GT 1030 Vulkan/DX12 对 Chrome 在 1/255 以内、冻结预算及保留的人工决定。它成为最新的已验收材质基线。未发布任何包；已发布浏览器 0.3.0-alpha.0 不变，验收范围仅限记录的适配器。
+
 **PERF-MAT 工作候选（2026-09-23）：** 源码清单为[单次渲染纹理复用](./perf-mat-texture-reuse.zh-CN.md)选定未发布 Rust 0.8.0／browser 0.8.0-alpha.0。Core 与 wgpu 实现一致物理槽调度；plan／hash／API 及图报告 schema 为 3。目录仍为十七种类型／十五种内核，.mix／.mixpack v1、节点语义和像素 golden 不变。消费者重编译源请求，使计划／哈希缓存失效。完整干净候选验收及涂漆金属接受仍待完成；最近已验收 MAT-01 基线为 0.6。已发布浏览器 0.3 分开处理，较早 0.7 节点证据保留原始源码／归档身份。
 
 **MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。[人工决定](./evidence/mat-01/human-decision.json)与合并后六项通过的检查完成记录的软件／GT 1030 范围内 MAT-01 验收；下方 0.5 基线保留为历史记录。未发布包，不改变格式或迁移规则。
