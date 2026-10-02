@@ -272,9 +272,9 @@
   "proposedRawHalfMaxCompositionTolerance": 0.0009765625,
   "maxPasses": 64,
   "maxDescriptorPeakBytes": 536870912,
-  "predictedGraphPasses": 45,
-  "predictedRetainAllTextureBytes2048": 1509949440,
-  "resourceEstimateScope": "Revision 2: actual plan-v3 inspections of all eight cases pass 2K at 503317600 bytes against unchanged 536870912. Retain-all logical bytes are background, not the governing peak. Historical reviewMeasurements describe revision 1 only.",
+  "predictedGraphPasses": 53,
+  "predictedRetainAllTextureBytes2048": 1778384896,
+  "resourceEstimateScope": "Revision 3: all eight cases compile at 1024 and 2048; 53 passes, 14 physical textures, peakBytes 125830464 / 503317824. Unchanged 536870912-byte ceiling. Logical retain-all bytes do not govern the peak.",
   "timing": {
     "warmSamples": 5,
     "hardware": {
@@ -314,7 +314,7 @@
     "six-required-checks"
   ],
   "freezeBlockers": [
-    "Maintainer visual acceptance of revision 2 images: rounded shoulders/remaining flat crowns and visible directional grain",
+    "Maintainer visual acceptance of revision 3 crossing dips and narrower crowns; revision 2 was NOT accepted on 2026-10-02. Residual max-join ridges, finite flat center and PBR fabric appearance remain review questions.",
     "Full crossing-region, independent-control and odd-size Q transition probes; raw-half composition and production-normal replay",
     "Default/varied downsample quality and normal/directional-detail thresholds; high-frequency stress",
     "Native/browser <=1/255, exact repeats/package equivalence, other required environments and material regressions",
@@ -323,8 +323,8 @@
   "candidateNodes": [],
   "evidence": {
     "rendered": true,
-    "scope": "Revision 2: plain/varied 1K and 2K Native Vulkan review renders only",
-    "receipt": "tmp/mat03-recipe-review/after/receipt.json",
+    "scope": "Revision 3: plain/varied 1K Native Vulkan review renders and native-resolution crossing crops only; not qualification",
+    "receipt": "tmp/mat03-recipe-review-3/after/receipt.json",
     "retention": "ignored-local-only"
   },
   "reviewMeasurements": {
@@ -574,7 +574,7 @@
       "policy": "Ignored local resolver, generated .mix documents, raw stdout/stderr, receipt and ten PNGs; not durable retained acceptance evidence. Source-bound summary retained in this draft. Reproduce from recorded source revision and documented mapping; hashes do not guarantee artifact availability."
     }
   },
-  "recipeRevision": 2,
+  "recipeRevision": 3,
   "maintainerDecisions": {
     "date": "2026-10-02",
     "decision1": {
@@ -586,7 +586,7 @@
       "approach": "Existing-node wider profile shoulders, directional grain in baseColor and roughness as well as height; no new node proposed"
     },
     "decision4": {
-      "status": "recipe-first; measured 2K compile blocker resolved for revision 2 cases",
+      "status": "recipe-first; measured 2K compile blocker remains resolved for revision 3",
       "limitBytes": 536870912,
       "engineWorkAuthorized": false,
       "rule": "No limit increase and no PERF-MAT engine work. Report a bounded measured inability only if reasonable existing-node recipe reduction cannot fit."
@@ -1203,5 +1203,1404 @@
       "scope": "Ignored local raw reports, generated graphs, resolver/search helpers, input snapshots and PNGs only; no tooling or pixels committed. Images await maintainer review, not durable accepted evidence."
     },
     "remainingScope": "No browser parity, timing qualification, PBR/human acceptance, complete stress/odd-size/causality qualification or freeze. No new node or PERF-MAT engine work."
+  },
+  "reviewMeasurementsRevision3": {
+    "date": "2026-10-02",
+    "baselineCommit": "92b0b2108f6442174119711fffcfe04914e7a6a3",
+    "engineMainRevision": "e73e2b99c85987551d11db78eb90dfbf0564100a",
+    "binding": "Same freshly built release CLI before/after; after graph bytes match the delivered graph. The measured plan snapshot precedes these annotations; defaults/cases/ranges are unchanged. Exact commands and input hashes below; raw receipts in ignored tmp.",
+    "before": {
+      "sourceRevision": "92b0b2108f6442174119711fffcfe04914e7a6a3",
+      "cliSha256": "fef524c3023013ff33d8605dbc4d2bab85f48f0fc56e7e2347328c0d5817fd58",
+      "graphSha256": "3510a69af57462aea23a3da3e6a04501294d65277808a5ba7247e219ad90b2d3",
+      "planSha256": "c1d61649b7a1c6fc44251cd47a2571108f5fc30147659d5cc06d92638714669d",
+      "resolverSha256": "92270e6675472947a2bb43789240d8680c5e7d1155335283ffdf47affdafcdc1",
+      "documents": {
+        "plain": "21acb547c1c7c285409ed1ffcb3ebd4d4099195b1468ea2ff4ee5e859fd14fa4",
+        "varied": "af6ce3865908ddaf50c0826566fa382f8a0123c4845de9f39d56770b01f0e1cc",
+        "no-detail": "a462453b0d78610dbd6cc23fbffdcb8b3433b226b3edb91065fdd1ea2317d82f",
+        "flat": "8f9cf6e59339b3ba8d7af53d740044a965dba61ed2eb433708ba6ef2d44fdfc4",
+        "warp-seed": "a3675ee4086d390a2f953eb9d823d40a91dad77c5e02702f2a2943ce190e397e",
+        "weft-seed": "0562724485195b568e4d41c7e9c3c70e2bafb86c63e0b94a08294918b2adbcdf",
+        "combined-low": "92b0c745b13e6cd1a07660006a671d5764868279aa54e01663244620a8d76c63",
+        "combined-high": "599eaea73d6f85c530181452e672e69e616d8dc468b91f78c919b23ef1ddea15"
+      },
+      "commands": [
+        {
+          "id": "validate-plain",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/plain.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-varied",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/varied.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-no-detail",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/no-detail.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-flat",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/flat.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-warp-seed",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/warp-seed.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-weft-seed",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/weft-seed.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-combined-low",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/combined-low.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-combined-high",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/before/combined-high.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-plain-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/plain.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-plain-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-3/before/plain.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-3/before/plain-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-plain-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/plain.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-varied-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/varied.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-varied-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-3/before/varied.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-3/before/varied-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-varied-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/varied.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-no-detail-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/no-detail.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-no-detail-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/no-detail.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-flat-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/flat.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-flat-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/flat.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-warp-seed-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/warp-seed.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-warp-seed-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/warp-seed.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-weft-seed-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/weft-seed.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-weft-seed-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/weft-seed.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-low-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/combined-low.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-low-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/combined-low.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-high-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/combined-high.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-high-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/before/combined-high.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "validations": {
+        "cases": [
+          "plain",
+          "varied",
+          "no-detail",
+          "flat",
+          "warp-seed",
+          "weft-seed",
+          "combined-low",
+          "combined-high"
+        ],
+        "allPassed": true,
+        "diagnostics": []
+      },
+      "inspections": {
+        "inspect-plain-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-plain-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-varied-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-varied-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-no-detail-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-no-detail-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-flat-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-flat-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-warp-seed-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-warp-seed-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-weft-seed-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-weft-seed-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-combined-low-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-combined-low-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        },
+        "inspect-combined-high-1024": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 125830240,
+          "logicalTextureBytes": 377487360
+        },
+        "inspect-combined-high-2048": {
+          "ok": true,
+          "passes": 45,
+          "physicalTextures": 14,
+          "peakBytes": 503317600,
+          "logicalTextureBytes": 1509949440
+        }
+      },
+      "renders": {
+        "render-plain-1024": {
+          "ok": true,
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n36-baseColor",
+                  "portId": "color"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-srgb",
+              "path": "tmp/mat03-recipe-review-3/before/plain-1024\\baseColor.png",
+              "writtenBytes": 282066
+            },
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n44-normal",
+                  "portId": "normal"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/plain-1024\\normal.png",
+              "writtenBytes": 307277
+            },
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n35-roughness",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/plain-1024\\roughness.png",
+              "writtenBytes": 152060
+            },
+            {
+              "channel": "metallic",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n25-zero",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/plain-1024\\metallic.png",
+              "writtenBytes": 6372
+            },
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n43-height",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/plain-1024\\height.png",
+              "writtenBytes": 17928
+            }
+          ]
+        },
+        "render-varied-1024": {
+          "ok": true,
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n36-baseColor",
+                  "portId": "color"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-srgb",
+              "path": "tmp/mat03-recipe-review-3/before/varied-1024\\baseColor.png",
+              "writtenBytes": 361231
+            },
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n44-normal",
+                  "portId": "normal"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/varied-1024\\normal.png",
+              "writtenBytes": 413346
+            },
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n35-roughness",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/varied-1024\\roughness.png",
+              "writtenBytes": 179402
+            },
+            {
+              "channel": "metallic",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n25-zero",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/varied-1024\\metallic.png",
+              "writtenBytes": 6372
+            },
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n43-height",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/before/varied-1024\\height.png",
+              "writtenBytes": 20661
+            }
+          ]
+        }
+      },
+      "pngSha256": {
+        "plain-1024/baseColor.png": "de4800855bf8b39f6d3b0856f1d91433b9355b2fb38fe354f6b09fad900c31e9",
+        "plain-1024/height.png": "35370195713b3edc1f55a21f0944e545365bb5c032293d512ec4364d5326aa00",
+        "plain-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "plain-1024/normal.png": "738a0a89e456d0755019f23f7b5b6c675493c25dd3fde00924ab5872469cd13e",
+        "plain-1024/roughness.png": "9fd351cf5ca74ef274ab68b404d96d14fec488d0be9b0d3fb007ab97f1c47ce4",
+        "varied-1024/baseColor.png": "b514454cb3c65dd2ee92dc05d11675fa6fb077326ca445124809cb8365299f56",
+        "varied-1024/height.png": "8cbd6a9e16edca3bbf34ffc004ed3fe5574a64df0245137f7c8472d59396bdf3",
+        "varied-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "varied-1024/normal.png": "b5ca095de4556e1c88674f41f112f2766799539e16fb5211ca8b4ce4bd72ad0b",
+        "varied-1024/roughness.png": "fef50a788af2ae8b31aeada36d1904e0444e7ff3fc702f5a08e193ca8940deff"
+      }
+    },
+    "after": {
+      "sourceRevision": "92b0b2108f6442174119711fffcfe04914e7a6a3",
+      "cliSha256": "fef524c3023013ff33d8605dbc4d2bab85f48f0fc56e7e2347328c0d5817fd58",
+      "graphSha256": "c80065e918b73214452df5364ab17dcb682a9805add8d133339aaba343c2fc25",
+      "planSha256": "c1d61649b7a1c6fc44251cd47a2571108f5fc30147659d5cc06d92638714669d",
+      "resolverSha256": "92270e6675472947a2bb43789240d8680c5e7d1155335283ffdf47affdafcdc1",
+      "documents": {
+        "plain": "174b805bd8cfd507aa45af0064b5372e441e22ae3ff079469196b2b98aa0dcdb",
+        "varied": "599a04ed6b07805fc74eb668d9a301340b2fea3ff0b4a81b69e984d6c0b82f9f",
+        "no-detail": "74583bc98390e2ee0910d40b9cd52e891f74ec51b2a167ba89588c8729ae779d",
+        "flat": "a3b137ccf7b683b43257582000ef77d125167375bcaa82c4027ebdf780c91943",
+        "warp-seed": "38d676fbec5f0a3683d816b3099fadc4deabcea694b35e81a5772bd96ca873e6",
+        "weft-seed": "71ce694439e0d81bef1ee10cad4633409a1f7068a7d053d599783a1982853df0",
+        "combined-low": "3f015bd046c87ea00def394b000f419b8247a0a05e6d4c72b7ddea5859bc8627",
+        "combined-high": "10b7db249efc4655254027ee8e4c17e794d3717bf8e02ee2448d4c81183eea44"
+      },
+      "commands": [
+        {
+          "id": "validate-plain",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/plain.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-varied",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/varied.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-no-detail",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/no-detail.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-flat",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/flat.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-warp-seed",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/warp-seed.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-weft-seed",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/weft-seed.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-combined-low",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/combined-low.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "validate-combined-high",
+          "args": [
+            "validate",
+            "tmp/mat03-recipe-review-3/after/combined-high.mix",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-plain-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/plain.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-plain-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-3/after/plain.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-3/after/plain-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-plain-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/plain.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-varied-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/varied.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-varied-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-3/after/varied.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-3/after/varied-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-varied-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/varied.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-no-detail-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/no-detail.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-no-detail-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/no-detail.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-flat-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/flat.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-flat-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/flat.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-warp-seed-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/warp-seed.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-warp-seed-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/warp-seed.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-weft-seed-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/weft-seed.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-weft-seed-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/weft-seed.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-low-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/combined-low.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-low-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/combined-low.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-high-1024",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/combined-high.mix",
+            "--plan",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "inspect-combined-high-2048",
+          "args": [
+            "inspect",
+            "tmp/mat03-recipe-review-3/after/combined-high.mix",
+            "--plan",
+            "--size",
+            "2048",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--json"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "validations": {
+        "cases": [
+          "plain",
+          "varied",
+          "no-detail",
+          "flat",
+          "warp-seed",
+          "weft-seed",
+          "combined-low",
+          "combined-high"
+        ],
+        "allPassed": true,
+        "diagnostics": []
+      },
+      "inspections": {
+        "inspect-plain-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-plain-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-varied-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-varied-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-no-detail-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-no-detail-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-flat-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-flat-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-warp-seed-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-warp-seed-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-weft-seed-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-weft-seed-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-combined-low-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-combined-low-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-combined-high-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-combined-high-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        }
+      },
+      "renders": {
+        "render-plain-1024": {
+          "ok": true,
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n28-baseColor",
+                  "portId": "color"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-srgb",
+              "path": "tmp/mat03-recipe-review-3/after/plain-1024\\baseColor.png",
+              "writtenBytes": 293242
+            },
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n52-normal",
+                  "portId": "normal"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/plain-1024\\normal.png",
+              "writtenBytes": 146762
+            },
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n31-roughness",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/plain-1024\\roughness.png",
+              "writtenBytes": 197043
+            },
+            {
+              "channel": "metallic",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n37-zero",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/plain-1024\\metallic.png",
+              "writtenBytes": 6372
+            },
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n51-height",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/plain-1024\\height.png",
+              "writtenBytes": 24423
+            }
+          ]
+        },
+        "render-varied-1024": {
+          "ok": true,
+          "outputs": [
+            {
+              "channel": "baseColor",
+              "kind": "color",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n28-baseColor",
+                  "portId": "color"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-srgb",
+              "path": "tmp/mat03-recipe-review-3/after/varied-1024\\baseColor.png",
+              "writtenBytes": 372337
+            },
+            {
+              "channel": "normal",
+              "kind": "normal",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n52-normal",
+                  "portId": "normal"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/varied-1024\\normal.png",
+              "writtenBytes": 276285
+            },
+            {
+              "channel": "roughness",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n31-roughness",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/varied-1024\\roughness.png",
+              "writtenBytes": 210019
+            },
+            {
+              "channel": "metallic",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n37-zero",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/varied-1024\\metallic.png",
+              "writtenBytes": 6372
+            },
+            {
+              "channel": "height",
+              "kind": "scalar",
+              "source": {
+                "source": "connected",
+                "from": {
+                  "nodeId": "n51-height",
+                  "portId": "value"
+                }
+              },
+              "size": [
+                1024,
+                1024
+              ],
+              "encoding": "rgba8-linear",
+              "path": "tmp/mat03-recipe-review-3/after/varied-1024\\height.png",
+              "writtenBytes": 35706
+            }
+          ]
+        }
+      },
+      "pngSha256": {
+        "plain-1024/baseColor.png": "6777bf8c03dfde787204252c0b1c273950c286e0018f280e4ec063d03e720c35",
+        "plain-1024/height.png": "7933cedf79bdd9dcc08b7b53f16c16b2efd748353f6652bd1bb239505a1a2f2a",
+        "plain-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "plain-1024/normal.png": "379cefaec42f77cf41094ab3a523ed4d7c4e4bd7fb2af54bbdbbdc36bb0eee8a",
+        "plain-1024/roughness.png": "82f84fa981460442fb498956a6c3e7c7479ffae30e680ea2ffce3a05dda09ed9",
+        "varied-1024/baseColor.png": "eb986b67e573f5d1ff0b64062a0f3ba0e5d751e81242e967871d86379315cecc",
+        "varied-1024/height.png": "0721a5a7d40a1c9c5dc99ca6bc9a91d6918fa246b6be8a243436921731fa01f7",
+        "varied-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "varied-1024/normal.png": "e447dca1cd1816ca0c88f6f5d577d9e416468c816fa74bc53e368437ad0b52ac",
+        "varied-1024/roughness.png": "95ec6d85cb3a0799997294da14e0779510c0a85d1cd2ea044ca192a19abec7b5"
+      }
+    },
+    "changes": [
+      "Selector brick bevel 0.025 -> 0.25; analytic crossing centers still Q=0/1",
+      "Each height profile is W or F times a narrow axial-cap-free crown: fixed transverse mortar 0.45, bevel 0.25, max of axial half-tile shifted copies, levels output 0.4..1",
+      "Remove four height-grain attenuation passes; grain remains visible in color/roughness, height and normals are now seed/detailAmount independent",
+      "No default or accepted control-range change; outer width support and counts remain controlled by original W/F; fixed numeric schedule keeps 14 textures"
+    ],
+    "visualObservations": [
+      "Original 1K normal images and crops show substantially softened straight bright/dark crossing lines and narrower crowns",
+      "Varied widths/counts and color/roughness grain remain visible; max joins still have derivative ridges and fixed crown has a small 0.05-pitch plateau, not an exact ellipse",
+      "Height PNG is intentionally unamplified and dark at relief 0.025; 8-bit height cannot establish raw-half continuity or center separation"
+    ],
+    "visualAccepted": false,
+    "qualification": false,
+    "crops": {
+      "source": "after/plain-1024/{normal,height}.png",
+      "rectangle": {
+        "x": 64,
+        "y": 64,
+        "width": 256,
+        "height": 256
+      },
+      "operation": "Native-resolution System.Drawing Bitmap.Clone; no rescale or tone adjustment",
+      "paths": [
+        "after/plain-1024/normal-crossing-256.png",
+        "after/plain-1024/height-crossing-256.png"
+      ],
+      "sha256": {
+        "normal": "f2a5d1cad3034ecd6d8e94cc0ddce4cce493016c98826d61ee380a468a55f1c8",
+        "height": "a0e10285f960778860bb4fbe1b34f01a78913ad5ab847c1b68fac1e733c4d259"
+      }
+    }
   }
 }

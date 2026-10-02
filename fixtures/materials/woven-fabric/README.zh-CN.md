@@ -1,12 +1,31 @@
-# 编织织物 — MAT-03a 配方修订 2（草案）
+# 编织织物 — MAT-03a 配方修订 3（草案）
 
 [English](./README.md) | 简体中文
 
 [契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)、[图设计](./graph-design.json)与[验收计划](./qualification-plan.json)仍为 **draft、frozen: false、runtimeImplemented: false**。决定 1 已于 2026-10-02 接受：不透明平纹加一个变化平纹，偶整数数量 4..32，宽度为间距的 0.55..0.9；无斜纹／其他组织。完整契约未冻结。维护者选择通过既有节点配方改进内存和视觉，不授权新节点或 PERF-MAT 引擎工作。
 
+### 配方修订 3 — 交叉与冠部评审（2026-10-02）
+
+维护者**未接受 92b0b21 的修订 2**。修订 3 仍为草案、未冻结，未作为合格材质实现。默认值、已接受的数量／宽度范围、运行时、节点和版本均不变。源码绑定评审采用分支基线 `92b0b2108f6442174119711fffcfe04914e7a6a3`、引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 及重新构建的 release CLI。计划的 `reviewMeasurementsRevision3` 记录精确命令、输入／二进制哈希、结果及裁剪哈希；附加记录后的计划不是被测快照。
+
+Q 的砖块 bevel 从 0.025 增至 0.25，扩展边缘过渡。每轴高度轮廓现将原始 W/F 乘以另一份消除轴向端部的冠部：横向 mortar=0.45、bevel=0.25，沿轴平移半个 tile 后按相同 max 构造合成，再通过 levels 输出 0.4..1。正下限保留原宽度支撑域和数量／间距含义。解析交叉中心两冠部均为 1，Q 仍精确交替为 0/1；上层高度为 relief，下层为 relief*underRatio，因此 relief>0 时严格分离。这是连续场结论，不是混合采样足迹／f16 像素验收声明。冠部仍有 0.05 间距宽的小平台，是更圆润而非精确椭圆。
+
+移除四个高度纹理衰减 pass，限制中间量存活并平滑高度表面。方向纹理仍驱动颜色和粗糙度，默认 detailAmount=0.08 不变；高度／法线现独立于 detailAmount 和纹理种子。后续控制隔离测试须反映该配方映射调整。既有 max 合成在两层高度相交处仍可能产生导数脊线。
+
+| 完整五通道请求（plain、varied、combined-high；其他计划用例亦相同） | Passes | 物理纹理 | peakBytes |
+|---|---:|---:|---:|
+| 修改前修订 2，1024² | 45 | 14 | 125,830,240 |
+| 修改前修订 2，2048² | 45 | 14 | 503,317,600 |
+| 修改后修订 3，1024² | 53 | 14 | 125,830,464 |
+| 修改后修订 3，2048² | 53 | 14 | 503,317,824 |
+
+前后八个用例均验证通过且无诊断，并在两个尺寸编译通过。上限仍为 64 passes 和 536,870,912 字节；2K 编译阻碍继续解除。修改后逻辑字节为 444,596,224／1,778,384,896，不是峰值依据。plain 和 varied 在 NVIDIA GeForce GT 1030／Vulkan／NVIDIA 582.66 上显式使用 `--backend vulkan` 完成 1K 渲染。本轮不宣称新的 2K 渲染或浏览器／耗时验收。
+
+观察原始法线图及原生分辨率裁剪，可见直线状交叉亮暗线明显软化，冠部变窄。变化用例的数量／宽度和颜色／粗糙度纹理仍可见。残余 max 接合脊线、小平台及最终 PBR 织物外观需要维护者判断：**视觉接受仍待定**，不提新节点。评审 `tmp/mat03-recipe-review-3/after/plain-1024/` 与 `after/varied-1024/` 中的 baseColor.png、normal.png、roughness.png、height.png。plain 目录另含 normal-crossing-256.png、height-crossing-256.png：原图矩形 x=64、y=64、width=256、height=256，无缩放或色调调整。高度因原始线性范围较小而偏暗，不是 raw-half 证据。对应基线裁剪／图像在 `before/`。解析器、报告与图像保留为忽略的本地评审输出，不是持久接受记录或提交工具。
+
 ## 配方与调用方映射
 
-修订 2 含 45 个既有节点实例和五个输出。节点 ID 的数字前缀为 Core 既有字典序就绪节点调度器建立合法顺序，仅重排 JSON 数组不会改变调度。此具体配方在增加纹理合成时将物理槽位从 16 降至 14，不是引擎优化器。复现测量时保留 ID 和引用。
+修订 3 含 53 个既有节点实例和五个输出。节点 ID 的数字前缀为 Core 既有字典序就绪节点调度器建立合法顺序，仅重排 JSON 数组不会改变调度。此具体配方在增加纹理合成时将物理槽位从 16 降至 14，不是引擎优化器。复现测量时保留 ID 和引用。
 
 将用例覆盖到默认值，按契约不变的控制范围验证，拒绝奇数数量、未知／非有限／越界控制。`$` 是调用方占位符，不是运行时表达式。解析：
 
@@ -15,20 +34,20 @@
 | warpGap、weftGap | 1-warpWidth、1-weftWidth |
 | halfWarpCount、crossingOffsetX | warpCount/2、0.5/warpCount |
 | profileBevel | 0.19+0.5*bevel；公开 bevel 0.02..0.12 映射为砖块 0.20..0.25 |
-| detailMin、underHeight | 1-detailAmount、relief*underRatio |
+| underHeight | relief*underRatio |
 | warpDark、weftDark | 相应线性颜色 RGB × (1-4*detailAmount)，alpha=1 |
 | roughnessMin | yarnRoughness*(1-2*detailAmount) |
 | 其他占位符 | 同名控制；无随机变化的轮廓／选择器仍显式使用固定零种子 |
 
-两轴轮廓保留错相砖块／max 构造。更宽 bevel 产生更圆润肩部，但不是精确圆形，宽纱线仍有部分平顶。数量独立决定间距，宽度是间距比例。Q 保留交替上下选择。
+两轴轮廓保留错相砖块／max 构造。修订 3 的高度乘以上述较窄冠部；并非精确圆形，仍有小平顶。数量独立决定间距，宽度是间距比例。Q 保留交替上下选择。
 
-默认 detailAmount 现为 0.08（原为 0.03），范围仍为 0..0.1。两份显式种子的 value-v2 噪声使用 scale 4、octaves 2、persistence 0.5，再进行 8×1 变换；纬线 quarterTurns=1。levels 将 0.3..0.7 映射为 0..1。各自纹理驱动既有高度衰减，以及从暗纱线颜色到完整颜色的 gradient-map。Q 选定纹理将纱线粗糙度在 roughnessMin 与 yarnRoughness 之间变化，再通过覆盖混合底布粗糙度。detailAmount=0 时颜色及纱线粗糙度不调制，所需种子仍保留。颜色／粗糙度控制继续隔离在对应通道，种子不移动 W/F/Q。完整公开因果性测试仍待完成。
+默认 detailAmount 现为 0.08（原为 0.03），范围仍为 0..0.1。两份显式种子的 value-v2 噪声使用 scale 4、octaves 2、persistence 0.5，再进行 8×1 变换；纬线 quarterTurns=1。levels 将 0.3..0.7 映射为 0..1。各自纹理驱动暗纱线颜色到完整颜色的 gradient-map；修订 3 的高度独立于纹理。Q 选定纹理将纱线粗糙度在 roughnessMin 与 yarnRoughness 之间变化，再通过覆盖混合底布粗糙度。detailAmount=0 时颜色及纱线粗糙度不调制，所需种子仍保留。颜色／粗糙度控制继续隔离在对应通道，种子不移动 W/F/Q。完整公开因果性测试仍待完成。
 
 观察别名包含 W/F/Q、max 前的两层高度、覆盖和两份纹理。法线使用最终存储高度，金属度保持零。所有生产像素仍由 wgpu 执行，每次 pass 使用 f32 计算及 half 存储。
 
-## 绑定源码的前后评审
+## 历史修订 1 → 2 的源码绑定评审
 
-两次运行均使用干净引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 和构建到 `target/native-consumer` 的同一 release CLI。after 图／计划是临时候选输入，哈希绑定在 `recipeIteration`；随后附加记录的计划不是被测输入。当前图字节与 after 图一致。历史 `reviewMeasurements` 继续绑定修订 1 及旧源码，不指代修订 2。
+两次运行均使用干净引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 和构建到 `target/native-consumer` 的同一 release CLI。after 图／计划是临时候选输入，哈希绑定在 `recipeIteration`；随后附加记录的计划不是被测输入。这是历史修订 2 图的记录；当前修订 3 绑定见上。历史 `reviewMeasurements` 继续绑定修订 1 及旧源码，不指代修订 2。
 
 前后八个计划用例均验证通过、零诊断。各用例完整五通道检查结果为：
 
