@@ -304,7 +304,7 @@ All twelve plan cases × four sizes upload captured raw final height through the
 
 ### Selected noise inputs and weave translation
 
-Noise inputs are production value-noise v2, scale 4, octaves 2, persistence 0.5, seeds 1729/65537/u32::MAX/0, at all four sizes. Unwrapped input origins (width,0),(0,height),(width+3,height+5) must reproduce the corresponding cyclically indexed raw-half baseline exactly; nonconstant and finite normalized baselines are required. Weave translations cover H/C/S for all twelve cases × four sizes with full-period origins (width,0),(0,height),(width,height), compared exactly against real material aliases. These are selected-input checks, not arbitrary graph or browser periodicity. Test-only origin instrumentation requires resolution of the explicit no-shader-variant scope question before implementation; production formulas, shader files and ABI remain unchanged.
+Noise inputs are production value-noise v2, scale 4, octaves 2, persistence 0.5, seeds 1729/65537/u32::MAX/0, at all four sizes. Unwrapped input origins (width,0),(0,height),(width+3,height+5) must reproduce the corresponding cyclically indexed raw-half baseline exactly; nonconstant and finite normalized baselines are required. Weave translations cover H/C/S for all twelve cases × four sizes with full-period origins (width,0),(0,height),(width,height), compared exactly against real material aliases. These are selected-input checks, not arbitrary graph or browser periodicity. The reviewer permits test-only origin instrumentation: only a uniquely matched sampling-origin expression changes in a test copy; reserved uniform words are zero at baseline. Production formulas, shader files, ABI, Core lowering and public API remain unchanged. The requested supplemental period-plus-interior weave shift is (width+3,height+5), compared against cyclically indexed graph fields; every frozen case, size, full-period shift and exact tolerance remains required.
 
 ### Stress and failure boundary
 
@@ -317,4 +317,15 @@ First commit 106546e freezes the probe contract; implementation ed6905fcbc18047e
 
 The four builder tests pass, including a hash of the frozen additive Stage B section and exact comparison of all remaining Stage A fields. Clippy, test-node weave-pattern and full Vulkan gpu-smoke pass (including the five new ignored probes, existing painted tests, Native/CLI and packaged GPU consumption). The existing clean-source release Native woven matrix passes all 51 rows and four timing gates on Vulkan. Warm medians: plain 1K/2K 183.82/791.17 ms; varied 228.61/901.08 ms. Material SHA-256 remains 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757; plan SHA-256 is 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523. Ordinary logs and matrix receipts are in ignored tmp/woven-stage-b/; this is not retained Stage D evidence.
 
-**Stage B is incomplete:** selected noise-input periodicity and weave full-period translation are frozen but unimplemented/unrun, pending the no-shader-variant versus test-only origin-instrumentation clarification. Existing node periodic tests are not a substitute for those material-specific probes. No frozen probe failed and no tolerance was relaxed. Stage C/D and material acceptance remain pending; this branch is not a Stage B acceptance claim.
+**Historical status at dd6acf5:** Stage B was incomplete; selected noise-input periodicity and weave full-period translation were frozen but unimplemented/unrun, pending instrumentation clarification. Existing node periodic tests are not a substitute for those material-specific probes. No frozen probe failed and no tolerance was relaxed. Stage C/D and material acceptance remain pending; this branch is not a Stage B acceptance claim.
+
+### Authorized periodic-input probes
+
+The reviewer resolved the instrumentation question. Both probes now have test-only implementations; results must pass before Stage B can be marked complete. The noise probe reuses the MAT-02 renderer/readback helper for the frozen four parameter sets (including combined-low seed 0). The weave probe compares every mode against raw fields from the real graph at zero origin before testing unwrapped full periods and period-plus-interior shifts. Nonconstant baselines and exact raw-half comparisons prevent vacuous success. Production shader bytes, uniform layout, lowering, recipe defaults and all plan bytes remain unchanged.
+
+```bash
+cargo test --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture
+```
+
+Full gpu-smoke discovers both ignored tests; test-node fractal-noise and test-node weave-pattern explicitly include the respective material probe.

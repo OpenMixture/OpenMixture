@@ -136,7 +136,7 @@ mixture 指 target/native-consumer/release/mixture.exe。此前修订 4 Native �
 
 ### 选定噪声输入与织纹平移
 
-噪声为生产 value-noise v2，scale 4、octaves 2、persistence 0.5，种子 1729／65537／u32::MAX／0，覆盖四尺寸。未预先取模的输入原点 (width,0)、(0,height)、(width+3,height+5) 必须精确重现对应循环索引的原始半精度基线；基线必须非恒定、有限归一化。织纹平移覆盖十二用例 × 四尺寸的 H/C/S，整周期原点 (width,0)、(0,height)、(width,height) 与真实材质别名精确比较。它们仅覆盖选定输入，不证明任意图或浏览器周期性。在实现前须解决“无着色器变体”是否允许测试专用原点观测的问题；生产公式、着色器文件及 ABI 不变。
+噪声为生产 value-noise v2，scale 4、octaves 2、persistence 0.5，种子 1729／65537／u32::MAX／0，覆盖四尺寸。未预先取模的输入原点 (width,0)、(0,height)、(width+3,height+5) 必须精确重现对应循环索引的原始半精度基线；基线必须非恒定、有限归一化。织纹平移覆盖十二用例 × 四尺寸的 H/C/S，整周期原点 (width,0)、(0,height)、(width,height) 与真实材质别名精确比较。它们仅覆盖选定输入，不证明任意图或浏览器周期性。评审者允许测试专用原点观测：只在测试副本中替换唯一匹配的采样原点表达式，基线的保留 uniform 字为零。生产公式、着色器文件、ABI、Core lowering 和公共 API 不变。按本次要求补充织纹周期加内部偏移 (width+3,height+5)，对照图场的循环索引；全部冻结用例、尺寸、整周期偏移和精确容差仍必须满足。
 
 ### 压力及失败边界
 
@@ -145,7 +145,7 @@ Dense-thin 使用原有 256²／1024²／257×129，检查 H/C/S 有限归一化
 
 ### 阶段 B 定向命令
 
-以下忽略测试由 `cargo xtask gpu-smoke` 的既有串行忽略测试选择自动运行。按上文设置 Vulkan 或 DX12 显式 GPU 环境。噪声／织纹跨周期输入实现仍待观测范围澄清。
+以下忽略测试由 `cargo xtask gpu-smoke` 的既有串行忽略测试选择自动运行。按上文设置 Vulkan 或 DX12 显式 GPU 环境。评审者已授权上述严格限定的采样原点观测。
 
 ```bash
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture
@@ -161,4 +161,15 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --
 
 四个构建器测试通过，包括冻结的新增阶段 B 节哈希及所有其余阶段 A 字段精确比较。Clippy、test-node weave-pattern、完整 Vulkan gpu-smoke 均通过（包括五个新增忽略探针、既有 painted 测试、Native／CLI 及打包 GPU 消费）。干净源码 release Native woven 矩阵在 Vulkan 上通过全部 51 行及四个耗时门槛。暖中位数：plain 1K／2K 为 183.82／791.17 ms；varied 为 228.61／901.08 ms。材质 SHA-256 仍为 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757；计划 SHA-256 为 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523。普通日志及矩阵收据位于忽略的 tmp/woven-stage-b/，不是阶段 D 保留证据。
 
-**阶段 B 尚未完成**：选定噪声输入周期性及织纹整周期平移已冻结，但未实现／运行，等待澄清“无着色器变体”是否允许测试专用原点观测。既有节点周期测试不能替代这些材质专用探针。没有冻结探针失败，也未放宽容差。C／D 及材质接受仍待完成；本分支不宣称阶段 B 验收通过。
+**dd6acf5 的历史状态**：阶段 B 当时尚未完成；选定噪声输入周期性及织纹整周期平移已冻结，但未实现／运行，等待观测范围澄清。既有节点周期测试不能替代这些材质专用探针。没有冻结探针失败，也未放宽容差。C／D 及材质接受仍待完成；本分支不宣称阶段 B 验收通过。
+
+### 已授权的周期输入探针
+
+评审者已解决观测范围问题。两个探针已有仅限测试的实现，结果全部通过后才能将阶段 B 标为完成。噪声探针复用 MAT-02 渲染／读回辅助代码，覆盖冻结的四参数集（包括 combined-low 的种子 0）。织纹探针先在零原点将各模式与真实图的原始场精确比较，再检查未预先取模的整周期及周期加内部偏移。非恒定基线和精确 raw-half 比较排除空泛通过。生产着色器字节、uniform 布局、lowering、配方默认值和计划全部字节不变。
+
+```bash
+cargo test --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture
+```
+
+完整 gpu-smoke 自动选择两个忽略测试；test-node fractal-noise 与 test-node weave-pattern 显式包含对应材质探针。

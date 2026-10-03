@@ -498,3 +498,100 @@ fn graph_gpu_woven_stress() {
         }
     }
 }
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node weave-pattern or gpu-smoke"]
+fn node_weave_pattern_gpu_woven_periodic() {
+    let (source, plan) = inputs();
+    let ctx = context();
+    let mut cache = PipelineCache::default();
+    let (production, entry) = crate::kernels::shader(mixture_core::plan::KernelId::WeavePattern);
+    let anchor = "weave_box(vec2<f32>(gid.xy),vec2<f32>(size))";
+    assert_eq!(production.matches(anchor).count(), 1);
+    // Only the origin expression changes. Reserved float words 9/10 are zero at baseline.
+    // No modulo here: the unchanged production function must establish periodicity.
+    let instrumented = production.replace(
+        anchor,
+        "weave_box(vec2<f32>(gid.xy) + params.under_padding.yz,vec2<f32>(size))",
+    );
+    let mut comparisons = 0;
+    for preset in plan["cases"].as_array().unwrap() {
+        let name = preset["id"].as_str().unwrap();
+        let c = controls(&plan, &preset["controls"]);
+        for size in sizes(&plan) {
+            let req = request(&plan, &c, size);
+            geometry(&source, &c, &req, &plan);
+            let graph = fields(&ctx, &mut cache, &source, &req);
+            for (mode, baseline) in graph.iter().enumerate() {
+                assert!(
+                    baseline.as_chunks::<8>().0.windows(2).any(|w| w[0] != w[1]),
+                    "{name} {size:?} {} constant baseline",
+                    MODES[mode]
+                );
+                let f = |key: &str| (c[key].as_f64().unwrap() as f32).to_bits();
+                for origin in [
+                    [0, 0],
+                    [size[0], 0],
+                    [0, size[1]],
+                    [size[0], size[1]],
+                    [size[0] + 3, size[1] + 5],
+                ] {
+                    let words = [
+                        c["warpCount"].as_u64().unwrap() as u32,
+                        c["weftCount"].as_u64().unwrap() as u32,
+                        mode as u32,
+                        0,
+                        f("warpWidth"),
+                        f("weftWidth"),
+                        f("bevel"),
+                        f("crown"),
+                        f("underRatio"),
+                        (origin[0] as f32).to_bits(),
+                        (origin[1] as f32).to_bits(),
+                        0,
+                    ];
+                    let bytes: Vec<_> = words.into_iter().flat_map(u32::to_le_bytes).collect();
+                    assert_eq!(bytes.len(), 48);
+                    let pixels = super::periodic_scalar_readback::render(
+                        &ctx,
+                        size,
+                        &bytes,
+                        &instrumented,
+                        entry,
+                    );
+                    for y in 0..size[1] {
+                        for x in 0..size[0] {
+                            let expected_index = (((y + origin[1]) % size[1]) * size[0]
+                                + (x + origin[0]) % size[0])
+                                as usize;
+                            let expected: [u16; 4] = std::array::from_fn(|k| {
+                                u16::from_le_bytes([
+                                    baseline[expected_index * 8 + k * 2],
+                                    baseline[expected_index * 8 + k * 2 + 1],
+                                ])
+                            });
+                            let actual = pixels[(y * size[0] + x) as usize];
+                            assert_eq!(
+                                actual,
+                                expected,
+                                "weave periodic case={name} size={size:?} mode={} origin={origin:?} pixel=({x},{y}) actual-float={:?} expected-float={:?}",
+                                MODES[mode],
+                                actual.map(|v| half::f16::from_bits(v).to_f32()),
+                                expected.map(|v| half::f16::from_bits(v).to_f32())
+                            );
+                        }
+                    }
+                    comparisons += 1;
+                    eprintln!(
+                        "woven weave periodic passed {name} {size:?} {} {origin:?}",
+                        MODES[mode]
+                    );
+                }
+            }
+        }
+    }
+    assert_eq!(comparisons, 12 * 4 * 3 * 5);
+    eprintln!(
+        "woven weave periodic completed: {comparisons} exact comparisons including zero-origin graph identity"
+    );
+}
