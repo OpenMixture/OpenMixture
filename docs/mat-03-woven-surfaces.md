@@ -4,6 +4,16 @@ English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
 Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. PR #81 is merged. This stage qualifies the public material matrix; it does not accept the material.
 
+Current material is [explicit recipe revision 2](./mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. materialAccepted=false; residual pinch remains for review.
+
+## Material-default revision: pinch metric defined before the sweep
+
+The maintainer identified revision 1's per-pixel height visibility as allowing the under yarn to win at the upper yarn's transverse edges. This is correct frozen weave-pattern@1 behavior. This experiment varies only material defaults underRatio∈[0.25,0.75] and crown∈[0,1], without changing the node, thresholds or other controls. Crown=0 remains a rounded parabola, not a flat top. This metric was defined before execution in a82db80, when revision 1 was still current.
+
+Run plain and varied at 1024² through public material.mix/CLI. Diagnostic colors alone are warpColor=[1,0,0,1], weftColor=[0,1,0,1], backingColor=[0,0,1,1], detailAmount=0; geometry is unchanged. Monotonically sRGB-encoded baseColor R/G identify actual GPU-visible warp/weft weights; no CPU height or visibility evaluator is used. At each warp-over crossing (i+j even), examine every pixel row of its full axial cell j/nWeft≤v<(j+1)/nWeft. The denominator is the pixel width of that warp's fixed half-occupancy core: abs(fract(u*nWarp)-0.5)≤(warpWidth-bevel)/2. The numerator counts pixels in that core with R>G; ties do not win visibility. At weft-over crossings (odd), transpose the measurement: columns, G>R, weftWidth/weftCount core. Report min/median/max over all scanlines in the tile, plus crossing and scanline counts; exclude neither crossing centers nor segment ends. The half-occupancy core excludes fixed antialiasing edges; it does not establish an unchanged full yarn silhouette.
+
+Selection target: maximize the minimum of the four plain/varied × warp/weft groups within the allowed range, and at least halve each preset's worst width deficit 1-min. Report medians and residual pinch; numerical improvement is not complete elimination or human acceptance. An ideal straight side scores 1. Coarse grid: underRatio={0.25,0.5,0.75} × crown={0,0.25,0.5,0.75,1}, including original 0.5/0.5. Retain true-color baseColor/normal/height for finalists with co-located native-resolution 256² crops. Keep relief=0.025 and normalStrength=0.5; inspect height/normal for a readable dip instead of reducing normal strength to hide the contour. Outputs and uncommitted sweep/crop tools live in ignored tmp/mat03-revision/.
+
 ## Stage A source-bound local observations
 
 The public matrix passed at clean commit **69fb6074477f3c156e775779cb0a3770cef5189a**. This result-only update changes records, not the frozen recipe, controls, cases or gates. Plan reviewMeasurements binds the measured plan/source/builder SHA-256 and browser buildId; later metadata is not the tested snapshot. The earlier standalone Vulkan run used 9d0ddad with the same graph/gates; the table uses the final 69fb607 comparison run.

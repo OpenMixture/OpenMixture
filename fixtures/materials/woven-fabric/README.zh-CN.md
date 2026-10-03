@@ -6,6 +6,8 @@
 
 [分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：A 为本 PR 的公开 Native／浏览器矩阵；B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定，D 证据保留与接受记录，均另开 PR。本矩阵不构成结构、PBR 或人工接受。
 
+当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。materialAccepted=false，残余收窄仍待评审。
+
 ## 阶段 A 绑定源码的本地观测
 
 干净提交 **69fb6074477f3c156e775779cb0a3770cef5189a** 的公开矩阵通过；本结果提交只更新记录，不更改冻结配方、控制、用例或门槛。计划 reviewMeasurements 绑定实测计划／源图／构建器 SHA-256 及浏览器 buildId；后续元数据不能冒充该次执行。早期 Vulkan 独立运行绑定 9d0ddad，同一图及门槛；下表采用 69fb607 的最终对比运行。
@@ -39,7 +41,7 @@ Chrome **154.0.8037.98** 干净候选通过 **23** 项测试（woven 51 行）�
 | weftWidth | 0.7 | 0.55..0.9 | warpshare_weftWidth → n06-weave-warp-share.weftWidth; coverage_weftWidth → n09-weave-coverage.weftWidth; height_weftWidth → n17-weave-height.weftWidth |
 | bevel | 0.08 | 0.02..0.12 | warpshare_bevel → n06-weave-warp-share.bevel; coverage_bevel → n09-weave-coverage.bevel; height_bevel → n17-weave-height.bevel |
 | relief | 0.025 | 0..0.05 | relief → n18-surfaceHeight.outputMax |
-| underRatio | 0.5 | 0.25..0.75 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
+| underRatio | 0.25 | 0.25..0.75 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
 | detailAmount | 0.08 | 0..0.1 | warpDark = warpColor.rgb*(1-4*d); weftDark = weftColor.rgb*(1-4*d); roughnessMin = yarnRoughness*(1-2*d) |
 | warpSeed | 1729 | 0..4294967295（整数） | warpSeed → n03-warpNoise.seed |
 | weftSeed | 65537 | 0..4294967295（整数） | weftSeed → n00-weftNoise.seed |
@@ -49,7 +51,7 @@ Chrome **154.0.8037.98** 干净候选通过 **23** 项测试（woven 51 行）�
 | yarnRoughness | 0.8 | 0..1 | yarnRoughness → n14-yarnRoughness.outputMax |
 | backingRoughness | 0.95 | 0..1 | backingRoughness → n15-backingRoughness.value |
 | normalStrength | 0.5 | 0..1 | normalStrength → n20-normal.strength |
-| crown | 0.5 | 0..1 | warpshare_crown → n06-weave-warp-share.crown; coverage_crown → n09-weave-coverage.crown; height_crown → n17-weave-height.crown |
+| crown | 0 | 0..1 | warpshare_crown → n06-weave-warp-share.crown; coverage_crown → n09-weave-coverage.crown; height_crown → n17-weave-height.crown |
 
 ## 重现及门槛
 

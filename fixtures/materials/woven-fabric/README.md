@@ -6,6 +6,8 @@ The material plan is frozen and the node is implemented; **materialAccepted=fals
 
 The [staged plan](../../../docs/mat-03-woven-surfaces.md) scopes this PR to A, the public Native/browser matrix. B raw-half/structural/periodic/normal-replay/stress probes, C dielectric PBR/human decision and D retained evidence/acceptance each require later PRs. This matrix does not establish structural, PBR or human acceptance.
 
+Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. materialAccepted=false; residual pinch remains for review.
+
 ## Stage A source-bound local observations
 
 The public matrix passed at clean commit **69fb6074477f3c156e775779cb0a3770cef5189a**. This result-only update changes records, not the frozen recipe, controls, cases or gates. Plan reviewMeasurements binds the measured plan/source/builder SHA-256 and browser buildId; later metadata is not the tested snapshot. The earlier standalone Vulkan run used 9d0ddad with the same graph/gates; the table uses the final 69fb607 comparison run.
@@ -39,7 +41,7 @@ The [request builder](../../../scripts/woven-fabric-requests.mjs) validates and 
 | weftWidth | 0.7 | 0.55..0.9 | warpshare_weftWidth → n06-weave-warp-share.weftWidth; coverage_weftWidth → n09-weave-coverage.weftWidth; height_weftWidth → n17-weave-height.weftWidth |
 | bevel | 0.08 | 0.02..0.12 | warpshare_bevel → n06-weave-warp-share.bevel; coverage_bevel → n09-weave-coverage.bevel; height_bevel → n17-weave-height.bevel |
 | relief | 0.025 | 0..0.05 | relief → n18-surfaceHeight.outputMax |
-| underRatio | 0.5 | 0.25..0.75 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
+| underRatio | 0.25 | 0.25..0.75 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
 | detailAmount | 0.08 | 0..0.1 | warpDark = warpColor.rgb*(1-4*d); weftDark = weftColor.rgb*(1-4*d); roughnessMin = yarnRoughness*(1-2*d) |
 | warpSeed | 1729 | 0..4294967295 (integer) | warpSeed → n03-warpNoise.seed |
 | weftSeed | 65537 | 0..4294967295 (integer) | weftSeed → n00-weftNoise.seed |
@@ -49,7 +51,7 @@ The [request builder](../../../scripts/woven-fabric-requests.mjs) validates and 
 | yarnRoughness | 0.8 | 0..1 | yarnRoughness → n14-yarnRoughness.outputMax |
 | backingRoughness | 0.95 | 0..1 | backingRoughness → n15-backingRoughness.value |
 | normalStrength | 0.5 | 0..1 | normalStrength → n20-normal.strength |
-| crown | 0.5 | 0..1 | warpshare_crown → n06-weave-warp-share.crown; coverage_crown → n09-weave-coverage.crown; height_crown → n17-weave-height.crown |
+| crown | 0 | 0..1 | warpshare_crown → n06-weave-warp-share.crown; coverage_crown → n09-weave-coverage.crown; height_crown → n17-weave-height.crown |
 
 ## Reproduction and gates
 
