@@ -44,8 +44,8 @@ $env:MIXTURE_GPU_BACKEND='vulkan' # repeat separately with dx12
 $env:MIXTURE_GPU_SOFTWARE='0'
 $env:MIXTURE_GPU_EXPECT_ADAPTER='NVIDIA GeForce GT 1030'
 $env:MIXTURE_WOVEN_ROOT=(Get-Location).Path
-$env:MIXTURE_WOVEN_REQUESTS='tmp/woven-matrix/requests'
-$env:MIXTURE_WOVEN_EVIDENCE='tmp/woven-matrix/native-vulkan'
+$env:MIXTURE_WOVEN_REQUESTS=(Join-Path (Get-Location).Path 'tmp/woven-matrix/requests')
+$env:MIXTURE_WOVEN_EVIDENCE=(Join-Path (Get-Location).Path 'tmp/woven-matrix/native-vulkan')
 cargo test --release --locked --all-features --manifest-path examples/native-consumer/Cargo.toml --target-dir target/native-consumer --test woven_material -- --ignored --nocapture
 $env:MIXTURE_BROWSER_CHANNEL='chrome'
 node scripts/browser-runtime/build.mjs

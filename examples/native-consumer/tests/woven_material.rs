@@ -87,7 +87,9 @@ fn same(a: &RenderOutput, b: &RenderOutput) {
 #[test]
 #[ignore = "requires release GPU and fresh MAT-03 evidence directory"]
 fn woven_material_public_matrix() {
-    assert!(!cfg!(debug_assertions), "timings require release mode");
+    if cfg!(debug_assertions) {
+        panic!("timings require release mode");
+    }
     let root = std::env::var("MIXTURE_WOVEN_ROOT").unwrap();
     let inputs = std::env::var("MIXTURE_WOVEN_REQUESTS").unwrap();
     let destination = std::env::var("MIXTURE_WOVEN_EVIDENCE").unwrap();
