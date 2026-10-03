@@ -4,6 +4,12 @@
 
 状态：**draft，未冻结；runtimeImplemented: false；materialAccepted: false**。当前仅为 MAT-03a 契约设计：保留四轮既有节点的绑定源码发现，并提出最小 weave-pattern@1 供目录／版本评审。维护者已要求改变方向，但未批准节点、冻结或实现。决定 1 的家族／控制域仍已接受。[路线图](../ROADMAP.zh-CN.md)、[夹具指南](../fixtures/materials/woven-fabric/README.zh-CN.md)和[计划](../fixtures/materials/woven-fabric/qualification-plan.json)区分保留的修订 4 基线与未实现的[提案图](../fixtures/materials/woven-fabric/graph-proposal.json)。
 
+## 已批准的节点冻结与实现范围
+
+维护者于 2026-10-03 对 PR #80（eb3ea30）批准 (a) 四轮有界失败足以支持一个节点；(b) weave-pattern@1 无输入、单个 value: Scalar 输出、height/coverage/warp-share 模式；(c) 下文提案的全部公式、采样、48 字节 ABI、crown=0.5、underRatio=0.5 及材质候选 relief=0.025；(d) 18 类型／16 内核及未发布 Rust 0.9.0／浏览器 0.9.0-alpha.0，文档／包 v1 与 plan/API v3 不变；(f) 本 PR 首个仅文档提交冻结节点契约和[节点验收用例](./weave-pattern-acceptance.zh-CN.md)，随后实现。
+
+**节点契约已冻结**：下文“提议 weave-pattern@1”中的端口、参数、解析公式、采样及 ABI 是获批的规范，不再等待目录评审。其历史提案措辞保留来源背景，以本节决定为准。**材质契约、图及验收计划仍为草案，未冻结、未实现、未接受**。材质结构矩阵、PBR／人工验收另开 PR；不得将节点验收等同材质验收。
+
 ## 材质简述与坐标
 
 一个不透明介电织物家族：规则平纹，以及具有不同轴密度／宽度、两种纱线颜色和显式种子纵向纹理的变化平纹。“变化”仍使用同一种交替组织，不是斜纹或第二套编织目录。经线沿图像 v（纵向），纬线沿 u（横向）；原点左上，u 向右、v 向下。一个归一化 UV 瓦片沿两轴重复。经纬数量均为偶数，以保持交叉相位周期。数量决定中心间距（1/count），宽度另以对应轴间距的比例控制。不承诺物理毫米或网格密度。

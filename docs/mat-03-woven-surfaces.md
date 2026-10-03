@@ -4,6 +4,12 @@ English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
 Status: **draft, not frozen; runtimeImplemented: false; materialAccepted: false**. Only MAT-03a contract design is active: retain four source-bound existing-node rounds and propose minimal weave-pattern@1 for catalog/version review. The maintainer requested a direction change, not node approval, freezing or implementation. Decision 1 family/control scope remains accepted. The [roadmap](../ROADMAP.md), [fixture guide](../fixtures/materials/woven-fabric/README.md) and [plan](../fixtures/materials/woven-fabric/qualification-plan.json) distinguish the retained revision-4 baseline from the unimplemented [proposal graph](../fixtures/materials/woven-fabric/graph-proposal.json).
 
+## Approved node freeze and implementation scope
+
+On 2026-10-03 the maintainer approved PR #80 (eb3ea30) decisions (a) the four bounded failures justify one node; (b) weave-pattern@1 with no inputs, one value: Scalar output and height/coverage/warp-share modes; (c) all formulas, sampling and the 48-byte ABI below, crown=0.5, underRatio=0.5 and candidate material relief=0.025; (d) 18 types / 16 kernels and unpublished Rust 0.9.0 / browser 0.9.0-alpha.0, unchanged document/package v1 and plan/API v3; (f) this PR's first, docs-only commit freezes the node contract and [node acceptance cases](./weave-pattern-acceptance.md), before implementation commits.
+
+**The node contract is frozen**: ports, parameters, analytical formulas, sampling and ABI under “Proposed weave-pattern@1” below are approved normative requirements, no longer pending catalog review. Historical proposal wording is retained for provenance and superseded by this decision. **The material contract, graphs and qualification plan remain draft, unfrozen, unimplemented and unaccepted**. The material structural matrix and PBR/human qualification belong to a later PR; node acceptance cannot substitute for them.
+
 ## Material brief and coordinates
 
 One opaque, dielectric woven-fabric family: a regular plain weave and a varied plain weave with unequal axis densities/widths, two yarn colors and seeded longitudinal grain. “Varied” retains the same alternating weave, not twill or a second weave catalog. Warp runs along image v (vertical), weft along u (horizontal); origin is top left, u right, v down. One normalized UV tile repeats on both axes. Even warp/weft counts preserve alternating crossing phase. Counts determine center spacing (1/count); width is a separate fraction of that axis's spacing. No physical millimeter or mesh-density promise is made.
