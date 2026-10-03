@@ -1,57 +1,42 @@
-# Woven fabric — MAT-03a draft design
+# Woven fabric — MAT-03a findings and node proposal (draft)
 
 English | [简体中文](./README.zh-CN.md)
 
-The [contract](../../../docs/mat-03-woven-surfaces.md), [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) are **draft, not frozen**, with `runtimeImplemented: false`. No executable material, request builder or woven test command is committed in this slice. Temporary resolved documents and two Native review renders now exist under ignored `tmp/`; they are not accepted pixels or a completed material implementation. Existing node implementations are available; that does not mean this material is implemented. `$` values are caller-side placeholders, not `.mix` syntax or a runtime expression language.
+The maintainer changed direction after reviewing recipe revision 4 at ca2e98b on 2026-10-03. Four existing-node rounds traded flat crowns/grain, crossing seams, channel mismatch and bone/quilted shapes for aligned but disconnected-looking capsules. The [contract](../../../docs/mat-03-woven-surfaces.md) records bounded findings and the analytical node proposal; this is not proof of impossibility and does not authorize implementation. **draft, frozen: false, runtimeImplemented: false, materialAccepted: false** remain in force.
 
-## Construction and caller mapping
+## Keep the baseline separate from the proposal
 
-The recipe lists all 40 node instances in dependency order, exact type/version identities, inputs and five output aliases. It uses only current catalog nodes. The contract explains why direct checker/brick/morphology attempts are insufficient and how existing composition can address them; it does not prove rendered quality or justify a new node yet.
+- [graph-design.json](./graph-design.json) remains the exact revision-4 existing-node baseline. Top-level defaults/cases/sweeps and measured resource fields in [qualification-plan.json](./qualification-plan.json) still describe that baseline. The four source-bound review records and input identities are retained; no new GPU run is claimed in this design-only change.
+- [graph-proposal.json](./graph-proposal.json) is a separate draft using **proposed weave-pattern@1**, which the current catalog does not implement. Do not run it as if it were a qualified or accepted material. Its projection is not a compiled plan or render measurement.
+- Node proposal: no inputs, one value: Scalar output, mode=height/coverage/warp-share; three instances share all geometry parameters and dimensions. Registry metadata permits named output lists, but current lowering/ComputePass/resource lookup is single-output. One mode-based kernel avoids a multi-output runtime redesign.
+- The proposed structure separates continuous centerline lift from transverse occupancy, and derives height and coverage-weighted yarn selection from one visibility formula. Under-yarn retains full occupancy even at low height; depth is not backing blend weight. Existing seeded noise, color, roughness and height-to-normal nodes remain responsible for those channels. Exact formulas, parameters, diagnostics, periodicity, 2×2 weighted sampling and 48-byte ABI are in the contract.
 
-Merge each case over plan defaults, reject unknown/non-finite/out-of-range controls using the contract table, and require even axis counts. Resolve the following before constructing a future ordinary `.mix v1` document:
+| Scope | Passes | Physical textures | 1K peakBytes | 2K peakBytes |
+|---|---:|---:|---:|---:|
+| Revision 4, measured; all eight cases | 52 | 10 | 92,276,064 | 369,100,128 |
+| Proposed graph, static projection only | 21 | 8 | Not measured | 301,990,480 projected |
 
-| Placeholder | Caller mapping |
-|---|---|
-| warpGap, weftGap | 1-warpWidth, 1-weftWidth (each 0.1..0.45) |
-| halfWarpCount | warpCount/2 (integer) |
-| crossingOffsetX | 0.5/warpCount |
-| detailMin | 1-detailAmount |
-| underHeight | relief*underRatio |
-| Other placeholders | Identically named validated controls; explicit zero seeds for unvaried profile/selector nodes |
+The projection assumes the numeric ID order, exact-descriptor plan-v3 reuse, 592 uniform bytes and one 33,554,432-byte staging buffer at 2K: 8*33,554,432+592+33,554,432. Its logical 704,643,072 bytes are not the peak. Keep <=64 passes and <=536,870,912 bytes; actual implementation must be measured later. No timing or pixel claim follows from this calculation.
 
-Warp columns and weft rows determine independent spacing. Their gap controls determine independent relative widths; physical UV width equals width/count. Each profile combines a brick with its half-tile axial shift using saturating subtraction, uniform half mixing and levels to synthesize max. Q is a shifted staggered Scalar brick field; even parity selects warp-over. Each noise field uses value v2, scale 2, one octave, integer directional transform 4×1; weft rotates by one quarter turn. All production pixels must eventually use wgpu only.
+## Baseline reproduction
 
-The graph observes W/F/Q, separate thread heights and coverage via inspection aliases. Both color layer orders use the same profiles and Q. Roughness uses coverage, metallic uses zero, normal consumes final height. Half storage happens at every intermediate; aliases and mathematical equations are not an alternative executor.
+Merge each baseline case over top-level plan defaults. Validate the unchanged accepted control ranges; reject odd counts, unknown/non-finite/out-of-range controls. Resolve warpGap=1-warpWidth, weftGap=1-weftWidth, halfWarpCount=warpCount/2, crossingOffsetX=0.5/warpCount, profileBevel=0.19+0.5*bevel, warpDark/weftDark=respective color RGB*(1-4*detailAmount) with alpha=1, roughnessMin=yarnRoughness*(1-2*detailAmount). Other placeholders use same-named controls, including underRatio. Fixed unvaried profile/selector seeds are zero; both noise seeds remain explicit. These are caller expressions, not Core expressions.
 
-## Draft matrix and budget
+Keep numeric node IDs. Emit ordinary .mix v1: copy node id/type/version/resolved parameters; turn inputs source.port into from/to edges; append material-output@1 with ID material and wire all five outputs. Exclude design-only fields/placeholders. Revision-4 aliases warpShape/weftShape are normalized A/B, coverage=C and surfaceOrder=D; consult the retained revision-4 section for their historical formulas. This baseline was not accepted for continuous-yarn appearance.
 
-Eight base cases × four sizes × five channels give 160 channel comparisons per Native/browser pairing, before independent control sweeps and stress. Sweeps change one named control over the plain defaults; each color replacement changes only that color. Stress is a separate dense/thin case at three sizes (15 further channel comparisons). Combined-high stays a required finite/structural/parity case; only plain and varied have the draft 4/255 downsample guarantee. Stress must never replace either quality case.
-
-All cases require exact repeats, package equivalence and <=1/255 cross-runtime components. Flat relief must produce zero height and neutral normal; metallic is zero in every case. The contract also requires raw-height normal replay, periodic translation probes, independent axis/seed causality and PBR/human review. The plan's freeze blockers are unresolved; proposed assertions are not implemented tooling.
-
-The governing measurement is the actual plan-v3 compile-time peak after reuse: **2K fails at 570,426,320 bytes against 536,870,912 (512 MiB)**. Resolve this freeze blocker through recipe change or a separately scoped measured PERF-MAT slice, never by raising the limit. The historical retain-all texture arithmetic, 40×2048×2048×8 = 1,342,177,280 bytes, is background only; it is not the scheduled descriptor peak and does not govern the freeze decision. The 64-pass target and separate hardware/software timing targets remain draft; this review does not qualify timing or implement optimization.
-
-## Reproduced review observations and commands
-
-The clean measured branch was `7555c8b25558fb7a2aedd2a14adc2474b6562006`, based on main `5785068d8d3e49a503bfe30cb1d90d28f0bc548e`, on 2026-10-02. The [plan](./qualification-plan.json) retains `reviewMeasurements`: release binary/input hashes, original pre-amendment plan identity, resolved-document hashes, exact CLI arguments/exits and output hashes. These amendments were not the measured source.
-
-To reproduce without a checked-in resolver, use that source revision's graph and plan, merge defaults/case controls and apply the mapping above recursively to parameters. Emit `{version:1,nodes,edges}`: copy each node's id/type/version/resolved parameters, convert each design `inputs` reference `source.port` to an edge `from:{nodeId:source,portId:port}` and `to:{nodeId:target,portId:inputName}`; append `material-output@1` with ID `material`, and wire every design output alias to its matching material channel. Do not leave design-only fields or placeholders in the `.mix`. Preserve the five resolved cases in a fresh ignored directory. Invoke `target/native-consumer/release/mixture.exe` as `mixture` below; keep stdout JSON separate from stderr and check exits:
-
-```text
+~~~text
 cargo build --release --locked -p mixture-cli --target-dir target/native-consumer
-mixture validate <case.mix> --json
-mixture inspect <plain.mix> --plan --size 1024 --output baseColor,normal,roughness,metallic,height --json
-mixture inspect <plain.mix> --plan --size 2048 --output baseColor,normal,roughness,metallic,height --json
-mixture doctor --backend vulkan --json
-mixture render <case.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
-```
+mixture validate <baseline-case.mix> --json
+mixture inspect <baseline-case.mix> --plan --size <1024|2048> --output baseColor,normal,roughness,metallic,height --json
+mixture render <plain|varied.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
+~~~
 
-Validation passed for plain, varied, flat, combined-low and combined-high, each with zero diagnostics (exit 0). Plain 1K inspection compiled **40 passes, 16 physical textures, peakBytes 142,607,312 and logicalTextureBytes 335,544,320** (exit 0). Plain 2K inspection returned **MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED**, configured **536,870,912**, observed **570,426,320** (exit 2, no GPU execution). Do not treat that expected reproduction of a rejection as a material budget pass.
+Here mixture is target/native-consumer/release/mixture.exe. Prior revision-4 Native renders used NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66. Local review files remain under tmp/mat03-recipe-review-4/after/{plain,varied}-1024/: baseColor, normal, roughness and height PNGs; plain has matching *-crossing-256.png crops (x=64,y=64,256×256, no rescale/tone adjustment). The ignored root also holds baseline/probe inputs and receipts. Neutral C and D*C probes had zero differing pixels, but they did not detect the maintainer's continuous-yarn failure. These files are not durable acceptance evidence.
 
-Plain/varied 1K five-channel renders succeeded on **NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66**. Agent inspection of original baseColor/normal maps shows alternating crossings and the varied 12×8 counts/unequal widths. The cross-sections read as flat-topped planks with narrow bevel edges; default directional grain is not visibly resolved at detailAmount=0.03, which only scales relief=0.025. These are unresolved decision-2 quality risks, not proof of a missing node or full independent-control causality. No new node is proposed.
+## Proposed caller mapping and pending decisions
 
-The temporary resolver, generated graphs, original input snapshots, raw JSON/stderr, receipt and ten PNGs remain in ignored `tmp/mat03-review-amendment/`. This is local review retention, not durable accepted evidence; hashes identify bytes but do not ensure availability. No PBR/human acceptance, Native/browser parity, DX12/software qualification, timing gate or full structural/odd-size probe was performed.
+For the proposal only, merge top-level baseline defaults, then graph-proposal.proposedDefaults, then each case override. That adds crown=0.5 and restores underRatio=0.5 / relief=0.025; it does not alter baseline defaults. Geometry bundle {warpCount,weftCount,warpWidth,weftWidth,bevel,crown,underRatio} must be identical on the three weave instances, with only mode different. The proposed bevel directly controls transverse occupancy feather, with no brick profileBevel conversion. Resolve color/roughness dark-end mappings exactly as above; other proposal placeholders directly use named controls. Existing node seeds stay explicit; the deterministic weave generator has no random output or seed. Candidate defaults and crown control require approval.
 
-## Evidence and next review
+Approval questions: bounded node rationale; identity/Scalar-mode design versus separately scoped multi-output support; exact occupancy/lift/profile/visibility/sampling contract; crown/bevel/defaults; **17 types/15 kernels → 18/16** and unpublished **Rust 0.9.0 / browser 0.9.0-alpha.0**; precise node/material/PBR/human gates; explicit later implementation authorization. No manifests change; .mix/.mixpack v1 and plan/API v3 remain. Old catalogs reject the new type; no fallback or migration.
 
-Read the contract's five maintainer decisions before a later freeze PR. The limited Native review now records a 2K budget rejection and visual risks; resolve them and complete the remaining public Native/browser feasibility work with source/request/build/adapter identity and failures preserved. No new-node proposal is justified merely by the recipe's size. Any demonstrated gap requires a separate minimal identity/ABI/version review. Qualification builds use `target/native-consumer`; ordinary output uses ignored `tmp/` or CI artifacts. Retain accepted images and human decisions under the [evidence policy](../../../docs/evidence-policy.md). No existing golden, manifest, runtime or Studio content changes here.
+The contract's later-PR checklist covers invariant 8 and the node playbook: Core contract/validation/lowering, exhaustive kernel consumers, one WGSL, fixtures/docs/targeted tests, shader/software/GPU/browser/node/material regressions, package consumption, unchanged budgets and separate visual acceptance. No proposed-node command is currently runnable. Keep full structural, sampling, raw-half/normal, periodic/odd-size, <=1/255 Native/browser, repeat/package, timing, PBR and human freeze blockers. Retain reviewed bytes under the [evidence policy](../../../docs/evidence-policy.md). No new crate, runtime, shader, version, golden or committed tooling change is included.
