@@ -94,7 +94,7 @@ jobs:
         run: |
           npm ci --prefix packages/runtime --ignore-scripts
           npm test --prefix packages/runtime
-          node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs scripts/painted-metal-requests.test.mjs
+          node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs scripts/painted-metal-requests.test.mjs scripts/woven-fabric-requests.test.mjs
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
@@ -115,6 +115,8 @@ jobs:
         run: node scripts/browser-runtime/check-reuse.mjs tmp/sdk-candidate tmp/sdk-reuse-comparison
       - name: Compare the complete painted-metal matrix across Native and browser
         run: node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
+      - name: Woven material public matrix parity
+        run: node scripts/browser-runtime/check-woven.mjs tmp/sdk-candidate tmp/sdk-woven-comparison
       - name: Retain bounded painted-metal stage diagnostics after reuse failure
         if: failure() && steps.texture-reuse.outcome == 'failure'
         run: |
@@ -208,6 +210,7 @@ jobs:
             tmp/sdk-weave-comparison/
             tmp/sdk-subtract-comparison/
             tmp/sdk-reuse-comparison/
+            tmp/sdk-woven-comparison
             tmp/sdk-painted-comparison/
             tmp/painted-metal-stages/
             tmp/sdk-registry/

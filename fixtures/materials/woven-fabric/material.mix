@@ -1,0 +1,689 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "n00-weftNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 65537,
+        "scale": 4,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "n01-weftDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "parameters": {
+        "scaleX": 8,
+        "scaleY": 1,
+        "quarterTurns": 1,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "n02-weftGrain",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.3,
+        "inputMax": 0.7,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "n03-warpNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": 1729,
+        "scale": 4,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "n04-warpDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "parameters": {
+        "scaleX": 8,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "n05-warpGrain",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0.3,
+        "inputMax": 0.7,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "n06-weave-warp-share",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "warp-share",
+        "warpCount": 8,
+        "weftCount": 8,
+        "warpWidth": 0.7,
+        "weftWidth": 0.7,
+        "bevel": 0.08,
+        "crown": 0.5,
+        "underRatio": 0.5
+      }
+    },
+    {
+      "id": "n07-warpColor",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": [
+          0.14959999999999998,
+          0.0544,
+          0.0238,
+          1
+        ],
+        "colorB": [
+          0.22,
+          0.08,
+          0.035,
+          1
+        ]
+      }
+    },
+    {
+      "id": "n08-visibleGrain",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n09-weave-coverage",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "coverage",
+        "warpCount": 8,
+        "weftCount": 8,
+        "warpWidth": 0.7,
+        "weftWidth": 0.7,
+        "bevel": 0.08,
+        "crown": 0.5,
+        "underRatio": 0.5
+      }
+    },
+    {
+      "id": "n10-weftColor",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": [
+          0.25839999999999996,
+          0.15639999999999998,
+          0.06799999999999999,
+          1
+        ],
+        "colorB": [
+          0.38,
+          0.23,
+          0.1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "n11-surfaceColor",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n12-backingColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": [
+          0.015,
+          0.012,
+          0.01,
+          1
+        ]
+      }
+    },
+    {
+      "id": "n13-baseColor",
+      "type": "blend",
+      "version": 1,
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n14-yarnRoughness",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0.672,
+        "outputMax": 0.8
+      }
+    },
+    {
+      "id": "n15-backingRoughness",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0.95
+      }
+    },
+    {
+      "id": "n16-roughness",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n17-weave-height",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "height",
+        "warpCount": 8,
+        "weftCount": 8,
+        "warpWidth": 0.7,
+        "weftWidth": 0.7,
+        "bevel": 0.08,
+        "crown": 0.5,
+        "underRatio": 0.5
+      }
+    },
+    {
+      "id": "n18-surfaceHeight",
+      "type": "levels",
+      "version": 1,
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 0.025
+      }
+    },
+    {
+      "id": "n19-zero",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0
+      }
+    },
+    {
+      "id": "n20-normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "parameters": {
+        "strength": 0.5
+      }
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "n00-weftNoise",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n01-weftDirection",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n01-weftDirection",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n02-weftGrain",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n03-warpNoise",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n04-warpDirection",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n04-warpDirection",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n05-warpGrain",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n05-warpGrain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n07-warpColor",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n02-weftGrain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n08-visibleGrain",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n05-warpGrain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n08-visibleGrain",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n06-weave-warp-share",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n08-visibleGrain",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n02-weftGrain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n10-weftColor",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n10-weftColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "n11-surfaceColor",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n07-warpColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "n11-surfaceColor",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n06-weave-warp-share",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n11-surfaceColor",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n12-backingColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "n13-baseColor",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n11-surfaceColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "n13-baseColor",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n09-weave-coverage",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n13-baseColor",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n08-visibleGrain",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n14-yarnRoughness",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n15-backingRoughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n16-roughness",
+        "portId": "a"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n14-yarnRoughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n16-roughness",
+        "portId": "b"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n09-weave-coverage",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n16-roughness",
+        "portId": "mask"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n17-weave-height",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n18-surfaceHeight",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n18-surfaceHeight",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "n20-normal",
+        "portId": "in"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n13-baseColor",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n20-normal",
+        "portId": "normal"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "normal"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n16-roughness",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "roughness"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n19-zero",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "metallic"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "n18-surfaceHeight",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "weftSeed",
+      "nodeId": "n00-weftNoise",
+      "parameterId": "seed"
+    },
+    {
+      "id": "warpSeed",
+      "nodeId": "n03-warpNoise",
+      "parameterId": "seed"
+    },
+    {
+      "id": "warpshare_warpCount",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "warpCount"
+    },
+    {
+      "id": "warpshare_weftCount",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "weftCount"
+    },
+    {
+      "id": "warpshare_warpWidth",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "warpWidth"
+    },
+    {
+      "id": "warpshare_weftWidth",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "weftWidth"
+    },
+    {
+      "id": "warpshare_bevel",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "bevel"
+    },
+    {
+      "id": "warpshare_crown",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "crown"
+    },
+    {
+      "id": "warpshare_underRatio",
+      "nodeId": "n06-weave-warp-share",
+      "parameterId": "underRatio"
+    },
+    {
+      "id": "warpDark",
+      "nodeId": "n07-warpColor",
+      "parameterId": "colorA"
+    },
+    {
+      "id": "warpColor",
+      "nodeId": "n07-warpColor",
+      "parameterId": "colorB"
+    },
+    {
+      "id": "coverage_warpCount",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "warpCount"
+    },
+    {
+      "id": "coverage_weftCount",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "weftCount"
+    },
+    {
+      "id": "coverage_warpWidth",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "warpWidth"
+    },
+    {
+      "id": "coverage_weftWidth",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "weftWidth"
+    },
+    {
+      "id": "coverage_bevel",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "bevel"
+    },
+    {
+      "id": "coverage_crown",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "crown"
+    },
+    {
+      "id": "coverage_underRatio",
+      "nodeId": "n09-weave-coverage",
+      "parameterId": "underRatio"
+    },
+    {
+      "id": "weftDark",
+      "nodeId": "n10-weftColor",
+      "parameterId": "colorA"
+    },
+    {
+      "id": "weftColor",
+      "nodeId": "n10-weftColor",
+      "parameterId": "colorB"
+    },
+    {
+      "id": "backingColor",
+      "nodeId": "n12-backingColor",
+      "parameterId": "value"
+    },
+    {
+      "id": "roughnessMin",
+      "nodeId": "n14-yarnRoughness",
+      "parameterId": "outputMin"
+    },
+    {
+      "id": "yarnRoughness",
+      "nodeId": "n14-yarnRoughness",
+      "parameterId": "outputMax"
+    },
+    {
+      "id": "backingRoughness",
+      "nodeId": "n15-backingRoughness",
+      "parameterId": "value"
+    },
+    {
+      "id": "height_warpCount",
+      "nodeId": "n17-weave-height",
+      "parameterId": "warpCount"
+    },
+    {
+      "id": "height_weftCount",
+      "nodeId": "n17-weave-height",
+      "parameterId": "weftCount"
+    },
+    {
+      "id": "height_warpWidth",
+      "nodeId": "n17-weave-height",
+      "parameterId": "warpWidth"
+    },
+    {
+      "id": "height_weftWidth",
+      "nodeId": "n17-weave-height",
+      "parameterId": "weftWidth"
+    },
+    {
+      "id": "height_bevel",
+      "nodeId": "n17-weave-height",
+      "parameterId": "bevel"
+    },
+    {
+      "id": "height_crown",
+      "nodeId": "n17-weave-height",
+      "parameterId": "crown"
+    },
+    {
+      "id": "height_underRatio",
+      "nodeId": "n17-weave-height",
+      "parameterId": "underRatio"
+    },
+    {
+      "id": "relief",
+      "nodeId": "n18-surfaceHeight",
+      "parameterId": "outputMax"
+    },
+    {
+      "id": "normalStrength",
+      "nodeId": "n20-normal",
+      "parameterId": "strength"
+    }
+  ]
+}
