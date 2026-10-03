@@ -4,11 +4,11 @@
 
 **当前状态：** 实现、发布版本和硬件验收范围见[发布状态](./release.zh-CN.md)；本文带日期的早期记录仅描述当时结果。
 
-[mixture-core](../crates/mixture-core/src/registry.rs)中的十七种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
+[mixture-core](../crates/mixture-core/src/registry.rs)中的十八种版本化节点契约降级为类型化计划，并[通过唯一 `wgpu` 路径执行](./graph-rendering.zh-CN.md)。PR-005–007 建立六个 M2 节点；PR-009 添加噪声、渐变映射和高度派生法线；PR-010 添加标量变换和扭曲。常量共享一个 WGSL kernel，material-output 映射资源，固定棋盘格与图棋盘格共享着色器。
 
 ## 通用规则
 
-最新目录有十七个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+最新目录有十八个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -229,3 +229,20 @@ MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value`
 ## scalar-subtract
 
 必需 Scalar `a` 与 `b`，Scalar `value` 输出；无参数、输入默认值或随机状态。[Core 契约](../crates/mixture-core/src/nodes/scalar_subtract.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-subtract.wgsl)、[夹具](../fixtures/nodes/scalar-subtract/README.zh-CN.md)。对有限样本一次计算 `max(clamp(a,0,1)-clamp(b,0,1),0)`，rgba16float 存储 `[value,0,0,1]`。相等规范化输入及 a<=b 精确为零，b=0 保留规范化 a。这是饱和减法，不是有符号或绝对差。逐点运算继承输入平铺性，不重采样、不改变坐标；结果仅按已有半精度存储舍入一次。特别是 0.5 减 0.499755859375 保留 1/4096，尽管直接 RGBA8 编码无法显示它。原始半精度探针与 levels 放大图验证该用例。任何端点仍须两个输入，未知参数报错。一次 8x8 dispatch 与一个保留全零的 16 字节 uniform 保持共同内核绑定 ABI。Rust 0.7 穷举匹配新增 ScalarSubtract，不改变格式或迁移旧节点。完整 [MAT-02 验收](./mat-02-layered-weathering.zh-CN.md)单独进行。
+
+## weave-pattern
+
+[契约模块](../crates/mixture-core/src/nodes/weave_pattern.rs)。weave-pattern@1 无输入；唯一输出 value: Scalar。只生成周期平纹，不含随机性、斜纹、纤维几何或模拟。
+
+| 参数 | 类型／含端点范围 | 默认 |
+|---|---|---|
+| mode | Enum height、coverage、warp-share | height |
+| warpCount、weftCount | Integer 4..32，必须为偶数 | 8、8 |
+| warpWidth、weftWidth | Float .55..0.9，横向间距比例 | .7、.7 |
+| bevel | Float .02..0.12，向内占用羽化 | .08 |
+| crown | Float 0..1，抛物线到平方抛物线 | .5 |
+| underRatio | Float .25..0.75，下／上交点高度比 | .5 |
+
+[冻结公式与 ABI](./mat-03-woven-surfaces.zh-CN.md)及[节点验收用例](./weave-pattern-acceptance.zh-CN.md)为规范。UV 左上原点，经线沿 v、纬线沿 u；先 fract，两轴偶数保证 lift 相位周期。占用独立于深度，可见权重共同生成三个模式。固定四点 2×2 足迹分别累加 H、C、Vw；warp-share 为 sumVw/sumC（零覆盖时 .5），不是逐样本 share 的均值。无通用抗锯齿承诺；比较平移求值而非对边像素。
+
+奇数、错误类型／范围／枚举报 MIX_PARAMETER_INVALID_VALUE（节点与参数 ID），未知键 MIX_PARAMETER_UNKNOWN；默认、覆盖及未用分支均检查。f32 计算、rgba16float 存储 [value,0,0,1]；48 字节零填充 ABI。三实例需调用方复制相同几何参数及尺寸，Core 不增加跨节点相等约束。测试通过唯一生产 WGSL 观察；不代表材质／PBR／人工接受。

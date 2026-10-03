@@ -27,3 +27,5 @@ PR-010 adds periodic scalar resampling and literal interpolation/rotation probes
 - [scalar-morphology](./scalar-morphology/README.md)
 
 - [scalar-subtract](./scalar-subtract/README.md)
+
+weave-pattern@1 node checks follow the [frozen cases](../../docs/weave-pattern-acceptance.md): three modes at 256/1024/2048 and 257×129, unequal axes and boundaries. check-weave.mjs compares public Native/browser bytes with tolerance 1/255. Material qualification is separate.

@@ -27,3 +27,5 @@ PR-010 添加循环标量重采样与字面插值／旋转探针：
 - [scalar-morphology](./scalar-morphology/README.zh-CN.md)
 
 - [scalar-subtract](./scalar-subtract/README.zh-CN.md)
+
+weave-pattern@1 节点检查使用[冻结用例](../../docs/weave-pattern-acceptance.zh-CN.md)：三个模式、256／1024／2048 和 257×129、不等轴及边界；check-weave.mjs 对公开 Native／浏览器逐字节比较，容差 1/255。材质验收另行处理。

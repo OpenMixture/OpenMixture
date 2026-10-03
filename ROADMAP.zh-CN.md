@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；当前 PERF-MAT 工作候选为尚未验收的 0.8.0 / 0.8.0-alpha.0；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；undefined；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 

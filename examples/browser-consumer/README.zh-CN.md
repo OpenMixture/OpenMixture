@@ -72,3 +72,5 @@ M6A-04 候选模式要求全部 13 项测试：原九项加四项资源测试，
 MAT-02b 候选模式现必需 19 项测试，包括 `morphology.spec.mjs` 的 192 组周期形态处理用例及精确重复检查。仅候选验收通过 `MIXTURE_MORPHOLOGY_TESTS=1` 显式包含该测试；精确已发布注册表消费保持 13 项。[形态处理夹具指南](../../fixtures/nodes/scalar-morphology/README.zh-CN.md)定义独立 Native 对照命令。本次增加引擎验收，不是 Studio 升级或材质接受。
 
 候选另通过 `MIXTURE_SUBTRACT_TESTS=1` 运行 `subtract.spec.mjs`，覆盖 64 组精确直接／放大减法用例。[减法指南](../../fixtures/nodes/scalar-subtract/README.zh-CN.md)定义公开 Native 对照。注册表模式显式排除此候选专用测试。
+
+weave-pattern@1 节点检查使用[冻结用例](../../docs/weave-pattern-acceptance.zh-CN.md)：三个模式、256／1024／2048 和 257×129、不等轴及边界；check-weave.mjs 对公开 Native／浏览器逐字节比较，容差 1/255。材质验收另行处理。

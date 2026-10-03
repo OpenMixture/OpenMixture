@@ -23,7 +23,7 @@ function endpointSource(preset, controls) {
 test('painted metal renders all frozen presets with repeat and package parity', async ({ page, browser }, testInfo) => {
   test.setTimeout(1_800_000);
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.8.0-alpha.0');
+  expect(expectedBuild.runtimeVersion).toBe('0.9.0-alpha.0');
   const source = await readFile(new URL('../public/painted-metal/material.mix', import.meta.url), 'utf8');
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));

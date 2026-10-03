@@ -8,6 +8,7 @@ export default defineConfig({
     ...(process.env.MIXTURE_REUSE_TESTS === '1' ? [] : ['reuse.spec.mjs']),
     ...(process.env.MIXTURE_ASSET_TESTS === '1' ? [] : ['assets.spec.mjs']),
     ...(process.env.MIXTURE_SUBTRACT_TESTS === '1' ? [] : ['subtract.spec.mjs']),
+    ...(process.env.MIXTURE_WEAVE_TESTS === '1' ? [] : ['weave.spec.mjs']),
     ...(process.env.MIXTURE_MORPHOLOGY_TESTS === '1' ? [] : ['morphology.spec.mjs']),
     ...(process.env.MIXTURE_BRICK_TESTS === '1' ? [] : ['brick.spec.mjs']),
   ],

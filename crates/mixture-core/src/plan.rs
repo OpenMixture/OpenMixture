@@ -176,6 +176,8 @@ pub enum PassOrigin {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum KernelId {
+    /// Periodic plain-weave structural field selected by mode.
+    WeavePattern,
     /// Periodic rectangular block profiles with deterministic per-cell amplitude.
     BrickPattern,
     /// Read caller-supplied linear RGBA8 red into a Scalar intermediate.
@@ -247,11 +249,37 @@ pub enum MorphologyAxis {
     /// Vertical texel offsets.
     Y,
 }
+/// Plain-weave structural field, with no backend-specific discriminant.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum WeaveMode {
+    /// Box-filtered normalized surface height.
+    Height,
+    /// Box-filtered yarn occupancy, independent of lift.
+    Coverage,
+    /// Coverage-weighted visible warp fraction.
+    WarpShare,
+}
 /// Typed kernel arguments and logical input bindings, with f32 GPU parameters.
 /// There is no arbitrary JSON, shader source, or redundant untyped input list.
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(tag = "id", rename_all = "camelCase", rename_all_fields = "camelCase")]
 pub enum KernelInvocation {
+    /// Plain-weave structure, evaluated with a fixed four-sample footprint.
+    WeavePattern {
+        /// Even warp and weft counts per tile.
+        counts: [u32; 2],
+        /// Transverse width fractions of each pitch.
+        widths: [f32; 2],
+        /// Inward occupancy feather in pitch units.
+        bevel: f32,
+        /// Parabolic to squared-parabolic profile interpolation.
+        crown: f32,
+        /// Lower to upper crossing-center height ratio.
+        under_ratio: f32,
+        /// Selected single Scalar field.
+        mode: WeaveMode,
+    },
     /// Four-sample periodic brick profile; explicit seed retains all 32 bits.
     BrickPattern {
         /// Columns and rows per tile.
@@ -406,6 +434,7 @@ impl KernelInvocation {
     /// Exhaustive kernel identity; parameter variants cannot disagree with this ID.
     pub fn id(&self) -> KernelId {
         match self {
+            Self::WeavePattern { .. } => KernelId::WeavePattern,
             Self::BrickPattern { .. } => KernelId::BrickPattern,
             Self::ImageInput { .. } => KernelId::ImageInput,
             Self::Constant { .. } => KernelId::Constant,
@@ -428,6 +457,7 @@ impl KernelInvocation {
         match self {
             Self::ImageInput { .. }
             | Self::BrickPattern { .. }
+            | Self::WeavePattern { .. }
             | Self::Constant { .. }
             | Self::Checker { .. }
             | Self::FractalNoise { .. } => [None, None, None],
@@ -463,7 +493,7 @@ impl KernelInvocation {
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,
-            Self::Checker { .. } | Self::BrickPattern { .. } => 48,
+            Self::Checker { .. } | Self::BrickPattern { .. } | Self::WeavePattern { .. } => 48,
             Self::Levels { .. }
             | Self::FractalNoise { .. }
             | Self::GradientMap { .. }

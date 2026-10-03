@@ -120,6 +120,8 @@ jobs:
         run: |
           cargo build --release --locked -p mixture-cli
           python3 scripts/probe-painted-metal.py --cli target/release/mixture --output tmp/painted-metal-stages
+      - name: Compare public weave node modes against Native
+        run: node scripts/browser-runtime/check-weave.mjs tmp/sdk-candidate tmp/sdk-weave-comparison
       - name: Qualify the exact published version separately
         # Network-dependent registry evidence runs on main and manual runs, not in pull-request gates.
         if: github.event_name != 'pull_request'
@@ -203,6 +205,7 @@ jobs:
             tmp/sdk-asset-comparison/
             tmp/sdk-brick-comparison/
             tmp/sdk-morphology-comparison/
+            tmp/sdk-weave-comparison/
             tmp/sdk-subtract-comparison/
             tmp/sdk-reuse-comparison/
             tmp/sdk-painted-comparison/
