@@ -2,9 +2,9 @@
 
 English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
-Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. PR #81 is merged. This stage qualifies the public material matrix; it does not accept the material.
+Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. Stage A and accepted recipe revision 2 are merged. Stage B probes are frozen and partially implemented below; C/D and full material acceptance remain pending.
 
-Current material is [explicit recipe revision 2](./mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. materialAccepted=false; residual pinch remains for review.
+Current material is [explicit recipe revision 2](./mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. The maintainer accepted these defaults on 2026-10-04; residual pinch is recorded, and full PBR/human review remains Stage C. materialAccepted=false.
 
 ## Material-default revision: pinch metric defined before the sweep
 
@@ -310,3 +310,11 @@ Noise inputs are production value-noise v2, scale 4, octaves 2, persistence 0.5,
 
 Dense-thin at its existing 256²/1024²/257×129 sizes checks finite normalized H/C/S, C=0 ⇒ H=0 and S=0.5, identical geometry, and exact normal replay for all four offsets. It remains outside default/varied quality guarantees; no undersampled crossing-center quality promise is added. Any frozen failure stops work and records case, size, field, pixel, actual/expected values and adapter; no tolerance relaxation.
 
+
+### Stage B implementation and local results
+
+First commit 106546e freezes the probe contract; implementation ed6905fcbc18047e8ef639527923d67c07108f09 follows it. On 2026-10-04, GT 1030 Vulkan (NVIDIA 582.66) and DX12 (32.0.15.8266) passed crossing structure (640 crossings and 640 gaps per backend, including all-instance mode equality), flat (four sizes), control isolation (sixteen variants), normal replay (48 rows × four offsets = 192 exact comparisons), and stress (three sizes, twelve exact replays). Focused Vulkan/DX12 tests used implementation bytes committed as ed6905f (initial focused runs began before that commit); woven_tests.rs SHA-256 160dd5b0c600ee0926b9705ce99f4e9ff54a7333d3a3a0a7c7eeae66eebc2c1b. Node and full smoke runs used that implementation commit; no runtime or recipe changes followed.
+
+The four builder tests pass, including a hash of the frozen additive Stage B section and exact comparison of all remaining Stage A fields. Clippy, test-node weave-pattern and full Vulkan gpu-smoke pass (including the five new ignored probes, existing painted tests, Native/CLI and packaged GPU consumption). The existing clean-source release Native woven matrix passes all 51 rows and four timing gates on Vulkan. Warm medians: plain 1K/2K 183.82/791.17 ms; varied 228.61/901.08 ms. Material SHA-256 remains 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757; plan SHA-256 is 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523. Ordinary logs and matrix receipts are in ignored tmp/woven-stage-b/; this is not retained Stage D evidence.
+
+**Stage B is incomplete:** selected noise-input periodicity and weave full-period translation are frozen but unimplemented/unrun, pending the no-shader-variant versus test-only origin-instrumentation clarification. Existing node periodic tests are not a substitute for those material-specific probes. No frozen probe failed and no tolerance was relaxed. Stage C/D and material acceptance remain pending; this branch is not a Stage B acceptance claim.

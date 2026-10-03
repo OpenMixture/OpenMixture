@@ -1,12 +1,12 @@
-# Woven fabric — Stage A public material matrix
+# Woven fabric — public matrix and Stage B structural probes
 
 English | [简体中文](./README.zh-CN.md)
 
 The material plan is frozen and the node is implemented; **materialAccepted=false**. First commit f3d0f3f froze the [plan](./qualification-plan.json) and [recipe](./graph-proposal.json), before the [ordinary .mix v1 material](./material.mix) and public caller tools. Original draft bytes remain in [qualification-plan-draft.json](./qualification-plan-draft.json) and [graph-proposal-draft.json](./graph-proposal-draft.json). [graph-design.json](./graph-design.json) and original receipts retain revision 4.
 
-The [staged plan](../../../docs/mat-03-woven-surfaces.md) scopes this PR to A, the public Native/browser matrix. B raw-half/structural/periodic/normal-replay/stress probes, C dielectric PBR/human decision and D retained evidence/acceptance each require later PRs. This matrix does not establish structural, PBR or human acceptance.
+The [staged plan](../../../docs/mat-03-woven-surfaces.md) retains the merged Stage A public Native/browser matrix. This PR adds Stage B raw-half/structural/periodic/normal-replay/stress probes; C dielectric PBR/human decision and D retained evidence/acceptance require later PRs. This matrix does not establish structural, PBR or human acceptance.
 
-Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. materialAccepted=false; residual pinch remains for review.
+Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. The maintainer accepted these defaults on 2026-10-04; residual pinch is recorded, and full PBR/human review remains Stage C. materialAccepted=false.
 
 ## Stage A source-bound local observations
 
@@ -154,3 +154,11 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_control_isolation -- -
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_normal_periodic -- --ignored --nocapture
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --nocapture
 ```
+
+### Stage B implementation and local results
+
+First commit 106546e freezes the probe contract; implementation ed6905fcbc18047e8ef639527923d67c07108f09 follows it. On 2026-10-04, GT 1030 Vulkan (NVIDIA 582.66) and DX12 (32.0.15.8266) passed crossing structure (640 crossings and 640 gaps per backend, including all-instance mode equality), flat (four sizes), control isolation (sixteen variants), normal replay (48 rows × four offsets = 192 exact comparisons), and stress (three sizes, twelve exact replays). Focused Vulkan/DX12 tests used implementation bytes committed as ed6905f (initial focused runs began before that commit); woven_tests.rs SHA-256 160dd5b0c600ee0926b9705ce99f4e9ff54a7333d3a3a0a7c7eeae66eebc2c1b. Node and full smoke runs used that implementation commit; no runtime or recipe changes followed.
+
+The four builder tests pass, including a hash of the frozen additive Stage B section and exact comparison of all remaining Stage A fields. Clippy, test-node weave-pattern and full Vulkan gpu-smoke pass (including the five new ignored probes, existing painted tests, Native/CLI and packaged GPU consumption). The existing clean-source release Native woven matrix passes all 51 rows and four timing gates on Vulkan. Warm medians: plain 1K/2K 183.82/791.17 ms; varied 228.61/901.08 ms. Material SHA-256 remains 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757; plan SHA-256 is 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523. Ordinary logs and matrix receipts are in ignored tmp/woven-stage-b/; this is not retained Stage D evidence.
+
+**Stage B is incomplete:** selected noise-input periodicity and weave full-period translation are frozen but unimplemented/unrun, pending the no-shader-variant versus test-only origin-instrumentation clarification. Existing node periodic tests are not a substitute for those material-specific probes. No frozen probe failed and no tolerance was relaxed. Stage C/D and material acceptance remain pending; this branch is not a Stage B acceptance claim.

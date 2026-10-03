@@ -1,12 +1,12 @@
-# 编织织物 — 阶段 A 公开材质矩阵
+# 编织织物 — 公开矩阵及阶段 B 结构探针
 
 [English](./README.md) | 简体中文
 
 材质计划已冻结，节点已实现；**materialAccepted=false**。首个提交 f3d0f3f 冻结[计划](./qualification-plan.json)与[配方](./graph-proposal.json)，然后加入[普通 .mix v1 材质](./material.mix)及公开调用方工具。原草案逐字保留在 [qualification-plan-draft.json](./qualification-plan-draft.json)、[graph-proposal-draft.json](./graph-proposal-draft.json)。[graph-design.json](./graph-design.json)及原收据保留修订 4 基线。
 
-[分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：A 为本 PR 的公开 Native／浏览器矩阵；B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定，D 证据保留与接受记录，均另开 PR。本矩阵不构成结构、PBR 或人工接受。
+[分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：保留已合并阶段 A 公开 Native／浏览器矩阵；本 PR 加入 B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定、D 证据保留与接受记录仍另开 PR。本矩阵不构成结构、PBR 或人工接受。
 
-当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。materialAccepted=false，残余收窄仍待评审。
+当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
 
 ## 阶段 A 绑定源码的本地观测
 
@@ -154,3 +154,11 @@ cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_control_isolation -- -
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_normal_periodic -- --ignored --nocapture
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --nocapture
 ```
+
+### 阶段 B 实现及本地结果
+
+首提交 106546e 冻结探针契约，随后实现提交 ed6905fcbc18047e8ef639527923d67c07108f09。2026-10-04，GT 1030 Vulkan（NVIDIA 582.66）及 DX12（32.0.15.8266）均通过交点结构（每后端 640 交点及 640 间隙，含全部实例同模式相等）、flat（四尺寸）、控制隔离（十六变体）、法线重放（48 行 × 四偏移 = 192 次精确比较）、压力（三尺寸、十二次精确重放）。Vulkan／DX12 定向测试使用提交为 ed6905f 的实现字节（最初定向运行开始于该提交之前）；woven_tests.rs SHA-256 为 160dd5b0c600ee0926b9705ce99f4e9ff54a7333d3a3a0a7c7eeae66eebc2c1b。节点及完整 smoke 使用该实现提交；此后未改变运行时或配方。
+
+四个构建器测试通过，包括冻结的新增阶段 B 节哈希及所有其余阶段 A 字段精确比较。Clippy、test-node weave-pattern、完整 Vulkan gpu-smoke 均通过（包括五个新增忽略探针、既有 painted 测试、Native／CLI 及打包 GPU 消费）。干净源码 release Native woven 矩阵在 Vulkan 上通过全部 51 行及四个耗时门槛。暖中位数：plain 1K／2K 为 183.82／791.17 ms；varied 为 228.61／901.08 ms。材质 SHA-256 仍为 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757；计划 SHA-256 为 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523。普通日志及矩阵收据位于忽略的 tmp/woven-stage-b/，不是阶段 D 保留证据。
+
+**阶段 B 尚未完成**：选定噪声输入周期性及织纹整周期平移已冻结，但未实现／运行，等待澄清“无着色器变体”是否允许测试专用原点观测。既有节点周期测试不能替代这些材质专用探针。没有冻结探针失败，也未放宽容差。C／D 及材质接受仍待完成；本分支不宣称阶段 B 验收通过。
