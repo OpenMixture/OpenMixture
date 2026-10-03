@@ -117,3 +117,28 @@ For the proposal only, merge top-level baseline defaults, then graph-proposal.pr
 Approval questions: bounded node rationale; identity/Scalar-mode design versus separately scoped multi-output support; exact occupancy/lift/profile/visibility/sampling contract; crown/bevel/defaults; **17 types/15 kernels → 18/16** and unpublished **Rust 0.9.0 / browser 0.9.0-alpha.0**; precise node/material/PBR/human gates; explicit later implementation authorization. No manifests change; .mix/.mixpack v1 and plan/API v3 remain. Old catalogs reject the new type; no fallback or migration.
 
 The contract's later-PR checklist covers invariant 8 and the node playbook: Core contract/validation/lowering, exhaustive kernel consumers, one WGSL, fixtures/docs/targeted tests, shader/software/GPU/browser/node/material regressions, package consumption, unchanged budgets and separate visual acceptance. No proposed-node command is currently runnable. Keep full structural, sampling, raw-half/normal, periodic/odd-size, <=1/255 Native/browser, repeat/package, timing, PBR and human freeze blockers. Retain reviewed bytes under the [evidence policy](../../../docs/evidence-policy.md). No new crate, runtime, shader, version, golden or committed tooling change is included.
+
+## Stage B frozen structural probes
+
+The maintainer accepted material recipe revision 2 defaults on 2026-10-04; this does not accept the full material. The additive `structuralProbes` section in [the plan](./qualification-plan.json) owns the exact probes. No Stage A field, threshold, case, size, timing budget, default or retained revision-1 receipt changes. C dielectric PBR/human review and D retained evidence/acceptance remain separate; materialAccepted=false.
+
+### Crossing structure and zero relief
+
+Observe raw binary16 H/C/S by aliasing the real graph's height output, keeping all 21 passes. For plain and varied at 256², 1024², 2048² and 257×129, visit every crossing UV ((i+0.5)/warpCount,(j+0.5)/weftCount) and gap UV (i/warpCount,j/weftCount). Observe the containing pixel floor(UV*size); the height oracle uses its four actual quarter-pixel sample UVs. C=1 and S=1 for even crossing parity, S=0 for odd; gaps H=C=0,S=0.5 are exact. Every crossing tap must have upper>lower, and captured H must exceed every lower tap. The sparse four-tap height oracle has absolute tolerance 1/1024 (two binary16 ULPs below one plus f32 operation error); this does not permit error on exact endpoints or periodic/repeat checks. Check all three instances' identical geometry and same-mode raw fields. Flat-case final height is exactly (0,0,0,1), normal (0.5,0.5,1,1), everywhere at all four sizes. These probes do not remove the accepted residual pinch or prove PBR appearance.
+
+### Public control isolation
+
+At 257×129, plain plus the plan's sixteen one-control variants must repeat exactly. Each listed affected delivered channel must change; all unlisted channels remain byte-identical. Three colors affect baseColor only; two roughness endpoints affect roughness only; normalStrength affects normal only; relief affects height/normal only. Each u32::MAX grain seed affects baseColor/roughness, leaving geometric height/normal unchanged. Counts, widths, bevel, crown and underRatio affect baseColor/roughness/height/normal, leaving metallic unchanged. Raw H/C/S remain finite normalized; nongeometry controls leave them unchanged, and crown/underRatio leave C unchanged. This proves bounded causality on the real graph, not arbitrary control combinations or browser raw-half equivalence.
+
+### Final-height normal replay and periodic boundaries
+
+All twelve plan cases × four sizes upload captured raw final height through the existing production height-to-normal kernel. Offsets (0,0), (1,0), (0,1), (floor(width/2),floor(height/2)) must match the corresponding cyclic shift of captured raw graph normals exactly. CPU code permutes bytes only. Opposite border texels need not be equal. This probes derivative periodicity, not visual seam acceptance or upstream noise periodicity.
+
+### Selected noise inputs and weave translation
+
+Noise inputs are production value-noise v2, scale 4, octaves 2, persistence 0.5, seeds 1729/65537/u32::MAX/0, at all four sizes. Unwrapped input origins (width,0),(0,height),(width+3,height+5) must reproduce the corresponding cyclically indexed raw-half baseline exactly; nonconstant and finite normalized baselines are required. Weave translations cover H/C/S for all twelve cases × four sizes with full-period origins (width,0),(0,height),(width,height), compared exactly against real material aliases. These are selected-input checks, not arbitrary graph or browser periodicity. Test-only origin instrumentation requires resolution of the explicit no-shader-variant scope question before implementation; production formulas, shader files and ABI remain unchanged.
+
+### Stress and failure boundary
+
+Dense-thin at its existing 256²/1024²/257×129 sizes checks finite normalized H/C/S, C=0 ⇒ H=0 and S=0.5, identical geometry, and exact normal replay for all four offsets. It remains outside default/varied quality guarantees; no undersampled crossing-center quality promise is added. Any frozen failure stops work and records case, size, field, pixel, actual/expected values and adapter; no tolerance relaxation.
+

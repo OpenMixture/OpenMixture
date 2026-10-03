@@ -59,7 +59,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 当前工作
 
-当前增量为 MAT-03 材质默认值修订及阶段 A 重新验收；参见[修订契约](./docs/mat-03-default-revision.zh-CN.md)。只调整命名默认值，保留修订 1 及全部冻结门槛；不修改节点。参见[分阶段契约](./docs/mat-03-woven-surfaces.zh-CN.md)；B 结构探针、C PBR／人工评审、D 证据及接受记录另开 PR。materialAccepted 保持 false；冻结门槛失败即停止，不放宽预算，不发布。MAT-02 与 PERF-MAT 已在 [MAT-02 记录](./docs/evidence/mat-02/README.zh-CN.md)范围内验收通过。下列门槛仍是回归义务。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。 调用方控制映射与公开 Native／浏览器矩阵由[涂漆金属夹具指南](./fixtures/materials/painted-metal/README.zh-CN.md)负责；保留精确图／请求／包身份、冻结像素及耗时门槛，并区分结构／PBR／人工验收门槛。 夹具指南同时负责常量参考、分辨率质量及公开参数隔离门槛，以及经同一执行器进行的仅限测试的原始 half 遮罩／合成观察及生产法线重放／周期边界检查和所选 v2 噪声输入的跨周期采样，以及绑定生产身份的金属度 PBR 视图和独立人工决定，不能单凭跨运行时像素一致推断这些性质。 配方修订 2 使用零基底相对高度改善 half 精度；保留修订 1 输入，按[修订契约](./docs/mat-02-relative-height.zh-CN.md)重新运行全部材质门槛。
+当前增量为 MAT-03 阶段 B 结构、控制隔离及周期探针；参见[织纹契约](./docs/mat-03-woven-surfaces.zh-CN.md)的冻结探针集。保留已接受的配方修订 2 默认值、修订 1 记录及全部阶段 A 门槛，不修改节点语义。参见[分阶段契约](./docs/mat-03-woven-surfaces.zh-CN.md)；B 结构探针、C PBR／人工评审、D 证据及接受记录另开 PR。materialAccepted 保持 false；冻结门槛失败即停止，不放宽预算，不发布。MAT-02 与 PERF-MAT 已在 [MAT-02 记录](./docs/evidence/mat-02/README.zh-CN.md)范围内验收通过。下列门槛仍是回归义务。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。 调用方控制映射与公开 Native／浏览器矩阵由[涂漆金属夹具指南](./fixtures/materials/painted-metal/README.zh-CN.md)负责；保留精确图／请求／包身份、冻结像素及耗时门槛，并区分结构／PBR／人工验收门槛。 夹具指南同时负责常量参考、分辨率质量及公开参数隔离门槛，以及经同一执行器进行的仅限测试的原始 half 遮罩／合成观察及生产法线重放／周期边界检查和所选 v2 噪声输入的跨周期采样，以及绑定生产身份的金属度 PBR 视图和独立人工决定，不能单凭跨运行时像素一致推断这些性质。 配方修订 2 使用零基底相对高度改善 half 精度；保留修订 1 输入，按[修订契约](./docs/mat-02-relative-height.zh-CN.md)重新运行全部材质门槛。
 
 ## 速查
 
