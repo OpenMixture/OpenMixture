@@ -1183,6 +1183,69 @@
       ],
       "qualityScope": "outside default/varied downsample and visual guarantees; no crossing-center quality assertion at undersampled stress size"
     },
-    "failurePolicy": "stop on frozen failure; report backend, case, size, field, pixel, actual and expected; never loosen tolerance"
+    "failurePolicy": "stop on frozen failure; report backend, case, size, field, pixel, actual and expected; never loosen tolerance",
+    "amendments": [
+      {
+        "id": "2026-10-04-exact-where-exact",
+        "date": "2026-10-04",
+        "authority": "Maintainer decision on PR #84 at 8771d83",
+        "scope": "weavePeriodicity only; all other frozen plan fields remain unchanged",
+        "reason": "Maintainer accepted that f32 fract(1+x) can differ from x for non-power-of-two sample denominators; this test-origin rounding is not a production seam. Production coordinates remain inside one tile; final-height normal periodic boundaries are separately tested.",
+        "failingReceipt": {
+          "implementationRevision": "47e2dd851303dccdee95b58f5da06cb391645978",
+          "recordRevision": "8771d83439e87cb2dca79c5ffb488cc7be09a2a9",
+          "log": "tmp/woven-stage-b/periodic/vulkan-weave.log",
+          "adapter": "NVIDIA GeForce GT 1030",
+          "backend": "Vulkan",
+          "case": "plain",
+          "size": [
+            257,
+            129
+          ],
+          "mode": "height",
+          "origin": [
+            257,
+            0
+          ],
+          "pixel": [
+            59,
+            0
+          ],
+          "actualHalf": [
+            2149,
+            0,
+            0,
+            15360
+          ],
+          "expectedHalf": [
+            2150,
+            0,
+            0,
+            15360
+          ]
+        },
+        "before": {
+          "rule": "full-period unwrapped production weave_box input versus graph-alias H/C/S; raw-half exact",
+          "maximumHalfSteps": 0
+        },
+        "after": {
+          "zeroOrigin": "exact raw-half bit equality at every size",
+          "bothAxesPowerOfTwo": "exact raw-half bit equality for every full-period and period-plus-interior shift",
+          "nonPowerOfTwo": "each component differs by at most one adjacent finite binary16 step, with no sign/zero crossing beyond that step",
+          "maximumHalfSteps": 1,
+          "ordering": "negative bits complemented; nonnegative bits XOR 0x8000; absolute integer rank difference. -0 and +0 are adjacent; no multi-step crossing is accepted.",
+          "statistics": "report differing component/pixel counts, maximum observed half steps and absolute component difference per case/size/mode and per origin; failing rows are identified and remaining rows are unrun"
+        },
+        "unchanged": [
+          "zero-origin identity",
+          "power-of-two exactness",
+          "noise exactness",
+          "all cases and sizes",
+          "all other tolerances, Stage A gates and budgets",
+          "recipe revision 2 defaults",
+          "production shader bytes, ABI and Core lowering"
+        ]
+      }
+    ]
   }
 }

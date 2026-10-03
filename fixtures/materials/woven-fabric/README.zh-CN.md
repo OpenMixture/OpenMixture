@@ -183,3 +183,14 @@ cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic 
 按停止规则，未运行其余织纹用例及 DX12 织纹探针，也未在此实现上重跑完整 gpu-smoke／check。运行探针之前，测试编译、clippy 和 xtask 编译通过。上文五探针 Vulkan／DX12 及完整 smoke／check 的通过属于前一实现，不能关闭本次失败。阶段 B 仍未完成；C／D 待完成，materialAccepted=false 不变，PR #84 保持 draft。
 
 普通日志及源码／文件哈希收据位于忽略的 tmp/woven-stage-b/periodic/（vulkan-noise.log、dx12-noise.log、vulkan-weave.log、result.json）。生产着色器字节、Core lowering、ABI、材质默认值、计划字节和容差均与 dd6acf5 相同。已停止工作，未进行生产修复或放宽比较；后续处理需维护者评审这个失败探针。
+
+### 维护者修订 — 2026-10-04：能精确处保持精确
+
+维护者仅通过 structuralProbes.amendments（2026-10-04-exact-where-exact）修订织纹平移规则。原精确措辞及失败收据在上文和计划中完整保留：干净实现 47e2dd8、记录提交 8771d83，plain 257×129 H，原点 (257,0)、像素 (59,0)，half 2149 对 2150。维护者接受的分析是非二次幂分母下 fract(1+x) 的 f32 舍入，并非生产接缝；法线周期边界证据仍是独立门槛。该解释不授权任何更广泛的数值放宽。
+
+- 所有尺寸的零原点身份仍逐半精度位精确。
+- 两轴均为二次幂（256²／1024²／2048²）：每个整周期及周期加内部偏移仍逐半精度位精确。
+- 仅 257×129：每分量最多相差一个相邻有限 binary16 步长。使用单调有符号排序（负数位取反，非负数位 XOR 0x8000）；-0／+0 相邻，超过一步的符号／零跨越失败。精确门槛仍比较位，包括有符号零。
+- 按用例／尺寸／模式及原点报告不同分量／像素数量、最大半精度步长距离及最大绝对差。任何修订门槛失败即停止，明确记录未完成覆盖。
+
+冻结计划其余内容全部不变。回归测试仅移除此命名修订条目后校验整个旧计划哈希，并保留阶段 A 和原始阶段 B 保护。修订探针通过之前，阶段 B 不算完成；C／D 待完成，materialAccepted=false 不变。

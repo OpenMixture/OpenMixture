@@ -339,3 +339,14 @@ The weave probe **failed** on Vulkan: case plain, size 257×129, height mode H, 
 Per the stop rule, remaining weave cases and DX12 weave were not run, and full gpu-smoke/check were not rerun on this implementation. Test compilation, clippy and xtask compilation passed before the probes. Earlier five-probe Vulkan/DX12 passes and full smoke/check results above belong to the earlier implementation; they do not close this failure. Stage B remains incomplete; C/D and materialAccepted=false are unchanged, and PR #84 stays draft.
 
 Ordinary logs and a source/file-hash receipt are in ignored tmp/woven-stage-b/periodic/ (vulkan-noise.log, dx12-noise.log, vulkan-weave.log, result.json). Production shader bytes, Core lowering, ABI, material defaults, plan bytes and tolerances remain unchanged from dd6acf5. Work stopped without a production repair or relaxed comparison; further disposition requires maintainer review of this failing probe.
+
+### Maintainer amendment — 2026-10-04: exact where exact
+
+The maintainer amended only the weave translation rule in structuralProbes.amendments (2026-10-04-exact-where-exact). The original exact wording and failure receipt remain intact above and in the plan: clean implementation 47e2dd8, recorded at 8771d83, plain 257×129 H at origin (257,0), pixel (59,0), half 2149 versus 2150. The accepted analysis is f32 rounding of fract(1+x) for a non-power-of-two denominator, not a production seam; normal periodic-boundary evidence remains a separate gate. This explanation does not grant any broader numerical relaxation.
+
+- Zero-origin identity remains exact at every size.
+- Both axes power-of-two (256²/1024²/2048²): every full-period and period-plus-interior shift remains raw-half bit-exact.
+- 257×129 only: each component may differ by at most one adjacent finite binary16 step. Signed values use monotonic ranks (negative bits complemented, nonnegative bits XOR 0x8000); -0/+0 are adjacent, and larger sign/zero crossings fail. Exact gates still compare bits, including signed zero.
+- Record differing component/pixel counts, maximum half-step distance and maximum absolute difference per case/size/mode and origin. Stop if any amended gate fails; incomplete coverage is explicitly reported.
+
+Nothing else in the frozen plan changes. A regression removes only this named amendment entry and checks the complete previous plan hash, alongside the existing Stage A and original Stage B guards. Stage B is not complete until the amended probes pass; C/D and materialAccepted=false remain unchanged.
