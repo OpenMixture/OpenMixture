@@ -47,6 +47,11 @@ for (const row of browser.rows) {
   assert.deepEqual(row.files.map(f=>f.channel).sort(),['baseColor','height','metallic','normal','roughness']);
   for(const file of row.files) {assert.equal(file.name,`${row.id}-${file.channel}.png`);await copyFile(join(dirname(matches[0]),file.name),join(destination,file.name));}
 }
+if (process.env.MIXTURE_GPU_SOFTWARE === '1') {
+  const setup = await readFile('.github/scripts/setup-swiftshader.sh','utf8');
+  const pinned = setup.match(/^swiftshader_revision=([a-f0-9]{40})$/m)?.[1];
+  assert.ok(pinned); assert.equal(process.env.MIXTURE_SWIFTSHADER_COMMIT,pinned,'software timing requires the repository pin');
+}
 const result=spawnSync('cargo',['test','--release','--locked','--all-features','--manifest-path','examples/native-consumer/Cargo.toml','--target-dir','target/native-consumer','--test','woven_material','--','--ignored','--nocapture'],{encoding:'utf8',env:{...process.env,MIXTURE_WOVEN_ROOT:resolve('.'),MIXTURE_WOVEN_REQUESTS:destination,MIXTURE_WOVEN_BROWSER:destination,MIXTURE_WOVEN_EVIDENCE:join(destination,'native')}});
 await writeFile(join(destination,'stdout.log'),result.stdout??'');await writeFile(join(destination,'stderr.log'),result.stderr??'');
 if(result.error)throw result.error;

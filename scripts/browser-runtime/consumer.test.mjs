@@ -181,3 +181,7 @@ test('portable asset regression retains v1 independently of migrated loose resou
   assert.deepEqual(asset,browser);
   for(const node of JSON.parse(asset).nodes)if(node.type==='fractal-noise')assert.equal(node.version,1);
 });
+
+test('candidate requires the woven material matrix in addition to the node tests', () => {
+  assert.throws(() => assertBrowserReport({stats:{expected:22,unexpected:0,skipped:0,flaky:0},errors:[]}, 'candidate'));
+});

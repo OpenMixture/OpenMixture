@@ -116,7 +116,9 @@ jobs:
       - name: Compare the complete painted-metal matrix across Native and browser
         run: node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
       - name: Woven material public matrix parity
-        run: node scripts/browser-runtime/check-woven.mjs tmp/sdk-candidate tmp/sdk-woven-comparison
+        run: |
+          export MIXTURE_SWIFTSHADER_COMMIT=$(git -C tmp/swiftshader/source rev-parse HEAD)
+          node scripts/browser-runtime/check-woven.mjs tmp/sdk-candidate tmp/sdk-woven-comparison
       - name: Retain bounded painted-metal stage diagnostics after reuse failure
         if: failure() && steps.texture-reuse.outcome == 'failure'
         run: |
