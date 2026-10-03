@@ -100,7 +100,7 @@ test('archive paths cannot escape the installed package', () => {
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
   assertBrowserReport(report);
-  assertBrowserReport({...report,stats:{...report.stats,expected:22}},'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:23}},'candidate');
   assert.throws(() => assertBrowserReport({...report,stats:{...report.stats,expected:19}}, 'candidate'));
   assert.throws(()=>assertBrowserReport(report,'candidate'));
   for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
@@ -153,7 +153,7 @@ test('ENG-04 hosts preserve the frozen fixture and share an explicit noise migra
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
   const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
-  assertBrowserReport({...report,stats:{...report.stats,expected:22}}, 'candidate');
+  assertBrowserReport({...report,stats:{...report.stats,expected:23}}, 'candidate');
   assert.throws(() => assertBrowserReport({...report,stats:{...report.stats,expected:20}}, 'candidate'), 'the painted-metal matrix must execute');
   assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
   assertBrowserReport(report, 'registry');
@@ -180,4 +180,8 @@ test('portable asset regression retains v1 independently of migrated loose resou
   const browser = await readFile(new URL('../../examples/browser-consumer/public/image-input.mix',import.meta.url));
   assert.deepEqual(asset,browser);
   for(const node of JSON.parse(asset).nodes)if(node.type==='fractal-noise')assert.equal(node.version,1);
+});
+
+test('candidate requires the woven material matrix in addition to the node tests', () => {
+  assert.throws(() => assertBrowserReport({stats:{expected:22,unexpected:0,skipped:0,flaky:0},errors:[]}, 'candidate'));
 });

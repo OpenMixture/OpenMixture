@@ -1,8 +1,42 @@
-# MAT-03a — 有界编织表面（草案）
+# MAT-03 — 编织材质分阶段验收
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
-材质状态：**draft，未冻结；runtimeImplemented: false；materialAccepted: false**。维护者现已批准 weave-pattern@1 节点并授权其单独实现，见下节冻结决定。完整材质图、结构矩阵及 PBR／人工验收仍留待后续 PR；保留的配方基线和提案图不是已验收材质。
+材质状态：**计划已冻结；节点 runtimeImplemented: true；materialAccepted: false**。PR #81 已合并；本阶段仅进行公开材质矩阵验收，尚无材质接受决定。
+
+## 阶段 A 绑定源码的本地观测
+
+干净提交 **69fb6074477f3c156e775779cb0a3770cef5189a** 的公开矩阵通过；本结果提交只更新记录，不更改冻结配方、控制、用例或门槛。计划 reviewMeasurements 绑定实测计划／源图／构建器 SHA-256 及浏览器 buildId；后续元数据不能冒充该次执行。早期 Vulkan 独立运行绑定 9d0ddad，同一图及门槛；下表采用 69fb607 的最终对比运行。
+
+51 行 CLI validate／inspect 均通过（48 材质 + 3 压力）；每行 21 passes、8 物理纹理。256²／1024²／2048²／257×129 的描述符峰值分别为 **4719184／75498064／301990480／2419600 B**。GT 1030 Vulkan（NVIDIA 582.66）与 DX12（32.0.15.8266）各通过 51 行，覆盖逐字重复、普通图／包等价、切片高度、销毁后输出所有权、常量参考、分配会计及四组匹配耗时预算。
+
+Chrome **154.0.8037.98** 干净候选通过 **23** 项测试（woven 51 行）；浏览器回报 BrowserWebGpu，适配器名称为空，不据此断言浏览器的具体硬件。Vulkan 对 Chrome **255** 通道图比较最大分量差 **1/255**（门槛 ≤1/255）；plain／varied 两个下采样对中最坏分量均值误差 **0.365744/255**，浏览器 **0.365744/255**（门槛 ≤4/255）。密集细线压力仍保留单独质量范围，不据此扩展保证。
+
+| 后端 | 行 | 冷渲染 ms | 五次暖中位 ms |
+|---|---|---:|---:|
+| Vulkan | plain-1024x1024 | 380.661 | 272.581 |
+| Vulkan | plain-2048x2048 | 1138.523 | 1070.967 |
+| Vulkan | varied-1024x1024 | 312.148 | 241.999 |
+| Vulkan | varied-2048x2048 | 1209.119 | 1020.760 |
+| Dx12 | plain-1024x1024 | 931.150 | 244.278 |
+| Dx12 | plain-2048x2048 | 1770.509 | 944.424 |
+| Dx12 | varied-1024x1024 | 1005.098 | 219.167 |
+| Dx12 | varied-2048x2048 | 1748.931 | 969.360 |
+
+冷 2K 仅记录，不设额外门槛；原冷 1K／暖 1K／暖 2K 预算不变。逐张查看了 plain 的 1K baseColor／normal 与 varied 的 baseColor，仅作结构显示自查，不能替代 B 结构证明或 C PBR／人工决定。原始日志、请求、图像与逐行收据在忽略目录 tmp/woven-matrix/（native-vulkan-2、native-dx12、browser、comparison）；CLI 命令与解析脚本在同目录，均不提交。节点／着色器、版本、其他材质及黄金未改变。固定 SwiftShader 未在本机运行；B–D 均待后续 PR，materialAccepted=false。
+
+## 分阶段计划及冻结边界
+
+本 PR 的首个仅文档／计划提交冻结[材质计划](../fixtures/materials/woven-fabric/qualification-plan.json)及[配方](../fixtures/materials/woven-fabric/graph-proposal.json)，随后添加可执行材质及矩阵。
+
+- A（本 PR）：冻结材质计划、可执行材质和公开 Native／浏览器矩阵。
+- B（独立后续 PR）：raw-half、结构、周期、法线重放及压力探针。
+- C（独立后续 PR）：介电 PBR 评审图及人工决定。
+- D（独立后续 PR）：保留证据及接受记录。
+
+12 个用例各运行 256²、1024²、2048²、257×129，五通道；另有 3 个密集细线压力请求。控制范围不变，默认 crown=0.5、relief=0.025、underRatio=0.5。所有通道跨运行时最大分量差 ≤1/255；plain 和 varied 的 baseColor／height 在 1024→256（4×4）及 2048→1024（2×2）未舍入盒平均后，每 RGB 分量平均绝对差 ≤4/255。压力质量范围单独标记，仍要求奇偶、重复及跨运行时一致性，结构细查在 B。预算 ≤64 passes、2K 描述符峰值 ≤536870912 B；GT 1030 的冷 1K／五次暖中位 1K／2K 为 10000／1000／4000 ms，固定 SwiftShader 为 60000／20000／80000 ms。只按匹配适配器预算判定。任何冻结门槛失败即停止，不放宽。
+
+原始计划与提案逐字保留为 qualification-plan-draft.json、graph-proposal-draft.json；graph-design.json 保留修订 4 基线及原收据（52 passes、10 纹理、2K 369100128 B）。下文旧提案与当时状态仅为历史；当前冻结状态以本节及计划为准。
 
 ## 已批准的节点冻结与实现范围
 

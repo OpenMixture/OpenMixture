@@ -1,10 +1,10 @@
 {
-  "status": "frozen",
-  "frozen": true,
-  "runtimeImplemented": true,
+  "status": "draft",
+  "frozen": false,
+  "runtimeImplemented": false,
   "materialId": "woven-fabric",
-  "designRole": "Stage A frozen material recipe specification; material.mix is its ordinary mix v1 expansion",
-  "requiresCatalogReview": false,
+  "designRole": "proposed-node-alternative; not executable on the current catalog",
+  "requiresCatalogReview": true,
   "baselineGraph": "graph-design.json",
   "baselineCommit": "ca2e98b326ce5aad5f5029f9f10ef82ac113419a",
   "nodes": [
@@ -328,7 +328,7 @@
     "detailAmount": 0.08,
     "normalStrength": 0.5
   },
-  "notes": "Three weave instances share all seven geometry controls; only mode differs. Bindings and defaults are frozen in qualification-plan.json. Original proposal and existing-node baseline retained separately. Static projection remains an estimate until measured.",
+  "notes": "Three weave-pattern@1 instances must share every geometry parameter and output size; only mode differs. Defaults above override the retained baseline only in this proposal (crown added, underRatio/relief restored); other defaults and case overrides come from qualification-plan.json. No node implementation, shader, manifest change or measured candidate render exists.",
   "projection": {
     "status": "static-estimate-not-measured",
     "assumptions": "One 48-byte weave uniform, one rgba16float output and one pass per mode instance, no implicit defaults, existing plan-v3 lexical schedule/exact-descriptor reuse and one sequential staging buffer. Must verify in a later authorized implementation; no current compile/render exists.",
@@ -448,6 +448,5 @@
         "lastUse": 21
       }
     ]
-  },
-  "materialAccepted": false
+  }
 }

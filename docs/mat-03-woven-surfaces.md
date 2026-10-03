@@ -1,8 +1,42 @@
-# MAT-03a — bounded woven surfaces (draft)
+# MAT-03 — staged woven material qualification
 
 English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
-Material status: **draft, not frozen; runtimeImplemented: false; materialAccepted: false**. The maintainer has now approved weave-pattern@1 and authorized its separate node implementation, as recorded below. The full material graph, structural matrix and PBR/human qualification remain a later PR; retained baseline and proposal graphs are not accepted materials.
+Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. PR #81 is merged. This stage qualifies the public material matrix; it does not accept the material.
+
+## Stage A source-bound local observations
+
+The public matrix passed at clean commit **69fb6074477f3c156e775779cb0a3770cef5189a**. This result-only update changes records, not the frozen recipe, controls, cases or gates. Plan reviewMeasurements binds the measured plan/source/builder SHA-256 and browser buildId; later metadata is not the tested snapshot. The earlier standalone Vulkan run used 9d0ddad with the same graph/gates; the table uses the final 69fb607 comparison run.
+
+All 51 CLI validate/inspect rows passed (48 material + 3 stress), each with 21 passes and 8 physical textures. Descriptor peaks at 256²/1024²/2048²/257×129 are **4719184/75498064/301990480/2419600 B**. GT 1030 Vulkan (NVIDIA 582.66) and DX12 (32.0.15.8266) each passed 51 rows: exact repeats, loose/package equivalence, sliced height, owned outputs after destruction, constant references, allocation accounting and four matched timing budgets.
+
+Clean Chrome **154.0.8037.98** candidate consumption passed **23** tests, including 51 woven rows. Browser reports BrowserWebGpu with an empty adapter name; this does not identify its hardware. Vulkan versus Chrome compared **255** channel images with maximum component delta **1/255** (limit ≤1/255). Worst plain/varied per-component mean error across both downsample pairs was **0.365744/255** on Native and **0.365744/255** in Chrome (limit ≤4/255). Dense/thin stress remains separately labeled; these measurements do not extend the default quality guarantee.
+
+| Backend | Row | Cold render ms | Median of five warm renders ms |
+|---|---|---:|---:|
+| Vulkan | plain-1024x1024 | 380.661 | 272.581 |
+| Vulkan | plain-2048x2048 | 1138.523 | 1070.967 |
+| Vulkan | varied-1024x1024 | 312.148 | 241.999 |
+| Vulkan | varied-2048x2048 | 1209.119 | 1020.760 |
+| Dx12 | plain-1024x1024 | 931.150 | 244.278 |
+| Dx12 | plain-2048x2048 | 1770.509 | 944.424 |
+| Dx12 | varied-1024x1024 | 1005.098 | 219.167 |
+| Dx12 | varied-2048x2048 | 1748.931 | 969.360 |
+
+Cold 2K is recorded only; frozen cold 1K/warm 1K/warm 2K budgets are unchanged. Plain 1K baseColor/normal and varied baseColor were visually inspected for sanity, not as Stage B structural proof or Stage C PBR/human acceptance. Raw logs, requests, images and row receipts are under ignored tmp/woven-matrix/ (native-vulkan-2, native-dx12, browser, comparison); CLI commands/resolver are in the same ignored directory. No node/shader, version, other material or golden changed. Pinned SwiftShader was not run locally. Stages B–D remain later PRs and materialAccepted=false.
+
+## Staged plan and freeze boundary
+
+This PR's first docs/plan-only commit freezes the [material plan](../fixtures/materials/woven-fabric/qualification-plan.json) and [recipe](../fixtures/materials/woven-fabric/graph-proposal.json), before executable material and matrix work.
+
+- A (this PR): frozen material plan, executable material and public Native/browser matrix.
+- B (separate later PR): raw-half, structural, periodic, normal-replay and stress probes.
+- C (separate later PR): dielectric PBR review sheets and human decision.
+- D (separate later PR): retained evidence and acceptance record.
+
+Twelve cases each run at 256², 1024², 2048² and 257×129 with five channels; three dense/thin stress requests are separate. Accepted control ranges remain unchanged, with crown=0.5, relief=0.025, underRatio=0.5 defaults. All-channel cross-runtime maximum component error is ≤1/255. For plain and varied baseColor/height, unrounded box averages from 1024→256 (4×4) and 2048→1024 (2×2) must have each RGB component's mean absolute error ≤4/255. Stress quality scope is labeled separately; parity/repeats still apply, with structural probes in B. Budgets are ≤64 passes and ≤536870912 B descriptor peak at 2K. GT 1030 cold 1K / median of five warm 1K / warm 2K targets are 10000/1000/4000 ms; pinned SwiftShader targets are 60000/20000/80000 ms. Only matched-adapter budgets qualify. Stop on any frozen gate failure; never relax it.
+
+Original plan/proposal bytes are retained as qualification-plan-draft.json and graph-proposal-draft.json; graph-design.json retains revision 4 and original receipts (52 passes, 10 textures, 2K 369100128 B). Earlier proposal/status wording below is historical and superseded by this section and the frozen plan.
 
 ## Approved node freeze and implementation scope
 
