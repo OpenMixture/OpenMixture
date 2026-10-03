@@ -764,3 +764,7 @@ mod allocation_tests {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "woven_tests.rs"]
+mod woven_tests;

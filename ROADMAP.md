@@ -63,7 +63,7 @@ Subgraphs and presets follow MAT-04 below; their format and implementation remai
 
 ## Material capability roadmap — staged delivery
 
-The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03 material qualification stage A is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
+The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03 material qualification stage B is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
 
 The planning baseline had thirteen node types, image input, public parameters, eight material output channels and portable assets. MAT-01 adds two accepted node types for structured brick materials; later stages still need the processing vocabulary specified below. A channel slot is not a channel generator; a portable archive is not a reusable subgraph. Existing ceramic/leather/wood acceptance remains bounded and mandatory.
 

@@ -142,3 +142,15 @@ Noise inputs are production value-noise v2, scale 4, octaves 2, persistence 0.5,
 
 Dense-thin at its existing 256²/1024²/257×129 sizes checks finite normalized H/C/S, C=0 ⇒ H=0 and S=0.5, identical geometry, and exact normal replay for all four offsets. It remains outside default/varied quality guarantees; no undersampled crossing-center quality promise is added. Any frozen failure stops work and records case, size, field, pixel, actual/expected values and adapter; no tolerance relaxation.
 
+
+### Focused Stage B commands
+
+The following ignored tests run through `cargo xtask gpu-smoke` automatically, using its existing serialized ignored-test selection. Set the documented explicit GPU environment for Vulkan or DX12. Noise/weave translated-input implementation remains pending the instrumentation clarification.
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_flat -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_control_isolation -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_normal_periodic -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --nocapture
+```

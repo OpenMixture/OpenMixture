@@ -142,3 +142,15 @@ mixture 指 target/native-consumer/release/mixture.exe。此前修订 4 Native �
 
 Dense-thin 使用原有 256²／1024²／257×129，检查 H/C/S 有限归一化、C=0 ⇒ H=0 且 S=0.5、相同几何及四偏移精确法线重放。仍不属于默认／变化质量保证；不新增欠采样交点质量承诺。任何冻结失败停止工作并记录用例、尺寸、场、像素、实际／期望值和适配器，不放宽容差。
 
+
+### 阶段 B 定向命令
+
+以下忽略测试由 `cargo xtask gpu-smoke` 的既有串行忽略测试选择自动运行。按上文设置 Vulkan 或 DX12 显式 GPU 环境。噪声／织纹跨周期输入实现仍待观测范围澄清。
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_flat -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_control_isolation -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_normal_periodic -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --nocapture
+```
