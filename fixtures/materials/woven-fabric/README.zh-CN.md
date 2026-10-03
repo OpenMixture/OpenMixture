@@ -4,6 +4,8 @@
 
 维护者于 2026-10-03 评审 ca2e98b 的配方修订 4 后改变方向。四轮既有节点尝试从平顶／不可见纹理、交叉接缝、通道不匹配及骨头／绗缝形状，变成对齐但看似断开的胶囊。[契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)记录有界发现及解析节点提案；这不证明不可能，也不授权实现。继续保持 **draft、frozen: false、runtimeImplemented: false、materialAccepted: false**。
 
+节点状态已由维护者后续决定更新：[weave-pattern@1 节点契约及验收用例](../../../docs/weave-pattern-acceptance.zh-CN.md)在实现前冻结，节点实现单独推进。下文保留 PR #80 设计检查点的提案／授权措辞；不再表示当前节点尚未获批。材质图与计划仍为 draft、frozen: false、runtimeImplemented: false，不因节点实现而冻结或验收。
+
 ## 区分基线和提案
 
 - [graph-design.json](./graph-design.json) 原样保留修订 4 既有节点基线。[qualification-plan.json](./qualification-plan.json) 的顶层默认值／用例／独立扫描及实测资源字段仍描述该基线。保留四份绑定源码的评审记录及输入身份；本设计变更不宣称新 GPU 运行。

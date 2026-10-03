@@ -72,7 +72,8 @@ pub(super) fn run(context: &GpuContext) -> Value {
                     "vec4<f32>(s.occupancy,s.fields.z,s.fields.y-s.fields.z)",
                 );
                 for (index, (h, w)) in heights.iter().zip(&weights).enumerate() {
-                    let even = (index as u32 % counts[0] + index as u32 / counts[0]) % 2 == 0;
+                    let even =
+                        (index as u32 % counts[0] + index as u32 / counts[0]).is_multiple_of(2);
                     let want = if even { [1., r] } else { [r, 1.] };
                     near(h[0], want[0]);
                     near(h[1], want[1]);
@@ -140,9 +141,9 @@ pub(super) fn run(context: &GpuContext) -> Value {
                     }
                 }
                 let actual = observe(context, p, &seams, "vec4<f32>(s.fields,1.0)");
-                for pair in actual.chunks_exact(2) {
-                    for k in 0..3 {
-                        assert!((pair[0][k] - pair[1][k]).abs() <= 0.01);
+                for pair in actual.as_chunks::<2>().0 {
+                    for (a, b) in pair[0][..3].iter().zip(&pair[1][..3]) {
+                        assert!((a - b).abs() <= 0.01);
                     }
                 }
             }
@@ -166,13 +167,13 @@ pub(super) fn run(context: &GpuContext) -> Value {
     let modes: Vec<_> = (0..3)
         .map(|mode| render(context, size, params([12, 8], 0.5, 0.5, mode), None))
         .collect();
-    for mode in 0..3 {
+    for (mode, pixels) in modes.iter().enumerate() {
         assert_eq!(
-            modes[mode],
+            *pixels,
             render(context, size, params([12, 8], 0.5, 0.5, mode as u32), None)
         );
     }
-    for (i, s) in observed.chunks_exact(4).enumerate() {
+    for (i, s) in observed.as_chunks::<4>().0.iter().enumerate() {
         let total: [f32; 3] = std::array::from_fn(|k| s.iter().map(|p| p[k]).sum());
         let share = if total[1] > 0. {
             total[2] / total[1]
