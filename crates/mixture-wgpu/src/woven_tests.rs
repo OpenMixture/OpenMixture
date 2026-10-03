@@ -499,6 +499,87 @@ fn graph_gpu_woven_stress() {
     }
 }
 
+// Monotonic finite binary16 ordering, including distinct adjacent -0/+0.
+fn half_steps(a: u16, b: u16) -> u16 {
+    assert!(half::f16::from_bits(a).is_finite() && half::f16::from_bits(b).is_finite());
+    let rank = |v: u16| if v & 0x8000 != 0 { !v } else { v ^ 0x8000 };
+    rank(a).abs_diff(rank(b))
+}
+fn weave_step_limit(size: [u32; 2], origin: [u32; 2]) -> u16 {
+    if origin == [0, 0] || size.iter().all(|v| v.is_power_of_two()) {
+        0
+    } else {
+        1
+    }
+}
+#[test]
+fn woven_periodic_amendment_keeps_exact_gates_and_bounds_zero_crossings() {
+    for size in [[256, 256], [1024, 1024], [2048, 2048]] {
+        for origin in [
+            [0, 0],
+            [size[0], 0],
+            [0, size[1]],
+            [size[0] + 3, size[1] + 5],
+        ] {
+            assert_eq!(weave_step_limit(size, origin), 0);
+        }
+    }
+    assert_eq!(weave_step_limit([257, 129], [0, 0]), 0);
+    assert_eq!(weave_step_limit([257, 129], [257, 0]), 1);
+    assert_eq!(weave_step_limit([256, 129], [256, 0]), 1);
+    for (a, b) in [
+        (2149, 2150),
+        (0, 1),
+        (0x3bff, 0x3c00),
+        (0x8000, 0),
+        (0x8001, 0x8000),
+    ] {
+        assert_eq!(half_steps(a, b), 1);
+        assert_eq!(half_steps(b, a), 1);
+        assert_eq!(half_steps(a, a), 0);
+    }
+    assert_eq!(half_steps(0x8001, 1), 3);
+    assert_eq!(half_steps(2148, 2150), 2);
+}
+#[derive(Default, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct WeaveUlpStats {
+    components: u64,
+    differing_components: u64,
+    differing_pixels: u64,
+    max_half_steps: u16,
+    max_absolute_difference: f64,
+}
+impl WeaveUlpStats {
+    fn pixel(&mut self, actual: [u16; 4], expected: [u16; 4]) -> u16 {
+        let mut maximum = 0;
+        self.components += 4;
+        self.differing_pixels += u64::from(actual != expected);
+        for (a, b) in actual.into_iter().zip(expected) {
+            let steps = half_steps(a, b);
+            self.differing_components += u64::from(a != b);
+            maximum = maximum.max(steps);
+            self.max_half_steps = self.max_half_steps.max(steps);
+            let delta = (f64::from(half::f16::from_bits(a).to_f32())
+                - f64::from(half::f16::from_bits(b).to_f32()))
+            .abs();
+            self.max_absolute_difference = self.max_absolute_difference.max(delta);
+        }
+        maximum
+    }
+}
+fn weave_periodic_receipt(context: &GpuContext, rows: &[Value], completed: bool) {
+    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-exact-where-exact","adapter":context.report().adapter(),"rows":rows});
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            std::path::Path::new(&directory).join("woven-weave-periodic.json"),
+            serde_json::to_vec_pretty(&receipt).unwrap(),
+        )
+        .unwrap();
+    }
+}
+
 #[test]
 #[ignore = "requires GPU; cargo xtask test-node weave-pattern or gpu-smoke"]
 fn node_weave_pattern_gpu_woven_periodic() {
@@ -515,6 +596,15 @@ fn node_weave_pattern_gpu_woven_periodic() {
         "weave_box(vec2<f32>(gid.xy) + params.under_padding.yz,vec2<f32>(size))",
     );
     let mut comparisons = 0;
+    let mut rows = Vec::new();
+    assert_eq!(
+        plan["structuralProbes"]["amendments"][0]["id"],
+        "2026-10-04-exact-where-exact"
+    );
+    assert_eq!(
+        plan["structuralProbes"]["amendments"][0]["after"]["maximumHalfSteps"],
+        1
+    );
     for preset in plan["cases"].as_array().unwrap() {
         let name = preset["id"].as_str().unwrap();
         let c = controls(&plan, &preset["controls"]);
@@ -528,6 +618,8 @@ fn node_weave_pattern_gpu_woven_periodic() {
                     "{name} {size:?} {} constant baseline",
                     MODES[mode]
                 );
+                let mut mode_stats = WeaveUlpStats::default();
+                let mut origins_observed = 0;
                 let f = |key: &str| (c[key].as_f64().unwrap() as f32).to_bits();
                 for origin in [
                     [0, 0],
@@ -559,6 +651,9 @@ fn node_weave_pattern_gpu_woven_periodic() {
                         &instrumented,
                         entry,
                     );
+                    let limit = weave_step_limit(size, origin);
+                    let mut stats = WeaveUlpStats::default();
+                    let mut failure = None;
                     for y in 0..size[1] {
                         for x in 0..size[0] {
                             let expected_index = (((y + origin[1]) % size[1]) * size[0]
@@ -571,27 +666,33 @@ fn node_weave_pattern_gpu_woven_periodic() {
                                 ])
                             });
                             let actual = pixels[(y * size[0] + x) as usize];
-                            assert_eq!(
-                                actual,
-                                expected,
-                                "weave periodic case={name} size={size:?} mode={} origin={origin:?} pixel=({x},{y}) actual-float={:?} expected-float={:?}",
-                                MODES[mode],
-                                actual.map(|v| half::f16::from_bits(v).to_f32()),
-                                expected.map(|v| half::f16::from_bits(v).to_f32())
-                            );
+                            let steps = stats.pixel(actual, expected);
+                            mode_stats.pixel(actual, expected);
+                            if steps > limit && failure.is_none() {
+                                failure = Some(
+                                    json!({"pixel":[x,y],"actualHalf":actual,"expectedHalf":expected,"halfSteps":steps,"actual":actual.map(|v|half::f16::from_bits(v).to_f32()),"expected":expected.map(|v|half::f16::from_bits(v).to_f32())}),
+                                );
+                            }
                         }
                     }
-                    comparisons += 1;
-                    eprintln!(
-                        "woven weave periodic passed {name} {size:?} {} {origin:?}",
+                    origins_observed += 1;
+                    let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":limit,"passed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
+                    eprintln!("woven weave ULP row: {row}");
+                    rows.push(row);
+                    weave_periodic_receipt(&ctx, &rows, false);
+                    assert!(
+                        failure.is_none(),
+                        "weave periodic case={name} size={size:?} mode={} origin={origin:?} limit={limit} firstFailure={failure:?}; full failing-image statistics retained",
                         MODES[mode]
                     );
+                    comparisons += 1;
                 }
             }
         }
     }
     assert_eq!(comparisons, 12 * 4 * 3 * 5);
+    weave_periodic_receipt(&ctx, &rows, true);
     eprintln!(
-        "woven weave periodic completed: {comparisons} exact comparisons including zero-origin graph identity"
+        "woven weave periodic completed: {comparisons} amended comparisons including exact zero-origin graph identity"
     );
 }
