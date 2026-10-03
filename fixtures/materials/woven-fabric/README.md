@@ -1,86 +1,51 @@
-# Woven fabric — MAT-03a recipe revision 3 (draft)
+# Woven fabric — MAT-03a recipe revision 4 (draft)
 
 English | [简体中文](./README.zh-CN.md)
 
-The [contract](../../../docs/mat-03-woven-surfaces.md), [graph design](./graph-design.json) and [qualification plan](./qualification-plan.json) remain **draft, frozen: false, runtimeImplemented: false**. Decision 1 was accepted on 2026-10-02: opaque plain weave plus one varied plain weave, even counts 4..32 and widths 0.55..0.9 of spacing; no twill or other weave. The full contract is not frozen. The maintainer selected existing-node recipe changes for memory and visual improvements; no new node or PERF-MAT engine work is authorized.
+The [contract](../../../docs/mat-03-woven-surfaces.md), [graph design](./graph-design.json) and [plan](./qualification-plan.json) define this draft. Decision 1 accepts the family/control domain, not the complete contract. Historical revision observations remain in the contract and plan.
 
-### Recipe revision 3 — crossing and crown review (2026-10-02)
+## Recipe revision 4 — shared structure and reduced pinch (2026-10-03)
 
-The maintainer did **not accept revision 2 at 92b0b21**. Revision 3 remains draft, unfrozen and unimplemented as a qualified material. No default, accepted count/width range, runtime, node or version changes. Source-bound review uses branch baseline `92b0b2108f6442174119711fffcfe04914e7a6a3`, engine main `e73e2b99c85987551d11db78eb90dfbf0564100a`, and the freshly rebuilt release CLI. The plan's `reviewMeasurementsRevision3` records exact commands, input/binary hashes, results and crop hashes; the annotated plan is not the measured snapshot.
+The maintainer judged revision 3 at `793f73e96c5c7be6b1ff280d9a23b6d442198043` to have fixed crossing seam lines and flat crowns, but **did not accept the material**. Revision 4 remains draft, frozen: false, runtimeImplemented: false. It uses existing nodes only. The accepted plain/varied family, count/width meanings and all control ranges remain unchanged.
 
-Q's brick bevel increases from 0.025 to 0.25, spreading its edge transition. Each height profile now multiplies the original W/F by a second, axial-cap-free crown: transverse mortar=0.45, bevel=0.25, the same half-tile axial shift/max construction, then levels output 0.4..1. The positive floor preserves the original width support and count/spacing meanings. At analytical crossing centers both crowns equal 1 and Q remains exactly alternating 0/1; upper height is relief and lower is relief*underRatio, strictly separated for relief>0. These are continuous-field facts, not a claim of qualified mixed-footprint/f16 pixels. The crown retains a small 0.05-pitch plateau, so it is rounder, not an exact ellipse.
+Let P/R be the crowned warp/weft profiles. Keep Q's smooth brick selector with mortarX=0.45 and bevel=0.25. Define normalized layer shapes A=P*mix(underRatio,1,Q), B=R*mix(1,underRatio,Q), shared surface coverage C=max(A,B), and shared visible-thread selection D=clamp((A-B+0.1)/0.2,0,1). Implement D without signed subtraction: levels inverts B, scalar-blend forms (A+1-B)/2, then levels maps [0.45,0.55] to [0,1]. Existing subtract/blend/levels still synthesize max. Color=mix(backing,mix(weftColor,warpColor,D),C); D also selects directional grain for yarn roughness, then C blends yarn over backing roughness. Height=relief*C; normal derives from that same stored height. Thus relief, color edges and roughness use the same surface shape, replacing the independent rectangular color composites and coverage union. Metallic stays zero. C is a normalized surface weight, not a binary geometry mask or alpha transparency.
 
-Four height-grain attenuation passes are removed to keep intermediate lifetimes bounded and smooth the height surface. Directional grain still drives color and roughness at the unchanged default detailAmount=0.08; height/normal are now independent of detailAmount and the grain seeds. This recipe mapping change must be included in later control-isolation tests. The existing max composition can still produce derivative ridges where thread heights meet.
+Default underRatio changes **0.5 → 0.25**, relief **0.025 → 0.0125**, within their unchanged ranges. Count, width and other defaults do not change. Each narrow crown's positive floor changes 0.4 → 0.65, retaining ceiling 1, transverse mortar 0.45, bevel 0.25 and the axial half-tile max construction. This reduces the difference between shoulder and crown; W/F still set the outer support and spacing. Lowering the under-thread keeps it from cutting as deeply into the upper shoulders; smaller relief reduces the puffy appearance. At analytical crossing centers P=R=1, Q=0/1, A/B=1/underRatio in alternating order, D=0/1; upper>lower for relief>0 remains strict. Mixed footprints and half quantization still need their separate gates. Grain remains in color/roughness only. Relief zero keeps the woven color/roughness but zero height and neutral normal. Because C/D now share layer order, underRatio affects all nonmetallic channels; relief still affects height/normal only.
 
-| Full five-channel request (plain, varied and combined-high; also all other plan cases) | Passes | Physical textures | peakBytes |
+### Source-bound review and alignment observations
+
+Before uses clean branch `793f73e`; after uses that engine with the revised draft graph/defaults. Both use the same freshly rebuilt release CLI from engine main `e73e2b99c85987551d11db78eb90dfbf0564100a`. The plan's `reviewMeasurementsRevision4` records graph/plan/binary/resolved-input hashes, commands, adapter and observations. Its annotated plan follows the measured snapshot; graph bytes match. All eight cases validate without diagnostics and compile with all five outputs at both sizes. Plain/varied 1K renders succeed on **NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66**, explicitly using `--backend vulkan`.
+
+| All five outputs; plain, varied, combined-high (and the other five cases) | Passes | Physical textures | peakBytes |
 |---|---:|---:|---:|
-| Before revision 2, 1024² | 45 | 14 | 125,830,240 |
-| Before revision 2, 2048² | 45 | 14 | 503,317,600 |
-| After revision 3, 1024² | 53 | 14 | 125,830,464 |
-| After revision 3, 2048² | 53 | 14 | 503,317,824 |
+| Before revision 3, 1024² | 53 | 14 | 125,830,464 |
+| Before revision 3, 2048² | 53 | 14 | 503,317,824 |
+| After revision 4, 1024² | 52 | 10 | 92,276,064 |
+| After revision 4, 2048² | 52 | 10 | 369,100,128 |
 
-All eight cases validate without diagnostics and compile at both sizes before/after. The unchanged limits remain 64 passes and 536,870,912 bytes; the 2K compile blocker stays resolved. After logical bytes are 444,596,224 / 1,778,384,896, not the governing peak. Plain and varied render at 1K on NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66 with explicit `--backend vulkan`. No new 2K render or browser/timing qualification is asserted in this iteration.
+The ceilings stay **64 passes / 536,870,912 bytes**; the 2K compile blocker remains resolved. Logical bytes are 436,207,616 / 1,744,830,464, not the scheduled peak. Fewer duplicate composites and the explicit numeric node-ID order reduce live intermediates; no scheduler/allocator change.
 
-Inspection of the original normal maps and native-resolution crops shows substantially softened straight crossing lines and narrower crowns. Varied counts/widths and color/roughness grain remain visible. Residual max-join ridges, the small flat center and final PBR fabric appearance require maintainer judgment: **visual acceptance remains pending**, with no new node proposed. Review `tmp/mat03-recipe-review-3/after/plain-1024/` and `after/varied-1024/` for baseColor.png, normal.png, roughness.png and height.png. The plain directory also contains normal-crossing-256.png and height-crossing-256.png: source rectangle x=64,y=64,width=256,height=256, no scaling or tone adjustment. Height is dark because its original linear range is small; it is not raw-half evidence. Matching baseline crops/maps are under `before/`. Resolver, reports and images remain ignored local review output, not durable acceptance or committed tooling.
+Alignment was checked with two plain-1K neutral probes through the same release Vulkan executor. For C, set both yarn colors white/backing black, yarn roughness 1/backing 0, and expose C through the height output. For D*C, set warp white/weft black, warpGrain=1/weftGrain=0, roughness ramp 0..1/backing 0, and expose scalar-mask-blend(0,D,C). Compare each production baseColor with a separate gradient-map of the same scalar reference (preserving sRGB encoding), and roughness with its linear scalar reference. **Both probes have max RGB byte delta 0 and zero differing pixels**, across the full 1024² image and x=64,y=64,256×256 crop. This checks actual shared coverage/selection edges; normal is a derivative, not an identical mask. It does not qualify arbitrary colors, raw-half precision, browser parity or the full control matrix.
 
-## Recipe and caller mapping
+A separate bounded pinch observation renders isolated thread shapes as normalized linear RGBA8. For x=[144,160,176,192,208,224,240], count y=0..127 where weft>warp and weft>13/255: before widths [76,72,50,46,50,72,76], after [80,78,66,64,66,78,80] pixels. The center/near-end ratio rises from 46/76 (~0.605) to 64/80 (0.8), consistent with less hourglass pinch; this is not a frozen geometric-width tolerance. Matched actual crops show color/roughness following the rounded crossing shape and less bulbous relief. Rounded ends and stylized fabric appearance remain review risks, especially outside defaults. **Maintainer visual acceptance remains pending.** No new node is proposed. Narrower/multi-sample selectors and translated-height attempts were rejected as insufficient; the multi-sample version introduced bands.
 
-Revision 3 has 53 existing-node instances and five outputs. Numeric prefixes on node IDs establish a legal order for Core's existing lexical ready-node scheduler. Reordering the JSON array alone would not change scheduling. The specific recipe order reduces physical slots from 16 to 14 while adding grain composition; this is not an engine optimizer. Preserve IDs and references when reproducing these measurements.
+Review `tmp/mat03-recipe-review-4/after/{plain,varied}-1024/{baseColor,normal,roughness,height}.png`. Plain also has `{baseColor,normal,roughness,height}-crossing-256.png`: native x=64,y=64,width=256,height=256, no rescale or tone adjustment. Corresponding before maps/crops, input snapshots, receipts, probes and resolver remain in the ignored root. No pixels or tooling are committed. Height is intentionally dark in its small original linear range. These are local review observations, not retained human acceptance, PBR/timing qualification, new 2K renders or full structural/sampling/parity evidence.
 
-Merge each case over plan defaults, validate against the contract's unchanged control ranges and reject odd counts, unknown/non-finite/out-of-range controls. `$` values are caller placeholders, not runtime expressions. Resolve:
+## Caller mapping and reproduction
 
-| Placeholder | Mapping |
-|---|---|
-| warpGap, weftGap | 1-warpWidth, 1-weftWidth |
-| halfWarpCount, crossingOffsetX | warpCount/2, 0.5/warpCount |
-| profileBevel | 0.19+0.5*bevel; public bevel 0.02..0.12 maps to brick 0.20..0.25 |
-| underHeight | relief*underRatio |
-| warpDark, weftDark | Respective linear color RGB × (1-4*detailAmount), alpha=1 |
-| roughnessMin | yarnRoughness*(1-2*detailAmount) |
-| Other placeholders | Same-named controls; fixed zero seeds remain explicit on unvaried profiles/selector |
+Merge case controls over defaults and validate against contract ranges; reject odd counts, unknown, non-finite or out-of-range controls. `$` values are caller placeholders, not Core expressions. Resolve warpGap=1-warpWidth, weftGap=1-weftWidth, halfWarpCount=warpCount/2, crossingOffsetX=0.5/warpCount, profileBevel=0.19+0.5*bevel, warpDark/weftDark=respective color RGB*(1-4*detailAmount) with alpha=1, roughnessMin=yarnRoughness*(1-2*detailAmount). Other placeholders directly use same-named controls (including underRatio); fixed seeds are zero. Old detailMin/underHeight mappings are no longer used.
 
-Both axis profiles retain shifted-brick/max construction. Revision 3 multiplies height by the narrower crown described above; it is not an exact circle and retains a small flat center. Counts determine independent spacing; widths are fractions of spacing. Q retains alternating over/under selection.
-
-Default detailAmount is now 0.08 (previously 0.03); its range stays 0..0.1. Each explicitly seeded value-v2 noise uses scale 4, octaves 2, persistence 0.5, then an 8×1 transform; weft uses quarterTurns=1. Levels remaps 0.3..0.7 to 0..1. Each grain drives a gradient-map between the yarn's dark and full color; revision-3 height is independent of grain. Q-selected grain drives yarn roughness between roughnessMin and yarnRoughness; coverage mixes over backing roughness. At detailAmount=0, colors and yarn roughness become unmodulated, while the required seeds remain present. Color/roughness controls stay channel-isolated, and seeds do not move W/F/Q. Full public causality tests remain pending.
-
-The graph's inspection aliases name W/F/Q, both pre-max heights, coverage and both grains. Normal uses final stored height; metallic remains zero. Every production pixel still comes from wgpu, with f32 arithmetic and half storage at every pass.
-
-## Historical source-bound revision 1 → 2 review
-
-Both runs use clean engine main `e73e2b99c85987551d11db78eb90dfbf0564100a` and the same release CLI built into `target/native-consumer`. The after recipe/plan were temporary candidate inputs, bound by hashes in `recipeIteration`; this subsequently annotated plan is not the measured input. This describes the historical revision-2 graph; current revision-3 binding is above. Historical `reviewMeasurements` remain bound to revision 1 and its older source, not revision 2.
-
-All eight plan cases validate with zero diagnostics before and after. For every case the full five-channel inspection gives:
-
-| Recipe / size | Passes | Physical textures | peakBytes | Result |
-|---|---:|---:|---:|---|
-| Before / 1024² | 40 | 16 | 142,607,312 | Pass |
-| Before / 2048² | — | — | 570,426,320 observed | MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED, exit 2; plan null |
-| After / 1024² | 45 | 14 | 125,830,240 | Pass |
-| After / 2048² | 45 | 14 | 503,317,600 | Pass |
-
-The unchanged limit is **536,870,912 bytes**, and the pass ceiling remains 64. The compile-time 2K blocker is resolved for these requests without raising limits or modifying runtime. After logical texture bytes are 377,487,360 (1K) and 1,509,949,440 (2K); retain-all arithmetic does not govern the peak. No baseline 2K render could run after compile rejection.
-
-Plain and varied were rendered at 1024² and 2048² on **NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66**, all five channels, all four renders successful. Agent inspection observes broader curved shoulders and default longitudinal grain in color and roughness. Some flat crown remains, particularly in wide weft; exact circular cross-sections and final fabric quality are not established. **Maintainer visual acceptance remains pending.** No PBR preview, browser parity, DX12/software matrix, timing qualification or full structural/stress gate is claimed.
-
-## Reproduction and images
-
-Resolve the chosen revision's recipe/defaults using the mapping above. Emit `{version:1,nodes,edges}`: copy node id/type/version/resolved parameters, move each `inputs` reference `source.port` into `from:{nodeId:source,portId:port}` → `to:{nodeId:target,portId:inputName}` edges, append `material-output@1` with ID `material`, and wire all five output aliases to matching channels. Do not retain design-only fields or `$` placeholders in `.mix`. For the historical revision-1 recipe, use main `e73e2b9` and its original mappings. Use a fresh ignored directory and preserve stdout JSON separately from stderr and process exits.
+Preserve numeric node IDs; array order does not change Core's lexical scheduling. Emit ordinary `.mix v1`: copy node id/type/version/resolved parameters, convert input source.port references into from/to edges, append material-output@1 (id=material), and wire outputs to corresponding channels. Exclude design fields/placeholders. Inspection aliases warpShape/weftShape mean normalized A/B, not relief-scaled heights; coverage=C, surfaceOrder=D. The historical baseline uses 793f73e's graph/defaults/mappings.
 
 ```text
 cargo build --release --locked -p mixture-cli --target-dir target/native-consumer
 mixture validate <case.mix> --json
 mixture inspect <case.mix> --plan --size <1024|2048> --output baseColor,normal,roughness,metallic,height --json
-mixture render <plain|varied.mix> --size <1024|2048> --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
+mixture render <plain|varied.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
 ```
 
-Here `mixture` is `target/native-consumer/release/mixture.exe`. The temporary resolver/search helpers are in ignored `tmp/mat03-recipe-review/`; none is committed or a new repository command. Review the original channel PNGs:
-
-- `tmp/mat03-recipe-review/after/plain-1024/{baseColor,normal,roughness,height}.png`
-- `tmp/mat03-recipe-review/after/varied-1024/{baseColor,normal,roughness,height}.png`
-- Matching `plain-2048` / `varied-2048` folders contain the four channels plus metallic; baseline 1K images/reports are under `baseline/`.
-
-Each run directory retains input snapshots, resolved graphs, raw reports, receipt and PNG hashes. Earlier rejected candidate schedules also remain in the ignored root. No preview tool was changed; raw channel PNGs are the review artifact. These are local review files, not durable human-accepted evidence; hashes do not guarantee future availability. Retain reviewed bytes and an actual decision under the [evidence policy](../../../docs/evidence-policy.md) before claiming acceptance.
+Here mixture is `target/native-consumer/release/mixture.exe`. Use a fresh ignored directory; retain JSON, stderr, exit codes and input snapshots separately. The two neutral probes override resolved node constants/outputs as described above; exact commands/input hashes are in the plan. No new repository tooling is required.
 
 ## Remaining freeze gates
 
-The plan still covers eight cases × four sizes × five channels (160 comparisons per Native/browser pairing), separate independent sweeps, and dense/thin stress at three sizes. Only plain/varied have the proposed 4/255 downsample guarantee; stress cannot excuse their failure. Exact repeats/package equivalence, <=1/255 cross-runtime components including normals, zero-relief/metallic checks, crossing/axis/seed causality, raw-height normal replay, periodic/odd-size probes, downsampling and stress remain to be qualified. Complete timing, material regressions, public package consumption, PBR/human review, six checks and catalog/version review before a later freeze. The family/control-domain decision is accepted; the material and contract are not.
+Complete all structural/independent-control/periodic/odd-size probes, raw-half normal replay, downsampling/stress, Native/browser <=1/255, exact repeats/package equivalence, timing, material regressions, public package consumption, PBR/human acceptance, six checks and catalog/version review. Retain human-reviewed bytes under the [evidence policy](../../../docs/evidence-policy.md) before claiming acceptance; local probes do not replace these gates.

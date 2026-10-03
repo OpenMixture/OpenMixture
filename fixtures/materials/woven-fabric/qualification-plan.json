@@ -36,8 +36,8 @@
     "warpWidth": 0.7,
     "weftWidth": 0.7,
     "bevel": 0.08,
-    "relief": 0.025,
-    "underRatio": 0.5,
+    "relief": 0.0125,
+    "underRatio": 0.25,
     "detailAmount": 0.08,
     "warpSeed": 1729,
     "weftSeed": 65537,
@@ -272,9 +272,9 @@
   "proposedRawHalfMaxCompositionTolerance": 0.0009765625,
   "maxPasses": 64,
   "maxDescriptorPeakBytes": 536870912,
-  "predictedGraphPasses": 53,
-  "predictedRetainAllTextureBytes2048": 1778384896,
-  "resourceEstimateScope": "Revision 3: all eight cases compile at 1024 and 2048; 53 passes, 14 physical textures, peakBytes 125830464 / 503317824. Unchanged 536870912-byte ceiling. Logical retain-all bytes do not govern the peak.",
+  "predictedGraphPasses": 52,
+  "predictedRetainAllTextureBytes2048": 1744830464,
+  "resourceEstimateScope": "Revision 4: all eight cases compile with five outputs at 1K/2K: 52 passes, 10 physical textures, peakBytes 92276064 / 369100128. Limit remains 536870912. Logical retain-all bytes do not govern the peak.",
   "timing": {
     "warmSamples": 5,
     "hardware": {
@@ -314,7 +314,7 @@
     "six-required-checks"
   ],
   "freezeBlockers": [
-    "Maintainer visual acceptance of revision 3 crossing dips and narrower crowns; revision 2 was NOT accepted on 2026-10-02. Residual max-join ridges, finite flat center and PBR fabric appearance remain review questions.",
+    "Maintainer visual acceptance of revision 4 shared-channel outlines and reduced pinch/fabric appearance. On 2026-10-03 revision 3 seam lines and flat crowns were judged fixed, but material NOT accepted; PBR, residual rounded segment ends and extreme-control appearance remain pending.",
     "Full crossing-region, independent-control and odd-size Q transition probes; raw-half composition and production-normal replay",
     "Default/varied downsample quality and normal/directional-detail thresholds; high-frequency stress",
     "Native/browser <=1/255, exact repeats/package equivalence, other required environments and material regressions",
@@ -323,8 +323,8 @@
   "candidateNodes": [],
   "evidence": {
     "rendered": true,
-    "scope": "Revision 3: plain/varied 1K Native Vulkan review renders and native-resolution crossing crops only; not qualification",
-    "receipt": "tmp/mat03-recipe-review-3/after/receipt.json",
+    "scope": "Revision 4 plain/varied 1K GT 1030 Vulkan renders, matched crops and bounded neutral-mask probes only; not qualification",
+    "receipt": "tmp/mat03-recipe-review-4/after/receipt.json",
     "retention": "ignored-local-only"
   },
   "reviewMeasurements": {
@@ -574,7 +574,7 @@
       "policy": "Ignored local resolver, generated .mix documents, raw stdout/stderr, receipt and ten PNGs; not durable retained acceptance evidence. Source-bound summary retained in this draft. Reproduce from recorded source revision and documented mapping; hashes do not guarantee artifact availability."
     }
   },
-  "recipeRevision": 3,
+  "recipeRevision": 4,
   "maintainerDecisions": {
     "date": "2026-10-02",
     "decision1": {
@@ -2600,6 +2600,676 @@
       "sha256": {
         "normal": "f2a5d1cad3034ecd6d8e94cc0ddce4cce493016c98826d61ee380a468a55f1c8",
         "height": "a0e10285f960778860bb4fbe1b34f01a78913ad5ab847c1b68fac1e733c4d259"
+      }
+    }
+  },
+  "reviewMeasurementsRevision4": {
+    "date": "2026-10-03",
+    "baselineCommit": "793f73e96c5c7be6b1ff280d9a23b6d442198043",
+    "engineMainRevision": "e73e2b99c85987551d11db78eb90dfbf0564100a",
+    "binding": "Before and after use the same rebuilt release CLI. The current graph matches the after graph bytes; this annotated plan follows the measured snapshot without further defaults/case changes. No runtime source change.",
+    "before": {
+      "sourceRevision": "793f73e96c5c7be6b1ff280d9a23b6d442198043",
+      "cliSha256": "fef524c3023013ff33d8605dbc4d2bab85f48f0fc56e7e2347328c0d5817fd58",
+      "graphSha256": "c80065e918b73214452df5364ab17dcb682a9805add8d133339aaba343c2fc25",
+      "planSnapshotSha256": "a4166cea1093c53ce330810345c971c6ac10d040d9d844cb199ba763839e4c82",
+      "resolverSha256": "169b1a83b32f20a3781d62de2c65cbec5da39c85940e6cc3b76efec568ee0be0",
+      "documents": {
+        "plain": "174b805bd8cfd507aa45af0064b5372e441e22ae3ff079469196b2b98aa0dcdb",
+        "varied": "599a04ed6b07805fc74eb668d9a301340b2fea3ff0b4a81b69e984d6c0b82f9f",
+        "no-detail": "74583bc98390e2ee0910d40b9cd52e891f74ec51b2a167ba89588c8729ae779d",
+        "flat": "a3b137ccf7b683b43257582000ef77d125167375bcaa82c4027ebdf780c91943",
+        "warp-seed": "38d676fbec5f0a3683d816b3099fadc4deabcea694b35e81a5772bd96ca873e6",
+        "weft-seed": "71ce694439e0d81bef1ee10cad4633409a1f7068a7d053d599783a1982853df0",
+        "combined-low": "3f015bd046c87ea00def394b000f419b8247a0a05e6d4c72b7ddea5859bc8627",
+        "combined-high": "10b7db249efc4655254027ee8e4c17e794d3717bf8e02ee2448d4c81183eea44"
+      },
+      "validation": {
+        "cases": [
+          "plain",
+          "varied",
+          "no-detail",
+          "flat",
+          "warp-seed",
+          "weft-seed",
+          "combined-low",
+          "combined-high"
+        ],
+        "allPassed": true
+      },
+      "inspections": {
+        "inspect-plain-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-plain-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-varied-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-varied-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-no-detail-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-no-detail-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-flat-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-flat-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-warp-seed-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-warp-seed-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-weft-seed-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-weft-seed-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-combined-low-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-combined-low-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        },
+        "inspect-combined-high-1024": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 125830464,
+          "logicalTextureBytes": 444596224
+        },
+        "inspect-combined-high-2048": {
+          "ok": true,
+          "passes": 53,
+          "physicalTextures": 14,
+          "peakBytes": 503317824,
+          "logicalTextureBytes": 1778384896
+        }
+      },
+      "renderCommands": [
+        {
+          "id": "render-plain-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-4/before/plain.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-4/before/plain-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-varied-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-4/before/varied.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-4/before/varied-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "pngSha256": {
+        "plain-1024/baseColor.png": "6777bf8c03dfde787204252c0b1c273950c286e0018f280e4ec063d03e720c35",
+        "plain-1024/height.png": "7933cedf79bdd9dcc08b7b53f16c16b2efd748353f6652bd1bb239505a1a2f2a",
+        "plain-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "plain-1024/normal.png": "379cefaec42f77cf41094ab3a523ed4d7c4e4bd7fb2af54bbdbbdc36bb0eee8a",
+        "plain-1024/roughness.png": "82f84fa981460442fb498956a6c3e7c7479ffae30e680ea2ffce3a05dda09ed9",
+        "varied-1024/baseColor.png": "eb986b67e573f5d1ff0b64062a0f3ba0e5d751e81242e967871d86379315cecc",
+        "varied-1024/height.png": "0721a5a7d40a1c9c5dc99ca6bc9a91d6918fa246b6be8a243436921731fa01f7",
+        "varied-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "varied-1024/normal.png": "e447dca1cd1816ca0c88f6f5d577d9e416468c816fa74bc53e368437ad0b52ac",
+        "varied-1024/roughness.png": "95ec6d85cb3a0799997294da14e0779510c0a85d1cd2ea044ca192a19abec7b5"
+      },
+      "receipt": "tmp/mat03-recipe-review-4/before/receipt.json"
+    },
+    "after": {
+      "sourceRevision": "793f73e96c5c7be6b1ff280d9a23b6d442198043",
+      "cliSha256": "fef524c3023013ff33d8605dbc4d2bab85f48f0fc56e7e2347328c0d5817fd58",
+      "graphSha256": "f32e968e0ae3fe1a6deb626d6314aaffa40f9912555822c7865c92fbb59b7a45",
+      "planSnapshotSha256": "5c0e7882632883344ddb6c437a2865f67a60efbf1a213137c2c904c646e16f99",
+      "resolverSha256": "71d930183abcc93cf57c008df4b8fe9022ca7bf63baf675114a0dc3b001a20a3",
+      "documents": {
+        "plain": "6c410d21bef18336665a81ee07088c69eb795d45865e8b335d390394ad2cd7ac",
+        "varied": "5c7bd8063e4d5cebb1bf33964b0171610d197eda72b18c3b9f1846239f6f1354",
+        "no-detail": "843255ff12ecffe2d304a0ae5a5b0e6ebab87ceb70918cb16a679b5616a66eec",
+        "flat": "9098a093e84993f3bf8fb302b4059034641215624e4504bf636e9a2cf1802d6c",
+        "warp-seed": "6aaf7d5846d5e12cecbdd59024d6c87befbc40e4b7a3c22fee586ac538862644",
+        "weft-seed": "8853f624f5e23926755e02e15479eb12b78550e8dd61d3fb6cf98863f2858d9b",
+        "combined-low": "e7b572091323dbd745a07734b831940c1a541fdac827ee0d038efa8a1851a042",
+        "combined-high": "056a840e4b0212d83cea16cc2597b42b5b4b563432af50e111d8171337fcc653"
+      },
+      "validation": {
+        "cases": [
+          "plain",
+          "varied",
+          "no-detail",
+          "flat",
+          "warp-seed",
+          "weft-seed",
+          "combined-low",
+          "combined-high"
+        ],
+        "allPassed": true
+      },
+      "inspections": {
+        "inspect-plain-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-plain-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-varied-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-varied-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-no-detail-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-no-detail-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-flat-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-flat-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-warp-seed-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-warp-seed-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-weft-seed-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-weft-seed-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-combined-low-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-combined-low-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        },
+        "inspect-combined-high-1024": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 92276064,
+          "logicalTextureBytes": 436207616
+        },
+        "inspect-combined-high-2048": {
+          "ok": true,
+          "passes": 52,
+          "physicalTextures": 10,
+          "peakBytes": 369100128,
+          "logicalTextureBytes": 1744830464
+        }
+      },
+      "renderCommands": [
+        {
+          "id": "render-plain-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-4/after/plain.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-4/after/plain-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        },
+        {
+          "id": "render-varied-1024",
+          "args": [
+            "render",
+            "tmp/mat03-recipe-review-4/after/varied.mix",
+            "--size",
+            "1024",
+            "--output",
+            "baseColor,normal,roughness,metallic,height",
+            "--backend",
+            "vulkan",
+            "--out",
+            "tmp/mat03-recipe-review-4/after/varied-1024",
+            "--json"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "pngSha256": {
+        "plain-1024/baseColor.png": "be3eee1e7559e440d7da599918e70ac234a64c0f9ba36694380864bbc13a76ae",
+        "plain-1024/height.png": "06e1b678f93e6bac2c58120879dae23a89d6f10cb3145edd2e2b886565bce8d5",
+        "plain-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "plain-1024/normal.png": "d35b09626b896cc136d86ed602c5ff266e4aa7910610e2fe359969a92032c5e7",
+        "plain-1024/roughness.png": "bd6312ab483d821e509215dae10ad96b4cf0db2e72f79c41873e7c7e9a7f15d1",
+        "varied-1024/baseColor.png": "182f266d991e04cb9a6ab7e1b677554c2f5f19cd80c793d9f14e766194570d9e",
+        "varied-1024/height.png": "a307160c9e5e43eacc4da44a68d42d72bc7a3a3097437c104eed9970e6530bf5",
+        "varied-1024/metallic.png": "624a3b601307a15828f049dd76617367259f36ca22fae2b4f2d0afa988485de9",
+        "varied-1024/normal.png": "d46ef00b5a8ce617169f62381e5a06f769ea8b06c3eec9022a3ae7717a74c9e0",
+        "varied-1024/roughness.png": "23502ba72593e83cde495fcafc78dad3bf8b0ba765e87330de6c468ec1e80960"
+      },
+      "receipt": "tmp/mat03-recipe-review-4/after/receipt.json"
+    },
+    "commands": {
+      "build": "cargo build --release --locked -p mixture-cli --target-dir target/native-consumer",
+      "cli": "target/native-consumer/release/mixture.exe",
+      "validate": "validate tmp/mat03-recipe-review-4/<before|after>/<case>.mix --json",
+      "inspect": "inspect tmp/mat03-recipe-review-4/<before|after>/<case>.mix --plan --size <1024|2048> --output baseColor,normal,roughness,metallic,height --json",
+      "exitCodes": "All eight validations, sixteen inspections and two renders in each before/after run exited 0."
+    },
+    "adapter": {
+      "name": "NVIDIA GeForce GT 1030",
+      "backend": "Vulkan",
+      "driver": "582.66"
+    },
+    "changes": [
+      "Shared normalized layer shapes A/B generate both C=max(A,B) and D=clamp((A-B+0.1)/0.2,0,1); surface color and grain use D; backing blends in baseColor/roughness use C; height=relief*C and normal derives from that stored height",
+      "Default underRatio 0.5 -> 0.25 and relief 0.025 -> 0.0125; ranges unchanged, explicit case overrides preserved",
+      "Crown floor 0.4 -> 0.65, crown ceiling 1; original W/F support, widths/counts, fixed crown mortar 0.45/bevel 0.25 and Q bevel 0.25 remain",
+      "Removed duplicated two-order color composites and separate coverage union; existing numeric schedule gives 10 textures",
+      "Grain remains color/roughness only; relief changes height/normal only. underRatio now changes shared outlines in all nonmetallic channels, including when relief=0"
+    ],
+    "alignment": {
+      "method": "Two ordinary .mix probes through the release Vulkan CLI. Coverage probe: both yarn colors white, backing black, yarn roughness 1/backing 0, expose C as height. Selection probe: warp white/weft black, warpGrain=1/weftGrain=0, roughness ramp 0..1/backing 0; expose scalar-mask-blend(0,D,C) as height. Compare each production baseColor against a separate gradient-map of that same scalar mask, and roughness against scalar height. This handles sRGB vs linear encoding without comparing incompatible byte values.",
+      "result": {
+        "selection": {
+          "roughness": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ]
+        },
+        "before": {
+          "x192": 46,
+          "x224": 72,
+          "x176": 50,
+          "x240": 76,
+          "x160": 72,
+          "x144": 76,
+          "x208": 50
+        },
+        "coverage": {
+          "roughness": [
+            0,
+            0,
+            0
+          ],
+          "color": [
+            0,
+            0,
+            0
+          ]
+        },
+        "after": {
+          "x192": 64,
+          "x224": 78,
+          "x176": 66,
+          "x240": 80,
+          "x160": 78,
+          "x144": 80,
+          "x208": 66
+        }
+      },
+      "comparisonArrayMeaning": [
+        "max RGB byte delta",
+        "differing RGB pixels across 1024x1024",
+        "differing RGB pixels in crop x=64,y=64,width=256,height=256"
+      ],
+      "probeReceipt": {
+        "commands": [
+          {
+            "label": "probe-coverage",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/probe-coverage.mix",
+              "--size",
+              "1024",
+              "--output",
+              "baseColor,roughness,height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/probe-coverage",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "reference-coverage",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/reference-coverage.mix",
+              "--size",
+              "1024",
+              "--output",
+              "baseColor",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/reference-coverage",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "probe-selection",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/probe-selection.mix",
+              "--size",
+              "1024",
+              "--output",
+              "baseColor,roughness,height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/probe-selection",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "reference-selection",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/reference-selection.mix",
+              "--size",
+              "1024",
+              "--output",
+              "baseColor",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/reference-selection",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "shape-before-warp",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/shape-before-warp.mix",
+              "--size",
+              "1024",
+              "--output",
+              "height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/shape-before-warp",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "shape-before-weft",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/shape-before-weft.mix",
+              "--size",
+              "1024",
+              "--output",
+              "height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/shape-before-weft",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "shape-after-warp",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/shape-after-warp.mix",
+              "--size",
+              "1024",
+              "--output",
+              "height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/shape-after-warp",
+              "--json"
+            ],
+            "exitCode": 0
+          },
+          {
+            "label": "shape-after-weft",
+            "args": [
+              "render",
+              "tmp/mat03-recipe-review-4/shape-after-weft.mix",
+              "--size",
+              "1024",
+              "--output",
+              "height",
+              "--backend",
+              "vulkan",
+              "--out",
+              "tmp/mat03-recipe-review-4/shape-after-weft",
+              "--json"
+            ],
+            "exitCode": 0
+          }
+        ],
+        "documents": {
+          "probe-coverage": "57b42cc8a14e9e85b97f4f04b22156d654490d62b858080bd12a2b9a711fc598",
+          "reference-coverage": "719e41a4f69810988390ceb05235fb0e90c965952f43f1b54ae5bc0fc078fd1a",
+          "probe-selection": "57ea654c82d21254ce628100af22544375e86317e135c312c0168031807af061",
+          "reference-selection": "50b091cba2aa477714d1a3cda844da46afd334cb5ab0cda12145c07c9a4471f2",
+          "shape-before-warp": "fe98729d609594acd0159455ec68f52e184d8c746c75758ab545941f27bf1adb",
+          "shape-before-weft": "77fd0a7cb65330159417d45e97b3c06c8a20fb6b6e8a16f8dc0ff7c6ea9db8a6",
+          "shape-after-warp": "de3feff7ba7d04ce1d19f6c9a130309af5c212afe311dc96831214e0c6618456",
+          "shape-after-weft": "056df982921379f4e723242b5b047d98bdb5a6a6aaf3b24fabd1231c1b89768e"
+        }
+      },
+      "probeScriptSha256": "13cb1909856982edc855c30f099ee3407df6e1b1211e084be4a5c7769332774b",
+      "comparisonScriptSha256": "dae0bf3fdbacba3e885023ce7831728f9ea691f2f8c2f163adb24defe0856df7",
+      "limits": "Plain 1K neutral probes only. Normal is a derivative of scaled stored C, not an identical mask. No raw-half/full parameter matrix, PBR or cross-runtime qualification."
+    },
+    "pinchObservation": {
+      "method": "Render isolated per-thread heights with material-output height rewired; before levels normalizes by 0.025, after A/B already normalized. At each x, y=0..127, count encoded pixels where weft>warp and weft>13/255. This is a bounded RGBA8 dominance observation, not a geometric width gate.",
+      "columns": [
+        144,
+        160,
+        176,
+        192,
+        208,
+        224,
+        240
+      ],
+      "beforeWidths": [
+        76,
+        72,
+        50,
+        46,
+        50,
+        72,
+        76
+      ],
+      "afterWidths": [
+        80,
+        78,
+        66,
+        64,
+        66,
+        78,
+        80
+      ],
+      "centerToNearEndRatioBefore": 0.6052631578947368,
+      "centerToNearEndRatioAfter": 0.8
+    },
+    "visualObservations": [
+      "Matched actual baseColor/normal/roughness crops now share the rounded crossing outline; directional grain remains visible",
+      "Lower under-thread default and higher crown floor reduce hourglass pinch; lower default relief reduces puffiness. Rounded segment ends remain and final fine-fabric/PBR appearance requires maintainer review",
+      "Alternative raised-under-thread, translated-height, narrower-selector and four-sample-selector candidates did not improve the requested appearance enough; multi-sample ramps introduced visible bands and were rejected. No node gap claimed"
+    ],
+    "visualAccepted": false,
+    "qualification": false,
+    "crops": {
+      "rectangle": {
+        "x": 64,
+        "y": 64,
+        "width": 256,
+        "height": 256
+      },
+      "operation": "System.Drawing Bitmap.Clone, native resolution, no rescaling or tone adjustment",
+      "sha256": {
+        "tmp/mat03-recipe-review-4/after/plain-1024/baseColor-crossing-256.png": "71f8926a80c3722ccb3f1738a6340eeb84108bc76bbba5df7d4822edad0a8491",
+        "tmp/mat03-recipe-review-4/after/plain-1024/normal-crossing-256.png": "fc301cc1b2bb245eae39fefb3310fa8b8e797163fa29e66a8f7979529ea3cbf7",
+        "tmp/mat03-recipe-review-4/after/plain-1024/roughness-crossing-256.png": "74f7e6f2486b238b9c6d6b317490c73a540f38ce7bd6ab276db327fb27115996",
+        "tmp/mat03-recipe-review-4/after/plain-1024/height-crossing-256.png": "9749b65bde5a92c2a1735abb5da00338250cb77df72d213184b302c9292e9f5a"
       }
     }
   }

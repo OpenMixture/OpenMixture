@@ -1,86 +1,51 @@
-# 编织织物 — MAT-03a 配方修订 3（草案）
+# 编织织物 — MAT-03a 配方修订 4（草案）
 
 [English](./README.md) | 简体中文
 
-[契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)、[图设计](./graph-design.json)与[验收计划](./qualification-plan.json)仍为 **draft、frozen: false、runtimeImplemented: false**。决定 1 已于 2026-10-02 接受：不透明平纹加一个变化平纹，偶整数数量 4..32，宽度为间距的 0.55..0.9；无斜纹／其他组织。完整契约未冻结。维护者选择通过既有节点配方改进内存和视觉，不授权新节点或 PERF-MAT 引擎工作。
+[契约](../../../docs/mat-03-woven-surfaces.zh-CN.md)、[图设计](./graph-design.json)和[计划](./qualification-plan.json)共同定义本草案。决定 1 的家族／控制域已接受，完整契约未冻结。历史修订观察保留在契约和计划中。
 
-### 配方修订 3 — 交叉与冠部评审（2026-10-02）
+## 配方修订 4 — 共用结构与减轻收腰（2026-10-03）
 
-维护者**未接受 92b0b21 的修订 2**。修订 3 仍为草案、未冻结，未作为合格材质实现。默认值、已接受的数量／宽度范围、运行时、节点和版本均不变。源码绑定评审采用分支基线 `92b0b2108f6442174119711fffcfe04914e7a6a3`、引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 及重新构建的 release CLI。计划的 `reviewMeasurementsRevision3` 记录精确命令、输入／二进制哈希、结果及裁剪哈希；附加记录后的计划不是被测快照。
+维护者确认修订 3（`793f73e96c5c7be6b1ff280d9a23b6d442198043`）的交叉接缝线和平顶已修复，但**未接受材质**。修订 4 仍为 draft、frozen: false、runtimeImplemented: false，仅使用既有节点。已接受的规则／变化平纹家族、数量／宽度含义及所有控制范围均不变。
 
-Q 的砖块 bevel 从 0.025 增至 0.25，扩展边缘过渡。每轴高度轮廓现将原始 W/F 乘以另一份消除轴向端部的冠部：横向 mortar=0.45、bevel=0.25，沿轴平移半个 tile 后按相同 max 构造合成，再通过 levels 输出 0.4..1。正下限保留原宽度支撑域和数量／间距含义。解析交叉中心两冠部均为 1，Q 仍精确交替为 0/1；上层高度为 relief，下层为 relief*underRatio，因此 relief>0 时严格分离。这是连续场结论，不是混合采样足迹／f16 像素验收声明。冠部仍有 0.05 间距宽的小平台，是更圆润而非精确椭圆。
+P/R 表示带冠部的经／纬轮廓。Q 保留 mortarX=0.45、bevel=0.25 的平滑砖块选择器。归一化分层形状为 A=P*mix(underRatio,1,Q)、B=R*mix(1,underRatio,Q)，共用表面覆盖 C=max(A,B)，共用可见纱线选择 D=clamp((A-B+0.1)/0.2,0,1)。D 不需要有符号减法：levels 反转 B，scalar-blend 得到 (A+1-B)/2，再以 levels 将 [0.45,0.55] 映射至 [0,1]。max 继续由现有 subtract/blend/levels 合成。颜色=mix(backing,mix(weftColor,warpColor,D),C)；D 同样选择方向纹理生成纱线粗糙度，再以 C 混合纱线／底布粗糙度。高度=relief*C，法线由同一存储高度导出。因此高度、颜色边缘和粗糙度使用同一表面形状，取代独立的矩形颜色合成和覆盖并集。金属度保持零。C 是归一化表面权重，不是二值几何掩码或 alpha 透明度。
 
-移除四个高度纹理衰减 pass，限制中间量存活并平滑高度表面。方向纹理仍驱动颜色和粗糙度，默认 detailAmount=0.08 不变；高度／法线现独立于 detailAmount 和纹理种子。后续控制隔离测试须反映该配方映射调整。既有 max 合成在两层高度相交处仍可能产生导数脊线。
+默认 underRatio 从 **0.5 → 0.25**，relief 从 **0.025 → 0.0125**，均处于原范围内。数量、宽度及其他默认值不变。窄冠部正下限从 0.4 → 0.65，上限仍为 1，保留横向 mortar 0.45、bevel 0.25 和沿轴平移半个 tile 的 max 构造。这减小肩部与冠部差异；W/F 仍决定外部支撑域和间距。降低下层纱线可减少其对上层肩部的切入，减小 relief 可降低鼓包感。解析交叉中心 P=R=1、Q=0/1，A/B 交替为 1/underRatio，D=0/1；relief>0 时上层严格高于下层。混合采样足迹和 half 量化仍须单独验收。纹理仍仅作用于颜色／粗糙度。relief=0 时保留织物颜色／粗糙度，而高度为零、法线中性。由于 C/D 共用层序，underRatio 现影响所有非金属度通道；relief 仍仅影响高度／法线。
 
-| 完整五通道请求（plain、varied、combined-high；其他计划用例亦相同） | Passes | 物理纹理 | peakBytes |
+### 绑定源码的评审与对齐观察
+
+修改前使用干净分支 `793f73e`；修改后使用相同引擎及修改的草案图／默认值。二者使用从引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 重新构建的同一 release CLI。计划的 `reviewMeasurementsRevision4` 记录图／计划／二进制／解析输入哈希、命令、适配器及观察。附加记录后的计划晚于被测快照；图字节一致。八个用例均验证无诊断，并在两个尺寸以完整五通道编译通过。plain／varied 的 1K 渲染在 **NVIDIA GeForce GT 1030／Vulkan／NVIDIA 582.66** 上成功，显式使用 `--backend vulkan`。
+
+| 完整五通道；plain、varied、combined-high（其他五用例亦相同） | Passes | 物理纹理 | peakBytes |
 |---|---:|---:|---:|
-| 修改前修订 2，1024² | 45 | 14 | 125,830,240 |
-| 修改前修订 2，2048² | 45 | 14 | 503,317,600 |
-| 修改后修订 3，1024² | 53 | 14 | 125,830,464 |
-| 修改后修订 3，2048² | 53 | 14 | 503,317,824 |
+| 修改前修订 3，1024² | 53 | 14 | 125,830,464 |
+| 修改前修订 3，2048² | 53 | 14 | 503,317,824 |
+| 修改后修订 4，1024² | 52 | 10 | 92,276,064 |
+| 修改后修订 4，2048² | 52 | 10 | 369,100,128 |
 
-前后八个用例均验证通过且无诊断，并在两个尺寸编译通过。上限仍为 64 passes 和 536,870,912 字节；2K 编译阻碍继续解除。修改后逻辑字节为 444,596,224／1,778,384,896，不是峰值依据。plain 和 varied 在 NVIDIA GeForce GT 1030／Vulkan／NVIDIA 582.66 上显式使用 `--backend vulkan` 完成 1K 渲染。本轮不宣称新的 2K 渲染或浏览器／耗时验收。
+上限仍为 **64 passes／536,870,912 字节**，2K 编译阻碍继续解除。逻辑字节为 436,207,616／1,744,830,464，不是调度峰值。减少重复合成并使用显式数字节点 ID 顺序，降低中间量存活数量；未改调度器／分配器。
 
-观察原始法线图及原生分辨率裁剪，可见直线状交叉亮暗线明显软化，冠部变窄。变化用例的数量／宽度和颜色／粗糙度纹理仍可见。残余 max 接合脊线、小平台及最终 PBR 织物外观需要维护者判断：**视觉接受仍待定**，不提新节点。评审 `tmp/mat03-recipe-review-3/after/plain-1024/` 与 `after/varied-1024/` 中的 baseColor.png、normal.png、roughness.png、height.png。plain 目录另含 normal-crossing-256.png、height-crossing-256.png：原图矩形 x=64、y=64、width=256、height=256，无缩放或色调调整。高度因原始线性范围较小而偏暗，不是 raw-half 证据。对应基线裁剪／图像在 `before/`。解析器、报告与图像保留为忽略的本地评审输出，不是持久接受记录或提交工具。
+通过同一 release Vulkan 执行器运行两个 plain-1K 中性探针检查对齐。C 探针将两种纱线颜色设为白色、底布黑色，纱线粗糙度 1／底布 0，并通过 height 输出 C。D*C 探针将经线白色／纬线黑色，warpGrain=1／weftGrain=0，粗糙度渐变 0..1／底布 0，并输出 scalar-mask-blend(0,D,C)。每个生产 baseColor 与相同标量参考的独立 gradient-map 比较（保留 sRGB 编码），roughness 与线性标量参考比较。**两个探针的 RGB 最大字节差均为 0，差异像素均为零**，覆盖完整 1024² 和 x=64、y=64、256×256 裁剪。该检查验证真实共用覆盖／选择边缘；法线是导数，不是相同掩码。不代表任意颜色、raw-half 精度、浏览器一致性或完整控制矩阵验收。
 
-## 配方与调用方映射
+另以归一化线性 RGBA8 渲染独立纱线形状，进行有界收腰观察。在 x=[144,160,176,192,208,224,240] 上统计 y=0..127 中 weft>warp 且 weft>13/255 的像素：修改前宽度 [76,72,50,46,50,72,76]，修改后 [80,78,66,64,66,78,80]。中心／近端比例由 46/76（约 0.605）升至 64/80（0.8），符合收腰减轻的观察；这不是冻结的几何宽度容差。对应实际裁剪显示颜色／粗糙度跟随圆润交叉形状，高度鼓包感降低。圆端及风格化织物外观仍有评审风险，尤其是非默认控制。**维护者视觉接受继续待定**，不提新节点。更窄／多采样选择器和高度平移尝试因改进不足而舍弃；多采样版本引入条带。
 
-修订 3 含 53 个既有节点实例和五个输出。节点 ID 的数字前缀为 Core 既有字典序就绪节点调度器建立合法顺序，仅重排 JSON 数组不会改变调度。此具体配方在增加纹理合成时将物理槽位从 16 降至 14，不是引擎优化器。复现测量时保留 ID 和引用。
+评审 `tmp/mat03-recipe-review-4/after/{plain,varied}-1024/{baseColor,normal,roughness,height}.png`。plain 另含 `{baseColor,normal,roughness,height}-crossing-256.png`，原生 x=64、y=64、width=256、height=256，无缩放或色调调整。对应修改前图／裁剪、输入快照、回执、探针和解析器保留在忽略目录，未提交像素或工具。高度因原始线性范围较小而有意保持偏暗。这些是本地评审观察，不是持久人工接受、PBR／耗时验收、新的 2K 渲染或完整结构／采样／一致性证据。
 
-将用例覆盖到默认值，按契约不变的控制范围验证，拒绝奇数数量、未知／非有限／越界控制。`$` 是调用方占位符，不是运行时表达式。解析：
+## 调用方映射与复现
 
-| 占位符 | 映射 |
-|---|---|
-| warpGap、weftGap | 1-warpWidth、1-weftWidth |
-| halfWarpCount、crossingOffsetX | warpCount/2、0.5/warpCount |
-| profileBevel | 0.19+0.5*bevel；公开 bevel 0.02..0.12 映射为砖块 0.20..0.25 |
-| underHeight | relief*underRatio |
-| warpDark、weftDark | 相应线性颜色 RGB × (1-4*detailAmount)，alpha=1 |
-| roughnessMin | yarnRoughness*(1-2*detailAmount) |
-| 其他占位符 | 同名控制；无随机变化的轮廓／选择器仍显式使用固定零种子 |
+将用例控制覆盖到默认值，并按契约范围验证；拒绝奇数数量、未知、非有限或越界控制。`$` 是调用方占位符，不是 Core 表达式。解析 warpGap=1-warpWidth、weftGap=1-weftWidth、halfWarpCount=warpCount/2、crossingOffsetX=0.5/warpCount、profileBevel=0.19+0.5*bevel、warpDark/weftDark=相应颜色 RGB*(1-4*detailAmount) 且 alpha=1、roughnessMin=yarnRoughness*(1-2*detailAmount)。其他占位符直接使用同名控制（包括 underRatio）；固定种子为零。旧 detailMin/underHeight 已不再使用。
 
-两轴轮廓保留错相砖块／max 构造。修订 3 的高度乘以上述较窄冠部；并非精确圆形，仍有小平顶。数量独立决定间距，宽度是间距比例。Q 保留交替上下选择。
-
-默认 detailAmount 现为 0.08（原为 0.03），范围仍为 0..0.1。两份显式种子的 value-v2 噪声使用 scale 4、octaves 2、persistence 0.5，再进行 8×1 变换；纬线 quarterTurns=1。levels 将 0.3..0.7 映射为 0..1。各自纹理驱动暗纱线颜色到完整颜色的 gradient-map；修订 3 的高度独立于纹理。Q 选定纹理将纱线粗糙度在 roughnessMin 与 yarnRoughness 之间变化，再通过覆盖混合底布粗糙度。detailAmount=0 时颜色及纱线粗糙度不调制，所需种子仍保留。颜色／粗糙度控制继续隔离在对应通道，种子不移动 W/F/Q。完整公开因果性测试仍待完成。
-
-观察别名包含 W/F/Q、max 前的两层高度、覆盖和两份纹理。法线使用最终存储高度，金属度保持零。所有生产像素仍由 wgpu 执行，每次 pass 使用 f32 计算及 half 存储。
-
-## 历史修订 1 → 2 的源码绑定评审
-
-两次运行均使用干净引擎 main `e73e2b99c85987551d11db78eb90dfbf0564100a` 和构建到 `target/native-consumer` 的同一 release CLI。after 图／计划是临时候选输入，哈希绑定在 `recipeIteration`；随后附加记录的计划不是被测输入。这是历史修订 2 图的记录；当前修订 3 绑定见上。历史 `reviewMeasurements` 继续绑定修订 1 及旧源码，不指代修订 2。
-
-前后八个计划用例均验证通过、零诊断。各用例完整五通道检查结果为：
-
-| 配方／尺寸 | Passes | 物理纹理 | peakBytes | 结果 |
-|---|---:|---:|---:|---|
-| 修改前／1024² | 40 | 16 | 142,607,312 | 通过 |
-| 修改前／2048² | — | — | observed 570,426,320 | MIX_LIMIT_TRANSIENT_BYTES_EXCEEDED，退出 2；plan 为 null |
-| 修改后／1024² | 45 | 14 | 125,830,240 | 通过 |
-| 修改后／2048² | 45 | 14 | 503,317,600 | 通过 |
-
-上限保持 **536,870,912 字节**，pass 上限仍为 64。这些请求的编译期 2K 阻碍已解除，未提高上限或修改运行时。修改后逻辑纹理字节为 377,487,360（1K）、1,509,949,440（2K）；全保留算术不决定峰值。基线 2K 编译被拒绝，因此不能渲染。
-
-plain 与 varied 均在 **NVIDIA GeForce GT 1030／Vulkan／NVIDIA 582.66** 上以 1024² 和 2048² 五通道渲染，四次全部成功。代理观察到更宽的弯曲肩部和默认颜色／粗糙度中的纵向纹理。仍有部分平顶，较宽纬线尤为明显；尚未证明精确圆截面或最终织物质量。**维护者视觉接受仍待定。** 不主张 PBR 预览、浏览器一致性、DX12／软件矩阵、耗时验收或完整结构／压力门槛。
-
-## 复现与图像
-
-按上表解析选定修订的配方／默认值。输出 `{version:1,nodes,edges}`：复制 id／type／version／已解析 parameters，将 `inputs` 中 `source.port` 引用转换为 `from:{nodeId:source,portId:port}` → `to:{nodeId:target,portId:inputName}` 边；追加 ID 为 `material` 的 `material-output@1`，把五个输出别名连接到对应通道。不要在 `.mix` 保留设计专用字段或 `$` 占位符。修改前配方使用 main `e73e2b9` 及其原始映射。使用新建忽略目录，分别保留 stdout JSON、stderr 和退出码。
+保留数字节点 ID；数组重排不改变 Core 字典序调度。输出普通 `.mix v1`：复制节点 id/type/version/解析后的 parameters，将 inputs 的 source.port 转成 from/to 边，追加 material-output@1（id=material），将 outputs 接入对应通道。排除设计字段和占位符。观察别名 warpShape/weftShape 指归一化 A/B，不是已乘 relief 的高度；coverage=C、surfaceOrder=D。历史基线使用 793f73e 的图／默认值／映射。
 
 ```text
 cargo build --release --locked -p mixture-cli --target-dir target/native-consumer
 mixture validate <case.mix> --json
 mixture inspect <case.mix> --plan --size <1024|2048> --output baseColor,normal,roughness,metallic,height --json
-mixture render <plain|varied.mix> --size <1024|2048> --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
+mixture render <plain|varied.mix> --size 1024 --output baseColor,normal,roughness,metallic,height --backend vulkan --out <fresh-directory> --json
 ```
 
-这里 `mixture` 指 `target/native-consumer/release/mixture.exe`。临时解析／搜索辅助脚本位于忽略的 `tmp/mat03-recipe-review/`，均未提交，也不是新仓库命令。评审原始通道 PNG：
-
-- `tmp/mat03-recipe-review/after/plain-1024/{baseColor,normal,roughness,height}.png`
-- `tmp/mat03-recipe-review/after/varied-1024/{baseColor,normal,roughness,height}.png`
-- 对应 `plain-2048`／`varied-2048` 目录含四通道及 metallic；基线 1K 图像／报告位于 `baseline/`。
-
-各运行目录保留输入快照、解析图、原始报告、回执和 PNG 哈希；较早被拒绝的候选调度也保留在忽略目录内。未修改预览工具，原始通道 PNG 即评审产物。这些是本地评审文件，不是持久人工接受证据；哈希不保证未来可获取。声明接受前须按[证据政策](../../../docs/evidence-policy.zh-CN.md)保留评审字节和真实决定。
+这里 mixture 为 `target/native-consumer/release/mixture.exe`。使用新的忽略目录，分别保留 JSON、stderr、退出码和输入快照。两个中性探针按上文覆盖解析节点常量／输出；详细命令和输入哈希在计划中。无需新增仓库工具。
 
 ## 剩余冻结门槛
 
-计划仍覆盖八用例 × 四尺寸 × 五通道（每个 Native／浏览器配对 160 次比较）、独立控制扫描及三个尺寸的 dense/thin 压力用例。只有 plain／varied 具有拟议 4/255 降采样保证，不能以压力用例豁免失败。精确重放／包等价、包括法线在内的 <=1/255 跨运行时分量误差、零起伏／金属度、交叉／轴／种子因果性、原始高度法线重放、周期／奇数尺寸探针、降采样和压力仍待验收。后续冻结前完成耗时、材质回归、公开包消费、PBR／人工评审、六项检查及目录／版本评审。家族／控制域已接受，材质与契约尚未接受。
+仍须完成全部结构／独立控制／周期及奇数尺寸探针、raw-half 法线重放、下采样／压力、Native／浏览器 <=1/255、精确重放／包等价、耗时、材质回归、公开包消费、PBR／人工接受、六项检查及目录／版本评审。按[证据政策](../../../docs/evidence-policy.zh-CN.md)保留人工评审字节后方可宣称接受；本地探针不能替代这些门槛。
