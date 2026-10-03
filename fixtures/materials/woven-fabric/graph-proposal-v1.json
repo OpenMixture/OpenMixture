@@ -322,8 +322,8 @@
     "warpWidth": 0.7,
     "weftWidth": 0.7,
     "bevel": 0.08,
-    "crown": 0,
-    "underRatio": 0.25,
+    "crown": 0.5,
+    "underRatio": 0.5,
     "relief": 0.025,
     "detailAmount": 0.08,
     "normalStrength": 0.5

@@ -4,6 +4,8 @@ English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
 Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. PR #81 is merged. This stage qualifies the public material matrix; it does not accept the material.
 
+Current material is [explicit recipe revision 2](./mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. materialAccepted=false; residual pinch remains for review.
+
 ## Material-default revision: pinch metric defined before the sweep
 
 The maintainer identified revision 1's per-pixel height visibility as allowing the under yarn to win at the upper yarn's transverse edges. This is correct frozen weave-pattern@1 behavior. This experiment varies only material defaults underRatio∈[0.25,0.75] and crown∈[0,1], without changing the node, thresholds or other controls. Crown=0 remains a rounded parabola, not a flat top. This metric is defined before execution; revision 1 remains the current default pending measurements.

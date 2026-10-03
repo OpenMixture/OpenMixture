@@ -4,6 +4,8 @@
 
 材质状态：**计划已冻结；节点 runtimeImplemented: true；materialAccepted: false**。PR #81 已合并；本阶段仅进行公开材质矩阵验收，尚无材质接受决定。
 
+当前为[显式材质配方修订 2](./mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文阶段 A 观测及原始默认值描述属于保留的修订 1；不能用于宣称修订 2 通过。materialAccepted=false，残余收窄仍待评审。
+
 ## 材质默认值修订：预先定义的收窄度量
 
 维护者指出修订 1 的逐像素高度可见性会在上层纱线横向边缘让下层纱线胜出，这是冻结 weave-pattern@1 的正确行为。本次仅扫描材质默认 underRatio∈[0.25,0.75]、crown∈[0,1]，不修改节点、阈值或其他控制。crown=0 仍为抛物线圆冠，不是平顶。先定义以下度量，再运行扫描；修订 1 仍是当前默认值。

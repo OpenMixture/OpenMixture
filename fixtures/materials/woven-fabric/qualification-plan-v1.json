@@ -4,7 +4,7 @@
   "runtimeImplemented": true,
   "materialAccepted": false,
   "materialId": "woven-fabric",
-  "recipeRevision": 2,
+  "recipeRevision": 1,
   "stage": "A-public-material-matrix",
   "contract": "docs/mat-03-woven-surfaces.md",
   "recipe": "graph-proposal.json",
@@ -28,7 +28,7 @@
     "weftWidth": 0.7,
     "bevel": 0.08,
     "relief": 0.025,
-    "underRatio": 0.25,
+    "underRatio": 0.5,
     "detailAmount": 0.08,
     "warpSeed": 1729,
     "weftSeed": 65537,
@@ -53,7 +53,7 @@
     "yarnRoughness": 0.8,
     "backingRoughness": 0.95,
     "normalStrength": 0.5,
-    "crown": 0
+    "crown": 0.5
   },
   "controlRanges": {
     "warpCount": [
@@ -747,6 +747,5 @@
       "Stage C",
       "Stage D"
     ]
-  },
-  "previousPlan": "qualification-plan-v1.json"
+  }
 }
