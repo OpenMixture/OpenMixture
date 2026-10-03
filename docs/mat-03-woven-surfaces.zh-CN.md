@@ -1,8 +1,21 @@
-# MAT-03a — 有界编织表面（草案）
+# MAT-03 — 编织材质分阶段验收
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
-材质状态：**draft，未冻结；runtimeImplemented: false；materialAccepted: false**。维护者现已批准 weave-pattern@1 节点并授权其单独实现，见下节冻结决定。完整材质图、结构矩阵及 PBR／人工验收仍留待后续 PR；保留的配方基线和提案图不是已验收材质。
+材质状态：**计划已冻结；节点 runtimeImplemented: true；materialAccepted: false**。PR #81 已合并；本阶段仅进行公开材质矩阵验收，尚无材质接受决定。
+
+## 分阶段计划及冻结边界
+
+本 PR 的首个仅文档／计划提交冻结[材质计划](../fixtures/materials/woven-fabric/qualification-plan.json)及[配方](../fixtures/materials/woven-fabric/graph-proposal.json)，随后添加可执行材质及矩阵。
+
+- A（本 PR）：冻结材质计划、可执行材质和公开 Native／浏览器矩阵。
+- B（独立后续 PR）：raw-half、结构、周期、法线重放及压力探针。
+- C（独立后续 PR）：介电 PBR 评审图及人工决定。
+- D（独立后续 PR）：保留证据及接受记录。
+
+12 个用例各运行 256²、1024²、2048²、257×129，五通道；另有 3 个密集细线压力请求。控制范围不变，默认 crown=0.5、relief=0.025、underRatio=0.5。所有通道跨运行时最大分量差 ≤1/255；plain 和 varied 的 baseColor／height 在 1024→256（4×4）及 2048→1024（2×2）未舍入盒平均后，每 RGB 分量平均绝对差 ≤4/255。压力质量范围单独标记，仍要求奇偶、重复及跨运行时一致性，结构细查在 B。预算 ≤64 passes、2K 描述符峰值 ≤536870912 B；GT 1030 的冷 1K／五次暖中位 1K／2K 为 10000／1000／4000 ms，固定 SwiftShader 为 60000／20000／80000 ms。只按匹配适配器预算判定。任何冻结门槛失败即停止，不放宽。
+
+原始计划与提案逐字保留为 qualification-plan-draft.json、graph-proposal-draft.json；graph-design.json 保留修订 4 基线及原收据（52 passes、10 纹理、2K 369100128 B）。下文旧提案与当时状态仅为历史；当前冻结状态以本节及计划为准。
 
 ## 已批准的节点冻结与实现范围
 

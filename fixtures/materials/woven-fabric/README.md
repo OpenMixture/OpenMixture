@@ -6,6 +6,10 @@ The maintainer changed direction after reviewing recipe revision 4 at ca2e98b on
 
 The later maintainer decision supersedes the node status: [weave-pattern@1 node contract/cases](../../../docs/weave-pattern-acceptance.md) were frozen before its separate implementation. Proposal/authorization wording below records the PR #80 design checkpoint, not the current node approval state. Material graphs/plans remain draft, frozen: false, runtimeImplemented: false; node implementation does not freeze or qualify this material.
 
+## Stage A frozen plan
+
+The [material plan](./qualification-plan.json) and [recipe](./graph-proposal.json) are frozen; the node is implemented and materialAccepted=false. This PR freezes docs/plan first, then adds ordinary .mix and public matrix implementation. Original drafts are retained in [qualification-plan-draft.json](./qualification-plan-draft.json) and [graph-proposal-draft.json](./graph-proposal-draft.json). Historical status below is superseded by the [current staged contract](../../../docs/mat-03-woven-surfaces.md). B structural probes, C PBR/human review and D retained evidence/acceptance require separate PRs.
+
 ## Keep the baseline separate from the proposal
 
 - [graph-design.json](./graph-design.json) remains the exact revision-4 existing-node baseline. Top-level defaults/cases/sweeps and measured resource fields in [qualification-plan.json](./qualification-plan.json) still describe that baseline. The four source-bound review records and input identities are retained; no new GPU run is claimed in this design-only change.

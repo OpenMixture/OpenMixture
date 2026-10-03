@@ -1,8 +1,21 @@
-# MAT-03a — bounded woven surfaces (draft)
+# MAT-03 — staged woven material qualification
 
 English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
-Material status: **draft, not frozen; runtimeImplemented: false; materialAccepted: false**. The maintainer has now approved weave-pattern@1 and authorized its separate node implementation, as recorded below. The full material graph, structural matrix and PBR/human qualification remain a later PR; retained baseline and proposal graphs are not accepted materials.
+Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. PR #81 is merged. This stage qualifies the public material matrix; it does not accept the material.
+
+## Staged plan and freeze boundary
+
+This PR's first docs/plan-only commit freezes the [material plan](../fixtures/materials/woven-fabric/qualification-plan.json) and [recipe](../fixtures/materials/woven-fabric/graph-proposal.json), before executable material and matrix work.
+
+- A (this PR): frozen material plan, executable material and public Native/browser matrix.
+- B (separate later PR): raw-half, structural, periodic, normal-replay and stress probes.
+- C (separate later PR): dielectric PBR review sheets and human decision.
+- D (separate later PR): retained evidence and acceptance record.
+
+Twelve cases each run at 256², 1024², 2048² and 257×129 with five channels; three dense/thin stress requests are separate. Accepted control ranges remain unchanged, with crown=0.5, relief=0.025, underRatio=0.5 defaults. All-channel cross-runtime maximum component error is ≤1/255. For plain and varied baseColor/height, unrounded box averages from 1024→256 (4×4) and 2048→1024 (2×2) must have each RGB component's mean absolute error ≤4/255. Stress quality scope is labeled separately; parity/repeats still apply, with structural probes in B. Budgets are ≤64 passes and ≤536870912 B descriptor peak at 2K. GT 1030 cold 1K / median of five warm 1K / warm 2K targets are 10000/1000/4000 ms; pinned SwiftShader targets are 60000/20000/80000 ms. Only matched-adapter budgets qualify. Stop on any frozen gate failure; never relax it.
+
+Original plan/proposal bytes are retained as qualification-plan-draft.json and graph-proposal-draft.json; graph-design.json retains revision 4 and original receipts (52 passes, 10 textures, 2K 369100128 B). Earlier proposal/status wording below is historical and superseded by this section and the frozen plan.
 
 ## Approved node freeze and implementation scope
 
