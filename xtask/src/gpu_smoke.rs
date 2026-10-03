@@ -274,6 +274,39 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             .env("MIXTURE_GPU_SOFTWARE", &software)
             .env("MIXTURE_NODE_EVIDENCE_DIR", &directory),
     )?;
+    let periodic = match node {
+        "weave-pattern" => Some((
+            "--lib",
+            None,
+            "executor::woven_tests::node_weave_pattern_gpu_woven_periodic",
+        )),
+        "fractal-noise" => Some((
+            "--test",
+            Some("nodes"),
+            "node_fractal_noise_gpu_woven_periodic_inputs",
+        )),
+        _ => None,
+    };
+    if let Some((target, name, test)) = periodic {
+        let mut command = cargo(root);
+        command.args([
+            "test",
+            "--locked",
+            "--all-features",
+            "-p",
+            "mixture-wgpu",
+            target,
+        ]);
+        if let Some(name) = name {
+            command.arg(name);
+        }
+        command
+            .args([test, "--", "--exact", "--ignored", "--nocapture"])
+            .env("MIXTURE_GPU_BACKEND", &backend)
+            .env("MIXTURE_GPU_SOFTWARE", &software)
+            .env("MIXTURE_NODE_EVIDENCE_DIR", &directory);
+        crate::test_output::run(&mut command)?;
+    }
     println!(
         "Node {node} passed; evidence: {}",
         directory.join(format!("{node}.json")).display()

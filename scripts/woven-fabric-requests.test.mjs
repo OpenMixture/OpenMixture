@@ -39,6 +39,13 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   const current = await json('qualification-plan.json'), previous = await json('qualification-plan-v1.json');
   assert.equal(current.recipeRevision,2); assert.equal(current.previousPlan,'qualification-plan-v1.json');
   assert.deepEqual([current.defaults.underRatio,current.defaults.crown],[.25,0]);
+  assert.equal(createHash('sha256').update(JSON.stringify(current.structuralProbes.amendments)).digest('hex'), '23a91b8a2df812c97053eb05b374871bae33d2f2c1e0c2e72a3481ba1152790c', 'only the explicitly approved amendment is permitted');
+  const unamended = structuredClone(current);
+  delete unamended.structuralProbes.amendments;
+  assert.equal(createHash('sha256').update(JSON.stringify(unamended,null,2)+'\n').digest('hex'), '392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523', 'removing only the amendment must restore the entire previous frozen plan');
+  delete current.structuralProbes.amendments;
+  assert.equal(createHash('sha256').update(JSON.stringify(current.structuralProbes)).digest('hex'), 'eab3492c364cd3c27ebd55e6f5bf14f4a050bc80826daae463ab4b9edc00a1c9', 'Stage B probe set was frozen before implementation');
+  delete current.structuralProbes; // Additive Stage B contract; all Stage A fields still compare exactly.
   current.recipeRevision=1; delete current.previousPlan; current.defaults.underRatio=.5; current.defaults.crown=.5;
   assert.deepEqual(current,previous,'no threshold, range, size, case, stress setting, budget, timing target, acceptance flag or historical receipt may change');
   const spec = await json('graph-proposal.json'), oldSpec = await json('graph-proposal-v1.json');

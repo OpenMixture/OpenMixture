@@ -764,3 +764,11 @@ mod allocation_tests {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "woven_tests.rs"]
+mod woven_tests;
+
+#[cfg(test)]
+#[path = "../tests/support/periodic_scalar_readback.rs"]
+mod periodic_scalar_readback;

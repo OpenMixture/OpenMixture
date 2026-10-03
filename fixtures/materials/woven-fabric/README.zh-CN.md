@@ -1,12 +1,12 @@
-# 编织织物 — 阶段 A 公开材质矩阵
+# 编织织物 — 公开矩阵及阶段 B 结构探针
 
 [English](./README.md) | 简体中文
 
 材质计划已冻结，节点已实现；**materialAccepted=false**。首个提交 f3d0f3f 冻结[计划](./qualification-plan.json)与[配方](./graph-proposal.json)，然后加入[普通 .mix v1 材质](./material.mix)及公开调用方工具。原草案逐字保留在 [qualification-plan-draft.json](./qualification-plan-draft.json)、[graph-proposal-draft.json](./graph-proposal-draft.json)。[graph-design.json](./graph-design.json)及原收据保留修订 4 基线。
 
-[分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：A 为本 PR 的公开 Native／浏览器矩阵；B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定，D 证据保留与接受记录，均另开 PR。本矩阵不构成结构、PBR 或人工接受。
+[分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：保留已合并阶段 A 公开 Native／浏览器矩阵；本 PR 加入 B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定、D 证据保留与接受记录仍另开 PR。本矩阵不构成结构、PBR 或人工接受。
 
-当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。materialAccepted=false，残余收窄仍待评审。
+当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
 
 ## 阶段 A 绑定源码的本地观测
 
@@ -117,3 +117,104 @@ mixture 指 target/native-consumer/release/mixture.exe。此前修订 4 Native �
 待批准问题：有界节点理由；身份／Scalar-mode 设计或另行限定多输出支持；精确占据／起伏／轮廓／可见性／采样契约；crown／bevel／默认值；**17 类型／15 kernels → 18／16** 及未发布 **Rust 0.9.0／浏览器 0.9.0-alpha.0**；精确节点／材质／PBR／人工门槛；后续明确实现授权。本次不改清单；.mix／.mixpack v1 和 plan／API v3 不变。旧目录拒绝新类型，不回退、不迁移。
 
 契约中的后续 PR 清单覆盖不变量 8 和节点流程：Core 契约／验证／降低、穷尽 kernel 消费者、一个 WGSL、夹具／文档／针对性测试、shader／软件／GPU／浏览器／节点／材质回归、包消费、不变预算及独立视觉接受。当前不能运行提案节点命令。保留完整结构、采样、raw-half／法线、周期／奇数尺寸、Native／浏览器 <=1/255、重放／包、耗时、PBR 和人工冻结阻碍。按[证据政策](../../../docs/evidence-policy.zh-CN.md)保留评审字节。本次不含新增 crate、运行时、shader、版本、黄金图或提交工具变更。
+
+## 阶段 B 冻结结构探针
+
+维护者于 2026-10-04 接受材质配方修订 2 默认值，不等于接受完整材质。[计划](./qualification-plan.json)新增 structuralProbes 节拥有精确探针。阶段 A 的字段、阈值、用例、尺寸、耗时预算、默认值和修订 1 收据全部不变。C 介电 PBR／人工评审与 D 保留证据／接受仍独立；materialAccepted=false。
+
+### 交点结构与零起伏
+
+通过真实图的高度输出别名观察原始 binary16 H/C/S，保留全部 21 pass。plain 与 varied 在 256²、1024²、2048²、257×129 遍历所有交点 UV ((i+0.5)/warpCount,(j+0.5)/weftCount) 和间隙 UV (i/warpCount,j/weftCount)。观察包含该 UV 的 floor(UV*size) 像素；高度预言使用其四个真实四分之一像素采样 UV。交点 C=1，偶奇校验对应 S=1／0；间隙 H=C=0、S=0.5 均精确。每个交点采样的上纱线必须高于下纱线，捕获 H 必须高于每个下纱线采样。稀疏四点高度预言绝对容差固定为 1/1024（小于 1 区间内两个 binary16 ULP 加 f32 运算误差）；不适用于精确端点、周期或重复检查。三实例几何参数及同模式原始场必须一致。flat 用例四尺寸所有像素最终高度精确 (0,0,0,1)，法线精确 (0.5,0.5,1,1)。这些探针不消除已接受的残余收窄，也不证明 PBR 外观。
+
+### 公共控制隔离
+
+257×129 的 plain 及计划中十六个单控制变体精确重复。列出的受影响交付通道必须改变，未列通道逐字节不变。三颜色仅改变 baseColor；两粗糙度端点仅改变 roughness；normalStrength 仅改变 normal；relief 仅改变 height／normal。每个 u32::MAX 纹理种子改变 baseColor／roughness，不改变几何高度／法线。数量、宽度、bevel、crown、underRatio 改变 baseColor／roughness／height／normal，metallic 不变。原始 H/C/S 有限归一化，非几何控制不改变它们，crown／underRatio 不改变 C。这只证明真实图的有界因果关系，不覆盖任意组合或浏览器原始半精度等价。
+
+### 最终高度法线重放与周期边界
+
+十二个计划用例 × 四尺寸将捕获的原始最终高度上传到既有生产 height-to-normal 内核。偏移 (0,0)、(1,0)、(0,1)、(floor(width/2),floor(height/2)) 的输出必须逐字节等于图法线的同样循环移位。CPU 仅重排字节，不计算法线。相对边缘像素不要求相等。这检查导数周期性，不等于视觉接缝接受或上游噪声周期性。
+
+### 选定噪声输入与织纹平移
+
+噪声为生产 value-noise v2，scale 4、octaves 2、persistence 0.5，种子 1729／65537／u32::MAX／0，覆盖四尺寸。未预先取模的输入原点 (width,0)、(0,height)、(width+3,height+5) 必须精确重现对应循环索引的原始半精度基线；基线必须非恒定、有限归一化。织纹平移覆盖十二用例 × 四尺寸的 H/C/S，整周期原点 (width,0)、(0,height)、(width,height) 与真实材质别名精确比较。它们仅覆盖选定输入，不证明任意图或浏览器周期性。评审者允许测试专用原点观测：只在测试副本中替换唯一匹配的采样原点表达式，基线的保留 uniform 字为零。生产公式、着色器文件、ABI、Core lowering 和公共 API 不变。按本次要求补充织纹周期加内部偏移 (width+3,height+5)，对照图场的循环索引；全部冻结用例、尺寸、整周期偏移和精确容差仍必须满足。
+
+### 压力及失败边界
+
+Dense-thin 使用原有 256²／1024²／257×129，检查 H/C/S 有限归一化、C=0 ⇒ H=0 且 S=0.5、相同几何及四偏移精确法线重放。仍不属于默认／变化质量保证；不新增欠采样交点质量承诺。任何冻结失败停止工作并记录用例、尺寸、场、像素、实际／期望值和适配器，不放宽容差。
+
+
+### 阶段 B 定向命令
+
+以下忽略测试由 `cargo xtask gpu-smoke` 的既有串行忽略测试选择自动运行。按上文设置 Vulkan 或 DX12 显式 GPU 环境。评审者已授权上述严格限定的采样原点观测。
+
+```bash
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_flat -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_control_isolation -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_normal_periodic -- --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_stress -- --ignored --nocapture
+```
+
+### 阶段 B 实现及本地结果
+
+首提交 106546e 冻结探针契约，随后实现提交 ed6905fcbc18047e8ef639527923d67c07108f09。2026-10-04，GT 1030 Vulkan（NVIDIA 582.66）及 DX12（32.0.15.8266）均通过交点结构（每后端 640 交点及 640 间隙，含全部实例同模式相等）、flat（四尺寸）、控制隔离（十六变体）、法线重放（48 行 × 四偏移 = 192 次精确比较）、压力（三尺寸、十二次精确重放）。Vulkan／DX12 定向测试使用提交为 ed6905f 的实现字节（最初定向运行开始于该提交之前）；woven_tests.rs SHA-256 为 160dd5b0c600ee0926b9705ce99f4e9ff54a7333d3a3a0a7c7eeae66eebc2c1b。节点及完整 smoke 使用该实现提交；此后未改变运行时或配方。
+
+四个构建器测试通过，包括冻结的新增阶段 B 节哈希及所有其余阶段 A 字段精确比较。Clippy、test-node weave-pattern、完整 Vulkan gpu-smoke 均通过（包括五个新增忽略探针、既有 painted 测试、Native／CLI 及打包 GPU 消费）。干净源码 release Native woven 矩阵在 Vulkan 上通过全部 51 行及四个耗时门槛。暖中位数：plain 1K／2K 为 183.82／791.17 ms；varied 为 228.61／901.08 ms。材质 SHA-256 仍为 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757；计划 SHA-256 为 392419a6fd210429d513fa0bf1a2e1300313c4299476d421b38b9cf834916523。普通日志及矩阵收据位于忽略的 tmp/woven-stage-b/，不是阶段 D 保留证据。
+
+**dd6acf5 的历史状态**：阶段 B 当时尚未完成；选定噪声输入周期性及织纹整周期平移已冻结，但未实现／运行，等待观测范围澄清。既有节点周期测试不能替代这些材质专用探针。没有冻结探针失败，也未放宽容差。C／D 及材质接受仍待完成；本分支不宣称阶段 B 验收通过。
+
+### 已授权的周期输入探针
+
+评审者已解决观测范围问题。两个探针已有仅限测试的实现，结果全部通过后才能将阶段 B 标为完成。噪声探针复用 MAT-02 渲染／读回辅助代码，覆盖冻结的四参数集（包括 combined-low 的种子 0）。织纹探针先在零原点将各模式与真实图的原始场精确比较，再检查未预先取模的整周期及周期加内部偏移。非恒定基线和精确 raw-half 比较排除空泛通过。生产着色器字节、uniform 布局、lowering、配方默认值和计划全部字节不变。
+
+```bash
+cargo test --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture
+cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture
+```
+
+完整 gpu-smoke 自动选择两个忽略测试；test-node fractal-noise 与 test-node weave-pattern 显式包含对应材质探针。
+
+### 冻结周期门槛失败 — 阶段 B 仍未完成
+
+获批实现的测量绑定干净提交 47e2dd851303dccdee95b58f5da06cb391645978。GT 1030 的 Vulkan（NVIDIA 582.66）及 DX12 均通过 woven 噪声探针：每后端 48 次精确平移图像比较及 16 次零原点检查，覆盖冻结的四参数集和四尺寸。
+
+织纹探针在 Vulkan **失败**：plain 用例、257×129、height 模式 H、未预先取模原点 (257,0)、像素 (59,0)。实际半精度字 [2149,0,0,15360] 与图基线 [2150,0,0,15360] 不同；标量为 0.0001341104507446289 与 0.0001342296600341797（差值 0.00000011920928955078125）。冻结容差为精确相等，因此判为失败，不能视作可容忍的视觉差异。失败前 plain 在 256²／1024²／2048² 的所有模式及原点共 45 次比较通过，奇数尺寸 H 的零原点比较亦通过。因此这是已验证零原点图身份后的整周期平移失败，不能作为完整材质周期性证据。
+
+按停止规则，未运行其余织纹用例及 DX12 织纹探针，也未在此实现上重跑完整 gpu-smoke／check。运行探针之前，测试编译、clippy 和 xtask 编译通过。上文五探针 Vulkan／DX12 及完整 smoke／check 的通过属于前一实现，不能关闭本次失败。阶段 B 仍未完成；C／D 待完成，materialAccepted=false 不变，PR #84 保持 draft。
+
+普通日志及源码／文件哈希收据位于忽略的 tmp/woven-stage-b/periodic/（vulkan-noise.log、dx12-noise.log、vulkan-weave.log、result.json）。生产着色器字节、Core lowering、ABI、材质默认值、计划字节和容差均与 dd6acf5 相同。已停止工作，未进行生产修复或放宽比较；后续处理需维护者评审这个失败探针。
+
+### 维护者修订 — 2026-10-04：能精确处保持精确
+
+维护者仅通过 structuralProbes.amendments（2026-10-04-exact-where-exact）修订织纹平移规则。原精确措辞及失败收据在上文和计划中完整保留：干净实现 47e2dd8、记录提交 8771d83，plain 257×129 H，原点 (257,0)、像素 (59,0)，half 2149 对 2150。维护者接受的分析是非二次幂分母下 fract(1+x) 的 f32 舍入，并非生产接缝；法线周期边界证据仍是独立门槛。该解释不授权任何更广泛的数值放宽。
+
+- 所有尺寸的零原点身份仍逐半精度位精确。
+- 两轴均为二次幂（256²／1024²／2048²）：每个整周期及周期加内部偏移仍逐半精度位精确。
+- 仅 257×129：每分量最多相差一个相邻有限 binary16 步长。使用单调有符号排序（负数位取反，非负数位 XOR 0x8000）；-0／+0 相邻，超过一步的符号／零跨越失败。精确门槛仍比较位，包括有符号零。
+- 按用例／尺寸／模式及原点报告不同分量／像素数量、最大半精度步长距离及最大绝对差。任何修订门槛失败即停止，明确记录未完成覆盖。
+
+冻结计划其余内容全部不变。回归测试仅移除此命名修订条目后校验整个旧计划哈希，并保留阶段 A 和原始阶段 B 保护。修订探针通过之前，阶段 B 不算完成；C／D 待完成，materialAccepted=false 不变。
+
+### 修订后探针结果 — 2026-10-04：超过一个 ULP 后停止
+
+干净实现 8f84e7d7cd435a1760b5ed01531b66f07348af4e（先由 3aba3e6 冻结修订）在 NVIDIA GeForce GT 1030、Vulkan、NVIDIA 582.66 上失败。命令：`cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture`。首个超限：plain 257×129 warp-share，原点 (257,0)，像素 (231,23)，实际 half [2492,0,0,15360]，期望 [2496,0,0,15360]，**相差 4 步，超过修订上限 1**。标量为 0.00017499923706054688 与 0.00017547607421875（绝对差 0.000000476837158203125）。未进一步放宽容差或修改生产实现。
+
+plain 的全部 45 个二次幂尺寸比较（三尺寸 × 三模式 × 五原点）精确一致，差异分量数为零、最大 0 ULP。plain 奇数尺寸三模式的零原点恒等均精确。下表为奇数尺寸已观察统计；只有标量分量变化，所以差异分量数与像素数相同。跨原点计数为像素出现次数之和，并非去重后的瓦片位置数。
+
+| plain 257×129 模式 | 原点 | 差异分量／像素数 | 最大 half 步数 |
+|---|---|---:|---:|
+| height | (257,0) | 93 | 1 |
+| height | (0,129) | 87 | 1 |
+| height | (257,129) | 162 | 1 |
+| height | (260,134) | 177 | 1 |
+| coverage | (257,0) | 153 | 1 |
+| coverage | (0,129) | 299 | 1 |
+| coverage | (257,129) | 445 | 1 |
+| coverage | (260,134) | 443 | 1 |
+| warp-share | (257,0)，失败图像 | 123 | **4** |
+
+模式累计：height 519 处差异／最大 1 ULP；coverage 1340／最大 1 ULP；warp-share 仅截至首个平移图像为 123／最大 4 ULP。表内各平移图像的最大绝对差均为 0.00048828125；该最大值不一定与最大 ULP 位于同一像素。完整扫描已渲染的失败图像以保留统计后停止执行：56 次图像比较通过，第 57 次失败。其余 warp-share 原点、varied／combined 及所有其他用例，以及 DX12 织纹探针均未运行。
+
+四个构建器测试（包括仅修订条目可变的完整计划保护）及比较器单元测试通过。按停止规则未重跑完整 Vulkan gpu-smoke 和 cargo xtask check。此前双后端 crossing、flat、control-isolation、normal-replay、stress 通过属于 ed6905f；双后端 noise-input 通过属于 47e2dd8。这些是未变更的历史证据，不代表本轮不完整运行通过。阶段 B 仍未完成，C／D 待完成，materialAccepted=false，PR #84 保持 draft。
+
+普通输出位于忽略的 tmp/woven-stage-b/amendment/{builder.log,unit.log,weave-vulkan.log,result.json} 及 vulkan/woven-weave-periodic.json（逐图像及用例／尺寸／模式累计计数、适配器、首个失败）。这些是本地评审收据，不是阶段 D 保留证据。生产 WGSL、ABI、Core lowering、材质配方／默认值和其他冻结门槛均不变。
