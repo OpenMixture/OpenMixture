@@ -72,3 +72,5 @@ M6A-04 candidate mode requires 13 tests: the original nine plus four resource te
 MAT-02b candidate mode now requires 19 tests, including 192 periodic morphology cases and exact repeat checks in `morphology.spec.mjs`. The test is explicitly included only for candidate qualification through `MIXTURE_MORPHOLOGY_TESTS=1`; exact published registry consumption remains 13 tests. The [morphology fixture guide](../../fixtures/nodes/scalar-morphology/README.md) defines the independent Native comparison command. This adds engine qualification, not a Studio upgrade or material acceptance.
 
 The candidate additionally runs `subtract.spec.mjs` with `MIXTURE_SUBTRACT_TESTS=1`: 64 exact direct/amplified subtraction cases. The [subtraction guide](../../fixtures/nodes/scalar-subtract/README.md) defines its public Native comparison. Registry mode explicitly excludes this candidate-only test.
+
+weave-pattern@1 node checks follow the [frozen cases](../../docs/weave-pattern-acceptance.md): three modes at 256/1024/2048 and 257×129, unequal axes and boundaries. check-weave.mjs compares public Native/browser bytes with tolerance 1/255. Material qualification is separate.

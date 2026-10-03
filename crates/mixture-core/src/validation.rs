@@ -382,6 +382,17 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
                 .with_suggestion("Supply a finite value in the documented range and exact JSON type; values are never clamped or coerced."));
         }
     }
+    if node.type_id == "weave-pattern" {
+        for id in ["warpCount", "weftCount"] {
+            if let Some(count) = resolved_parameter(node, contract, id).and_then(|v| v.as_u64())
+                && count % 2 != 0
+            {
+                diagnostics.push(at_parameter(Code::ParameterInvalidValue, &node.id, id,
+                    "Plain weave requires even counts on both axes for periodic crossing parity.")
+                    .with_suggestion("Supply an even integer from 4 through 32; counts are never rounded."));
+            }
+        }
+    }
     if node.type_id == "brick-pattern" {
         let rows = resolved_parameter(node, contract, "rows").and_then(|v| v.as_u64());
         let offset = resolved_parameter(node, contract, "rowOffset").and_then(|v| v.as_f64());

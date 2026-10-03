@@ -4,12 +4,21 @@ use mixture_core::{
     Stage,
     plan::{
         BlendMode, KernelId, KernelInvocation, MorphologyAxis, MorphologyOperation, NoiseBasis,
+        WeaveMode,
     },
 };
 use serde::Serialize;
 
 pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
     match id {
+        KernelId::WeavePattern => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/weave-pattern.wgsl")
+            ),
+            "weave_pattern",
+        ),
         KernelId::BrickPattern => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -141,6 +150,27 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             .collect::<Vec<_>>()
     };
     match invocation {
+        KernelInvocation::WeavePattern {
+            counts,
+            widths,
+            bevel,
+            crown,
+            under_ratio,
+            mode,
+        } => {
+            let mode: u32 = match mode {
+                WeaveMode::Height => 0,
+                WeaveMode::Coverage => 1,
+                WeaveMode::WarpShare => 2,
+            };
+            let mut bytes: Vec<_> = [counts[0], counts[1], mode, 0]
+                .into_iter()
+                .flat_map(u32::to_le_bytes)
+                .collect();
+            bytes.extend(floats(&[widths[0], widths[1], *bevel, *crown]));
+            bytes.extend(floats(&[*under_ratio, 0., 0., 0.]));
+            bytes
+        }
         KernelInvocation::BrickPattern {
             cells,
             seed,
@@ -264,7 +294,7 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
     }
 }
 
-/// Pipeline lookups for one render call. The cache has at most fifteen kernel identities, including image upload.
+/// Pipeline lookups for one render call. The cache has at most sixteen kernel identities, including image upload.
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct PipelineCacheReport {
     /// Passes whose kernel was already cached, including earlier passes this call.
@@ -352,6 +382,7 @@ mod tests {
             (KernelId::ScalarMorphology, 16),
             (KernelId::ScalarSubtract, 16),
             (KernelId::BrickPattern, 48),
+            (KernelId::WeavePattern, 48),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
             (KernelId::HeightToNormal, 16),
@@ -378,6 +409,42 @@ mod tests {
             assert!(
                 matches!(module.types[uniform.ty].inner,naga::TypeInner::Struct {span,..} if span==size)
             );
+        }
+    }
+    #[test]
+    fn weave_uniform_has_frozen_modes_and_zero_padding() {
+        for (mode, code) in [
+            (WeaveMode::Height, 0u32),
+            (WeaveMode::Coverage, 1),
+            (WeaveMode::WarpShare, 2),
+        ] {
+            let bytes = parameters(&KernelInvocation::WeavePattern {
+                counts: [12, 8],
+                widths: [0.55, 0.9],
+                bevel: 0.12,
+                crown: 1.,
+                under_ratio: 0.75,
+                mode,
+            });
+            let expected: Vec<_> = [
+                12u32,
+                8,
+                code,
+                0,
+                0.55f32.to_bits(),
+                0.9f32.to_bits(),
+                0.12f32.to_bits(),
+                1f32.to_bits(),
+                0.75f32.to_bits(),
+                0,
+                0,
+                0,
+            ]
+            .into_iter()
+            .flat_map(u32::to_le_bytes)
+            .collect();
+            assert_eq!(bytes, expected);
+            assert_eq!(bytes.len(), 48);
         }
     }
     #[test]

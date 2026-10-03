@@ -242,6 +242,19 @@ impl Builder<'_> {
                     color_b: color(node, "colorB")?,
                 }
             }
+            "weave-pattern" => KernelInvocation::WeavePattern {
+                counts: [integer(node, "warpCount")?, integer(node, "weftCount")?],
+                widths: [number(node, "warpWidth")?, number(node, "weftWidth")?],
+                bevel: number(node, "bevel")?,
+                crown: number(node, "crown")?,
+                under_ratio: number(node, "underRatio")?,
+                mode: match parameter(node, "mode")?.as_str() {
+                    Some("height") => WeaveMode::Height,
+                    Some("coverage") => WeaveMode::Coverage,
+                    Some("warp-share") => WeaveMode::WarpShare,
+                    _ => return Err(invariant("Validated weave mode is unsupported.")),
+                },
+            },
             "brick-pattern" => KernelInvocation::BrickPattern {
                 cells: [integer(node, "columns")?, integer(node, "rows")?],
                 seed: integer(node, "seed")?,

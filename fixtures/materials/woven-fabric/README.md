@@ -4,6 +4,8 @@ English | [简体中文](./README.zh-CN.md)
 
 The maintainer changed direction after reviewing recipe revision 4 at ca2e98b on 2026-10-03. Four existing-node rounds traded flat crowns/grain, crossing seams, channel mismatch and bone/quilted shapes for aligned but disconnected-looking capsules. The [contract](../../../docs/mat-03-woven-surfaces.md) records bounded findings and the analytical node proposal; this is not proof of impossibility and does not authorize implementation. **draft, frozen: false, runtimeImplemented: false, materialAccepted: false** remain in force.
 
+The later maintainer decision supersedes the node status: [weave-pattern@1 node contract/cases](../../../docs/weave-pattern-acceptance.md) were frozen before its separate implementation. Proposal/authorization wording below records the PR #80 design checkpoint, not the current node approval state. Material graphs/plans remain draft, frozen: false, runtimeImplemented: false; node implementation does not freeze or qualify this material.
+
 ## Keep the baseline separate from the proposal
 
 - [graph-design.json](./graph-design.json) remains the exact revision-4 existing-node baseline. Top-level defaults/cases/sweeps and measured resource fields in [qualification-plan.json](./qualification-plan.json) still describe that baseline. The four source-bound review records and input identities are retained; no new GPU run is claimed in this design-only change.

@@ -2,7 +2,7 @@
 
 English | [简体中文](./ROADMAP.zh-CN.md)
 
-**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. MAT-01 is accepted within its [recorded scope](./docs/evidence/mat-01/README.md) on the unpublished 0.6 candidate. MAT-01 nodes and qualification tooling are integrated through PRs #50–52 ([integration record](./docs/evidence/mat-01/integration/README.md)); human visual acceptance and post-merge checks are complete, with accepted source manifests at 0.6.0 / 0.6.0-alpha.0; the current PERF-MAT working candidate is 0.8.0 / 0.8.0-alpha.0, not yet qualified; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
+**Current integration state:** M6-B and NUM-01, including prerequisite PRs #39–45, are merged into main with all six combined checks passing. MAT-01 is accepted within its [recorded scope](./docs/evidence/mat-01/README.md) on the unpublished 0.6 candidate. MAT-01 nodes and qualification tooling are integrated through PRs #50–52 ([integration record](./docs/evidence/mat-01/integration/README.md)); human visual acceptance and post-merge checks are complete, with accepted source manifests at 0.6.0 / 0.6.0-alpha.0; the current MAT-03 node working candidate is unpublished 0.9.0 / 0.9.0-alpha.0; the published browser version is 0.3.0-alpha.0. See [release status and hardware scope](./docs/release.md).
 
 **Historical checkpoint (2026-09-21):** M0–M5 and M4.1 are complete within their recorded acceptance scope; ENG-01–04 are implemented. [Browser Alpha 0.2.0 publication and exact registry consumption](./docs/evidence/npm-020-alpha/README.md) deliver Scalar composition. Rust crates remain unpublished. Historical acceptance does not certify new sources, packages or untested environments.
 
@@ -29,7 +29,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Qualified Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | The maintainer selected MAT-03; only [MAT-03a contract design](./docs/mat-03-woven-surfaces.md) is active. The [woven graph/qualification plan](./fixtures/materials/woven-fabric/README.md) remains unfrozen, retaining existing-node findings and a pending weave-node catalog/version proposal; no implementation or catalog addition is approved. MAT-02/PERF-MAT remain [accepted within recorded scope](./docs/evidence/mat-02/README.md); publication is separate. |
+| Active increment | MAT-03 weave-pattern@1 node implementation; maintainer-approved catalog/version and [frozen node contract/cases](./docs/weave-pattern-acceptance.md). Full woven-material qualification remains a later PR; no publication. |
 | Current qualification | [MAT-01](./docs/evidence/mat-01/README.md): frozen brick matrix, recorded software and GT 1030 Native/browser comparisons, retained human decision and six passing post-merge checks. Previous v1 Windows failures remain historical failures; no publication or general hardware guarantee. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 
@@ -63,7 +63,7 @@ Subgraphs and presets follow MAT-04 below; their format and implementation remai
 
 ## Material capability roadmap — staged delivery
 
-The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03a contract design is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
+The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03 node implementation is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
 
 The planning baseline had thirteen node types, image input, public parameters, eight material output channels and portable assets. MAT-01 adds two accepted node types for structured brick materials; later stages still need the processing vocabulary specified below. A channel slot is not a channel generator; a portable archive is not a reusable subgraph. Existing ceramic/leather/wood acceptance remains bounded and mandatory.
 
@@ -94,7 +94,7 @@ MAT-02/03/04 use the same contract → minimal implementation seams → material
 
 ### MAT-03a entry and stop boundary
 
-The maintainer selected MAT-03. This slice delivers only the [bounded woven contract draft](./docs/mat-03-woven-surfaces.md) and [graph/qualification drafts](./fixtures/materials/woven-fabric/README.md): plain and varied plain weave, existing-node feasibility, independent axis controls, crossing order, sampling limits, budgets and review questions. The maintainer accepted the plain/varied family and control domain and selected existing-node recipe changes first. Four existing-node rounds did not jointly satisfy the visual contract. Retain revision 4 and its measured budget as the unaccepted baseline; the maintainer now requests a minimal weave node proposal for pending catalog/version review. This does not approve a new identity, implementation, freezing or PERF-MAT engine work. A later MAT-03a PR must resolve source-bound feasibility measurements and catalog/version review before freezing the plan. Stop before node/runtime implementation, material acceptance or publication.
+The maintainer approved PR #80’s bounded findings, weave-pattern@1 single-Scalar/mode contract and 18/16 catalog, unpublished Rust 0.9.0 / browser 0.9.0-alpha.0. The implementation PR first freezes only the node contract/cases in a docs-only commit, then implements and verifies the node. Material graphs, full matrix and PBR/human qualification remain draft and belong to a later PR; no material freeze, publication or PERF-MAT work.
 
 ### Common material acceptance and ownership
 

@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "nodes": [
+    {
+      "id": "weave",
+      "type": "weave-pattern",
+      "version": 1
+    },
+    {
+      "id": "color",
+      "type": "constant-color",
+      "version": 1
+    },
+    {
+      "id": "out",
+      "type": "material-output",
+      "version": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": {
+        "nodeId": "weave",
+        "portId": "value"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "height"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "color",
+        "portId": "color"
+      },
+      "to": {
+        "nodeId": "out",
+        "portId": "baseColor"
+      }
+    }
+  ],
+  "exposedParameters": [
+    {
+      "id": "mode",
+      "nodeId": "weave",
+      "parameterId": "mode"
+    },
+    {
+      "id": "warpCount",
+      "nodeId": "weave",
+      "parameterId": "warpCount"
+    },
+    {
+      "id": "weftCount",
+      "nodeId": "weave",
+      "parameterId": "weftCount"
+    },
+    {
+      "id": "warpWidth",
+      "nodeId": "weave",
+      "parameterId": "warpWidth"
+    },
+    {
+      "id": "weftWidth",
+      "nodeId": "weave",
+      "parameterId": "weftWidth"
+    },
+    {
+      "id": "bevel",
+      "nodeId": "weave",
+      "parameterId": "bevel"
+    },
+    {
+      "id": "crown",
+      "nodeId": "weave",
+      "parameterId": "crown"
+    },
+    {
+      "id": "underRatio",
+      "nodeId": "weave",
+      "parameterId": "underRatio"
+    }
+  ]
+}

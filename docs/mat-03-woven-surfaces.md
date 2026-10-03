@@ -2,7 +2,13 @@
 
 English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
-Status: **draft, not frozen; runtimeImplemented: false; materialAccepted: false**. Only MAT-03a contract design is active: retain four source-bound existing-node rounds and propose minimal weave-pattern@1 for catalog/version review. The maintainer requested a direction change, not node approval, freezing or implementation. Decision 1 family/control scope remains accepted. The [roadmap](../ROADMAP.md), [fixture guide](../fixtures/materials/woven-fabric/README.md) and [plan](../fixtures/materials/woven-fabric/qualification-plan.json) distinguish the retained revision-4 baseline from the unimplemented [proposal graph](../fixtures/materials/woven-fabric/graph-proposal.json).
+Material status: **draft, not frozen; runtimeImplemented: false; materialAccepted: false**. The maintainer has now approved weave-pattern@1 and authorized its separate node implementation, as recorded below. The full material graph, structural matrix and PBR/human qualification remain a later PR; retained baseline and proposal graphs are not accepted materials.
+
+## Approved node freeze and implementation scope
+
+On 2026-10-03 the maintainer approved PR #80 (eb3ea30) decisions (a) the four bounded failures justify one node; (b) weave-pattern@1 with no inputs, one value: Scalar output and height/coverage/warp-share modes; (c) all formulas, sampling and the 48-byte ABI below, crown=0.5, underRatio=0.5 and candidate material relief=0.025; (d) 18 types / 16 kernels and unpublished Rust 0.9.0 / browser 0.9.0-alpha.0, unchanged document/package v1 and plan/API v3; (f) this PR's first, docs-only commit freezes the node contract and [node acceptance cases](./weave-pattern-acceptance.md), before implementation commits.
+
+**The node contract is frozen**: ports, parameters, analytical formulas, sampling and ABI under “Proposed weave-pattern@1” below are approved normative requirements, no longer pending catalog review. Historical proposal wording is retained for provenance and superseded by this decision. **The material contract, graphs and qualification plan remain draft, unfrozen, unimplemented and unaccepted**. The material structural matrix and PBR/human qualification belong to a later PR; node acceptance cannot substitute for them.
 
 ## Material brief and coordinates
 
@@ -11,7 +17,7 @@ One opaque, dielectric woven-fabric family: a regular plain weave and a varied p
 At crossing (i,j), warp must be above weft when (i+j) is even, and below when odd. Exchanging yarn width, spacing, color or seed must not exchange that order. Height is a zero-relative surface relief, not two-sided geometry. Output baseColor, roughness, metallic=0, height and a normal derived only from final stored height. Gaps show an opaque dark backing; opacity, AO and displacement outputs are excluded. Directional grain is encoded in maps; the current normal/roughness channels do not provide an anisotropic BRDF.
 
 
-## Maintainer direction: existing-node findings and pending node review
+## Historical direction: existing-node findings and node review
 
 On 2026-10-03, after reviewing revision 4 at ca2e98b, the maintainer requested a **dedicated node proposal**, not implementation. The four bounded rounds failed to deliver continuous over/under yarn paths, coherent color/roughness/height, rounded crowns and smooth crossing transitions **simultaneously**. This is evidence against the tested brick/selector compositions, not a proof that every possible existing-node graph is incapable. No further tuning or new runtime work is authorized by this design slice. Revision 4 stays the retained, executable existing-node baseline in [graph-design.json](../fixtures/materials/woven-fabric/graph-design.json); [graph-proposal.json](../fixtures/materials/woven-fabric/graph-proposal.json) is a separate, non-executable candidate.
 
@@ -43,11 +49,11 @@ No inputs. Exactly one output port **value: Scalar**, default None. [NodeContrac
 | crown | Float 0..1, interpolation of parabolic and squared-parabolic cross-sections | 0.5 |
 | underRatio | Float 0.25..0.75, lower/upper center-height ratio | 0.5 |
 
-crown is a **new proposed profile control**, not an already accepted knob. The family/count/width domains remain the accepted ones. All parameters have defaults; every provided value is validated even when irrelevant to a selected mode or on an unused branch. Reject odd counts (including overrides) with MIX_PARAMETER_INVALID_VALUE, node ID and the offending count parameter; never round. Wrong JSON type, enum case, non-finite/out-of-range values also use MIX_PARAMETER_INVALID_VALUE; unknown keys use MIX_PARAMETER_UNKNOWN. Validation precedes GPU acquisition. The generic Integer range cannot express evenness, so node-specific semantic validation is required. No random variation is proposed and there is **no seed parameter** on this deterministic generator; the two existing fractal-noise@2 grain nodes still require independent explicit u32 seeds. Adding randomized structure later would require a separate reviewed contract/version change.
+crown is an **approved profile control**, frozen by the node decision above. The family/count/width domains remain the accepted ones. All parameters have defaults; every provided value is validated even when irrelevant to a selected mode or on an unused branch. Reject odd counts (including overrides) with MIX_PARAMETER_INVALID_VALUE, node ID and the offending count parameter; never round. Wrong JSON type, enum case, non-finite/out-of-range values also use MIX_PARAMETER_INVALID_VALUE; unknown keys use MIX_PARAMETER_UNKNOWN. Validation precedes GPU acquisition. The generic Integer range cannot express evenness, so node-specific semantic validation is required. No random variation is proposed and there is **no seed parameter** on this deterministic generator; the two existing fractal-noise@2 grain nodes still require independent explicit u32 seeds. Adding randomized structure later would require a separate reviewed contract/version change.
 
 ### Analytical structure and continuity
 
-Definitions below are normative **proposal**, not implemented behavior. Evaluate f32 in the stated order; clamp named normalized quantities to [0,1]. Let `F(t)=s*s*(3-2*s)`, `s=clamp(t,0,1)`. UV origin is top left, positive u right/v down. Wrap each UV with fract before `x=u*warpCount`, `y=v*weftCount`. Let `i=floor(x)`, `j=floor(y)`, `a=fract(x)-0.5`, `b=fract(y)-0.5`. Warp runs along v, weft along u.
+Definitions below are the normative **frozen node contract**. Evaluate f32 in the stated order; clamp named normalized quantities to [0,1]. Let `F(t)=s*s*(3-2*s)`, `s=clamp(t,0,1)`. UV origin is top left, positive u right/v down. Wrap each UV with fract before `x=u*warpCount`, `y=v*weftCount`. Let `i=floor(x)`, `j=floor(y)`, `a=fract(x)-0.5`, `b=fract(y)-0.5`. Warp runs along v, weft along u.
 
 For each axis with transverse local coordinate a (or b) and width w:
 
@@ -86,9 +92,9 @@ The separate [proposal graph](../fixtures/materials/woven-fabric/graph-proposal.
 
 A static lifetime trace for the explicit numeric ID order projects **8 textures** (4 Scalar, 3 Color, 1 Normal), 592 uniform bytes, no image resources, one sequential staging buffer. At 2K: 8*33,554,432 + 592 + 33,554,432 = **301,990,480 B projected peak**, versus the baseline's **measured 369,100,128 B**. Logical retain-all bytes would be 21*33,554,432=704,643,072, not the governing peak. The trace is in graph-proposal.json; it assumes existing exact-descriptor reuse, no implicit default passes and the proposed 48-byte uniform. This is **not a compiled plan, measured budget pass or performance result**. Keep <=64 passes and <=536,870,912 B unchanged; measure the real implementation later. Recomputing the shared sample helper in three passes is an intentional small-kernel tradeoff, not assumed pass fusion.
 
-### Catalog/version decision and later implementation gates
+### Historical proposal gates (node approval superseded by the freeze above)
 
-Pending approval, catalog **17 types / 15 kernels → 18 / 16**; retained fractal-noise@1/v2 coexistence does not add a second type. Propose the next **unpublished** candidate **Rust 0.9.0 / browser 0.9.0-alpha.0**, because the new KernelId/KernelInvocation variant affects exhaustive Rust matches and downstream consumers. Current manifests stay 0.8.0 / 0.8.0-alpha.0. No manifest, lockfile or release artifact changes in this slice. Keep .mix/.mixpack v1 and plan/API v3; preserve old documents and existing plan/hash encodings. Old catalogs reject weave-pattern@1 with MIX_NODE_UNKNOWN_TYPE, or a known type's unknown version with MIX_NODE_UNSUPPORTED_VERSION; never substitute another recipe or auto-migrate. The current CLI cannot validate/render the proposed graph as an implemented node.
+Pending approval, catalog **17 types / 15 kernels → 18 / 16**; retained fractal-noise@1/v2 coexistence does not add a second type. Propose the next **unpublished** candidate **Rust 0.9.0 / browser 0.9.0-alpha.0**, because the new KernelId/KernelInvocation variant affects exhaustive Rust matches and downstream consumers. At the proposal checkpoint, manifests stayed 0.8.0 / 0.8.0-alpha.0. The authorized node implementation now selects 0.9.0 / 0.9.0-alpha.0; publication remains excluded. Keep .mix/.mixpack v1 and plan/API v3; preserve old documents and existing plan/hash encodings. Old catalogs reject weave-pattern@1 with MIX_NODE_UNKNOWN_TYPE, or a known type's unknown version with MIX_NODE_UNSUPPORTED_VERSION; never substitute another recipe or auto-migrate. The current CLI cannot validate/render the proposed graph as an implemented node.
 
 A **later, separately authorized implementation PR**, after catalog/version and contract review, must follow [AGENTS invariant 8](../AGENTS.md) and the [node playbook](./agent-playbooks.md):
 

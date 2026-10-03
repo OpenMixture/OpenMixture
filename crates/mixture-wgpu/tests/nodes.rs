@@ -7,7 +7,8 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 16] = [
+const NODES: [&str; 17] = [
+    "weave-pattern",
     "scalar-subtract",
     "scalar-morphology",
     "scalar-mask-blend",
@@ -746,6 +747,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
         "ScalarSubtract",
         "Transform2d",
         "Warp",
+        "WeavePattern",
     ]
     .into_iter()
     .map(str::to_owned)
@@ -903,4 +905,22 @@ fn node_fractal_noise_gpu_periodic_material_inputs() {
         .unwrap();
     }
     eprintln!("value-noise periodic material inputs: {evidence}");
+}
+
+#[path = "support/weave_probe.rs"]
+mod weave_probe;
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node weave-pattern"]
+fn node_weave_pattern_gpu() {
+    run_node("weave-pattern");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = weave_probe::run(&context);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("weave-pattern-probes.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
 }

@@ -4,11 +4,11 @@ English | [简体中文](./node-contracts.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
-The seventeen versioned node types in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
+The eighteen versioned node types in [mixture-core](../crates/mixture-core/src/registry.rs) lower to typed plans and [execute through the sole `wgpu` path](./graph-rendering.md). PR-005–007 established the six M2 nodes; PR-009 added noise, gradient mapping and height-derived normals; PR-010 adds scalar transform and warp. Constants share one WGSL kernel, material-output maps resources, and the fixed checker shares the graph checker shader.
 
 ## Common rules
 
-The latest catalog has seventeen node types. `fractal-noise` supports versions 1 and 2; all other types require `version: 1`. See [stable value noise](./stable-noise.md) for explicit v2 migration and rounding. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` and `brick-pattern` require an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
+The latest catalog has eighteen node types. `fractal-noise` supports versions 1 and 2; all other types require `version: 1`. See [stable value noise](./stable-noise.md) for explicit v2 migration and rounding. Connections match `Scalar`, `Color`, or `Normal` exactly; every input has at most one incoming edge. An input without a default is required. Omitted parameters use the defaults below; unknown names, invalid types, and out-of-range values are errors. All parameters below are mutable and can be exposed through a unique public binding. The randomized `fractal-noise` and `brick-pattern` require an explicit integer seed in the source, including on unused branches; an override does not repair a missing source seed.
 
 Float parameters accept finite JSON numbers; integer parameters require unsigned integer tokens (`8` is valid, `8.0` and `8e0` are not). Colors are arrays of exactly four finite numbers in `[0, 1]`, representing linear RGBA, with straight alpha. Float/color bounds are inclusive. The source model retains f64 JSON values; compilation explicitly lowers them to f32 GPU parameters. Parameter validation does not execute pixels or convert color spaces.
 
@@ -229,3 +229,20 @@ The MAT-01b working candidate adds `brick-pattern@1`: no inputs and one Scalar `
 ## scalar-subtract
 
 Required Scalar `a` and `b`, Scalar `value` output; no parameters, defaults for inputs or randomness. [Core contract](../crates/mixture-core/src/nodes/scalar_subtract.rs), [WGSL](../crates/mixture-wgpu/shaders/nodes/scalar-subtract.wgsl), [fixtures](../fixtures/nodes/scalar-subtract/README.md). For finite samples, compute `max(clamp(a,0,1)-clamp(b,0,1),0)` once and store `[value,0,0,1]` in rgba16float. Equal normalized inputs and a<=b yield exact zero, b=0 retains normalized a. This is saturating, not signed or absolute subtraction. It is pointwise and inherits input tiling; no resampling or coordinate change. Differences are rounded once to the existing half storage precision. In particular 0.5 minus 0.499755859375 retains 1/4096, although direct RGBA8 encoding cannot show it. Raw half probes and a levels-amplified graph verify this case. Both inputs remain required at all endpoints; unknown parameters are errors. One 8x8 dispatch and one reserved-zero 16-byte uniform preserve the common kernel binding ABI. Rust 0.7 exhaustive kernel matches gain ScalarSubtract; no format or old-node migration is implied. Full [MAT-02 qualification](./mat-02-layered-weathering.md) remains separate.
+
+## weave-pattern
+
+[Contract module](../crates/mixture-core/src/nodes/weave_pattern.rs). weave-pattern@1 has no inputs and exactly one output value: Scalar. Periodic plain weave only; no randomness, twill, fiber geometry or simulation.
+
+| Parameter | Type / inclusive range | Default |
+|---|---|---|
+| mode | Enum height, coverage, warp-share | height |
+| warpCount, weftCount | Integer 4..32, even only | 8, 8 |
+| warpWidth, weftWidth | Float .55.. .9, transverse pitch fraction | .7, .7 |
+| bevel | Float .02.. .12, inward occupancy feather | .08 |
+| crown | Float 0..1, parabolic to squared-parabolic profile | .5 |
+| underRatio | Float .25.. .75, lower/upper crossing-center ratio | .5 |
+
+The [frozen formulas and ABI](./mat-03-woven-surfaces.md) and [node acceptance cases](./weave-pattern-acceptance.md) are normative. Top-left UV, warp along v, weft along u; fract wrapping and even counts preserve lift phase. Occupancy is independent of depth; shared visibility weights generate all modes. The fixed 2×2 footprint accumulates H, C and Vw separately; warp-share is sumVw/sumC (.5 for zero coverage), never the mean of individual shares. No universal antialiasing; test translated evaluations, not opposite border texels.
+
+Odd counts, wrong types/ranges/enums report MIX_PARAMETER_INVALID_VALUE with node/parameter IDs; unknown keys report MIX_PARAMETER_UNKNOWN. Defaults, overrides and unused branches are checked. f32 evaluation, rgba16float [value,0,0,1] storage, 48-byte zero-padded ABI. Three instances require caller-copied identical geometry and dimensions, without a new cross-node equality rule. Tests observe the sole production WGSL; they do not establish material/PBR/human acceptance.

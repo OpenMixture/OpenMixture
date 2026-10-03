@@ -2,7 +2,13 @@
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
-状态：**draft，未冻结；runtimeImplemented: false；materialAccepted: false**。当前仅为 MAT-03a 契约设计：保留四轮既有节点的绑定源码发现，并提出最小 weave-pattern@1 供目录／版本评审。维护者已要求改变方向，但未批准节点、冻结或实现。决定 1 的家族／控制域仍已接受。[路线图](../ROADMAP.zh-CN.md)、[夹具指南](../fixtures/materials/woven-fabric/README.zh-CN.md)和[计划](../fixtures/materials/woven-fabric/qualification-plan.json)区分保留的修订 4 基线与未实现的[提案图](../fixtures/materials/woven-fabric/graph-proposal.json)。
+材质状态：**draft，未冻结；runtimeImplemented: false；materialAccepted: false**。维护者现已批准 weave-pattern@1 节点并授权其单独实现，见下节冻结决定。完整材质图、结构矩阵及 PBR／人工验收仍留待后续 PR；保留的配方基线和提案图不是已验收材质。
+
+## 已批准的节点冻结与实现范围
+
+维护者于 2026-10-03 对 PR #80（eb3ea30）批准 (a) 四轮有界失败足以支持一个节点；(b) weave-pattern@1 无输入、单个 value: Scalar 输出、height/coverage/warp-share 模式；(c) 下文提案的全部公式、采样、48 字节 ABI、crown=0.5、underRatio=0.5 及材质候选 relief=0.025；(d) 18 类型／16 内核及未发布 Rust 0.9.0／浏览器 0.9.0-alpha.0，文档／包 v1 与 plan/API v3 不变；(f) 本 PR 首个仅文档提交冻结节点契约和[节点验收用例](./weave-pattern-acceptance.zh-CN.md)，随后实现。
+
+**节点契约已冻结**：下文“提议 weave-pattern@1”中的端口、参数、解析公式、采样及 ABI 是获批的规范，不再等待目录评审。其历史提案措辞保留来源背景，以本节决定为准。**材质契约、图及验收计划仍为草案，未冻结、未实现、未接受**。材质结构矩阵、PBR／人工验收另开 PR；不得将节点验收等同材质验收。
 
 ## 材质简述与坐标
 
@@ -42,11 +48,11 @@
 | crown | Float 0..1，抛物线与平方抛物线横截面的插值 | 0.5 |
 | underRatio | Float 0.25..0.75，下／上层中心高度比 | 0.5 |
 
-crown 是**新增的提议轮廓控制**，不是已接受的旋钮。家族／数量／宽度域保留已接受范围。所有参数都有默认值；已提供的值无论是否影响所选 mode、是否位于未使用分支，都须验证。奇数数量（包括 override）以 MIX_PARAMETER_INVALID_VALUE 拒绝，并提供节点 ID 和对应数量参数；不得取整。错误 JSON 类型、枚举大小写、非有限／越界值也使用 MIX_PARAMETER_INVALID_VALUE；未知键使用 MIX_PARAMETER_UNKNOWN。验证在 GPU 获取前完成。通用 Integer 范围不能表达偶数约束，需要节点语义验证。不提议随机变化，因此此确定性生成器**没有 seed 参数**；两个既有 fractal-noise@2 纹理节点仍须独立显式 u32 种子。后续增加随机结构需要另行评审契约／版本。
+crown 是**已批准的轮廓控制**，已由上方节点决定冻结。家族／数量／宽度域保留已接受范围。所有参数都有默认值；已提供的值无论是否影响所选 mode、是否位于未使用分支，都须验证。奇数数量（包括 override）以 MIX_PARAMETER_INVALID_VALUE 拒绝，并提供节点 ID 和对应数量参数；不得取整。错误 JSON 类型、枚举大小写、非有限／越界值也使用 MIX_PARAMETER_INVALID_VALUE；未知键使用 MIX_PARAMETER_UNKNOWN。验证在 GPU 获取前完成。通用 Integer 范围不能表达偶数约束，需要节点语义验证。不提议随机变化，因此此确定性生成器**没有 seed 参数**；两个既有 fractal-noise@2 纹理节点仍须独立显式 u32 种子。后续增加随机结构需要另行评审契约／版本。
 
 ### 解析结构与连续性
 
-以下是规范性**提案**，不是已实现行为。按所述顺序以 f32 求值；命名归一化量限制在 [0,1]。定义 `F(t)=s*s*(3-2*s)`，`s=clamp(t,0,1)`。UV 原点左上、u 向右／v 向下。每轴 UV 先用 fract 包裹，再计算 `x=u*warpCount`、`y=v*weftCount`。令 `i=floor(x)`、`j=floor(y)`、`a=fract(x)-0.5`、`b=fract(y)-0.5`。经线沿 v，纬线沿 u。
+以下为规范性**冻结节点契约**。按所述顺序以 f32 求值；命名归一化量限制在 [0,1]。定义 `F(t)=s*s*(3-2*s)`，`s=clamp(t,0,1)`。UV 原点左上、u 向右／v 向下。每轴 UV 先用 fract 包裹，再计算 `x=u*warpCount`、`y=v*weftCount`。令 `i=floor(x)`、`j=floor(y)`、`a=fract(x)-0.5`、`b=fract(y)-0.5`。经线沿 v，纬线沿 u。
 
 每轴使用横向局部坐标 a（或 b）及宽度 w：
 
@@ -85,9 +91,9 @@ crown 是**新增的提议轮廓控制**，不是已接受的旋钮。家族／�
 
 按显式数字 ID 顺序进行静态存活分析，预计 **8 个纹理**（4 Scalar、3 Color、1 Normal）、592 uniform 字节、无图像资源、一个顺序 staging buffer。2K 为 8*33,554,432+592+33,554,432=**301,990,480 B 推算峰值**，对比基线**实测 369,100,128 B**。逻辑全保留为 21*33,554,432=704,643,072 字节，不是峰值依据。graph-proposal.json 保留槽位轨迹，假定既有精确描述符复用、无隐式默认 pass 和提议的 48 字节 uniform。这**不是已编译计划、实测预算通过或性能结果**。保持 <=64 passes、<=536,870,912 B，后续测量真实实现。三个 pass 重新计算共用 helper 是有意的最小 kernel 取舍，不假设 pass 融合。
 
-### 目录／版本决定与后续实现门槛
+### 历史提案门槛（节点批准以上方冻结决定为准）
 
-若获批准，目录从 **17 类型／15 kernels → 18／16**；保留 fractal-noise@1/v2 并存不增加第二个类型。提议下一个**未发布**候选 **Rust 0.9.0／浏览器 0.9.0-alpha.0**，因为新增 KernelId／KernelInvocation 变体影响 Rust 穷尽匹配和下游消费者。当前清单仍为 0.8.0／0.8.0-alpha.0；本切片不改清单、锁文件或发布产物。.mix／.mixpack v1、plan／API v3 保持不变；保留旧文档和既有计划／哈希编码。旧目录以 MIX_NODE_UNKNOWN_TYPE 拒绝 weave-pattern@1，已知类型的未知版本以 MIX_NODE_UNSUPPORTED_VERSION 拒绝；不得替换配方或自动迁移。当前 CLI 不能把提案图作为已实现节点验证／渲染。
+若获批准，目录从 **17 类型／15 kernels → 18／16**；保留 fractal-noise@1/v2 并存不增加第二个类型。提议下一个**未发布**候选 **Rust 0.9.0／浏览器 0.9.0-alpha.0**，因为新增 KernelId／KernelInvocation 变体影响 Rust 穷尽匹配和下游消费者。提案检查点的清单保持 0.8.0／0.8.0-alpha.0；现已授权的节点实现选择 0.9.0／0.9.0-alpha.0，仍不发布。.mix／.mixpack v1、plan／API v3 保持不变；保留旧文档和既有计划／哈希编码。旧目录以 MIX_NODE_UNKNOWN_TYPE 拒绝 weave-pattern@1，已知类型的未知版本以 MIX_NODE_UNSUPPORTED_VERSION 拒绝；不得替换配方或自动迁移。当前 CLI 不能把提案图作为已实现节点验证／渲染。
 
 目录／版本与契约评审完成后，**后续单独授权的实现 PR** 必须遵循 [AGENTS 不变量 8](../AGENTS.zh-CN.md) 及[节点流程](./agent-playbooks.zh-CN.md)：
 
