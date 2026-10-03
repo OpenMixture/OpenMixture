@@ -29,7 +29,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | 维护者已选定 MAT-03；仅启动 [MAT-03a 契约设计](./docs/mat-03-woven-surfaces.zh-CN.md)。[织物图／验收计划](./fixtures/materials/woven-fabric/README.zh-CN.md)为未冻结草案，先检查现有节点；不授权实现或新增目录身份。MAT-02／PERF-MAT 已在[记录范围](./docs/evidence/mat-02/README.zh-CN.md)内验收，发布独立处理。 |
+| 当前增量 | 维护者已选定 MAT-03；仅启动 [MAT-03a 契约设计](./docs/mat-03-woven-surfaces.zh-CN.md)。[织物图／验收计划](./fixtures/materials/woven-fabric/README.zh-CN.md)为未冻结草案，保留既有节点发现并提出待目录／版本评审的编织节点；不批准实现或新增目录身份。MAT-02／PERF-MAT 已在[记录范围](./docs/evidence/mat-02/README.zh-CN.md)内验收，发布独立处理。 |
 | 当前验收 | [MAT-01](./docs/evidence/mat-01/README.zh-CN.md)：冻结砖材质矩阵、记录的软件与 GT 1030 Native／浏览器对照、留存人工决定和合并后六项通过的检查。旧 v1 Windows 失败继续保留为历史失败；不发布包，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
@@ -94,7 +94,7 @@ MAT-02／03／04 遵循相同的契约 → 最小实现切面 → 材质证据 �
 
 ### MAT-03a 进入与停止边界
 
-维护者已选定 MAT-03。本次仅交付[有界编织契约草案](./docs/mat-03-woven-surfaces.zh-CN.md)及[图／验收草案](./fixtures/materials/woven-fabric/README.zh-CN.md)：规则与变化平纹、既有节点可行性、独立轴控制、交叉顺序、采样限制、预算和评审问题。维护者已接受平纹／变化平纹家族与控制域，并选定优先修改既有节点配方。修订 3 的接缝／平顶已确认修复，但材质未获接受。修订 4 在通道间共用结构并减轻收腰，八个用例均在不变预算内通过 2K 编译；对应图像／裁剪仍待维护者视觉接受及剩余验收门槛。不授权新节点或 PERF-MAT 引擎工作。后续 MAT-03a PR 必须解决绑定源码的可行性测量及目录／版本评审，再冻结计划；冻结前停止，不进入节点／运行时实现、材质验收或发布。
+维护者已选定 MAT-03。本次仅交付[有界编织契约草案](./docs/mat-03-woven-surfaces.zh-CN.md)及[图／验收草案](./fixtures/materials/woven-fabric/README.zh-CN.md)：规则与变化平纹、既有节点可行性、独立轴控制、交叉顺序、采样限制、预算和评审问题。维护者已接受平纹／变化平纹家族与控制域，并选定优先修改既有节点配方。四轮既有节点尝试未能同时满足视觉契约。保留修订 4 及其实测预算作为未接受基线；维护者现要求最小编织节点提案，等待目录／版本评审。这不代表批准新身份、实现、冻结或 PERF-MAT 引擎工作。后续 MAT-03a PR 必须解决绑定源码的可行性测量及目录／版本评审，再冻结计划；冻结前停止，不进入节点／运行时实现、材质验收或发布。
 
 ### 共同材质验收与所有权
 

@@ -314,13 +314,40 @@
     "six-required-checks"
   ],
   "freezeBlockers": [
-    "Maintainer visual acceptance of revision 4 shared-channel outlines and reduced pinch/fabric appearance. On 2026-10-03 revision 3 seam lines and flat crowns were judged fixed, but material NOT accepted; PBR, residual rounded segment ends and extreme-control appearance remain pending.",
-    "Full crossing-region, independent-control and odd-size Q transition probes; raw-half composition and production-normal replay",
-    "Default/varied downsample quality and normal/directional-detail thresholds; high-frequency stress",
-    "Native/browser <=1/255, exact repeats/package equivalence, other required environments and material regressions",
-    "Timing qualification and final explicit unchanged-catalog/version review before a later contract freeze"
+    "Maintainer approval/rejection of bounded failure rationale, weave-pattern@1 identity and Scalar mode approach; no implementation authorization yet",
+    "Review analytic occupancy/lift/crown/visibility and weighted 2x2 sampling; approve new crown control and proposed defaults",
+    "Approve/reject 18 types / 16 kernels, unpublished Rust 0.9.0 / browser 0.9.0-alpha.0; manifests unchanged, .mix/.mixpack v1 and plan/API v3 unchanged",
+    "Freeze exact node/material acceptance cases before a later authorized implementation; candidate has no measured pixels, performance or compiled plan",
+    "Continuous yarn PBR/human acceptance, full structural/control/odd-size/periodic/normal replay, Native/browser <=1/255, sampling/stress, repeat/package and regressions",
+    "Actual candidate <=64 passes and <=536870912-byte 2K descriptor peak plus existing timing limits; never replace measurements with static projection"
   ],
-  "candidateNodes": [],
+  "candidateNodes": [
+    {
+      "type": "weave-pattern",
+      "version": 1,
+      "status": "proposed-pending-catalog-version-review",
+      "runtimeImplemented": false,
+      "inputs": [],
+      "outputs": [
+        {
+          "id": "value",
+          "kind": "Scalar"
+        }
+      ],
+      "modeValues": [
+        "height",
+        "coverage",
+        "warp-share"
+      ],
+      "uniformBytes": 48,
+      "randomized": false,
+      "seedRequired": false,
+      "contract": "docs/mat-03-woven-surfaces.md",
+      "proposedRustVersion": "0.9.0",
+      "proposedBrowserVersion": "0.9.0-alpha.0",
+      "manifestsChanged": false
+    }
+  ],
   "evidence": {
     "rendered": true,
     "scope": "Revision 4 plain/varied 1K GT 1030 Vulkan renders, matched crops and bounded neutral-mask probes only; not qualification",
@@ -582,14 +609,21 @@
       "scope": "Opaque plain weave and one varied plain weave only; even warp/weft counts 4..32, relative widths 0.55..0.9; no twill or other weave"
     },
     "decision2": {
-      "status": "improve-before-freeze; new images await maintainer visual acceptance",
-      "approach": "Existing-node wider profile shoulders, directional grain in baseColor and roughness as well as height; no new node proposed"
+      "status": "not accepted; direction changed to node proposal",
+      "approach": "Retain rounds 1-4 findings. Proposed continuous lift and occupancy independent of depth; pending catalog/version and visual review."
     },
     "decision4": {
-      "status": "recipe-first; measured 2K compile blocker remains resolved for revision 3",
+      "status": "retained revision-4 baseline fits 2K; proposed-node graph only has an unmeasured static estimate",
       "limitBytes": 536870912,
       "engineWorkAuthorized": false,
       "rule": "No limit increase and no PERF-MAT engine work. Report a bounded measured inability only if reasonable existing-node recipe reduction cannot fit."
+    },
+    "directionChange": {
+      "date": "2026-10-03",
+      "reviewedCommit": "ca2e98b326ce5aad5f5029f9f10ef82ac113419a",
+      "status": "proposal requested; not approved or implemented",
+      "finding": "Aligned revision-4 channels still dim under-yarn spans into dark backing and read as floating capsules; relief default was halved.",
+      "authorization": "Dedicated-node contract/catalog/version proposal only"
     }
   },
   "recipeIteration": {
@@ -3272,5 +3306,208 @@
         "tmp/mat03-recipe-review-4/after/plain-1024/height-crossing-256.png": "9749b65bde5a92c2a1735abb5da00338250cb77df72d213184b302c9292e9f5a"
       }
     }
+  },
+  "designDirection": "pending-weave-node-catalog-version-review",
+  "retainedBaseline": {
+    "recipeRevision": 4,
+    "commit": "ca2e98b326ce5aad5f5029f9f10ef82ac113419a",
+    "graph": "graph-design.json",
+    "sha256": "f32e968e0ae3fe1a6deb626d6314aaffa40f9912555822c7865c92fbb59b7a45",
+    "defaultsScope": "Top-level defaults/cases/sweeps and measured estimates continue to describe this retained baseline, not the candidate.",
+    "accepted": false
+  },
+  "nodeProposal": {
+    "graph": "graph-proposal.json",
+    "status": "draft",
+    "frozen": false,
+    "runtimeImplemented": false,
+    "projected": {
+      "status": "static-estimate-not-measured",
+      "assumptions": "One 48-byte weave uniform, one rgba16float output and one pass per mode instance, no implicit defaults, existing plan-v3 lexical schedule/exact-descriptor reuse and one sequential staging buffer. Must verify in a later authorized implementation; no current compile/render exists.",
+      "passes": 21,
+      "physicalTextures": 8,
+      "uniformBytes": 592,
+      "at2048": {
+        "textureBytes": 268435456,
+        "readbackBufferBytes": 33554432,
+        "peakBytes": 301990480,
+        "logicalTextureBytes": 704643072
+      },
+      "slotTrace": [
+        {
+          "id": "n00-weftNoise",
+          "slot": 0,
+          "lastUse": 1
+        },
+        {
+          "id": "n01-weftDirection",
+          "slot": 1,
+          "lastUse": 2
+        },
+        {
+          "id": "n02-weftGrain",
+          "slot": 0,
+          "lastUse": 10
+        },
+        {
+          "id": "n03-warpNoise",
+          "slot": 1,
+          "lastUse": 4
+        },
+        {
+          "id": "n04-warpDirection",
+          "slot": 2,
+          "lastUse": 5
+        },
+        {
+          "id": "n05-warpGrain",
+          "slot": 1,
+          "lastUse": 8
+        },
+        {
+          "id": "n06-weave-warp-share",
+          "slot": 2,
+          "lastUse": 11
+        },
+        {
+          "id": "n07-warpColor",
+          "slot": 3,
+          "lastUse": 11
+        },
+        {
+          "id": "n08-visibleGrain",
+          "slot": 4,
+          "lastUse": 14
+        },
+        {
+          "id": "n09-weave-coverage",
+          "slot": 1,
+          "lastUse": 16
+        },
+        {
+          "id": "n10-weftColor",
+          "slot": 5,
+          "lastUse": 11
+        },
+        {
+          "id": "n11-surfaceColor",
+          "slot": 6,
+          "lastUse": 13
+        },
+        {
+          "id": "n12-backingColor",
+          "slot": 3,
+          "lastUse": 13
+        },
+        {
+          "id": "n13-baseColor",
+          "slot": 5,
+          "lastUse": 21
+        },
+        {
+          "id": "n14-yarnRoughness",
+          "slot": 0,
+          "lastUse": 16
+        },
+        {
+          "id": "n15-backingRoughness",
+          "slot": 2,
+          "lastUse": 16
+        },
+        {
+          "id": "n16-roughness",
+          "slot": 4,
+          "lastUse": 21
+        },
+        {
+          "id": "n17-weave-height",
+          "slot": 0,
+          "lastUse": 18
+        },
+        {
+          "id": "n18-surfaceHeight",
+          "slot": 1,
+          "lastUse": 21
+        },
+        {
+          "id": "n19-zero",
+          "slot": 0,
+          "lastUse": 21
+        },
+        {
+          "id": "n20-normal",
+          "slot": 7,
+          "lastUse": 21
+        }
+      ]
+    },
+    "proposedDefaultOverrides": {
+      "crown": 0.5,
+      "underRatio": 0.5,
+      "relief": 0.025
+    },
+    "measurementStatus": "No candidate runtime/plan/render exists; baseline measurements must not be attributed to the proposed node.",
+    "requiredDecisions": [
+      "Bounded findings justify dedicated node rather than further composition",
+      "Identity/one Scalar output with three modes versus separately scoped multi-output support",
+      "Formulas, crown parameter, bevel meaning, candidate defaults and mode consistency",
+      "Catalog 18/16 and unpublished 0.9 versions with unchanged document/plan/API versions",
+      "Exact structural/sampling/continuity/PBR/human acceptance and evidence retention",
+      "Separate explicit implementation authorization after contract/catalog review"
+    ]
+  },
+  "existingNodeFindings": {
+    "scope": "Bounded source-bound review observations, not proof of impossibility; existing-node baseline retained unchanged. No fresh GPU run in this design-only slice.",
+    "adapter": "NVIDIA GeForce GT 1030 / Vulkan / NVIDIA 582.66",
+    "rounds": [
+      {
+        "round": 1,
+        "commit": "7555c8b25558fb7a2aedd2a14adc2474b6562006",
+        "reviewCommit": "c5d0fd6",
+        "engineMain": "e73e2b99c85987551d11db78eb90dfbf0564100a",
+        "sourceRecord": "reviewMeasurements; recipeIteration.before",
+        "passes": 40,
+        "physicalTextures": 16,
+        "peak1024": 142607312,
+        "peak2048Rejected": 570426320,
+        "defect": "Flat planks and invisible grain",
+        "nextTradeoff": "Broader bevel and grain in color/roughness fit budget but retained clipping and selector seam lines"
+      },
+      {
+        "round": 2,
+        "commit": "92b0b2108f6442174119711fffcfe04914e7a6a3",
+        "sourceRecord": "recipeIteration.after; reviewMeasurementsRevision3.before",
+        "passes": 45,
+        "physicalTextures": 14,
+        "peak1024": 125830240,
+        "peak2048": 503317600,
+        "defect": "Crossing seam lines and flat crowns",
+        "nextTradeoff": "Wide Q and crown fixed those but separated actual relief outlines from rectangular color/coverage and introduced bone/quilted segments"
+      },
+      {
+        "round": 3,
+        "commit": "793f73e96c5c7be6b1ff280d9a23b6d442198043",
+        "sourceRecord": "reviewMeasurementsRevision3.after; reviewMeasurementsRevision4.before",
+        "passes": 53,
+        "physicalTextures": 14,
+        "peak1024": 125830464,
+        "peak2048": 503317824,
+        "defect": "Color/relief outline mismatch and bone/quilted look",
+        "nextTradeoff": "Using normalized max height as coverage aligned channels but coupled under-height to backing blend"
+      },
+      {
+        "round": 4,
+        "commit": "ca2e98b326ce5aad5f5029f9f10ef82ac113419a",
+        "sourceRecord": "reviewMeasurementsRevision4.after",
+        "passes": 52,
+        "physicalTextures": 10,
+        "peak1024": 92276064,
+        "peak2048": 369100128,
+        "defect": "Under-thread spans sink into dark backing and read as disconnected floating capsules; relief default reduced 0.025 to 0.0125",
+        "nextTradeoff": "Stop existing-node tuning; request dedicated-node design review, not proof of impossibility"
+      }
+    ],
+    "jointFailure": "Continuous over/under yarn path, coherent color/roughness/height from one structure, rounded profile and no seam lines were not delivered simultaneously by the tested recipes.",
+    "structuralRationale": "Brick min-axis cells plus profile/selector composition couple transverse footprint, longitudinal lift and depth-derived occupancy. Separate masks mismatch outlines; height-as-coverage dims present yarn. Proposed node separates continuous centerline lift from occupancy and shares visibility weights."
   }
 }
