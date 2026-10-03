@@ -2,7 +2,7 @@
 
 English | [简体中文](./mat-03-woven-surfaces.zh-CN.md)
 
-Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. Stage A and accepted recipe revision 2 are merged. Stage B probes are frozen and partially implemented below; C/D and full material acceptance remain pending.
+Material status: **plan frozen; node runtimeImplemented: true; materialAccepted: false**. Stage A and accepted recipe revision 2 are merged. Stage B probes are frozen and implemented, but an exact periodicity probe failed; C/D and full material acceptance remain pending.
 
 Current material is [explicit recipe revision 2](./mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. The maintainer accepted these defaults on 2026-10-04; residual pinch is recorded, and full PBR/human review remains Stage C. materialAccepted=false.
 
@@ -329,3 +329,13 @@ cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic 
 ```
 
 Full gpu-smoke discovers both ignored tests; test-node fractal-noise and test-node weave-pattern explicitly include the respective material probe.
+
+### Frozen periodicity failure — Stage B remains incomplete
+
+The authorized implementation was tested from clean commit 47e2dd851303dccdee95b58f5da06cb391645978. On GT 1030, the woven noise probe passed on Vulkan (NVIDIA 582.66) and DX12: 48 exact translated-image comparisons and 16 zero-origin checks per backend, covering the frozen four parameter sets and four sizes.
+
+The weave probe **failed** on Vulkan: case plain, size 257×129, height mode H, unwrapped origin (257,0), pixel (59,0). Actual half words [2149,0,0,15360] differ from graph baseline [2150,0,0,15360]; the scalar values are 0.0001341104507446289 versus 0.0001342296600341797 (difference 0.00000011920928955078125). The frozen tolerance is exact; this is a failure, not a tolerated visual difference. Before the failure, 45 comparisons passed for plain at 256²/1024²/2048² across all modes and origins, and the odd-size zero-origin H check passed. Thus the failure is in a full-period translation after zero-origin graph identity was verified; it is not evidence of full material periodicity.
+
+Per the stop rule, remaining weave cases and DX12 weave were not run, and full gpu-smoke/check were not rerun on this implementation. Test compilation, clippy and xtask compilation passed before the probes. Earlier five-probe Vulkan/DX12 passes and full smoke/check results above belong to the earlier implementation; they do not close this failure. Stage B remains incomplete; C/D and materialAccepted=false are unchanged, and PR #84 stays draft.
+
+Ordinary logs and a source/file-hash receipt are in ignored tmp/woven-stage-b/periodic/ (vulkan-noise.log, dx12-noise.log, vulkan-weave.log, result.json). Production shader bytes, Core lowering, ABI, material defaults, plan bytes and tolerances remain unchanged from dd6acf5. Work stopped without a production repair or relaxed comparison; further disposition requires maintainer review of this failing probe.

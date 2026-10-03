@@ -2,7 +2,7 @@
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
-材质状态：**计划已冻结；节点 runtimeImplemented: true；materialAccepted: false**。阶段 A 及已接受的配方修订 2 已合并；下文阶段 B 探针已冻结、部分实现，C／D 和完整材质接受仍待完成。
+材质状态：**计划已冻结；节点 runtimeImplemented: true；materialAccepted: false**。阶段 A 及已接受的配方修订 2 已合并；下文阶段 B 探针已冻结并实现，但精确周期探针失败，C／D 和完整材质接受仍待完成。
 
 当前为[显式材质配方修订 2](./mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文阶段 A 观测及原始默认值描述属于保留的修订 1；不能用于宣称修订 2 通过。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
 
@@ -329,3 +329,13 @@ cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic 
 ```
 
 完整 gpu-smoke 自动选择两个忽略测试；test-node fractal-noise 与 test-node weave-pattern 显式包含对应材质探针。
+
+### 冻结周期门槛失败 — 阶段 B 仍未完成
+
+获批实现的测量绑定干净提交 47e2dd851303dccdee95b58f5da06cb391645978。GT 1030 的 Vulkan（NVIDIA 582.66）及 DX12 均通过 woven 噪声探针：每后端 48 次精确平移图像比较及 16 次零原点检查，覆盖冻结的四参数集和四尺寸。
+
+织纹探针在 Vulkan **失败**：plain 用例、257×129、height 模式 H、未预先取模原点 (257,0)、像素 (59,0)。实际半精度字 [2149,0,0,15360] 与图基线 [2150,0,0,15360] 不同；标量为 0.0001341104507446289 与 0.0001342296600341797（差值 0.00000011920928955078125）。冻结容差为精确相等，因此判为失败，不能视作可容忍的视觉差异。失败前 plain 在 256²／1024²／2048² 的所有模式及原点共 45 次比较通过，奇数尺寸 H 的零原点比较亦通过。因此这是已验证零原点图身份后的整周期平移失败，不能作为完整材质周期性证据。
+
+按停止规则，未运行其余织纹用例及 DX12 织纹探针，也未在此实现上重跑完整 gpu-smoke／check。运行探针之前，测试编译、clippy 和 xtask 编译通过。上文五探针 Vulkan／DX12 及完整 smoke／check 的通过属于前一实现，不能关闭本次失败。阶段 B 仍未完成；C／D 待完成，materialAccepted=false 不变，PR #84 保持 draft。
+
+普通日志及源码／文件哈希收据位于忽略的 tmp/woven-stage-b/periodic/（vulkan-noise.log、dx12-noise.log、vulkan-weave.log、result.json）。生产着色器字节、Core lowering、ABI、材质默认值、计划字节和容差均与 dd6acf5 相同。已停止工作，未进行生产修复或放宽比较；后续处理需维护者评审这个失败探针。
