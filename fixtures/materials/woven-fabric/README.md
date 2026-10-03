@@ -6,7 +6,7 @@ The material plan is frozen and the node is implemented; **materialAccepted=fals
 
 The [staged plan](../../../docs/mat-03-woven-surfaces.md) scopes this PR to A, the public Native/browser matrix. B raw-half/structural/periodic/normal-replay/stress probes, C dielectric PBR/human decision and D retained evidence/acceptance each require later PRs. This matrix does not establish structural, PBR or human acceptance.
 
-Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Stage A observations and original-default descriptions below are retained revision-1 history, not qualification of revision 2. materialAccepted=false; residual pinch remains for review.
+Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. materialAccepted=false; residual pinch remains for review.
 
 ## Stage A source-bound local observations
 

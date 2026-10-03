@@ -47,3 +47,24 @@ Retain the [revision 1 plan](../fixtures/materials/woven-fabric/qualification-pl
 Ten cases inherit both changed defaults: plain, varied, no-detail, flat, warp-seed, weft-seed, neutral-normal, constant-low, constant-high, max-normal; dense-thin stress inherits them too. Combined-low and combined-high explicitly override both and remain identical. Case membership and every controls object stay unchanged; no relative-default expression changes. The six literal defaults on three weave instances change together; topology and every other parameter stay identical. A regression checks the retained plan byte hash and compares the entire plan/graph/material after restoring only the two named defaults and revision metadata, rejecting threshold, size, case, range, stress, budget or timing drift.
 
 Re-run every Stage A gate; stop on any frozen failure without relaxing it. B structural probes, C dielectric PBR/human decision and D retained evidence/acceptance remain separate PRs; no publication.
+
+## Revision-2 Stage A rerun
+
+Measured on clean source 472ee12598d7e5d84487912f6e1493a2349a70aa (subsequent commit only records these results). Material SHA-256 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757; plan 7f2f3181cfaf4a4b92e7e49f2818b63d1879b010aa692e97984aebdf48a40c91; builder 5e99d82f0b4f5bdde8be1de58cbd69ec98ac7916437886a3dcafd4831d9c1dda. Ordinary receipts remain in ignored tmp/mat03-revision/; this is source-bound Stage A evidence, not retained Stage D acceptance.
+
+- Builder: 4 tests pass, including whole-plan/recipe/material unchanged-gate assertion and literal revision-1 plan hash. Retained plan, graph and material bytes independently match main 91fdfcf.
+- Release CLI: all 51 rows validate and inspect successfully; 21 passes, 8 physical textures. Descriptor peaks: 256² 4,719,184 B; 1024² 75,498,064 B; 2048² 301,990,480 B; 257×129 2,419,600 B. Budgets remain 64 passes / 536,870,912 B.
+- Native release matrix: 51/51 Vulkan and 51/51 DX12 on NVIDIA GeForce GT 1030 (Vulkan NVIDIA 582.66; DX12 32.0.15.8266). Exact repeat/package/sliced-height/owned-output, allocation and endpoint gates pass. Default/varied downsample worst component mean error 0.3352384567/255 ≤4/255 on both backends; stress remains separately recorded, not a quality qualification.
+- Clean browser build and installed Chrome 154.0.8037.98 candidate: 23 passed, none skipped/flaky; all 51 woven rows pass. check-woven.mjs re-runs Vulkan and passes all 255 channel comparisons, max component delta 1/255. Browser gated downsample maximum is also 0.3352384567/255. Browser buildId is sha256:c8f1b9f25649b7c01fea0904680b8e63e244ae53d933e5b9fe14f4acee1f0b03. This records Chrome WebGPU, without claiming an undisclosed browser adapter identity.
+- cargo xtask test-consumer passes. The ten selected finalist channel images exactly match the revised Native 1K matrix pixels. Raw outputs, source identity, CLI commands and comparison receipts are under the same ignored root.
+
+Matched-GT-1030 timings below are cold / warm median milliseconds (Vulkan from the final browser comparison, DX12 from its standalone matrix). Every frozen timing gate passed; no target changed.
+
+| Preset / size | Vulkan | DX12 |
+|---|---|---|
+| plain 1024² | 251.56 / 188.14 | 847.64 / 184.88 |
+| plain 2048² | 821.17 / 753.92 | 1528.58 / 723.16 |
+| varied 1024² | 243.86 / 186.57 | 888.82 / 185.26 |
+| varied 2048² | 851.47 / 760.84 | 1519.57 / 729.74 |
+
+No frozen gate failed. SwiftShader timing was not requalified locally; its frozen target remains unchanged. Residual outline narrowing, maintainer visual decision, and separate B/C/D stages remain open; materialAccepted=false.
