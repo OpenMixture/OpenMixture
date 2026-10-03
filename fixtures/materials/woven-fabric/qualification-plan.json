@@ -616,7 +616,7 @@
     "matched adapter timing"
   ],
   "freezeBlockers": [
-    "Stage A public matrix has not passed yet",
+    "Pinned SwiftShader/CI material scope not measured locally; Windows source-bound Stage A results recorded below",
     "Stage B raw-half, structural, periodic, normal replay and stress probes pending",
     "Stage C dielectric PBR and human review pending",
     "Stage D retained evidence and acceptance record pending"
@@ -626,5 +626,126 @@
     "B": "Separate PR: raw-half/structural/periodic/normal-replay/stress probes",
     "C": "Separate PR: dielectric PBR sheets and human decision",
     "D": "Separate PR: retained evidence and acceptance record"
+  },
+  "reviewMeasurements": {
+    "stage": "A",
+    "scope": "Windows public material matrix only; not structural, PBR, human or full material acceptance",
+    "testedRevision": "69fb6074477f3c156e775779cb0a3770cef5189a",
+    "testedQualificationPlanSha256": "2307ff8372a8718d6db6d8f6cdd25b0c58eefb43487be04acfec7efa0cbdffb8",
+    "sourceSha256": "5cda745457b639c6a320aa445de0e34d2f990954a983900013010737ae8899a2",
+    "builderSha256": "40ef8799ad7e59bcbf3e55024b4aba11fe18b40c0e8e4d56bde69811243ba03c",
+    "build": {
+      "runtimeVersion": "0.9.0-alpha.0",
+      "apiSchemaVersion": 3,
+      "engineVersion": "0.9.0",
+      "engineRevision": "69fb6074477f3c156e775779cb0a3770cef5189a",
+      "engineDirty": false,
+      "buildId": "sha256:361f1d930e62b4666ab683f7e386242eca50254ec06e41f7f4d44343c6ba2e17"
+    },
+    "materialAccepted": false,
+    "rows": 48,
+    "stressRows": 3,
+    "channelsPerRow": 5,
+    "cli": {
+      "rowsValidatedAndInspected": 51,
+      "passes": 21,
+      "physicalTextures": 8,
+      "peakBytes": {
+        "256x256": 4719184,
+        "1024x1024": 75498064,
+        "2048x2048": 301990480,
+        "257x129": 2419600
+      }
+    },
+    "native": [
+      {
+        "backend": "Vulkan",
+        "adapter": "NVIDIA GeForce GT 1030",
+        "driver": "NVIDIA",
+        "driverInfo": "582.66",
+        "rowsPassed": 51,
+        "timing": [
+          {
+            "id": "plain-1024x1024",
+            "coldMs": 380.6606,
+            "warmMedianMs": 272.5812,
+            "budgetPassed": true
+          },
+          {
+            "id": "plain-2048x2048",
+            "coldMs": 1138.5226,
+            "warmMedianMs": 1070.9667,
+            "budgetPassed": true
+          },
+          {
+            "id": "varied-1024x1024",
+            "coldMs": 312.1484,
+            "warmMedianMs": 241.9991,
+            "budgetPassed": true
+          },
+          {
+            "id": "varied-2048x2048",
+            "coldMs": 1209.1194,
+            "warmMedianMs": 1020.7596000000001,
+            "budgetPassed": true
+          }
+        ],
+        "maxPlainAndVariedDownsampleComponentMeanError": 0.36574363708496094
+      },
+      {
+        "backend": "Dx12",
+        "adapter": "NVIDIA GeForce GT 1030",
+        "driver": "32.0.15.8266",
+        "driverInfo": "",
+        "rowsPassed": 51,
+        "timing": [
+          {
+            "id": "plain-1024x1024",
+            "coldMs": 931.1496000000001,
+            "warmMedianMs": 244.278,
+            "budgetPassed": true
+          },
+          {
+            "id": "plain-2048x2048",
+            "coldMs": 1770.5093000000002,
+            "warmMedianMs": 944.4236999999999,
+            "budgetPassed": true
+          },
+          {
+            "id": "varied-1024x1024",
+            "coldMs": 1005.0981000000002,
+            "warmMedianMs": 219.167,
+            "budgetPassed": true
+          },
+          {
+            "id": "varied-2048x2048",
+            "coldMs": 1748.9312,
+            "warmMedianMs": 969.3602999999999,
+            "budgetPassed": true
+          }
+        ],
+        "maxPlainAndVariedDownsampleComponentMeanError": 0.36574363708496094
+      }
+    ],
+    "browser": {
+      "version": "154.0.8037.98",
+      "backend": "BrowserWebGpu",
+      "reportedAdapterName": "",
+      "candidateTestsPassed": 23,
+      "rowsPassed": 51,
+      "maxPlainAndVariedDownsampleComponentMeanError": 0.36574363708496094
+    },
+    "comparison": {
+      "pairs": 255,
+      "maxComponentDelta": 1,
+      "limit": 1
+    },
+    "logs": "ignored tmp/woven-matrix/; no retained evidence acceptance yet",
+    "unrun": [
+      "pinned SwiftShader local matrix",
+      "Stage B",
+      "Stage C",
+      "Stage D"
+    ]
   }
 }

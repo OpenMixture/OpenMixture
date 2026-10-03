@@ -6,6 +6,27 @@ The material plan is frozen and the node is implemented; **materialAccepted=fals
 
 The [staged plan](../../../docs/mat-03-woven-surfaces.md) scopes this PR to A, the public Native/browser matrix. B raw-half/structural/periodic/normal-replay/stress probes, C dielectric PBR/human decision and D retained evidence/acceptance each require later PRs. This matrix does not establish structural, PBR or human acceptance.
 
+## Stage A source-bound local observations
+
+The public matrix passed at clean commit **69fb6074477f3c156e775779cb0a3770cef5189a**. This result-only update changes records, not the frozen recipe, controls, cases or gates. Plan reviewMeasurements binds the measured plan/source/builder SHA-256 and browser buildId; later metadata is not the tested snapshot. The earlier standalone Vulkan run used 9d0ddad with the same graph/gates; the table uses the final 69fb607 comparison run.
+
+All 51 CLI validate/inspect rows passed (48 material + 3 stress), each with 21 passes and 8 physical textures. Descriptor peaks at 256²/1024²/2048²/257×129 are **4719184/75498064/301990480/2419600 B**. GT 1030 Vulkan (NVIDIA 582.66) and DX12 (32.0.15.8266) each passed 51 rows: exact repeats, loose/package equivalence, sliced height, owned outputs after destruction, constant references, allocation accounting and four matched timing budgets.
+
+Clean Chrome **154.0.8037.98** candidate consumption passed **23** tests, including 51 woven rows. Browser reports BrowserWebGpu with an empty adapter name; this does not identify its hardware. Vulkan versus Chrome compared **255** channel images with maximum component delta **1/255** (limit ≤1/255). Worst plain/varied per-component mean error across both downsample pairs was **0.365744/255** on Native and **0.365744/255** in Chrome (limit ≤4/255). Dense/thin stress remains separately labeled; these measurements do not extend the default quality guarantee.
+
+| Backend | Row | Cold render ms | Median of five warm renders ms |
+|---|---|---:|---:|
+| Vulkan | plain-1024x1024 | 380.661 | 272.581 |
+| Vulkan | plain-2048x2048 | 1138.523 | 1070.967 |
+| Vulkan | varied-1024x1024 | 312.148 | 241.999 |
+| Vulkan | varied-2048x2048 | 1209.119 | 1020.760 |
+| Dx12 | plain-1024x1024 | 931.150 | 244.278 |
+| Dx12 | plain-2048x2048 | 1770.509 | 944.424 |
+| Dx12 | varied-1024x1024 | 1005.098 | 219.167 |
+| Dx12 | varied-2048x2048 | 1748.931 | 969.360 |
+
+Cold 2K is recorded only; frozen cold 1K/warm 1K/warm 2K budgets are unchanged. Plain 1K baseColor/normal and varied baseColor were visually inspected for sanity, not as Stage B structural proof or Stage C PBR/human acceptance. Raw logs, requests, images and row receipts are under ignored tmp/woven-matrix/ (native-vulkan-2, native-dx12, browser, comparison); CLI commands/resolver are in the same ignored directory. No node/shader, version, other material or golden changed. Pinned SwiftShader was not run locally. Stages B–D remain later PRs and materialAccepted=false.
+
 ## Exact caller controls
 
 The [request builder](../../../scripts/woven-fabric-requests.mjs) validates and emits every public override. Three weave instances share seven geometry controls; only mode differs. Seeds are explicit. Color alpha and derived dark alpha are one. Changes to warpColor/weftColor/yarnRoughness also recompute derived endpoints. The frozen plan's bindings specify the exact public ID mapping below.
