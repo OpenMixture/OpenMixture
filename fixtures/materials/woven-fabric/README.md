@@ -194,3 +194,27 @@ The maintainer amended only the weave translation rule in structuralProbes.amend
 - Record differing component/pixel counts, maximum half-step distance and maximum absolute difference per case/size/mode and origin. Stop if any amended gate fails; incomplete coverage is explicitly reported.
 
 Nothing else in the frozen plan changes. A regression removes only this named amendment entry and checks the complete previous plan hash, alongside the existing Stage A and original Stage B guards. Stage B is not complete until the amended probes pass; C/D and materialAccepted=false remain unchanged.
+
+### Amended probe result — 2026-10-04: stopped above one ULP
+
+Clean implementation 8f84e7d7cd435a1760b5ed01531b66f07348af4e (amendment frozen first in 3aba3e6) failed on NVIDIA GeForce GT 1030, Vulkan, NVIDIA 582.66. Command: `cargo test --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture`. The first violation is plain 257×129 warp-share, origin (257,0), pixel (231,23): actual half [2492,0,0,15360], expected [2496,0,0,15360], **4 steps against the amended maximum 1**. Scalar values are 0.00017499923706054688 versus 0.00017547607421875 (absolute difference 0.000000476837158203125). No further tolerance change or production repair was made.
+
+All 45 plain power-of-two comparisons (three sizes × three modes × five origins) were exact, with zero differing components and maximum 0 ULP. All three plain odd-size zero-origin identities were exact. Odd-size observed statistics follow; differing components and differing pixels have the same counts because only the scalar component changes. Counts sum pixel occurrences across origins, not distinct tile locations.
+
+| Plain 257×129 mode | Origin | Differing components/pixels | Maximum half steps |
+|---|---|---:|---:|
+| height | (257,0) | 93 | 1 |
+| height | (0,129) | 87 | 1 |
+| height | (257,129) | 162 | 1 |
+| height | (260,134) | 177 | 1 |
+| coverage | (257,0) | 153 | 1 |
+| coverage | (0,129) | 299 | 1 |
+| coverage | (257,129) | 445 | 1 |
+| coverage | (260,134) | 443 | 1 |
+| warp-share | (257,0), failing image | 123 | **4** |
+
+Mode totals: height 519 differences / max 1 ULP; coverage 1340 / max 1 ULP; warp-share 123 / max 4 ULP through its first translated image only. Each listed translated image has maximum absolute difference 0.00048828125; that maximum need not occur at the maximum-ULP pixel. The already-rendered failing image was scanned completely to retain its statistics, then execution stopped: 56 image comparisons passed and the 57th failed. Remaining warp-share origins, varied/combined and all other cases, and DX12 weave were not run.
+
+The four builder tests (including amendment-only whole-plan protection) and the comparator unit test passed. Full Vulkan gpu-smoke and cargo xtask check were not rerun under the stop rule. Earlier crossing, flat, control-isolation, normal-replay and stress passes on both backends belong to ed6905f; earlier noise-input passes on both backends belong to 47e2dd8. They are unchanged historical evidence, not a pass of this incomplete run. Stage B remains incomplete, C/D pending, materialAccepted=false, PR #84 draft.
+
+Ordinary outputs: ignored tmp/woven-stage-b/amendment/{builder.log,unit.log,weave-vulkan.log,result.json} and vulkan/woven-weave-periodic.json (per-image and cumulative case/size/mode counts, adapter, first failure). These are local review receipts, not retained Stage D evidence. Production WGSL, ABI, Core lowering, material recipe/defaults and all other frozen gates remain unchanged.
