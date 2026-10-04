@@ -943,3 +943,6 @@ fn node_fractal_noise_gpu_woven_periodic_inputs() {
         .unwrap();
     }
 }
+
+#[path = "../src/woven_probe_scope.rs"]
+mod woven_probe_scope;

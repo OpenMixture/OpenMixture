@@ -1,5 +1,6 @@
 //! Frozen MAT-03 Stage B observations of the real graph; no alternate renderer.
 use super::painted_composition_tests::{periodic_shift, replay_normal};
+use super::woven_probe_scope::Scope;
 use super::*;
 use mixture_core::{CompileRequest, MaterialDocument, compile};
 use serde_json::{Value, json};
@@ -253,6 +254,13 @@ fn graph_gpu_woven_crossing_structure() {
     let (source, p) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
+    let scope = Scope::new(&ctx, &p, sizes(&p));
+    let omitted = scope.omitted(&[
+        json!({"case":"plain","fields":["H","C","S"]}),
+        json!({"case":"varied","fields":["H","C","S"]}),
+    ]);
+    let mut rows = Vec::new();
+    scope.save(&ctx, "crossing", &rows, &omitted, false);
     let mut count = 0;
     for name in ["plain", "varied"] {
         let preset = p["cases"]
@@ -262,7 +270,7 @@ fn graph_gpu_woven_crossing_structure() {
             .find(|c| c["id"] == name)
             .unwrap();
         let c = controls(&p, &preset["controls"]);
-        for size in sizes(&p) {
+        for size in scope.selected.iter().copied() {
             let req = request(&p, &c, size);
             geometry(&source, &c, &req, &p);
             let f = fields(&ctx, &mut cache, &source, &req);
@@ -334,8 +342,11 @@ fn graph_gpu_woven_crossing_structure() {
                     count += 1;
                 }
             }
+            rows.push(json!({"case":name,"size":size,"passed":true}));
+            scope.save(&ctx, "crossing", &rows, &omitted, false);
         }
     }
+    scope.save(&ctx, "crossing", &rows, &omitted, true);
     eprintln!("woven crossings passed {count}");
 }
 #[test]
@@ -344,8 +355,12 @@ fn graph_gpu_woven_flat() {
     let (s, p) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
+    let scope = Scope::new(&ctx, &p, sizes(&p));
+    let omitted = scope.omitted(&[json!({"case":"flat","fields":["height","normal"]})]);
+    let mut rows = Vec::new();
+    scope.save(&ctx, "flat", &rows, &omitted, false);
     let c = controls(&p, &json!({"relief":0}));
-    for size in sizes(&p) {
+    for size in scope.selected.iter().copied() {
         let f = capture(&ctx, &mut cache, &s, &request(&p, &c, size), None, true);
         for (channel, expected) in [(4, [0f32, 0., 0., 1.]), (1, [0.5, 0.5, 1., 1.])] {
             let pixel: Vec<_> = expected
@@ -360,7 +375,10 @@ fn graph_gpu_woven_flat() {
                 &format!("flat channel {channel}"),
             );
         }
+        rows.push(json!({"case":"flat","size":size,"passed":true}));
+        scope.save(&ctx, "flat", &rows, &omitted, false);
     }
+    scope.save(&ctx, "flat", &rows, &omitted, true);
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask gpu-smoke"]
@@ -368,7 +386,11 @@ fn graph_gpu_woven_control_isolation() {
     let (s, p) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
-    let size = [257, 129];
+    let scope = Scope::new(&ctx, &p, vec![[257, 129]]);
+    let omitted = scope.omitted(&[]);
+    let mut rows = Vec::new();
+    scope.save(&ctx, "isolation", &rows, &omitted, false);
+    let size = scope.selected[0];
     let base = controls(&p, &json!({}));
     let req = request(&p, &base, size);
     let original = capture(&ctx, &mut cache, &s, &req, None, false);
@@ -422,8 +444,11 @@ fn graph_gpu_woven_control_isolation() {
                 );
             }
         }
+        rows.push(json!({"control":key,"size":size,"passed":true}));
+        scope.save(&ctx, "isolation", &rows, &omitted, false);
         eprintln!("woven control passed {key}");
     }
+    scope.save(&ctx, "isolation", &rows, &omitted, true);
 }
 fn replay_case(
     ctx: &GpuContext,
@@ -459,9 +484,20 @@ fn graph_gpu_woven_normal_periodic() {
     let (s, p) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
+    let scope = Scope::new(&ctx, &p, sizes(&p));
+    let omitted = scope.omitted(
+        &p["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|c| json!({"case":c["id"],"offsets":[[0,0],[1,0],[0,1],[1024,1024]]}))
+            .collect::<Vec<_>>(),
+    );
+    let mut rows = Vec::new();
+    scope.save(&ctx, "normal-replay", &rows, &omitted, false);
     for preset in p["cases"].as_array().unwrap() {
         let c = controls(&p, &preset["controls"]);
-        for size in sizes(&p) {
+        for size in scope.selected.iter().copied() {
             replay_case(
                 &ctx,
                 &mut cache,
@@ -471,8 +507,11 @@ fn graph_gpu_woven_normal_periodic() {
                 size,
                 preset["id"].as_str().unwrap(),
             );
+            rows.push(json!({"case":preset["id"],"size":size,"passed":true}));
+            scope.save(&ctx, "normal-replay", &rows, &omitted, false);
         }
     }
+    scope.save(&ctx, "normal-replay", &rows, &omitted, true);
 }
 #[test]
 #[ignore = "requires GPU; cargo xtask gpu-smoke"]
@@ -480,9 +519,22 @@ fn graph_gpu_woven_stress() {
     let (s, p) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
+    let scope = Scope::new(
+        &ctx,
+        &p,
+        serde_json::from_value(p["structuralProbes"]["stress"]["sizes"].clone()).unwrap(),
+    );
+    let omitted = scope.omitted(&[]);
+    let mut rows = Vec::new();
+    scope.save(&ctx, "stress", &rows, &omitted, false);
     for preset in p["stress"].as_array().unwrap() {
         let c = controls(&p, &preset["controls"]);
-        for size in sizes(preset) {
+        assert_eq!(
+            sizes(preset),
+            scope.selected,
+            "stress retains its original three sizes on both backends"
+        );
+        for size in scope.selected.iter().copied() {
             let req = request(&p, &c, size);
             geometry(&s, &c, &req, &p);
             normalized(&fields(&ctx, &mut cache, &s, &req), size, "stress");
@@ -495,8 +547,11 @@ fn graph_gpu_woven_stress() {
                 size,
                 "stress outside default quality",
             );
+            rows.push(json!({"case":preset["id"],"size":size,"passed":true,"qualityScope":"outside default quality"}));
+            scope.save(&ctx, "stress", &rows, &omitted, false);
         }
     }
+    scope.save(&ctx, "stress", &rows, &omitted, true);
 }
 
 // Monotonic finite binary16 ordering, including distinct adjacent -0/+0.
@@ -612,8 +667,15 @@ fn woven_visible_weight_bound_is_analytical_and_not_raw_share_relaxation() {
     assert!(delta > bound, "visible changes must still fail");
 }
 
-fn weave_periodic_receipt(context: &GpuContext, rows: &[Value], completed: bool) {
-    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-odd-share-observation-only","qualityScope":"gated rules only; odd translated S/P are observation-only, never a pass","adapter":context.report().adapter(),"rows":rows});
+fn weave_periodic_receipt(
+    context: &GpuContext,
+    scope: &Scope,
+    omitted: &[Value],
+    rows: &[Value],
+    completed: bool,
+) {
+    let mut receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-odd-share-observation-only","qualityScope":"gated rules only; odd translated S/P are observation-only, never a pass","adapter":context.report().adapter(),"rows":rows});
+    receipt["sizeScope"] = scope.describe(rows, omitted, completed);
     if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(
@@ -639,8 +701,19 @@ fn node_weave_pattern_gpu_woven_periodic() {
         anchor,
         "weave_box(vec2<f32>(gid.xy) + params.under_padding.yz,vec2<f32>(size))",
     );
+    let scope = Scope::new(&ctx, &plan, sizes(&plan));
+    let mut templates = Vec::new();
+    for preset in plan["cases"].as_array().unwrap() {
+        for mode in MODES {
+            for origin in [[0, 0], [2048, 0], [0, 2048], [2048, 2048], [2051, 2053]] {
+                templates.push(json!({"case":preset["id"],"mode":mode,"origin":origin}));
+            }
+        }
+    }
+    let omitted = scope.omitted(&templates);
     let mut comparisons = 0;
     let mut rows = Vec::new();
+    weave_periodic_receipt(&ctx, &scope, &omitted, &rows, false);
     assert_eq!(
         plan["structuralProbes"]["amendments"][0]["id"],
         "2026-10-04-exact-where-exact"
@@ -660,7 +733,7 @@ fn node_weave_pattern_gpu_woven_periodic() {
     for preset in plan["cases"].as_array().unwrap() {
         let name = preset["id"].as_str().unwrap();
         let c = controls(&plan, &preset["controls"]);
-        for size in sizes(&plan) {
+        for size in scope.selected.iter().copied() {
             let req = request(&plan, &c, size);
             geometry(&source, &c, &req, &plan);
             let graph = fields(&ctx, &mut cache, &source, &req);
@@ -781,7 +854,7 @@ fn node_weave_pattern_gpu_woven_periodic() {
                     let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":if weighted {Value::Null} else {json!(limit)},"weightedObservation":weighted,"qualityScope":if weighted {"observation-only: odd translated S/P outside periodicity quality guarantee; not a pass"} else {"gated"},"visibleWeightStatistics":{"maxDifference":max_product_delta,"maxDifferenceAt":max_product_delta_at,"maxRatio":max_product_ratio,"maxRatioAt":max_product_ratio_at},"passed":if weighted {Value::Null} else {json!(failure.is_none())},"gatedRulesPassed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
                     eprintln!("woven weave ULP row: {row}");
                     rows.push(row);
-                    weave_periodic_receipt(&ctx, &rows, false);
+                    weave_periodic_receipt(&ctx, &scope, &omitted, &rows, false);
                     assert!(
                         failure.is_none(),
                         "weave periodic case={name} size={size:?} mode={} origin={origin:?} limit={limit} firstFailure={failure:?}; full failing-image statistics retained",
@@ -792,8 +865,8 @@ fn node_weave_pattern_gpu_woven_periodic() {
             }
         }
     }
-    assert_eq!(comparisons, 12 * 4 * 3 * 5);
-    weave_periodic_receipt(&ctx, &rows, true);
+    assert_eq!(comparisons, 12 * scope.selected.len() * 3 * 5);
+    weave_periodic_receipt(&ctx, &scope, &omitted, &rows, true);
     eprintln!(
         "woven weave periodic completed: {comparisons} comparisons of gated fields and explicitly ungated observations, including exact zero-origin graph identity"
     );

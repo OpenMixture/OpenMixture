@@ -13,6 +13,7 @@ pub(super) fn run(context: &GpuContext) -> Value {
             (64, 3, 1729),
         ],
         "selected MAT-02 inputs; unwrapped production fixed v2 sampling",
+        &[[256, 256], [1024, 1024], [2048, 2048], [257, 129]],
     )
 }
 pub(super) fn run_woven(context: &GpuContext) -> Value {
@@ -50,13 +51,39 @@ pub(super) fn run_woven(context: &GpuContext) -> Value {
         plan["structuralProbes"]["noisePeriodicity"]["sizes"],
         json!([[256, 256], [1024, 1024], [2048, 2048], [257, 129]])
     );
-    run_parameters(
+    let selection = super::woven_probe_scope::Scope::new(
+        context,
+        &plan,
+        serde_json::from_value(plan["structuralProbes"]["noisePeriodicity"]["sizes"].clone())
+            .unwrap(),
+    );
+    let mut templates = Vec::new();
+    for seed in [1729, 65537, u32::MAX, 0] {
+        for origin in [[0, 0], [2048, 0], [0, 2048], [2051, 2053]] {
+            templates
+                .push(json!({"seed":seed,"scale":4,"octaves":2,"persistence":0.5,"origin":origin}));
+        }
+    }
+    let omitted = selection.omitted(&templates);
+    selection.save(context, "noise-periodic", &[], &omitted, false);
+    let mut result = run_parameters(
         context,
         &[(4, 2, 1729), (4, 2, 65537), (4, 2, u32::MAX), (4, 2, 0)],
         "frozen MAT-03 grain inputs; unwrapped production fixed v2 sampling",
-    )
+        &selection.selected,
+    );
+    let rows = result["cases"].as_array().unwrap();
+    selection.save(context, "noise-periodic", rows, &omitted, true);
+    let scope = selection.describe(rows, &omitted, true);
+    result["sizeScope"] = scope;
+    result
 }
-fn run_parameters(context: &GpuContext, parameters: &[(u32, u32, u32)], scope: &str) -> Value {
+fn run_parameters(
+    context: &GpuContext,
+    parameters: &[(u32, u32, u32)],
+    scope: &str,
+    sizes: &[[u32; 2]],
+) -> Value {
     eprintln!(
         "periodic input adapter: {}",
         json!(context.report().adapter())
@@ -65,7 +92,7 @@ fn run_parameters(context: &GpuContext, parameters: &[(u32, u32, u32)], scope: &
         assert!(context.report().adapter().unwrap().name.contains(&name));
     }
     let mut cases = Vec::new();
-    for size in [[256, 256], [1024, 1024], [2048, 2048], [257, 129]] {
+    for &size in sizes {
         for &parameters in parameters {
             let original = render(context, size, parameters, None);
             assert_eq!(
@@ -95,7 +122,7 @@ fn run_parameters(context: &GpuContext, parameters: &[(u32, u32, u32)], scope: &
             }
         }
     }
-    assert_eq!(cases.len(), parameters.len() * 12);
+    assert_eq!(cases.len(), parameters.len() * sizes.len() * 3);
     json!({"ok":true,"materialAccepted":false,"adapter":context.report().adapter(),"scope":scope,"cases":cases})
 }
 

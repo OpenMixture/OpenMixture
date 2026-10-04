@@ -772,3 +772,7 @@ mod woven_tests;
 #[cfg(test)]
 #[path = "periodic_scalar_readback.rs"]
 mod periodic_scalar_readback;
+
+#[cfg(test)]
+#[path = "woven_probe_scope.rs"]
+mod woven_probe_scope;
