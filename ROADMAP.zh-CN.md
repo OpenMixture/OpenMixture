@@ -29,7 +29,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-03 阶段 B 因织纹平移超过修订上限（一个 half 步长）而停止；已接受配方修订 2 及阶段 A 门槛不变，C／D 待独立 PR，materialAccepted=false，不发布。 |
+| 当前增量 | MAT-03 阶段 B 因织纹平移超过第二次修订的可见经线权重上限而停止；已接受配方修订 2 及阶段 A 门槛不变，C／D 待独立 PR，materialAccepted=false，不发布。 |
 | 当前验收 | [MAT-01](./docs/evidence/mat-01/README.zh-CN.md)：冻结砖材质矩阵、记录的软件与 GT 1030 Native／浏览器对照、留存人工决定和合并后六项通过的检查。旧 v1 Windows 失败继续保留为历史失败；不发布包，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
