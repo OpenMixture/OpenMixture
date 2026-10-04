@@ -613,7 +613,7 @@ fn woven_visible_weight_bound_is_analytical_and_not_raw_share_relaxation() {
 }
 
 fn weave_periodic_receipt(context: &GpuContext, rows: &[Value], completed: bool) {
-    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-coverage-weighted-share","adapter":context.report().adapter(),"rows":rows});
+    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-odd-share-observation-only","qualityScope":"gated rules only; odd translated S/P are observation-only, never a pass","adapter":context.report().adapter(),"rows":rows});
     if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(
@@ -652,6 +652,10 @@ fn node_weave_pattern_gpu_woven_periodic() {
     assert_eq!(
         plan["structuralProbes"]["amendments"][1]["id"],
         "2026-10-04-coverage-weighted-share"
+    );
+    assert_eq!(
+        plan["structuralProbes"]["amendments"][2]["id"],
+        "2026-10-04-odd-share-observation-only"
     );
     for preset in plan["cases"].as_array().unwrap() {
         let name = preset["id"].as_str().unwrap();
@@ -763,7 +767,8 @@ fn node_weave_pattern_gpu_woven_periodic() {
                                     max_product_ratio = ratio;
                                     max_product_ratio_at = product.clone();
                                 }
-                                violation = delta > bound || actual[1..] != expected[1..];
+                                // Third amendment: product envelope is reported, never a gate here.
+                                violation = actual[1..] != expected[1..];
                             }
                             if violation && failure.is_none() {
                                 failure = Some(
@@ -773,7 +778,7 @@ fn node_weave_pattern_gpu_woven_periodic() {
                         }
                     }
                     origins_observed += 1;
-                    let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":if weighted {Value::Null} else {json!(limit)},"weightedGate":weighted,"visibleWeightStatistics":{"maxDifference":max_product_delta,"maxDifferenceAt":max_product_delta_at,"maxRatio":max_product_ratio,"maxRatioAt":max_product_ratio_at},"passed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
+                    let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":if weighted {Value::Null} else {json!(limit)},"weightedObservation":weighted,"qualityScope":if weighted {"observation-only: odd translated S/P outside periodicity quality guarantee; not a pass"} else {"gated"},"visibleWeightStatistics":{"maxDifference":max_product_delta,"maxDifferenceAt":max_product_delta_at,"maxRatio":max_product_ratio,"maxRatioAt":max_product_ratio_at},"passed":if weighted {Value::Null} else {json!(failure.is_none())},"gatedRulesPassed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
                     eprintln!("woven weave ULP row: {row}");
                     rows.push(row);
                     weave_periodic_receipt(&ctx, &rows, false);
@@ -790,6 +795,6 @@ fn node_weave_pattern_gpu_woven_periodic() {
     assert_eq!(comparisons, 12 * 4 * 3 * 5);
     weave_periodic_receipt(&ctx, &rows, true);
     eprintln!(
-        "woven weave periodic completed: {comparisons} amended comparisons including exact zero-origin graph identity"
+        "woven weave periodic completed: {comparisons} comparisons of gated fields and explicitly ungated observations, including exact zero-origin graph identity"
     );
 }

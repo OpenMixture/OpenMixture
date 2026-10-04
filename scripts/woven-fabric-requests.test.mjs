@@ -39,6 +39,12 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   const current = await json('qualification-plan.json'), previous = await json('qualification-plan-v1.json');
   assert.equal(current.recipeRevision,2); assert.equal(current.previousPlan,'qualification-plan-v1.json');
   assert.deepEqual([current.defaults.underRatio,current.defaults.crown],[.25,0]);
+  assert.equal(current.structuralProbes.amendments.length,3);
+  assert.equal(createHash('sha256').update(JSON.stringify(current.structuralProbes.amendments[2])).digest('hex'), '0742fa3b56a1a8a710c62f283707e57a79e0a77baa73bf2a7b8700789c328939');
+  const secondAmended = structuredClone(current);
+  secondAmended.structuralProbes.amendments.pop();
+  assert.equal(createHash('sha256').update(JSON.stringify(secondAmended,null,2)+'\n').digest('hex'), '0b69f0c7917aac004d92d6eaebe6795364d10f30f56bc029e9dac13e03c3178c', 'only the third amendment may differ from the preceding plan');
+  current.structuralProbes.amendments.pop();
   assert.equal(current.structuralProbes.amendments.length,2);
   assert.equal(createHash('sha256').update(JSON.stringify(current.structuralProbes.amendments[1])).digest('hex'), '58d66278f0e645ca814267f63dfbcb503547bf15b03789665987e01a632dfead');
   const firstAmended = structuredClone(current);
