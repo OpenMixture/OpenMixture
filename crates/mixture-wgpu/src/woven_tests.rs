@@ -568,8 +568,52 @@ impl WeaveUlpStats {
         maximum
     }
 }
+
+fn half_ulp(v: u16) -> f64 {
+    let x = f64::from(half::f16::from_bits(v).to_f32());
+    assert!((0.0..=1.0).contains(&x) && v & 0x8000 == 0);
+    let upper = f64::from(half::f16::from_bits(v + 1).to_f32()) - x;
+    let lower = if v == 0 {
+        upper
+    } else {
+        x - f64::from(half::f16::from_bits(v - 1).to_f32())
+    };
+    upper.max(lower)
+}
+fn visible_weight_comparison(s: [u16; 2], c: [u16; 2]) -> [f64; 3] {
+    let sf = s.map(|v| half::f16::from_bits(v).to_f32());
+    let cf = c.map(|v| half::f16::from_bits(v).to_f32());
+    let es = s.map(|v| half_ulp(v) * 0.5);
+    let ec = c.map(|v| half_ulp(v) * 0.5);
+    // The actual products use f32; binary16 operands make these exact.
+    let products = [sf[0] * cf[0], sf[1] * cf[1]];
+    let delta = (f64::from(products[0]) - f64::from(products[1])).abs();
+    let e = std::array::from_fn::<_, 2, _>(|i| {
+        f64::from(cf[i]) * es[i] + f64::from(sf[i]) * ec[i] + es[i] * ec[i]
+    });
+    let share_max = (f64::from(sf[0]) + es[0])
+        .max(f64::from(sf[1]) + es[1])
+        .min(1.0);
+    let bound = e[0] + e[1] + share_max * half_ulp(c[0]).max(half_ulp(c[1]));
+    [delta, bound, delta / bound]
+}
+#[test]
+fn woven_visible_weight_bound_is_analytical_and_not_raw_share_relaxation() {
+    assert_eq!(half_ulp(0), 2.0_f64.powi(-24));
+    assert_eq!(half_ulp(0x3800), 2.0_f64.powi(-11));
+    let [delta, bound, ratio] = visible_weight_comparison([0x3800; 2], [0x3800; 2]);
+    assert_eq!(delta, 0.0);
+    assert_eq!(bound, 3.0 * 2.0_f64.powi(-12) + 2.0_f64.powi(-22));
+    assert_eq!(ratio, 0.0);
+    let [delta, bound, _] = visible_weight_comparison([0, 0x3c00], [0, 0]);
+    assert_eq!(delta, 0.0);
+    assert!(bound > 0.0);
+    let [delta, bound, _] = visible_weight_comparison([0, 0x3c00], [0x3c00; 2]);
+    assert!(delta > bound, "visible changes must still fail");
+}
+
 fn weave_periodic_receipt(context: &GpuContext, rows: &[Value], completed: bool) {
-    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-exact-where-exact","adapter":context.report().adapter(),"rows":rows});
+    let receipt = json!({"completed":completed,"ok":completed,"materialAccepted":false,"amendment":"2026-10-04-coverage-weighted-share","adapter":context.report().adapter(),"rows":rows});
     if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(
@@ -604,6 +648,10 @@ fn node_weave_pattern_gpu_woven_periodic() {
     assert_eq!(
         plan["structuralProbes"]["amendments"][0]["after"]["maximumHalfSteps"],
         1
+    );
+    assert_eq!(
+        plan["structuralProbes"]["amendments"][1]["id"],
+        "2026-10-04-coverage-weighted-share"
     );
     for preset in plan["cases"].as_array().unwrap() {
         let name = preset["id"].as_str().unwrap();
@@ -652,6 +700,28 @@ fn node_weave_pattern_gpu_woven_periodic() {
                         entry,
                     );
                     let limit = weave_step_limit(size, origin);
+                    let weighted = mode == 2 && limit == 1;
+                    let coverage = if weighted {
+                        let mut coverage_words = words;
+                        coverage_words[2] = 1;
+                        let coverage_bytes: Vec<_> = coverage_words
+                            .into_iter()
+                            .flat_map(u32::to_le_bytes)
+                            .collect();
+                        Some(super::periodic_scalar_readback::render(
+                            &ctx,
+                            size,
+                            &coverage_bytes,
+                            &instrumented,
+                            entry,
+                        ))
+                    } else {
+                        None
+                    };
+                    let mut max_product_delta = 0.0_f64;
+                    let mut max_product_ratio = 0.0_f64;
+                    let mut max_product_delta_at = Value::Null;
+                    let mut max_product_ratio_at = Value::Null;
                     let mut stats = WeaveUlpStats::default();
                     let mut failure = None;
                     for y in 0..size[1] {
@@ -668,15 +738,42 @@ fn node_weave_pattern_gpu_woven_periodic() {
                             let actual = pixels[(y * size[0] + x) as usize];
                             let steps = stats.pixel(actual, expected);
                             mode_stats.pixel(actual, expected);
-                            if steps > limit && failure.is_none() {
+                            let mut violation = steps > limit;
+                            let mut product = Value::Null;
+                            if let Some(coverage) = &coverage {
+                                let actual_c = coverage[(y * size[0] + x) as usize][0];
+                                let expected_c = u16::from_le_bytes([
+                                    graph[1][expected_index * 8],
+                                    graph[1][expected_index * 8 + 1],
+                                ]);
+                                assert!(
+                                    half_steps(actual_c, expected_c) <= 1,
+                                    "same-origin coverage must retain the first amendment"
+                                );
+                                let [delta, bound, ratio] = visible_weight_comparison(
+                                    [actual[0], expected[0]],
+                                    [actual_c, expected_c],
+                                );
+                                product = json!({"pixel":[x,y],"actualShareHalf":actual[0],"expectedShareHalf":expected[0],"actualCoverageHalf":actual_c,"expectedCoverageHalf":expected_c,"difference":delta,"bound":bound,"ratio":ratio});
+                                if delta > max_product_delta {
+                                    max_product_delta = delta;
+                                    max_product_delta_at = product.clone();
+                                }
+                                if ratio > max_product_ratio {
+                                    max_product_ratio = ratio;
+                                    max_product_ratio_at = product.clone();
+                                }
+                                violation = delta > bound || actual[1..] != expected[1..];
+                            }
+                            if violation && failure.is_none() {
                                 failure = Some(
-                                    json!({"pixel":[x,y],"actualHalf":actual,"expectedHalf":expected,"halfSteps":steps,"actual":actual.map(|v|half::f16::from_bits(v).to_f32()),"expected":expected.map(|v|half::f16::from_bits(v).to_f32())}),
+                                    json!({"pixel":[x,y],"actualHalf":actual,"expectedHalf":expected,"halfSteps":steps,"visibleWeight":product,"actual":actual.map(|v|half::f16::from_bits(v).to_f32()),"expected":expected.map(|v|half::f16::from_bits(v).to_f32())}),
                                 );
                             }
                         }
                     }
                     origins_observed += 1;
-                    let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":limit,"passed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
+                    let row = json!({"case":name,"size":size,"mode":MODES[mode],"origin":origin,"allowedHalfSteps":if weighted {Value::Null} else {json!(limit)},"weightedGate":weighted,"visibleWeightStatistics":{"maxDifference":max_product_delta,"maxDifferenceAt":max_product_delta_at,"maxRatio":max_product_ratio,"maxRatioAt":max_product_ratio_at},"passed":failure.is_none(),"statistics":stats,"modeStatisticsThroughThisOrigin":mode_stats,"originsObserved":origins_observed,"modeComplete":origins_observed==5,"firstFailure":failure});
                     eprintln!("woven weave ULP row: {row}");
                     rows.push(row);
                     weave_periodic_receipt(&ctx, &rows, false);
