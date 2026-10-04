@@ -250,3 +250,30 @@ Before rerunning the weave probe, the maintainer freezes structuralProbes.amendm
 Gates stay exact for zero-origin identity at all sizes/modes and for every power-of-two translation in **all three raw modes including S**. Odd 257×129 H/C remain within one adjacent half step. Only nonzero-origin odd-size S and P become **observation-only: outside the periodicity quality guarantee, never a pass**. Report raw S difference count/max steps, maximum absolute P difference and maximum ratio to the unchanged amendment-2 envelope, with their pixels and values, for every case/size/mode/origin. Finite normalized fields and same-origin coverage still have gates. This limitation is separate from material acceptance and resembles the explicit stress quality scope.
 
 A regression removes only amendment 3 and restores the full preceding plan hash, then checks the earlier guards. All cases, sizes, recipe revision 2 defaults, thresholds and budgets are unchanged. Stage B can complete only when its remaining gated rules pass; the odd-share limitation must remain visible in every result summary.
+
+### Third-amendment results and packaged-test repair
+
+Stage B gated structural probes are complete within the recorded GT 1030 Vulkan/DX12 scope; **odd-size translated S/P remain an ungated measured limitation, not a pass**. C PBR/human review and D retained evidence/acceptance remain separate PRs; materialAccepted=false. Clean implementation 30931b5 (third amendment frozen first at 69489d4) completed the weave matrix on both backends via `cargo test --release --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture`: 672 gated comparisons pass and 48 observation-only rows per backend, covering all twelve cases, four sizes and all three modes. Power-of-two translations and every zero-origin identity remain exact; odd H/C remain within one half step. Vulkan reports NVIDIA 582.66; DX12 reports GT 1030 with empty driverInfo.
+
+The other five structural probe passes on both backends belong to ed6905f (crossings, flat, controls, normal replay, stress); noise periodicity passes on both belong to 47e2dd8. Those implementations are unchanged apart from relocating shared test readback. Full gpu-smoke and check remain mandatory before PR readiness; their final run results are recorded in the PR.
+
+Odd 257×129 S/P observations below aggregate four translated images per case. Counts are pixel occurrences across shifts, not distinct tile positions. Maxima are independently aggregated; raw step and product-ratio maxima need not share a pixel. These rows are **outside the periodicity quality guarantee**.
+
+| Case | Vulkan differing pixels | DX12 differing pixels | Max raw steps (both) | Max absolute ΔP (both) | Max ratio (both) |
+|---|---:|---:|---:|---:|---:|
+| plain | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| varied | 528 | 528 | 5 | 0.00048828125 | 1.5597867479055598 |
+| no-detail | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| flat | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| warp-seed | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| weft-seed | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| combined-low | 181 | 180 | 5 | 0.00048828125 | 3.7911884487226954 |
+| combined-high | 2964 | 2963 | 27 | 0.00048828125 | 6.802103515084418 |
+| neutral-normal | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| constant-low | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| constant-high | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| max-normal | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+
+The package-check failure was reproduced: isolated lib tests could not read tests/support/periodic_scalar_readback.rs, excluded from the crate package. Commit a7279b5 moves the unchanged helper to src/periodic_scalar_readback.rs; executor includes it only under cfg(test), and integration tests reuse that file via a private path module. No public API or duplicate implementation is added. The first repaired package run compiled successfully but its source-identity guard rejected concurrent source edits; a stable rerun passed packaged Rust and CLI CPU consumption. Four builder tests pass, including the third-amendment-only whole-plan guard.
+
+Receipts are ignored tmp/woven-stage-b/amendment3/{package-before.log,package-after.log,package-stable.log,builder.log,weave-vulkan.log,weave-dx12.log,summary.json} and {vulkan,dx12}/woven-weave-periodic.json. Each observation has passed:null, an explicit quality scope, raw counts and P difference/ratio with pixels. Production WGSL, ABI, Core, defaults, versions and goldens are unchanged. These local results are not Stage D retained acceptance.

@@ -250,3 +250,30 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 所有尺寸／模式零原点恒等仍精确；二次幂尺寸所有平移在**三个原始模式（包括 S）**仍精确。奇数 257×129 H／C 仍不超过一个相邻 half 步长。仅奇数尺寸非零原点 S 与 P 改为**仅作观察：不在周期性质量保证内，绝不标为通过**。对每个用例／尺寸／模式／原点报告原始 S 差异数／最大步数、最大绝对 P 差及其相对未变的修订 2 包络的最大比值，附像素和值。有限归一化场及同原点 coverage 仍有门槛。此限制与材质接受分开，类似显式 stress 质量范围。
 
 回归测试仅移除第三条修订后恢复完整前一计划哈希，再验证旧保护。全部用例、尺寸、配方修订 2 默认值、阈值及预算不变。阶段 B 仅可在其余受门槛约束规则通过后完成；每份结果摘要必须保留奇数尺寸 share 限制。
+
+### 第三次修订结果及打包测试修复
+
+阶段 B 受门槛约束的结构探针在记录的 GT 1030 Vulkan／DX12 范围内完成；**奇数尺寸平移 S／P 仍是未设门槛的实测限制，不是通过**。C PBR／人工评审、D 证据／接受记录仍另开 PR，materialAccepted=false。干净实现 30931b5（先于 69489d4 冻结第三次修订）以 `cargo test --release --locked -p mixture-wgpu --lib node_weave_pattern_gpu_woven_periodic -- --ignored --nocapture` 在双后端完成织纹矩阵：每后端 672 次受门槛约束比较通过、48 行仅作观察，覆盖十二用例、四尺寸及三个模式。二次幂平移及所有零原点恒等保持精确，奇数尺寸 H／C 不超过一个 half 步长。Vulkan 报告 NVIDIA 582.66；DX12 报告 GT 1030，driverInfo 为空。
+
+其余五个结构探针双后端通过属于 ed6905f（交叉、零起伏、参数隔离、法线重放、stress）；噪声周期性双后端通过属于 47e2dd8。除共享测试读回代码迁移外，这些实现不变。PR 就绪前仍必须完成完整 gpu-smoke 及 check，最终运行结果记录于 PR。
+
+下表为奇数 257×129 S／P 观察，每用例累计四个平移图像。计数是跨偏移的像素出现次数，不是去重瓦片位置；各最大值独立汇总，原始步数和乘积比值最大处不一定是同一像素。这些行**不属于周期性质量保证**。
+
+| Case | Vulkan differing pixels | DX12 differing pixels | Max raw steps (both) | Max absolute ΔP (both) | Max ratio (both) |
+|---|---:|---:|---:|---:|---:|
+| plain | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| varied | 528 | 528 | 5 | 0.00048828125 | 1.5597867479055598 |
+| no-detail | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| flat | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| warp-seed | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| weft-seed | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| combined-low | 181 | 180 | 5 | 0.00048828125 | 3.7911884487226954 |
+| combined-high | 2964 | 2963 | 27 | 0.00048828125 | 6.802103515084418 |
+| neutral-normal | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| constant-low | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| constant-high | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+| max-normal | 556 | 553 | 4 | 0.00048828125 | 1.032518275775145 |
+
+已复现 package-check 失败：隔离 lib 测试无法读取打包未包含的 tests/support/periodic_scalar_readback.rs。a7279b5 将同一辅助代码移至 src/periodic_scalar_readback.rs；executor 仅在 cfg(test) 下包含它，集成测试通过私有 path 模块复用。无新增公共 API 或重复实现。修复后第一次打包运行编译成功，但源码身份保护因并发源码编辑拒绝该次结果；随后稳定重跑通过打包 Rust 和 CLI CPU 消费。四个构建器测试通过，包括仅第三条修订可变的完整计划保护。
+
+收据位于忽略的 tmp/woven-stage-b/amendment3/{package-before.log,package-after.log,package-stable.log,builder.log,weave-vulkan.log,weave-dx12.log,summary.json} 和 {vulkan,dx12}/woven-weave-periodic.json。每个观察行有 passed:null、显式质量范围、原始计数及带像素的 P 差／比值。生产 WGSL、ABI、Core、默认值、版本及 golden 不变。这些本地结果不是阶段 D 保留接受记录。
