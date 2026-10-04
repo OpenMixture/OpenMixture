@@ -433,3 +433,13 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 已复现 package-check 失败：隔离 lib 测试无法读取打包未包含的 tests/support/periodic_scalar_readback.rs。a7279b5 将同一辅助代码移至 src/periodic_scalar_readback.rs；executor 仅在 cfg(test) 下包含它，集成测试通过私有 path 模块复用。无新增公共 API 或重复实现。修复后第一次打包运行编译成功，但源码身份保护因并发源码编辑拒绝该次结果；随后稳定重跑通过打包 Rust 和 CLI CPU 消费。四个构建器测试通过，包括仅第三条修订可变的完整计划保护。
 
 收据位于忽略的 tmp/woven-stage-b/amendment3/{package-before.log,package-after.log,package-stable.log,builder.log,weave-vulkan.log,weave-dx12.log,summary.json} 和 {vulkan,dx12}/woven-weave-periodic.json。每个观察行有 passed:null、显式质量范围、原始计数及带像素的 P 差／比值。生产 WGSL、ABI、Core、默认值、版本及 golden 不变。这些本地结果不是阶段 D 保留接受记录。
+
+### 维护者第四次修订 — 2026-10-04：软件适配器尺寸范围
+
+实现前冻结 structuralProbes.amendments 第四条，引用 671cf76 的 CI 运行 37185577047、制品 swiftshader-material-evidence / woven-weave-periodic.json。SwiftShader Device (LLVM 10.0.0) 在 constant-low 2048² 处取消前完成 582/720 行、零失败（07:23:46–08:07:53）。该部分收据**不是完整软件验收**。原规则及前三次修订保留为历史。
+
+根据**实际报告的 adapter deviceType**选择：Cpu 使用 256²、1024²、257×129；其他类型保留 256²、1024²、2048²、257×129。不能仅凭环境变量缩减范围。保留原探针范围：交叉、零起伏、法线重放、所选噪声、织纹平移使用完整后端尺寸集；参数隔离仍仅奇数尺寸，stress 保留原三尺寸。较窄范围不属于新增软件省略。硬件完整矩阵探针必须在材质 2048² 缺失或未执行时失败。
+
+每个探针收据列出冻结和已执行尺寸集；每个省略的 2048² 行标为 **notRunOnSoftware**、passed:null，附修订 id 2026-10-04-software-size-scope，绝不计为通过。硬件证据仍需 2048²；软件通过不能验收硬件像素。不改比较规则、容差、其他修订、阶段 A 门槛或工作流超时。
+
+运行时间估算（非测量）：2048² 占四尺寸像素和的 78.522%。前 582 个平移行对应 788,155,143 个比较像素（九个完整用例，另加 256／1024／2048 的 15／15／12 行）；缩减后的完整矩阵为 206,507,700，比例 0.262014。将整个中断区间 44 分 07 秒计入此工作，得到约 11.56 分钟；加 main 所述 9–15 分钟，粗略**总作业目标为 20.56–26.56 分钟**，低于不变的 45 分钟限制。编译、调度、读回和其他探针不完全随像素数线性变化；软件时间与完成情况仅由 CI 验证。C／D 待完成、materialAccepted=false 不变。

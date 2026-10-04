@@ -1334,6 +1334,91 @@
           "statistics": "Report raw S differing pixels/components and maximum half steps; maximum absolute P difference and maximum ratio to the unchanged amendment-2 envelope, with source pixels and values, per case/size/mode/origin. Retain zero-origin exact gates, normalized finite values and same-origin coverage gate."
         },
         "unchanged": "Original plan and amendments 1/2 remain history; all other cases, sizes, thresholds, defaults, budgets and production bytes/ABI/lowering unchanged"
+      },
+      {
+        "id": "2026-10-04-software-size-scope",
+        "date": "2026-10-04",
+        "authority": "Maintainer fourth amendment on PR #84 at 671cf76",
+        "scope": "Backend-scoped Stage B sizes only; preserve original per-probe scopes",
+        "reason": "Pinned SwiftShader job reached its unchanged 45-minute timeout; omit 2048x2048 on reported Cpu adapters, retain required hardware coverage",
+        "partialReceipt": {
+          "run": 37185577047,
+          "head": "671cf76bd2a31c440253313c40ae428b7aec24ac",
+          "artifact": "swiftshader-material-evidence",
+          "receipt": "woven-weave-periodic.json",
+          "adapter": "SwiftShader Device (LLVM 10.0.0)",
+          "rowsCompleted": 582,
+          "rowsPlanned": 720,
+          "failures": 0,
+          "interruptedCase": "constant-low",
+          "interruptedSize": [
+            2048,
+            2048
+          ],
+          "interval": [
+            "07:23:46",
+            "08:07:53"
+          ],
+          "status": "cancelled; partial observations, not qualification"
+        },
+        "after": {
+          "classification": "Use actual reported adapter.deviceType == Cpu; environment alone never determines scope. All other reported types retain hardware size coverage.",
+          "hardwareSizes": [
+            [
+              256,
+              256
+            ],
+            [
+              1024,
+              1024
+            ],
+            [
+              2048,
+              2048
+            ],
+            [
+              257,
+              129
+            ]
+          ],
+          "softwareSizes": [
+            [
+              256,
+              256
+            ],
+            [
+              1024,
+              1024
+            ],
+            [
+              257,
+              129
+            ]
+          ],
+          "perProbeScopes": "Intersect backend size selection with the existing frozen probe scope. Crossing, flat, normal replay, selected noise and weave translation retain four hardware sizes. Isolation remains 257x129 only; stress remains 256x256/1024x1024/257x129 on both backends. No new control/stress scope is inferred.",
+          "hardwareGuard": "Reject a material size set missing 2048x2048; full-matrix probes must execute every selected size, including hardware 2048x2048.",
+          "receipts": "Every probe records adapter classification, frozen probe sizes, executed sizes, and omitted 2048x2048 rows with status notRunOnSoftware, passed:null, and this amendment id. Existing out-of-scope sizes are not software omissions. Partial execution is never completed qualification.",
+          "qualification": "Software passes never qualify hardware pixels; odd translated S/P remain ungated observations; all earlier comparison rules unchanged"
+        },
+        "runtimeEstimate": {
+          "model": "Pixel-proportional extrapolation of interrupted weave translation; no measured new SwiftShader runtime",
+          "pixelsPerSize": [
+            65536,
+            1048576,
+            4194304,
+            33153
+          ],
+          "partialComparisonPixels": 788155143,
+          "softwareComparisonPixels": 206507700,
+          "softwareToPartialRatio": 0.26201402329744106,
+          "reducedWeaveMinutes": 11.559185327805443,
+          "estimatedTotalJobMinutes": [
+            20.559185327805444,
+            26.559185327805444
+          ],
+          "assumptions": "582 rows: nine complete 60-row cases plus constant-low 15/15/12 rows at 256/1024/2048. Charge the entire 44m07 interval to that work; add main normal 9-15 minutes. Per-size dispatch/compilation/readback and other probes can differ; CI must verify target below unchanged 45 minutes."
+        },
+        "unchanged": "All earlier rules/amendments, tolerances, cases, defaults, Stage A size/timing/budget gates, production shaders/runtime/API and workflow timeout remain unchanged"
       }
     ]
   }
