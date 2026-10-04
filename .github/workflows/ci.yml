@@ -38,8 +38,12 @@ jobs:
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - name: Verify repository and isolated packages
+      - name: Verify repository
         run: cargo xtask check
+      # Release-grade archive verification stays required in CI but is no longer
+      # part of the local `check` loop.
+      - name: Verify isolated Cargo packages
+        run: cargo xtask package-check
       - name: Verify offline evidence archive integrity and extraction guards
         run: python scripts/evidence/test_restore.py
       - name: Retain local package verification evidence

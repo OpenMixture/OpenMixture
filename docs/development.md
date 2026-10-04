@@ -61,9 +61,10 @@ The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Build/t
 4. Clippy on all workspace targets and features with warnings denied.
 5. Workspace tests, including CLI integration tests, tooling tests, and doctests.
 6. `test-consumer`: separate Cargo metadata, formatting, Clippy, unit/process tests, build and public-Rust CPU invocation, followed by a built CLI and the explicit independent CPU contract test in a fresh working directory.
-7. `package-check`: actual local archives, isolated source/lock resolution, unit tests/Rustdoc, missing-shader rejection and independent CPU consumption.
-8. Workspace rustdoc with warnings denied.
-9. Basic offline Markdown links to existing local files and directories.
+7. Workspace rustdoc with warnings denied.
+8. Basic offline Markdown links to existing local files and directories.
+
+`package-check` (actual local archives, isolated source/lock resolution, unit tests/Rustdoc, missing-shader rejection and independent CPU consumption) is not part of `check`; the CPU workflow runs it as a separate required step. Run it locally when changing package manifests, include lists, the asset codec or public crate boundaries.
 
 Every unexpected subprocess failure fails the enclosing check; the explicit missing-shader probe must fail and is validated as a negative test. Checks do not rewrite sources, fixtures, or baselines. Markdown parsing handles inline links, reference links, and images while ignoring code examples; external URLs, heading anchors, raw HTML links, and percent-encoded local paths are outside this basic check. Use ordinary relative paths, or angle brackets for paths with spaces. Build/output directories are excluded from discovery.
 
