@@ -770,5 +770,5 @@ mod allocation_tests {
 mod woven_tests;
 
 #[cfg(test)]
-#[path = "../tests/support/periodic_scalar_readback.rs"]
+#[path = "periodic_scalar_readback.rs"]
 mod periodic_scalar_readback;

@@ -925,7 +925,7 @@ fn node_weave_pattern_gpu() {
     }
 }
 
-#[path = "support/periodic_scalar_readback.rs"]
+#[path = "../src/periodic_scalar_readback.rs"]
 mod periodic_scalar_readback;
 
 #[test]
