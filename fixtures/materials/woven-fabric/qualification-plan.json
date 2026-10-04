@@ -1245,6 +1245,50 @@
           "recipe revision 2 defaults",
           "production shader bytes, ABI and Core lowering"
         ]
+      },
+      {
+        "id": "2026-10-04-coverage-weighted-share",
+        "date": "2026-10-04",
+        "authority": "Maintainer second amendment on PR #84 at 6991f46",
+        "scope": "Nonzero-origin 257x129 warp-share comparison only",
+        "reason": "The node contract requires continuity of visible weights, not an unobservable conditional selector through a gap. Share divides sumVw by sumC; raw S remains reported.",
+        "failingReceipt": {
+          "implementationRevision": "8f84e7d7cd435a1760b5ed01531b66f07348af4e",
+          "recordRevision": "6991f465b4d420af9cbfc630512ea0de881f4757",
+          "receipt": "tmp/woven-stage-b/amendment/vulkan/woven-weave-periodic.json",
+          "backend": "Vulkan",
+          "adapter": "NVIDIA GeForce GT 1030",
+          "case": "plain",
+          "size": [
+            257,
+            129
+          ],
+          "mode": "warp-share",
+          "origin": [
+            257,
+            0
+          ],
+          "pixel": [
+            231,
+            23
+          ],
+          "actualHalf": 2492,
+          "expectedHalf": 2496,
+          "maximumHalfSteps": 4
+        },
+        "before": "First amendment: raw odd-size S at most one adjacent half step",
+        "after": {
+          "zeroOrigin": "Exact raw-half identity in every mode at every size",
+          "powerOfTwo": "Exact raw-half equality in all three modes including raw S for all shifts",
+          "oddHeightCoverage": "At most one adjacent half step, unchanged",
+          "oddWarpShare": "P_i=f32(S_i*C_i), using captured half S and C from identical pixel/origin; abs(f64(P_1)-f64(P_2)) <= B",
+          "ulp": "u(x) is the larger finite adjacent binary16 spacing at stored nonnegative x; u(0)=2^-24. All S,C must be finite in [0,1].",
+          "inequality": "eSi=u(Si)/2; eCi=u(Ci)/2; Ei=Ci*eSi+Si*eCi+eSi*eCi; dC=max(u(C1),u(C2)); sMax=min(1,max(S1+eS1,S2+eS2)); B=E1+E2+sMax*dC",
+          "derivation": "For each product, independent half-storage uncertainties give |(Si+ds)(Ci+dc)-Si*Ci| <= Ci*eSi+Si*eCi+eSi*eCi. One allowed coverage step changes visible weight by at most sMax*dC. Sum the two endpoint storage envelopes and this one coverage allowance; coefficient k=1, no fitted factor. This defines the allowed product-rounding envelope; it does not prove all translated-coordinate errors fit it or bound independent geometric share changes. Such excess fails.",
+          "arithmetic": "Two nonnegative binary16 values in [0,1] have an exact f32 product (at most 22 significand bits and exponent >= -48); subtract converted products and evaluate B in f64, with no additional f32-product tolerance.",
+          "statistics": "Report raw S differing count/max half steps, maximum absolute product difference, maximum difference/bound and its pixel/values, per case/size/mode/origin. Ratio is zero when difference=bound=0; positive difference with zero bound fails."
+        },
+        "unchanged": "All original plan fields and first amendment, cases, sizes, Stage A/B gates except this rule, defaults, production bytes/ABI/lowering remain unchanged"
       }
     ]
   }

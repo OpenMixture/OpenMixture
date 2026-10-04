@@ -374,3 +374,15 @@ Mode totals: height 519 differences / max 1 ULP; coverage 1340 / max 1 ULP; warp
 The four builder tests (including amendment-only whole-plan protection) and the comparator unit test passed. Full Vulkan gpu-smoke and cargo xtask check were not rerun under the stop rule. Earlier crossing, flat, control-isolation, normal-replay and stress passes on both backends belong to ed6905f; earlier noise-input passes on both backends belong to 47e2dd8. They are unchanged historical evidence, not a pass of this incomplete run. Stage B remains incomplete, C/D pending, materialAccepted=false, PR #84 draft.
 
 Ordinary outputs: ignored tmp/woven-stage-b/amendment/{builder.log,unit.log,weave-vulkan.log,result.json} and vulkan/woven-weave-periodic.json (per-image and cumulative case/size/mode counts, adapter, first failure). These are local review receipts, not retained Stage D evidence. Production WGSL, ABI, Core lowering, material recipe/defaults and all other frozen gates remain unchanged.
+
+### Second maintainer amendment — 2026-10-04: visible warp weight
+
+The second structuralProbes.amendments entry preserves the original rule, first amendment and failure at clean 8f84e7d / record 6991f46 (plain 257×129 S, origin (257,0), pixel (231,23), half 2492 vs 2496). Before any rerun, freeze only the odd-size nonzero-origin warp-share gate as follows. Zero-origin stays exact at all sizes; power-of-two sizes stay exact in **all three raw modes**, including S. Odd-size H/C retain the one-half-step gate.
+
+Let S_i,C_i be captured half values from the share and coverage instances at the same pixel and origin, and P_i=f32(S_i*C_i). Define u(x) as the larger adjacent binary16 spacing at nonnegative stored x, with u(0)=2^-24. For i=1,2, set eSi=u(S_i)/2, eCi=u(C_i)/2 and E_i=C_i*eSi+S_i*eCi+eSi*eCi. Freeze:
+
+**|f64(P_1)-f64(P_2)| ≤ B = E_1+E_2+min(1,max(S_1+eS1,S_2+eS2))*max(u(C_1),u(C_2)).**
+
+Each E_i follows by expanding the product under independent half-storage rounding intervals. The final term is one already-approved coverage step weighted by the largest possible share in those intervals. The multiplier is exactly 1; no term is fitted to the four-step result. This is an acceptance envelope, not proof that all coordinate perturbations satisfy it: independent changes of the geometric share are not bounded by coverage error alone, and any observed excess still fails. Nonnegative half products are exactly representable in f32 (at most 22 significant bits, minimum exponent -48); compare converted products and compute B in f64 without an extra arithmetic allowance. All operands must remain finite in [0,1].
+
+Raw S differences remain reported but are not gated for odd translated images. Record maximum product difference and difference/bound with their pixels, plus raw S count/max steps. Zero difference/zero bound gives ratio 0; positive difference/zero bound fails. A regression removes only the second entry and verifies the complete preceding plan hash, then retains the original guards. No case, size, recipe default or other gate changes; Stage B completion remains conditional on results.

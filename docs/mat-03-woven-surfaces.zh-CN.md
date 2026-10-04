@@ -374,3 +374,15 @@ plain 的全部 45 个二次幂尺寸比较（三尺寸 × 三模式 × 五原�
 四个构建器测试（包括仅修订条目可变的完整计划保护）及比较器单元测试通过。按停止规则未重跑完整 Vulkan gpu-smoke 和 cargo xtask check。此前双后端 crossing、flat、control-isolation、normal-replay、stress 通过属于 ed6905f；双后端 noise-input 通过属于 47e2dd8。这些是未变更的历史证据，不代表本轮不完整运行通过。阶段 B 仍未完成，C／D 待完成，materialAccepted=false，PR #84 保持 draft。
 
 普通输出位于忽略的 tmp/woven-stage-b/amendment/{builder.log,unit.log,weave-vulkan.log,result.json} 及 vulkan/woven-weave-periodic.json（逐图像及用例／尺寸／模式累计计数、适配器、首个失败）。这些是本地评审收据，不是阶段 D 保留证据。生产 WGSL、ABI、Core lowering、材质配方／默认值和其他冻结门槛均不变。
+
+### 维护者第二次修订 — 2026-10-04：可见经线权重
+
+structuralProbes.amendments 第二条保留原规则、第一次修订及干净实现 8f84e7d／记录 6991f46 的失败（plain 257×129 S，原点 (257,0)，像素 (231,23)，half 2492 对 2496）。任何重跑前，仅冻结奇数尺寸非零原点 warp-share 新门槛。所有尺寸零原点保持精确；二次幂尺寸的**三个原始模式（包括 S）**保持精确；奇数尺寸 H／C 保持一个 half 步长门槛。
+
+S_i、C_i 是 share 与 coverage 实例相同像素、原点捕获的 half 值，P_i=f32(S_i*C_i)。u(x) 为非负存储值 x 两侧相邻 binary16 间距的较大者，u(0)=2^-24。对 i=1,2，定义 eSi=u(S_i)/2、eCi=u(C_i)/2，E_i=C_i*eSi+S_i*eCi+eSi*eCi。冻结：
+
+**|f64(P_1)-f64(P_2)| ≤ B = E_1+E_2+min(1,max(S_1+eS1,S_2+eS2))*max(u(C_1),u(C_2))。**
+
+E_i 由独立 half 存储舍入区间下的乘积展开得到；末项为已批准的一个 coverage 步长乘以区间内最大可能 share。系数严格为 1，没有根据四步差异拟合任何项。这是验收包络，不证明所有坐标扰动均满足它：coverage 误差本身不能约束几何 share 的独立变化，任何实测超限仍失败。非负 half 乘积可在 f32 精确表示（最多 22 位有效位，最小指数 -48）；将乘积转换为 f64 后比较并计算 B，不额外加入算术容差。操作数均须有限且位于 [0,1]。
+
+奇数尺寸平移图像继续报告原始 S 差异，但不以它作为门槛。记录最大乘积差及差／上限比和相应像素，以及原始 S 差异数／最大步数。差与上限均零时比值为 0；正差配零上限失败。回归测试仅移除第二条修订并验证完整前一计划哈希，再保留原保护。用例、尺寸、配方默认值及其他门槛均不变；阶段 B 是否完成仍取决于结果。
