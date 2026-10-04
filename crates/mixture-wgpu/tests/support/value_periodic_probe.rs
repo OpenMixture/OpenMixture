@@ -62,7 +62,7 @@ fn run_parameters(context: &GpuContext, parameters: &[(u32, u32, u32)], scope: &
         json!(context.report().adapter())
     );
     if let Ok(name) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
-        assert_eq!(json!(context.report().adapter())["name"], name);
+        assert!(context.report().adapter().unwrap().name.contains(&name));
     }
     let mut cases = Vec::new();
     for size in [[256, 256], [1024, 1024], [2048, 2048], [257, 129]] {

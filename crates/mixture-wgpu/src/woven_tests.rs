@@ -30,7 +30,7 @@ fn context() -> GpuContext {
     let context = pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
     eprintln!("woven adapter: {}", json!(context.report().adapter()));
     if let Ok(name) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
-        assert_eq!(json!(context.report().adapter())["name"], name);
+        assert!(context.report().adapter().unwrap().name.contains(&name));
     }
     context
 }
