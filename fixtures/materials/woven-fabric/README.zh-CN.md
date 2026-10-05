@@ -6,7 +6,7 @@
 
 [分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：保留已合并阶段 A 公开 Native／浏览器矩阵；本 PR 加入 B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定、D 证据保留与接受记录仍另开 PR。本矩阵不构成结构、PBR 或人工接受。
 
-当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
+先前材质为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
 
 当前候选为配方修订 3：材质 underRatio 上界为 0.5，仅 combined-high 用例改变；收窄度量仍有明显蝴蝶结，已停止重验及新图生成。下文修订 2 结果为历史记录。
 
