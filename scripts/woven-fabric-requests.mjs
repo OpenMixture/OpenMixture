@@ -1,4 +1,6 @@
-// Frozen MAT-03 caller mapping; Core remains the validator and only compiler.
+// Frozen MAT-03 caller mapping; revision 3 material ranges come from the plan.
+// underRatio > 0.5 is rejected here; weave-pattern@1 itself still permits 0.75.
+// Core remains the node validator and only compiler.
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';

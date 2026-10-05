@@ -41,7 +41,7 @@ The [request builder](../../../scripts/woven-fabric-requests.mjs) validates and 
 | weftWidth | 0.7 | 0.55..0.9 | warpshare_weftWidth → n06-weave-warp-share.weftWidth; coverage_weftWidth → n09-weave-coverage.weftWidth; height_weftWidth → n17-weave-height.weftWidth |
 | bevel | 0.08 | 0.02..0.12 | warpshare_bevel → n06-weave-warp-share.bevel; coverage_bevel → n09-weave-coverage.bevel; height_bevel → n17-weave-height.bevel |
 | relief | 0.025 | 0..0.05 | relief → n18-surfaceHeight.outputMax |
-| underRatio | 0.25 | 0.25..0.75 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
+| underRatio | 0.25 | 0.25..0.5 | warpshare_underRatio → n06-weave-warp-share.underRatio; coverage_underRatio → n09-weave-coverage.underRatio; height_underRatio → n17-weave-height.underRatio |
 | detailAmount | 0.08 | 0..0.1 | warpDark = warpColor.rgb*(1-4*d); weftDark = weftColor.rgb*(1-4*d); roughnessMin = yarnRoughness*(1-2*d) |
 | warpSeed | 1729 | 0..4294967295 (integer) | warpSeed → n03-warpNoise.seed |
 | weftSeed | 65537 | 0..4294967295 (integer) | weftSeed → n00-weftNoise.seed |
@@ -315,3 +315,11 @@ Review settings were frozen in 44746d4 before implementation. Clean producer/too
 Generated files are ignored `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`, `index.html` and `preview.json`. Comparison input is `tmp/woven-review/comparison/`; browser qualification is `tmp/woven-review/browser/`. The preview validates all 30 Native/browser input pairs, exact zero metallic, different shading for forced roughness 0/1, and exact repeat for 0. Its receipt records producer/build/renderer identities, all image hashes and both acceptance flags false. No images or ordinary logs are committed.
 
 Agent inspection found complete views and thumbnails, pronounced pinched profiles in combined-high and subtle seed differences at sheet scale. These are review observations, not a human acceptance decision or a recipe change. Stage C sheets are produced; the maintainer visual decision remains pending, followed separately by Stage D retained evidence and acceptance.
+
+## Maintainer range amendment — 2026-10-06 (recipe revision 3)
+
+The Stage C maintainer accepts plain, varied, warp-seed, weft-seed and combined-low, but identifies bow-tie/bone yarns in combined-high at underRatio=0.75: the elevated lower yarn wins over the upper yarn edges. The approved candidate narrows only the MATERIAL underRatio range from [0.25,0.75] to [0.25,0.5]. The NODE weave-pattern@1 range remains [0.25,0.75]; no node semantics change. The only changed case is **combined-high**, underRatio 0.75→0.5. All other controls, defaults, cases, stress, sizes, thresholds, budgets, timing targets and Stage B rules/amendments remain identical.
+
+Before measurements, preserve revision 2 bytes in qualification-plan-v2.json, material-v2.mix and graph-proposal-v2.json beside the current fixture. The current material and graph bytes themselves do not change. qualification-plan.json sets recipeRevision=3 and previousPlan=qualification-plan-v2.json. The whole-plan regression permits only that metadata, one range bound and one case value; the builder rejects values above 0.5 for this material. The separate frozen Stage C review-plan file remains the historical revision-2 review configuration at this point.
+
+First compare combined-high at 0.75 and 0.5 with the unchanged revision-2 half-occupancy-core pinch metric at 1024², using public CLI diagnostic colors and detailAmount=0; all geometry and relief remain combined-high. Report warp/weft min/median/max over every axial scanline. If clear bow-tie remains at 0.5, stop and report; do not choose a different bound. Full matrix/probe reruns and six revised review sheets are conditional on that finding. Human acceptance and material acceptance of the revision remain false; D remains pending.

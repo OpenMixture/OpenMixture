@@ -36,7 +36,7 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   assert.equal(weave.length,3);
   for (const n of weave) { assert.equal(n.parameters.underRatio,.25); assert.equal(n.parameters.crown,0); n.parameters.underRatio=.5; n.parameters.crown=.5; }
   assert.deepEqual(candidate,original,'only six literal defaults on the same three instances may change; topology, colors, relief, normal strength, seeds and node versions stay identical');
-  const current = await json('qualification-plan.json'), previous = await json('qualification-plan-v1.json');
+  const current = await json('qualification-plan-v2.json'), previous = await json('qualification-plan-v1.json');
   assert.equal(current.recipeRevision,2); assert.equal(current.previousPlan,'qualification-plan-v1.json');
   assert.deepEqual([current.defaults.underRatio,current.defaults.crown],[.25,0]);
   assert.equal(current.structuralProbes.amendments.length,4);
@@ -71,6 +71,18 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   spec.proposedDefaults.underRatio=.5; spec.proposedDefaults.crown=.5; assert.deepEqual(spec,oldSpec);
   for (const row of wovenFabricMatrix()) {
     const explicit=previous.cases.find(c=>c.id===row.preset).controls;
-    assert.equal(row.controls.underRatio,explicit.underRatio ?? .25); assert.equal(row.controls.crown,explicit.crown ?? 0);
+    assert.equal(row.controls.underRatio,row.preset==='combined-high' ? .5 : (explicit.underRatio ?? .25)); assert.equal(row.controls.crown,explicit.crown ?? 0);
   }
+});
+
+test('revision 3 narrows only material underRatio and combined-high; retained revision 2 bytes are immutable', async () => {
+ const bytes=name=>readFile(new URL('../fixtures/materials/woven-fabric/'+name,import.meta.url));
+ const pins={"qualification-plan-v2.json":"a6c4c05c327c7ca6534d77500a329f64538fbd708bd2544b7ec5e0770a065d90","material-v2.mix":"95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757","graph-proposal-v2.json":"fee0a3984d07d984957cf1f69b5d4465651367b6befcd0b3295916fabf16fa7f"};
+ for(const [name,digest]of Object.entries(pins))assert.equal(createHash('sha256').update(await bytes(name)).digest('hex'),digest);
+ for(const [current,old]of [['material.mix','material-v2.mix'],['graph-proposal.json','graph-proposal-v2.json']])assert.deepEqual(await bytes(current),await bytes(old));
+ const old=JSON.parse(await bytes('qualification-plan-v2.json')), next=JSON.parse(await bytes('qualification-plan.json'));
+ assert.equal(next.recipeRevision,3);assert.equal(next.previousPlan,'qualification-plan-v2.json');assert.deepEqual(next.controlRanges.underRatio,[.25,.5]);assert.equal(next.cases.find(c=>c.id==='combined-high').controls.underRatio,.5);
+ next.recipeRevision=old.recipeRevision;next.previousPlan=old.previousPlan;next.controlRanges.underRatio[1]=.75;next.cases.find(c=>c.id==='combined-high').controls.underRatio=.75;assert.deepEqual(next,old,'no other case, default, threshold, size, budget, timing, structural rule or amendment changes');
+ for(const r of [.50000001,.75])assert.throws(()=>wovenFabricRequest({underRatio:r}),/underRatio/);
+ for(const r of [.25,.5])assert.equal(wovenFabricRequest({underRatio:r}).controls.underRatio,r);
 });

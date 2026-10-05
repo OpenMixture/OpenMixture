@@ -1,0 +1,453 @@
+{
+  "status": "frozen",
+  "frozen": true,
+  "runtimeImplemented": true,
+  "materialId": "woven-fabric",
+  "designRole": "Stage A frozen material recipe specification; material.mix is its ordinary mix v1 expansion",
+  "requiresCatalogReview": false,
+  "baselineGraph": "graph-design.json",
+  "baselineCommit": "ca2e98b326ce5aad5f5029f9f10ef82ac113419a",
+  "nodes": [
+    {
+      "id": "n00-weftNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": "$weftSeed",
+        "scale": 4,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "n01-weftDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "n00-weftNoise.value"
+      },
+      "parameters": {
+        "scaleX": 8,
+        "scaleY": 1,
+        "quarterTurns": 1,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "n02-weftGrain",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "n01-weftDirection.value"
+      },
+      "parameters": {
+        "inputMin": 0.3,
+        "inputMax": 0.7,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "n03-warpNoise",
+      "type": "fractal-noise",
+      "version": 2,
+      "parameters": {
+        "seed": "$warpSeed",
+        "scale": 4,
+        "octaves": 2,
+        "persistence": 0.5,
+        "basis": "value"
+      }
+    },
+    {
+      "id": "n04-warpDirection",
+      "type": "transform-2d",
+      "version": 1,
+      "inputs": {
+        "in": "n03-warpNoise.value"
+      },
+      "parameters": {
+        "scaleX": 8,
+        "scaleY": 1,
+        "quarterTurns": 0,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "n05-warpGrain",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "n04-warpDirection.value"
+      },
+      "parameters": {
+        "inputMin": 0.3,
+        "inputMax": 0.7,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": 1
+      }
+    },
+    {
+      "id": "n06-weave-warp-share",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "warp-share",
+        "warpCount": "$warpCount",
+        "weftCount": "$weftCount",
+        "warpWidth": "$warpWidth",
+        "weftWidth": "$weftWidth",
+        "bevel": "$bevel",
+        "crown": "$crown",
+        "underRatio": "$underRatio"
+      }
+    },
+    {
+      "id": "n07-warpColor",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": "$warpDark",
+        "colorB": "$warpColor"
+      },
+      "inputs": {
+        "in": "n05-warpGrain.value"
+      }
+    },
+    {
+      "id": "n08-visibleGrain",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "n02-weftGrain.value",
+        "b": "n05-warpGrain.value",
+        "mask": "n06-weave-warp-share.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n09-weave-coverage",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "coverage",
+        "warpCount": "$warpCount",
+        "weftCount": "$weftCount",
+        "warpWidth": "$warpWidth",
+        "weftWidth": "$weftWidth",
+        "bevel": "$bevel",
+        "crown": "$crown",
+        "underRatio": "$underRatio"
+      }
+    },
+    {
+      "id": "n10-weftColor",
+      "type": "gradient-map",
+      "version": 1,
+      "parameters": {
+        "colorA": "$weftDark",
+        "colorB": "$weftColor"
+      },
+      "inputs": {
+        "in": "n02-weftGrain.value"
+      }
+    },
+    {
+      "id": "n11-surfaceColor",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "n10-weftColor.color",
+        "b": "n07-warpColor.color",
+        "mask": "n06-weave-warp-share.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n12-backingColor",
+      "type": "constant-color",
+      "version": 1,
+      "parameters": {
+        "value": "$backingColor"
+      }
+    },
+    {
+      "id": "n13-baseColor",
+      "type": "blend",
+      "version": 1,
+      "inputs": {
+        "a": "n12-backingColor.color",
+        "b": "n11-surfaceColor.color",
+        "mask": "n09-weave-coverage.value"
+      },
+      "parameters": {
+        "mode": "normal",
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n14-yarnRoughness",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "n08-visibleGrain.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": "$roughnessMin",
+        "outputMax": "$yarnRoughness"
+      }
+    },
+    {
+      "id": "n15-backingRoughness",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": "$backingRoughness"
+      }
+    },
+    {
+      "id": "n16-roughness",
+      "type": "scalar-mask-blend",
+      "version": 1,
+      "inputs": {
+        "a": "n15-backingRoughness.value",
+        "b": "n14-yarnRoughness.value",
+        "mask": "n09-weave-coverage.value"
+      },
+      "parameters": {
+        "opacity": 1
+      }
+    },
+    {
+      "id": "n17-weave-height",
+      "type": "weave-pattern",
+      "version": 1,
+      "parameters": {
+        "mode": "height",
+        "warpCount": "$warpCount",
+        "weftCount": "$weftCount",
+        "warpWidth": "$warpWidth",
+        "weftWidth": "$weftWidth",
+        "bevel": "$bevel",
+        "crown": "$crown",
+        "underRatio": "$underRatio"
+      }
+    },
+    {
+      "id": "n18-surfaceHeight",
+      "type": "levels",
+      "version": 1,
+      "inputs": {
+        "in": "n17-weave-height.value"
+      },
+      "parameters": {
+        "inputMin": 0,
+        "inputMax": 1,
+        "gamma": 1,
+        "outputMin": 0,
+        "outputMax": "$relief"
+      }
+    },
+    {
+      "id": "n19-zero",
+      "type": "constant-scalar",
+      "version": 1,
+      "parameters": {
+        "value": 0
+      }
+    },
+    {
+      "id": "n20-normal",
+      "type": "height-to-normal",
+      "version": 1,
+      "inputs": {
+        "in": "n18-surfaceHeight.value"
+      },
+      "parameters": {
+        "strength": "$normalStrength"
+      }
+    }
+  ],
+  "outputs": {
+    "baseColor": "n13-baseColor.color",
+    "normal": "n20-normal.normal",
+    "roughness": "n16-roughness.value",
+    "metallic": "n19-zero.value",
+    "height": "n18-surfaceHeight.value"
+  },
+  "inspectionAliases": {
+    "normalizedHeight": "n17-weave-height.value",
+    "coverage": "n09-weave-coverage.value",
+    "warpShare": "n06-weave-warp-share.value"
+  },
+  "controlMapping": {
+    "direct": [
+      "warpCount",
+      "weftCount",
+      "warpWidth",
+      "weftWidth",
+      "bevel",
+      "crown",
+      "underRatio",
+      "relief",
+      "normalStrength",
+      "warpSeed",
+      "weftSeed",
+      "warpColor",
+      "weftColor",
+      "backingColor",
+      "yarnRoughness",
+      "backingRoughness"
+    ],
+    "warpDark": "warpColor RGB*(1-4*detailAmount), alpha=1",
+    "weftDark": "weftColor RGB*(1-4*detailAmount), alpha=1",
+    "roughnessMin": "yarnRoughness*(1-2*detailAmount)"
+  },
+  "proposedDefaults": {
+    "warpCount": 8,
+    "weftCount": 8,
+    "warpWidth": 0.7,
+    "weftWidth": 0.7,
+    "bevel": 0.08,
+    "crown": 0,
+    "underRatio": 0.25,
+    "relief": 0.025,
+    "detailAmount": 0.08,
+    "normalStrength": 0.5
+  },
+  "notes": "Three weave instances share all seven geometry controls; only mode differs. Bindings and defaults are frozen in qualification-plan.json. Original proposal and existing-node baseline retained separately. Static projection remains an estimate until measured.",
+  "projection": {
+    "status": "static-estimate-not-measured",
+    "assumptions": "One 48-byte weave uniform, one rgba16float output and one pass per mode instance, no implicit defaults, existing plan-v3 lexical schedule/exact-descriptor reuse and one sequential staging buffer. Must verify in a later authorized implementation; no current compile/render exists.",
+    "passes": 21,
+    "physicalTextures": 8,
+    "uniformBytes": 592,
+    "at2048": {
+      "textureBytes": 268435456,
+      "readbackBufferBytes": 33554432,
+      "peakBytes": 301990480,
+      "logicalTextureBytes": 704643072
+    },
+    "slotTrace": [
+      {
+        "id": "n00-weftNoise",
+        "slot": 0,
+        "lastUse": 1
+      },
+      {
+        "id": "n01-weftDirection",
+        "slot": 1,
+        "lastUse": 2
+      },
+      {
+        "id": "n02-weftGrain",
+        "slot": 0,
+        "lastUse": 10
+      },
+      {
+        "id": "n03-warpNoise",
+        "slot": 1,
+        "lastUse": 4
+      },
+      {
+        "id": "n04-warpDirection",
+        "slot": 2,
+        "lastUse": 5
+      },
+      {
+        "id": "n05-warpGrain",
+        "slot": 1,
+        "lastUse": 8
+      },
+      {
+        "id": "n06-weave-warp-share",
+        "slot": 2,
+        "lastUse": 11
+      },
+      {
+        "id": "n07-warpColor",
+        "slot": 3,
+        "lastUse": 11
+      },
+      {
+        "id": "n08-visibleGrain",
+        "slot": 4,
+        "lastUse": 14
+      },
+      {
+        "id": "n09-weave-coverage",
+        "slot": 1,
+        "lastUse": 16
+      },
+      {
+        "id": "n10-weftColor",
+        "slot": 5,
+        "lastUse": 11
+      },
+      {
+        "id": "n11-surfaceColor",
+        "slot": 6,
+        "lastUse": 13
+      },
+      {
+        "id": "n12-backingColor",
+        "slot": 3,
+        "lastUse": 13
+      },
+      {
+        "id": "n13-baseColor",
+        "slot": 5,
+        "lastUse": 21
+      },
+      {
+        "id": "n14-yarnRoughness",
+        "slot": 0,
+        "lastUse": 16
+      },
+      {
+        "id": "n15-backingRoughness",
+        "slot": 2,
+        "lastUse": 16
+      },
+      {
+        "id": "n16-roughness",
+        "slot": 4,
+        "lastUse": 21
+      },
+      {
+        "id": "n17-weave-height",
+        "slot": 0,
+        "lastUse": 18
+      },
+      {
+        "id": "n18-surfaceHeight",
+        "slot": 1,
+        "lastUse": 21
+      },
+      {
+        "id": "n19-zero",
+        "slot": 0,
+        "lastUse": 21
+      },
+      {
+        "id": "n20-normal",
+        "slot": 7,
+        "lastUse": 21
+      }
+    ]
+  },
+  "materialAccepted": false
+}

@@ -4,7 +4,7 @@
   "runtimeImplemented": true,
   "materialAccepted": false,
   "materialId": "woven-fabric",
-  "recipeRevision": 3,
+  "recipeRevision": 2,
   "stage": "A-public-material-matrix",
   "contract": "docs/mat-03-woven-surfaces.md",
   "recipe": "graph-proposal.json",
@@ -82,7 +82,7 @@
     ],
     "underRatio": [
       0.25,
-      0.5
+      0.75
     ],
     "relief": [
       0,
@@ -400,7 +400,7 @@
         "weftWidth": 0.9,
         "bevel": 0.12,
         "crown": 1,
-        "underRatio": 0.5,
+        "underRatio": 0.75,
         "relief": 0.05,
         "detailAmount": 0.1,
         "normalStrength": 1,
@@ -748,7 +748,7 @@
       "Stage D"
     ]
   },
-  "previousPlan": "qualification-plan-v2.json",
+  "previousPlan": "qualification-plan-v1.json",
   "structuralProbes": {
     "status": "frozen",
     "stage": "B",

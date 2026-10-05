@@ -459,3 +459,11 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。图片及普通日志不提交。
 
 代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。阶段 C 评审图已生成，维护者视觉决定待定；阶段 D 保留证据及接受记录随后另行处理。
+
+## 维护者范围修订——2026-10-06（配方修订 3）
+
+阶段 C 维护者接受 plain、varied、warp-seed、weft-seed、combined-low，但指出 combined-high 在 underRatio=0.75 时出现蝴蝶结／骨头形纱线：抬高的下层纱线胜过上层边缘。批准的候选仅将材质 underRatio 范围从 [0.25,0.75] 缩为 [0.25,0.5]。节点 weave-pattern@1 范围仍为 [0.25,0.75]，语义不变。唯一修改用例为 **combined-high**，underRatio 0.75→0.5。其他控制、默认值、用例、压力设置、尺寸、阈值、预算、耗时目标及阶段 B 规则／修订完全不变。
+
+测量前在当前夹具旁按原字节保留 qualification-plan-v2.json、material-v2.mix 和 graph-proposal-v2.json。当前材质和图本身字节不变。qualification-plan.json 设置 recipeRevision=3、previousPlan=qualification-plan-v2.json。全计划回归只允许这些元数据、一个范围上界及一个用例值变化；构建器对该材质拒绝大于 0.5 的值。独立冻结阶段 C 评审计划此时仍为历史修订 2 配置。
+
+先用未修改的修订 2 半占用核心收窄度量，在 1024² 比较 combined-high 的 0.75 与 0.5：公开 CLI 使用诊断颜色和 detailAmount=0，其余几何与起伏保持 combined-high。报告全部轴向扫描线的经／纬 min、median、max。如 0.5 仍有明显蝴蝶结，立即停止并报告，不自行选择其他上界。全矩阵／探针重跑及六张新版评审图以此结果为前提。本修订人工及材质接受仍为 false，D 待完成。
