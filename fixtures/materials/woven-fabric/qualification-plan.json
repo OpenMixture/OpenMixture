@@ -748,5 +748,678 @@
       "Stage D"
     ]
   },
-  "previousPlan": "qualification-plan-v1.json"
+  "previousPlan": "qualification-plan-v1.json",
+  "structuralProbes": {
+    "status": "frozen",
+    "stage": "B",
+    "materialAccepted": false,
+    "recipeRevision": 2,
+    "stageAUnchanged": true,
+    "observation": "private cfg(test) RawHalf through production executor; output aliases retain all 21 graph passes; no public raw API or CPU renderer",
+    "sizes": [
+      [
+        256,
+        256
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        2048,
+        2048
+      ],
+      [
+        257,
+        129
+      ]
+    ],
+    "fields": {
+      "H": "n17-weave-height",
+      "C": "n09-weave-coverage",
+      "S": "n06-weave-warp-share",
+      "height": "n18-surfaceHeight",
+      "roughness": "n16-roughness",
+      "baseColor": "n13-baseColor",
+      "normal": "n20-normal"
+    },
+    "tolerances": {
+      "exactRawHalf": [
+        "C at crossing/gap",
+        "S at crossing/gap",
+        "zero-relief height/normal",
+        "same-mode instance equality",
+        "normal replay and cyclic shifts",
+        "seed repeats",
+        "unaffected fields",
+        "periodic translations"
+      ],
+      "analyticalHeightAbsolute": 0.0009765625,
+      "justification": "Sparse four-tap center oracle: 1/1024 bounds two binary16 ULPs below one plus f32 arithmetic; not applied to exact endpoints, repeats, replay or periodicity."
+    },
+    "crossing": {
+      "cases": [
+        "plain",
+        "varied"
+      ],
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "uv": "every ((i+0.5)/warpCount,(j+0.5)/weftCount), 0<=i<warpCount,0<=j<weftCount; sample containing pixel floor(uv*size)",
+      "footprint": "four offsets (0.25,0.25),(0.75,0.25),(0.25,0.75),(0.75,0.75) divided by size; oracle evaluates these UVs, never assumes center-aligned texels",
+      "gapUv": "every (i/warpCount,j/weftCount), same containing-pixel rule",
+      "assertions": [
+        "even i+j: S=1; odd: S=0; C=1",
+        "at each center tap upper>lower; stored H matches four-tap upper oracle within 1/1024 and exceeds every lower tap",
+        "gap H=C=0,S=0.5",
+        "three instances have identical geometry and identical raw output when each mode is observed on each instance"
+      ],
+      "geometryControls": [
+        "warpCount",
+        "weftCount",
+        "warpWidth",
+        "weftWidth",
+        "bevel",
+        "crown",
+        "underRatio"
+      ]
+    },
+    "flat": {
+      "case": "flat",
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "heightRaw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "normalRaw": [
+        0.5,
+        0.5,
+        1,
+        1
+      ],
+      "scope": "every pixel; exact binary16"
+    },
+    "isolation": {
+      "case": "plain",
+      "size": [
+        257,
+        129
+      ],
+      "repeatExact": true,
+      "variants": [
+        {
+          "control": "warpColor",
+          "value": [
+            0.7,
+            0.2,
+            0.4,
+            1
+          ],
+          "changed": [
+            "baseColor"
+          ]
+        },
+        {
+          "control": "weftColor",
+          "value": [
+            0.7,
+            0.2,
+            0.4,
+            1
+          ],
+          "changed": [
+            "baseColor"
+          ]
+        },
+        {
+          "control": "backingColor",
+          "value": [
+            0.7,
+            0.2,
+            0.4,
+            1
+          ],
+          "changed": [
+            "baseColor"
+          ]
+        },
+        {
+          "control": "yarnRoughness",
+          "value": 0.4,
+          "changed": [
+            "roughness"
+          ]
+        },
+        {
+          "control": "backingRoughness",
+          "value": 0.4,
+          "changed": [
+            "roughness"
+          ]
+        },
+        {
+          "control": "normalStrength",
+          "value": 1,
+          "changed": [
+            "normal"
+          ]
+        },
+        {
+          "control": "relief",
+          "value": 0.05,
+          "changed": [
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "warpSeed",
+          "value": 4294967295,
+          "changed": [
+            "baseColor",
+            "roughness"
+          ]
+        },
+        {
+          "control": "weftSeed",
+          "value": 4294967295,
+          "changed": [
+            "baseColor",
+            "roughness"
+          ]
+        },
+        {
+          "control": "warpCount",
+          "value": 12,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "weftCount",
+          "value": 12,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "warpWidth",
+          "value": 0.6,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "weftWidth",
+          "value": 0.85,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "bevel",
+          "value": 0.12,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "crown",
+          "value": 1,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        {
+          "control": "underRatio",
+          "value": 0.75,
+          "changed": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        }
+      ],
+      "assertions": "every listed channel must change at least one delivered byte; all other channels exact; two renders exact; geometry parameters identical across three instances; H/C/S finite in [0,1]; C invariant for crown/underRatio; all H/C/S invariant for nongeometry controls"
+    },
+    "normalReplay": {
+      "cases": [
+        "plain",
+        "varied",
+        "no-detail",
+        "flat",
+        "warp-seed",
+        "weft-seed",
+        "combined-low",
+        "combined-high",
+        "neutral-normal",
+        "constant-low",
+        "constant-high",
+        "max-normal"
+      ],
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "offsets": "(0,0),(1,0),(0,1),(floor(width/2),floor(height/2))",
+      "assertion": "upload captured raw height; production height-to-normal output must equal identically shifted graph raw normal byte-for-byte"
+    },
+    "noisePeriodicity": {
+      "parameters": [
+        [
+          4,
+          2,
+          1729
+        ],
+        [
+          4,
+          2,
+          65537
+        ],
+        [
+          4,
+          2,
+          4294967295
+        ],
+        [
+          4,
+          2,
+          0
+        ]
+      ],
+      "persistence": 0.5,
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "origins": "(width,0),(0,height),(width+3,height+5)",
+      "assertion": "unwrapped production fixed v2 input; exact raw half against cyclically indexed baseline; nonconstant and finite normalized"
+    },
+    "weavePeriodicity": {
+      "cases": [
+        "plain",
+        "varied",
+        "no-detail",
+        "flat",
+        "warp-seed",
+        "weft-seed",
+        "combined-low",
+        "combined-high",
+        "neutral-normal",
+        "constant-low",
+        "constant-high",
+        "max-normal"
+      ],
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          2048,
+          2048
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "modes": [
+        "height",
+        "coverage",
+        "warp-share"
+      ],
+      "origins": "(width,0),(0,height),(width,height)",
+      "assertion": "full-period unwrapped production weave_box input versus graph-alias H/C/S; raw-half exact"
+    },
+    "stress": {
+      "cases": [
+        "dense-thin"
+      ],
+      "sizes": [
+        [
+          256,
+          256
+        ],
+        [
+          1024,
+          1024
+        ],
+        [
+          257,
+          129
+        ]
+      ],
+      "assertions": [
+        "H,C,S finite normalized",
+        "C=0 implies H=0,S=0.5",
+        "same geometry on three instances",
+        "final-height normal replay exact at all four frozen offsets"
+      ],
+      "qualityScope": "outside default/varied downsample and visual guarantees; no crossing-center quality assertion at undersampled stress size"
+    },
+    "failurePolicy": "stop on frozen failure; report backend, case, size, field, pixel, actual and expected; never loosen tolerance",
+    "amendments": [
+      {
+        "id": "2026-10-04-exact-where-exact",
+        "date": "2026-10-04",
+        "authority": "Maintainer decision on PR #84 at 8771d83",
+        "scope": "weavePeriodicity only; all other frozen plan fields remain unchanged",
+        "reason": "Maintainer accepted that f32 fract(1+x) can differ from x for non-power-of-two sample denominators; this test-origin rounding is not a production seam. Production coordinates remain inside one tile; final-height normal periodic boundaries are separately tested.",
+        "failingReceipt": {
+          "implementationRevision": "47e2dd851303dccdee95b58f5da06cb391645978",
+          "recordRevision": "8771d83439e87cb2dca79c5ffb488cc7be09a2a9",
+          "log": "tmp/woven-stage-b/periodic/vulkan-weave.log",
+          "adapter": "NVIDIA GeForce GT 1030",
+          "backend": "Vulkan",
+          "case": "plain",
+          "size": [
+            257,
+            129
+          ],
+          "mode": "height",
+          "origin": [
+            257,
+            0
+          ],
+          "pixel": [
+            59,
+            0
+          ],
+          "actualHalf": [
+            2149,
+            0,
+            0,
+            15360
+          ],
+          "expectedHalf": [
+            2150,
+            0,
+            0,
+            15360
+          ]
+        },
+        "before": {
+          "rule": "full-period unwrapped production weave_box input versus graph-alias H/C/S; raw-half exact",
+          "maximumHalfSteps": 0
+        },
+        "after": {
+          "zeroOrigin": "exact raw-half bit equality at every size",
+          "bothAxesPowerOfTwo": "exact raw-half bit equality for every full-period and period-plus-interior shift",
+          "nonPowerOfTwo": "each component differs by at most one adjacent finite binary16 step, with no sign/zero crossing beyond that step",
+          "maximumHalfSteps": 1,
+          "ordering": "negative bits complemented; nonnegative bits XOR 0x8000; absolute integer rank difference. -0 and +0 are adjacent; no multi-step crossing is accepted.",
+          "statistics": "report differing component/pixel counts, maximum observed half steps and absolute component difference per case/size/mode and per origin; failing rows are identified and remaining rows are unrun"
+        },
+        "unchanged": [
+          "zero-origin identity",
+          "power-of-two exactness",
+          "noise exactness",
+          "all cases and sizes",
+          "all other tolerances, Stage A gates and budgets",
+          "recipe revision 2 defaults",
+          "production shader bytes, ABI and Core lowering"
+        ]
+      },
+      {
+        "id": "2026-10-04-coverage-weighted-share",
+        "date": "2026-10-04",
+        "authority": "Maintainer second amendment on PR #84 at 6991f46",
+        "scope": "Nonzero-origin 257x129 warp-share comparison only",
+        "reason": "The node contract requires continuity of visible weights, not an unobservable conditional selector through a gap. Share divides sumVw by sumC; raw S remains reported.",
+        "failingReceipt": {
+          "implementationRevision": "8f84e7d7cd435a1760b5ed01531b66f07348af4e",
+          "recordRevision": "6991f465b4d420af9cbfc630512ea0de881f4757",
+          "receipt": "tmp/woven-stage-b/amendment/vulkan/woven-weave-periodic.json",
+          "backend": "Vulkan",
+          "adapter": "NVIDIA GeForce GT 1030",
+          "case": "plain",
+          "size": [
+            257,
+            129
+          ],
+          "mode": "warp-share",
+          "origin": [
+            257,
+            0
+          ],
+          "pixel": [
+            231,
+            23
+          ],
+          "actualHalf": 2492,
+          "expectedHalf": 2496,
+          "maximumHalfSteps": 4
+        },
+        "before": "First amendment: raw odd-size S at most one adjacent half step",
+        "after": {
+          "zeroOrigin": "Exact raw-half identity in every mode at every size",
+          "powerOfTwo": "Exact raw-half equality in all three modes including raw S for all shifts",
+          "oddHeightCoverage": "At most one adjacent half step, unchanged",
+          "oddWarpShare": "P_i=f32(S_i*C_i), using captured half S and C from identical pixel/origin; abs(f64(P_1)-f64(P_2)) <= B",
+          "ulp": "u(x) is the larger finite adjacent binary16 spacing at stored nonnegative x; u(0)=2^-24. All S,C must be finite in [0,1].",
+          "inequality": "eSi=u(Si)/2; eCi=u(Ci)/2; Ei=Ci*eSi+Si*eCi+eSi*eCi; dC=max(u(C1),u(C2)); sMax=min(1,max(S1+eS1,S2+eS2)); B=E1+E2+sMax*dC",
+          "derivation": "For each product, independent half-storage uncertainties give |(Si+ds)(Ci+dc)-Si*Ci| <= Ci*eSi+Si*eCi+eSi*eCi. One allowed coverage step changes visible weight by at most sMax*dC. Sum the two endpoint storage envelopes and this one coverage allowance; coefficient k=1, no fitted factor. This defines the allowed product-rounding envelope; it does not prove all translated-coordinate errors fit it or bound independent geometric share changes. Such excess fails.",
+          "arithmetic": "Two nonnegative binary16 values in [0,1] have an exact f32 product (at most 22 significand bits and exponent >= -48); subtract converted products and evaluate B in f64, with no additional f32-product tolerance.",
+          "statistics": "Report raw S differing count/max half steps, maximum absolute product difference, maximum difference/bound and its pixel/values, per case/size/mode/origin. Ratio is zero when difference=bound=0; positive difference with zero bound fails."
+        },
+        "unchanged": "All original plan fields and first amendment, cases, sizes, Stage A/B gates except this rule, defaults, production bytes/ABI/lowering remain unchanged"
+      },
+      {
+        "id": "2026-10-04-odd-share-observation-only",
+        "date": "2026-10-04",
+        "authority": "Maintainer third amendment on PR #84 at f9e0a51",
+        "scope": "257x129 nonzero-origin warp-share only; raw S and visible P are observations, never a pass",
+        "reason": "Corrected analysis: at the failing pixel C=1 on both sides, not tiny coverage. Steep depth/visibility selector D, width 2*bevel*(1-underRatio), amplifies f32 fract(1+x) coordinate rounding. The second-amendment envelope was exceeded.",
+        "failingReceipt": {
+          "implementationRevision": "4af7e46b37c49baf73fc27948c571cd80cf7d104",
+          "recordRevision": "f9e0a51cf83859ce148ae34529d887bcb225fb21",
+          "receipt": "tmp/woven-stage-b/amendment2/vulkan/woven-weave-periodic.json",
+          "backend": "Vulkan",
+          "adapter": "NVIDIA GeForce GT 1030",
+          "case": "plain",
+          "size": [
+            257,
+            129
+          ],
+          "mode": "warp-share",
+          "origin": [
+            257,
+            0
+          ],
+          "pixel": [
+            231,
+            23
+          ],
+          "actualShareHalf": 2492,
+          "expectedShareHalf": 2496,
+          "actualCoverageHalf": 15360,
+          "expectedCoverageHalf": 15360,
+          "productDifference": 4.76837158203125e-7,
+          "bound": 4.618195816874504e-7,
+          "ratio": 1.032518275775145
+        },
+        "before": "Second amendment gated odd translated visible weight by its analytical envelope",
+        "after": {
+          "zeroOrigin": "Exact raw-half identity for all modes and all sizes",
+          "powerOfTwo": "Exact raw-half equality for all three modes including raw S and all shifts",
+          "oddHeightCoverage": "257x129 H/C remain at most one adjacent half step",
+          "oddWarpShare": "Nonzero-origin 257x129 raw S and visible P are ungated measured limitations; no pass status for these rows",
+          "qualityScope": "observation-only: odd-size translated warp-share and visible weight are outside the periodicity quality guarantee; not a pass, not material acceptance",
+          "statistics": "Report raw S differing pixels/components and maximum half steps; maximum absolute P difference and maximum ratio to the unchanged amendment-2 envelope, with source pixels and values, per case/size/mode/origin. Retain zero-origin exact gates, normalized finite values and same-origin coverage gate."
+        },
+        "unchanged": "Original plan and amendments 1/2 remain history; all other cases, sizes, thresholds, defaults, budgets and production bytes/ABI/lowering unchanged"
+      },
+      {
+        "id": "2026-10-04-software-size-scope",
+        "date": "2026-10-04",
+        "authority": "Maintainer fourth amendment on PR #84 at 671cf76",
+        "scope": "Backend-scoped Stage B sizes only; preserve original per-probe scopes",
+        "reason": "Pinned SwiftShader job reached its unchanged 45-minute timeout; omit 2048x2048 on reported Cpu adapters, retain required hardware coverage",
+        "partialReceipt": {
+          "run": 37185577047,
+          "head": "671cf76bd2a31c440253313c40ae428b7aec24ac",
+          "artifact": "swiftshader-material-evidence",
+          "receipt": "woven-weave-periodic.json",
+          "adapter": "SwiftShader Device (LLVM 10.0.0)",
+          "rowsCompleted": 582,
+          "rowsPlanned": 720,
+          "failures": 0,
+          "interruptedCase": "constant-low",
+          "interruptedSize": [
+            2048,
+            2048
+          ],
+          "interval": [
+            "07:23:46",
+            "08:07:53"
+          ],
+          "status": "cancelled; partial observations, not qualification"
+        },
+        "after": {
+          "classification": "Use actual reported adapter.deviceType == Cpu; environment alone never determines scope. All other reported types retain hardware size coverage.",
+          "hardwareSizes": [
+            [
+              256,
+              256
+            ],
+            [
+              1024,
+              1024
+            ],
+            [
+              2048,
+              2048
+            ],
+            [
+              257,
+              129
+            ]
+          ],
+          "softwareSizes": [
+            [
+              256,
+              256
+            ],
+            [
+              1024,
+              1024
+            ],
+            [
+              257,
+              129
+            ]
+          ],
+          "perProbeScopes": "Intersect backend size selection with the existing frozen probe scope. Crossing, flat, normal replay, selected noise and weave translation retain four hardware sizes. Isolation remains 257x129 only; stress remains 256x256/1024x1024/257x129 on both backends. No new control/stress scope is inferred.",
+          "hardwareGuard": "Reject a material size set missing 2048x2048; full-matrix probes must execute every selected size, including hardware 2048x2048.",
+          "receipts": "Every probe records adapter classification, frozen probe sizes, executed sizes, and omitted 2048x2048 rows with status notRunOnSoftware, passed:null, and this amendment id. Existing out-of-scope sizes are not software omissions. Partial execution is never completed qualification.",
+          "qualification": "Software passes never qualify hardware pixels; odd translated S/P remain ungated observations; all earlier comparison rules unchanged"
+        },
+        "runtimeEstimate": {
+          "model": "Pixel-proportional extrapolation of interrupted weave translation; no measured new SwiftShader runtime",
+          "pixelsPerSize": [
+            65536,
+            1048576,
+            4194304,
+            33153
+          ],
+          "partialComparisonPixels": 788155143,
+          "softwareComparisonPixels": 206507700,
+          "softwareToPartialRatio": 0.26201402329744106,
+          "reducedWeaveMinutes": 11.559185327805443,
+          "estimatedTotalJobMinutes": [
+            20.559185327805444,
+            26.559185327805444
+          ],
+          "assumptions": "582 rows: nine complete 60-row cases plus constant-low 15/15/12 rows at 256/1024/2048. Charge the entire 44m07 interval to that work; add main normal 9-15 minutes. Per-size dispatch/compilation/readback and other probes can differ; CI must verify target below unchanged 45 minutes."
+        },
+        "unchanged": "All earlier rules/amendments, tolerances, cases, defaults, Stage A size/timing/budget gates, production shaders/runtime/API and workflow timeout remain unchanged"
+      }
+    ]
+  }
 }

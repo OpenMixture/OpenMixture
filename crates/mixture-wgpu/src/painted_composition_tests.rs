@@ -126,7 +126,12 @@ fn capture(context: &GpuContext, source: &[u8], request: &CompileRequest) -> (Ve
 }
 
 // A probe of the existing production kernel, never a CPU normal implementation.
-fn replay_normal(context: &GpuContext, height: &[u8], size: [u32; 2], strength: f32) -> Vec<u8> {
+pub(super) fn replay_normal(
+    context: &GpuContext,
+    height: &[u8],
+    size: [u32; 2],
+    strength: f32,
+) -> Vec<u8> {
     let device = context.device();
     let queue = context.queue();
     assert_eq!(height.len(), size[0] as usize * size[1] as usize * 8);
@@ -342,7 +347,7 @@ fn graph_gpu_painted_composition_and_final_height_normal_replay() {
 }
 
 // Rearrange captured pixels only. No height or normal values are computed here.
-fn periodic_shift(bytes: &[u8], size: [u32; 2], offset: [u32; 2]) -> Vec<u8> {
+pub(super) fn periodic_shift(bytes: &[u8], size: [u32; 2], offset: [u32; 2]) -> Vec<u8> {
     let [width, height] = size.map(|v| v as usize);
     assert_eq!(bytes.len(), width * height * 8);
     let mut shifted = vec![0; bytes.len()];
