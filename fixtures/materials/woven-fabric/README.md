@@ -6,7 +6,9 @@ The material plan is frozen and the node is implemented; **materialAccepted=fals
 
 The [staged plan](../../../docs/mat-03-woven-surfaces.md) retains the merged Stage A public Native/browser matrix. This PR adds Stage B raw-half/structural/periodic/normal-replay/stress probes; C dielectric PBR/human decision and D retained evidence/acceptance require later PRs. This matrix does not establish structural, PBR or human acceptance.
 
-Current material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. The maintainer accepted these defaults on 2026-10-04; residual pinch is recorded, and full PBR/human review remains Stage C. materialAccepted=false.
+The preceding material is [explicit recipe revision 2](../../../docs/mat-03-default-revision.md): only defaults underRatio=0.25 and crown=0 change; all frozen gates remain identical. Historical Stage A observations below describe revision 1, not qualification of revision 2; the caller-controls table describes current defaults. The maintainer accepted these defaults on 2026-10-04; residual pinch is recorded, and full PBR/human review remains Stage C. materialAccepted=false.
+
+Current candidate is recipe revision 3: material underRatio upper bound 0.5, only combined-high changes. Residual bow-tie triggers the pinch stop; requalification and new sheets are not produced. Revision-2 results below are history.
 
 ## Stage A source-bound local observations
 
@@ -323,3 +325,16 @@ The Stage C maintainer accepts plain, varied, warp-seed, weft-seed and combined-
 Before measurements, preserve revision 2 bytes in qualification-plan-v2.json, material-v2.mix and graph-proposal-v2.json beside the current fixture. The current material and graph bytes themselves do not change. qualification-plan.json sets recipeRevision=3 and previousPlan=qualification-plan-v2.json. The whole-plan regression permits only that metadata, one range bound and one case value; the builder rejects values above 0.5 for this material. The separate frozen Stage C review-plan file remains the historical revision-2 review configuration at this point.
 
 First compare combined-high at 0.75 and 0.5 with the unchanged revision-2 half-occupancy-core pinch metric at 1024², using public CLI diagnostic colors and detailAmount=0; all geometry and relief remain combined-high. Report warp/weft min/median/max over every axial scanline. If clear bow-tie remains at 0.5, stop and report; do not choose a different bound. Full matrix/probe reruns and six revised review sheets are conditional on that finding. Human acceptance and material acceptance of the revision remain false; D remains pending.
+
+### Revision-3 pinch stop — 2026-10-06
+
+Public release CLI measurements at clean amendment commit 6fb42c63951abdfd09af0831257663fa95fe07e6, NVIDIA GeForce GT 1030 Vulkan, use the unchanged revision-2 metric function. Material SHA-256: 95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757; existing release CLI executable SHA-256: a07c565ea50079025ab24b535b57f99d47e4c66a802a24554e866364dcd1766e. The executable is an existing build, not a new build at the amendment commit; production code is unchanged. Each ratio observes 512 crossings and 16,384 axial scanlines per axis at 1024². Only diagnostic colors and detailAmount=0 differ from combined-high. The historical 0.75 case uses explicit public CLI overrides (node-valid), since the revised material builder correctly rejects it.
+
+| underRatio | Warp min / median / max | Weft min / median / max |
+|---|---|---|
+| 0.75 (revision 2) | 0.4166666667 / 0.7083333333 / 1 | 0.4166666667 / 0.7083333333 / 1 |
+| 0.5 (revision 3 candidate) | 0.5833333333 / 0.7916666667 / 1 | 0.5833333333 / 0.7916666667 / 1 |
+
+The minimum is 14 of 24 core pixels at 0.5 versus 10 of 24 at 0.75. Although improved, 41.7% core-width loss remains versus the full-width spans; the diagnostic crop visibly retains the bow-tie. **Stop condition triggered before qualification.** This is not a newly invented numeric threshold or proof that existing node composition is impossible. No other bound, crown, relief or node change was attempted.
+
+Receipts/commands/PNGs: ignored tmp/woven-review-r3/pinch.json and pinch-{0.75,0.5}/; crossing.png is an unscaled 256² crop at (384,384). New Native Vulkan/DX12 matrices, browser candidate/comparison, seven Stage B probes and six PBR sheets were not run/generated after this finding. Existing revision-2 receipts are not revision-3 qualification. Stage C is blocked awaiting the maintainer's next decision; D and both acceptance decisions remain pending. Repository CPU checks are delivery checks only.

@@ -8,6 +8,8 @@
 
 当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
 
+当前候选为配方修订 3：材质 underRatio 上界为 0.5，仅 combined-high 用例改变；收窄度量仍有明显蝴蝶结，已停止重验及新图生成。下文修订 2 结果为历史记录。
+
 ## 阶段 A 绑定源码的本地观测
 
 干净提交 **69fb6074477f3c156e775779cb0a3770cef5189a** 的公开矩阵通过；本结果提交只更新记录，不更改冻结配方、控制、用例或门槛。计划 reviewMeasurements 绑定实测计划／源图／构建器 SHA-256 及浏览器 buildId；后续元数据不能冒充该次执行。早期 Vulkan 独立运行绑定 9d0ddad，同一图及门槛；下表采用 69fb607 的最终对比运行。
@@ -323,3 +325,16 @@ node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-request
 测量前在当前夹具旁按原字节保留 qualification-plan-v2.json、material-v2.mix 和 graph-proposal-v2.json。当前材质和图本身字节不变。qualification-plan.json 设置 recipeRevision=3、previousPlan=qualification-plan-v2.json。全计划回归只允许这些元数据、一个范围上界及一个用例值变化；构建器对该材质拒绝大于 0.5 的值。独立冻结阶段 C 评审计划此时仍为历史修订 2 配置。
 
 先用未修改的修订 2 半占用核心收窄度量，在 1024² 比较 combined-high 的 0.75 与 0.5：公开 CLI 使用诊断颜色和 detailAmount=0，其余几何与起伏保持 combined-high。报告全部轴向扫描线的经／纬 min、median、max。如 0.5 仍有明显蝴蝶结，立即停止并报告，不自行选择其他上界。全矩阵／探针重跑及六张新版评审图以此结果为前提。本修订人工及材质接受仍为 false，D 待完成。
+
+### 修订 3 收窄测量触发停止——2026-10-06
+
+在干净修订提交 6fb42c63951abdfd09af0831257663fa95fe07e6 上，使用公开 release CLI、NVIDIA GeForce GT 1030 Vulkan 及未修改的修订 2 度量函数。材质 SHA-256：95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757；现有 release CLI 可执行文件 SHA-256：a07c565ea50079025ab24b535b57f99d47e4c66a802a24554e866364dcd1766e。该程序为现有构建，并非本修订提交的新构建；生产代码不变。每个比例在 1024² 下分别观察每轴 512 个交点、16,384 条轴向扫描线。相对于 combined-high，仅诊断颜色及 detailAmount=0 不同。历史 0.75 用例通过公开 CLI 显式覆盖（节点允许），因为修订材质构建器正确拒绝该值。
+
+| underRatio | 经线 min / median / max | 纬线 min / median / max |
+|---|---|---|
+| 0.75（修订 2） | 0.4166666667 / 0.7083333333 / 1 | 0.4166666667 / 0.7083333333 / 1 |
+| 0.5（修订 3 候选） | 0.5833333333 / 0.7916666667 / 1 | 0.5833333333 / 0.7916666667 / 1 |
+
+0.5 的最小宽度为核心 24 像素中的 14，0.75 为 10。虽有改善，相对全宽段仍损失 41.7% 核心宽度；诊断裁剪仍明显呈蝴蝶结。**在验收前触发停止条件。** 这不是新设数值阈值，也不是现有节点合成不可能的证明。没有尝试其他上界、crown、relief 或节点修改。
+
+回执／命令／PNG 位于忽略目录 tmp/woven-review-r3/pinch.json 及 pinch-{0.75,0.5}/；crossing.png 为 (384,384) 起点的 256² 原分辨率裁剪。此结果后未运行新版 Native Vulkan／DX12 矩阵、浏览器候选／比较、七项阶段 B 探针，也未生成六张 PBR 图。既有修订 2 回执不代表修订 3 验收。阶段 C 阻塞，等待维护者下一决定；D 和两个接受决定仍待处理。仓库 CPU 检查仅用于交付。
