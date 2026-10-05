@@ -307,3 +307,11 @@ node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-request
 ```
 
 先提交工具，构建、比较及预览均使用干净工作树；Native 比较使用 GT 1030 Vulkan，浏览器使用已安装 Chrome。各输出目录必须全新。织物工具通过唯一锚点变换复用未修改的砖材电介质 HTML（仅视图比例、粗糙度检查和布局）；MAT-01／MAT-02 源字节与历史回执不变。测试固定这些源码及评审计划。五个输入通道对照绑定生产身份的浏览器像素哈希和 Native／浏览器一致性校验；metallic 必须精确为零。六张 `<preset>-pbr.png`、三张独立粗糙度检查图、`index.html` 及 `preview.json` 绑定回执、渲染器、计划与图像哈希，并记录运行参数、适配器及浏览器身份。4× 视图放大固定投影而非改变材质频率。这是消费端可视化，不是另一图执行器、置换、布料模拟、新周期门槛或人工接受。
+
+### 阶段 C 生成结果——人工决定待定
+
+评审设置在实现前由 44746d4 冻结。干净生产／工具修订 `6eb52a6a4de18ae0f8081e6314cff0215e249783` 构建候选并通过已安装 Chrome 154.0.8037.98 验证（23 项测试）。必须显式设置 `MIXTURE_BROWSER_CHANNEL=chrome`：首次调用使用默认 Chromium，已停止，其不完整输出不计入证据。`check-woven.mjs` 对 NVIDIA GeForce GT 1030 Vulkan 的 255 项比较全部通过（最大通道分量差 1/255）；冻结降采样及四项耗时门槛均通过。
+
+生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。图片及普通日志不提交。
+
+代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。阶段 C 评审图已生成，维护者视觉决定待定；阶段 D 保留证据及接受记录随后另行处理。
