@@ -295,3 +295,15 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 [评审计划](./pbr-review-plan.json)在工具实现和图像生成前冻结 plain、varied、combined-low、combined-high、warp-seed、weft-seed 六个 1024² 预设。每个预设包含平面／球体的 1×、3× 平铺及 4× 特写，以及五通道缩略图。复用 MAT-01 电介质 GGX：固定正交相机、600² 画布、位置缩放 2.5、视线 (0,0,1)，归一化主光 (-0.4,0.6,1) ×3、补光 (0.8,0.1,0.5) ×0.7、基色环境项 ×0.12。计划固定色调映射及 gamma 2.2；F0=0.04、metallic=0，粗糙度限于 [0.04,1]。高度仅展示，不置换几何。强制粗糙度 0/1/0 须改变明暗并精确重复，且不计入材质评审图。
 
 输入必须是成功且源码干净的公开 Native／浏览器比较，源码、计划、构建器、修订、包及尺寸身份一致。回执绑定全部输入、截图及渲染器字节。人工接受与材质接受均保持 false；代理检查不是人工决定。阶段 D 保留证据及接受记录另行处理。
+
+### 生成绑定生产身份的织物视图
+
+```sh
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/woven-review/browser
+node scripts/browser-runtime/check-woven.mjs tmp/woven-review/browser tmp/woven-review/comparison
+node scripts/woven-material-preview.mjs tmp/woven-review/comparison tmp/woven-review/pbr
+node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-requests.test.mjs
+```
+
+先提交工具，构建、比较及预览均使用干净工作树；Native 比较使用 GT 1030 Vulkan，浏览器使用已安装 Chrome。各输出目录必须全新。织物工具通过唯一锚点变换复用未修改的砖材电介质 HTML（仅视图比例、粗糙度检查和布局）；MAT-01／MAT-02 源字节与历史回执不变。测试固定这些源码及评审计划。五个输入通道对照绑定生产身份的浏览器像素哈希和 Native／浏览器一致性校验；metallic 必须精确为零。六张 `<preset>-pbr.png`、三张独立粗糙度检查图、`index.html` 及 `preview.json` 绑定回执、渲染器、计划与图像哈希，并记录运行参数、适配器及浏览器身份。4× 视图放大固定投影而非改变材质频率。这是消费端可视化，不是另一图执行器、置换、布料模拟、新周期门槛或人工接受。

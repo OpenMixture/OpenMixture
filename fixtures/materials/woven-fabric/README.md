@@ -295,3 +295,15 @@ Hardware verification at 6e95f1f: all seven focused release probes passed their 
 The [review plan](./pbr-review-plan.json) freezes plain, varied, combined-low, combined-high, warp-seed and weft-seed at 1024² before tooling or image generation. Each preset has plane/sphere views at 1× and 3× tiling and a 4× close-up, plus five channel thumbnails. The MAT-01 dielectric GGX view uses a fixed orthographic camera, 600² canvases, position scale 2.5, view direction (0,0,1), normalized key (-0.4,0.6,1) ×3, fill (0.8,0.1,0.5) ×0.7 and base-color ambient ×0.12. Tone mapping and gamma 2.2 are fixed in the plan; F0=0.04, metallic=0, roughness clamps to [0.04,1]. Height is displayed, never displaced. Forced roughness 0/1/0 must change shading and repeat exactly, outside the material sheets.
 
 Inputs must be a successful clean-source public Native/browser comparison with matching source, plan, builder, revision, package and dimensions. Receipts bind all inputs, screenshots and renderer bytes. Human acceptance and material acceptance remain false; agent inspection is not a human decision. Stage D retention and acceptance remain separate.
+
+### Generate producer-bound woven views
+
+```sh
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/woven-review/browser
+node scripts/browser-runtime/check-woven.mjs tmp/woven-review/browser tmp/woven-review/comparison
+node scripts/woven-material-preview.mjs tmp/woven-review/comparison tmp/woven-review/pbr
+node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-requests.test.mjs
+```
+
+Commit tooling first and use a clean working tree for build, comparison and preview; use GT 1030 Vulkan for the Native comparison and installed Chrome for the browser. Each destination must be fresh. The woven runner reuses the untouched brick dielectric HTML through unique-anchor transformations (view scale, sanity roughness and layout only); MAT-01/MAT-02 source bytes and historical receipts remain unchanged. Tests pin those sources and the review plan. The five input channels are checked against producer-bound browser pixel hashes and Native/browser parity; metallic must be exactly zero. Six `<preset>-pbr.png` sheets, three separate roughness sanity images, `index.html` and `preview.json` bind receipts, renderer, plan and image hashes. Runtime flags and adapter/browser identities are recorded. The 4× view magnifies a fixed projection, not material frequency. This is consumer visualization, not an alternate graph executor, displacement, cloth simulation, a new periodicity gate or human acceptance.
