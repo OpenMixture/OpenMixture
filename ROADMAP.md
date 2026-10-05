@@ -29,7 +29,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Qualified Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | MAT-03 Stage B gated probes complete; odd translated share observation-only; accepted recipe revision 2 and Stage A gates unchanged; C/D pending separate PRs, materialAccepted=false, no publication. |
+| Active increment | MAT-03 Stage C producer-bound PBR review sheets produced; human decision pending; Stage B gated scope and recipe revision 2 unchanged; D pending a separate PR, materialAccepted=false, no publication. |
 | Current qualification | [MAT-01](./docs/evidence/mat-01/README.md): frozen brick matrix, recorded software and GT 1030 Native/browser comparisons, retained human decision and six passing post-merge checks. Previous v1 Windows failures remain historical failures; no publication or general hardware guarantee. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 
@@ -63,7 +63,7 @@ Subgraphs and presets follow MAT-04 below; their format and implementation remai
 
 ## Material capability roadmap — staged delivery
 
-The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03 material qualification stage B is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
+The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02 are accepted within their recorded scopes and only MAT-03 material qualification stage C is active; later stages are ordered planning commitments, not blanket approval for new nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
 
 The planning baseline had thirteen node types, image input, public parameters, eight material output channels and portable assets. MAT-01 adds two accepted node types for structured brick materials; later stages still need the processing vocabulary specified below. A channel slot is not a channel generator; a portable archive is not a reusable subgraph. Existing ceramic/leather/wood acceptance remains bounded and mandatory.
 

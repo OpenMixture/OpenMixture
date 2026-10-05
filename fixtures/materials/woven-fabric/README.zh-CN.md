@@ -289,3 +289,29 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 运行时间估算（非测量）：2048² 占四尺寸像素和的 78.522%。前 582 个平移行对应 788,155,143 个比较像素（九个完整用例，另加 256／1024／2048 的 15／15／12 行）；缩减后的完整矩阵为 206,507,700，比例 0.262014。将整个中断区间 44 分 07 秒计入此工作，得到约 11.56 分钟；加 main 所述 9–15 分钟，粗略**总作业目标为 20.56–26.56 分钟**，低于不变的 45 分钟限制。编译、调度、读回和其他探针不完全随像素数线性变化；软件时间与完成情况仅由 CI 验证。C／D 待完成、materialAccepted=false 不变。
 
 硬件验证基于 6e95f1f：七项 release 定向探针在 NVIDIA GeForce GT 1030 Vulkan 与 DX12 上均通过受门槛约束的规则，预期名称子串为 `GT 1030`。回执确认交叉、平面、法线重放、噪声及织纹平移均执行四种尺寸；参数隔离保留 257×129，压力探针保留原三种尺寸。每后端织纹平移记录 672 项受门槛约束通过及 48 项仅观察行。三项尺寸策略单元测试和四项构建器测试通过，包含仅修订条目变化的计划保护。日志／回执位于忽略目录 `tmp/woven-stage-b/backend-sizes/`。SwiftShader 完整运行待 CI 验证，不声称本地软件结果。
+
+## 阶段 C 冻结 PBR 评审计划
+
+[评审计划](./pbr-review-plan.json)在工具实现和图像生成前冻结 plain、varied、combined-low、combined-high、warp-seed、weft-seed 六个 1024² 预设。每个预设包含平面／球体的 1×、3× 平铺及 4× 特写，以及五通道缩略图。复用 MAT-01 电介质 GGX：固定正交相机、600² 画布、位置缩放 2.5、视线 (0,0,1)，归一化主光 (-0.4,0.6,1) ×3、补光 (0.8,0.1,0.5) ×0.7、基色环境项 ×0.12。计划固定色调映射及 gamma 2.2；F0=0.04、metallic=0，粗糙度限于 [0.04,1]。高度仅展示，不置换几何。强制粗糙度 0/1/0 须改变明暗并精确重复，且不计入材质评审图。
+
+输入必须是成功且源码干净的公开 Native／浏览器比较，源码、计划、构建器、修订、包及尺寸身份一致。回执绑定全部输入、截图及渲染器字节。人工接受与材质接受均保持 false；代理检查不是人工决定。阶段 D 保留证据及接受记录另行处理。
+
+### 生成绑定生产身份的织物视图
+
+```sh
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/woven-review/browser
+node scripts/browser-runtime/check-woven.mjs tmp/woven-review/browser tmp/woven-review/comparison
+node scripts/woven-material-preview.mjs tmp/woven-review/comparison tmp/woven-review/pbr
+node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-requests.test.mjs
+```
+
+先提交工具，构建、比较及预览均使用干净工作树；Native 比较使用 GT 1030 Vulkan，浏览器使用已安装 Chrome。各输出目录必须全新。织物工具通过唯一锚点变换复用未修改的砖材电介质 HTML（仅视图比例、粗糙度检查和布局）；MAT-01／MAT-02 源字节与历史回执不变。测试固定这些源码及评审计划。五个输入通道对照绑定生产身份的浏览器像素哈希和 Native／浏览器一致性校验；metallic 必须精确为零。六张 `<preset>-pbr.png`、三张独立粗糙度检查图、`index.html` 及 `preview.json` 绑定回执、渲染器、计划与图像哈希，并记录运行参数、适配器及浏览器身份。4× 视图放大固定投影而非改变材质频率。这是消费端可视化，不是另一图执行器、置换、布料模拟、新周期门槛或人工接受。
+
+### 阶段 C 生成结果——人工决定待定
+
+评审设置在实现前由 44746d4 冻结。干净生产／工具修订 `6eb52a6a4de18ae0f8081e6314cff0215e249783` 构建候选并通过已安装 Chrome 154.0.8037.98 验证（23 项测试）。必须显式设置 `MIXTURE_BROWSER_CHANNEL=chrome`：首次调用使用默认 Chromium，已停止，其不完整输出不计入证据。`check-woven.mjs` 对 NVIDIA GeForce GT 1030 Vulkan 的 255 项比较全部通过（最大通道分量差 1/255）；冻结降采样及四项耗时门槛均通过。
+
+生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。图片及普通日志不提交。
+
+代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。阶段 C 评审图已生成，维护者视觉决定待定；阶段 D 保留证据及接受记录随后另行处理。

@@ -289,3 +289,29 @@ Each probe receipt states its frozen and executed size sets and records each omi
 Runtime estimate (not a measurement): 2048² contributes 78.522% of a four-size pixel sum. The first 582 translation rows represent 788,155,143 compared pixels (nine complete cases plus 15/15/12 rows at 256/1024/2048). The reduced complete matrix represents 206,507,700 pixels, ratio 0.262014. Charging the entire interrupted 44m07s interval to that work gives about 11.56 minutes; adding main's stated 9–15 minutes gives a rough **20.56–26.56 minute job target**, below the unchanged 45-minute limit. Compilation, dispatch, readback and other probes are not perfectly pixel-linear; only CI can verify software runtime and completion. C/D and materialAccepted=false remain unchanged.
 
 Hardware verification at 6e95f1f: all seven focused release probes passed their gated rules on NVIDIA GeForce GT 1030 Vulkan and DX12 with expected-name substring `GT 1030`. Receipts confirm four sizes for crossing, flat, normal replay, noise and weave translation; isolation retains 257×129, stress its original three sizes. Weave reports 672 gated passes plus 48 observation-only rows per backend. Three size-policy unit tests and four builder tests pass, including the amendment-only plan guard. Logs/receipts: ignored `tmp/woven-stage-b/backend-sizes/`. SwiftShader completion is pending CI; no local software result is claimed.
+
+## Stage C frozen PBR review plan
+
+The [review plan](./pbr-review-plan.json) freezes plain, varied, combined-low, combined-high, warp-seed and weft-seed at 1024² before tooling or image generation. Each preset has plane/sphere views at 1× and 3× tiling and a 4× close-up, plus five channel thumbnails. The MAT-01 dielectric GGX view uses a fixed orthographic camera, 600² canvases, position scale 2.5, view direction (0,0,1), normalized key (-0.4,0.6,1) ×3, fill (0.8,0.1,0.5) ×0.7 and base-color ambient ×0.12. Tone mapping and gamma 2.2 are fixed in the plan; F0=0.04, metallic=0, roughness clamps to [0.04,1]. Height is displayed, never displaced. Forced roughness 0/1/0 must change shading and repeat exactly, outside the material sheets.
+
+Inputs must be a successful clean-source public Native/browser comparison with matching source, plan, builder, revision, package and dimensions. Receipts bind all inputs, screenshots and renderer bytes. Human acceptance and material acceptance remain false; agent inspection is not a human decision. Stage D retention and acceptance remain separate.
+
+### Generate producer-bound woven views
+
+```sh
+node scripts/browser-runtime/build.mjs
+node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/woven-review/browser
+node scripts/browser-runtime/check-woven.mjs tmp/woven-review/browser tmp/woven-review/comparison
+node scripts/woven-material-preview.mjs tmp/woven-review/comparison tmp/woven-review/pbr
+node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-requests.test.mjs
+```
+
+Commit tooling first and use a clean working tree for build, comparison and preview; use GT 1030 Vulkan for the Native comparison and installed Chrome for the browser. Each destination must be fresh. The woven runner reuses the untouched brick dielectric HTML through unique-anchor transformations (view scale, sanity roughness and layout only); MAT-01/MAT-02 source bytes and historical receipts remain unchanged. Tests pin those sources and the review plan. The five input channels are checked against producer-bound browser pixel hashes and Native/browser parity; metallic must be exactly zero. Six `<preset>-pbr.png` sheets, three separate roughness sanity images, `index.html` and `preview.json` bind receipts, renderer, plan and image hashes. Runtime flags and adapter/browser identities are recorded. The 4× view magnifies a fixed projection, not material frequency. This is consumer visualization, not an alternate graph executor, displacement, cloth simulation, a new periodicity gate or human acceptance.
+
+### Stage C production result — human decision pending
+
+Review settings were frozen in 44746d4 before implementation. Clean producer/tooling revision `6eb52a6a4de18ae0f8081e6314cff0215e249783` built the candidate and passed installed Chrome 154.0.8037.98 qualification (23 tests). Set `MIXTURE_BROWSER_CHANNEL=chrome` explicitly: the first invocation used the default Chromium, was stopped, and its partial output is excluded. `check-woven.mjs` passed all 255 comparisons against NVIDIA GeForce GT 1030 Vulkan (maximum component difference 1/255); frozen downsample and all four timing gates passed.
+
+Generated files are ignored `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`, `index.html` and `preview.json`. Comparison input is `tmp/woven-review/comparison/`; browser qualification is `tmp/woven-review/browser/`. The preview validates all 30 Native/browser input pairs, exact zero metallic, different shading for forced roughness 0/1, and exact repeat for 0. Its receipt records producer/build/renderer identities, all image hashes and both acceptance flags false. No images or ordinary logs are committed.
+
+Agent inspection found complete views and thumbnails, pronounced pinched profiles in combined-high and subtle seed differences at sheet scale. These are review observations, not a human acceptance decision or a recipe change. Stage C sheets are produced; the maintainer visual decision remains pending, followed separately by Stage D retained evidence and acceptance.
