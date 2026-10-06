@@ -98,12 +98,20 @@ test('archive paths cannot escape the installed package', () => {
 });
 
 test('partial, skipped, flaky and failed browser evidence cannot pass qualification', () => {
-  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
+  const suite = (file, specs = 1) => ({ file, specs: Array(specs).fill({}) });
+  const registry = ['sdk.spec.mjs', 'resources.spec.mjs'];
+  const candidate = [...registry, 'painted.spec.mjs'];
+  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [], suites: registry.map(file => suite(file)) };
   assertBrowserReport(report);
-  assertBrowserReport({...report,stats:{...report.stats,expected:23}},'candidate');
-  assert.throws(() => assertBrowserReport({...report,stats:{...report.stats,expected:19}}, 'candidate'));
-  assert.throws(()=>assertBrowserReport(report,'candidate'));
-  for (const stats of [{ expected: 7 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
+  const full = { ...report, suites: candidate.map(file => suite(file)) };
+  assertBrowserReport(full, 'candidate', candidate);
+  // A test count change needs no edits; a silently ignored spec file still fails.
+  assertBrowserReport({ ...full, stats: { ...full.stats, expected: 99 } }, 'candidate', candidate);
+  assert.throws(() => assertBrowserReport(report, 'candidate', candidate), /painted\.spec\.mjs must execute/);
+  assert.throws(() => assertBrowserReport(full, 'candidate'), /spec files must be listed/);
+  assert.throws(() => assertBrowserReport({ ...full, suites: [...registry.map(file => suite(file)), suite('painted.spec.mjs', 0)] }, 'candidate', candidate));
+  assertBrowserReport({ ...full, suites: [{ file: 'painted.spec.mjs', suites: [suite('nested')] }, ...registry.map(file => suite(file))] }, 'candidate', candidate);
+  for (const stats of [{ expected: 0 }, { unexpected: 1 }, { skipped: 1 }, { flaky: 1 }]) {
     assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, ...stats } }));
   }
   assert.throws(() => assertBrowserReport({ ...report, errors: [{ message: 'worker crashed' }] }));
@@ -152,12 +160,11 @@ test('ENG-04 hosts preserve the frozen fixture and share an explicit noise migra
 });
 
 test('published M6A resource cases are required in both modes and share the frozen source', async () => {
-  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [] };
-  assertBrowserReport({...report,stats:{...report.stats,expected:23}}, 'candidate');
-  assert.throws(() => assertBrowserReport({...report,stats:{...report.stats,expected:20}}, 'candidate'), 'the painted-metal matrix must execute');
-  assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'candidate'));
+  const suite = file => ({ file, specs: [{}] });
+  const report = { stats: { expected: 13, unexpected: 0, skipped: 0, flaky: 0 }, errors: [], suites: [suite('sdk.spec.mjs'), suite('resources.spec.mjs')] };
   assertBrowserReport(report, 'registry');
-  assert.throws(() => assertBrowserReport({ ...report, stats: { ...report.stats, expected: 9 } }, 'registry'));
+  assert.throws(() => assertBrowserReport({ ...report, suites: [suite('sdk.spec.mjs')] }, 'registry'), /resources\.spec\.mjs must execute/);
+  assert.throws(() => assertBrowserReport({ ...report, suites: [suite('sdk.spec.mjs')] }, 'candidate', ['sdk.spec.mjs', 'resources.spec.mjs']));
   const fixture = await readFile(new URL('../../fixtures/nodes/image-input/height.mix', import.meta.url));
   await assertNoiseMigration('image-input', fixture);
 });

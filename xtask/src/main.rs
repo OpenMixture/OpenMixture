@@ -22,7 +22,7 @@ type TaskResult<T = ()> = Result<T, Box<dyn Error>>;
 const HELP: &str = "Usage: cargo xtask <command>
 
 Available repository commands:
-  check       Format, dependency and evidence policy, Clippy, tests, consumer, packages, rustdoc, doc links
+  check       Format, dependency and evidence policy, Clippy, tests, consumer, rustdoc, doc links
   fmt         Check Rust formatting
   clippy      Check all workspace targets and features, denying warnings
   test        Run workspace tests, including doctests
@@ -30,7 +30,7 @@ Available repository commands:
   test-format Run strict .mix decoding, graph, node-contract, and validate CLI tests
   test-plan   Run deterministic compilation, plan/hash snapshots, and inspect CLI tests
   test-consumer Check independent public Rust and CLI consumption without a GPU
-  package-check Verify local Cargo archives and isolated Rust/CLI consumption (CPU)
+  package-check Verify local Cargo archives and isolated Rust/CLI consumption (CPU; CI runs it after check)
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
   test-material <id> Render material cases and check pixels, structure, and causality
   golden check Render and compare all material goldens (never updates baselines)
@@ -112,7 +112,6 @@ fn run() -> TaskResult {
                 "clippy",
                 "test",
                 "test-consumer",
-                "package-check",
                 "doc",
                 "links",
             ] {

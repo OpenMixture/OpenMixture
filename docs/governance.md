@@ -24,16 +24,18 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 
 | Required check | Coverage |
 |---|---|
-| `Check (ubuntu-latest)` | Locked repository and isolated package checks on Linux |
+| `Check (ubuntu-latest)` | Locked repository checks plus isolated package verification on Linux |
 | `Check (macos-latest)` | The same CPU checks on macOS |
 | `Check (windows-latest)` | The same CPU checks on Windows |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux pinned software GPU smoke, source and packaged consumers, all three 1K materials, and largest-case 2K trace |
 | `WASM and npm package` | Locked WASM build, JavaScript/package contracts and exact npm archive generation |
-| `Chromium WebGPU material matrix` | Independent SDK candidate consumption (exact registry consumption on `main` and manual runs) plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
+| `Chromium WebGPU material matrix` | Full tier (labeled PRs, `main`, manual runs): independent SDK candidate consumption (exact registry consumption on `main` and manual runs) plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
 
 Keep these check names stable. A renamed job or changed check source requires coordinated ruleset verification; never remove a required check to merge a failing change. Do not apply workflow path filters that can prevent a required check from being reported. Rule changes are themselves reviewed changes, with the live result recorded after application.
 
 The GPU and browser material workflows each start with a `Qualification scope` job running [qualification-scope.sh](../.github/scripts/qualification-scope.sh). A pull request whose every changed path is documentation-only (Markdown outside `crates/`, `packages/`, `fixtures/`, `examples/`, `xtask/` and `scripts/`, or anything under `docs/evidence/` and `docs/reviews/`) skips the heavy job; the skipped job still reports its unchanged required check as successful. Tool-read documentation such as `docs/*.json` and crate/npm READMEs always qualifies, as do pushes to `main`, manual runs and a failed scope job. A skipped check is not qualification evidence: acceptance records must cite runs that actually executed.
+
+The browser material matrix is the slow full tier: on pull requests it runs only when the PR carries the `full-qualification` label (adding the label starts it), and always on pushes to `main` and manual runs. Unlabeled pull requests therefore report the check as skipped; a regression it would catch surfaces on the following `main` run. Label pull requests that change browser-visible pixels, the WASM/runtime boundary or material fixtures when pre-merge evidence is wanted. Frozen timing budgets gate only measured hardware adapters; software-adapter (SwiftShader) timings are recorded as `budgetPolicy: "software"` for trend review and never fail a run.
 
 ## CI triggers and retention
 

@@ -27,7 +27,7 @@ cargo test --release --locked --all-features --manifest-path examples/native-con
 node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
 ```
 
-第二条命令消费通过的独立 SDK 候选运行：候选模式现在必须执行 21 项浏览器测试，含完整涂漆金属矩阵。工具校验图／请求／包／构建身份，并重跑 Native 矩阵，对全部浏览器通道维持 <=1/255 门槛。既有 Chromium 工作流调用该对照并保留输出。registry 模式仍为 13 项测试；已发布包不支持此材质。原始半精度参数因果、周期接缝、压力及 PBR 视图、人工决定仍是独立待完成门槛。`materialAccepted` 保持 false。
+第二条命令消费通过的独立 SDK 候选运行：候选模式必须实际执行完整涂漆金属矩阵 `painted.spec.mjs`。工具校验图／请求／包／构建身份，并重跑 Native 矩阵，对全部浏览器通道维持 <=1/255 门槛。既有 Chromium 工作流调用该对照并保留输出。registry 模式不包含它；已发布包不支持此材质。原始半精度参数因果、周期接缝、压力及 PBR 视图、人工决定仍是独立待完成门槛。`materialAccepted` 保持 false。
 
 
 ## 端点与分辨率质量门槛

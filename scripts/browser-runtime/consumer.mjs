@@ -48,11 +48,21 @@ export async function verifyInstalled(directory, expectedBuild, files) {
   }
 }
 
-export function assertBrowserReport(report, mode = 'registry') {
+// The published registry package only has the original SDK and resource suites.
+export const registrySpecFiles = ['sdk.spec.mjs', 'resources.spec.mjs'];
+
+// Require every expected spec file to execute instead of pinning a test count,
+// so adding a test needs no count edits while a silently ignored suite still fails.
+export function assertBrowserReport(report, mode = 'registry', candidateSpecFiles = []) {
   assert.ok(['candidate', 'registry'].includes(mode));
-  assert.equal(report.stats.expected, mode === 'candidate' ? 23 : 13, 'all public consumer tests must execute');
+  assert.ok(report.stats.expected > 0, 'browser tests must execute');
   for (const key of ['unexpected', 'skipped', 'flaky']) assert.equal(report.stats[key], 0, `browser ${key}`);
   assert.deepEqual(report.errors ?? [], [], 'browser runner errors');
+  const count = suite => (suite.specs ?? []).length + (suite.suites ?? []).reduce((sum, child) => sum + count(child), 0);
+  const executed = new Map((report.suites ?? []).map(suite => [suite.file, count(suite)]));
+  const required = mode === 'candidate' ? candidateSpecFiles : registrySpecFiles;
+  assert.ok(required.length > 0, `${mode} spec files must be listed`);
+  for (const file of required) assert.ok(executed.get(file) > 0, `${file} must execute in ${mode} mode`);
 }
 
 async function sourceFiles(directory, prefix = '') {
@@ -193,7 +203,8 @@ export async function qualify(mode, packageDirectory, output) {
     await npm(['exec', '--', 'playwright', 'install', ...(process.platform === 'linux' ? ['--with-deps'] : []), 'chromium']);
     await npm(['run', 'test:browser']);
     const browser = await json(join(staging, 'test-results/report.json'));
-    assertBrowserReport(browser, mode);
+    const specFiles = (await readdir(join(staging, 'tests'))).filter(name => name.endsWith('.spec.mjs')).sort();
+    assertBrowserReport(browser, mode, specFiles);
     await verifyInstalled(staging, metadata, fileHashes);
     assert.equal(hash(await readFile(join(staging, 'package-lock.json'))), record.lockSha256);
     record.browserTests = browser.stats;

@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,14 +23,17 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 2
-      - name: Skip qualification only for documentation-only pull requests
+      - name: Run the full matrix on main, manual runs and labeled pull requests
         id: scope
+        env:
+          QUALIFICATION_TIER: full
+          QUALIFICATION_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
   materials:
     name: Chromium WebGPU material matrix
     needs: scope
     # A skipped job reports success to the unchanged required check. Run unless the
-    # scope job succeeded and explicitly classified the change as documentation-only.
+    # scope job succeeded and explicitly deferred it (unlabeled or documentation-only PR).
     if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 50

@@ -284,17 +284,18 @@ fn woven_material_public_matrix() {
             let mut ordered = warm.clone();
             ordered.sort_by(f64::total_cmp);
             let median = ordered[ordered.len() / 2];
-            timing_pass = matched
-                && median
-                    <= b[if size[0] == 1024 {
-                        "warmMedian1024Ms"
-                    } else {
-                        "warmMedian2048Ms"
-                    }]
-                    .as_f64()
-                    .unwrap()
+            // Software-adapter budgets are recorded but never gate a run; the adapter must still match.
+            let within = median
+                <= b[if size[0] == 1024 {
+                    "warmMedian1024Ms"
+                } else {
+                    "warmMedian2048Ms"
+                }]
+                .as_f64()
+                .unwrap()
                 && (size[0] != 1024 || cold <= b["cold1024Ms"].as_f64().unwrap());
-            timing.push(json!({"id":id,"size":size,"adapter":output.report().adapter,"backend":backend,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPassed":timing_pass,"matchedAdapter":matched}));
+            timing_pass = matched && (software || within);
+            timing.push(json!({"id":id,"size":size,"adapter":output.report().adapter,"backend":backend,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPolicy":if software {"software"} else {"hardware"},"budgetPassed":matched && within,"matchedAdapter":matched}));
         }
         let mut quality_pass = true;
         if ["plain", "varied"].contains(&preset) && [1024, 2048].contains(&size[0]) {

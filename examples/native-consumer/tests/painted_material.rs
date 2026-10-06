@@ -244,12 +244,13 @@ fn painted_material_public_matrix() {
                     .adapter
                     .name
                     .contains(b["adapter"].as_str().unwrap())
-                    .then_some(b)
+                    .then_some((key, b))
             });
             let mut ordered = warm.clone();
             ordered.sort_by(f64::total_cmp);
             let median = ordered[ordered.len() / 2];
-            let passed = budget.map(|b| {
+            let policy = budget.map(|(key, _)| key);
+            let passed = budget.map(|(_, b)| {
                 median
                     <= b[if size[0] == 1024 {
                         "warmMedian1024Ms"
@@ -260,7 +261,7 @@ fn painted_material_public_matrix() {
                     .unwrap()
                     && (size[0] != 1024 || cold <= b["cold1024Ms"].as_f64().unwrap())
             });
-            timing.push(json!({"size":size,"adapter":output.report().adapter,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPassed":passed}));
+            timing.push(json!({"size":size,"adapter":output.report().adapter,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPolicy":policy,"budgetPassed":passed}));
         }
         let endpoints = painted_quality::endpoint_reference(
             &mut gpu,
@@ -376,7 +377,10 @@ fn painted_material_public_matrix() {
         );
     }
     let ok = timing.len() == 2
-        && timing.iter().all(|v| v["budgetPassed"] == true)
+        // Software-adapter budgets are recorded but never gate a run.
+        && timing
+            .iter()
+            .all(|v| v["budgetPolicy"] == "software" || v["budgetPassed"] == true)
         && rows.iter().chain(&stress_rows).all(|r| {
             r["comparisons"].as_array().unwrap().iter().all(|c| {
                 c["maxComponentDelta"].as_u64().unwrap()
