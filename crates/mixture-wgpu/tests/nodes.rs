@@ -924,3 +924,25 @@ fn node_weave_pattern_gpu() {
         .unwrap();
     }
 }
+
+#[path = "../src/periodic_scalar_readback.rs"]
+mod periodic_scalar_readback;
+
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node fractal-noise"]
+fn node_fractal_noise_gpu_woven_periodic_inputs() {
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    let evidence = value_periodic_probe::run_woven(&context);
+    eprintln!("woven noise periodic: {evidence}");
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("woven-noise-periodic.json"),
+            serde_json::to_vec_pretty(&evidence).unwrap(),
+        )
+        .unwrap();
+    }
+}
+
+#[path = "../src/woven_probe_scope.rs"]
+mod woven_probe_scope;
