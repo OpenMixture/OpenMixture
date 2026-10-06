@@ -1,0 +1,6128 @@
+{
+  "ok": true,
+  "completed": true,
+  "humanAccepted": false,
+  "materialAccepted": false,
+  "producerRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+  "producerBuild": {
+    "runtimeVersion": "0.9.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.9.0",
+    "engineRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+    "engineDirty": false,
+    "buildId": "sha256:e4a4d88e08f71f420378604ec2596ae2542e2f022ce9957de7ec1d9731efa5e3"
+  },
+  "producerManifest": {
+    "kind": "mat03-material-requests",
+    "recipeRevision": 2,
+    "materialAccepted": false,
+    "sourceRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+    "workingTreeStatus": "",
+    "sourceFile": "material.mix",
+    "sourceSha256": "95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757",
+    "qualificationPlanSha256": "a6c4c05c327c7ca6534d77500a329f64538fbd708bd2544b7ec5e0770a065d90",
+    "builderSha256": "5e99d82f0b4f5bdde8be1de58cbd69ec98ac7916437886a3dcafd4831d9c1dda",
+    "rows": [
+      {
+        "id": "plain-256x256",
+        "preset": "plain",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "plain-1024x1024",
+        "preset": "plain",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "plain-2048x2048",
+        "preset": "plain",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "plain-257x129",
+        "preset": "plain",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "varied-256x256",
+        "preset": "varied",
+        "controls": {
+          "warpCount": 12,
+          "weftCount": 8,
+          "warpWidth": 0.6,
+          "weftWidth": 0.85,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 12,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.6,
+            "warpshare_weftWidth": 0.85,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 12,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.6,
+            "coverage_weftWidth": 0.85,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 12,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.6,
+            "height_weftWidth": 0.85,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "varied-1024x1024",
+        "preset": "varied",
+        "controls": {
+          "warpCount": 12,
+          "weftCount": 8,
+          "warpWidth": 0.6,
+          "weftWidth": 0.85,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 12,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.6,
+            "warpshare_weftWidth": 0.85,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 12,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.6,
+            "coverage_weftWidth": 0.85,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 12,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.6,
+            "height_weftWidth": 0.85,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "varied-2048x2048",
+        "preset": "varied",
+        "controls": {
+          "warpCount": 12,
+          "weftCount": 8,
+          "warpWidth": 0.6,
+          "weftWidth": 0.85,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 12,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.6,
+            "warpshare_weftWidth": 0.85,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 12,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.6,
+            "coverage_weftWidth": 0.85,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 12,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.6,
+            "height_weftWidth": 0.85,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "varied-257x129",
+        "preset": "varied",
+        "controls": {
+          "warpCount": 12,
+          "weftCount": 8,
+          "warpWidth": 0.6,
+          "weftWidth": 0.85,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 12,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.6,
+            "warpshare_weftWidth": 0.85,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 12,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.6,
+            "coverage_weftWidth": 0.85,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 12,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.6,
+            "height_weftWidth": 0.85,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "no-detail-256x256",
+        "preset": "no-detail",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "no-detail-1024x1024",
+        "preset": "no-detail",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "no-detail-2048x2048",
+        "preset": "no-detail",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "no-detail-257x129",
+        "preset": "no-detail",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "flat-256x256",
+        "preset": "flat",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "flat-1024x1024",
+        "preset": "flat",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "flat-2048x2048",
+        "preset": "flat",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "flat-257x129",
+        "preset": "flat",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "warp-seed-256x256",
+        "preset": "warp-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 4294967295,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "warp-seed-1024x1024",
+        "preset": "warp-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 4294967295,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "warp-seed-2048x2048",
+        "preset": "warp-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 4294967295,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "warp-seed-257x129",
+        "preset": "warp-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 4294967295,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "weft-seed-256x256",
+        "preset": "weft-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "weft-seed-1024x1024",
+        "preset": "weft-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "weft-seed-2048x2048",
+        "preset": "weft-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "weft-seed-257x129",
+        "preset": "weft-seed",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "combined-low-256x256",
+        "preset": "combined-low",
+        "controls": {
+          "warpCount": 4,
+          "weftCount": 4,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.02,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 0,
+          "weftSeed": 0,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 0,
+            "warpSeed": 0,
+            "warpshare_warpCount": 4,
+            "warpshare_weftCount": 4,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.02,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 4,
+            "coverage_weftCount": 4,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.02,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 4,
+            "height_weftCount": 4,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.02,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "combined-low-1024x1024",
+        "preset": "combined-low",
+        "controls": {
+          "warpCount": 4,
+          "weftCount": 4,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.02,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 0,
+          "weftSeed": 0,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 0,
+            "warpSeed": 0,
+            "warpshare_warpCount": 4,
+            "warpshare_weftCount": 4,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.02,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 4,
+            "coverage_weftCount": 4,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.02,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 4,
+            "height_weftCount": 4,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.02,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "combined-low-2048x2048",
+        "preset": "combined-low",
+        "controls": {
+          "warpCount": 4,
+          "weftCount": 4,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.02,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 0,
+          "weftSeed": 0,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 0,
+            "warpSeed": 0,
+            "warpshare_warpCount": 4,
+            "warpshare_weftCount": 4,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.02,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 4,
+            "coverage_weftCount": 4,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.02,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 4,
+            "height_weftCount": 4,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.02,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "combined-low-257x129",
+        "preset": "combined-low",
+        "controls": {
+          "warpCount": 4,
+          "weftCount": 4,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.02,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 0,
+          "weftSeed": 0,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 0,
+            "warpSeed": 0,
+            "warpshare_warpCount": 4,
+            "warpshare_weftCount": 4,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.02,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 4,
+            "coverage_weftCount": 4,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.02,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.8,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 4,
+            "height_weftCount": 4,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.02,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "combined-high-256x256",
+        "preset": "combined-high",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.9,
+          "weftWidth": 0.9,
+          "bevel": 0.12,
+          "relief": 0.05,
+          "underRatio": 0.75,
+          "detailAmount": 0.1,
+          "warpSeed": 4294967295,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 1
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.9,
+            "warpshare_weftWidth": 0.9,
+            "warpshare_bevel": 0.12,
+            "warpshare_crown": 1,
+            "warpshare_underRatio": 0.75,
+            "warpDark": [
+              0.132,
+              0.048,
+              0.021,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.9,
+            "coverage_weftWidth": 0.9,
+            "coverage_bevel": 0.12,
+            "coverage_crown": 1,
+            "coverage_underRatio": 0.75,
+            "weftDark": [
+              0.22799999999999998,
+              0.138,
+              0.06,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.6400000000000001,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.9,
+            "height_weftWidth": 0.9,
+            "height_bevel": 0.12,
+            "height_crown": 1,
+            "height_underRatio": 0.75,
+            "relief": 0.05,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "combined-high-1024x1024",
+        "preset": "combined-high",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.9,
+          "weftWidth": 0.9,
+          "bevel": 0.12,
+          "relief": 0.05,
+          "underRatio": 0.75,
+          "detailAmount": 0.1,
+          "warpSeed": 4294967295,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 1
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.9,
+            "warpshare_weftWidth": 0.9,
+            "warpshare_bevel": 0.12,
+            "warpshare_crown": 1,
+            "warpshare_underRatio": 0.75,
+            "warpDark": [
+              0.132,
+              0.048,
+              0.021,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.9,
+            "coverage_weftWidth": 0.9,
+            "coverage_bevel": 0.12,
+            "coverage_crown": 1,
+            "coverage_underRatio": 0.75,
+            "weftDark": [
+              0.22799999999999998,
+              0.138,
+              0.06,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.6400000000000001,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.9,
+            "height_weftWidth": 0.9,
+            "height_bevel": 0.12,
+            "height_crown": 1,
+            "height_underRatio": 0.75,
+            "relief": 0.05,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "combined-high-2048x2048",
+        "preset": "combined-high",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.9,
+          "weftWidth": 0.9,
+          "bevel": 0.12,
+          "relief": 0.05,
+          "underRatio": 0.75,
+          "detailAmount": 0.1,
+          "warpSeed": 4294967295,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 1
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.9,
+            "warpshare_weftWidth": 0.9,
+            "warpshare_bevel": 0.12,
+            "warpshare_crown": 1,
+            "warpshare_underRatio": 0.75,
+            "warpDark": [
+              0.132,
+              0.048,
+              0.021,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.9,
+            "coverage_weftWidth": 0.9,
+            "coverage_bevel": 0.12,
+            "coverage_crown": 1,
+            "coverage_underRatio": 0.75,
+            "weftDark": [
+              0.22799999999999998,
+              0.138,
+              0.06,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.6400000000000001,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.9,
+            "height_weftWidth": 0.9,
+            "height_bevel": 0.12,
+            "height_crown": 1,
+            "height_underRatio": 0.75,
+            "relief": 0.05,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "combined-high-257x129",
+        "preset": "combined-high",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.9,
+          "weftWidth": 0.9,
+          "bevel": 0.12,
+          "relief": 0.05,
+          "underRatio": 0.75,
+          "detailAmount": 0.1,
+          "warpSeed": 4294967295,
+          "weftSeed": 4294967295,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 1
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 4294967295,
+            "warpSeed": 4294967295,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.9,
+            "warpshare_weftWidth": 0.9,
+            "warpshare_bevel": 0.12,
+            "warpshare_crown": 1,
+            "warpshare_underRatio": 0.75,
+            "warpDark": [
+              0.132,
+              0.048,
+              0.021,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.9,
+            "coverage_weftWidth": 0.9,
+            "coverage_bevel": 0.12,
+            "coverage_crown": 1,
+            "coverage_underRatio": 0.75,
+            "weftDark": [
+              0.22799999999999998,
+              0.138,
+              0.06,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.6400000000000001,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.9,
+            "height_weftWidth": 0.9,
+            "height_bevel": 0.12,
+            "height_crown": 1,
+            "height_underRatio": 0.75,
+            "relief": 0.05,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "neutral-normal-256x256",
+        "preset": "neutral-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0
+          }
+        }
+      },
+      {
+        "id": "neutral-normal-1024x1024",
+        "preset": "neutral-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0
+          }
+        }
+      },
+      {
+        "id": "neutral-normal-2048x2048",
+        "preset": "neutral-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0
+          }
+        }
+      },
+      {
+        "id": "neutral-normal-257x129",
+        "preset": "neutral-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0
+          }
+        }
+      },
+      {
+        "id": "constant-low-256x256",
+        "preset": "constant-low",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "weftColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "backingColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "yarnRoughness": 0,
+          "backingRoughness": 0,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "warpColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "weftColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "backingColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "roughnessMin": 0,
+            "yarnRoughness": 0,
+            "backingRoughness": 0,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-low-1024x1024",
+        "preset": "constant-low",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "weftColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "backingColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "yarnRoughness": 0,
+          "backingRoughness": 0,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "warpColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "weftColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "backingColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "roughnessMin": 0,
+            "yarnRoughness": 0,
+            "backingRoughness": 0,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-low-2048x2048",
+        "preset": "constant-low",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "weftColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "backingColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "yarnRoughness": 0,
+          "backingRoughness": 0,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "warpColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "weftColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "backingColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "roughnessMin": 0,
+            "yarnRoughness": 0,
+            "backingRoughness": 0,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-low-257x129",
+        "preset": "constant-low",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "weftColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "backingColor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "yarnRoughness": 0,
+          "backingRoughness": 0,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "warpColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "weftColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "backingColor": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "roughnessMin": 0,
+            "yarnRoughness": 0,
+            "backingRoughness": 0,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-high-256x256",
+        "preset": "constant-high",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "weftColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "backingColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "yarnRoughness": 1,
+          "backingRoughness": 1,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "warpColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "weftColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "backingColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "roughnessMin": 1,
+            "yarnRoughness": 1,
+            "backingRoughness": 1,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-high-1024x1024",
+        "preset": "constant-high",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "weftColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "backingColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "yarnRoughness": 1,
+          "backingRoughness": 1,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "warpColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "weftColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "backingColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "roughnessMin": 1,
+            "yarnRoughness": 1,
+            "backingRoughness": 1,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-high-2048x2048",
+        "preset": "constant-high",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "weftColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "backingColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "yarnRoughness": 1,
+          "backingRoughness": 1,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "warpColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "weftColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "backingColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "roughnessMin": 1,
+            "yarnRoughness": 1,
+            "backingRoughness": 1,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "constant-high-257x129",
+        "preset": "constant-high",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "weftColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "backingColor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "yarnRoughness": 1,
+          "backingRoughness": 1,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "warpColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "weftColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "backingColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "roughnessMin": 1,
+            "yarnRoughness": 1,
+            "backingRoughness": 1,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "max-normal-256x256",
+        "preset": "max-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "max-normal-1024x1024",
+        "preset": "max-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "max-normal-2048x2048",
+        "preset": "max-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            2048,
+            2048
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 1
+          }
+        }
+      },
+      {
+        "id": "max-normal-257x129",
+        "preset": "max-normal",
+        "controls": {
+          "warpCount": 8,
+          "weftCount": 8,
+          "warpWidth": 0.7,
+          "weftWidth": 0.7,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 1,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 8,
+            "warpshare_weftCount": 8,
+            "warpshare_warpWidth": 0.7,
+            "warpshare_weftWidth": 0.7,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 8,
+            "coverage_weftCount": 8,
+            "coverage_warpWidth": 0.7,
+            "coverage_weftWidth": 0.7,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 8,
+            "height_weftCount": 8,
+            "height_warpWidth": 0.7,
+            "height_weftWidth": 0.7,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 1
+          }
+        }
+      }
+    ],
+    "stress": [
+      {
+        "id": "stress-dense-thin-256x256",
+        "stress": "dense-thin",
+        "qualityScope": "outside default and varied downsample guarantee; parity and repeats still required",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            256,
+            256
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "stress-dense-thin-1024x1024",
+        "stress": "dense-thin",
+        "qualityScope": "outside default and varied downsample guarantee; parity and repeats still required",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            1024,
+            1024
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      },
+      {
+        "id": "stress-dense-thin-257x129",
+        "stress": "dense-thin",
+        "qualityScope": "outside default and varied downsample guarantee; parity and repeats still required",
+        "controls": {
+          "warpCount": 32,
+          "weftCount": 32,
+          "warpWidth": 0.55,
+          "weftWidth": 0.55,
+          "bevel": 0.08,
+          "relief": 0.025,
+          "underRatio": 0.25,
+          "detailAmount": 0.08,
+          "warpSeed": 1729,
+          "weftSeed": 65537,
+          "warpColor": [
+            0.22,
+            0.08,
+            0.035,
+            1
+          ],
+          "weftColor": [
+            0.38,
+            0.23,
+            0.1,
+            1
+          ],
+          "backingColor": [
+            0.015,
+            0.012,
+            0.01,
+            1
+          ],
+          "yarnRoughness": 0.8,
+          "backingRoughness": 0.95,
+          "normalStrength": 0.5,
+          "crown": 0
+        },
+        "request": {
+          "size": [
+            257,
+            129
+          ],
+          "channels": [
+            "baseColor",
+            "metallic",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "overrides": {
+            "weftSeed": 65537,
+            "warpSeed": 1729,
+            "warpshare_warpCount": 32,
+            "warpshare_weftCount": 32,
+            "warpshare_warpWidth": 0.55,
+            "warpshare_weftWidth": 0.55,
+            "warpshare_bevel": 0.08,
+            "warpshare_crown": 0,
+            "warpshare_underRatio": 0.25,
+            "warpDark": [
+              0.14959999999999998,
+              0.0544,
+              0.0238,
+              1
+            ],
+            "warpColor": [
+              0.22,
+              0.08,
+              0.035,
+              1
+            ],
+            "coverage_warpCount": 32,
+            "coverage_weftCount": 32,
+            "coverage_warpWidth": 0.55,
+            "coverage_weftWidth": 0.55,
+            "coverage_bevel": 0.08,
+            "coverage_crown": 0,
+            "coverage_underRatio": 0.25,
+            "weftDark": [
+              0.25839999999999996,
+              0.15639999999999998,
+              0.06799999999999999,
+              1
+            ],
+            "weftColor": [
+              0.38,
+              0.23,
+              0.1,
+              1
+            ],
+            "backingColor": [
+              0.015,
+              0.012,
+              0.01,
+              1
+            ],
+            "roughnessMin": 0.672,
+            "yarnRoughness": 0.8,
+            "backingRoughness": 0.95,
+            "height_warpCount": 32,
+            "height_weftCount": 32,
+            "height_warpWidth": 0.55,
+            "height_weftWidth": 0.55,
+            "height_bevel": 0.08,
+            "height_crown": 0,
+            "height_underRatio": 0.25,
+            "relief": 0.025,
+            "normalStrength": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "previewRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+  "previewDirty": false,
+  "browser": "154.0.8037.98",
+  "browserChannel": "chrome",
+  "browserArgs": [
+    "--enable-unsafe-webgpu",
+    "--ignore-gpu-blocklist"
+  ],
+  "inputChecks": [
+    {
+      "name": "plain-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "d4db8aba815f4f403142e4bb786828456087d780971bf021c1c4ee5a76f3f6ea",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "plain-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "44af743c63ddcee1520c1ffc8da5a7531e9231fc69422c2c0d13378a34abea6a",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "plain-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "302f418a6609d778a34cc50a5450345a6b8bf58f1efdaa34f18941ad653fac55",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "plain-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "plain-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "ce32cd2ad0ba220b53cecdb4fa0c82c98ded0487ae6fe4f3b59d113896fa22b5",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "varied-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "558fea05fd4b6fec455f2f83e00062f06a93c938d823a3259596be9e06dc0536",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "varied-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "b4fc532bc60211442f3e868a6e21eb92446d17e4fd9db5c5aa00bffa586d0356",
+      "maxComponentDelta": 1
+    },
+    {
+      "name": "varied-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "4f52e5b3cb9355e37d513bc1b155de216fe60058146cbd39b1338f78fd288d49",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "varied-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "varied-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "4e88bc73e38d6e684ce6b16e269f6b51d98b23c8a1e2b7d449f283e7cbc2a475",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-low-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "d113215cef89d9e52e2adb5450c9e40257a30986f81f71ef65a140ad2dff7a40",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-low-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "14bcd5fe79400a0bb4356154d6c0ab20c904d43b963572106a62fd42097af2d4",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-low-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "963a6f464bb116502c9209091dd9e9b1c5c7c952b593e75560a7948fe51e7789",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-low-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-low-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "792c7ea02a559846b65fb5f17c87b670bca148c33e7defe3c98c8243949ea560",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-high-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "af50bfad890771f4c3e6c568683d209de3f13ae5b6f6a4cb936e5fbf68ba0a59",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-high-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "2ebb1d746b431f2fd0be1dcba7b6df3ae7eaa0d22ca6ff8b5f9762b2eabce459",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-high-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "3dee9e1a58f0aa030a1dca8201526b03c23034aa4dbcb99d8459553e696ac73c",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-high-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "combined-high-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "07e4848ed9dba317e45d7d72f05f9daa2269d19a30ec4538b36f888e506456c1",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "warp-seed-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "7d8a830d0a7741cd5965e6e307ad8ad6f6d3c0a081b469ea2ee06035ceb204af",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "warp-seed-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "44af743c63ddcee1520c1ffc8da5a7531e9231fc69422c2c0d13378a34abea6a",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "warp-seed-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "7614a76ac69c4f9ed016681d13e2731ecb1b7ec2eefdeaf83cda9cfa25f5aa0b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "warp-seed-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "warp-seed-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "ce32cd2ad0ba220b53cecdb4fa0c82c98ded0487ae6fe4f3b59d113896fa22b5",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "weft-seed-1024x1024-baseColor.png",
+      "channel": "baseColor",
+      "browserPixelSha256": "254f318004461d102d9a7b2bea4cfcad0a4342ea7751c6571ce877b97f566939",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "weft-seed-1024x1024-normal.png",
+      "channel": "normal",
+      "browserPixelSha256": "44af743c63ddcee1520c1ffc8da5a7531e9231fc69422c2c0d13378a34abea6a",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "weft-seed-1024x1024-roughness.png",
+      "channel": "roughness",
+      "browserPixelSha256": "5e1b7fd78bb8210552153cc543c56b92076e37659f8ce193eb4cdf7604781492",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "weft-seed-1024x1024-metallic.png",
+      "channel": "metallic",
+      "browserPixelSha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b",
+      "maxComponentDelta": 0
+    },
+    {
+      "name": "weft-seed-1024x1024-height.png",
+      "channel": "height",
+      "browserPixelSha256": "ce32cd2ad0ba220b53cecdb4fa0c82c98ded0487ae6fe4f3b59d113896fa22b5",
+      "maxComponentDelta": 0
+    }
+  ],
+  "adapter": {
+    "vendor": "nvidia",
+    "architecture": "pascal",
+    "device": "",
+    "description": ""
+  },
+  "cases": [
+    "plain",
+    "varied",
+    "combined-low",
+    "combined-high",
+    "warp-seed",
+    "weft-seed"
+  ],
+  "settings": {
+    "schemaVersion": 1,
+    "status": "frozen",
+    "stage": "C",
+    "material": "woven-fabric",
+    "recipeRevision": 2,
+    "humanAccepted": false,
+    "materialAccepted": false,
+    "cases": [
+      "plain",
+      "varied",
+      "combined-low",
+      "combined-high",
+      "warp-seed",
+      "weft-seed"
+    ],
+    "size": [
+      1024,
+      1024
+    ],
+    "channels": [
+      "baseColor",
+      "normal",
+      "roughness",
+      "metallic",
+      "height"
+    ],
+    "camera": {
+      "projection": "orthographic",
+      "viewDirection": [
+        0,
+        0,
+        1
+      ],
+      "canvas": [
+        600,
+        600
+      ],
+      "display": [
+        300,
+        300
+      ],
+      "positionScale": 2.5
+    },
+    "views": [
+      {
+        "shape": "plane",
+        "tiling": 1,
+        "zoom": 1
+      },
+      {
+        "shape": "plane",
+        "tiling": 3,
+        "zoom": 1
+      },
+      {
+        "shape": "sphere",
+        "tiling": 1,
+        "zoom": 1
+      },
+      {
+        "shape": "sphere",
+        "tiling": 3,
+        "zoom": 1
+      },
+      {
+        "shape": "plane",
+        "tiling": 1,
+        "zoom": 4
+      },
+      {
+        "shape": "sphere",
+        "tiling": 1,
+        "zoom": 4
+      }
+    ],
+    "lights": {
+      "key": {
+        "direction": [
+          -0.4,
+          0.6,
+          1
+        ],
+        "intensity": 3
+      },
+      "fill": {
+        "direction": [
+          0.8,
+          0.1,
+          0.5
+        ],
+        "intensity": 0.7
+      },
+      "ambientBaseColor": 0.12
+    },
+    "shading": {
+      "model": "MAT-01 dielectric GGX",
+      "f0": 0.04,
+      "metallic": 0,
+      "roughnessClamp": [
+        0.04,
+        1
+      ],
+      "toneMapping": "clamp((hdr*(2.51*hdr+0.03))/(hdr*(2.43*hdr+0.59)+0.14),0,1)",
+      "displayGamma": 2.2,
+      "sampler": "linear repeat, explicit mip level 0",
+      "baseColorTexture": "rgba8unorm-srgb",
+      "dataTextures": "rgba8unorm",
+      "heightDisplacement": false
+    },
+    "sanity": {
+      "roughness": [
+        0,
+        1,
+        0
+      ],
+      "sameSetting": "exact screenshot bytes",
+      "differentSetting": "different screenshot bytes",
+      "includedInMaterialSheets": false
+    },
+    "producer": {
+      "comparison": "successful clean-source check-woven.mjs output",
+      "identities": [
+        "revision",
+        "build",
+        "sourceSha256",
+        "qualificationPlanSha256",
+        "builderSha256",
+        "request manifest",
+        "packageSha256"
+      ],
+      "allChannelsRequired": true
+    },
+    "scope": "consumer visualization of existing maps; no graph execution; separate human decision; Stage D retention/acceptance pending"
+  },
+  "inputReceiptSha256": {
+    "comparison.json": "7495fa1b6ba42787ca6fac1b0cb2df1ab6963c9d5483e89673fdf0f20d37b24c",
+    "native/native.json": "3d2a940a8534ee93987f44266a94695b674e76a9694d0c5e9ca345329e0dea1c",
+    "woven-browser.json": "394a9ba0529697995b876886bba98875969ba71cb982dc8e06eaf0e3401303cf",
+    "browser-qualification.json": "3852158abaa1a6c9bb12bbf6eb931d6f796aa5809ad7958989acadd27a995a9f",
+    "requests.json": "5ac7ee956aae7d983cb501d090789951343e7e40cab12bff091745fdea89c784"
+  },
+  "inputPngSha256": {
+    "native/plain-1024x1024-baseColor.png": "6102c152aabb5cae66576b202d3d62650764adf2f5b9c966819d297118adbd92",
+    "plain-1024x1024-baseColor.png": "fc31254929e89651ea4d888160cf1956c662a4f195a6961c2a25eefea03d4a2a",
+    "native/plain-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "plain-1024x1024-normal.png": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+    "native/plain-1024x1024-roughness.png": "fb3998bce0559e711d8d64e5192b1213fb1cb11967d7c908c7c8adfe576ff905",
+    "plain-1024x1024-roughness.png": "3b8d3762449d668515a58f8f7a687acd0ba822dff85794b7ba5c9d36455c7999",
+    "native/plain-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "plain-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/plain-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "plain-1024x1024-height.png": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3",
+    "native/varied-1024x1024-baseColor.png": "41ec9dad51bb75b060de7ece43e926e7c3efff061ac1ce85e3857341aafcef2b",
+    "varied-1024x1024-baseColor.png": "87dd615e608b644926a8320f912c932393a66a74702670137aeaad43d1f4272b",
+    "native/varied-1024x1024-normal.png": "f346b4181fc73fb9510ed4d7611a4c9f8de00010064d70b83f3c94ee09c65b4a",
+    "varied-1024x1024-normal.png": "bc0095f11b896a2bb12a5a88445395445ce418627cbba0f7c4711553227da204",
+    "native/varied-1024x1024-roughness.png": "17a832ad8969accf98f8f9e85d55f77e62f75e79f4e077f6e03ad465c507cf78",
+    "varied-1024x1024-roughness.png": "4aa598acb33857a3a1853b7eb5218869223dcab79563433d66837e5582f5513a",
+    "native/varied-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "varied-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/varied-1024x1024-height.png": "10e307f1f8ef73c0e8a5eaf2e997c2b4e381edf1e9be29ec669797d13dde7f6c",
+    "varied-1024x1024-height.png": "027087944b6e03446b7cba8876c2b73815cfd9849108243f67165a726de7db38",
+    "native/combined-low-1024x1024-baseColor.png": "9c9d6239cfabc96da2b99a38ad64d0d370adec239242b03853161b88960fa4ef",
+    "combined-low-1024x1024-baseColor.png": "394f614fea08a1ecc293ffd25c1012f2dabc105d73c693377b34d49027baa90d",
+    "native/combined-low-1024x1024-normal.png": "ecf94b84d7670876c77ef4c0342270c36a02ca13803d659280b2f0946c7fc094",
+    "combined-low-1024x1024-normal.png": "d7eccd20c08964872a6d8f457bbcb00b4f1feb487a573d822988de433e0b4dae",
+    "native/combined-low-1024x1024-roughness.png": "193828f001a063bd9373dc3dd227e8a22cc0a19a344541f046f06867a9c776c6",
+    "combined-low-1024x1024-roughness.png": "59d502f0e0b579c39b77593651791a8307543aafc89aa36a4d8930e08baeff73",
+    "native/combined-low-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "combined-low-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/combined-low-1024x1024-height.png": "cc0bc8495d527f3b35dd8441bf08f93e7e80f12ec81cbd3b4460cde3b775bc01",
+    "combined-low-1024x1024-height.png": "21a2b7c2e0638d84f41430b91764c0809901d5e5869bf625e1017bfe7c9c5b3b",
+    "native/combined-high-1024x1024-baseColor.png": "fe4b4fa6265d90c358710e70e5fa189ada62313f2c632ca4a5aa463d9007bf4f",
+    "combined-high-1024x1024-baseColor.png": "b4283bd24a997b764757dacd392fd233b400c2a8157f50adbb28eed97677d233",
+    "native/combined-high-1024x1024-normal.png": "ad1d87604a04a71427457792c5dca3d2371c960bd52cdc029ad1d6e698a1ea23",
+    "combined-high-1024x1024-normal.png": "64cb441adbb769555ddc8c2b6e192fc04750344b949f923e05e314d2cb9545b6",
+    "native/combined-high-1024x1024-roughness.png": "d08a5f41b3fd3446f85e02249825ed47b4a7d72d90e25d662153d4448c6c4f7a",
+    "combined-high-1024x1024-roughness.png": "323c52d1e14a7feed1027acbc15ad11e2d4715f15b095fc56d5458b50075bdab",
+    "native/combined-high-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "combined-high-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/combined-high-1024x1024-height.png": "ac1c12becbb1a236962e92bc73cb12523ab357ccc594f8bb1b056ba5856d7cae",
+    "combined-high-1024x1024-height.png": "545c32c554b988c0908ecdf9ca7d6ef1017da9c4f1afd0fae79b6c8c7f48e09b",
+    "native/warp-seed-1024x1024-baseColor.png": "6e90a93f3f2bab89f3ee1c2629058c9f43c19d26614cdd74260f512cf2caf202",
+    "warp-seed-1024x1024-baseColor.png": "fb554e156a299d8cebff9f82fa485a66b6dae92db8f4e2f131073f86a5f5adb4",
+    "native/warp-seed-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "warp-seed-1024x1024-normal.png": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+    "native/warp-seed-1024x1024-roughness.png": "004db8df5b8248141a47126a93a854af76a12fcc3def62104f70a8434d74d982",
+    "warp-seed-1024x1024-roughness.png": "48fd3db5cc47a8fdd932086c5d04abae6b7d0468b02d67f0187686e5409f249e",
+    "native/warp-seed-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "warp-seed-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/warp-seed-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "warp-seed-1024x1024-height.png": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3",
+    "native/weft-seed-1024x1024-baseColor.png": "3fa4f8cf7fe320af5db1f2f64ed62b6ca525a259b0c6ab0574c30b24a5a7bf31",
+    "weft-seed-1024x1024-baseColor.png": "e484ed013bcf21a3da066db1aec402292b6627203aadc48069053ec7bc47de62",
+    "native/weft-seed-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "weft-seed-1024x1024-normal.png": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+    "native/weft-seed-1024x1024-roughness.png": "b0d7c3cbd1aee622db1e69bce2a3a4c35a42e7a9f19f01980788a1c4e9a88c68",
+    "weft-seed-1024x1024-roughness.png": "096afa266a37681055b26e4d0bea2f9e1b9885f0e1798447e9d89d5e2596e15d",
+    "native/weft-seed-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "weft-seed-1024x1024-metallic.png": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+    "native/weft-seed-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "weft-seed-1024x1024-height.png": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3"
+  },
+  "screenshotSha256": {
+    "plain-pbr.png": "b7e0d86a9a535c7c7adc6e3228e462f4fcbc27ad42e64dd30b9f8cc601b2d73e",
+    "varied-pbr.png": "cd6d05c0c871e97a6d84f3d24c12cdd47569f812e38f34e90d3f9dd7603091e5",
+    "combined-low-pbr.png": "3fd1dd9268d1b8ad1a7493abae50c66af6e6d38623c6e38d9df9e3f40b83c40a",
+    "combined-high-pbr.png": "6fb8a3c3c4f540c85a373cb17c22ee25beebf02c6e1692416079c2ccde5617c0",
+    "warp-seed-pbr.png": "dc05db9399134d4ef53a98266da406e95e117d4df7c8e8d27f184fcacd40d4c2",
+    "weft-seed-pbr.png": "5619e94b566b48e85305166bc97ffcc733403adb57a1205cb11e5df3f10fdbf2",
+    "roughness-sanity-0.png": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552",
+    "roughness-sanity-1.png": "154e2729a7659063869fcd9df73f8c89a5e5d2d68217ba4b56c3ce94e10cc5cd",
+    "roughness-sanity-2.png": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552"
+  },
+  "rendererSha256": {
+    "brickHtml": "7d83de65baeaac25a7296f28349ac3a2423b91457b0b7eebe08dc7f1befe0971",
+    "generatedHtml": "97f3946aed71d1fe8ea291ad3eda6455ab1f44bc454c79ff499b3f1faa7d2a6f",
+    "runner": "e573d75a84ebb95897dbf2a3169071b383622696eabc8891666e112fe231f258"
+  },
+  "reviewPlanSha256": "3a3e4e3980aa6d4bdc3ab872ac0dbed2e71af361687029a555fbf8655fc729b4",
+  "indexSha256": "5b030be9d8ea577d5437a3c93b23e7170b289251c1a1d6b30f233cfe926dfa40",
+  "roughnessCheck": {
+    "roughnessZero": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552",
+    "roughnessOne": "154e2729a7659063869fcd9df73f8c89a5e5d2d68217ba4b56c3ce94e10cc5cd",
+    "repeat": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552",
+    "changed": true,
+    "repeatExact": true
+  },
+  "shading": "unmodified MAT-01 dielectric GGX light model; woven views only, no graph execution or displacement"
+}

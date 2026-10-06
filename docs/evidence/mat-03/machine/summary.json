@@ -1,0 +1,665 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+  "sourceClean": true,
+  "recordedAt": "2026-10-06T09:59:19.633Z",
+  "timezone": "Asia/Shanghai",
+  "os": "Windows",
+  "arch": "x64",
+  "rustc": "1.98.1 (48a229cea 2026-09-01)",
+  "cargo": "1.98.1 (797e8a9bc 2026-08-05)",
+  "node": "v24.21.0",
+  "build": {
+    "runtimeVersion": "0.9.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.9.0",
+    "engineRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+    "engineDirty": false,
+    "buildId": "sha256:e4a4d88e08f71f420378604ec2596ae2542e2f022ce9957de7ec1d9731efa5e3"
+  },
+  "browser": "154.0.8037.98",
+  "browserTests": {
+    "startTime": "2026-10-06T09:13:29.359Z",
+    "duration": 354272.631,
+    "expected": 23,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browserDownsampleMax": 0.3352384567260742,
+  "machine": {
+    "vulkan": {
+      "rows": 51,
+      "channelComparisons": 255,
+      "maxComponentDelta": 1,
+      "downsampleMax": 0.3352384567260742,
+      "passCounts": [
+        21
+      ],
+      "textureCounts": [
+        8
+      ],
+      "peakBytes2048": 301990480,
+      "timing": [
+        {
+          "id": "plain-1024x1024",
+          "coldMs": 257.0822,
+          "warmMedianMs": 215.4076,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Vulkan",
+            "driver": "NVIDIA",
+            "driverInfo": "582.66"
+          }
+        },
+        {
+          "id": "plain-2048x2048",
+          "coldMs": 837.8885,
+          "warmMedianMs": 986.056,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Vulkan",
+            "driver": "NVIDIA",
+            "driverInfo": "582.66"
+          }
+        },
+        {
+          "id": "varied-1024x1024",
+          "coldMs": 231.9215,
+          "warmMedianMs": 241.7509,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Vulkan",
+            "driver": "NVIDIA",
+            "driverInfo": "582.66"
+          }
+        },
+        {
+          "id": "varied-2048x2048",
+          "coldMs": 1564.9094,
+          "warmMedianMs": 1179.2803000000001,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Vulkan",
+            "driver": "NVIDIA",
+            "driverInfo": "582.66"
+          }
+        }
+      ]
+    },
+    "dx12": {
+      "rows": 51,
+      "channelComparisons": 255,
+      "maxComponentDelta": 1,
+      "downsampleMax": 0.3352384567260742,
+      "passCounts": [
+        21
+      ],
+      "textureCounts": [
+        8
+      ],
+      "peakBytes2048": 301990480,
+      "timing": [
+        {
+          "id": "plain-1024x1024",
+          "coldMs": 1231.0644,
+          "warmMedianMs": 356.0788,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Dx12",
+            "driver": "32.0.15.8266",
+            "driverInfo": ""
+          }
+        },
+        {
+          "id": "plain-2048x2048",
+          "coldMs": 2412.1325,
+          "warmMedianMs": 1033.8516,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Dx12",
+            "driver": "32.0.15.8266",
+            "driverInfo": ""
+          }
+        },
+        {
+          "id": "varied-1024x1024",
+          "coldMs": 985.451,
+          "warmMedianMs": 225.8028,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Dx12",
+            "driver": "32.0.15.8266",
+            "driverInfo": ""
+          }
+        },
+        {
+          "id": "varied-2048x2048",
+          "coldMs": 1581.1064,
+          "warmMedianMs": 850.6296,
+          "budgetPassed": true,
+          "adapter": {
+            "name": "NVIDIA GeForce GT 1030",
+            "backend": "Dx12",
+            "driver": "32.0.15.8266",
+            "driverInfo": ""
+          }
+        }
+      ]
+    }
+  },
+  "probes": {
+    "vulkan": {
+      "woven-crossing-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 8,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 8,
+        "observationOnly": 0
+      },
+      "woven-flat-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 4,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 4,
+        "observationOnly": 0
+      },
+      "woven-isolation-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 16,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 16,
+        "observationOnly": 0
+      },
+      "woven-noise-periodic-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 48,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 0,
+        "observationOnly": 0
+      },
+      "woven-normal-replay-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 48,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 48,
+        "observationOnly": 0
+      },
+      "woven-stress-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 3,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 3,
+        "observationOnly": 0
+      },
+      "woven-weave-periodic.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 720,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 672,
+        "observationOnly": 48,
+        "maxRawShareHalfSteps": 27,
+        "maxVisibleWeightDifference": 0.00048828125,
+        "maxVisibleWeightBoundRatio": 6.802103515084418
+      }
+    },
+    "dx12": {
+      "woven-crossing-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 8,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 8,
+        "observationOnly": 0
+      },
+      "woven-flat-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 4,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 4,
+        "observationOnly": 0
+      },
+      "woven-isolation-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 16,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 16,
+        "observationOnly": 0
+      },
+      "woven-noise-periodic-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 48,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 0,
+        "observationOnly": 0
+      },
+      "woven-normal-replay-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 48,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 48,
+        "observationOnly": 0
+      },
+      "woven-stress-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 3,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 3,
+        "observationOnly": 0
+      },
+      "woven-weave-periodic.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            2048,
+            2048
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 720,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 672,
+        "observationOnly": 48,
+        "maxRawShareHalfSteps": 27,
+        "maxVisibleWeightDifference": 0.00048828125,
+        "maxVisibleWeightBoundRatio": 6.802103515084418
+      }
+    },
+    "swiftshader": {
+      "woven-crossing-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 6,
+        "notRunOnSoftware": 2,
+        "gatedPassed": 6,
+        "observationOnly": 0
+      },
+      "woven-flat-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 3,
+        "notRunOnSoftware": 1,
+        "gatedPassed": 3,
+        "observationOnly": 0
+      },
+      "woven-isolation-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 16,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 16,
+        "observationOnly": 0
+      },
+      "woven-noise-periodic-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 36,
+        "notRunOnSoftware": 16,
+        "gatedPassed": 0,
+        "observationOnly": 0
+      },
+      "woven-normal-replay-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 36,
+        "notRunOnSoftware": 12,
+        "gatedPassed": 36,
+        "observationOnly": 0
+      },
+      "woven-stress-scope.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 3,
+        "notRunOnSoftware": 0,
+        "gatedPassed": 3,
+        "observationOnly": 0
+      },
+      "woven-weave-periodic.json": {
+        "completed": true,
+        "executedSizes": [
+          [
+            256,
+            256
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            257,
+            129
+          ]
+        ],
+        "rows": 540,
+        "notRunOnSoftware": 180,
+        "gatedPassed": 492,
+        "observationOnly": 48,
+        "maxRawShareHalfSteps": 27,
+        "maxVisibleWeightDifference": 0.00048828125,
+        "maxVisibleWeightBoundRatio": 6.802103515084418
+      }
+    }
+  },
+  "commands": [
+    "node scripts/browser-runtime/build.mjs",
+    "node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/woven-acceptance/browser",
+    "node scripts/browser-runtime/check-woven.mjs tmp/woven-acceptance/browser tmp/woven-acceptance/comparison-vulkan",
+    "node scripts/browser-runtime/check-woven.mjs tmp/woven-acceptance/browser tmp/woven-acceptance/comparison-dx12",
+    "cargo test --release --locked -p mixture-wgpu --lib executor::woven_tests:: -- --ignored --nocapture --test-threads=1",
+    "cargo test --release --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture",
+    "cargo xtask test-node weave-pattern"
+  ],
+  "environment": {
+    "MIXTURE_GPU_BACKEND": [
+      "vulkan",
+      "dx12"
+    ],
+    "MIXTURE_GPU_SOFTWARE": "0",
+    "MIXTURE_GPU_EXPECT_ADAPTER": "GT 1030",
+    "MIXTURE_BROWSER_CHANNEL": "chrome"
+  },
+  "nodeTest": {
+    "command": "cargo xtask test-node weave-pattern",
+    "backend": "Vulkan",
+    "exitCode": 0
+  },
+  "sourceHashes": {
+    "Cargo.lock": "92e5aee96add5229b31ea2a7a24e81f28118379f395a119a6609b6b4efa32231",
+    "examples/native-consumer/Cargo.lock": "b84913708ec984965f77732a40eece0bd1f794ace413bfac29df249ebad99554",
+    "packages/runtime/package-lock.json": "296b2dc8d0b371115002d8b81a7eae52830dbf1496424049a93ff2c7549f4790",
+    "fixtures/materials/woven-fabric/material.mix": "95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757",
+    "fixtures/materials/woven-fabric/qualification-plan.json": "a6c4c05c327c7ca6534d77500a329f64538fbd708bd2544b7ec5e0770a065d90",
+    "scripts/woven-fabric-requests.mjs": "5e99d82f0b4f5bdde8be1de58cbd69ec98ac7916437886a3dcafd4831d9c1dda",
+    "crates/mixture-wgpu/shaders/nodes/weave-pattern.wgsl": "284293d994578e263a3e867aed7d4ebbbb89541a44797f79020fc1814448d925"
+  },
+  "retention": "Selected machine receipts, exact human-reviewed sheets/maps and scope-defining sweep retained; complete logs, packages, full machine PNG matrices and CI artifact remainder stay temporary. This does not claim full original-run auditability after those outputs expire."
+}

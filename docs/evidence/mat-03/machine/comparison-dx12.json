@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "completed": true,
+  "comparisons": 255,
+  "revision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+  "build": {
+    "runtimeVersion": "0.9.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.9.0",
+    "engineRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+    "engineDirty": false,
+    "buildId": "sha256:e4a4d88e08f71f420378604ec2596ae2542e2f022ce9957de7ec1d9731efa5e3"
+  },
+  "native": "native/native.json",
+  "browser": "woven-browser.json",
+  "materialAccepted": false
+}

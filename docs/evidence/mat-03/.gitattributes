@@ -1,0 +1,4 @@
+# Preserve retained producer/receipt bytes, including original line endings.
+*.json -text
+*.html -text
+*.txt -text
