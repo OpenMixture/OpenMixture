@@ -6,7 +6,7 @@ use mixture_core::{
 use serde_json::{Value, json};
 fn source() -> Value {
     serde_json::from_slice(include_bytes!(
-        "../../../fixtures/nodes/weave-pattern/input.mix"
+        "../../../fixtures/nodes/weave-pattern-v2/input.mix"
     ))
     .unwrap()
 }
@@ -35,7 +35,7 @@ fn weave_defaults_abi_hash_and_slicing() {
     assert_eq!(pass.kernel.uniform_bytes(), 48);
     assert!(matches!(
         pass.kernel,
-        KernelInvocation::WeavePattern {
+        KernelInvocation::WeavePatternV2 {
             counts: [8, 8],
             widths: [0.7, 0.7],
             bevel: 0.08,

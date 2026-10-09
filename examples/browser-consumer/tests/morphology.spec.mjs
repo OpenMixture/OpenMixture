@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 test('morphology candidate preserves periodic support sets through public WebGPU', async ({ page, browser }, testInfo) => {
   test.setTimeout(180_000);
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.9.0-alpha.0');
+  expect(expectedBuild.runtimeVersion).toBe('0.10.0-alpha.0');
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));
   const evidence = await page.evaluate(async () => {

@@ -27,7 +27,7 @@ fn registry_matches_reviewed_type_versions() {
             ("scalar-subtract", 1),
             ("transform-2d", 1),
             ("warp", 1),
-            ("weave-pattern", 1)
+            ("weave-pattern", 2)
         ]
     );
 }
@@ -118,4 +118,18 @@ fn registry_contracts_have_valid_defaults_and_explicit_seed() {
     );
     assert!(node_contract("checker").unwrap().input("color").is_none());
     assert!(node_contract("material-output").unwrap().outputs.is_empty());
+}
+
+#[test]
+fn weave_versions_are_explicit_and_coexist() {
+    assert_eq!(BUILT_INS.len(), 18);
+    for version in [1, 2] {
+        assert_eq!(
+            mixture_core::registry::node_contract_version("weave-pattern", version)
+                .unwrap()
+                .version,
+            version
+        );
+    }
+    assert!(mixture_core::registry::node_contract_version("weave-pattern", 3).is_none());
 }

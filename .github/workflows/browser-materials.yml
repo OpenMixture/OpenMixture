@@ -128,6 +128,8 @@ jobs:
         run: |
           cargo build --release --locked -p mixture-cli
           python3 scripts/probe-painted-metal.py --cli target/release/mixture --output tmp/painted-metal-stages
+      - name: Compare public weave v2 node modes against Native
+        run: node scripts/browser-runtime/check-weave-v2.mjs tmp/sdk-candidate tmp/sdk-weave-v2-comparison
       - name: Compare public weave node modes against Native
         run: node scripts/browser-runtime/check-weave.mjs tmp/sdk-candidate tmp/sdk-weave-comparison
       - name: Qualify the exact published version separately
@@ -214,6 +216,7 @@ jobs:
             tmp/sdk-brick-comparison/
             tmp/sdk-morphology-comparison/
             tmp/sdk-weave-comparison/
+            tmp/sdk-weave-v2-comparison/
             tmp/sdk-subtract-comparison/
             tmp/sdk-reuse-comparison/
             tmp/sdk-woven-comparison

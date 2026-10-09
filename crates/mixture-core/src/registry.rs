@@ -182,7 +182,7 @@ pub static BUILT_INS: &[&NodeContract] = &[
     &crate::nodes::scalar_subtract::CONTRACT,
     &crate::nodes::transform_2d::CONTRACT,
     &crate::nodes::warp::CONTRACT,
-    &crate::nodes::weave_pattern::CONTRACT,
+    &crate::nodes::weave_pattern_v2::CONTRACT,
 ];
 /// Find the latest supported contract by exact type ID.
 pub fn node_contract(type_id: &str) -> Option<&'static NodeContract> {
@@ -194,6 +194,9 @@ pub fn node_contract(type_id: &str) -> Option<&'static NodeContract> {
 
 /// Resolve an explicit source version, including retained legacy noise semantics.
 pub fn node_contract_version(type_id: &str, version: u32) -> Option<&'static NodeContract> {
+    if type_id == "weave-pattern" && version == 1 {
+        return Some(&crate::nodes::weave_pattern::CONTRACT);
+    }
     if type_id == "fractal-noise" && version == 1 {
         return Some(&crate::nodes::fractal_noise::LEGACY_CONTRACT);
     }

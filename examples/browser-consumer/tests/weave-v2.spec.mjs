@@ -29,7 +29,7 @@ test('weave candidate preserves all structural modes through public WebGPU', asy
     ]) for (const mode of ['height','coverage','warp-share']) {
       const result = await page.evaluate(async ({size, geometry, mode}) => {
         const edge = (a,ap,b,bp) => ({from:{nodeId:a,portId:ap},to:{nodeId:b,portId:bp}});
-        const source = JSON.stringify({version:1,nodes:[{id:'weave',type:'weave-pattern',version:1},{id:'color',type:'constant-color',version:1},{id:'out',type:'material-output',version:1}],edges:[edge('weave','value','out','height'),edge('color','color','out','baseColor')],exposedParameters:['mode','warpCount','weftCount','warpWidth','weftWidth','bevel','crown','underRatio'].map(id=>({id,nodeId:'weave',parameterId:id}))});
+        const source = JSON.stringify({version:1,nodes:[{id:'weave',type:'weave-pattern',version:2},{id:'color',type:'constant-color',version:1},{id:'out',type:'material-output',version:1}],edges:[edge('weave','value','out','height'),edge('color','color','out','baseColor')],exposedParameters:['mode','warpCount','weftCount','warpWidth','weftWidth','bevel','crown','underRatio'].map(id=>({id,nodeId:'weave',parameterId:id}))});
         const request = {size,channels:['height'],overrides:{...geometry,mode}};
         const result = await window.weave.gpu.render(source,request), repeat = await window.weave.gpu.render(source,request);
         const pixels = result.channels[0].pixels;
@@ -38,7 +38,7 @@ test('weave candidate preserves all structural modes through public WebGPU', asy
         let binary=''; for(let i=0;i<pixels.length;i+=16384) binary+=String.fromCharCode(...pixels.subarray(i,i+16384));
         return {planHash:result.plan.hash, base64:btoa(binary)};
       }, {size,geometry,mode});
-      const file = 'weave-'+rows.length+'.rgba';
+      const file = 'weave-v2-'+rows.length+'.rgba';
       const bytes = Buffer.from(result.base64,'base64');
       expect(bytes.length).toBe(size[0]*size[1]*4);
       await writeFile(testInfo.outputPath(file),bytes);
@@ -47,6 +47,6 @@ test('weave candidate preserves all structural modes through public WebGPU', asy
   } finally { await page.evaluate(async () => { await window.weave.gpu.destroy(); delete window.weave; }); }
   expect(rows).toHaveLength(18);
   const content=JSON.stringify({...identity,rows,browser:browser.version()},(_key,value)=>typeof value==='bigint'?value.toString():value,2);
-  await writeFile(testInfo.outputPath('weave-evidence.json'),content);
-  await testInfo.attach('weave-evidence',{body:content,contentType:'application/json'});
+  await writeFile(testInfo.outputPath('weave-v2-evidence.json'),content);
+  await testInfo.attach('weave-v2-evidence',{body:content,contentType:'application/json'});
 });

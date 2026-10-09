@@ -18,3 +18,5 @@ pub(crate) mod image_input;
 pub(crate) mod transform_2d;
 pub(crate) mod warp;
 pub(crate) mod weave_pattern;
+
+pub(crate) mod weave_pattern_v2;

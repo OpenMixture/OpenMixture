@@ -12,7 +12,7 @@ const receipt = JSON.parse(await readFile(join(input, 'qualification.json')));
 assert.equal(receipt.ok, true);
 assert.equal(receipt.mode, 'candidate');
 assert.equal(receipt.consumerDirty, false);
-assert.equal(receipt.build.runtimeVersion, '0.9.0-alpha.0');
+assert.equal(receipt.build.runtimeVersion, '0.10.0-alpha.0');
 assert.equal(receipt.build.apiSchemaVersion, 3);
 assert.equal(receipt.consumerRevision, execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim());
 assert.equal(receipt.reuseSourceSha256, createHash('sha256').update(await readFile('docs/evidence/perf-mat-before/material.mix')).digest('hex'));

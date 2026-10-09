@@ -48,7 +48,7 @@ test('brick comparison keeps a fresh checkout clean without private target ignor
     await writeFile(join(directory, '.git/info/exclude'), '');
     git('add', '.');
     git('-c', 'user.name=Routing fixture', '-c', 'user.email=routing@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '--quiet', '-m', 'fixture');
-    const build = { runtimeVersion: '0.9.0-alpha.0' };
+    const build = { runtimeVersion: '0.10.0-alpha.0' };
     await writeFile(join(qualification, 'qualification.json'), JSON.stringify({ ok: true, mode: 'candidate', build, consumerRevision: git('rev-parse', 'HEAD'), consumerDirty: false, brickFixtures }));
     await writeFile(join(qualification, 'test-results/brick-browser.json'), JSON.stringify({ ok: true, build, rows }));
     for (const row of rows) for (const channel of matrix.channels) {
@@ -81,13 +81,13 @@ test('candidate substitution preserves the frozen dependency graph and does not 
     'node_modules/@openmixture/runtime': { version: '0.3.0-alpha.0', resolved: 'https://registry.npmjs.org/runtime.tgz', integrity: 'old' },
     'node_modules/vite': { version: '8.3.0', integrity: 'unchanged' },
   } };
-  const result = candidateManifests(manifest, lock, '0.9.0-alpha.0', Buffer.from('candidate'));
+  const result = candidateManifests(manifest, lock, '0.10.0-alpha.0', Buffer.from('candidate'));
   assert.equal(result.manifest.dependencies['@openmixture/runtime'], 'file:vendor/runtime.tgz');
   assert.equal(result.lock.packages['node_modules/@openmixture/runtime'].resolved, 'file:vendor/runtime.tgz');
   assert.match(result.lock.packages['node_modules/@openmixture/runtime'].integrity, /^sha512-/);
   assert.deepEqual(result.lock.packages['node_modules/vite'], lock.packages['node_modules/vite']);
   assert.equal(manifest.dependencies['@openmixture/runtime'], '0.3.0-alpha.0');
-  assert.throws(() => candidateManifests({ dependencies: { '@openmixture/runtime': '^0.1.0' } }, lock, '0.9.0-alpha.0', Buffer.from('candidate')));
+  assert.throws(() => candidateManifests({ dependencies: { '@openmixture/runtime': '^0.1.0' } }, lock, '0.10.0-alpha.0', Buffer.from('candidate')));
 });
 
 test('archive paths cannot escape the installed package', () => {

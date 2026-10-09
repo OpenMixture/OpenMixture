@@ -7,8 +7,9 @@ use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},
 };
-const NODES: [&str; 17] = [
+const NODES: [&str; 18] = [
     "weave-pattern",
+    "weave-pattern-v2",
     "scalar-subtract",
     "scalar-morphology",
     "scalar-mask-blend",
@@ -192,6 +193,13 @@ fn run_node(name: &str) {
     let mut renderer = Renderer::new(context);
     let mut evidence = Vec::new();
     for case in &fixture.cases {
+        if name == "weave-pattern-v2"
+            && case.size == [2048, 2048]
+            && renderer.context().report().adapter().unwrap().device_type == "Cpu"
+        {
+            evidence.push(json!({"case":case.id,"size":case.size,"status":"notRunOnSoftware","amendment":"2026-10-04-software-size-scope","passed":null}));
+            continue;
+        }
         let plan = plan(
             &source(name, case.source.as_deref().unwrap_or(&fixture.source)),
             &request(case),
@@ -748,6 +756,7 @@ fn graph_gpu_cache_is_bounded_across_all_kernels_and_request_changes() {
         "Transform2d",
         "Warp",
         "WeavePattern",
+        "WeavePatternV2",
     ]
     .into_iter()
     .map(str::to_owned)
@@ -909,6 +918,29 @@ fn node_fractal_noise_gpu_periodic_material_inputs() {
 
 #[path = "support/weave_probe.rs"]
 mod weave_probe;
+#[path = "support/weave_v2_probe.rs"]
+mod weave_v2_probe;
+#[test]
+#[ignore = "requires GPU; cargo xtask test-node weave-pattern-v2"]
+fn node_weave_pattern_v2_gpu() {
+    run_node("weave-pattern-v2");
+    let context = pollster::block_on(GpuContext::request(options())).unwrap();
+    if let Ok(expected) = std::env::var("MIXTURE_GPU_EXPECT_ADAPTER") {
+        assert!(context.report().adapter().unwrap().name.contains(&expected));
+    }
+    let core = weave_probe::run_v2(&context);
+    let mut renderer = Renderer::new(context);
+    let evidence = weave_v2_probe::run(&mut renderer);
+    assert_eq!(evidence["ok"], true);
+    if let Ok(directory) = std::env::var("MIXTURE_NODE_EVIDENCE_DIR") {
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            Path::new(&directory).join("weave-pattern-v2-core-probes.json"),
+            serde_json::to_vec_pretty(&core).unwrap(),
+        )
+        .unwrap();
+    }
+}
 #[test]
 #[ignore = "requires GPU; cargo xtask test-node weave-pattern"]
 fn node_weave_pattern_gpu() {
