@@ -43,7 +43,7 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 [CPU](../.github/workflows/ci.yml)、[GPU](../.github/workflows/gpu-smoke.yml)、[浏览器包](../.github/workflows/browser-runtime.yml)及[浏览器材质](../.github/workflows/browser-materials.yml)工作流均响应 PR、推送到 `main` 及手动触发。普通功能分支推送不会额外启动一套分支 push 运行。合并后仍在 `main` 上运行，验证集成结果。现有按工作流／引用划分的并发控制取消已被取代的运行，不取消无关分支或 PR。
 
-GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存状态不是测试通过的证据。
+GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存 key 覆盖工具链指纹与固定版本及编译参数的 `setup-swiftshader.sh`，不包含 workflow 文件；同一工具链下的前缀匹配可作为增量构建的起点。缓存状态不是测试通过的证据。
 
 每个工作流在安装仓库工具链后恢复固定版本的 `Swatinem/rust-cache` Cargo 构建缓存。仅 `main` 保存缓存，PR 只恢复。它只加速编译：每一步仍以 `--locked` 构建并执行其检查；缓存的 `~/.cargo/bin` 使准确版本的 `wasm-bindgen-cli` 安装得以复用。
 

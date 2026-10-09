@@ -43,7 +43,7 @@ The same label selects the GPU job's full tier: without it, `cargo xtask gpu-smo
 
 The [CPU](../.github/workflows/ci.yml), [GPU](../.github/workflows/gpu-smoke.yml), [browser package](../.github/workflows/browser-runtime.yml) and [browser material](../.github/workflows/browser-materials.yml) workflows all run on pull requests, pushes to `main`, and manual dispatch. A normal push to a feature branch does not also start a branch-push run. A merged change still runs on `main`, verifying the integrated state. Existing per-workflow/ref concurrency cancels superseded runs without cancelling unrelated branches or PRs.
 
-The GPU job retains serial test execution and the pinned SwiftShader build cache. A cache hit still verifies the source revision, configures/builds the driver, and executes every acceptance gate. Cache state is not proof of a passing test.
+The GPU job retains serial test execution and the pinned SwiftShader build cache. A cache hit still verifies the source revision, configures/builds the driver, and executes every acceptance gate. The cache key covers the toolchain fingerprint and `setup-swiftshader.sh` (which pins the revision and flags), not workflow files; a prefix match from the same toolchain may seed an incremental build. Cache state is not proof of a passing test.
 
 Every workflow restores a pinned `Swatinem/rust-cache` Cargo build cache after installing the repository toolchain. Only `main` saves it; pull requests restore. It speeds up compilation only: every step still builds with `--locked` and executes its gates, and the cached `~/.cargo/bin` lets the exact `wasm-bindgen-cli` install be reused.
 

@@ -70,7 +70,12 @@ jobs:
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: tmp/swiftshader/
-          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh', '.github/workflows/gpu-smoke.yml') }}
+          # The pinned revision and build flags live in the setup script; workflow edits
+          # must not force a ~30 min rebuild. The script re-verifies the revision, so a
+          # prefix match from the same toolchain only seeds an incremental build.
+          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh') }}
+          restore-keys: |
+            swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-
       - name: Build pinned software adapter
         # Always verify the source revision, configure/build and export the ICD,
         # including after a cache hit. Cache contents never stand in for tests.
