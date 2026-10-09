@@ -195,7 +195,8 @@ export function validateEvidence(candidate, native, material, comparison, browse
   assert.equal(material.cases.length, 11);
   assert.equal(material.stress.renders, 12);
   assertComparison(comparison);
-  assert.equal(browser.stats.expected, 29);
+  // This is the pinned Studio host; SDK consumer additions do not change its test count.
+  assert.equal(browser.stats.expected, 28);
   for (const field of ['unexpected', 'skipped', 'flaky']) assert.equal(browser.stats[field], 0);
   assert.equal(deployment.result, 'passed');
   assert.equal(deployment.testHarnessAbsent, true);

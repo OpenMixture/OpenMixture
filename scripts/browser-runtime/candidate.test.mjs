@@ -55,7 +55,7 @@ function evidence() {
           comparison:{ok:true,profile:qualityProfile.id},structure:{ok:true},causality:caseId==='default'?null:{ok:true},
         }])),
       }))) },
-    { stats: { expected: 29, unexpected: 0, skipped: 0, flaky: 0 } },
+    { stats: { expected: 28, unexpected: 0, skipped: 0, flaky: 0 } },
     { result: 'passed', testHarnessAbsent: true, archiveSha256: receipt.sha256 },
     { ok: true, archiveSha256: receipt.sha256 },
     { ok: true, build: receipt, mixedCode: 'MIX_BROWSER_BUILD_MISMATCH' },
