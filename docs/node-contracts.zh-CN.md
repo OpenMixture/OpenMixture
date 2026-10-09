@@ -252,3 +252,5 @@ MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value`
 [冻结契约](./weave-pattern-v2-acceptance.zh-CN.md)、[Core](../crates/mixture-core/src/nodes/weave_pattern_v2.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/weave-pattern-v2.wgsl)、[夹具](../fixtures/nodes/weave-pattern-v2/README.zh-CN.md)。最新 weave 为 2，显式 @1 保留原像素。无输入、单 Scalar value；mode 与全部 @1 类型／范围／默认值不变，无种子或随机性；偶数语义验证仍拒绝奇数并给出节点／参数身份。
 
 采用已批准 B 的 X/Y/D 间隙选择器与 C 连续叠层 H=Zw+Zf−Zw·Zf，共享 Vw/Vf；有序 2×2 输出 ΣH/4、ΣC/4、ΣVw/ΣC（空为 .5）。f32／rgba16float、48 字节 ABI／零 padding、周期坐标和无通用抗锯齿限制不变。独立 WeavePatternV2 kernel；Rust 0.10 穷尽匹配增加变体，旧 runtime 拒绝 @2。材料接受不随节点自动迁移。
+
+在 @2 中，crown 与 underRatio 只塑造高度；coverage 和 warp-share 不依赖这两个控制。counts、widths 与 bevel 决定占据及可见归属。后续织物材质修订必须据此复核控制隔离预期；已接受的 @1 材质保持不变。

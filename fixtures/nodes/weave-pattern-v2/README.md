@@ -9,3 +9,5 @@ Run cargo xtask test-node weave-pattern-v2; cargo xtask test-node weave-pattern 
 Hardware executes 256²,1024²,2048²,257×129; actual Cpu marks 2048² notRunOnSoftware. Odd S/P is an observation, never a pass. MIXTURE_NODE_EVIDENCE_DIR retains weave-pattern-v2-probes.json and core-probes; frozen thresholds and stop rules live in the plan. Public Native/browser comparison: node scripts/browser-runtime/check-weave-v2.mjs <candidate-directory> <fresh-output>, delta≤1/255, exact repeats.
 
 These are node structural/numerical observations, not woven PBR/human acceptance. An @2 material revision and A–D requalification remain later PRs; no @1 golden change.
+
+Unlike the retained @1 visibility formula, @2 ownership is independent of crown and underRatio: these two controls affect height only. Review material control-isolation expectations when a later PR migrates the woven recipe; this node PR does not migrate it.
