@@ -1,0 +1,94 @@
+<!doctype html><meta charset="utf-8"><title>MAT-01 controlled material review</title>
+<style>
+body{margin:0;padding:28px;background:#15191f;color:#edf0f3;font:16px system-ui}h1{font-size:24px;margin:0 0 8px}p{color:#b9c2cc;max-width:1240px;line-height:1.5}.views,.channels{display:flex;gap:16px}figure{margin:0}figcaption{padding:8px 0;color:#b9c2cc}canvas{width:300px;height:300px;background:#20262e}.channels img{width:220px;height:220px;image-rendering:auto}.channels{margin-top:12px}.case{margin-top:28px;padding-top:12px;border-top:1px solid #43505d}
+</style>
+<h1>MAT-01 · controlled PBR review</h1>
+<p>Source-bound generated maps. Fixed orthographic camera, neutral key/fill lights, dielectric GGX shading and fixed exposure. Height is shown separately; geometry is not displaced. Each preset uses the same geometry and scale. These views support human review and do not constitute acceptance.</p>
+<main></main>
+<script type="module">
+const shader = `
+struct Settings { sphere: f32, repeats: f32, padding: vec2<f32> }
+@group(0) @binding(0) var samp: sampler;
+@group(0) @binding(1) var base: texture_2d<f32>;
+@group(0) @binding(2) var normal: texture_2d<f32>;
+@group(0) @binding(3) var roughness: texture_2d<f32>;
+@group(0) @binding(4) var<uniform> settings: Settings;
+@vertex fn vs(@builtin(vertex_index) i:u32) -> @builtin(position) vec4<f32> {
+    let p = array<vec2<f32>,3>(vec2(-1.,-1.),vec2(3.,-1.),vec2(-1.,3.));
+    return vec4(p[i],0.,1.);
+}
+fn light(n:vec3<f32>,v:vec3<f32>,l:vec3<f32>,color:vec3<f32>,r:f32) -> vec3<f32> {
+    let h=normalize(v+l); let nl=max(dot(n,l),0.); let nv=max(dot(n,v),0.001);
+    let nh=max(dot(n,h),0.); let vh=max(dot(v,h),0.);
+    let a=r*r; let a2=a*a; let d=a2/(3.14159265*pow(nh*nh*(a2-1.)+1.,2.));
+    let k=pow(r+1.,2.)/8.; let g=(nl/(nl*(1.-k)+k))*(nv/(nv*(1.-k)+k));
+    let f=0.04+0.96*pow(1.-vh,5.);
+    return ((1.-f)*color/3.14159265 + vec3(d*g*f/max(4.*nl*nv,0.001)))*nl;
+}
+@fragment fn fs(@builtin(position) position:vec4<f32>) -> @location(0) vec4<f32> {
+    let p=(position.xy/600.-vec2(0.5))*2.5;
+    var n=vec3(0.,0.,1.); var t=vec3(1.,0.,0.); var b=vec3(0.,-1.,0.);
+    var uv=p*0.5+vec2(0.5);
+    if settings.sphere > 0.5 {
+        if dot(p,p)>1. {return vec4(0.075,0.09,0.11,1.);}
+        n=vec3(p.x,-p.y,sqrt(1.-dot(p,p)));
+        uv=vec2(atan2(n.z,n.x)/6.2831853+0.5,acos(n.y)/3.14159265);
+        t=normalize(vec3(-n.z,0.,n.x)); b=cross(n,t);
+    } else { if max(abs(p.x),abs(p.y))>1. {return vec4(0.075,0.09,0.11,1.);} }
+    uv*=settings.repeats;
+    let c=textureSampleLevel(base,samp,uv,0.).rgb;
+    let mapped=normalize(textureSampleLevel(normal,samp,uv,0.).rgb*2.-vec3(1.));
+    n=normalize(t*mapped.x+b*mapped.y+n*mapped.z);
+    let r=clamp(textureSampleLevel(roughness,samp,uv,0.).r,0.04,1.);
+    let v=vec3(0.,0.,1.);
+    let hdr=light(n,v,normalize(vec3(-0.4,0.6,1.)),c,r)*3.0
+        +light(n,v,normalize(vec3(0.8,0.1,0.5)),c,r)*0.7+c*0.12;
+    let mappedColor=clamp((hdr*(2.51*hdr+vec3(0.03)))/(hdr*(2.43*hdr+vec3(0.59))+vec3(0.14)),vec3(0.),vec3(1.));
+    return vec4(pow(mappedColor,vec3(1./2.2)),1.);
+}`;
+try {
+    const adapter=await navigator.gpu.requestAdapter({powerPreference:'high-performance'});
+    if(!adapter)throw Error('WebGPU preview adapter unavailable');
+    const device=await adapter.requestDevice();
+    const errors=[]; device.addEventListener('uncapturederror',e=>errors.push(e.error.message));
+    const format=navigator.gpu.getPreferredCanvasFormat();
+    const module=device.createShaderModule({code:shader});
+    const compilation=await module.getCompilationInfo();
+    if(compilation.messages.some(m=>m.type==='error'))throw Error(JSON.stringify(compilation.messages));
+    const pipeline=await device.createRenderPipelineAsync({layout:'auto',vertex:{module,entryPoint:'vs'},fragment:{module,entryPoint:'fs',targets:[{format}]}});
+    const sampler=device.createSampler({addressModeU:'repeat',addressModeV:'repeat',magFilter:'linear',minFilter:'linear'});
+    const config=await (await fetch('/config')).json();
+    const owned=[];
+    for(const variant of config.cases){
+        const section=document.createElement('section');section.className='case';section.id=variant;
+        section.innerHTML=`<h2>${variant}</h2><div class="views"></div><div class="channels"></div>`;
+        document.querySelector('main').append(section);
+        const textures=[];
+        for(const channel of ['baseColor','normal','roughness']){
+            const image=await createImageBitmap(await (await fetch(`/maps/${variant}-1024x1024-${channel}.png`)).blob(),{colorSpaceConversion:'none'});
+            const texture=device.createTexture({size:[image.width,image.height],format:channel==='baseColor'?'rgba8unorm-srgb':'rgba8unorm',usage:GPUTextureUsage.TEXTURE_BINDING|GPUTextureUsage.COPY_DST|GPUTextureUsage.RENDER_ATTACHMENT});
+            device.queue.copyExternalImageToTexture({source:image},{texture},[image.width,image.height]);
+            textures.push(texture);owned.push(texture);image.close();
+        }
+        for(const [sphere,repeats] of [[0,1],[0,3],[1,1],[1,3]]){
+            const figure=document.createElement('figure');const canvas=document.createElement('canvas');canvas.width=600;canvas.height=600;
+            figure.append(canvas);const caption=document.createElement('figcaption');caption.textContent=`${sphere?'Sphere':'Plane'} · ${repeats}× tiling`;figure.append(caption);section.querySelector('.views').append(figure);
+            const context=canvas.getContext('webgpu');context.configure({device,format,alphaMode:'opaque'});
+            const uniform=device.createBuffer({size:16,usage:GPUBufferUsage.UNIFORM|GPUBufferUsage.COPY_DST});owned.push(uniform);
+            device.queue.writeBuffer(uniform,0,new Float32Array([sphere,repeats,0,0]));
+            const bind=device.createBindGroup({layout:pipeline.getBindGroupLayout(0),entries:[{binding:0,resource:sampler},...textures.map((texture,i)=>({binding:i+1,resource:texture.createView()})),{binding:4,resource:{buffer:uniform}}]});
+            const encoder=device.createCommandEncoder();const pass=encoder.beginRenderPass({colorAttachments:[{view:context.getCurrentTexture().createView(),loadOp:'clear',storeOp:'store',clearValue:[0.075,0.09,0.11,1]}]});
+            pass.setPipeline(pipeline);pass.setBindGroup(0,bind);pass.draw(3);pass.end();device.queue.submit([encoder.finish()]);
+        }
+        for(const channel of ['baseColor','normal','roughness','height']){
+            const figure=document.createElement('figure');figure.innerHTML=`<img src="/maps/${variant}-1024x1024-${channel}.png"><figcaption>${channel} · full tile</figcaption>`;section.querySelector('.channels').append(figure);
+        }
+    }
+    await device.queue.onSubmittedWorkDone();
+    await Promise.all([...document.images].map(i=>i.decode()));
+    if(errors.length)throw Error(errors.join('\n'));
+    window.previewResult={ok:true,adapter:adapter.info?{vendor:adapter.info.vendor,architecture:adapter.info.architecture,device:adapter.info.device,description:adapter.info.description}:null,cases:config.cases};
+    // Keep explicit ownership until screenshots complete; page close releases the device.
+    window.previewOwned={device,owned};
+}catch(error){window.previewResult={ok:false,error:String(error)};}
+</script>

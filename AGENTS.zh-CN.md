@@ -59,7 +59,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 当前工作
 
-MAT-03 阶段 B 受门槛约束探针已完成，奇数尺寸平移 share 明确仅作观察；C 生产身份绑定 PBR 评审图已生成，人工决定待定；D 保留证据仍待完成；参见[织纹契约](./docs/mat-03-woven-surfaces.zh-CN.md)的冻结探针集。保留已接受的配方修订 2 默认值、修订 1 记录及全部阶段 A 门槛，不修改节点语义。参见[分阶段契约](./docs/mat-03-woven-surfaces.zh-CN.md)；B 结构探针、C PBR／人工评审、D 证据及接受记录另开 PR。materialAccepted 保持 false；冻结门槛失败即停止，不放宽预算，不发布。MAT-02 与 PERF-MAT 已在 [MAT-02 记录](./docs/evidence/mat-02/README.zh-CN.md)范围内验收通过。下列门槛仍是回归义务。每阶段实现前冻结契约与验收用例。材质验收构建输出放在 `target/native-consumer`，不得削弱干净源码检查。 调用方控制映射与公开 Native／浏览器矩阵由[涂漆金属夹具指南](./fixtures/materials/painted-metal/README.zh-CN.md)负责；保留精确图／请求／包身份、冻结像素及耗时门槛，并区分结构／PBR／人工验收门槛。 夹具指南同时负责常量参考、分辨率质量及公开参数隔离门槛，以及经同一执行器进行的仅限测试的原始 half 遮罩／合成观察及生产法线重放／周期边界检查和所选 v2 噪声输入的跨周期采样，以及绑定生产身份的金属度 PBR 视图和独立人工决定，不能单凭跨运行时像素一致推断这些性质。 配方修订 2 使用零基底相对高度改善 half 精度；保留修订 1 输入，按[修订契约](./docs/mat-02-relative-height.zh-CN.md)重新运行全部材质门槛。 硬件保留原冻结尺寸，完整矩阵探针必须包含 2048²；实际报告为 Cpu 的适配器按契约第四次修订跳过该尺寸，并以 notRunOnSoftware 明确记录。SwiftShader 完整运行仍待 CI 验证。
+当前无活动增量。MAT-03 已在[保留的接受范围](./docs/evidence/mat-03/README.zh-CN.md)内完成；weave-pattern@2 可见性修复是下一项跟进，须由维护者另行启动，MAT-04 仍为规划。保留配方修订 2、原始范围、历史记录及所有阶段 A/B 门槛；combined-high 等蝴蝶结组合不属于视觉质量保证。不得追溯改写历史收据的接受标记。只验收记录的适配器，不发布包。每个后续阶段实现前仍须冻结契约及验收用例。材质验收输出使用 target/native-consumer，保持干净源码、请求／包身份和冻结像素／耗时预算检查。公开矩阵、结构／周期探针、PBR 与人工决定分开记录；参见[织物夹具指南](./fixtures/materials/woven-fabric/README.zh-CN.md)和[涂漆金属指南](./fixtures/materials/painted-metal/README.zh-CN.md)。MAT-02、PERF-MAT 及既有材料仍是回归义务。奇数尺寸平移 share 仅作观察；硬件完整矩阵保留 2048²，实际 Cpu 软件适配器按第四次修订明确标为 notRunOnSoftware；软件通过不验收硬件像素。
 
 ## 速查
 

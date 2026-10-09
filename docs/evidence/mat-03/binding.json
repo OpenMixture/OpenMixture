@@ -1,0 +1,618 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+  "sourceClean": true,
+  "sourceDescription": "Fresh machine evidence from clean main 9dc8c1a, before any acceptance documentation edits; later documentation commits are not tested runtime source.",
+  "humanReviewedRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+  "recipeRevision": 2,
+  "materialAccepted": true,
+  "humanDecision": "human-decision.json",
+  "humanReviewVerification": "review/verification.json",
+  "localBrowserCandidate": {
+    "build": {
+      "runtimeVersion": "0.9.0-alpha.0",
+      "apiSchemaVersion": 3,
+      "engineVersion": "0.9.0",
+      "engineRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+      "engineDirty": false,
+      "buildId": "sha256:e4a4d88e08f71f420378604ec2596ae2542e2f022ce9957de7ec1d9731efa5e3"
+    },
+    "archiveSha256": "1699e737ee4081d1bad3cbc06eb43a3ce132ea72225497a367f3ac60f4f8a20e"
+  },
+  "ciRuns": [
+    {
+      "receipt": "ci/ci-cpu.json",
+      "id": 37348415513,
+      "attempt": 1,
+      "revision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+      "conclusion": "success",
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415513",
+      "jobs": [
+        {
+          "name": "Check (macos-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415513/job/111892810692"
+        },
+        {
+          "name": "Check (windows-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415513/job/111892811170"
+        },
+        {
+          "name": "Check (ubuntu-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415513/job/111892811227"
+        }
+      ]
+    },
+    {
+      "receipt": "ci/ci-package.json",
+      "id": 37348415302,
+      "attempt": 1,
+      "revision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+      "conclusion": "success",
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415302",
+      "jobs": [
+        {
+          "name": "WASM and npm package",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415302/job/111892805354"
+        }
+      ]
+    },
+    {
+      "receipt": "ci/ci-gpu.json",
+      "id": 37348415383,
+      "attempt": 1,
+      "revision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+      "conclusion": "success",
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415383",
+      "jobs": [
+        {
+          "name": "Pinned SwiftShader Vulkan materials and packaged consumption",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415383/job/111892901658"
+        }
+      ]
+    },
+    {
+      "receipt": "ci/ci-browser-retry.json",
+      "id": 37348415333,
+      "attempt": 2,
+      "revision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+      "conclusion": "success",
+      "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415333",
+      "jobs": [
+        {
+          "name": "Chromium WebGPU material matrix",
+          "conclusion": "success",
+          "url": "https://github.com/OpenMixture/OpenMixture/actions/runs/37348415333/job/112195597178"
+        }
+      ]
+    }
+  ],
+  "originalCancelledCi": "ci/ci-browser-materials.json",
+  "inventory": {
+    "boundFileCount": 126,
+    "boundBytes": 21973504,
+    "maximumFileBytes": 961337,
+    "excludes": [
+      "binding.json",
+      "README.md",
+      "README.zh-CN.md"
+    ]
+  },
+  "retention": {
+    "owner": "OpenMixture maintainers",
+    "git": "Exact reviewed sheets and referenced maps/renderer/receipts, selected current machine receipts, scope-defining sweep and decision. Historical flags remain unchanged.",
+    "temporary": "Ordinary logs, full new 255-PNG matrices per backend/browser, candidate archives, remainder of CI artifacts; hashes do not retain those bytes.",
+    "ciArtifactExpiry": "See ci/ci-artifacts.json; no durable archive or full-run auditability is claimed.",
+    "exceptionRequired": false
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "e54f55eb4ded7573a744e49733a21e48106fd003ad6d59bae4e5d7cfc6cba3e5",
+      "bytes": 115
+    },
+    "ci/ci-artifacts.json": {
+      "sha256": "ef6a8fab21dea1eb8b0691bc2c57c3254c0ab3cf4ae26711b2ea9e445a98f785",
+      "bytes": 737
+    },
+    "ci/ci-browser-materials.json": {
+      "sha256": "9efa44bf07ce018e0c704c39e954b69739153099198fbaf63fba28170b6226b5",
+      "bytes": 10404
+    },
+    "ci/ci-browser-retry.json": {
+      "sha256": "0b3826a2fa2725f7debda71bf7feb8a1f5367ce6652b5aa02b48e6ffa29ff894",
+      "bytes": 10511
+    },
+    "ci/ci-cpu.json": {
+      "sha256": "ea62ac25e8851f22e0224caa92937177567a20e1168470c5132fbf3c07aab38d",
+      "bytes": 6077
+    },
+    "ci/ci-gpu.json": {
+      "sha256": "13a2af28e807444ee03c695278ffb94fcec614416eb88a054cf214efc6b05070",
+      "bytes": 4611
+    },
+    "ci/ci-package.json": {
+      "sha256": "78873f3187228f9133fed439ba22eb4e751ad339e7b01f143f27ee6a8721a4c9",
+      "bytes": 2990
+    },
+    "human-decision.json": {
+      "sha256": "ef5f184611f60948bd086059d78dad07a02dfffb6b2dc79c77830a2a2c448f34",
+      "bytes": 6016
+    },
+    "limitations/safe-region-sweep.json": {
+      "sha256": "0ce47edbca5618ad69379c02a79f6433dae97e96017ddd49114d4a83d941d538",
+      "bytes": 961337
+    },
+    "limitations/summary.json": {
+      "sha256": "41e06872badaae47584715c8e61c869b0e5e5a2bfbb3d4bb16dd2f5a8aa00ab6",
+      "bytes": 519
+    },
+    "machine/browser-qualification.json": {
+      "sha256": "34aa0774f210e58ecdaa92ad1498ac141e052908d71710150426ef8cd052f316",
+      "bytes": 7080
+    },
+    "machine/comparison-dx12.json": {
+      "sha256": "6e23e9334c8416d3a02f5558c84202ccf7d7a22ae02ed4cb50a9180e1541688c",
+      "bytes": 510
+    },
+    "machine/comparison-vulkan.json": {
+      "sha256": "6e23e9334c8416d3a02f5558c84202ccf7d7a22ae02ed4cb50a9180e1541688c",
+      "bytes": 510
+    },
+    "machine/dx12/woven-crossing-scope.json": {
+      "sha256": "c00095300536c8a9b64b3915e1271d9b211f8ca07798bcde380ea162650da765",
+      "bytes": 5969
+    },
+    "machine/dx12/woven-flat-scope.json": {
+      "sha256": "9aebe69c5b1751ed066f78895bc15028ebb6f238d430e9d94741a80775280d76",
+      "bytes": 5525
+    },
+    "machine/dx12/woven-isolation-scope.json": {
+      "sha256": "9a66cca81bd4efdf4223b93603fe41f74f7bdc2443ecada4631dd543a53eade7",
+      "bytes": 6543
+    },
+    "machine/dx12/woven-noise-periodic-scope.json": {
+      "sha256": "7a8b8442737a58614a2e013dd5362ce9dcda026fd42eec8a58cb7d3bf756512a",
+      "bytes": 16019
+    },
+    "machine/dx12/woven-noise-periodic.json": {
+      "sha256": "f9cfb6c39d9548380306a585e70c6a0ea86a135761be23c69eb2f6139417a1bc",
+      "bytes": 16065
+    },
+    "machine/dx12/woven-normal-replay-scope.json": {
+      "sha256": "48fc457444cc0d4a8e36a29e5c90ab09d992c232ef203c38bd1fef9206a16c74",
+      "bytes": 10514
+    },
+    "machine/dx12/woven-stress-scope.json": {
+      "sha256": "4ac5038a0d5c6d7171fdff5d7e15628cc688738b42d465f8190b04fdb1de2e5c",
+      "bytes": 5452
+    },
+    "machine/dx12/woven-weave-periodic.json": {
+      "sha256": "8dad7641543e7de23b95d77d843c9fc62325bdd6bc3ce8044b3e71fd36d5a813",
+      "bytes": 740529
+    },
+    "machine/native-dx12.json": {
+      "sha256": "9ec923433ef769efbe1fea1ccd33ea3fa69c23744ae8737e460a1981ec2ed294",
+      "bytes": 614786
+    },
+    "machine/native-vulkan.json": {
+      "sha256": "e1b8bacb7be25b8cda8607b206c52e655d28cbd1b1827036ea7c4bd2173264f7",
+      "bytes": 654360
+    },
+    "machine/probe-runs.json": {
+      "sha256": "0d65d1a286d72f8118d6ba0978eb73c92119520e02dae95193bcc891273028fb",
+      "bytes": 1587
+    },
+    "machine/requests.json": {
+      "sha256": "c98128e3b73e2ba6d5b02ad87af7a82b6f35f767ab34df4bade232f3d4c52b44",
+      "bytes": 130493
+    },
+    "machine/summary.json": {
+      "sha256": "5b819730d5bffc127901f1f850c33a60047931e98a248a276bb8aff1601f0671",
+      "bytes": 15356
+    },
+    "machine/swiftshader/woven-crossing-scope.json": {
+      "sha256": "44c026056fc6ef4f62e586571b0127bfbc3ff0976044b075e9bd200c766fecb7",
+      "bytes": 6546
+    },
+    "machine/swiftshader/woven-flat-scope.json": {
+      "sha256": "b39460da11ca8923152a35c84571e58a2c704b53360348925d8a53c1de1c7169",
+      "bytes": 5913
+    },
+    "machine/swiftshader/woven-isolation-scope.json": {
+      "sha256": "99ddca07517c4da2df4c844759f83261e86888cd1f5de3f7f8466504f1b5f4db",
+      "bytes": 6836
+    },
+    "machine/swiftshader/woven-noise-periodic-scope.json": {
+      "sha256": "0a6e732e2070380c9c8d74fd9fa46596364cb4f260e3735bbb892f2c2864c84a",
+      "bytes": 19000
+    },
+    "machine/swiftshader/woven-noise-periodic.json": {
+      "sha256": "83ca3193148f7894dc6fa2700ea512afa0289c6ad64aa89b4cebc733821a2fdf",
+      "bytes": 19046
+    },
+    "machine/swiftshader/woven-normal-replay-scope.json": {
+      "sha256": "7f9f127a3221a9202533810797d8302b3de51fdb8e16d907fb577c217a5eb703",
+      "bytes": 15067
+    },
+    "machine/swiftshader/woven-stress-scope.json": {
+      "sha256": "37805f4c5fcaa855a646118cd9769349899f04ba819804f0ada2c4df34abd78a",
+      "bytes": 5745
+    },
+    "machine/swiftshader/woven-weave-periodic.json": {
+      "sha256": "53a8681d6996c829c4c4a345e55becf79b98d8b0deafe59bf04c67a3647e99bc",
+      "bytes": 622701
+    },
+    "machine/vulkan/woven-crossing-scope.json": {
+      "sha256": "89a55e9a0ed1d54d850e86e99fe8ec7190fb2828d75301ca7b97e37d66d5c0e8",
+      "bytes": 6568
+    },
+    "machine/vulkan/woven-flat-scope.json": {
+      "sha256": "0901e6ae6144306d310f12f25e7352c3ad89b9483b042549916e05bffa0e2f0f",
+      "bytes": 6124
+    },
+    "machine/vulkan/woven-isolation-scope.json": {
+      "sha256": "9e516090f41e0b0a4b6a0d460aa0e19ca40bb0e66039e42cb9b4cb5d4e4f38cf",
+      "bytes": 7142
+    },
+    "machine/vulkan/woven-noise-periodic-scope.json": {
+      "sha256": "3ab6876d7cfebea73cdccc831bf49d790b946e6a905179b04032fda1ef7f4d44",
+      "bytes": 16618
+    },
+    "machine/vulkan/woven-noise-periodic.json": {
+      "sha256": "6b1f208c5933b3c7fca5176d076789a81b550c5c0f3ef927d98480f18928ee10",
+      "bytes": 16664
+    },
+    "machine/vulkan/woven-normal-replay-scope.json": {
+      "sha256": "1ec13fdb812966789a76b88c5814579a70a0d606d125ae7960336ca7a3e7c7d7",
+      "bytes": 11113
+    },
+    "machine/vulkan/woven-stress-scope.json": {
+      "sha256": "b981de7ca807299be73bef17dd9862bf7268d449aa1d7a63300939a63204f913",
+      "bytes": 6051
+    },
+    "machine/vulkan/woven-weave-periodic.json": {
+      "sha256": "173f001300e798ea5181a41c6ac1d42ed69c643f80f0f2a750bfbc3fbffe5355",
+      "bytes": 741129
+    },
+    "machine/weave-pattern.json": {
+      "sha256": "a7676cd97ec3cf637964e89fd53d7cd0953d3fc6f31664fac5d21465f3b87074",
+      "bytes": 56083
+    },
+    "machine/woven-browser.json": {
+      "sha256": "280bd3049f229943adb86c6818257fec366e27390b9b8209fafb279e4b2c4976",
+      "bytes": 755014
+    },
+    "review/browser-inputs/combined-high-1024x1024-baseColor.png": {
+      "sha256": "b4283bd24a997b764757dacd392fd233b400c2a8157f50adbb28eed97677d233",
+      "bytes": 825428
+    },
+    "review/browser-inputs/combined-high-1024x1024-height.png": {
+      "sha256": "545c32c554b988c0908ecdf9ca7d6ef1017da9c4f1afd0fae79b6c8c7f48e09b",
+      "bytes": 326702
+    },
+    "review/browser-inputs/combined-high-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/combined-high-1024x1024-normal.png": {
+      "sha256": "64cb441adbb769555ddc8c2b6e192fc04750344b949f923e05e314d2cb9545b6",
+      "bytes": 255647
+    },
+    "review/browser-inputs/combined-high-1024x1024-roughness.png": {
+      "sha256": "323c52d1e14a7feed1027acbc15ad11e2d4715f15b095fc56d5458b50075bdab",
+      "bytes": 503667
+    },
+    "review/browser-inputs/combined-low-1024x1024-baseColor.png": {
+      "sha256": "394f614fea08a1ecc293ffd25c1012f2dabc105d73c693377b34d49027baa90d",
+      "bytes": 55983
+    },
+    "review/browser-inputs/combined-low-1024x1024-height.png": {
+      "sha256": "21a2b7c2e0638d84f41430b91764c0809901d5e5869bf625e1017bfe7c9c5b3b",
+      "bytes": 73698
+    },
+    "review/browser-inputs/combined-low-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/combined-low-1024x1024-normal.png": {
+      "sha256": "d7eccd20c08964872a6d8f457bbcb00b4f1feb487a573d822988de433e0b4dae",
+      "bytes": 540052
+    },
+    "review/browser-inputs/combined-low-1024x1024-roughness.png": {
+      "sha256": "59d502f0e0b579c39b77593651791a8307543aafc89aa36a4d8930e08baeff73",
+      "bytes": 28271
+    },
+    "review/browser-inputs/plain-1024x1024-baseColor.png": {
+      "sha256": "fc31254929e89651ea4d888160cf1956c662a4f195a6961c2a25eefea03d4a2a",
+      "bytes": 414116
+    },
+    "review/browser-inputs/plain-1024x1024-height.png": {
+      "sha256": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3",
+      "bytes": 125764
+    },
+    "review/browser-inputs/plain-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/plain-1024x1024-normal.png": {
+      "sha256": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+      "bytes": 541981
+    },
+    "review/browser-inputs/plain-1024x1024-roughness.png": {
+      "sha256": "3b8d3762449d668515a58f8f7a687acd0ba822dff85794b7ba5c9d36455c7999",
+      "bytes": 251005
+    },
+    "review/browser-inputs/varied-1024x1024-baseColor.png": {
+      "sha256": "87dd615e608b644926a8320f912c932393a66a74702670137aeaad43d1f4272b",
+      "bytes": 499608
+    },
+    "review/browser-inputs/varied-1024x1024-height.png": {
+      "sha256": "027087944b6e03446b7cba8876c2b73815cfd9849108243f67165a726de7db38",
+      "bytes": 142600
+    },
+    "review/browser-inputs/varied-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/varied-1024x1024-normal.png": {
+      "sha256": "bc0095f11b896a2bb12a5a88445395445ce418627cbba0f7c4711553227da204",
+      "bytes": 827433
+    },
+    "review/browser-inputs/varied-1024x1024-roughness.png": {
+      "sha256": "4aa598acb33857a3a1853b7eb5218869223dcab79563433d66837e5582f5513a",
+      "bytes": 290895
+    },
+    "review/browser-inputs/warp-seed-1024x1024-baseColor.png": {
+      "sha256": "fb554e156a299d8cebff9f82fa485a66b6dae92db8f4e2f131073f86a5f5adb4",
+      "bytes": 414411
+    },
+    "review/browser-inputs/warp-seed-1024x1024-height.png": {
+      "sha256": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3",
+      "bytes": 125764
+    },
+    "review/browser-inputs/warp-seed-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/warp-seed-1024x1024-normal.png": {
+      "sha256": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+      "bytes": 541981
+    },
+    "review/browser-inputs/warp-seed-1024x1024-roughness.png": {
+      "sha256": "48fd3db5cc47a8fdd932086c5d04abae6b7d0468b02d67f0187686e5409f249e",
+      "bytes": 249931
+    },
+    "review/browser-inputs/weft-seed-1024x1024-baseColor.png": {
+      "sha256": "e484ed013bcf21a3da066db1aec402292b6627203aadc48069053ec7bc47de62",
+      "bytes": 418552
+    },
+    "review/browser-inputs/weft-seed-1024x1024-height.png": {
+      "sha256": "72f88cec3c1f765c1d7100d56dd4f5d61f0f7e1cdd1157e7b39d6e6dc7f88ba3",
+      "bytes": 125764
+    },
+    "review/browser-inputs/weft-seed-1024x1024-metallic.png": {
+      "sha256": "de7523713c6ed767dbb48b2f6b30d6d0ed79e67d0d1fba2d8767be034610de43",
+      "bytes": 24688
+    },
+    "review/browser-inputs/weft-seed-1024x1024-normal.png": {
+      "sha256": "31733fc832602f39ef2e4437e17354b3b36a5d6e7c10c3c23b546d701284d4f5",
+      "bytes": 541981
+    },
+    "review/browser-inputs/weft-seed-1024x1024-roughness.png": {
+      "sha256": "096afa266a37681055b26e4d0bea2f9e1b9885f0e1798447e9d89d5e2596e15d",
+      "bytes": 253219
+    },
+    "review/combined-high-pbr.png": {
+      "sha256": "6fb8a3c3c4f540c85a373cb17c22ee25beebf02c6e1692416079c2ccde5617c0",
+      "bytes": 692476
+    },
+    "review/combined-low-pbr.png": {
+      "sha256": "3fd1dd9268d1b8ad1a7493abae50c66af6e6d38623c6e38d9df9e3f40b83c40a",
+      "bytes": 172083
+    },
+    "review/index.html": {
+      "sha256": "5b030be9d8ea577d5437a3c93b23e7170b289251c1a1d6b30f233cfe926dfa40",
+      "bytes": 1151
+    },
+    "review/inputs/combined-high-1024x1024-baseColor.png": {
+      "sha256": "fe4b4fa6265d90c358710e70e5fa189ada62313f2c632ca4a5aa463d9007bf4f",
+      "bytes": 529315
+    },
+    "review/inputs/combined-high-1024x1024-height.png": {
+      "sha256": "ac1c12becbb1a236962e92bc73cb12523ab357ccc594f8bb1b056ba5856d7cae",
+      "bytes": 53224
+    },
+    "review/inputs/combined-high-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/combined-high-1024x1024-normal.png": {
+      "sha256": "ad1d87604a04a71427457792c5dca3d2371c960bd52cdc029ad1d6e698a1ea23",
+      "bytes": 123952
+    },
+    "review/inputs/combined-high-1024x1024-roughness.png": {
+      "sha256": "d08a5f41b3fd3446f85e02249825ed47b4a7d72d90e25d662153d4448c6c4f7a",
+      "bytes": 290602
+    },
+    "review/inputs/combined-low-1024x1024-baseColor.png": {
+      "sha256": "9c9d6239cfabc96da2b99a38ad64d0d370adec239242b03853161b88960fa4ef",
+      "bytes": 24033
+    },
+    "review/inputs/combined-low-1024x1024-height.png": {
+      "sha256": "cc0bc8495d527f3b35dd8441bf08f93e7e80f12ec81cbd3b4460cde3b775bc01",
+      "bytes": 28939
+    },
+    "review/inputs/combined-low-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/combined-low-1024x1024-normal.png": {
+      "sha256": "ecf94b84d7670876c77ef4c0342270c36a02ca13803d659280b2f0946c7fc094",
+      "bytes": 222405
+    },
+    "review/inputs/combined-low-1024x1024-roughness.png": {
+      "sha256": "193828f001a063bd9373dc3dd227e8a22cc0a19a344541f046f06867a9c776c6",
+      "bytes": 7937
+    },
+    "review/inputs/plain-1024x1024-baseColor.png": {
+      "sha256": "6102c152aabb5cae66576b202d3d62650764adf2f5b9c966819d297118adbd92",
+      "bytes": 200644
+    },
+    "review/inputs/plain-1024x1024-height.png": {
+      "sha256": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+      "bytes": 42001
+    },
+    "review/inputs/plain-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/plain-1024x1024-normal.png": {
+      "sha256": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+      "bytes": 183316
+    },
+    "review/inputs/plain-1024x1024-roughness.png": {
+      "sha256": "fb3998bce0559e711d8d64e5192b1213fb1cb11967d7c908c7c8adfe576ff905",
+      "bytes": 105836
+    },
+    "review/inputs/varied-1024x1024-baseColor.png": {
+      "sha256": "41ec9dad51bb75b060de7ece43e926e7c3efff061ac1ce85e3857341aafcef2b",
+      "bytes": 271086
+    },
+    "review/inputs/varied-1024x1024-height.png": {
+      "sha256": "10e307f1f8ef73c0e8a5eaf2e997c2b4e381edf1e9be29ec669797d13dde7f6c",
+      "bytes": 54303
+    },
+    "review/inputs/varied-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/varied-1024x1024-normal.png": {
+      "sha256": "f346b4181fc73fb9510ed4d7611a4c9f8de00010064d70b83f3c94ee09c65b4a",
+      "bytes": 375346
+    },
+    "review/inputs/varied-1024x1024-roughness.png": {
+      "sha256": "17a832ad8969accf98f8f9e85d55f77e62f75e79f4e077f6e03ad465c507cf78",
+      "bytes": 136912
+    },
+    "review/inputs/warp-seed-1024x1024-baseColor.png": {
+      "sha256": "6e90a93f3f2bab89f3ee1c2629058c9f43c19d26614cdd74260f512cf2caf202",
+      "bytes": 200192
+    },
+    "review/inputs/warp-seed-1024x1024-height.png": {
+      "sha256": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+      "bytes": 42001
+    },
+    "review/inputs/warp-seed-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/warp-seed-1024x1024-normal.png": {
+      "sha256": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+      "bytes": 183316
+    },
+    "review/inputs/warp-seed-1024x1024-roughness.png": {
+      "sha256": "004db8df5b8248141a47126a93a854af76a12fcc3def62104f70a8434d74d982",
+      "bytes": 106939
+    },
+    "review/inputs/weft-seed-1024x1024-baseColor.png": {
+      "sha256": "3fa4f8cf7fe320af5db1f2f64ed62b6ca525a259b0c6ab0574c30b24a5a7bf31",
+      "bytes": 197844
+    },
+    "review/inputs/weft-seed-1024x1024-height.png": {
+      "sha256": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+      "bytes": 42001
+    },
+    "review/inputs/weft-seed-1024x1024-metallic.png": {
+      "sha256": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+      "bytes": 6356
+    },
+    "review/inputs/weft-seed-1024x1024-normal.png": {
+      "sha256": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+      "bytes": 183316
+    },
+    "review/inputs/weft-seed-1024x1024-roughness.png": {
+      "sha256": "b0d7c3cbd1aee622db1e69bce2a3a4c35a42e7a9f19f01980788a1c4e9a88c68",
+      "bytes": 102879
+    },
+    "review/path-mapping.json": {
+      "sha256": "590115baacd52564c4d0e920301146b321973c4e66065ed6428695039630bc82",
+      "bytes": 7565
+    },
+    "review/pbr-review-plan.json": {
+      "sha256": "3a3e4e3980aa6d4bdc3ab872ac0dbed2e71af361687029a555fbf8655fc729b4",
+      "bytes": 2433
+    },
+    "review/plain-pbr.png": {
+      "sha256": "b7e0d86a9a535c7c7adc6e3228e462f4fcbc27ad42e64dd30b9f8cc601b2d73e",
+      "bytes": 329191
+    },
+    "review/preview.json": {
+      "sha256": "7019726b7a91c34a18780d6f65519c7efe0773dfdaece54760d25a82cf42afc4",
+      "bytes": 161000
+    },
+    "review/producer/brick-renderer.html": {
+      "sha256": "7d83de65baeaac25a7296f28349ac3a2423b91457b0b7eebe08dc7f1befe0971",
+      "bytes": 7284
+    },
+    "review/producer/browser-qualification.json": {
+      "sha256": "3852158abaa1a6c9bb12bbf6eb931d6f796aa5809ad7958989acadd27a995a9f",
+      "bytes": 7080
+    },
+    "review/producer/comparison.json": {
+      "sha256": "7495fa1b6ba42787ca6fac1b0cb2df1ab6963c9d5483e89673fdf0f20d37b24c",
+      "bytes": 510
+    },
+    "review/producer/native/native.json": {
+      "sha256": "3d2a940a8534ee93987f44266a94695b674e76a9694d0c5e9ca345329e0dea1c",
+      "bytes": 654378
+    },
+    "review/producer/requests.json": {
+      "sha256": "5ac7ee956aae7d983cb501d090789951343e7e40cab12bff091745fdea89c784",
+      "bytes": 130493
+    },
+    "review/producer/woven-browser.json": {
+      "sha256": "394a9ba0529697995b876886bba98875969ba71cb982dc8e06eaf0e3401303cf",
+      "bytes": 754992
+    },
+    "review/producer/woven-renderer-source.txt": {
+      "sha256": "e573d75a84ebb95897dbf2a3169071b383622696eabc8891666e112fe231f258",
+      "bytes": 11872
+    },
+    "review/renderer.html": {
+      "sha256": "97f3946aed71d1fe8ea291ad3eda6455ab1f44bc454c79ff499b3f1faa7d2a6f",
+      "bytes": 8812
+    },
+    "review/roughness-sanity-0.png": {
+      "sha256": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552",
+      "bytes": 44502
+    },
+    "review/roughness-sanity-1.png": {
+      "sha256": "154e2729a7659063869fcd9df73f8c89a5e5d2d68217ba4b56c3ce94e10cc5cd",
+      "bytes": 44013
+    },
+    "review/roughness-sanity-2.png": {
+      "sha256": "7ba8e642404dbe8f5d616726abb49fefd2fb33069646855309a7d3bfa4978552",
+      "bytes": 44502
+    },
+    "review/varied-pbr.png": {
+      "sha256": "cd6d05c0c871e97a6d84f3d24c12cdd47569f812e38f34e90d3f9dd7603091e5",
+      "bytes": 408342
+    },
+    "review/verification.json": {
+      "sha256": "3b91e366a1e70c2fdd91f2c79e5d7ab7f540870a04c3a2f69c48d3effd9feedb",
+      "bytes": 266
+    },
+    "review/warp-seed-pbr.png": {
+      "sha256": "dc05db9399134d4ef53a98266da406e95e117d4df7c8e8d27f184fcacd40d4c2",
+      "bytes": 330920
+    },
+    "review/weft-seed-pbr.png": {
+      "sha256": "5619e94b566b48e85305166bc97ffcc733403adb57a1205cb11e5df3f10fdbf2",
+      "bytes": 332608
+    }
+  }
+}

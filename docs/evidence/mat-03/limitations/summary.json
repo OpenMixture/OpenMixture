@@ -1,0 +1,14 @@
+{
+  "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819",
+  "sourceClean": true,
+  "originalSweepSha256": "0ce47edbca5618ad69379c02a79f6433dae97e96017ddd49114d4a83d941d538",
+  "originalCriterion": 0.85,
+  "reportingThreshold": 0.75,
+  "thresholdIsNotQualificationGate": true,
+  "gridRows": 432,
+  "atLeast075": 156,
+  "crownOneRows": 144,
+  "crownOneAtLeast075": 8,
+  "plainMin": 0.875,
+  "scope": "Measured limitation; ranges, recipe revision 2 and frozen gates unchanged. PR 87 was closed without merging."
+}

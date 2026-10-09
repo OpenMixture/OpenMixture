@@ -1,0 +1,38 @@
+[
+  {
+    "exitCode": 0,
+    "sourceClean": true,
+    "finishedAt": "2026-10-06T09:27:21.0594340Z",
+    "startedAt": "2026-10-06T09:24:15.8884675Z",
+    "backend": "vulkan",
+    "command": "cargo test --release --locked -p mixture-wgpu --lib executor::woven_tests:: -- --ignored --nocapture --test-threads=1",
+    "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819"
+  },
+  {
+    "exitCode": 0,
+    "sourceClean": true,
+    "finishedAt": "2026-10-06T09:27:38.9870887Z",
+    "startedAt": "2026-10-06T09:27:21.2838634Z",
+    "backend": "vulkan",
+    "command": "cargo test --release --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture",
+    "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819"
+  },
+  {
+    "exitCode": 0,
+    "sourceClean": true,
+    "finishedAt": "2026-10-06T09:29:51.2177323Z",
+    "startedAt": "2026-10-06T09:27:39.0668249Z",
+    "backend": "dx12",
+    "command": "cargo test --release --locked -p mixture-wgpu --lib executor::woven_tests:: -- --ignored --nocapture --test-threads=1",
+    "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819"
+  },
+  {
+    "exitCode": 0,
+    "sourceClean": true,
+    "finishedAt": "2026-10-06T09:29:57.7256111Z",
+    "startedAt": "2026-10-06T09:29:51.4931217Z",
+    "backend": "dx12",
+    "command": "cargo test --release --locked -p mixture-wgpu --test nodes node_fractal_noise_gpu_woven_periodic_inputs -- --exact --ignored --nocapture",
+    "sourceRevision": "9dc8c1a4dec12a0566f5237e05dc6862056bc819"
+  }
+]
