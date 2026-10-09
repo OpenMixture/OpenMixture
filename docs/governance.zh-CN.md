@@ -37,6 +37,8 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 浏览器材质矩阵属于较慢的完整档位：在 PR 上仅当带有 `full-qualification` 标签时运行（添加标签即触发），推送到 `main` 及手动运行时始终运行。因此未加标签的 PR 会将该检查报告为跳过；它能捕获的回归会在随后的 `main` 运行中暴露。修改浏览器可见像素、WASM／运行时边界或材质夹具且需要合并前证据时，请为 PR 添加该标签。冻结的耗时预算仅对实测硬件适配器起阻断作用；软件适配器（SwiftShader）的耗时以 `budgetPolicy: "software"` 记录供趋势审阅，不会使运行失败。
 
+同一标签也选择 GPU 任务的完整档位：未加标签时，PR 上的 `cargo xtask gpu-smoke` 跳过以 `full-qualification:` 标记的忽略测试（目前为 MAT-03 woven 结构探针），`main`、手动运行及带标签的 PR 则运行它们。非纯文档 PR 始终运行 GPU 检查本身。两个范围任务只读取变更路径名，因此使用无 blob 的稀疏检出。
+
 ## CI 触发与保留
 
 [CPU](../.github/workflows/ci.yml)、[GPU](../.github/workflows/gpu-smoke.yml)、[浏览器包](../.github/workflows/browser-runtime.yml)及[浏览器材质](../.github/workflows/browser-materials.yml)工作流均响应 PR、推送到 `main` 及手动触发。普通功能分支推送不会额外启动一套分支 push 运行。合并后仍在 `main` 上运行，验证集成结果。现有按工作流／引用划分的并发控制取消已被取代的运行，不取消无关分支或 PR。

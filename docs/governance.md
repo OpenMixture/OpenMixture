@@ -37,6 +37,8 @@ The GPU and browser material workflows each start with a `Qualification scope` j
 
 The browser material matrix is the slow full tier: on pull requests it runs only when the PR carries the `full-qualification` label (adding the label starts it), and always on pushes to `main` and manual runs. Unlabeled pull requests therefore report the check as skipped; a regression it would catch surfaces on the following `main` run. Label pull requests that change browser-visible pixels, the WASM/runtime boundary or material fixtures when pre-merge evidence is wanted. Frozen timing budgets gate only measured hardware adapters; software-adapter (SwiftShader) timings are recorded as `budgetPolicy: "software"` for trend review and never fail a run.
 
+The same label selects the GPU job's full tier: without it, `cargo xtask gpu-smoke` on pull requests skips tests ignored as `full-qualification:` (currently the MAT-03 woven structural probes), while `main`, manual runs and labeled PRs run them. The GPU check itself always runs for non-documentation PRs. Both scope jobs use a blob-less sparse checkout because they only read changed path names.
+
 ## CI triggers and retention
 
 The [CPU](../.github/workflows/ci.yml), [GPU](../.github/workflows/gpu-smoke.yml), [browser package](../.github/workflows/browser-runtime.yml) and [browser material](../.github/workflows/browser-materials.yml) workflows all run on pull requests, pushes to `main`, and manual dispatch. A normal push to a feature branch does not also start a branch-push run. A merged change still runs on `main`, verifying the integrated state. Existing per-workflow/ref concurrency cancels superseded runs without cancelling unrelated branches or PRs.

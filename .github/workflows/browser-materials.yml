@@ -23,6 +23,9 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 2
+          # Only the script and changed path names are needed; skip other file contents.
+          filter: blob:none
+          sparse-checkout: .github/scripts
       - name: Run the full matrix on main, manual runs and labeled pull requests
         id: scope
         env:

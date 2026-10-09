@@ -10,7 +10,9 @@
 # Without a path list, pull requests diff the checked-out merge commit against
 # its first parent (the base tip), which requires `fetch-depth: 2`.
 #
-# QUALIFICATION_TIER=full marks the slow full matrix: on pull requests it runs
+# Also prints `full=true|false`: true for pushes/manual runs and for pull requests
+# labeled `full-qualification`. QUALIFICATION_TIER=full marks a whole workflow as the
+# slow full matrix: on pull requests it runs
 # only when QUALIFICATION_LABELS (comma-separated) contains `full-qualification`.
 # Pushes to main and manual runs always execute it.
 set -euo pipefail
@@ -41,15 +43,21 @@ documentation_only() {
 }
 
 event=${1:?usage: qualification-scope.sh <event-name> [path-list-file]}
+# `full` tells workflows whether full-qualification work (slow probes) should run.
 if [ "$event" != pull_request ]; then
   echo "qualification required for $event events" >&2
   echo run=true
+  echo full=true
   exit 0
 fi
-if [ "${QUALIFICATION_TIER:-standard}" = full ] &&
-  [[ ",${QUALIFICATION_LABELS:-}," != *,full-qualification,* ]]; then
+full=false
+if [[ ",${QUALIFICATION_LABELS:-}," == *,full-qualification,* ]]; then
+  full=true
+fi
+if [ "${QUALIFICATION_TIER:-standard}" = full ] && [ "$full" = false ]; then
   echo "full matrix deferred to main; add the full-qualification label to run it on this pull request" >&2
   echo run=false
+  echo full=false
   exit 0
 fi
 if [ $# -ge 2 ]; then
@@ -63,3 +71,4 @@ if documentation_only <<<"$paths"; then
 else
   echo run=true
 fi
+echo full=$full

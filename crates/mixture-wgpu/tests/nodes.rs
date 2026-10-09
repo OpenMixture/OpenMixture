@@ -929,7 +929,7 @@ fn node_weave_pattern_gpu() {
 mod periodic_scalar_readback;
 
 #[test]
-#[ignore = "requires GPU; cargo xtask test-node fractal-noise"]
+#[ignore = "full-qualification: requires GPU; cargo xtask test-node fractal-noise or full-tier gpu-smoke"]
 fn node_fractal_noise_gpu_woven_periodic_inputs() {
     let context = pollster::block_on(GpuContext::request(options())).unwrap();
     let evidence = value_periodic_probe::run_woven(&context);
