@@ -29,7 +29,7 @@ Maintain one main feature increment plus necessary maintenance. ENG-01–04 are 
 | Planning state | Current content |
 |---|---|
 | Available baseline | Published `@openmixture/runtime@0.3.0-alpha.0`: external image resources, API schema 2, plan v2; `.mix v1` unchanged. Qualified Rust 0.6.0 source is consumable; MAT-01 is qualified within its recorded scope; crates remain unpublished. [Exact archive and registry qualification](./docs/evidence/npm-030-alpha/README.md). |
-| Active increment | None. MAT-03 is accepted within its [recorded scope](./docs/evidence/mat-03/README.md); the next weave-pattern@2 visibility follow-up awaits a maintainer start decision. MAT-04 remains planned; no publication. |
+| Active increment | [weave-pattern@2 design and measurement](./docs/weave-pattern-v2-design.md), started by the maintainer. No implementation/catalog/version change authorized. MAT-03 acceptance remains within its recorded @1 scope; MAT-04 remains planned; no publication. |
 | Current qualification | [MAT-03](./docs/evidence/mat-03/README.md): recipe revision 2 accepted for five reviewed presets, with combined-high excluded from the visual guarantee and explicit numerical/software limits. [MAT-01](./docs/evidence/mat-01/README.md) and [MAT-02](./docs/evidence/mat-02/README.md) retain their recorded scopes. No publication or general hardware guarantee. |
 | Planned sequence | MAT-01 structure → MAT-02 layered weathering → MAT-03 woven surfaces → MAT-04 graph reuse. Each stage enters implementation only with its bounded contract and catalog/version review. PERF-MAT is measurement-triggered support, not a prerequisite program. |
 
@@ -63,7 +63,7 @@ Subgraphs and presets follow MAT-04 below; their format and implementation remai
 
 ## Material capability roadmap — staged delivery
 
-The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02/MAT-03 are accepted within their recorded scopes. No increment is active; weave-pattern@2 visibility is the next follow-up, not started, and MAT-04 remains planned. These are not blanket approvals for nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
+The 2026-09-23 planning decision selects material-expression breadth as the next direction. The target is reusable procedural texture materials, not parity with the complete Substance 3D suite. Keep one feature increment active. MAT-01/MAT-02/MAT-03 are accepted within their recorded scopes. weave-pattern@2 visibility design and measurement is active; implementation requires separate contract/catalog/version approval. MAT-04 remains planned. These are not blanket approvals for nodes or schemas. Track contract acceptance, implementation, pixel qualification, integration and publication separately. No package version or release date is assigned here.
 
 The planning baseline had thirteen node types, image input, public parameters, eight material output channels and portable assets. MAT-01 adds two accepted node types for structured brick materials; later stages still need the processing vocabulary specified below. A channel slot is not a channel generator; a portable archive is not a reusable subgraph. Existing ceramic/leather/wood acceptance remains bounded and mandatory.
 
@@ -94,7 +94,7 @@ MAT-02/03/04 use the same contract → minimal implementation seams → material
 
 ### MAT-03a entry and stop boundary
 
-PR #81 and subsequent A/B/C work are merged. The [Stage D record](./docs/evidence/mat-03/README.md) accepts recipe revision 2 for five reviewed presets under the final maintainer decision; combined-high and similar bow-tie combinations are outside the visual quality guarantee. PR #87 was closed unmerged; original ranges and every frozen gate remain. weave-pattern@2 will address over-yarn visibility across its own crossing width, subject to a separate contract/catalog/version review and maintainer start decision; implementation is not authorized. Stop on any frozen gate failure without relaxing limits or publishing.
+PR #81 and subsequent A/B/C work are merged. The [Stage D record](./docs/evidence/mat-03/README.md) accepts recipe revision 2 for five reviewed presets under the final maintainer decision; combined-high and similar bow-tie combinations are outside the visual quality guarantee. PR #87 was closed unmerged; original ranges and every frozen gate remain. The maintainer has started [weave-pattern@2 design](./docs/weave-pattern-v2-design.md) to address over-yarn visibility across its own crossing width. Candidate formulas and bounded research measurements are pending contract/catalog/version review; implementation is not authorized. Stop on any frozen gate failure without relaxing limits or publishing.
 
 ### Common material acceptance and ownership
 

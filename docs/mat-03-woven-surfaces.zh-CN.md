@@ -2,7 +2,7 @@
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
-MAT-03 配方修订 2 已在**记录范围内验收通过**；详见[阶段 D 证据及人工决定](./evidence/mat-03/README.zh-CN.md)。视觉接受预设为 plain、varied、warp-seed、weft-seed、combined-low；combined-high 及类似蝴蝶结形组合不在视觉质量保证内。冻结计划、范围、节点语义和历史 false 接受标记均不变；materialAccepted=true 仅写入新的接受记录。weave-pattern@2 是下一项跟进（让上层纱线在交叉处自己的整个宽度上可见），尚未启动。未发布任何包。
+MAT-03 配方修订 2 已在**记录范围内验收通过**；详见[阶段 D 证据及人工决定](./evidence/mat-03/README.zh-CN.md)。视觉接受预设为 plain、varied、warp-seed、weft-seed、combined-low；combined-high 及类似蝴蝶结形组合不在视觉质量保证内。冻结计划、范围、节点语义和历史 false 接受标记均不变；materialAccepted=true 仅写入新的接受记录。weave-pattern@2 的设计与测量已由维护者启动（让上层纱线在交叉处自己的整个宽度上可见）；参见下方独立提案，尚未授权实现。未发布任何包。
 
 当前默认值仍为 underRatio=0.25、crown=0。plain 残余收窄 min=0.875；原阶段 A/B/C 结果及下文待定表述保留其当时身份。2026-10-06（Asia/Shanghai）维护者先提出 "Accept with a narrower range"，随后因 PR #87 测量否定单独收窄 underRatio 的充分性而撤销；最终决定为 "Accept now, fix in @2 later (Recommended)"。原六张评审图在干净 6eb52a6 生成，逐字节保留；新的机器验收绑定干净 main 9dc8c1a。奇数尺寸平移 share 仅作观察（最多 27 half 步、|ΔP|≈0.12 个 8-bit 级）；软件省略 2048²，硬件完整矩阵保留该尺寸。仅验收记录的适配器。
 
@@ -459,3 +459,7 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。它们原为阶段 C 临时输出；阶段 D 现保留原评审字节及所选收据，普通日志仍忽略。
 
 代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。后续维护者决定接受五个预设并排除 combined-high；见[阶段 D 记录](./evidence/mat-03/README.zh-CN.md)。该决定未重新生成图像或配方。
+
+## weave-pattern@2 设计跟进
+
+维护者已启动仅设计与测量的[独立 @2 提案](./weave-pattern-v2-design.zh-CN.md)：三个候选、@1 GPU 像素核对、有界扫描、推荐连续叠层公式及待定目录／版本决定。尚未冻结或授权实现。接受的 @1 配方修订 2、范围、历史回执及 A–D 决定不变；未来 @2 配方必须另行修订并重新验收 A–D。
