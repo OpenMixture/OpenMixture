@@ -384,9 +384,10 @@ fn brick_material_public_gpu_matrix() {
                 .as_str()
                 .unwrap()
                 .contains(budget["adapter"].as_str().unwrap())
-                .then_some(budget)
+                .then_some((policy, budget))
         });
-        let budget_passed = budget.map(|budget| {
+        let budget_policy = budget.map(|(policy, _)| policy);
+        let budget_passed = budget.map(|(_, budget)| {
             let warm_key = if size == 1024 {
                 "warmMedian1024Ms"
             } else {
@@ -395,14 +396,17 @@ fn brick_material_public_gpu_matrix() {
             warm[warm.len() / 2] <= budget[warm_key].as_f64().unwrap()
                 && (size != 1024 || times[0] <= budget["cold1024Ms"].as_f64().unwrap())
         });
-        timing.push(json!({"size":size,"adapter":adapter,"coldMs":times[0],"warmMs":&times[1..],"warmMedianMs":warm[warm.len()/2],"budgetPassed":budget_passed}));
+        timing.push(json!({"size":size,"adapter":adapter,"coldMs":times[0],"warmMs":&times[1..],"warmMedianMs":warm[warm.len()/2],"budgetPolicy":budget_policy,"budgetPassed":budget_passed}));
     }
     let downsample_ok = downsampling.iter().all(|v| {
         v["meanRgbError"].as_array().unwrap().iter().all(|x| {
             x.as_f64().unwrap() <= matrix["maxDefaultDownsampleMeanError"].as_f64().unwrap()
         })
     });
-    let timing_ok = timing.iter().all(|row| row["budgetPassed"] != false);
+    // Software-adapter budgets are recorded for trend review but never gate a run.
+    let timing_ok = timing
+        .iter()
+        .all(|row| row["budgetPolicy"] == "software" || row["budgetPassed"] != false);
     let browser_ok = rows.iter().all(|row| {
         row["browserComparison"]
             .as_array()

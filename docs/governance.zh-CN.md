@@ -24,16 +24,18 @@ M4.1 在原生 M4 验收后建立长期使用的集成分支、真实 GitHub PR�
 
 | 必需检查 | 覆盖范围 |
 |---|---|
-| `Check (ubuntu-latest)` | Linux 上的锁定依赖仓库检查及隔离包检查 |
+| `Check (ubuntu-latest)` | Linux 上的锁定依赖仓库检查及单独的隔离包验证 |
 | `Check (macos-latest)` | macOS 上相同的 CPU 检查 |
 | `Check (windows-latest)` | Windows 上相同的 CPU 检查 |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux 固定软件 GPU smoke、源码及打包消费者、全部三种 1K 材质及最大案例的 2K 跟踪 |
 | `WASM and npm package` | 锁定依赖的 WASM 构建、JavaScript／包契约及准确 npm 归档生成 |
-| `Chromium WebGPU material matrix` | 独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
+| `Chromium WebGPU material matrix` | 完整档位（带标签的 PR、`main`、手动运行）：独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
 
 保持检查名称稳定。任务改名或检查来源变化时，必须协调验证规则；不得通过删除必需检查合并失败的变更。不要添加可能导致必需检查不报告结果的工作流路径过滤。规则修改本身也应经过审查，并在应用后记录实时结果。
 
 GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qualification-scope.sh](../.github/scripts/qualification-scope.sh)）。若 PR 的全部变更路径都仅为文档（`crates/`、`packages/`、`fixtures/`、`examples/`、`xtask/`、`scripts/` 以外的 Markdown，或 `docs/evidence/`、`docs/reviews/` 下的任意文件），则跳过重型任务；被跳过的任务仍以成功状态报告未改名的必需检查。被工具读取的文档（如 `docs/*.json`、crate/npm README）始终需要资格验证；推送到 `main`、手动运行及范围任务失败时也会完整运行。被跳过的检查不是资格证据：验收记录必须引用实际执行的运行。
+
+浏览器材质矩阵属于较慢的完整档位：在 PR 上仅当带有 `full-qualification` 标签时运行（添加标签即触发），推送到 `main` 及手动运行时始终运行。因此未加标签的 PR 会将该检查报告为跳过；它能捕获的回归会在随后的 `main` 运行中暴露。修改浏览器可见像素、WASM／运行时边界或材质夹具且需要合并前证据时，请为 PR 添加该标签。冻结的耗时预算仅对实测硬件适配器起阻断作用；软件适配器（SwiftShader）的耗时以 `budgetPolicy: "software"` 记录供趋势审阅，不会使运行失败。
 
 ## CI 触发与保留
 

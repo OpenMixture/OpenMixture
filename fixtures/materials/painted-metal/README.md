@@ -27,7 +27,7 @@ cargo test --release --locked --all-features --manifest-path examples/native-con
 node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
 ```
 
-The second command consumes a successful independent SDK candidate run: candidate mode now requires 21 browser tests, including the full painted matrix. It checks exact source/request/package/build identities and reruns the Native matrix against every browser channel with the unchanged <=1/255 limit. The existing Chromium workflow invokes this comparison and retains its output. Registry mode stays at 13 tests; the published package does not support this material. Raw-half causality, periodic seam tests, stress/PBR views and human decisions remain separate pending gates. `materialAccepted` stays false.
+The second command consumes a successful independent SDK candidate run: candidate mode must execute `painted.spec.mjs`, the full painted matrix. It checks exact source/request/package/build identities and reruns the Native matrix against every browser channel with the unchanged <=1/255 limit. The existing Chromium workflow invokes this comparison and retains its output. Registry mode excludes it; the published package does not support this material. Raw-half causality, periodic seam tests, stress/PBR views and human decisions remain separate pending gates. `materialAccepted` stays false.
 
 
 ## Endpoint and resolution-quality gates

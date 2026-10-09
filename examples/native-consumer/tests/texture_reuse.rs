@@ -182,12 +182,13 @@ fn public_reuse_preserves_outputs_packages_and_2k_budget() {
                     .adapter
                     .name
                     .contains(b["adapter"].as_str().unwrap())
-                    .then_some(b)
+                    .then_some((key, b))
             });
             let mut ordered = warm.clone();
             ordered.sort_by(f64::total_cmp);
             let median = ordered[ordered.len() / 2];
-            let passed = budget.map(|b| {
+            let policy = budget.map(|(key, _)| key);
+            let passed = budget.map(|(_, b)| {
                 median
                     <= b[if size[0] == 1024 {
                         "warmMedian1024Ms"
@@ -198,7 +199,7 @@ fn public_reuse_preserves_outputs_packages_and_2k_budget() {
                     .unwrap()
                     && (size[0] != 1024 || cold <= b["cold1024Ms"].as_f64().unwrap())
             });
-            timing.push(json!({"size":size,"adapter":output.report().adapter,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPassed":passed}));
+            timing.push(json!({"size":size,"adapter":output.report().adapter,"coldMs":cold,"warmMs":warm,"warmMedianMs":median,"budgetPolicy":policy,"budgetPassed":passed}));
         }
         drop(gpu);
         let mut comparisons = Vec::new();
@@ -258,7 +259,10 @@ fn public_reuse_preserves_outputs_packages_and_2k_budget() {
     if let Some(browser) = &browser {
         assert_eq!(browser["rows"].as_array().unwrap().len(), rows.len());
     }
-    let ok = timing.iter().all(|v| v["budgetPassed"] != false)
+    // Software-adapter budgets are recorded but never gate a run.
+    let ok = timing
+        .iter()
+        .all(|v| v["budgetPolicy"] == "software" || v["budgetPassed"] != false)
         && rows.iter().all(|r| {
             r["comparisons"].as_array().unwrap().iter().all(|c| {
                 c["maxComponentDelta"].as_u64().unwrap()
