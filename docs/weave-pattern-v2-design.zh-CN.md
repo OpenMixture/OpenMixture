@@ -2,7 +2,7 @@
 
 [English](./weave-pattern-v2-design.md) | 简体中文
 
-**仅设计与测量；未冻结、未实现。** 维护者于 2026-10-09 启动本跟进，基于接受分支 `e78ae955307f02b424113ee086e28c97c294bbc0`（PR #88）。[MAT-03 已接受记录](./evidence/mat-03/README.zh-CN.md)、配方修订 2、原始范围和 `weave-pattern@1` 均不变。本提案不扩展已接受视觉范围，也不授权实现。
+**历史设计研究；维护者已批准候选 C，节点契约已在[冻结验收](./weave-pattern-v2-acceptance.zh-CN.md)中确认。实现另随其后；下文待定表述保留设计时身份。** 维护者于 2026-10-09 启动本跟进，基于接受分支 `e78ae955307f02b424113ee086e28c97c294bbc0`（PR #88）。[MAT-03 已接受记录](./evidence/mat-03/README.zh-CN.md)、配方修订 2、原始范围和 `weave-pattern@1` 均不变。本提案不扩展已接受视觉范围，也不授权实现。
 
 ## 有界问题与证据
 

@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "node": "weave-pattern",
+  "version": 2,
+  "status": "frozen",
+  "frozen": true,
+  "nodeAccepted": false,
+  "materialQualification": false,
+  "decisionDate": "2026-10-09",
+  "designRevision": "db4bf33",
+  "formula": "Candidate C; B X/Y/D ownership; H=Zw+Zf-Zw*Zf; ordered four-sample weighted share",
+  "parametersUnchangedFromVersion": 1,
+  "uniformBytes": 48,
+  "cases": [
+    {
+      "id": "defaults",
+      "parameters": {
+        "warpCount": 8,
+        "weftCount": 8,
+        "warpWidth": 0.7,
+        "weftWidth": 0.7,
+        "bevel": 0.08,
+        "crown": 0.5,
+        "underRatio": 0.5
+      }
+    },
+    {
+      "id": "plain",
+      "parameters": {
+        "warpCount": 8,
+        "weftCount": 8,
+        "warpWidth": 0.7,
+        "weftWidth": 0.7,
+        "bevel": 0.08,
+        "underRatio": 0.25,
+        "crown": 0
+      }
+    },
+    {
+      "id": "varied",
+      "parameters": {
+        "warpCount": 12,
+        "weftCount": 8,
+        "warpWidth": 0.6,
+        "weftWidth": 0.85,
+        "bevel": 0.08,
+        "underRatio": 0.25,
+        "crown": 0
+      }
+    },
+    {
+      "id": "combined-low",
+      "parameters": {
+        "warpCount": 4,
+        "weftCount": 4,
+        "warpWidth": 0.55,
+        "weftWidth": 0.55,
+        "bevel": 0.02,
+        "underRatio": 0.25,
+        "crown": 0
+      }
+    },
+    {
+      "id": "combined-high",
+      "parameters": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.9,
+        "weftWidth": 0.9,
+        "bevel": 0.12,
+        "underRatio": 0.75,
+        "crown": 1
+      }
+    },
+    {
+      "id": "steep",
+      "parameters": {
+        "warpCount": 32,
+        "weftCount": 32,
+        "warpWidth": 0.9,
+        "weftWidth": 0.9,
+        "bevel": 0.02,
+        "crown": 1,
+        "underRatio": 0.75
+      }
+    },
+    {
+      "id": "unequal",
+      "parameters": {
+        "warpCount": 8,
+        "weftCount": 12,
+        "warpWidth": 0.9,
+        "weftWidth": 0.55,
+        "bevel": 0.05,
+        "crown": 0.5,
+        "underRatio": 0.5
+      }
+    }
+  ],
+  "sizes": [
+    [
+      256,
+      256
+    ],
+    [
+      1024,
+      1024
+    ],
+    [
+      2048,
+      2048
+    ],
+    [
+      257,
+      129
+    ]
+  ],
+  "software": {
+    "detect": "reported deviceType Cpu",
+    "omitSize": [
+      2048,
+      2048
+    ],
+    "status": "notRunOnSoftware",
+    "reason": "MAT-03 stage B amendment 4"
+  },
+  "modes": [
+    "height",
+    "coverage",
+    "warp-share"
+  ],
+  "gates": {
+    "visibleCore": {
+      "cases": "all cases at 1024 and 2048; both axes, every crossing/axial scanline",
+      "minimum": 1,
+      "median": 1,
+      "metric": "revision-2 diagnostic RGB dominance in abs(local)<= (width-bevel)/2; ties lose",
+      "basis": "candidate C min=1 at 128 and 64 px/pitch in 792-point design sweep"
+    },
+    "centers": {
+      "counts": [
+        [
+          8,
+          8
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          32,
+          32
+        ]
+      ],
+      "r": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "crown": [
+        0,
+        0.5,
+        1
+      ],
+      "coverage": 1,
+      "share": [
+        0,
+        1
+      ],
+      "height": 1,
+      "separationMinimum": 0.25,
+      "halfTolerance": 0.0009765625
+    },
+    "support": {
+      "uv": "gap (0,0); transverse support edge +/-width/2, inward half-bevel; centerline",
+      "emptyHeight": 0,
+      "emptyCoverage": 0,
+      "emptyShare": 0.5
+    },
+    "continuity": {
+      "cases": "all frozen cases; cell/support edges and lift joins; transverse offsets +/-1e-5 UV",
+      "maxVisibleHeightDelta": 0.01,
+      "sparseAnalyticalHalfTolerance": 0.0009765625,
+      "normalEncodedTolerance": 0.01568627450980392,
+      "normalSize": [
+        1024,
+        1024
+      ],
+      "relief": 0.025,
+      "strength": 0.5,
+      "derivation": "C1 polynomial with occupancy endpoint derivatives zero; sparse analytical oracle half tolerance 2 maximum normalized half steps. Normal tolerance 4/255 bounds neighbor half-storage error amplified by centered 1K derivative, plus final half/8-bit rounding; not a PBR guarantee"
+    },
+    "box": {
+      "offsets": [
+        [
+          0.25,
+          0.25
+        ],
+        [
+          0.75,
+          0.25
+        ],
+        [
+          0.25,
+          0.75
+        ],
+        [
+          0.75,
+          0.75
+        ]
+      ],
+      "halfTolerance": 0.0009765625,
+      "visibleWeightTolerance": 0.001953125,
+      "weightedWitnessDifferenceGreaterThan": 0.01
+    },
+    "periodic": {
+      "origins": "(0,0),(W,0),(0,H),(W,H),(W+3,H+5); compare cyclically shifted reference; unwrapped coordinates",
+      "zeroOrigin": "exact all modes and sizes",
+      "powerOfTwo": "exact raw half all modes",
+      "oddCases": [
+        "plain",
+        "varied",
+        "combined-low",
+        "combined-high"
+      ],
+      "oddHeightCoverageMaxHalfSteps": 1,
+      "oddShare": "observationOnly; record count/max raw steps/max visible-weight delta; never claim pass",
+      "basis": "pre-freeze analytical f32 C study at 257x129: all four measured cases H/C max 1 step; PR90 share up to 7 modeled steps; not GPU qualification"
+    },
+    "repeat": "byte exact",
+    "publicParityMaxByteDifference": 1,
+    "legacy": "@1 shader hash, lowering behavior and all baseline CLI output bytes identical to preimplementation main production sources; no golden rewrite",
+    "invalid": "same @1 invalid corpus including source/override/unused branch; odd counts 5/31, out of range, wrong types, bad mode and unknown keys"
+  }
+}

@@ -2,7 +2,7 @@
 
 English | [简体中文](./weave-pattern-v2-design.zh-CN.md)
 
-**Design and measurement only; not frozen or implemented.** The maintainer started this follow-up on 2026-10-09, based on acceptance branch `e78ae955307f02b424113ee086e28c97c294bbc0` (PR #88). The [accepted MAT-03 record](./evidence/mat-03/README.md), recipe revision 2, original ranges and `weave-pattern@1` remain unchanged. This proposal does not extend accepted visual scope or authorize implementation.
+**Historical design research. Candidate C is approved and the node contract is now recorded in [frozen acceptance](./weave-pattern-v2-acceptance.md). Implementation follows separately; pending wording below retains its design-time identity.** The maintainer started this follow-up on 2026-10-09, based on acceptance branch `e78ae955307f02b424113ee086e28c97c294bbc0` (PR #88). The [accepted MAT-03 record](./evidence/mat-03/README.md), recipe revision 2, original ranges and `weave-pattern@1` remain unchanged. This proposal does not extend accepted visual scope or authorize implementation.
 
 ## Bounded problem and evidence
 
