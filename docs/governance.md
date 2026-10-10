@@ -29,7 +29,7 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 | `Check (windows-latest)` | The same CPU checks on Windows |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux pinned software GPU smoke, source and packaged consumers, all three 1K materials, and largest-case 2K trace |
 | `WASM and npm package` | Locked WASM build, JavaScript/package contracts and exact npm archive generation |
-| `Chromium WebGPU material matrix` | Full tier (labeled PRs, `main`, manual runs): independent SDK candidate consumption (exact registry consumption on `main` and manual runs) plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
+| `Chromium WebGPU material matrix` | Aggregates the parallel core/woven/painted partitions. Full tier (labeled PRs, `main`, manual runs): independent SDK candidate consumption (exact registry consumption on `main` and manual runs) plus exact archive installation in pinned Studio, build identity, browser contracts, v2 materials, lifecycle and production deployment |
 
 Keep these check names stable. A renamed job or changed check source requires coordinated ruleset verification; never remove a required check to merge a failing change. Do not apply workflow path filters that can prevent a required check from being reported. Rule changes are themselves reviewed changes, with the live result recorded after application.
 
@@ -38,6 +38,8 @@ The GPU and browser material workflows each start with a `Qualification scope` j
 The browser material matrix is the slow full tier: on pull requests it runs only when the PR carries the `full-qualification` label (adding the label starts it), and always on pushes to `main` and manual runs. Unlabeled pull requests therefore report the check as skipped; a regression it would catch surfaces on the following `main` run. Label pull requests that change browser-visible pixels, the WASM/runtime boundary or material fixtures when pre-merge evidence is wanted. Frozen timing budgets gate only measured hardware adapters; software-adapter (SwiftShader) timings are recorded as `budgetPolicy: "software"` for trend review and never fail a run.
 
 The same label selects the GPU job's full tier: without it, `cargo xtask gpu-smoke` on pull requests skips tests ignored as `full-qualification:` (currently the MAT-03 woven structural probes), while `main`, manual runs and labeled PRs run them. The GPU check itself always runs for non-documentation PRs. Both scope jobs use a blob-less sparse checkout because they only read changed path names.
+
+The browser material matrix runs as three parallel `partitions` jobs (`core`, `woven`, `painted`) of one workflow; a final `required` job reports the unchanged `Chromium WebGPU material matrix` check. It succeeds when the scope job deferred the matrix or every partition passed, and fails otherwise. `core` runs every candidate spec except `woven.spec.mjs` and `painted.spec.mjs`, together with the other Native comparisons, registry consumption and pinned Studio gates; `woven` and `painted` each run one frozen material spec and its Native comparison. The consumer validates `MIXTURE_CONSUMER_ONLY_SPECS`/`MIXTURE_CONSUMER_SKIP_SPECS` against the actual spec files, so a new spec runs in `core` unless deliberately moved. Each partition uploads `chromium-material-matrix-<partition>`.
 
 ## CI triggers and retention
 

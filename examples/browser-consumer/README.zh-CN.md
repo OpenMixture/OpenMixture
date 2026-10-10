@@ -32,7 +32,7 @@ npm run test:browser
 
 Linux CI 使用 `npx playwright install --with-deps chromium` 安装浏览器系统依赖。自动化默认使用固定 Playwright Chromium，并显式传入 `--enable-unsafe-webgpu --ignore-gpu-blocklist`。`MIXTURE_BROWSER_ARGS` 可指定额外启动参数的 JSON 数组；CI 使用既有显式 Chromium SwiftShader 策略。明确选择本地 Chrome 时设置 `MIXTURE_BROWSER_CHANNEL=chrome`（PowerShell：`$env:MIXTURE_BROWSER_CHANNEL = 'chrome'`）。不静默重试或替换浏览器通道。这些是自动化测试配置，不是普通浏览器或所有硬件资格认证。
 
-每个预期的 spec 文件都必须实际执行（registry 模式：`sdk.spec.mjs` 与 `resources.spec.mjs`；候选模式：全部 `tests/*.spec.mjs`），所有测试必须通过且不允许跳过／重试；不固定测试总数。套件覆盖：惰性导入／无 GPU API 与打包身份、无效输入结构化诊断、精确 65×3 checker／Scalar 像素、多次渲染和销毁后的自有输出、busy／closing 生命周期、明确的 GPU 不可用错误、非根路径静态 UI 渲染，以及正常构建不含测试宿主。`test:browser` 单独生成包含验收宿主的 `test-dist`，普通 `dist` 只有示例。checker／常量的解析预期是测试判据，不是第二个材质执行器。测试使用真实 WASM 和 WebGPU，不使用模拟像素后端。
+每个预期的 spec 文件都必须实际执行（registry 模式：`sdk.spec.mjs` 与 `resources.spec.mjs`；候选模式：全部 `tests/*.spec.mjs`，或由 `MIXTURE_CONSUMER_ONLY_SPECS`／`MIXTURE_CONSUMER_SKIP_SPECS` 选定的 CI 分区，各分区合起来覆盖全部文件），所有测试必须通过且不允许跳过／重试；不固定测试总数。套件覆盖：惰性导入／无 GPU API 与打包身份、无效输入结构化诊断、精确 65×3 checker／Scalar 像素、多次渲染和销毁后的自有输出、busy／closing 生命周期、明确的 GPU 不可用错误、非根路径静态 UI 渲染，以及正常构建不含测试宿主。`test:browser` 单独生成包含验收宿主的 `test-dist`，普通 `dist` 只有示例。checker／常量的解析预期是测试判据，不是第二个材质执行器。测试使用真实 WASM 和 WebGPU，不使用模拟像素后端。
 
 ## 候选与注册表验收
 
