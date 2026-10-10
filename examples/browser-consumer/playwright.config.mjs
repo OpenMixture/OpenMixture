@@ -1,9 +1,14 @@
 import { defineConfig } from '@playwright/test';
 
+// Optional CI partitions (validated by scripts/browser-runtime/consumer.mjs).
+const list = name => (process.env[name] ?? '').split(',').filter(Boolean);
+const only = list('MIXTURE_CONSUMER_ONLY_SPECS');
+
 export default defineConfig({
   testDir: './tests',
-  testMatch: process.env.MIXTURE_RESOURCE_TESTS !== '0' ? '*.spec.mjs' : 'sdk.spec.mjs',
+  testMatch: only.length ? only : process.env.MIXTURE_RESOURCE_TESTS !== '0' ? '*.spec.mjs' : 'sdk.spec.mjs',
   testIgnore: [
+    ...list('MIXTURE_CONSUMER_SKIP_SPECS'),
     ...(process.env.MIXTURE_WOVEN_TESTS === '1' ? [] : ['woven.spec.mjs']),
     ...(process.env.MIXTURE_PAINTED_TESTS === '1' ? [] : ['painted.spec.mjs']),
     ...(process.env.MIXTURE_REUSE_TESTS === '1' ? [] : ['reuse.spec.mjs']),
