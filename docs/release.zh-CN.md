@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**工作候选：** Rust 0.10.0／browser 0.10.0-alpha.0 的 weave-pattern@2 节点实现进行中；18 最新类型／20 支持身份／17 kernel。保留 @1 及下述 0.9 接受记录。@2 织物修订和 A–D 再验收待后续，不发布。
+**已验收、未发布候选：** Rust 0.10.0／browser 0.10.0-alpha.0 在 @1 之外新增 weave-pattern@2（18 最新类型／20 支持身份／17 kernel），并在[修订 3 验收记录](./evidence/mat-03-r3/README.zh-CN.md)范围内完成机织物配方修订 3 的验收：GT 1030 Vulkan/DX12 阶段 A/B 门槛、Native／Chrome ≤1/255，以及绑定六张评审图的人工决定。下述 0.9 验收作为历史保留；不发布任何包。
 
 **MAT-02 已验收候选（2026-10-02）：** main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` 上未发布的 Rust 0.8.0／browser 0.8.0-alpha.0 在 [MAT-02 记录](./evidence/mat-02/README.zh-CN.md)范围内完成涂漆金属及 PERF-MAT 纹理复用验收：合并后六项检查、SwiftShader Native／Chromium 精确一致、GT 1030 Vulkan/DX12 对 Chrome 在 1/255 以内、冻结预算及保留的人工决定。它记录已验收的 MAT-02 基线。未发布任何包；已发布浏览器 0.3.0-alpha.0 不变，验收范围仅限记录的适配器。
 

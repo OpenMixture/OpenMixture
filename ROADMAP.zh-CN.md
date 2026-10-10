@@ -29,7 +29,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | 维护者已批准并启动 [weave-pattern@2 节点实现](./docs/weave-pattern-v2-acceptance.zh-CN.md)；契约／探针先冻结，实现与验证进行中，材质修订及 A–D 再验收后续单独进行。MAT-03 接受仍限已记录 @1 范围；MAT-04 仍为规划；不发布。 |
+| 当前增量 | 无。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 已与 @1 并存实现，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[记录范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；修订 2 的 combined-high 蝴蝶结限制不再适用。MAT-04 仍为规划，等待维护者启动决定；不发布。 |
 | 当前验收 | [MAT-03](./docs/evidence/mat-03/README.zh-CN.md)：配方修订 2 的五个评审预设已接受，combined-high 不在视觉保证内，数值／软件限制明确保留。[MAT-01](./docs/evidence/mat-01/README.zh-CN.md) 与 [MAT-02](./docs/evidence/mat-02/README.zh-CN.md) 保持各自记录范围。不发布，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
