@@ -253,4 +253,4 @@ MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value`
 
 采用已批准 B 的 X/Y/D 间隙选择器与 C 连续叠层 H=Zw+Zf−Zw·Zf，共享 Vw/Vf；有序 2×2 输出 ΣH/4、ΣC/4、ΣVw/ΣC（空为 .5）。f32／rgba16float、48 字节 ABI／零 padding、周期坐标和无通用抗锯齿限制不变。独立 WeavePatternV2 kernel；Rust 0.10 穷尽匹配增加变体，旧 runtime 拒绝 @2。材料接受不随节点自动迁移。
 
-在 @2 中，crown 与 underRatio 只塑造高度；coverage 和 warp-share 不依赖这两个控制。counts、widths 与 bevel 决定占据及可见归属。后续织物材质修订必须据此复核控制隔离预期；已接受的 @1 材质保持不变。
+在 @2 中，crown 与 underRatio 只塑造高度；coverage 和 warp-share 不依赖这两个控制。counts、widths 与 bevel 决定占据及可见归属。织物配方修订 3 以带日期的控制隔离修订落实这一点，并已[基于 @2 验收通过](./evidence/mat-03-r3/README.zh-CN.md)；已接受的修订 2（@1）记录作为历史保持不变。

@@ -253,4 +253,4 @@ Odd counts, wrong types/ranges/enums report MIX_PARAMETER_INVALID_VALUE with nod
 
 Approved B X/Y/D gap selector and C continuous stacking H=Zw+Zf−Zw·Zf share Vw/Vf. Ordered 2×2 returns ΣH/4, ΣC/4, ΣVw/ΣC (.5 empty). f32/rgba16float, 48-byte zero-padded ABI, periodic coordinates and limited antialiasing are unchanged. Separate WeavePatternV2 kernel; Rust 0.10 exhaustive matches gain a variant, old runtimes reject @2. Material acceptance does not migrate with the node.
 
-In @2, crown and underRatio shape height only; coverage and warp-share are independent of those two controls. Counts, widths and bevel determine occupancy and visible ownership. The later woven material revision must review its control-isolation expectations accordingly; the accepted @1 material remains unchanged.
+In @2, crown and underRatio shape height only; coverage and warp-share are independent of those two controls. Counts, widths and bevel determine occupancy and visible ownership. Woven recipe revision 3 applies this through a dated control-isolation amendment and is [accepted on @2](./evidence/mat-03-r3/README.md); the accepted revision-2 (@1) record remains unchanged history.
