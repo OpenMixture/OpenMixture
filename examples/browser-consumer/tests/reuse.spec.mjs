@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 test('physical texture slots preserve public outputs and the five-channel 2K workload', async ({ page, browser }, testInfo) => {
   test.setTimeout(900_000);
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.9.0-alpha.0');
+  expect(expectedBuild.runtimeVersion).toBe('0.10.0-alpha.0');
   const source = await readFile(new URL('../public/reuse-material.mix', import.meta.url), 'utf8');
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));

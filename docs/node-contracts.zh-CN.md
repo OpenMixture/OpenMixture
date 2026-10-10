@@ -8,7 +8,7 @@
 
 ## 通用规则
 
-最新目录有十八个节点类型。`fractal-noise` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
+最新目录有十八个节点类型。`fractal-noise` 和 `weave-pattern` 支持版本 1 和 2，其他类型要求 `version: 1`。显式 v2 迁移与舍入见[稳定 value noise](./stable-noise.zh-CN.md)。连接必须严格匹配 `Scalar`、`Color` 或 `Normal`；每个输入最多一条入边。没有默认值的输入为必填。省略的参数使用下表默认值；未知名称、类型错误及超范围值均为错误。下文所有参数均可变，允许通过唯一公开绑定暴露。随机节点 `fractal-noise` 与 `brick-pattern` 要求在源文档中显式填写整数种子，包括未使用分支；参数覆盖不会修复缺失的源种子。
 
 浮点参数接受有限 JSON 数值；整数参数要求无符号整数记号（`8` 有效，`8.0` 和 `8e0` 无效）。颜色必须是四个有限数值组成的数组，各分量在 `[0, 1]` 内，表示线性 RGBA，采用非预乘 alpha。浮点／颜色边界均包含端点。源模型保留 f64 JSON 数值，编译时显式转换为 f32 GPU 参数。参数验证不计算像素，也不转换颜色空间。
 
@@ -246,3 +246,11 @@ MAT-01b 工作候选新增 `brick-pattern@1`：无输入，一个 Scalar `value`
 [冻结公式与 ABI](./mat-03-woven-surfaces.zh-CN.md)及[节点验收用例](./weave-pattern-acceptance.zh-CN.md)为规范。UV 左上原点，经线沿 v、纬线沿 u；先 fract，两轴偶数保证 lift 相位周期。占用独立于深度，可见权重共同生成三个模式。固定四点 2×2 足迹分别累加 H、C、Vw；warp-share 为 sumVw/sumC（零覆盖时 .5），不是逐样本 share 的均值。无通用抗锯齿承诺；比较平移求值而非对边像素。
 
 奇数、错误类型／范围／枚举报 MIX_PARAMETER_INVALID_VALUE（节点与参数 ID），未知键 MIX_PARAMETER_UNKNOWN；默认、覆盖及未用分支均检查。f32 计算、rgba16float 存储 [value,0,0,1]；48 字节零填充 ABI。三实例需调用方复制相同几何参数及尺寸，Core 不增加跨节点相等约束。测试通过唯一生产 WGSL 观察；不代表材质／PBR／人工接受。
+
+## weave-pattern@2
+
+[冻结契约](./weave-pattern-v2-acceptance.zh-CN.md)、[Core](../crates/mixture-core/src/nodes/weave_pattern_v2.rs)、[WGSL](../crates/mixture-wgpu/shaders/nodes/weave-pattern-v2.wgsl)、[夹具](../fixtures/nodes/weave-pattern-v2/README.zh-CN.md)。最新 weave 为 2，显式 @1 保留原像素。无输入、单 Scalar value；mode 与全部 @1 类型／范围／默认值不变，无种子或随机性；偶数语义验证仍拒绝奇数并给出节点／参数身份。
+
+采用已批准 B 的 X/Y/D 间隙选择器与 C 连续叠层 H=Zw+Zf−Zw·Zf，共享 Vw/Vf；有序 2×2 输出 ΣH/4、ΣC/4、ΣVw/ΣC（空为 .5）。f32／rgba16float、48 字节 ABI／零 padding、周期坐标和无通用抗锯齿限制不变。独立 WeavePatternV2 kernel；Rust 0.10 穷尽匹配增加变体，旧 runtime 拒绝 @2。材料接受不随节点自动迁移。
+
+在 @2 中，crown 与 underRatio 只塑造高度；coverage 和 warp-share 不依赖这两个控制。counts、widths 与 bevel 决定占据及可见归属。后续织物材质修订必须据此复核控制隔离预期；已接受的 @1 材质保持不变。

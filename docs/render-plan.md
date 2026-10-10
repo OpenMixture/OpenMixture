@@ -73,6 +73,7 @@ Each selected pixel node emits one pass. An unconnected optional input emits a c
 | `scalarMorphology` / `ScalarMorphology` | Scalar `input: ResourceId`, `operation: MorphologyOperation`, `axis: MorphologyAxis`, `radius: u32` | 16 |
 | `scalarSubtract` / `ScalarSubtract` | Scalar `a` / `b: ResourceId`; reserved zero uniform | 16 |
 | `weavePattern` / `WeavePattern` | No inputs; counts: [u32;2], widths: [f32;2], bevel/crown/under_ratio: f32, WeaveMode; mode codes 0/1/2, four zero padding words | 48 |
+| `weavePatternV2` / `WeavePatternV2` | Separate @2 ownership/stacking kernel; same @1 parameters and zero padding, retained WeavePattern unchanged | 48 |
 | `imageInput` / `ImageInput` | Prepared external image `resource_id` | 16 |
 
 `KernelInvocation::id()` is exhaustive; `inputs()` exposes typed bindings in binding order. There is no arbitrary parameter JSON or second untyped input list in the plan. `PassOrigin` retains node ID/type/version or the owner and port of a synthesized default. `PlanOutput` retains channel kind, the connected endpoint or explicit default, and the actual logical resource. `RenderPlan` is immutable through its public API and cannot be deserialized or publicly constructed with forged references/hashes.

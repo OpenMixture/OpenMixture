@@ -244,6 +244,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
             | "scalar-subtract"
             | "brick-pattern"
             | "weave-pattern"
+            | "weave-pattern-v2"
             | "material-output"
             | "fractal-noise"
             | "gradient-map"

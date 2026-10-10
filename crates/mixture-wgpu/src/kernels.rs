@@ -11,6 +11,14 @@ use serde::Serialize;
 
 pub(crate) fn shader(id: KernelId) -> (&'static str, &'static str) {
     match id {
+        KernelId::WeavePatternV2 => (
+            concat!(
+                include_str!("../shaders/precision.wgsl"),
+                "\n",
+                include_str!("../shaders/nodes/weave-pattern-v2.wgsl")
+            ),
+            "weave_pattern",
+        ),
         KernelId::WeavePattern => (
             concat!(
                 include_str!("../shaders/precision.wgsl"),
@@ -150,7 +158,15 @@ pub(crate) fn parameters(invocation: &KernelInvocation) -> Vec<u8> {
             .collect::<Vec<_>>()
     };
     match invocation {
-        KernelInvocation::WeavePattern {
+        KernelInvocation::WeavePatternV2 {
+            counts,
+            widths,
+            bevel,
+            crown,
+            under_ratio,
+            mode,
+        }
+        | KernelInvocation::WeavePattern {
             counts,
             widths,
             bevel,
@@ -383,6 +399,7 @@ mod tests {
             (KernelId::ScalarSubtract, 16),
             (KernelId::BrickPattern, 48),
             (KernelId::WeavePattern, 48),
+            (KernelId::WeavePatternV2, 48),
             (KernelId::FractalNoise, 32),
             (KernelId::GradientMap, 32),
             (KernelId::HeightToNormal, 16),
@@ -443,6 +460,17 @@ mod tests {
             .into_iter()
             .flat_map(u32::to_le_bytes)
             .collect();
+            let v2 = KernelInvocation::WeavePatternV2 {
+                counts: [12, 8],
+                widths: [0.55, 0.9],
+                bevel: 0.12,
+                crown: 1.,
+                under_ratio: 0.75,
+                mode,
+            };
+            assert_eq!(v2.id(), KernelId::WeavePatternV2);
+            assert_eq!(v2.uniform_bytes(), 48);
+            assert_eq!(parameters(&v2), expected);
             assert_eq!(bytes, expected);
             assert_eq!(bytes.len(), 48);
         }

@@ -2,9 +2,11 @@
 
 [English](./release.md) | 简体中文
 
+**工作候选：** Rust 0.10.0／browser 0.10.0-alpha.0 的 weave-pattern@2 节点实现进行中；18 最新类型／20 支持身份／17 kernel。保留 @1 及下述 0.9 接受记录。@2 织物修订和 A–D 再验收待后续，不发布。
+
 **MAT-02 已验收候选（2026-10-02）：** main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` 上未发布的 Rust 0.8.0／browser 0.8.0-alpha.0 在 [MAT-02 记录](./evidence/mat-02/README.zh-CN.md)范围内完成涂漆金属及 PERF-MAT 纹理复用验收：合并后六项检查、SwiftShader Native／Chromium 精确一致、GT 1030 Vulkan/DX12 对 Chrome 在 1/255 以内、冻结预算及保留的人工决定。它记录已验收的 MAT-02 基线。未发布任何包；已发布浏览器 0.3.0-alpha.0 不变，验收范围仅限记录的适配器。
 
-**MAT-03 已验收、未发布候选：** 干净 main `9dc8c1a` 的 Rust 0.9.0／browser 0.9.0-alpha.0 已在[织物接受记录](./evidence/mat-03/README.zh-CN.md)范围内验收。机器门槛与精确绑定 6eb52a6 六张评审图的人工决定分开记录；plain、varied、warp-seed、weft-seed、combined-low 为视觉接受预设，combined-high 及类似蝴蝶结组合不在视觉保证内。保留原控制范围、修订 2 默认值及全部门槛。十八类型／十六内核、.mix／.mixpack v1、plan／hash／API v3 不变；weave-pattern@2 后续可见性修复未启动。只限记录适配器，奇数尺寸平移 share 仅作观察，软件不覆盖 2048²。这是当前织物候选验收，不是发布；浏览器已发布版本仍为 0.3.0-alpha.0。
+**MAT-03 已验收、未发布候选：** 干净 main `9dc8c1a` 的 Rust 0.9.0／browser 0.9.0-alpha.0 已在[织物接受记录](./evidence/mat-03/README.zh-CN.md)范围内验收。机器门槛与精确绑定 6eb52a6 六张评审图的人工决定分开记录；plain、varied、warp-seed、weft-seed、combined-low 为视觉接受预设，combined-high 及类似蝴蝶结组合不在视觉保证内。保留原控制范围、修订 2 默认值及全部门槛。十八类型／十六内核、.mix／.mixpack v1、plan／hash／API v3 不变；weave-pattern@2 节点增量见上方工作候选。只限记录适配器，奇数尺寸平移 share 仅作观察，软件不覆盖 2048²。这是当前织物候选验收，不是发布；浏览器已发布版本仍为 0.3.0-alpha.0。
 
 **MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。[人工决定](./evidence/mat-01/human-decision.json)与合并后六项通过的检查完成记录的软件／GT 1030 范围内 MAT-01 验收；下方 0.5 基线保留为历史记录。未发布包，不改变格式或迁移规则。
 

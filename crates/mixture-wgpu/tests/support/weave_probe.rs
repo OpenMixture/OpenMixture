@@ -1,6 +1,11 @@
 //! Sparse analytical oracles and test-only observations through the production helper.
 use mixture_wgpu::GpuContext;
 use serde_json::{Value, json};
+struct SourceContext<'a> {
+    gpu: &'a GpuContext,
+    source: &'static str,
+    version: u32,
+}
 fn near(a: f32, b: f32) {
     assert!((a - b).abs() <= 1. / 1024., "{a} != {b}");
 }
@@ -20,7 +25,12 @@ fn params(counts: [u32; 2], r: f32, c: f32, mode: u32) -> [u32; 12] {
         0,
     ]
 }
-fn observe(context: &GpuContext, p: [u32; 12], uvs: &[[f32; 2]], field: &str) -> Vec<[f32; 4]> {
+fn observe(
+    context: &SourceContext<'_>,
+    p: [u32; 12],
+    uvs: &[[f32; 2]],
+    field: &str,
+) -> Vec<[f32; 4]> {
     let mut body = String::from("var uv=vec2<f32>(0.0);switch gid.y*32u+gid.x {");
     for (i, uv) in uvs.iter().enumerate() {
         body.push_str(&format!(
@@ -42,10 +52,41 @@ fn observe(context: &GpuContext, p: [u32; 12], uvs: &[[f32; 2]], field: &str) ->
     result
 }
 pub(super) fn run(context: &GpuContext) -> Value {
+    run_source(
+        context,
+        concat!(
+            include_str!("../../shaders/precision.wgsl"),
+            "\n",
+            include_str!("../../shaders/nodes/weave-pattern.wgsl")
+        ),
+        1,
+    )
+}
+pub(super) fn run_v2(context: &GpuContext) -> Value {
+    run_source(
+        context,
+        concat!(
+            include_str!("../../shaders/precision.wgsl"),
+            "\n",
+            include_str!("../../shaders/nodes/weave-pattern-v2.wgsl")
+        ),
+        2,
+    )
+}
+fn run_source(gpu: &GpuContext, source: &'static str, version: u32) -> Value {
+    let context = &SourceContext {
+        gpu,
+        source,
+        version,
+    };
     let mut centers = 0;
     let mut translations = 0;
     let mut weighted_witnesses = 0;
-    for counts in [[8, 8], [12, 8]] {
+    for counts in if context.version == 2 {
+        vec![[8, 8], [12, 8], [32, 32]]
+    } else {
+        vec![[8, 8], [12, 8]]
+    } {
         for r in [0.25, 0.5, 0.75] {
             for crown in [0., 0.5, 1.] {
                 let p = params(counts, r, crown, 0);
@@ -84,6 +125,12 @@ pub(super) fn run(context: &GpuContext) -> Value {
                     near(w[1], 1.);
                     near(w[2], if even { 1. } else { 0. });
                     near(w[3], if even { 0. } else { 1. });
+                    if context.version == 2 {
+                        assert_eq!(h[2], 1.);
+                        assert_eq!(w[2], if even { 1. } else { 0. });
+                        assert_eq!(w[3], if even { 0. } else { 1. });
+                        assert!((h[0] - h[1]).abs() >= 0.25);
+                    }
                     centers += 1;
                 }
                 let nw = counts[0] as f32;
@@ -197,16 +244,16 @@ pub(super) fn run(context: &GpuContext) -> Value {
     // Empty production footprint uses the neutral conditional share, not zero.
     let empty = render(context, [32, 32], params([4, 4], 0.5, 0.5, 2), None);
     near(empty[0][0], 0.5);
-    json!({"ok":true,"adapter":context.report().adapter(),"crossingCenters":centers,"translatedEvaluations":translations,"weightedFilterWitnesses":weighted_witnesses,"rawHalfTolerance":1./1024.,"repeatExact":true})
+    json!({"ok":true,"adapter":context.gpu.report().adapter(),"crossingCenters":centers,"translatedEvaluations":translations,"weightedFilterWitnesses":weighted_witnesses,"rawHalfTolerance":1./1024.,"repeatExact":true})
 }
 fn render(
-    context: &GpuContext,
+    context: &SourceContext<'_>,
     size: [u32; 2],
     parameters: [u32; 12],
     probe: Option<&str>,
 ) -> Vec<[f32; 4]> {
-    let device = context.device();
-    let queue = context.queue();
+    let device = context.gpu.device();
+    let queue = context.gpu.queue();
     let extent = wgpu::Extent3d {
         width: size[0],
         height: size[1],
@@ -246,12 +293,7 @@ fn render(
                 .collect::<Vec<_>>(),
         );
     uniform.unmap();
-    let mut shader = concat!(
-        include_str!("../../shaders/precision.wgsl"),
-        "\n",
-        include_str!("../../shaders/nodes/weave-pattern.wgsl")
-    )
-    .to_owned();
+    let mut shader = context.source.to_owned();
     if let Some(body) = probe {
         shader.push_str(&format!("\n@compute @workgroup_size(8,8,1) fn probe(@builtin(global_invocation_id) gid:vec3<u32>) {{ let size=textureDimensions(output);if any(gid.xy>=size) {{return;}} {} }}",body));
     }

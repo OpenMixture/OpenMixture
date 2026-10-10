@@ -178,6 +178,8 @@ pub enum PassOrigin {
 pub enum KernelId {
     /// Periodic plain-weave structural field selected by mode.
     WeavePattern,
+    /// Occupancy-owned plain weave with continuous stacking (@2).
+    WeavePatternV2,
     /// Periodic rectangular block profiles with deterministic per-cell amplitude.
     BrickPattern,
     /// Read caller-supplied linear RGBA8 red into a Scalar intermediate.
@@ -266,6 +268,22 @@ pub enum WeaveMode {
 #[serde(tag = "id", rename_all = "camelCase", rename_all_fields = "camelCase")]
 pub enum KernelInvocation {
     /// Plain-weave structure, evaluated with a fixed four-sample footprint.
+    /// Version 2 ownership and continuous stacking; independent of @1.
+    WeavePatternV2 {
+        /// Even warp and weft counts per tile.
+        counts: [u32; 2],
+        /// Transverse width fractions of each pitch.
+        widths: [f32; 2],
+        /// Inward occupancy feather in pitch units.
+        bevel: f32,
+        /// Parabolic to squared-parabolic profile interpolation.
+        crown: f32,
+        /// Lower to upper crossing-center height ratio.
+        under_ratio: f32,
+        /// Selected single Scalar field.
+        mode: WeaveMode,
+    },
+    /// Retained version 1 per-pixel height selection.
     WeavePattern {
         /// Even warp and weft counts per tile.
         counts: [u32; 2],
@@ -435,6 +453,7 @@ impl KernelInvocation {
     pub fn id(&self) -> KernelId {
         match self {
             Self::WeavePattern { .. } => KernelId::WeavePattern,
+            Self::WeavePatternV2 { .. } => KernelId::WeavePatternV2,
             Self::BrickPattern { .. } => KernelId::BrickPattern,
             Self::ImageInput { .. } => KernelId::ImageInput,
             Self::Constant { .. } => KernelId::Constant,
@@ -457,6 +476,7 @@ impl KernelInvocation {
         match self {
             Self::ImageInput { .. }
             | Self::BrickPattern { .. }
+            | Self::WeavePatternV2 { .. }
             | Self::WeavePattern { .. }
             | Self::Constant { .. }
             | Self::Checker { .. }
@@ -493,7 +513,10 @@ impl KernelInvocation {
             | Self::Blend { .. }
             | Self::HeightToNormal { .. }
             | Self::Warp { .. } => 16,
-            Self::Checker { .. } | Self::BrickPattern { .. } | Self::WeavePattern { .. } => 48,
+            Self::Checker { .. }
+            | Self::BrickPattern { .. }
+            | Self::WeavePattern { .. }
+            | Self::WeavePatternV2 { .. } => 48,
             Self::Levels { .. }
             | Self::FractalNoise { .. }
             | Self::GradientMap { .. }
