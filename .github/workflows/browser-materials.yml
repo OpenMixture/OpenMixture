@@ -39,7 +39,9 @@ jobs:
     # scope job succeeded and explicitly deferred it (unlabeled or documentation-only PR).
     if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    # Two frozen material matrices (woven ~646 s, painted ~503 s in Playwright, plus
+    # their Native comparisons) now exceed 50 minutes on SwiftShader.
+    timeout-minutes: 75
     env:
       CC: clang-18
       CXX: clang++-18
