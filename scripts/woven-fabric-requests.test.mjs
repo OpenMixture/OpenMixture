@@ -31,12 +31,13 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   const bytes = name => readFile(new URL('../fixtures/materials/woven-fabric/'+name, import.meta.url));
   const json = async name => JSON.parse(await bytes(name));
   assert.equal(createHash('sha256').update(await bytes('qualification-plan-v1.json')).digest('hex'), 'fc6bda606e6c9c41f9a5e34a7afff1ba27e548886f2e236d8d06df79f8b1217d', 'revision 1 plan bytes and historical receipts are immutable');
-  const original = await json('material-v1.mix'), candidate = await json('material.mix');
+  // Revision 2 is retained byte-for-byte as *-v2.*; revision 3 is checked separately below.
+  const original = await json('material-v1.mix'), candidate = await json('material-v2.mix');
   const weave = candidate.nodes.filter(n=>n.type==='weave-pattern');
   assert.equal(weave.length,3);
   for (const n of weave) { assert.equal(n.parameters.underRatio,.25); assert.equal(n.parameters.crown,0); n.parameters.underRatio=.5; n.parameters.crown=.5; }
   assert.deepEqual(candidate,original,'only six literal defaults on the same three instances may change; topology, colors, relief, normal strength, seeds and node versions stay identical');
-  const current = await json('qualification-plan.json'), previous = await json('qualification-plan-v1.json');
+  const current = await json('qualification-plan-v2.json'), previous = await json('qualification-plan-v1.json');
   assert.equal(current.recipeRevision,2); assert.equal(current.previousPlan,'qualification-plan-v1.json');
   assert.deepEqual([current.defaults.underRatio,current.defaults.crown],[.25,0]);
   assert.equal(current.structuralProbes.amendments.length,4);
@@ -66,11 +67,36 @@ test('recipe revision 2 changes only the two named defaults; all frozen gates an
   delete current.structuralProbes; // Additive Stage B contract; all Stage A fields still compare exactly.
   current.recipeRevision=1; delete current.previousPlan; current.defaults.underRatio=.5; current.defaults.crown=.5;
   assert.deepEqual(current,previous,'no threshold, range, size, case, stress setting, budget, timing target, acceptance flag or historical receipt may change');
-  const spec = await json('graph-proposal.json'), oldSpec = await json('graph-proposal-v1.json');
+  const spec = await json('graph-proposal-v2.json'), oldSpec = await json('graph-proposal-v1.json');
   assert.deepEqual([spec.proposedDefaults.underRatio,spec.proposedDefaults.crown],[.25,0]);
   spec.proposedDefaults.underRatio=.5; spec.proposedDefaults.crown=.5; assert.deepEqual(spec,oldSpec);
   for (const row of wovenFabricMatrix()) {
     const explicit=previous.cases.find(c=>c.id===row.preset).controls;
     assert.equal(row.controls.underRatio,explicit.underRatio ?? .25); assert.equal(row.controls.crown,explicit.crown ?? 0);
   }
+});
+
+test('recipe revision 3 only moves the three weave instances to weave-pattern@2 and adds the version-specific crossing oracle', async () => {
+  const bytes = name => readFile(new URL('../fixtures/materials/woven-fabric/'+name, import.meta.url));
+  const json = async name => JSON.parse(await bytes(name));
+  const sha = async name => createHash('sha256').update(await bytes(name)).digest('hex');
+  // Accepted MAT-03 revision 2 bytes (docs/evidence/mat-03) are immutable history.
+  assert.equal(await sha('qualification-plan-v2.json'), 'a6c4c05c327c7ca6534d77500a329f64538fbd708bd2544b7ec5e0770a065d90');
+  assert.equal(await sha('material-v2.mix'), '95db023744a09224de3344613fe503c1e2187590b48667ef5ac199ae49959757');
+  assert.equal(await sha('graph-proposal-v2.json'), 'fee0a3984d07d984957cf1f69b5d4465651367b6befcd0b3295916fabf16fa7f');
+  for (const [current, previous] of [['material.mix','material-v2.mix'],['graph-proposal.json','graph-proposal-v2.json']]) {
+    const candidate = await json(current), original = await json(previous);
+    const weave = candidate.nodes.filter(n => n.type === 'weave-pattern');
+    assert.equal(weave.length, 3);
+    for (const n of weave) { assert.equal(n.version, 2); n.version = 1; }
+    assert.deepEqual(candidate, original, `${current}: only the three weave-pattern versions may change`);
+  }
+  const plan = await json('qualification-plan.json'), previous = await json('qualification-plan-v2.json');
+  assert.equal(plan.recipeRevision, 3); assert.equal(plan.previousPlan, 'qualification-plan-v2.json');
+  const amendment = plan.structuralProbes.amendments.pop();
+  assert.equal(amendment.id, '2026-10-10-weave-v2-crossing-oracle');
+  assert.equal(amendment.after.nodeVersion, 2);
+  assert.equal(amendment.after.toleranceAbsolute, 1/1024, 'the crossing tolerance is unchanged');
+  plan.recipeRevision = 2; plan.previousPlan = previous.previousPlan;
+  assert.deepEqual(plan, previous, 'no threshold, range, size, case, default, budget, timing target or earlier amendment may change');
 });

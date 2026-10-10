@@ -76,7 +76,7 @@
     {
       "id": "n06-weave-warp-share",
       "type": "weave-pattern",
-      "version": 2,
+      "version": 1,
       "parameters": {
         "mode": "warp-share",
         "warpCount": 8,
@@ -118,7 +118,7 @@
     {
       "id": "n09-weave-coverage",
       "type": "weave-pattern",
-      "version": 2,
+      "version": 1,
       "parameters": {
         "mode": "coverage",
         "warpCount": 8,
@@ -211,7 +211,7 @@
     {
       "id": "n17-weave-height",
       "type": "weave-pattern",
-      "version": 2,
+      "version": 1,
       "parameters": {
         "mode": "height",
         "warpCount": 8,
