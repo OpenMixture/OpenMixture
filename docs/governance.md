@@ -19,7 +19,7 @@ Use the paired [PR template](../.github/pull_request_template.md) to record the 
 - Match only `refs/heads/main`; block deletion and non-fast-forward updates.
 - Require an actual pull request and resolution of review conversations.
 - Require zero approving reviews while this repository has a single-maintainer workflow. This preserves PR review records without requiring an unavailable second person. There is no CODEOWNERS or latest-push approval requirement.
-- Require the branch to be up to date with its base and all six checks below to pass.
+- Require all six checks below to pass on the pull request head. The branch need not be up to date with `main` (`strict_required_status_checks_policy: false`): every push to `main` reruns all checks on the merged result, so an integration regression surfaces there instead of forcing each PR to resync and rerun before merging.
 - Accept those checks only from GitHub Actions (`integration_id: 15368`), with no configured bypass actors.
 
 | Required check | Coverage |
