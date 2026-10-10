@@ -35,19 +35,16 @@ jobs:
   partitions:
     # Partitions run in parallel; their union is every candidate spec file, and the
     # `required` job below reports the unchanged required check.
-    name: Chromium WebGPU ${{ matrix.partition }} partition
+    # A fixed name: GitHub appends `(core)` etc. after expansion, and a run cancelled
+    # before expansion still shows a readable name.
+    name: Chromium WebGPU partition
     needs: scope
     strategy:
       fail-fast: false
       matrix:
-        include:
-          # core skips the two slow frozen material matrices, so new specs land in core.
-          - partition: core
-            skip-specs: woven.spec.mjs,painted.spec.mjs
-          - partition: woven
-            only-specs: woven.spec.mjs
-          - partition: painted
-            only-specs: painted.spec.mjs
+        # core skips the two slow frozen material matrices, so new specs land in core;
+        # woven and painted each run only `<partition>.spec.mjs`.
+        partition: [core, woven, painted]
     # Run unless the scope job succeeded and explicitly deferred the matrix
     # (unlabeled or documentation-only PR); `required` then reports success.
     if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
@@ -126,8 +123,8 @@ jobs:
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
         env:
-          MIXTURE_CONSUMER_ONLY_SPECS: ${{ matrix.only-specs }}
-          MIXTURE_CONSUMER_SKIP_SPECS: ${{ matrix.skip-specs }}
+          MIXTURE_CONSUMER_ONLY_SPECS: ${{ matrix.partition != 'core' && format('{0}.spec.mjs', matrix.partition) || '' }}
+          MIXTURE_CONSUMER_SKIP_SPECS: ${{ matrix.partition == 'core' && 'woven.spec.mjs,painted.spec.mjs' || '' }}
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
       - name: Compare scalar subtraction across native and browser execution
         if: matrix.partition == 'core'
