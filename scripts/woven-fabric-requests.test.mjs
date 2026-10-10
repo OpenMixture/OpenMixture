@@ -93,6 +93,10 @@ test('recipe revision 3 only moves the three weave instances to weave-pattern@2 
   }
   const plan = await json('qualification-plan.json'), previous = await json('qualification-plan-v2.json');
   assert.equal(plan.recipeRevision, 3); assert.equal(plan.previousPlan, 'qualification-plan-v2.json');
+  const isolation = plan.structuralProbes.amendments.pop();
+  assert.equal(isolation.id, '2026-10-10-weave-v2-isolation');
+  assert.equal(isolation.after.nodeVersion, 2);
+  assert.deepEqual(isolation.after.changed, { crown: ['height','normal'], underRatio: ['height','normal'] }, 'profile controls may only move height and normal');
   const amendment = plan.structuralProbes.amendments.pop();
   assert.equal(amendment.id, '2026-10-10-weave-v2-crossing-oracle');
   assert.equal(amendment.after.nodeVersion, 2);

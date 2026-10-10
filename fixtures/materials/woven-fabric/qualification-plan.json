@@ -1439,6 +1439,43 @@
           ]
         },
         "scope": "Applies only when the material declares weave-pattern@2; revision 1/2 receipts and the @1 oracle remain unchanged history."
+      },
+      {
+        "id": "2026-10-10-weave-v2-isolation",
+        "date": "2026-10-10",
+        "discoveredBy": "First revision-3 Stage B run at 85a72e5 on GT 1030 Vulkan and DX12: graph_gpu_woven_control_isolation failed with \"control crown did not change baseColor\". All other Stage B probes passed.",
+        "reason": "The frozen isolation variants list baseColor and roughness as changed by crown and underRatio. That is weave-pattern@1 behaviour: @1 selects visibility by comparing transverse-profile heights, so profile shape leaks into coverage-weighted share and colour. The approved weave-pattern@2 contract (candidate C, PR #90/#91) selects ownership from cell parity and occupancy only; crown and underRatio change hw/hf and therefore only the stored height and the normal derived from it.",
+        "derivedFrom": "the approved weave-pattern@2 formulas, not from observed pixels",
+        "before": {
+          "crown": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "underRatio": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        "after": {
+          "nodeVersion": 2,
+          "changed": {
+            "crown": [
+              "height",
+              "normal"
+            ],
+            "underRatio": [
+              "height",
+              "normal"
+            ]
+          },
+          "exactlyUnchanged": "baseColor, roughness and metallic channels, plus the coverage and warp-share weave fields, must be byte-identical to the default render",
+          "strictness": "stricter than before: two channels move from \"must change\" to \"must be exactly unchanged\"; no tolerance is introduced"
+        },
+        "scope": "Applies only when the material declares weave-pattern@2; every other isolation variant and the @1 expectations remain unchanged history."
       }
     ]
   }

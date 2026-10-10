@@ -468,11 +468,25 @@ fn graph_gpu_woven_control_isolation() {
     let req = request(&p, &base, size);
     let original = capture(&ctx, &mut cache, &s, &req, None, false);
     let old_fields = fields(&ctx, &mut cache, &s, &req);
+    // weave-pattern@2 replaces the crown/underRatio expectations (plan amendment 2026-10-10).
+    let v2 = (weave_version(&s) == 2).then(|| {
+        p["structuralProbes"]["amendments"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|a| a["id"] == "2026-10-10-weave-v2-isolation")
+            .expect("weave-pattern@2 requires the frozen isolation amendment")["after"]["changed"]
+            .clone()
+    });
     for variant in p["structuralProbes"]["isolation"]["variants"]
         .as_array()
         .unwrap()
     {
         let key = variant["control"].as_str().unwrap();
+        let changed = match &v2 {
+            Some(v2) if v2.get(key).is_some() => v2[key].clone(),
+            _ => variant["changed"].clone(),
+        };
         let mut c = base.clone();
         c[key] = variant["value"].clone();
         let req = request(&p, &c, size);
@@ -484,11 +498,7 @@ fn graph_gpu_woven_control_isolation() {
             .enumerate()
         {
             exact(&a[k], &b[k], size, 4, &format!("repeat {key} {name}"));
-            if variant["changed"]
-                .as_array()
-                .unwrap()
-                .contains(&json!(name))
-            {
+            if changed.as_array().unwrap().contains(&json!(name)) {
                 assert!(a[k] != original[k], "control {key} did not change {name}");
             } else {
                 exact(
@@ -506,8 +516,10 @@ fn graph_gpu_woven_control_isolation() {
             .as_array()
             .unwrap()
             .contains(&json!(key));
+        // @2 ownership ignores profile shape: coverage and warp-share stay exact.
+        let profile_only = ["crown", "underRatio"].contains(&key);
         for i in 0..3 {
-            if !geometry || i == 1 && ["crown", "underRatio"].contains(&key) {
+            if !geometry || profile_only && (i == 1 || i == 2 && v2.is_some()) {
                 exact(
                     &f[i],
                     &old_fields[i],
