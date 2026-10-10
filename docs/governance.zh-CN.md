@@ -29,7 +29,7 @@ M4.1 在原生 M4 验收后建立长期使用的集成分支、真实 GitHub PR�
 | `Check (windows-latest)` | Windows 上相同的 CPU 检查 |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux 固定软件 GPU smoke、源码及打包消费者、全部三种 1K 材质及最大案例的 2K 跟踪 |
 | `WASM and npm package` | 锁定依赖的 WASM 构建、JavaScript／包契约及准确 npm 归档生成 |
-| `Chromium WebGPU material matrix` | 完整档位（带标签的 PR、`main`、手动运行）：独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
+| `Chromium WebGPU material matrix` | 汇总并行的 core／woven／painted 分区。完整档位（带标签的 PR、`main`、手动运行）：独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
 
 保持检查名称稳定。任务改名或检查来源变化时，必须协调验证规则；不得通过删除必需检查合并失败的变更。不要添加可能导致必需检查不报告结果的工作流路径过滤。规则修改本身也应经过审查，并在应用后记录实时结果。
 
@@ -37,11 +37,15 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 浏览器材质矩阵属于较慢的完整档位：在 PR 上仅当带有 `full-qualification` 标签时运行（添加标签即触发），推送到 `main` 及手动运行时始终运行。因此未加标签的 PR 会将该检查报告为跳过；它能捕获的回归会在随后的 `main` 运行中暴露。修改浏览器可见像素、WASM／运行时边界或材质夹具且需要合并前证据时，请为 PR 添加该标签。冻结的耗时预算仅对实测硬件适配器起阻断作用；软件适配器（SwiftShader）的耗时以 `budgetPolicy: "software"` 记录供趋势审阅，不会使运行失败。
 
+同一标签也选择 GPU 任务的完整档位：未加标签时，PR 上的 `cargo xtask gpu-smoke` 跳过以 `full-qualification:` 标记的忽略测试（目前为 MAT-03 woven 结构探针），`main`、手动运行及带标签的 PR 则运行它们。非纯文档 PR 始终运行 GPU 检查本身。两个范围任务只读取变更路径名，因此使用无 blob 的稀疏检出。
+
+浏览器材质矩阵在同一工作流中以三个并行 `partitions` 任务（`core`、`woven`、`painted`）运行，最后由 `required` 任务报告名称不变的 `Chromium WebGPU material matrix` 检查：范围任务延后矩阵或全部分区通过时成功，否则失败。`core` 运行除 `woven.spec.mjs`、`painted.spec.mjs` 以外的全部候选 spec，以及其他 Native 对比、注册表消费和固定 Studio 门槛；`woven` 与 `painted` 各运行一个冻结材质 spec 及其 Native 对比。消费者按实际 spec 文件校验 `MIXTURE_CONSUMER_ONLY_SPECS`／`MIXTURE_CONSUMER_SKIP_SPECS`，因此新 spec 默认在 `core` 运行，除非有意移出。每个分区上传 `chromium-material-matrix-<partition>`。
+
 ## CI 触发与保留
 
 [CPU](../.github/workflows/ci.yml)、[GPU](../.github/workflows/gpu-smoke.yml)、[浏览器包](../.github/workflows/browser-runtime.yml)及[浏览器材质](../.github/workflows/browser-materials.yml)工作流均响应 PR、推送到 `main` 及手动触发。普通功能分支推送不会额外启动一套分支 push 运行。合并后仍在 `main` 上运行，验证集成结果。现有按工作流／引用划分的并发控制取消已被取代的运行，不取消无关分支或 PR。
 
-GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存状态不是测试通过的证据。
+GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存 key 覆盖工具链指纹与固定版本及编译参数的 `setup-swiftshader.sh`，不包含 workflow 文件；同一工具链下的前缀匹配可作为增量构建的起点。缓存状态不是测试通过的证据。
 
 每个工作流在安装仓库工具链后恢复固定版本的 `Swatinem/rust-cache` Cargo 构建缓存。仅 `main` 保存缓存，PR 只恢复。它只加速编译：每一步仍以 `--locked` 构建并执行其检查；缓存的 `~/.cargo/bin` 使准确版本的 `wasm-bindgen-cli` 安装得以复用。
 

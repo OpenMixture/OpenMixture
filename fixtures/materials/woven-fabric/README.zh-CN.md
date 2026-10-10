@@ -147,7 +147,7 @@ Dense-thin 使用原有 256²／1024²／257×129，检查 H/C/S 有限归一化
 
 ### 阶段 B 定向命令
 
-以下忽略测试由 `cargo xtask gpu-smoke` 的既有串行忽略测试选择自动运行。按上文设置 Vulkan 或 DX12 显式 GPU 环境。评审者已授权上述严格限定的采样原点观测。
+以下忽略测试标记为 `full-qualification:`，仅在完整档位（`MIXTURE_GPU_TIER=full`；CI 在 `main`、手动运行及带 `full-qualification` 标签的 PR 中使用）由 `cargo xtask gpu-smoke` 运行。`test-node weave-pattern` 与 `test-node fractal-noise` 仍显式运行各自探针。按上文设置 Vulkan 或 DX12 显式 GPU 环境。评审者已授权上述严格限定的采样原点观测。
 
 ```bash
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture

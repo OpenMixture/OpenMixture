@@ -147,7 +147,7 @@ Dense-thin at its existing 256²/1024²/257×129 sizes checks finite normalized 
 
 ### Focused Stage B commands
 
-The following ignored tests run through `cargo xtask gpu-smoke` automatically, using its existing serialized ignored-test selection. Set the documented explicit GPU environment for Vulkan or DX12. The reviewer has authorized the narrowly bounded sampling-origin instrumentation described above.
+These ignored tests are marked `full-qualification:` and run through `cargo xtask gpu-smoke` only in the full tier (`MIXTURE_GPU_TIER=full`; CI uses it on `main`, manual runs and PRs labeled `full-qualification`). `test-node weave-pattern` and `test-node fractal-noise` still run their probe explicitly. Set the documented explicit GPU environment for Vulkan or DX12. The reviewer has authorized the narrowly bounded sampling-origin instrumentation described above.
 
 ```bash
 cargo test --locked -p mixture-wgpu --lib graph_gpu_woven_crossing_structure -- --ignored --nocapture

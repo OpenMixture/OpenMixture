@@ -48,6 +48,18 @@ export async function verifyInstalled(directory, expectedBuild, files) {
   }
 }
 
+// CI may split candidate qualification into partitions whose union is every spec file.
+// `only` and `skip` are comma-separated spec file names; unknown names are rejected.
+export function selectSpecs(all, only = '', skip = '') {
+  const parse = value => value.split(',').filter(Boolean);
+  const [include, exclude] = [parse(only), parse(skip)];
+  assert.ok(!(include.length && exclude.length), 'set only one of MIXTURE_CONSUMER_ONLY_SPECS and MIXTURE_CONSUMER_SKIP_SPECS');
+  for (const name of [...include, ...exclude]) assert.ok(all.includes(name), `unknown spec partition entry: ${name}`);
+  const selected = include.length ? all.filter(name => include.includes(name)) : all.filter(name => !exclude.includes(name));
+  assert.ok(selected.length > 0, 'spec partition selects no files');
+  return selected;
+}
+
 // The published registry package only has the original SDK and resource suites.
 export const registrySpecFiles = ['sdk.spec.mjs', 'resources.spec.mjs'];
 
@@ -117,6 +129,11 @@ export async function qualify(mode, packageDirectory, output) {
       await mkdir(dirname(join(staging, file)), { recursive: true });
       await cp(join(example, file), join(staging, file));
     }
+    const allSpecs = (await readdir(join(staging, 'tests'))).filter(name => name.endsWith('.spec.mjs')).sort();
+    const [onlySpecs, skipSpecs] = [env.MIXTURE_CONSUMER_ONLY_SPECS ?? '', env.MIXTURE_CONSUMER_SKIP_SPECS ?? ''];
+    if (mode === 'registry') assert.ok(!onlySpecs && !skipSpecs, 'registry qualification is never partitioned');
+    record.specFiles = selectSpecs(allSpecs, onlySpecs, skipSpecs);
+    record.specPartition = { only: onlySpecs || null, skip: skipSpecs || null };
     const manifest = await json(join(staging, 'package.json'));
     const lock = await json(join(staging, 'package-lock.json'));
     let version = manifest.dependencies['@openmixture/runtime'];
@@ -203,8 +220,7 @@ export async function qualify(mode, packageDirectory, output) {
     await npm(['exec', '--', 'playwright', 'install', ...(process.platform === 'linux' ? ['--with-deps'] : []), 'chromium']);
     await npm(['run', 'test:browser']);
     const browser = await json(join(staging, 'test-results/report.json'));
-    const specFiles = (await readdir(join(staging, 'tests'))).filter(name => name.endsWith('.spec.mjs')).sort();
-    assertBrowserReport(browser, mode, specFiles);
+    assertBrowserReport(browser, mode, record.specFiles);
     await verifyInstalled(staging, metadata, fileHashes);
     assert.equal(hash(await readFile(join(staging, 'package-lock.json'))), record.lockSha256);
     record.browserTests = browser.stats;

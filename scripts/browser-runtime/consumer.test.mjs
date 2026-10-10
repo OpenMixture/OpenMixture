@@ -5,7 +5,7 @@ import { join, dirname, basename, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { assertBrowserReport, candidateManifests, safePackagePath, verifyInstalled } from './consumer.mjs';
+import { assertBrowserReport, candidateManifests, safePackagePath, selectSpecs, verifyInstalled } from './consumer.mjs';
 import { hash } from './candidate.mjs';
 
 test('brick comparison keeps a fresh checkout clean without private target ignores', async () => {
@@ -191,4 +191,18 @@ test('portable asset regression retains v1 independently of migrated loose resou
 
 test('candidate requires the woven material matrix in addition to the node tests', () => {
   assert.throws(() => assertBrowserReport({stats:{expected:22,unexpected:0,skipped:0,flaky:0},errors:[]}, 'candidate'));
+});
+
+test('CI spec partitions are validated and together cover every spec file', () => {
+  const all = ['brick.spec.mjs', 'painted.spec.mjs', 'sdk.spec.mjs', 'woven.spec.mjs'];
+  assert.deepEqual(selectSpecs(all), all);
+  const core = selectSpecs(all, '', 'woven.spec.mjs,painted.spec.mjs');
+  const woven = selectSpecs(all, 'woven.spec.mjs');
+  const painted = selectSpecs(all, 'painted.spec.mjs');
+  assert.deepEqual(core, ['brick.spec.mjs', 'sdk.spec.mjs']);
+  assert.deepEqual([...core, ...woven, ...painted].sort(), all);
+  assert.throws(() => selectSpecs(all, 'wovn.spec.mjs'), /unknown spec partition entry/);
+  assert.throws(() => selectSpecs(all, '', 'missing.spec.mjs'), /unknown spec partition entry/);
+  assert.throws(() => selectSpecs(all, 'woven.spec.mjs', 'painted.spec.mjs'), /only one of/);
+  assert.throws(() => selectSpecs(all, '', all.join(',')), /selects no files/);
 });

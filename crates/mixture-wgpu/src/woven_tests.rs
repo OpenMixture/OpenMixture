@@ -249,7 +249,7 @@ fn center_heights(uv: [f64; 2], c: &Value) -> [f64; 2] {
     })
 }
 #[test]
-#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_crossing_structure() {
     let (source, p) = inputs();
     let ctx = context();
@@ -350,7 +350,7 @@ fn graph_gpu_woven_crossing_structure() {
     eprintln!("woven crossings passed {count}");
 }
 #[test]
-#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_flat() {
     let (s, p) = inputs();
     let ctx = context();
@@ -381,7 +381,7 @@ fn graph_gpu_woven_flat() {
     scope.save(&ctx, "flat", &rows, &omitted, true);
 }
 #[test]
-#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_control_isolation() {
     let (s, p) = inputs();
     let ctx = context();
@@ -479,7 +479,7 @@ fn replay_case(
     eprintln!("woven replay passed {name} {size:?}");
 }
 #[test]
-#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_normal_periodic() {
     let (s, p) = inputs();
     let ctx = context();
@@ -514,7 +514,7 @@ fn graph_gpu_woven_normal_periodic() {
     scope.save(&ctx, "normal-replay", &rows, &omitted, true);
 }
 #[test]
-#[ignore = "requires GPU; cargo xtask gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_stress() {
     let (s, p) = inputs();
     let ctx = context();
@@ -687,7 +687,7 @@ fn weave_periodic_receipt(
 }
 
 #[test]
-#[ignore = "requires GPU; cargo xtask test-node weave-pattern or gpu-smoke"]
+#[ignore = "full-qualification: requires GPU; cargo xtask test-node weave-pattern or full-tier gpu-smoke"]
 fn node_weave_pattern_gpu_woven_periodic() {
     let (source, plan) = inputs();
     let ctx = context();

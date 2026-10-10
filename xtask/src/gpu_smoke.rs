@@ -155,6 +155,21 @@ pub(super) fn run(root: &Path) -> TaskResult {
             }
         }
     }
+    // Standard tier skips `full-qualification:` tests; MIXTURE_GPU_TIER=full runs them.
+    let mut tier_args = Vec::new();
+    if crate::gpu_tier::full_tier()? {
+        println!("GPU tier: full (all ignored GPU tests)");
+    } else {
+        let deferred = crate::gpu_tier::full_tier_tests(root)?;
+        println!(
+            "GPU tier: standard; deferring {} full-qualification tests: {}",
+            deferred.len(),
+            deferred.join(", ")
+        );
+        for name in deferred {
+            tier_args.extend(["--skip".to_owned(), name]);
+        }
+    }
     // Keep unrelated node workloads and deliberate device destruction separate.
     // Individual tests still exercise their explicit independent contexts.
     let tests = cargo(root)
@@ -171,6 +186,7 @@ pub(super) fn run(root: &Path) -> TaskResult {
             "--nocapture",
             "--test-threads=1",
         ])
+        .args(&tier_args)
         .env("MIXTURE_NODE_EVIDENCE_DIR", directory.join("nodes"))
         .output()?;
     fs::write(directory.join("gpu-tests.stdout.log"), &tests.stdout)?;

@@ -23,20 +23,33 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 2
+          # Only the script and changed path names are needed; skip other file contents.
+          filter: blob:none
+          sparse-checkout: .github/scripts
       - name: Run the full matrix on main, manual runs and labeled pull requests
         id: scope
         env:
           QUALIFICATION_TIER: full
           QUALIFICATION_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
-  materials:
-    name: Chromium WebGPU material matrix
+  partitions:
+    # Partitions run in parallel; their union is every candidate spec file, and the
+    # `required` job below reports the unchanged required check.
+    # A fixed name: GitHub appends `(core)` etc. after expansion, and a run cancelled
+    # before expansion still shows a readable name.
+    name: Chromium WebGPU partition
     needs: scope
-    # A skipped job reports success to the unchanged required check. Run unless the
-    # scope job succeeded and explicitly deferred it (unlabeled or documentation-only PR).
+    strategy:
+      fail-fast: false
+      matrix:
+        # core skips the two slow frozen material matrices, so new specs land in core;
+        # woven and painted each run only `<partition>.spec.mjs`.
+        partition: [core, woven, painted]
+    # Run unless the scope job succeeded and explicitly deferred the matrix
+    # (unlabeled or documentation-only PR); `required` then reports success.
     if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    timeout-minutes: 75
     env:
       CC: clang-18
       CXX: clang++-18
@@ -64,13 +77,18 @@ jobs:
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: tmp/swiftshader/
-          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh', '.github/workflows/gpu-smoke.yml') }}
+          # The pinned revision and build flags live in the setup script; workflow edits
+          # must not force a ~30 min rebuild. The script re-verifies the revision, so a
+          # prefix match from the same toolchain only seeds an incremental build.
+          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh') }}
+          restore-keys: |
+            swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-
       - name: Build pinned software adapter
         # Always verify the source revision, configure/build and export the ICD,
         # including after a cache hit. Cache contents never stand in for tests.
         run: bash .github/scripts/setup-swiftshader.sh
       - name: Save verified software adapter build
-        if: steps.swiftshader-cache.outputs.cache-hit != 'true'
+        if: steps.swiftshader-cache.outputs.cache-hit != 'true' && matrix.partition == 'core'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: tmp/swiftshader/
@@ -84,6 +102,7 @@ jobs:
         with:
           save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify independent browser quality controls before material execution
+        if: matrix.partition == 'core'
         run: cargo xtask browser-quality-calibrate tmp/browser-quality-controls
       - name: Install Node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
@@ -97,29 +116,43 @@ jobs:
       - name: Test candidate guards and build this revision's archive
         run: |
           npm ci --prefix packages/runtime --ignore-scripts
+          if [ "${{ matrix.partition }}" = core ]; then
           npm test --prefix packages/runtime
           node --test scripts/browser-runtime/candidate.test.mjs scripts/browser-runtime/default-browser.test.mjs scripts/browser-runtime/consumer.test.mjs scripts/painted-metal-requests.test.mjs scripts/woven-fabric-requests.test.mjs
+          fi
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
+        env:
+          MIXTURE_CONSUMER_ONLY_SPECS: ${{ matrix.partition != 'core' && format('{0}.spec.mjs', matrix.partition) || '' }}
+          MIXTURE_CONSUMER_SKIP_SPECS: ${{ matrix.partition == 'core' && 'woven.spec.mjs,painted.spec.mjs' || '' }}
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
       - name: Compare scalar subtraction across native and browser execution
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-subtract.mjs tmp/sdk-candidate tmp/sdk-subtract-comparison
       - name: Compare scalar morphology across native and browser execution
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-morphology.mjs tmp/sdk-candidate tmp/sdk-morphology-comparison
       - name: Compare Scalar composition across native and browser execution
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-scalar.mjs tmp/sdk-candidate tmp/sdk-scalar-comparison
       - name: Compare imported image resources across native and browser execution
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-resources.mjs tmp/sdk-candidate tmp/sdk-resource-comparison
       - name: Compare portable package matrix across Native and browser
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/compare-assets.mjs tmp/sdk-candidate tmp/sdk-asset-comparison
       - name: Compare the frozen brick material matrix across Native and browser
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-brick.mjs tmp/sdk-candidate tmp/sdk-brick-comparison
       - name: Qualify public texture reuse, 2K costs and frozen timing budgets
+        if: matrix.partition == 'core'
         id: texture-reuse
         run: node scripts/browser-runtime/check-reuse.mjs tmp/sdk-candidate tmp/sdk-reuse-comparison
       - name: Compare the complete painted-metal matrix across Native and browser
+        if: matrix.partition == 'painted'
         run: node scripts/browser-runtime/check-painted.mjs tmp/sdk-candidate tmp/sdk-painted-comparison
       - name: Woven material public matrix parity
+        if: matrix.partition == 'woven'
         run: |
           export MIXTURE_SWIFTSHADER_COMMIT=$(git -C tmp/swiftshader/source rev-parse HEAD)
           node scripts/browser-runtime/check-woven.mjs tmp/sdk-candidate tmp/sdk-woven-comparison
@@ -131,18 +164,22 @@ jobs:
       - name: Compare public weave v2 node modes against Native
         run: node scripts/browser-runtime/check-weave-v2.mjs tmp/sdk-candidate tmp/sdk-weave-v2-comparison
       - name: Compare public weave node modes against Native
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-weave.mjs tmp/sdk-candidate tmp/sdk-weave-comparison
       - name: Qualify the exact published version separately
         # Network-dependent registry evidence runs on main and manual runs, not in pull-request gates.
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && matrix.partition == 'core'
         run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
       - name: Prepare detached native material inputs
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
       - name: Verify exact v2 to v3 material allocation migration without resetting goldens
+        if: matrix.partition == 'core'
         run: |
           cargo build --locked -p mixture-cli
           node scripts/verify-plan-v3.mjs
       - name: Check out pinned independent product
+        if: matrix.partition == 'core'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: OpenMixture/Studio
@@ -150,53 +187,65 @@ jobs:
           path: tmp/browser-product
           persist-credentials: false
       - name: Substitute only the candidate archive and its locked identity
+        if: matrix.partition == 'core'
         run: >-
           node scripts/browser-runtime/candidate.mjs stage
           target/browser-runtime tmp/browser-product tmp/browser-candidate
           "$(git rev-parse HEAD)" 56c510ab57daa1b68ef660525a648a582730a37e
       - name: Install the exact product and browser
+        if: matrix.partition == 'core'
         working-directory: tmp/browser-product
         run: |
           npm ci
           npx playwright install --with-deps chromium
       - name: Verify installed bytes and public types, then run browser contracts
+        if: matrix.partition == 'core'
         run: |
           node scripts/browser-runtime/candidate.mjs installed tmp/browser-product tmp/browser-candidate
           cd tmp/browser-product
           npm run check
           env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:browser
       - name: Assert actual candidate identity and reject historical WASM
+        if: matrix.partition == 'core'
         working-directory: tmp/browser-product
         run: >-
           env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES
           node "$GITHUB_WORKSPACE/scripts/browser-runtime/candidate.mjs" probe
           "$GITHUB_WORKSPACE/tmp/browser-product" "$GITHUB_WORKSPACE/tmp/browser-candidate"
       - name: Execute installed runtime against static production assets
+        if: matrix.partition == 'core'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
       - name: Check frozen browser quality and differences
+        if: matrix.partition == 'core'
         run: cargo xtask browser-material-check tmp/browser-native tmp/browser-output
       - name: Verify normal production deployment
+        if: matrix.partition == 'core'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:deployment
       - name: Bind all acceptance gates to this candidate
+        if: matrix.partition == 'core'
         run: >-
           node scripts/browser-runtime/candidate.mjs verify
           tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output
       - name: Prepare explicit noise-v2 material migration
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native-v2 "$(git rev-parse HEAD)" --noise-v2
       - name: Requalify migrated materials through the same installed public runtime
+        if: matrix.partition == 'core'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native-v2 ../browser-output-v2
       - name: Check unchanged quality gates for migrated materials
+        if: matrix.partition == 'core'
         run: cargo xtask browser-material-check tmp/browser-native-v2 tmp/browser-output-v2
       - name: Bind migrated material acceptance to the exact candidate
+        if: matrix.partition == 'core'
         run: node scripts/browser-runtime/candidate.mjs verify-noise-v2 tmp/browser-product tmp/browser-candidate tmp/browser-native-v2 tmp/browser-output-v2
       - name: Retain material qualification evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: chromium-material-matrix
+          name: chromium-material-matrix-${{ matrix.partition }}
           path: |
             target/browser-runtime/*.tgz
             target/browser-runtime/*.sha256
@@ -224,4 +273,26 @@ jobs:
             tmp/painted-metal-stages/
             tmp/sdk-registry/
           retention-days: 30
-          if-no-files-found: error
+          # Each partition produces only its own subset of these paths.
+          if-no-files-found: warn
+  required:
+    # Required check. Passes when the scope job deferred the matrix (unlabeled or
+    # documentation-only PR) or when every partition passed; fails otherwise.
+    name: Chromium WebGPU material matrix
+    needs: [scope, partitions]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every partition, unless the scope job deferred the matrix
+        env:
+          SCOPE_RESULT: ${{ needs.scope.result }}
+          SCOPE_RUN: ${{ needs.scope.outputs.run }}
+          PARTITIONS: ${{ needs.partitions.result }}
+        run: |
+          echo "scope=$SCOPE_RESULT run=$SCOPE_RUN partitions=$PARTITIONS"
+          if [ "$SCOPE_RESULT" = success ] && [ "$SCOPE_RUN" = false ]; then
+            echo "Deferred by the qualification scope; not qualification evidence."
+            exit 0
+          fi
+          test "$PARTITIONS" = success

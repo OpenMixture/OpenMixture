@@ -6,6 +6,7 @@ mod dependencies;
 mod evidence;
 mod golden;
 mod gpu_smoke;
+mod gpu_tier;
 mod links;
 mod package;
 mod test_output;
