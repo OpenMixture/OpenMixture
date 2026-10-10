@@ -2,11 +2,13 @@
 
 [English](./README.md) | 简体中文
 
-材质计划已冻结，节点已实现；**materialAccepted=false**。首个提交 f3d0f3f 冻结[计划](./qualification-plan.json)与[配方](./graph-proposal.json)，然后加入[普通 .mix v1 材质](./material.mix)及公开调用方工具。原草案逐字保留在 [qualification-plan-draft.json](./qualification-plan-draft.json)、[graph-proposal-draft.json](./graph-proposal-draft.json)。[graph-design.json](./graph-design.json)及原收据保留修订 4 基线。
+MAT-03 配方修订 2 已在**记录范围内验收通过**；详见[阶段 D 证据及人工决定](../../../docs/evidence/mat-03/README.zh-CN.md)。视觉接受预设为 plain、varied、warp-seed、weft-seed、combined-low；combined-high 及类似蝴蝶结形组合不在视觉质量保证内。冻结计划、范围、节点语义和历史 false 接受标记均不变；materialAccepted=true 仅写入新的接受记录。weave-pattern@2 是下一项跟进（让上层纱线在交叉处自己的整个宽度上可见），尚未启动。未发布任何包。
 
-[分阶段计划](../../../docs/mat-03-woven-surfaces.zh-CN.md)：保留已合并阶段 A 公开 Native／浏览器矩阵；本 PR 加入 B raw-half／结构／周期／法线重放／压力探针，C 介电 PBR 与人工决定、D 证据保留与接受记录仍另开 PR。本矩阵不构成结构、PBR 或人工接受。
+阶段 A 公开矩阵、B 有界结构探针、C 精确图像的维护者决定及 D 保留证据共同支撑上述范围，不构成任意控制组合保证。原始草案、修订 1 文件、冻结配方修订 2 计划及下文源绑定历史观测均不改写。PR #87 已关闭且未合并；underRatio 材质范围仍为 0.25..0.75。
 
-当前为[显式材质配方修订 2](../../../docs/mat-03-default-revision.zh-CN.md)：仅默认 underRatio=0.25、crown=0，所有冻结门槛不变。下文历史阶段 A 观测属于修订 1，不能用于宣称修订 2 通过；调用方控制表列出当前默认值。维护者于 2026-10-04 接受这些默认值；残余收窄保留记录，完整 PBR／人工评审属于阶段 C。materialAccepted=false。
+默认 underRatio=0.25、crown=0 保持不变；plain 收窄度量 min=0.875。维护者于 2026-10-06（Asia/Shanghai）的 "Accept with a narrower range" 被后续测量取代，最终决定为 "Accept now, fix in @2 later (Recommended)"。combined-high 蝴蝶结、奇数尺寸平移 share 的非门槛限制（最多 27 half 步，|ΔP|≈0.12 个 8-bit 级）、软件省略 2048² 及记录适配器范围见接受记录。原 preview.json 的 false 标记不追溯改写。
+
+历史冻结：f3d0f3f 在实现公开调用方工具前冻结[计划](./qualification-plan.json)与[配方](./graph-proposal.json)。[草案计划](./qualification-plan-draft.json)、[草案配方](./graph-proposal-draft.json)、[原节点组合基线](./graph-design.json)及[修订 2 契约](../../../docs/mat-03-default-revision.zh-CN.md)继续保留。
 
 ## 阶段 A 绑定源码的本地观测
 
@@ -294,7 +296,7 @@ plain 的全部 45 次二次幂尺寸比较在所有模式下仍 raw-half 精确
 
 [评审计划](./pbr-review-plan.json)在工具实现和图像生成前冻结 plain、varied、combined-low、combined-high、warp-seed、weft-seed 六个 1024² 预设。每个预设包含平面／球体的 1×、3× 平铺及 4× 特写，以及五通道缩略图。复用 MAT-01 电介质 GGX：固定正交相机、600² 画布、位置缩放 2.5、视线 (0,0,1)，归一化主光 (-0.4,0.6,1) ×3、补光 (0.8,0.1,0.5) ×0.7、基色环境项 ×0.12。计划固定色调映射及 gamma 2.2；F0=0.04、metallic=0，粗糙度限于 [0.04,1]。高度仅展示，不置换几何。强制粗糙度 0/1/0 须改变明暗并精确重复，且不计入材质评审图。
 
-输入必须是成功且源码干净的公开 Native／浏览器比较，源码、计划、构建器、修订、包及尺寸身份一致。回执绑定全部输入、截图及渲染器字节。人工接受与材质接受均保持 false；代理检查不是人工决定。阶段 D 保留证据及接受记录另行处理。
+输入必须是成功且源码干净的公开 Native／浏览器比较，源码、计划、构建器、修订、包及尺寸身份一致。回执绑定全部输入、截图及渲染器字节。生成器记录 humanAccepted／materialAccepted=false；只有独立且绑定源码的人工决定才能接受评审范围。代理检查不是人工决定。
 
 ### 生成绑定生产身份的织物视图
 
@@ -308,10 +310,10 @@ node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-request
 
 先提交工具，构建、比较及预览均使用干净工作树；Native 比较使用 GT 1030 Vulkan，浏览器使用已安装 Chrome。各输出目录必须全新。织物工具通过唯一锚点变换复用未修改的砖材电介质 HTML（仅视图比例、粗糙度检查和布局）；MAT-01／MAT-02 源字节与历史回执不变。测试固定这些源码及评审计划。五个输入通道对照绑定生产身份的浏览器像素哈希和 Native／浏览器一致性校验；metallic 必须精确为零。六张 `<preset>-pbr.png`、三张独立粗糙度检查图、`index.html` 及 `preview.json` 绑定回执、渲染器、计划与图像哈希，并记录运行参数、适配器及浏览器身份。4× 视图放大固定投影而非改变材质频率。这是消费端可视化，不是另一图执行器、置换、布料模拟、新周期门槛或人工接受。
 
-### 阶段 C 生成结果——人工决定待定
+### 阶段 C 生成结果——保留原评审字节
 
 评审设置在实现前由 44746d4 冻结。干净生产／工具修订 `6eb52a6a4de18ae0f8081e6314cff0215e249783` 构建候选并通过已安装 Chrome 154.0.8037.98 验证（23 项测试）。必须显式设置 `MIXTURE_BROWSER_CHANNEL=chrome`：首次调用使用默认 Chromium，已停止，其不完整输出不计入证据。`check-woven.mjs` 对 NVIDIA GeForce GT 1030 Vulkan 的 255 项比较全部通过（最大通道分量差 1/255）；冻结降采样及四项耗时门槛均通过。
 
-生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。图片及普通日志不提交。
+生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。它们原为阶段 C 临时输出；阶段 D 现保留原评审字节及所选收据，普通日志仍忽略。
 
-代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。阶段 C 评审图已生成，维护者视觉决定待定；阶段 D 保留证据及接受记录随后另行处理。
+代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。后续维护者决定接受五个预设并排除 combined-high；见[阶段 D 记录](../../../docs/evidence/mat-03/README.zh-CN.md)。该决定未重新生成图像或配方。

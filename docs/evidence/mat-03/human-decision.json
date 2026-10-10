@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "decisionDate": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "decisionSource": "Maintainer reply in the current project conversation",
+  "userStatement": "Accept now, fix in @2 later (Recommended)",
+  "interpretation": "Accept MAT-03 recipe revision 2 within the reviewed visual scope, with explicit limitations and a not-started weave-pattern@2 follow-up.",
+  "humanApproval": true,
+  "materialAccepted": true,
+  "decisions": [
+    {
+      "date": "2026-10-06",
+      "userStatement": "Accept with a narrower range",
+      "status": "superseded",
+      "reason": "PR 87 safe-region measurements showed narrowing underRatio alone does not remove the combined-high bow-tie."
+    },
+    {
+      "date": "2026-10-06",
+      "userStatement": "Accept now, fix in @2 later (Recommended)",
+      "status": "final"
+    }
+  ],
+  "acceptedVisualPresets": [
+    "plain",
+    "varied",
+    "warp-seed",
+    "weft-seed",
+    "combined-low"
+  ],
+  "outsideVisualQualityGuarantee": [
+    "combined-high",
+    "Similar high underRatio/crown/width and low bevel combinations that show bow-tie yarn shapes"
+  ],
+  "followUp": {
+    "identity": "weave-pattern@2",
+    "purpose": "Visibility fix so the over-yarn wins across its own width at crossings",
+    "status": "not started; requires maintainer entry decision"
+  },
+  "sourceRevision": "6eb52a6a4de18ae0f8081e6314cff0215e249783",
+  "recipeRevision": 2,
+  "reviewedMapsProducerBuild": "sha256:e4a4d88e08f71f420378604ec2596ae2542e2f022ce9957de7ec1d9731efa5e3",
+  "previewBrowser": "154.0.8037.98",
+  "agentReviewOnlyBeforeDecision": true,
+  "historicalPreviewAcceptanceFlagsPreserved": true,
+  "files": {
+    "review/combined-high-pbr.png": "6fb8a3c3c4f540c85a373cb17c22ee25beebf02c6e1692416079c2ccde5617c0",
+    "review/combined-low-pbr.png": "3fd1dd9268d1b8ad1a7493abae50c66af6e6d38623c6e38d9df9e3f40b83c40a",
+    "review/inputs/combined-high-1024x1024-baseColor.png": "fe4b4fa6265d90c358710e70e5fa189ada62313f2c632ca4a5aa463d9007bf4f",
+    "review/inputs/combined-high-1024x1024-height.png": "ac1c12becbb1a236962e92bc73cb12523ab357ccc594f8bb1b056ba5856d7cae",
+    "review/inputs/combined-high-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/combined-high-1024x1024-normal.png": "ad1d87604a04a71427457792c5dca3d2371c960bd52cdc029ad1d6e698a1ea23",
+    "review/inputs/combined-high-1024x1024-roughness.png": "d08a5f41b3fd3446f85e02249825ed47b4a7d72d90e25d662153d4448c6c4f7a",
+    "review/inputs/combined-low-1024x1024-baseColor.png": "9c9d6239cfabc96da2b99a38ad64d0d370adec239242b03853161b88960fa4ef",
+    "review/inputs/combined-low-1024x1024-height.png": "cc0bc8495d527f3b35dd8441bf08f93e7e80f12ec81cbd3b4460cde3b775bc01",
+    "review/inputs/combined-low-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/combined-low-1024x1024-normal.png": "ecf94b84d7670876c77ef4c0342270c36a02ca13803d659280b2f0946c7fc094",
+    "review/inputs/combined-low-1024x1024-roughness.png": "193828f001a063bd9373dc3dd227e8a22cc0a19a344541f046f06867a9c776c6",
+    "review/inputs/plain-1024x1024-baseColor.png": "6102c152aabb5cae66576b202d3d62650764adf2f5b9c966819d297118adbd92",
+    "review/inputs/plain-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "review/inputs/plain-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/plain-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "review/inputs/plain-1024x1024-roughness.png": "fb3998bce0559e711d8d64e5192b1213fb1cb11967d7c908c7c8adfe576ff905",
+    "review/inputs/varied-1024x1024-baseColor.png": "41ec9dad51bb75b060de7ece43e926e7c3efff061ac1ce85e3857341aafcef2b",
+    "review/inputs/varied-1024x1024-height.png": "10e307f1f8ef73c0e8a5eaf2e997c2b4e381edf1e9be29ec669797d13dde7f6c",
+    "review/inputs/varied-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/varied-1024x1024-normal.png": "f346b4181fc73fb9510ed4d7611a4c9f8de00010064d70b83f3c94ee09c65b4a",
+    "review/inputs/varied-1024x1024-roughness.png": "17a832ad8969accf98f8f9e85d55f77e62f75e79f4e077f6e03ad465c507cf78",
+    "review/inputs/warp-seed-1024x1024-baseColor.png": "6e90a93f3f2bab89f3ee1c2629058c9f43c19d26614cdd74260f512cf2caf202",
+    "review/inputs/warp-seed-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "review/inputs/warp-seed-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/warp-seed-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "review/inputs/warp-seed-1024x1024-roughness.png": "004db8df5b8248141a47126a93a854af76a12fcc3def62104f70a8434d74d982",
+    "review/inputs/weft-seed-1024x1024-baseColor.png": "3fa4f8cf7fe320af5db1f2f64ed62b6ca525a259b0c6ab0574c30b24a5a7bf31",
+    "review/inputs/weft-seed-1024x1024-height.png": "48c02bc7b5252509016211fc2ee9367038c81a52337fee8fa9fc416d319d42b7",
+    "review/inputs/weft-seed-1024x1024-metallic.png": "525eb55539584d378186ff88a79ee84a4b4fbc3b57d30501546a2af46211c91e",
+    "review/inputs/weft-seed-1024x1024-normal.png": "f4e721b5d250023cf671d862e16aaedce01e94e143bf887073a662a2a312c530",
+    "review/inputs/weft-seed-1024x1024-roughness.png": "b0d7c3cbd1aee622db1e69bce2a3a4c35a42e7a9f19f01980788a1c4e9a88c68",
+    "review/plain-pbr.png": "b7e0d86a9a535c7c7adc6e3228e462f4fcbc27ad42e64dd30b9f8cc601b2d73e",
+    "review/preview.json": "7019726b7a91c34a18780d6f65519c7efe0773dfdaece54760d25a82cf42afc4",
+    "review/varied-pbr.png": "cd6d05c0c871e97a6d84f3d24c12cdd47569f812e38f34e90d3f9dd7603091e5",
+    "review/warp-seed-pbr.png": "dc05db9399134d4ef53a98266da406e95e117d4df7c8e8d27f184fcacd40d4c2",
+    "review/weft-seed-pbr.png": "5619e94b566b48e85305166bc97ffcc733403adb57a1205cb11e5df3f10fdbf2"
+  }
+}

@@ -2,9 +2,9 @@
 
 [English](./release.md) | 简体中文
 
-**MAT-02 已验收候选（2026-10-02）：** main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` 上未发布的 Rust 0.8.0／browser 0.8.0-alpha.0 在 [MAT-02 记录](./evidence/mat-02/README.zh-CN.md)范围内完成涂漆金属及 PERF-MAT 纹理复用验收：合并后六项检查、SwiftShader Native／Chromium 精确一致、GT 1030 Vulkan/DX12 对 Chrome 在 1/255 以内、冻结预算及保留的人工决定。它成为最新的已验收材质基线。未发布任何包；已发布浏览器 0.3.0-alpha.0 不变，验收范围仅限记录的适配器。
+**MAT-02 已验收候选（2026-10-02）：** main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` 上未发布的 Rust 0.8.0／browser 0.8.0-alpha.0 在 [MAT-02 记录](./evidence/mat-02/README.zh-CN.md)范围内完成涂漆金属及 PERF-MAT 纹理复用验收：合并后六项检查、SwiftShader Native／Chromium 精确一致、GT 1030 Vulkan/DX12 对 Chrome 在 1/255 以内、冻结预算及保留的人工决定。它记录已验收的 MAT-02 基线。未发布任何包；已发布浏览器 0.3.0-alpha.0 不变，验收范围仅限记录的适配器。
 
-**MAT-03 工作候选：** 源清单为 weave-pattern@1 选定未发布 Rust 0.9.0／browser 0.9.0-alpha.0。维护者批准的目录为十八类型／十六内核；新增公开 Rust 枚举变体要求下游重新编译。节点契约及验收用例在实现前冻结；织物材质验收阶段 A 进行中；B–D 分别在后续 PR，materialAccepted=false。保持 .mix／.mixpack v1、plan／hash／API v3、既有节点语义及黄金不变。最新已验收材质基线仍是上文 0.8 MAT-02；已发布浏览器 0.3.0-alpha.0 不变。节点验证与材质接受／发布分开处理。
+**MAT-03 已验收、未发布候选：** 干净 main `9dc8c1a` 的 Rust 0.9.0／browser 0.9.0-alpha.0 已在[织物接受记录](./evidence/mat-03/README.zh-CN.md)范围内验收。机器门槛与精确绑定 6eb52a6 六张评审图的人工决定分开记录；plain、varied、warp-seed、weft-seed、combined-low 为视觉接受预设，combined-high 及类似蝴蝶结组合不在视觉保证内。保留原控制范围、修订 2 默认值及全部门槛。十八类型／十六内核、.mix／.mixpack v1、plan／hash／API v3 不变；weave-pattern@2 后续可见性修复未启动。只限记录适配器，奇数尺寸平移 share 仅作观察，软件不覆盖 2048²。这是当前织物候选验收，不是发布；浏览器已发布版本仍为 0.3.0-alpha.0。
 
 **MAT-01 实现集成（2026-09-23）：** Rust 0.6.0 / browser 0.6.0-alpha.0 的节点、砖材质夹具及验收工具已通过 PR #50–52 集成至 `0611d7273e368b12628bc827627779ea338dbb92`。PR #52 合并前六项检查全部通过；[集成记录](./evidence/mat-01/integration/README.zh-CN.md)区分其被测源码与合并后 main 验证。[人工决定](./evidence/mat-01/human-decision.json)与合并后六项通过的检查完成记录的软件／GT 1030 范围内 MAT-01 验收；下方 0.5 基线保留为历史记录。未发布包，不改变格式或迁移规则。
 
