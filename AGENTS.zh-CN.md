@@ -59,7 +59,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 当前工作
 
-当前增量：[weave-pattern@2 节点实现](./docs/weave-pattern-v2-acceptance.zh-CN.md)。维护者已批准候选 C、版本共存与候选版本；节点契约／探针先提交冻结。实现与验证进行中；@2 织物修订及 A–D 再验收属于后续独立工作。MAT-03 仍在[保留范围](./docs/evidence/mat-03/README.zh-CN.md)内接受，MAT-04 仍为规划。保留配方修订 2、原始范围、历史记录及所有阶段 A/B 门槛；combined-high 等蝴蝶结组合不属于视觉质量保证。不得追溯改写历史收据的接受标记。只验收记录的适配器，不发布包。每个后续阶段实现前仍须冻结契约及验收用例。材质验收输出使用 target/native-consumer，保持干净源码、请求／包身份和冻结像素／耗时预算检查。公开矩阵、结构／周期探针、PBR 与人工决定分开记录；参见[织物夹具指南](./fixtures/materials/woven-fabric/README.zh-CN.md)和[涂漆金属指南](./fixtures/materials/painted-metal/README.zh-CN.md)。MAT-02、PERF-MAT 及既有材料仍是回归义务。奇数尺寸平移 share 仅作观察；硬件完整矩阵保留 2048²，实际 Cpu 软件适配器按第四次修订明确标为 notRunOnSoftware；软件通过不验收硬件像素。
+当前没有活跃增量。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 与 @1 共存，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[保留范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；[修订 2 记录](./docs/evidence/mat-03/README.zh-CN.md)作为历史保留。MAT-04 仍为规划，须经维护者决定后才开始。保留修订 1/2 文件、原始范围与默认值、所有阶段 A/B 门槛，以及让探针预期跟随所声明 weave 版本的带日期修订；不得为配合版本变化而放宽门槛。不得追溯改写历史收据的接受标记。只验收记录的适配器，不发布包。每个后续阶段实现前仍须冻结契约及验收用例。材质验收输出使用 target/native-consumer，保持干净源码、请求／包身份和冻结像素／耗时预算检查。公开矩阵、结构／周期探针、PBR 与人工决定分开记录；参见[织物夹具指南](./fixtures/materials/woven-fabric/README.zh-CN.md)和[涂漆金属指南](./fixtures/materials/painted-metal/README.zh-CN.md)。MAT-02、PERF-MAT 及既有材料仍是回归义务。奇数尺寸平移 share 仅作观察；硬件完整矩阵保留 2048²，实际 Cpu 软件适配器按第四次修订明确标为 notRunOnSoftware；软件通过不验收硬件像素。
 
 ## 速查
 

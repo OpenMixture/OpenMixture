@@ -27,6 +27,33 @@ fn inputs() -> (Value, Value) {
     };
     (read("material.mix"), read("qualification-plan.json"))
 }
+// The material, not the test, selects the weave contract: all three instances share one version.
+fn weave_version(source: &Value) -> u64 {
+    let versions: Vec<_> = source["nodes"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|n| n["type"] == "weave-pattern")
+        .map(|n| n["version"].as_u64().unwrap())
+        .collect();
+    assert_eq!(versions.len(), 3);
+    assert!(
+        versions.iter().all(|v| *v == versions[0]),
+        "mixed weave versions {versions:?}"
+    );
+    assert!(
+        matches!(versions[0], 1 | 2),
+        "unsupported weave version {}",
+        versions[0]
+    );
+    versions[0]
+}
+fn weave_kernel(version: u64) -> mixture_core::plan::KernelId {
+    match version {
+        1 => mixture_core::plan::KernelId::WeavePattern,
+        _ => mixture_core::plan::KernelId::WeavePatternV2,
+    }
+}
 fn context() -> GpuContext {
     let context = pollster::block_on(GpuContext::request(crate::test_support::options())).unwrap();
     eprintln!("woven adapter: {}", json!(context.report().adapter()));
@@ -85,10 +112,11 @@ fn geometry(source: &Value, c: &Value, req: &CompileRequest, _plan: &Value) {
         .into_validated(&req.limits)
         .unwrap();
     let compiled = compile(&document, req).unwrap();
+    let version = weave_version(source);
     let geometries: Vec<_> = compiled
         .passes()
         .iter()
-        .filter(|p| p.kernel.id() == mixture_core::plan::KernelId::WeavePattern)
+        .filter(|p| p.kernel.id() == weave_kernel(version))
         .map(|p| serde_json::to_value(&p.kernel).unwrap())
         .collect();
     assert_eq!(geometries.len(), 3);
@@ -97,7 +125,12 @@ fn geometry(source: &Value, c: &Value, req: &CompileRequest, _plan: &Value) {
         g.as_object_mut().unwrap().remove("mode");
     }
     let float = |key: &str| c[key].as_f64().unwrap() as f32;
-    let expected = json!({"id":"weavePattern","counts":[c["warpCount"],c["weftCount"]],"widths":[float("warpWidth"),float("weftWidth")],"bevel":float("bevel"),"crown":float("crown"),"underRatio":float("underRatio")});
+    let id = if version == 1 {
+        "weavePattern"
+    } else {
+        "weavePatternV2"
+    };
+    let expected = json!({"id":id,"counts":[c["warpCount"],c["weftCount"]],"widths":[float("warpWidth"),float("weftWidth")],"bevel":float("bevel"),"crown":float("crown"),"underRatio":float("underRatio")});
     assert_eq!(
         normalized[0], expected,
         "public geometry controls not lowered"
@@ -248,10 +281,46 @@ fn center_heights(uv: [f64; 2], c: &Value) -> [f64; 2] {
         q * ((1. - crown) + crown * q) * (r + (1. - r) * l[a])
     })
 }
+// Frozen occupancy for the same sparse taps (identical in @1 and @2).
+fn center_occupancy(uv: [f64; 2], c: &Value) -> [f64; 2] {
+    let counts = [
+        c["warpCount"].as_f64().unwrap(),
+        c["weftCount"].as_f64().unwrap(),
+    ];
+    let width = [
+        c["warpWidth"].as_f64().unwrap(),
+        c["weftWidth"].as_f64().unwrap(),
+    ];
+    let bevel = c["bevel"].as_f64().unwrap();
+    std::array::from_fn(|a| {
+        let local = (uv[a] * counts[a]).fract() - 0.5;
+        smooth((width[a] * 0.5 - local.abs()) / bevel)
+    })
+}
+// Version-specific four-tap height oracle (plan amendment 2026-10-10 for @2).
+fn tap_height(version: u64, uv: [f64; 2], c: &Value, upper: usize) -> f64 {
+    let h = center_heights(uv, c);
+    if version == 1 {
+        return h[upper];
+    }
+    let a = center_occupancy(uv, c);
+    let [zw, zf] = [a[0] * h[0], a[1] * h[1]];
+    zw + zf - zw * zf
+}
 #[test]
 #[ignore = "full-qualification: requires GPU; full-tier cargo xtask gpu-smoke"]
 fn graph_gpu_woven_crossing_structure() {
     let (source, p) = inputs();
+    let version = weave_version(&source);
+    if version == 2 {
+        let amendment = p["structuralProbes"]["amendments"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|a| a["id"] == "2026-10-10-weave-v2-crossing-oracle")
+            .expect("weave-pattern@2 requires the frozen crossing-oracle amendment");
+        assert_eq!(amendment["after"]["toleranceAbsolute"], json!(1. / 1024.));
+    }
     let ctx = context();
     let mut cache = PipelineCache::default();
     let scope = Scope::new(&ctx, &p, sizes(&p));
@@ -323,7 +392,11 @@ fn graph_gpu_woven_crossing_structure() {
                             "{name} {size:?} {x},{y} upper/lower {h:?}, H {}",
                             actual[0]
                         );
-                        sum += h[upper];
+                        let uv = [
+                            (x as f64 + a) / size[0] as f64,
+                            (y as f64 + b) / size[1] as f64,
+                        ];
+                        sum += tap_height(version, uv, &c, upper);
                     }
                     assert!(
                         (actual[0] as f64 - sum / 4.).abs() <= 1. / 1024.,
@@ -395,11 +468,25 @@ fn graph_gpu_woven_control_isolation() {
     let req = request(&p, &base, size);
     let original = capture(&ctx, &mut cache, &s, &req, None, false);
     let old_fields = fields(&ctx, &mut cache, &s, &req);
+    // weave-pattern@2 replaces the crown/underRatio expectations (plan amendment 2026-10-10).
+    let v2 = (weave_version(&s) == 2).then(|| {
+        p["structuralProbes"]["amendments"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|a| a["id"] == "2026-10-10-weave-v2-isolation")
+            .expect("weave-pattern@2 requires the frozen isolation amendment")["after"]["changed"]
+            .clone()
+    });
     for variant in p["structuralProbes"]["isolation"]["variants"]
         .as_array()
         .unwrap()
     {
         let key = variant["control"].as_str().unwrap();
+        let changed = match &v2 {
+            Some(v2) if v2.get(key).is_some() => v2[key].clone(),
+            _ => variant["changed"].clone(),
+        };
         let mut c = base.clone();
         c[key] = variant["value"].clone();
         let req = request(&p, &c, size);
@@ -411,11 +498,7 @@ fn graph_gpu_woven_control_isolation() {
             .enumerate()
         {
             exact(&a[k], &b[k], size, 4, &format!("repeat {key} {name}"));
-            if variant["changed"]
-                .as_array()
-                .unwrap()
-                .contains(&json!(name))
-            {
+            if changed.as_array().unwrap().contains(&json!(name)) {
                 assert!(a[k] != original[k], "control {key} did not change {name}");
             } else {
                 exact(
@@ -433,8 +516,10 @@ fn graph_gpu_woven_control_isolation() {
             .as_array()
             .unwrap()
             .contains(&json!(key));
+        // @2 ownership ignores profile shape: coverage and warp-share stay exact.
+        let profile_only = ["crown", "underRatio"].contains(&key);
         for i in 0..3 {
-            if !geometry || i == 1 && ["crown", "underRatio"].contains(&key) {
+            if !geometry || profile_only && (i == 1 || i == 2 && v2.is_some()) {
                 exact(
                     &f[i],
                     &old_fields[i],
@@ -692,7 +777,7 @@ fn node_weave_pattern_gpu_woven_periodic() {
     let (source, plan) = inputs();
     let ctx = context();
     let mut cache = PipelineCache::default();
-    let (production, entry) = crate::kernels::shader(mixture_core::plan::KernelId::WeavePattern);
+    let (production, entry) = crate::kernels::shader(weave_kernel(weave_version(&source)));
     let anchor = "weave_box(vec2<f32>(gid.xy),vec2<f32>(size))";
     assert_eq!(production.matches(anchor).count(), 1);
     // Only the origin expression changes. Reserved float words 9/10 are zero at baseline.
