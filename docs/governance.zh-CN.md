@@ -37,11 +37,13 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 浏览器材质矩阵属于较慢的完整档位：在 PR 上仅当带有 `full-qualification` 标签时运行（添加标签即触发），推送到 `main` 及手动运行时始终运行。因此未加标签的 PR 会将该检查报告为跳过；它能捕获的回归会在随后的 `main` 运行中暴露。修改浏览器可见像素、WASM／运行时边界或材质夹具且需要合并前证据时，请为 PR 添加该标签。冻结的耗时预算仅对实测硬件适配器起阻断作用；软件适配器（SwiftShader）的耗时以 `budgetPolicy: "software"` 记录供趋势审阅，不会使运行失败。
 
+同一标签也选择 GPU 任务的完整档位：未加标签时，PR 上的 `cargo xtask gpu-smoke` 跳过以 `full-qualification:` 标记的忽略测试（目前为 MAT-03 woven 结构探针），`main`、手动运行及带标签的 PR 则运行它们。非纯文档 PR 始终运行 GPU 检查本身。两个范围任务只读取变更路径名，因此使用无 blob 的稀疏检出。
+
 ## CI 触发与保留
 
 [CPU](../.github/workflows/ci.yml)、[GPU](../.github/workflows/gpu-smoke.yml)、[浏览器包](../.github/workflows/browser-runtime.yml)及[浏览器材质](../.github/workflows/browser-materials.yml)工作流均响应 PR、推送到 `main` 及手动触发。普通功能分支推送不会额外启动一套分支 push 运行。合并后仍在 `main` 上运行，验证集成结果。现有按工作流／引用划分的并发控制取消已被取代的运行，不取消无关分支或 PR。
 
-GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存状态不是测试通过的证据。
+GPU 任务保留串行测试及固定 SwiftShader 构建缓存。缓存命中后仍验证源码版本、配置／构建驱动并执行每项验收。缓存 key 覆盖工具链指纹与固定版本及编译参数的 `setup-swiftshader.sh`，不包含 workflow 文件；同一工具链下的前缀匹配可作为增量构建的起点。缓存状态不是测试通过的证据。
 
 每个工作流在安装仓库工具链后恢复固定版本的 `Swatinem/rust-cache` Cargo 构建缓存。仅 `main` 保存缓存，PR 只恢复。它只加速编译：每一步仍以 `--locked` 构建并执行其检查；缓存的 `~/.cargo/bin` 使准确版本的 `wasm-bindgen-cli` 安装得以复用。
 

@@ -101,6 +101,8 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 
 `gpu-smoke` 显式访问 GPU 硬件或配置的软件适配器，将报告保存到 `tmp/gpu-smoke/`，其中 `native-consumer/` 保存独立消费者证据。Rust 消费者渲染两次，销毁 renderer／context 后验证自有字节及元数据。PR-012 还执行 10 次独立 CLI 调用，覆盖 doctor、成功 PNG 及部分写入；原始输出流和实际文件保留在所链接的 CLI 证据目录。它不属于 `check` 和普通工作区测试。适配器策略变量、固定 SwiftShader 准备方式和本地证据见 [GPU 指南](./gpu-context.zh-CN.md)。
 
+`gpu-smoke` 分两个档位。默认 `standard` 档位跳过忽略原因以 `full-qualification:` 开头的 GPU 测试；`MIXTURE_GPU_TIER=full` 运行全部忽略的 GPU 测试。较慢的材质验收探针应标记为 `#[ignore = "full-qualification: …"]`，使其仅在完整档位运行；xtask 从源码中识别该标记，并拒绝会误跳过其他忽略测试的名称。`test-node` 仍显式运行其指定测试。
+
 GPU smoke 使用 `--test-threads=1` 串行运行独立 Rust GPU 测试。此前 Linux SwiftShader 的并发测试进程曾因 SIGSEGV 退出，因此将节点渲染与无关的主动设备销毁测试分开执行。全部测试仍会运行，包括单个测试内部的独立上下文检查。此测试调度策略不认证任意并发设备销毁，也不代表已确定驱动崩溃的原因。
 
 Linux GPU 工作流以精确键缓存固定 SwiftShader 源码及构建，键覆盖操作系统、架构、编译器／CMake／Ninja／libc 版本及工作流／包含源码固定版本的准备脚本。命中缓存后仍验证源码版本、配置／构建并选择显式 ICD；smoke、包、材质和 2K 检查始终执行。驱动构建成功后即保存缓存，避免测试失败导致再次耗费 16–29 分钟重编驱动。不使用部分键缓存回退。

@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
 
 permissions:
@@ -20,14 +21,20 @@ jobs:
     timeout-minutes: 5
     outputs:
       run: ${{ steps.scope.outputs.run }}
+      full: ${{ steps.scope.outputs.full }}
     steps:
       - name: Check out the merge commit and its base parent
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           fetch-depth: 2
-      - name: Skip qualification only for documentation-only pull requests
+          # Only the script and changed path names are needed; skip other file contents.
+          filter: blob:none
+          sparse-checkout: .github/scripts
+      - name: Skip documentation-only pull requests; select the GPU test tier
         id: scope
+        env:
+          QUALIFICATION_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
   swiftshader:
     name: Pinned SwiftShader Vulkan materials and packaged consumption
@@ -63,7 +70,12 @@ jobs:
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: tmp/swiftshader/
-          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh', '.github/workflows/gpu-smoke.yml') }}
+          # The pinned revision and build flags live in the setup script; workflow edits
+          # must not force a ~30 min rebuild. The script re-verifies the revision, so a
+          # prefix match from the same toolchain only seeds an incremental build.
+          key: swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-${{ hashFiles('.github/scripts/setup-swiftshader.sh') }}
+          restore-keys: |
+            swiftshader-${{ runner.os }}-${{ runner.arch }}-${{ steps.swiftshader-tools.outputs.fingerprint }}-
       - name: Build pinned software adapter
         # Always verify the source revision, configure/build and export the ICD,
         # including after a cache hit. Cache contents never stand in for tests.
@@ -83,6 +95,10 @@ jobs:
         with:
           save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Verify checker, graphs, nodes, doctor, and packaged consumers
+        # Full tier (main, manual runs, `full-qualification` PRs, or an unknown scope)
+        # also runs tests ignored as `full-qualification:`.
+        env:
+          MIXTURE_GPU_TIER: ${{ (needs.scope.result != 'success' || needs.scope.outputs.full == 'true') && 'full' || 'standard' }}
         run: cargo xtask gpu-smoke
       - name: Compare all three materials at 1K
         run: cargo xtask golden check
