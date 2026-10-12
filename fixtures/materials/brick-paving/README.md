@@ -37,3 +37,7 @@ Controlled PBR review: run `npm ci --ignore-scripts --prefix examples/browser-co
 Measured development-host limit: on GT 1030 Vulkan, 64×64 cells at 256² have height mean downsample error about 14.13/255 and baseColor red error about 7.99/255, exceeding the default 4/255 gate. This setting is outside the default quality guarantee. Retain the measurements; do not reset gates or silently modify inputs.
 
 The cross-runtime collector selects the unique `brick-browser.json` receipt and reads the complete frozen image set only beside that receipt. Other material tests may reuse preset/channel filenames; they cannot supply missing brick files. Duplicate brick receipts and missing images remain errors. The isolated consumer regression covers collisions, missing-image substitution and ambiguous receipts.
+
+## MAT-04 recipe parent
+
+[material-recipes.mix](./material-recipes.mix) is the `.mix` v2 parent that rebuilds `material.mix` from [shared recipes](../../recipes/README.md). It is a separate source: `material.mix`, its plan, receipts and goldens are unchanged and remain the accepted material. For every frozen case the expanded parent is isomorphic to `material.mix` (CPU gate); byte-identical pixels on the recorded adapters are the MAT-04d gate.

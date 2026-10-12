@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "parent": "fixtures/materials/woven-fabric/material-recipes.mix",
+  "presets": {
+    "combined-low": {
+      "warpCount": 4, "weftCount": 4, "warpWidth": 0.55, "weftWidth": 0.55, "bevel": 0.02, "crown": 0, "underRatio": 0.25,
+      "warpSeed": 0, "weftSeed": 0, "roughnessMin": 0.8, "warpDark": [0.22, 0.08, 0.035, 1], "weftDark": [0.38, 0.23, 0.1, 1]
+    },
+    "plain": {},
+    "varied": { "warpCount": 12, "weftCount": 8, "warpWidth": 0.6, "weftWidth": 0.85 }
+  }
+}

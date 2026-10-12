@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "parent": "fixtures/materials/brick-paving/material-recipes.mix",
+  "presets": {
+    "regular": { "rowOffset": 0 },
+    "staggered": { "rowOffset": 0.5, "columns": 6, "rows": 12 },
+    "varied": { "heightVariation": 0.5, "colorVariation": 0.5, "mortarX": 0.12, "bevel": 0.12 }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "weave-structure",
+  "recipeVersion": 1,
+  "nodes": [
+    { "id": "warpShare", "type": "weave-pattern", "version": 2, "parameters": { "mode": "warp-share", "warpCount": 8, "weftCount": 8, "warpWidth": 0.7, "weftWidth": 0.7, "bevel": 0.08, "crown": 0, "underRatio": 0.25 } },
+    { "id": "coverage", "type": "weave-pattern", "version": 2, "parameters": { "mode": "coverage", "warpCount": 8, "weftCount": 8, "warpWidth": 0.7, "weftWidth": 0.7, "bevel": 0.08, "crown": 0, "underRatio": 0.25 } },
+    { "id": "height", "type": "weave-pattern", "version": 2, "parameters": { "mode": "height", "warpCount": 8, "weftCount": 8, "warpWidth": 0.7, "weftWidth": 0.7, "bevel": 0.08, "crown": 0, "underRatio": 0.25 } }
+  ],
+  "edges": [],
+  "outputs": [
+    { "id": "warpShare", "from": { "nodeId": "warpShare", "portId": "value" } },
+    { "id": "coverage", "from": { "nodeId": "coverage", "portId": "value" } },
+    { "id": "height", "from": { "nodeId": "height", "portId": "value" } }
+  ],
+  "parameters": [
+    { "id": "warpCount", "targets": [ { "nodeId": "warpShare", "parameterId": "warpCount" }, { "nodeId": "coverage", "parameterId": "warpCount" }, { "nodeId": "height", "parameterId": "warpCount" } ] },
+    { "id": "weftCount", "targets": [ { "nodeId": "warpShare", "parameterId": "weftCount" }, { "nodeId": "coverage", "parameterId": "weftCount" }, { "nodeId": "height", "parameterId": "weftCount" } ] },
+    { "id": "warpWidth", "targets": [ { "nodeId": "warpShare", "parameterId": "warpWidth" }, { "nodeId": "coverage", "parameterId": "warpWidth" }, { "nodeId": "height", "parameterId": "warpWidth" } ] },
+    { "id": "weftWidth", "targets": [ { "nodeId": "warpShare", "parameterId": "weftWidth" }, { "nodeId": "coverage", "parameterId": "weftWidth" }, { "nodeId": "height", "parameterId": "weftWidth" } ] },
+    { "id": "bevel", "targets": [ { "nodeId": "warpShare", "parameterId": "bevel" }, { "nodeId": "coverage", "parameterId": "bevel" }, { "nodeId": "height", "parameterId": "bevel" } ] },
+    { "id": "crown", "targets": [ { "nodeId": "warpShare", "parameterId": "crown" }, { "nodeId": "coverage", "parameterId": "crown" }, { "nodeId": "height", "parameterId": "crown" } ] },
+    { "id": "underRatio", "targets": [ { "nodeId": "warpShare", "parameterId": "underRatio" }, { "nodeId": "coverage", "parameterId": "underRatio" }, { "nodeId": "height", "parameterId": "underRatio" } ] }
+  ]
+}

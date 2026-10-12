@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "directional-grain",
+  "recipeVersion": 1,
+  "nodes": [
+    { "id": "noise", "type": "fractal-noise", "version": 2, "parameters": { "scale": 4, "octaves": 2, "persistence": 0.5, "basis": "value" } },
+    { "id": "direction", "type": "transform-2d", "version": 1, "parameters": { "scaleX": 8, "scaleY": 1, "quarterTurns": 0, "offsetX": 0, "offsetY": 0 } },
+    { "id": "grain", "type": "levels", "version": 1, "parameters": { "inputMin": 0.3, "inputMax": 0.7, "gamma": 1, "outputMin": 0, "outputMax": 1 } },
+    { "id": "color", "type": "gradient-map", "version": 1, "parameters": { "colorA": [0.14959999999999998, 0.0544, 0.0238, 1], "colorB": [0.22, 0.08, 0.035, 1] } }
+  ],
+  "edges": [
+    { "from": { "nodeId": "noise", "portId": "value" }, "to": { "nodeId": "direction", "portId": "in" } },
+    { "from": { "nodeId": "direction", "portId": "value" }, "to": { "nodeId": "grain", "portId": "in" } },
+    { "from": { "nodeId": "grain", "portId": "value" }, "to": { "nodeId": "color", "portId": "in" } }
+  ],
+  "outputs": [
+    { "id": "grain", "from": { "nodeId": "grain", "portId": "value" } },
+    { "id": "color", "from": { "nodeId": "color", "portId": "color" } }
+  ],
+  "parameters": [
+    { "id": "seed", "targets": [ { "nodeId": "noise", "parameterId": "seed" } ] },
+    { "id": "quarterTurns", "targets": [ { "nodeId": "direction", "parameterId": "quarterTurns" } ] },
+    { "id": "darkColor", "targets": [ { "nodeId": "color", "parameterId": "colorA" } ] },
+    { "id": "color", "targets": [ { "nodeId": "color", "parameterId": "colorB" } ] }
+  ]
+}
