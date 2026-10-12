@@ -27,7 +27,7 @@ The [MAT-04 entry](../mat-04-reusable-recipes.md) measures duplication in accept
 
 ## Consequences, compatibility and migration
 
-Existing documents, packages, plans, hashes, goldens and receipts keep their meaning. Old runtimes reject v2 parents with `MIX_FORMAT_UNSUPPORTED_VERSION` and do not know `.mixrecipe` documents. A parent and the v1 graph it replaces may differ in pass order, plan hash and allocation estimates while producing identical pixels; frozen budgets apply to the parent. Core gains public recipe types, `RecipeLimits` and eight diagnostic codes, so the first implementation selects Rust 0.11.0 / browser 0.11.0-alpha.0. No automatic v1→v2 conversion exists; authors opt in by writing a v2 parent.
+Existing documents, packages, plans, hashes, goldens and receipts keep their meaning. Runtimes before 0.11 reject a v2 parent that contains `instances` as `MIX_FORMAT_INVALID_DOCUMENT` (an unknown v1 field) and one without it as `MIX_FORMAT_UNSUPPORTED_VERSION`; they do not know `.mixrecipe` documents. From 0.11 the v1 entry points report `MIX_FORMAT_UNSUPPORTED_VERSION` for both. A parent and the v1 graph it replaces may differ in pass order, plan hash and allocation estimates while producing identical pixels; frozen budgets apply to the parent. Core gains public recipe types, `RecipeLimits` and eight diagnostic codes, so the first implementation selects Rust 0.11.0 / browser 0.11.0-alpha.0. No automatic v1→v2 conversion exists; authors opt in by writing a v2 parent.
 
 ## Verification
 

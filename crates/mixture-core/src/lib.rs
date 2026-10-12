@@ -68,6 +68,7 @@ pub mod error;
 pub mod limits;
 mod nodes;
 pub mod plan;
+pub mod recipe;
 pub mod registry;
 pub mod resources;
 pub mod validation;
@@ -77,6 +78,11 @@ pub use limits::{LimitExceeded, LimitKind, SafetyLimits};
 
 pub use document::{
     DocumentError, Edge, Endpoint, ExposedParameter, FORMAT_VERSION, MaterialDocument, Node,
+    PARENT_FORMAT_VERSION,
+};
+pub use recipe::{
+    Instance, ParameterTarget, ParentDocument, RECIPE_FORMAT_VERSION, RecipeDocument,
+    RecipeIdentity, RecipeInput, RecipeLimits, RecipeOutput, RecipeParameter, RecipeSet,
 };
 pub use validation::{InputSource, MaterialChannel, ValidatedDocument};
 

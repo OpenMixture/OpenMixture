@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "masked-layer-surface",
+  "recipeVersion": 1,
+  "nodes": [
+    { "id": "underColor", "type": "constant-color", "version": 1, "parameters": { "value": [0.16, 0.15, 0.13, 1] } },
+    { "id": "underRoughness", "type": "constant-scalar", "version": 1, "parameters": { "value": 0.9 } },
+    { "id": "color", "type": "blend", "version": 1 },
+    { "id": "roughness", "type": "scalar-mask-blend", "version": 1 }
+  ],
+  "edges": [
+    { "from": { "nodeId": "underColor", "portId": "color" }, "to": { "nodeId": "color", "portId": "a" } },
+    { "from": { "nodeId": "underRoughness", "portId": "value" }, "to": { "nodeId": "roughness", "portId": "a" } }
+  ],
+  "inputs": [
+    { "id": "mask", "targets": [ { "nodeId": "color", "portId": "mask" }, { "nodeId": "roughness", "portId": "mask" } ] },
+    { "id": "overColor", "targets": [ { "nodeId": "color", "portId": "b" } ] },
+    { "id": "overRoughness", "targets": [ { "nodeId": "roughness", "portId": "b" } ] }
+  ],
+  "outputs": [
+    { "id": "baseColor", "from": { "nodeId": "color", "portId": "color" } },
+    { "id": "roughness", "from": { "nodeId": "roughness", "portId": "value" } }
+  ],
+  "parameters": [
+    { "id": "underColor", "targets": [ { "nodeId": "underColor", "parameterId": "value" } ] },
+    { "id": "underRoughness", "targets": [ { "nodeId": "underRoughness", "parameterId": "value" } ] }
+  ]
+}

@@ -270,6 +270,14 @@ fn diagnostics_codes_and_stage_spellings_match_the_wire_vocabulary() {
         Code::IoReadFailed,
         Code::GpuDeviceLost,
         Code::GpuOutOfMemory,
+        Code::RecipeMissing,
+        Code::RecipeDuplicate,
+        Code::RecipeUnused,
+        Code::RecipeInvalidInterface,
+        Code::RecipeForbiddenNode,
+        Code::LimitRecipeCountExceeded,
+        Code::LimitInstanceCountExceeded,
+        Code::LimitRecipeBytesExceeded,
     ];
     for code in codes {
         assert_eq!(

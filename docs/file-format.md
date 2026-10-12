@@ -120,3 +120,29 @@ The document JSON shape remains `.mix v1`; existing documents retain their meani
 ## Additive PR-010 resampling nodes
 
 `transform-2d` and `warp` add two version-1 node types without adding fields or changing existing `.mix v1` meanings. Their required ports accept exact `Scalar` connections. Transform scales and quarter-turn counts require bounded unsigned integer tokens; offsets and warp strengths accept bounded finite JSON numbers. Defaults, parameter bounds, input requirements and explicit public bindings follow the same validator rules as the existing catalog, including on unused branches. See [node contracts](./node-contracts.md) and the [public resampling tests](../crates/mixture-core/tests/resampling.rs). No migration, source repair or implicit conversion is introduced.
+
+## MAT-04b recipe documents and `.mix` v2 parents
+
+The [MAT-04a contract](./mat-04a-recipe-contract.md) and [ADR 0010](./decisions/0010-reusable-recipes.md) own the semantics; this section records the implemented Core API. `.mix v1` documents, `MaterialDocument::decode` and `into_validated` are unchanged and remain v1-only.
+
+```rust
+use mixture_core::{ParentDocument, RecipeLimits, RecipeSet, SafetyLimits, compile, CompileRequest};
+
+fn compile_parent(parent: &[u8], recipes: &[&[u8]]) -> Result<(), Box<dyn std::error::Error>> {
+    let (limits, recipe_limits) = (SafetyLimits::default(), RecipeLimits::default());
+    let recipes = RecipeSet::decode(recipes, &limits, &recipe_limits)?;
+    let validated = ParentDocument::decode(parent, &limits, &recipe_limits)?
+        .into_validated(&recipes, &limits, &recipe_limits)?;
+    let plan = compile(&validated, &CompileRequest::default())?;
+    assert_eq!(plan.document_version(), 2);
+    Ok(())
+}
+```
+
+- `RecipeDocument::decode` reads one strict `.mixrecipe` v1 document. `nodes`, `edges` and `outputs` are required; `inputs` and `parameters` default to `[]`. Interface arrays are bounded by `exposedParameters`; an `instances` key fails as unsupported nesting.
+- `RecipeSet::decode` checks `recipeCount` and `recipeBytes` before decoding anything, validates every recipe, records its SHA-256 and byte length, and rejects duplicate identities.
+- `ParentDocument::decode` reads strict `.mix` v2; `instances` stops at the first item beyond `instanceCount`. `into_validated` checks the exact closure and every instance before expansion, expands `<instance>--<node>` IDs, and validates the expanded graph with the v1 graph rules. It returns the existing `ValidatedDocument`; `document()` is the expanded graph (`version` 2) and `recipe_closure()` lists the supplied identities.
+- Overrides on a public ID bound to an interface parameter set every target; one invalid value yields one diagnostic. Diagnostics on expanded nodes carry `instanceId` evidence.
+- The v1 decoder skips an `instances` key and reports `MIX_FORMAT_UNSUPPORTED_VERSION` for any version other than 1; a version-1 document with `instances` still fails as `MIX_FORMAT_INVALID_DOCUMENT`. Runtimes older than 0.11 report `MIX_FORMAT_INVALID_DOCUMENT` for a v2 parent that contains `instances`.
+
+CLI and browser adapters are MAT-04c work; until then recipes are reachable only through the Rust API. Tests: `cargo test -p mixture-core --test recipes`; fixtures: [recipes](../fixtures/recipes/README.md).

@@ -113,6 +113,18 @@ Callers may explicitly construct a stricter or larger policy. Zero remains zero;
 
 These are upper-bound primitives, not document or request validation. A zero-sized image may satisfy a ceiling but must later fail request validation. Check width and height separately. Callers must safely compute actual counts and estimated bytes before checking them; PR-006 implements the compiler resource estimator and checks its peak allocation. Embedded resources remain unsupported in v1 with a zero budget; PR-002 adds no resource field or loading API.
 
+## Recipe limits and codes
+
+MAT-04b adds a separate `RecipeLimits` policy beside `SafetyLimits`, so the seven safety fields and their wire contract stay unchanged. JSON decoding requires all three fields.
+
+| Field | Default upper bound | Failure code and stage |
+| --- | ---: | --- |
+| `recipeCount` | 16 supplied recipes | `MIX_LIMIT_RECIPE_COUNT_EXCEEDED`, parse |
+| `instanceCount` | 32 instances per parent | `MIX_LIMIT_INSTANCE_COUNT_EXCEEDED`, parse while decoding, validation for constructed documents |
+| `recipeBytes` | 2 MiB = 2097152 total bytes | `MIX_LIMIT_RECIPE_BYTES_EXCEEDED`, parse |
+
+The other new codes are validation-stage: `MIX_RECIPE_MISSING`, `MIX_RECIPE_DUPLICATE`, `MIX_RECIPE_UNUSED`, `MIX_RECIPE_INVALID_INTERFACE` and `MIX_RECIPE_FORBIDDEN_NODE`. Recipe diagnostics carry `recipeId` and `recipeVersion` evidence (and `recipeIndex` when decoded from a set); parent and expanded-graph diagnostics carry `instanceId`, plus `interfaceId` for interface parameters. Expanded node and edge counts reuse `MIX_LIMIT_NODES_EXCEEDED` / `MIX_LIMIT_EDGES_EXCEEDED` with `expanded: true`. All eight codes are in the vocabulary snapshot. See the [MAT-04a contract](./mat-04a-recipe-contract.md).
+
 ## CLI exit-code policy
 
 This policy applies to PR-006 inspection, PR-005 validation, PR-004 doctor/built-in rendering, and future runtime commands; it does not imply that all commands exist:

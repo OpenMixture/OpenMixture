@@ -2,7 +2,11 @@
 
 use crate::{
     Diagnostic, DiagnosticCode as Code, DiagnosticReport, LimitKind, SafetyLimits, Stage,
-    document::{DocumentError, Endpoint, FORMAT_VERSION, MaterialDocument, Node},
+    document::{
+        DocumentError, Edge, Endpoint, ExposedParameter, FORMAT_VERSION, MaterialDocument, Node,
+        PARENT_FORMAT_VERSION,
+    },
+    recipe::RecipeIdentity,
     registry::{NodeContract, PortDefault, PortKind, node_contract, node_contract_version},
 };
 use serde::Serialize;
@@ -14,6 +18,28 @@ use std::collections::{BTreeMap, BTreeSet};
 #[derive(Clone, Debug)]
 pub struct ValidatedDocument {
     document: MaterialDocument,
+    shape: GraphShape,
+    recipes: Vec<RecipeIdentity>,
+}
+
+/// Which graph rules a validation pass applies.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum GraphShape {
+    /// A `.mix` v1 source document.
+    Material,
+    /// A `.mix` v2 parent after recipe expansion. Public IDs bound to a recipe
+    /// interface parameter repeat once per target; targets stay unique.
+    Expanded,
+    /// A recipe fragment: no material output, no public bindings, and inputs or
+    /// parameters bound by its interface need no internal source.
+    Recipe,
+}
+
+/// Endpoints and parameters a recipe interface supplies from outside the fragment.
+#[derive(Default)]
+pub(crate) struct Supplied {
+    pub inputs: BTreeSet<Endpoint>,
+    pub parameters: BTreeSet<(String, String)>,
 }
 
 /// How a validated input obtains its value; no pixels are evaluated here.
@@ -42,9 +68,56 @@ pub struct MaterialChannel {
     pub input: InputSource,
 }
 impl ValidatedDocument {
-    /// Borrow the original source; validation never fills or reorders its fields.
+    /// Borrow the validated graph. For a v1 source this is the original document;
+    /// validation never fills or reorders its fields. For a v2 parent it is the
+    /// expanded graph (`version` 2, no instances), whose public IDs bound to a
+    /// recipe interface parameter repeat once per target.
     pub fn document(&self) -> &MaterialDocument {
         &self.document
+    }
+    /// Supplied recipe identities and digests, sorted by identity; empty for v1.
+    pub fn recipe_closure(&self) -> &[RecipeIdentity] {
+        &self.recipes
+    }
+    pub(crate) fn expanded(document: MaterialDocument, recipes: Vec<RecipeIdentity>) -> Self {
+        Self {
+            document,
+            shape: GraphShape::Expanded,
+            recipes,
+        }
+    }
+    /// Name the recipe instance of a diagnostic raised on an expanded node; v1
+    /// diagnostics are returned unchanged even when an ID contains `--`.
+    pub(crate) fn attribute(&self, diagnostic: Diagnostic) -> Diagnostic {
+        if self.shape == GraphShape::Expanded {
+            crate::recipe::attribute(diagnostic)
+        } else {
+            diagnostic
+        }
+    }
+    /// Revalidate a derived view (overrides, normalized values) under this shape.
+    pub(crate) fn revalidate(
+        &self,
+        document: &MaterialDocument,
+        limits: &SafetyLimits,
+    ) -> DiagnosticReport {
+        document.validate_shape(limits, self.shape)
+    }
+    /// Wrap a derived view that passes `revalidate`, keeping shape and closure.
+    pub(crate) fn derive(
+        &self,
+        document: MaterialDocument,
+        limits: &SafetyLimits,
+    ) -> Result<Self, DocumentError> {
+        let report = self.revalidate(&document, limits);
+        if !report.is_ok() {
+            return Err(DocumentError::new(report.diagnostics().iter().cloned()));
+        }
+        Ok(Self {
+            document,
+            shape: self.shape,
+            recipes: self.recipes.clone(),
+        })
     }
     /// Resolve an explicit or default parameter without mutating the document.
     pub fn parameter(&self, node_id: &str, parameter_id: &str) -> Option<Value> {
@@ -101,8 +174,21 @@ impl MaterialDocument {
     /// Byte limits apply in `decode`; render-request limits belong to the caller's
     /// compiler request. Over-budget collections stop graph analysis.
     pub fn validate(&self, limits: &SafetyLimits) -> DiagnosticReport {
+        self.validate_shape(limits, GraphShape::Material)
+    }
+
+    pub(crate) fn validate_shape(
+        &self,
+        limits: &SafetyLimits,
+        shape: GraphShape,
+    ) -> DiagnosticReport {
         let mut diagnostics = Vec::new();
-        if self.version != FORMAT_VERSION {
+        let expected = if shape == GraphShape::Expanded {
+            PARENT_FORMAT_VERSION
+        } else {
+            FORMAT_VERSION
+        };
+        if self.version != expected {
             diagnostics.push(unsupported_version(self.version));
         }
         for (kind, count) in [
@@ -117,141 +203,14 @@ impl MaterialDocument {
         if !diagnostics.is_empty() {
             return DiagnosticReport::new(diagnostics);
         }
-        let mut nodes: BTreeMap<&str, Vec<&Node>> = BTreeMap::new();
-        for node in &self.nodes {
-            nodes.entry(&node.id).or_default().push(node);
-            validate_node(node, &mut diagnostics);
-        }
-        for (id, group) in &nodes {
-            if group.len() > 1 {
-                diagnostics.push(
-                    at_node(Code::NodeDuplicateId, id, "Node IDs must be unique.")
-                        .with_evidence("observed", group.len() as u64)
-                        .with_suggestion("Give every node a unique ID and update its references."),
-                );
-            }
-        }
-        let outputs = self
-            .nodes
-            .iter()
-            .filter(|node| node.type_id == "material-output")
-            .count();
-        if outputs != 1 {
-            diagnostics.push(
-                failure(
-                    Code::GraphMaterialOutputCount,
-                    "A v1 material must contain exactly one material-output node.",
-                )
-                .with_evidence("observed", outputs as u64)
-                .with_evidence("required", 1_u64)
-                .with_suggestion("Keep one material-output node and connect its baseColor input."),
-            );
-        }
-        let mut edges = BTreeMap::new();
-        let mut incoming = BTreeMap::new();
-        for edge in &self.edges {
-            *edges.entry(edge).or_insert(0_u64) += 1;
-            *incoming.entry(&edge.to).or_insert(0_u64) += 1;
-        }
-        let mut connected = BTreeSet::new();
-        for (edge, count) in &edges {
-            if *count > 1 {
-                diagnostics.push(
-                    at_port(
-                        Code::GraphDuplicateEdge,
-                        &edge.to,
-                        "An edge identity occurs more than once.",
-                    )
-                    .with_evidence("sourceNode", edge.from.node_id.as_str())
-                    .with_evidence("sourcePort", edge.from.port_id.as_str())
-                    .with_evidence("observed", *count)
-                    .with_suggestion(
-                        "Remove duplicate edge records; each connection is declared once.",
-                    ),
-                );
-            }
-            let from = edge_port(&nodes, &edge.from, true, &mut diagnostics);
-            let to = edge_port(&nodes, &edge.to, false, &mut diagnostics);
-            if let (Some(from), Some(to)) = (from, to) {
-                if from != to {
-                    diagnostics.push(
-                        at_port(
-                            Code::PortTypeMismatch,
-                            &edge.to,
-                            "Connected port kinds must match exactly.",
-                        )
-                        .with_evidence("sourceNode", edge.from.node_id.as_str())
-                        .with_evidence("sourcePort", edge.from.port_id.as_str())
-                        .with_evidence("sourceKind", from.as_str())
-                        .with_evidence("targetKind", to.as_str())
-                        .with_suggestion(
-                            "Connect an output of the required kind; v1 never inserts conversions.",
-                        ),
-                    );
-                } else {
-                    connected.insert(&edge.to);
-                }
-            }
-        }
-        for (target, count) in incoming {
-            if count > 1 {
-                diagnostics.push(
-                    at_port(
-                        Code::GraphMultipleInputs,
-                        target,
-                        "An input may have at most one incoming edge.",
-                    )
-                    .with_evidence("observed", count)
-                    .with_suggestion(
-                        "Choose one source or combine sources through an explicit supported node.",
-                    ),
-                );
-            }
-        }
-        for group in nodes.values().filter(|group| group.len() == 1) {
-            if let Some(node) = group.first()
-                && let Some(contract) = supported_contract(node)
-            {
-                for input in contract
-                    .inputs
-                    .iter()
-                    .filter(|input| input.default.is_none())
-                {
-                    let target = Endpoint {
-                        node_id: node.id.clone(),
-                        port_id: input.id.into(),
-                    };
-                    if !connected.contains(&target) {
-                        diagnostics.push(
-                            at_port(
-                                Code::PortRequiredConnection,
-                                &target,
-                                "Required input has no valid connection.",
-                            )
-                            .with_suggestion(
-                                "Connect one compatible output to this required input.",
-                            ),
-                        );
-                    }
-                }
-            }
-        }
-        // Cycles in unused nodes are invalid too. Check topology independently of
-        // port/type errors, excluding ambiguous or unknown node identities.
-        let mut adjacency: BTreeMap<&str, BTreeSet<&str>> = nodes
-            .iter()
-            .filter(|(_, group)| group.len() == 1)
-            .map(|(id, _)| (*id, BTreeSet::new()))
-            .collect();
-        for edge in edges.keys() {
-            if adjacency.contains_key(edge.to.node_id.as_str())
-                && let Some(children) = adjacency.get_mut(edge.from.node_id.as_str())
-            {
-                children.insert(edge.to.node_id.as_str());
-            }
-        }
-        detect_cycles(&adjacency, &mut diagnostics);
-        validate_exposed(self, &nodes, &mut diagnostics);
+        validate_graph(
+            &self.nodes,
+            &self.edges,
+            &self.exposed_parameters,
+            shape,
+            &Supplied::default(),
+            &mut diagnostics,
+        );
         DiagnosticReport::new(diagnostics)
     }
 
@@ -262,8 +221,155 @@ impl MaterialDocument {
         if !report.is_ok() {
             return Err(DocumentError::new(report.diagnostics().iter().cloned()));
         }
-        Ok(ValidatedDocument { document: self })
+        Ok(ValidatedDocument {
+            document: self,
+            shape: GraphShape::Material,
+            recipes: Vec::new(),
+        })
     }
+}
+
+/// Graph rules shared by v1 documents, expanded v2 parents and recipe fragments.
+pub(crate) fn validate_graph(
+    source_nodes: &[Node],
+    source_edges: &[Edge],
+    exposed: &[ExposedParameter],
+    shape: GraphShape,
+    supplied: &Supplied,
+    diagnostics: &mut Vec<Diagnostic>,
+) {
+    let mut nodes: BTreeMap<&str, Vec<&Node>> = BTreeMap::new();
+    for node in source_nodes {
+        nodes.entry(&node.id).or_default().push(node);
+        validate_node(node, supplied, diagnostics);
+    }
+    for (id, group) in &nodes {
+        if group.len() > 1 {
+            diagnostics.push(
+                at_node(Code::NodeDuplicateId, id, "Node IDs must be unique.")
+                    .with_evidence("observed", group.len() as u64)
+                    .with_suggestion("Give every node a unique ID and update its references."),
+            );
+        }
+    }
+    let outputs = source_nodes
+        .iter()
+        .filter(|node| node.type_id == "material-output")
+        .count();
+    if shape != GraphShape::Recipe && outputs != 1 {
+        diagnostics.push(
+            failure(
+                Code::GraphMaterialOutputCount,
+                "A v1 material must contain exactly one material-output node.",
+            )
+            .with_evidence("observed", outputs as u64)
+            .with_evidence("required", 1_u64)
+            .with_suggestion("Keep one material-output node and connect its baseColor input."),
+        );
+    }
+    let mut edges = BTreeMap::new();
+    let mut incoming = BTreeMap::new();
+    for edge in source_edges {
+        *edges.entry(edge).or_insert(0_u64) += 1;
+        *incoming.entry(&edge.to).or_insert(0_u64) += 1;
+    }
+    let mut connected = BTreeSet::new();
+    for (edge, count) in &edges {
+        if *count > 1 {
+            diagnostics.push(
+                at_port(
+                    Code::GraphDuplicateEdge,
+                    &edge.to,
+                    "An edge identity occurs more than once.",
+                )
+                .with_evidence("sourceNode", edge.from.node_id.as_str())
+                .with_evidence("sourcePort", edge.from.port_id.as_str())
+                .with_evidence("observed", *count)
+                .with_suggestion(
+                    "Remove duplicate edge records; each connection is declared once.",
+                ),
+            );
+        }
+        let from = edge_port(&nodes, &edge.from, true, diagnostics);
+        let to = edge_port(&nodes, &edge.to, false, diagnostics);
+        if let (Some(from), Some(to)) = (from, to) {
+            if from != to {
+                diagnostics.push(
+                    at_port(
+                        Code::PortTypeMismatch,
+                        &edge.to,
+                        "Connected port kinds must match exactly.",
+                    )
+                    .with_evidence("sourceNode", edge.from.node_id.as_str())
+                    .with_evidence("sourcePort", edge.from.port_id.as_str())
+                    .with_evidence("sourceKind", from.as_str())
+                    .with_evidence("targetKind", to.as_str())
+                    .with_suggestion(
+                        "Connect an output of the required kind; v1 never inserts conversions.",
+                    ),
+                );
+            } else {
+                connected.insert(&edge.to);
+            }
+        }
+    }
+    for (target, count) in incoming {
+        if count > 1 {
+            diagnostics.push(
+                at_port(
+                    Code::GraphMultipleInputs,
+                    target,
+                    "An input may have at most one incoming edge.",
+                )
+                .with_evidence("observed", count)
+                .with_suggestion(
+                    "Choose one source or combine sources through an explicit supported node.",
+                ),
+            );
+        }
+    }
+    for group in nodes.values().filter(|group| group.len() == 1) {
+        if let Some(node) = group.first()
+            && let Some(contract) = supported_contract(node)
+        {
+            for input in contract
+                .inputs
+                .iter()
+                .filter(|input| input.default.is_none())
+            {
+                let target = Endpoint {
+                    node_id: node.id.clone(),
+                    port_id: input.id.into(),
+                };
+                if !connected.contains(&target) && !supplied.inputs.contains(&target) {
+                    diagnostics.push(
+                        at_port(
+                            Code::PortRequiredConnection,
+                            &target,
+                            "Required input has no valid connection.",
+                        )
+                        .with_suggestion("Connect one compatible output to this required input."),
+                    );
+                }
+            }
+        }
+    }
+    // Cycles in unused nodes are invalid too. Check topology independently of
+    // port/type errors, excluding ambiguous or unknown node identities.
+    let mut adjacency: BTreeMap<&str, BTreeSet<&str>> = nodes
+        .iter()
+        .filter(|(_, group)| group.len() == 1)
+        .map(|(id, _)| (*id, BTreeSet::new()))
+        .collect();
+    for edge in edges.keys() {
+        if adjacency.contains_key(edge.to.node_id.as_str())
+            && let Some(children) = adjacency.get_mut(edge.from.node_id.as_str())
+        {
+            children.insert(edge.to.node_id.as_str());
+        }
+    }
+    detect_cycles(&adjacency, diagnostics);
+    validate_exposed(exposed, &nodes, shape, diagnostics);
 }
 
 pub(crate) fn unsupported_version(version: u32) -> Diagnostic {
@@ -277,25 +383,25 @@ pub(crate) fn unsupported_version(version: u32) -> Diagnostic {
         "Use a version 1 document. Legacy import and version migration are not implemented.",
     )
 }
-fn failure(code: Code, message: &str) -> Diagnostic {
+pub(crate) fn failure(code: Code, message: &str) -> Diagnostic {
     Diagnostic::error(code, Stage::Validation, message)
 }
-fn at_node(code: Code, id: &str, message: &str) -> Diagnostic {
+pub(crate) fn at_node(code: Code, id: &str, message: &str) -> Diagnostic {
     let mut diagnostic = failure(code, message);
     diagnostic.node_id = Some(id.into());
     diagnostic
 }
-fn at_port(code: Code, target: &Endpoint, message: &str) -> Diagnostic {
+pub(crate) fn at_port(code: Code, target: &Endpoint, message: &str) -> Diagnostic {
     let mut diagnostic = at_node(code, &target.node_id, message);
     diagnostic.port_id = Some(target.port_id.clone());
     diagnostic
 }
-fn at_parameter(code: Code, node: &str, parameter: &str, message: &str) -> Diagnostic {
+pub(crate) fn at_parameter(code: Code, node: &str, parameter: &str, message: &str) -> Diagnostic {
     let mut diagnostic = at_node(code, node, message);
     diagnostic.parameter_id = Some(parameter.into());
     diagnostic
 }
-fn identifier(id: &str) -> bool {
+pub(crate) fn identifier(id: &str) -> bool {
     (1..=64).contains(&id.len())
         && id.as_bytes().first().is_some_and(u8::is_ascii_alphabetic)
         && id
@@ -312,7 +418,7 @@ fn resolved_parameter(node: &Node, contract: &NodeContract, id: &str) -> Option<
         .cloned()
         .or_else(|| parameter.default.map(|default| default.value()))
 }
-fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
+fn validate_node(node: &Node, supplied: &Supplied, diagnostics: &mut Vec<Diagnostic>) {
     if !identifier(&node.id) {
         diagnostics.push(
             at_node(
@@ -353,7 +459,12 @@ fn validate_node(node: &Node, diagnostics: &mut Vec<Diagnostic>) {
         return;
     };
     for parameter in contract.parameters {
-        if parameter.default.is_none() && !node.parameters.contains_key(parameter.id) {
+        if parameter.default.is_none()
+            && !node.parameters.contains_key(parameter.id)
+            && !supplied
+                .parameters
+                .contains(&(node.id.clone(), parameter.id.to_string()))
+        {
             diagnostics.push(
                 at_parameter(Code::ParameterInvalidValue, &node.id, parameter.id,
                     "Required parameter is missing; this contract defines no default.")
@@ -533,13 +644,14 @@ fn detect_cycles(adjacency: &BTreeMap<&str, BTreeSet<&str>>, diagnostics: &mut V
     }
 }
 fn validate_exposed(
-    document: &MaterialDocument,
+    exposed: &[ExposedParameter],
     nodes: &BTreeMap<&str, Vec<&Node>>,
+    shape: GraphShape,
     diagnostics: &mut Vec<Diagnostic>,
 ) {
     let mut ids = BTreeMap::new();
     let mut targets = BTreeMap::new();
-    for binding in &document.exposed_parameters {
+    for binding in exposed {
         *ids.entry(binding.id.as_str()).or_insert(0_u64) += 1;
         *targets
             .entry((&binding.node_id, &binding.parameter_id))
@@ -567,7 +679,7 @@ fn validate_exposed(
         }
     }
     for (id, count) in ids {
-        if count > 1 {
+        if count > 1 && shape != GraphShape::Expanded {
             diagnostics.push(
                 failure(
                     Code::ExposedParameterInvalid,

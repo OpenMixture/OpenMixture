@@ -9,6 +9,28 @@ pub(super) fn document(
     bytes: &[u8],
     limits: &SafetyLimits,
 ) -> Result<MaterialDocument, DocumentError> {
+    let document = strict(
+        bytes,
+        limits,
+        "Material input does not conform to .mix v1 JSON.",
+        |parser, exceeded| DocumentSeed { limits, exceeded }.deserialize(parser),
+    )?;
+    if document.version != FORMAT_VERSION {
+        return Err(super::super::validation::unsupported_version(document.version).into());
+    }
+    Ok(document)
+}
+
+/// Decode one bounded, strict UTF-8 JSON object with the shared parse diagnostics.
+pub(crate) fn strict<T>(
+    bytes: &[u8],
+    limits: &SafetyLimits,
+    mismatch: &str,
+    read: impl FnOnce(
+        &mut serde_json::Deserializer<serde_json::de::StrRead<'_>>,
+        &mut Option<Diagnostic>,
+    ) -> Result<T, serde_json::Error>,
+) -> Result<T, DocumentError> {
     limits
         .check(LimitKind::DecodedBytes, bytes.len() as u64)
         .map_err(|error| DocumentError::from(error.diagnostic(Stage::Parse)))?;
@@ -26,35 +48,26 @@ pub(super) fn document(
     })?;
     let mut parser = serde_json::Deserializer::from_str(text);
     let mut exceeded = None;
-    let result = DocumentSeed {
-        limits,
-        exceeded: &mut exceeded,
-    }
-    .deserialize(&mut parser)
-    .and_then(|document| {
+    let result = read(&mut parser, &mut exceeded).and_then(|document| {
         parser.end()?;
         Ok(document)
     });
-    if let Some(error) = exceeded {
-        return Err(error.diagnostic(Stage::Parse).into());
+    if let Some(diagnostic) = exceeded {
+        return Err(diagnostic.into());
     }
-    let document = result.map_err(|source| {
+    result.map_err(|source| {
         let code = if source.is_data() { DiagnosticCode::FormatInvalidDocument } else { DiagnosticCode::ParseInvalidJson };
-        DocumentError::from(Diagnostic::error(code, Stage::Parse, "Material input does not conform to .mix v1 JSON.")
+        DocumentError::from(Diagnostic::error(code, Stage::Parse, mismatch)
             .with_evidence("line", source.line() as u64).with_evidence("column", source.column() as u64)
             .with_evidence("sourceMessage", source.to_string())
             .with_suggestion("Use the documented .mix schema; remove duplicate or unknown fields and correct JSON types.")
             .with_source(source))
-    })?;
-    if document.version != FORMAT_VERSION {
-        return Err(super::super::validation::unsupported_version(document.version).into());
-    }
-    Ok(document)
+    })
 }
 
 struct DocumentSeed<'a> {
     limits: &'a SafetyLimits,
-    exceeded: &'a mut Option<LimitExceeded>,
+    exceeded: &'a mut Option<Diagnostic>,
 }
 impl<'de> DeserializeSeed<'de> for DocumentSeed<'_> {
     type Value = MaterialDocument;
@@ -72,9 +85,16 @@ impl<'de> Visitor<'de> for DocumentSeed<'_> {
     }
     fn visit_map<M: MapAccess<'de>>(self, mut map: M) -> Result<Self::Value, M::Error> {
         let (mut version, mut nodes, mut edges, mut exposed) = (None, None, None, None);
+        let mut instances = false;
         while let Some(key) = map.next_key::<String>()? {
             match key.as_str() {
                 "version" if version.is_none() => version = Some(map.next_value()?),
+                // A v2 parent must fail on its version, not on this field; skip it
+                // without allocation and reject it below when the version is 1.
+                "instances" if !instances => {
+                    instances = true;
+                    map.next_value::<IgnoredAny>()?;
+                }
                 "nodes" if nodes.is_none() => {
                     nodes = Some(map.next_value_seed(Bounded::<Node>::new(
                         self.limits,
@@ -107,32 +127,73 @@ impl<'de> Visitor<'de> for DocumentSeed<'_> {
                 }
             }
         }
+        let version: u32 = version.ok_or_else(|| de::Error::missing_field("version"))?;
+        if instances && version == FORMAT_VERSION {
+            return Err(de::Error::unknown_field(
+                "instances",
+                &["version", "nodes", "edges", "exposedParameters"],
+            ));
+        }
         Ok(MaterialDocument {
-            version: version.ok_or_else(|| de::Error::missing_field("version"))?,
+            version,
             nodes: nodes.ok_or_else(|| de::Error::missing_field("nodes"))?,
             edges: edges.ok_or_else(|| de::Error::missing_field("edges"))?,
             exposed_parameters: exposed.unwrap_or_default(),
         })
     }
 }
-struct Bounded<'a, T> {
-    limits: &'a SafetyLimits,
-    exceeded: &'a mut Option<LimitExceeded>,
-    kind: LimitKind,
+/// A collection ceiling and the diagnostic reported for its first excess item.
+#[derive(Clone, Copy)]
+pub(crate) enum Ceiling {
+    /// A [`SafetyLimits`] category.
+    Safety(LimitKind),
+    /// The recipe instance ceiling of one parent document.
+    Instances,
+}
+pub(crate) struct Bounded<'a, T> {
+    maximum: u64,
+    ceiling: Ceiling,
+    exceeded: &'a mut Option<Diagnostic>,
     marker: PhantomData<T>,
 }
 impl<'a, T> Bounded<'a, T> {
-    fn new(
-        limits: &'a SafetyLimits,
-        exceeded: &'a mut Option<LimitExceeded>,
+    pub(crate) fn new(
+        limits: &SafetyLimits,
+        exceeded: &'a mut Option<Diagnostic>,
         kind: LimitKind,
     ) -> Self {
+        Self::with(Ceiling::Safety(kind), limits.maximum(kind), exceeded)
+    }
+    pub(crate) fn with(
+        ceiling: Ceiling,
+        maximum: u64,
+        exceeded: &'a mut Option<Diagnostic>,
+    ) -> Self {
         Self {
-            limits,
+            maximum,
+            ceiling,
             exceeded,
-            kind,
             marker: PhantomData,
         }
+    }
+}
+fn excess(ceiling: Ceiling, configured: u64, observed: u64) -> Diagnostic {
+    match ceiling {
+        Ceiling::Safety(kind) => LimitExceeded {
+            kind,
+            configured,
+            observed,
+        }
+        .diagnostic(Stage::Parse),
+        Ceiling::Instances => Diagnostic::error(
+            DiagnosticCode::LimitInstanceCountExceeded,
+            Stage::Parse,
+            format!("instanceCount limit exceeded: configured {configured}, observed {observed}"),
+        )
+        .with_evidence("limit", "instanceCount")
+        .with_evidence("configured", configured)
+        .with_evidence("observed", observed)
+        .with_suggestion("Reduce the request to the configured limit; raise limits only through an explicit caller policy."),
     }
 }
 impl<'de, T: Deserialize<'de>> DeserializeSeed<'de> for Bounded<'_, T> {
@@ -153,15 +214,16 @@ impl<'de, T: Deserialize<'de>> Visitor<'de> for Bounded<'_, T> {
         // Never reserve an untrusted size_hint or construct an over-budget item.
         let mut items = Vec::new();
         loop {
-            if items.len() as u64 == self.limits.maximum(self.kind) {
+            if items.len() as u64 == self.maximum {
                 if seq.next_element::<IgnoredAny>()?.is_some() {
-                    let error = LimitExceeded {
-                        kind: self.kind,
-                        configured: self.limits.maximum(self.kind),
-                        observed: (items.len() as u64).saturating_add(1),
-                    };
-                    *self.exceeded = Some(error);
-                    return Err(de::Error::custom(error));
+                    let diagnostic = excess(
+                        self.ceiling,
+                        self.maximum,
+                        (items.len() as u64).saturating_add(1),
+                    );
+                    let message = diagnostic.message.clone();
+                    *self.exceeded = Some(diagnostic);
+                    return Err(de::Error::custom(message));
                 }
                 return Ok(items);
             }
@@ -173,7 +235,7 @@ impl<'de, T: Deserialize<'de>> Visitor<'de> for Bounded<'_, T> {
     }
 }
 
-pub(super) fn parameters<'de, D: serde::Deserializer<'de>>(
+pub(crate) fn parameters<'de, D: serde::Deserializer<'de>>(
     deserializer: D,
 ) -> Result<BTreeMap<String, Value>, D::Error> {
     struct Parameters;

@@ -754,3 +754,7 @@ M6A-05 [综合验收](./docs/evidence/m6a-05/README.zh-CN.md)关闭记录的 Lin
 ### M6B-03 可移植输入边界
 
 [ADR 0008](./docs/decisions/0008-portable-assets.zh-CN.md)选择[规范未压缩 USTAR 资产](./docs/m6b-package-format.zh-CN.md)，授权在 M6B-03 增加可选公共 CPU codec crate `mixture-asset`。它依赖 Core，CLI/WASM 依赖 codec，Core/wgpu 不反向依赖。codec 拥有有界归档字节、manifest/完整性与包诊断，不拥有图/资源语义、文件系统解包或像素执行。Core 提供共用资源元数据/摘要/引用辅助函数，wgpu 不变。M6B-03 实现可选 crate 与共用 Core 辅助函数。[M6B-04](./docs/m6b-04-adapters.zh-CN.md)将 CLI 文件 I/O 与 WASM 字节传输接到同一 codec，均准备 Core 拥有的快照并复用 wgpu；适配器持有字节与 codec 共用预算，包括 JS 和 Rust 两份包副本。这仅允许 Core 之外的生产者输入传输，Core 原有编辑器/导出/ZIP 职责排除仍有效。
+
+### MAT-04b 在 Core 中展开配方
+
+[ADR 0010](./docs/decisions/0010-reusable-recipes.zh-CN.md) 新增由调用方提供的 `.mixrecipe` 文档和 `.mix` v2 父文档。`mixture-core` 负责配方解码、精确闭包、实例验证，以及在规范化之前展开为 `<实例>--<节点>` ID；展开图经过不变的验证规则、编译器和 RenderPlan v3，并记录 `documentVersion` 2。`mixture-wgpu`、`mixture-asset`（包 v1 仍要求 v1 文档）和节点目录不变。第 5 节仍描述 `.mix v1`；参见[格式指南](./docs/file-format.zh-CN.md#mat-04b-配方文档与-mix-v2-父文档)。

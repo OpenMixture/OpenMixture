@@ -47,7 +47,7 @@ pub struct PortContract {
     pub default: Option<PortDefault>,
 }
 /// Accepted JSON parameter representation and bounds, inclusive at both ends.
-#[derive(Clone, Copy, Debug, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
 #[serde(tag = "type", rename_all = "camelCase")]
 pub enum ParameterKind {
     /// A case-sensitive caller resource ID using the document identifier grammar.
