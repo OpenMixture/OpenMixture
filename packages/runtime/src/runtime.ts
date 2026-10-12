@@ -1,4 +1,4 @@
-import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, Inspection, ParameterValue, RenderRequest, RenderResult, RuntimeModule, SafetyLimits, ResourceLimits, ImageBinding, Source, ValidationResult } from './types.js';
+import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, Inspection, ParameterValue, RecipeLimits, RenderRequest, RenderResult, RuntimeModule, SafetyLimits, ResourceLimits, ImageBinding, Source, ValidationResult } from './types.js';
 import type { BindingRequest, Bindings, Failure } from './bindings.js';
 import type { PackageLimits } from './types.js';
 import type { PackageBindingRequest, PreparedBinding, GpuBinding } from './bindings.js';
@@ -81,8 +81,8 @@ function array(value: unknown, operation: string, label: string, maxLength: numb
 
 export function captureOptions(options: unknown, operation: string, allowed: readonly string[]) { return record(options, operation, 'options', allowed); }
 
-export function captureRequest(options: unknown = {}, operation: string, defaultLimits: Readonly<SafetyLimits>, defaultResources: Readonly<ResourceLimits>): BindingRequest {
-  const captured = record(options, operation, 'request', ['size', 'channels', 'overrides', 'limits', 'resources', 'resourceLimits']);
+export function captureRequest(options: unknown = {}, operation: string, defaultLimits: Readonly<SafetyLimits>, defaultResources: Readonly<ResourceLimits>, defaultRecipes: Readonly<RecipeLimits>): BindingRequest {
+  const captured = record(options, operation, 'request', ['size', 'channels', 'overrides', 'limits', 'resources', 'resourceLimits', 'recipes', 'recipeLimits']);
   const limits = { ...defaultLimits };
   if ('limits' in captured) {
     for (const [key, value] of Object.entries(record(captured.limits, operation, 'limits', Object.keys(defaultLimits)))) {
@@ -141,8 +141,26 @@ export function captureRequest(options: unknown = {}, operation: string, default
         height: image.height as number, bytesPerRow: image.bytesPerRow as number, data });
     }
   }
+  const recipeLimits = { ...defaultRecipes };
+  if ('recipeLimits' in captured) {
+    for (const [key, value] of Object.entries(record(captured.recipeLimits, operation, 'recipeLimits', Object.keys(defaultRecipes)))) {
+      if (typeof value !== 'bigint' || value < 0n || value > U64_MAX) throw invalid(operation, 'Recipe limits must be nonnegative u64 bigints');
+      recipeLimits[key as keyof RecipeLimits] = value;
+    }
+  }
+  // Recipes are copied like the source, so later caller mutation cannot change them.
+  const recipes: Uint8Array[] = [];
+  if ('recipes' in captured) {
+    if (Array.isArray(captured.recipes)) {
+      recipeCount(operation, recipeLimits.recipeCount, BigInt(Object.getOwnPropertyDescriptor(captured.recipes, 'length')!.value));
+    }
+    for (const entry of array(captured.recipes, operation, 'recipes', Number.MAX_SAFE_INTEGER)) {
+      if (typeof entry !== 'string' && !(entry instanceof Uint8Array)) throw invalid(operation, 'Recipe sources must be strings or Uint8Array');
+      recipes.push(captureSource(entry, limits.decodedBytes, operation));
+    }
+  }
   // Borrow only until synchronous Rust preparation returns, before any yield.
-  return { resources, resourceLimits, size: size as [number, number], channels: channels as string[], limits, overridesJson: JSON.stringify(overrides) };
+  return { resources, resourceLimits, recipes, recipeLimits, size: size as [number, number], channels: channels as string[], limits, overridesJson: JSON.stringify(overrides) };
 }
 
 export function captureSource(source: unknown, limit: bigint, operation: string): Uint8Array<ArrayBuffer> {
@@ -185,6 +203,15 @@ export function copyBytes(source: unknown, operation: string, limit?: bigint): U
   }
 }
 
+function recipeCount(operation: string, configured: bigint, observed: bigint) {
+  if (observed <= configured) return;
+  // Mirrors Core's parse-stage count failure before copying any recipe source.
+  throw new MixtureRuntimeError(operation, { diagnostics: [{ code: 'MIX_LIMIT_RECIPE_COUNT_EXCEEDED',
+    stage: 'parse', severity: 'error', message: `recipeCount limit exceeded: configured ${configured}, observed ${observed}`,
+    evidence: { limit: 'recipeCount', configured, observed },
+    suggestion: 'Reduce the request to the configured limit; raise limits only through an explicit caller policy.' }] });
+}
+
 function resourceBudget(operation: string, name: keyof ResourceLimits, configured: bigint, observed: bigint) {
   if (observed <= configured) return;
   const codes = { resourceCount: 'COUNT', resourcePixels: 'PIXELS', resourceBytes: 'BYTES' };
@@ -224,7 +251,7 @@ function packageBudget(operation: string, name: keyof PackageLimits, configured:
     message:'Package budget exceeded.',evidence:{limit:name,configured,observed},suggestion:'Reduce the asset or choose a policy within the v1 ceilings.'}] });
 }
 
-function capturePackage(source: unknown, options: unknown, operation: string, safety: Readonly<SafetyLimits>, resources: Readonly<ResourceLimits>, ceilings: Readonly<PackageLimits>, render: boolean): [Uint8Array<ArrayBuffer>, PackageBindingRequest] {
+function capturePackage(source: unknown, options: unknown, operation: string, safety: Readonly<SafetyLimits>, resources: Readonly<ResourceLimits>, recipes: Readonly<RecipeLimits>, ceilings: Readonly<PackageLimits>, render: boolean): [Uint8Array<ArrayBuffer>, PackageBindingRequest] {
   const captured = record(options === undefined ? {} : options, operation, 'package options', render ? ['size','channels','overrides','limits','resourceLimits','packageLimits'] : ['limits','resourceLimits','packageLimits']);
   const packageLimits = {...ceilings};
   if ('packageLimits' in captured) {
@@ -235,7 +262,7 @@ function capturePackage(source: unknown, options: unknown, operation: string, sa
     }
   }
   delete captured.packageLimits;
-  const request = captureRequest(captured,operation,safety,resources);
+  const request = captureRequest(captured,operation,safety,resources,recipes);
   // Do not enumerate millions of indexed byte properties. Only intrinsic view
   // state matters; reject caller-owned overrides without invoking accessors.
   if (!(source instanceof Uint8Array) || Object.getPrototypeOf(source) !== Uint8Array.prototype) throw invalid(operation,'Package bytes must be an ordinary Uint8Array');
@@ -260,12 +287,13 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
   }
   const defaultLimits = Object.freeze(bindings.default_limits());
   const defaultResources = Object.freeze(bindings.default_resource_limits());
+  const defaultRecipes = Object.freeze(bindings.default_recipe_limits());
   const defaultPackages = Object.freeze(bindings.default_package_limits());
   function cpu(operation: 'inspect', source: Source, options?: RenderRequest): Inspection;
   function cpu(operation: 'validate', source: Source, options?: RenderRequest): ValidationResult;
   function cpu(operation: 'inspect' | 'validate', source: Source, options?: RenderRequest): ValidationResult {
     return boundary(operation, () => {
-      const request = captureRequest(options, operation, defaultLimits, defaultResources);
+      const request = captureRequest(options, operation, defaultLimits, defaultResources, defaultRecipes);
       const bytes = captureSource(source, request.limits.decodedBytes, operation);
       return bindings[operation === 'validate' ? 'validate_source' : 'inspect_source'](bytes, request);
     });
@@ -278,7 +306,7 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
       catch (error) { if (error instanceof MixtureRuntimeError && error.diagnostics.length) return { ok: false, diagnostics: error.diagnostics }; throw error; }
     },
     inspect: (source, request) => cpu('inspect', source, request),
-    inspectPackage: (bytes, options) => boundary('inspectPackage', () => bindings.inspect_package(...capturePackage(bytes,options,'inspectPackage',defaultLimits,defaultResources,defaultPackages,false))),
+    inspectPackage: (bytes, options) => boundary('inspectPackage', () => bindings.inspect_package(...capturePackage(bytes,options,'inspectPackage',defaultLimits,defaultResources,defaultRecipes,defaultPackages,false))),
     async createGpu(options = {}) {
       const captured = captureOptions(options, 'createGpu', ['powerPreference']);
       const power = captured.powerPreference ?? 'high-performance';
@@ -315,13 +343,13 @@ export function createRuntimeModule(bindings: Bindings, expectedBuild: BuildInfo
       return Object.freeze<GpuRuntime>({ context,
         render(source, options = {}) {
           return accept('render', () => {
-            const request = captureRequest(options, 'render', defaultLimits, defaultResources);
+            const request = captureRequest(options, 'render', defaultLimits, defaultResources, defaultRecipes);
             const bytes = captureSource(source, request.limits.decodedBytes, 'render');
             return bindings.prepare_source(bytes, request);
           });
         },
         renderPackage(bytes, options = {}) {
-          return accept('renderPackage', () => bindings.prepare_package(...capturePackage(bytes,options,'renderPackage',defaultLimits,defaultResources,defaultPackages,true)));
+          return accept('renderPackage', () => bindings.prepare_package(...capturePackage(bytes,options,'renderPackage',defaultLimits,defaultResources,defaultRecipes,defaultPackages,true)));
         },
         destroy() {
           if (destroyed) return destroyed;

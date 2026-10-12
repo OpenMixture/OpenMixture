@@ -74,3 +74,5 @@ MAT-02b 候选模式增加 `morphology.spec.mjs` 的 192 组周期形态处理�
 候选另通过 `MIXTURE_SUBTRACT_TESTS=1` 运行 `subtract.spec.mjs`，覆盖 64 组精确直接／放大减法用例。[减法指南](../../fixtures/nodes/scalar-subtract/README.zh-CN.md)定义公开 Native 对照。注册表模式显式排除此候选专用测试。
 
 weave-pattern@1 节点检查使用[冻结用例](../../docs/weave-pattern-acceptance.zh-CN.md)：三个模式、256／1024／2048 和 257×129、不等轴及边界；check-weave.mjs 对公开 Native／浏览器逐字节比较，容差 1/255。材质验收另行处理。
+
+MAT-04c 候选模式还会在 `MIXTURE_RECIPE_TESTS=1` 下运行 `recipes.spec.mjs`：显式配方闭包、两个配方父图的检查，以及在 64² 和 257×129 下与已验收砖块和机织物图的各通道逐字节相同。注册表模式不运行它；配方 fixture 由候选验收脚本放到 `public/recipes/` 下。

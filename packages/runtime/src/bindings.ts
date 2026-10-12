@@ -1,4 +1,4 @@
-import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, ImageBinding, Inspection, NodeContract, RenderResult, ResourceLimits, SafetyLimits, ValidationResult } from './types.js';
+import type { BrowserFailure, BuildInfo, Diagnostic, GpuRuntime, ImageBinding, Inspection, NodeContract, RecipeLimits, RenderResult, ResourceLimits, SafetyLimits, ValidationResult } from './types.js';
 import type { PackageInspection, PackageLimits } from './types.js';
 export interface PackageBindingRequest { request: BindingRequest; packageLimits: PackageLimits; }
 
@@ -7,6 +7,7 @@ export interface PackageBindingRequest { request: BindingRequest; packageLimits:
 export interface BindingRequest {
   size: [number, number]; channels: string[]; limits: SafetyLimits; overridesJson: string;
   resources: ImageBinding[]; resourceLimits: ResourceLimits;
+  recipes: Uint8Array[]; recipeLimits: RecipeLimits;
 }
 export interface Failure {
   diagnostics?: Diagnostic[]; browserFailure?: BrowserFailure; evidence?: unknown;
@@ -23,6 +24,7 @@ export interface Bindings {
   build_info(): BuildInfo;
   default_limits(): SafetyLimits;
   default_resource_limits(): ResourceLimits;
+  default_recipe_limits(): RecipeLimits;
   default_package_limits(): PackageLimits;
   inspect_package(bytes: Uint8Array, options: PackageBindingRequest): PackageInspection;
   prepare_package(bytes: Uint8Array, options: PackageBindingRequest): PreparedBinding;

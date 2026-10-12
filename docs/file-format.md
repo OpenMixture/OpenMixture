@@ -145,4 +145,4 @@ fn compile_parent(parent: &[u8], recipes: &[&[u8]]) -> Result<(), Box<dyn std::e
 - Overrides on a public ID bound to an interface parameter set every target; one invalid value yields one diagnostic. Diagnostics on expanded nodes carry `instanceId` evidence.
 - The v1 decoder skips an `instances` key and reports `MIX_FORMAT_UNSUPPORTED_VERSION` for any version other than 1; a version-1 document with `instances` still fails as `MIX_FORMAT_INVALID_DOCUMENT`. Runtimes older than 0.11 report `MIX_FORMAT_INVALID_DOCUMENT` for a v2 parent that contains `instances`.
 
-The CLI accepts explicit `--recipe` files (see the [CLI contract](./cli-contract.md#recipe-files-mat-04c)); browser adapters are separate MAT-04c work. Tests: `cargo test -p mixture-core --test recipes`; fixtures: [recipes](../fixtures/recipes/README.md).
+The CLI accepts explicit `--recipe` files (see the [CLI contract](./cli-contract.md#recipe-files-mat-04c)); the browser runtime accepts explicit `recipes` sources (see the [browser SDK](./browser-sdk.md#mat-04c-recipe-requests)). Tests: `cargo test -p mixture-core --test recipes`; fixtures: [recipes](../fixtures/recipes/README.md).

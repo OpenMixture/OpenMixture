@@ -74,3 +74,5 @@ MAT-02b candidate mode adds 192 periodic morphology cases and exact repeat check
 The candidate additionally runs `subtract.spec.mjs` with `MIXTURE_SUBTRACT_TESTS=1`: 64 exact direct/amplified subtraction cases. The [subtraction guide](../../fixtures/nodes/scalar-subtract/README.md) defines its public Native comparison. Registry mode explicitly excludes this candidate-only test.
 
 weave-pattern@1 node checks follow the [frozen cases](../../docs/weave-pattern-acceptance.md): three modes at 256/1024/2048 and 257×129, unequal axes and boundaries. check-weave.mjs compares public Native/browser bytes with tolerance 1/255. Material qualification is separate.
+
+MAT-04c candidate mode also runs `recipes.spec.mjs` with `MIXTURE_RECIPE_TESTS=1`: explicit recipe closures, inspection of both recipe parents, and byte-identical channels against the accepted brick and woven graphs at 64² and 257×129. Registry mode excludes it; the recipe fixtures are staged under `public/recipes/` by the candidate qualifier.

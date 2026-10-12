@@ -159,3 +159,9 @@ ENG-03 新增使用本公开契约的[独立浏览器 SDK 示例与验收入口]
 ## M6A-04 图像请求
 
 `RenderRequest.resources` 接受 `ImageBinding[]`，`resourceLimits` 接受部分 bigint 策略。`validate`、`inspect`、`render` 共用请求类型。同步捕获、偏移视图、错误、所有权、复现命令和版本边界见[浏览器资源合同](./m6a-04-browser-resources.zh-CN.md)。
+
+## MAT-04c 配方请求
+
+`RenderRequest.recipes` 接受 `Source[]`（字符串或普通 `Uint8Array`），`recipeLimits` 接受部分 bigint 的 `RecipeLimits` 策略（`recipeCount`、`instanceCount`、`recipeBytes`）；`validate`、`inspect` 和 `render` 按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)共用这两个字段。不提供 `recipes` 时，请求走不变的只支持 v1 的路径，因此 `.mix` v2 父文档以 `MIX_FORMAT_UNSUPPORTED_VERSION` 失败。提供 `recipes` 时，每个源都像材质源一样在让出控制权前同步复制（受 `decodedBytes` 约束），由 Core 针对恰好这些配方解码父文档；此时若源是 v1，则报告 `MIX_RECIPE_UNUSED`。配方数组长度超过 `recipeCount` 时，在读取任何条目之前即以 `MIX_LIMIT_RECIPE_COUNT_EXCEEDED` 失败。运行时绝不获取或自动发现配方。
+
+仅当源是 v2 父文档时，`inspect`（以及成功的 `validate`）才增加 `recipes: RecipeIdentity[]`（`id`、`recipeVersion`、`sha256`、bigint `byteLength`）。`exposedParameters` 中每个公开 ID 只列一次，即使它驱动多个配方目标。`inspectPackage` 和 `renderPackage` 拒绝 `recipes` 选项，包 v1 也绝不承载 v2 父文档。API schema 保持 3；v1 调用向不变的绑定发送 `recipes: []`。候选验收运行 [recipes.spec.mjs](../examples/browser-consumer/tests/recipes.spec.mjs)，它渲染两个配方父图及其已验收 v1 图，并要求各通道逐字节相同。

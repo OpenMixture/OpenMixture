@@ -4,9 +4,10 @@ import { captureRequest as captureWithLimits, captureSource, createRuntimeModule
 
 const policy = { decodedBytes: 2097152n, nodes: 128n, edges: 512n, exposedParameters: 64n, outputDimension: 2048n, requestedOutputs: 8n, transientBytes: 536870912n };
 const resourcePolicy = { resourceCount: 8n, resourcePixels: 16777216n, resourceBytes: 67108864n };
-const captureRequest = (options, operation) => captureWithLimits(options, operation, policy, resourcePolicy);
+const recipePolicy = { recipeCount: 16n, instanceCount: 32n, recipeBytes: 2097152n };
+const captureRequest = (options, operation) => captureWithLimits(options, operation, policy, resourcePolicy, recipePolicy);
 const build = { runtimeVersion: 'test', apiSchemaVersion: 1, engineVersion: 'test', engineRevision: null, engineDirty: false, buildId: 'test' };
-const defaults = { default_package_limits: () => ({packageBytes:70254592n,manifestBytes:65536n,packageBufferBytes:211812352n}), default_resource_limits: () => ({ ...resourcePolicy }),
+const defaults = { default_package_limits: () => ({packageBytes:70254592n,manifestBytes:65536n,packageBufferBytes:211812352n}), default_resource_limits: () => ({ ...resourcePolicy }), default_recipe_limits: () => ({ ...recipePolicy }),
   prepare_source: (bytes, request) => structuredClone({ bytes, request }), default_limits: () => ({ ...policy }), build_info: () => ({ ...build }), node_catalog: () => [],
   validate_source: (bytes, request) => ({ ok: true, bytes, request }), inspect_source: (bytes, request) => ({ bytes, request }) };
 const invalid = error => error instanceof MixtureRuntimeError && error.code === 'MIX_BROWSER_INVALID_ARGUMENT';
@@ -245,4 +246,35 @@ test('image lengths above u32 are rejected before entering Rust', async () => {
   assert.throws(() => module.inspect('{}', { resources: [{ id: 'Image', width: 1, height: 1,
     format: 'rgba8-linear', bytesPerRow: 4, data }] }), e => e.code === 'MIX_BROWSER_INVALID_ARGUMENT'
       && e.message === 'Resource byte length exceeds the wasm32 view limit');
+});
+
+test('recipes are copied explicitly, bounded before copying, and never sent for packages', () => {
+  const bytes = new TextEncoder().encode('{"recipe":1}');
+  const captured = captureRequest({ recipes: ['{"a":1}', bytes], recipeLimits: { recipeCount: 2n } }, 'inspect');
+  assert.equal(captured.recipes.length, 2);
+  assert.notEqual(captured.recipes[1], bytes, 'recipe bytes are copied');
+  bytes[0] = 0;
+  assert.equal(captured.recipes[1][0], '{'.charCodeAt(0), 'later caller mutation is not observed');
+  assert.equal(captured.recipeLimits.recipeCount, 2n);
+  assert.equal(captured.recipeLimits.instanceCount, 32n);
+  assert.deepEqual(captureRequest({}, 'inspect').recipes, []);
+  for (const recipes of [{}, [1], [null], new Array(1), [new Proxy(new Uint8Array(1), {})]]) {
+    assert.throws(() => captureRequest({ recipes }, 'inspect'), invalid);
+  }
+  for (const value of [-1n, 1, '2', 18446744073709551616n]) {
+    assert.throws(() => captureRequest({ recipeLimits: { recipeCount: value } }, 'inspect'), invalid);
+  }
+  assert.throws(() => captureRequest({ recipeLimits: { other: 1n } }, 'inspect'), invalid);
+  let touched = 0;
+  const many = Array.from({ length: 3 }, () => ({ get length() { touched++; return 0; } }));
+  assert.throws(() => captureRequest({ recipes: many, recipeLimits: { recipeCount: 2n } }, 'inspect'),
+    error => error instanceof MixtureRuntimeError && error.code === 'MIX_LIMIT_RECIPE_COUNT_EXCEEDED'
+      && error.diagnostics[0].evidence.observed === 3n);
+  assert.equal(touched, 0, 'the count ceiling is checked before any recipe is read');
+
+  const module = createRuntimeModule(defaults, build);
+  const inspected = module.inspect('{}', { recipes: ['{}'] });
+  assert.equal(inspected.request.recipes.length, 1);
+  assert.equal(inspected.request.recipeLimits.recipeBytes, 2097152n);
+  assert.throws(() => module.inspectPackage(new Uint8Array(4), { recipes: ['{}'] }), invalid);
 });

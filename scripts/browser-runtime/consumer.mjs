@@ -102,7 +102,7 @@ export async function qualify(mode, packageDirectory, output) {
     consumerDirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim().length > 0,
     staging, platform: process.platform, arch: process.arch, node: process.version,
     run: process.env.GITHUB_RUN_ID ?? null, attempt: process.env.GITHUB_RUN_ATTEMPT ?? null };
-  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_WEAVE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_WOVEN_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_PAINTED_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_REUSE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_SUBTRACT_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_MORPHOLOGY_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_BRICK_TESTS: mode === 'candidate' ? '1' : '0' };
+  const env = { ...process.env, npm_config_cache: join(staging, '.npm-cache'), MIXTURE_RESOURCE_TESTS: '1', MIXTURE_WEAVE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_WOVEN_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_PAINTED_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_REUSE_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_ASSET_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_SUBTRACT_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_MORPHOLOGY_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_BRICK_TESTS: mode === 'candidate' ? '1' : '0', MIXTURE_RECIPE_TESTS: mode === 'candidate' ? '1' : '0' };
   // The automated browser selects its adapter using its recorded launch args.
   delete env.VK_ICD_FILENAMES;
   delete env.VK_DRIVER_FILES;
@@ -161,6 +161,17 @@ export async function qualify(mode, packageDirectory, output) {
         const original = join(root, 'fixtures/materials/brick-paving', name);
         record.brickFixtures[name] = hash(await readFile(original));
         await cp(original, join(staging, 'public/brick-paving', name));
+      }
+      // MAT-04 recipe parents and their exact closures; the v1 graphs are staged above.
+      await mkdir(join(staging, 'public/recipes'));
+      record.recipeFixtures = {};
+      for (const [from, to] of [
+        ...['masked-layer-surface', 'brick-structure', 'weave-structure', 'directional-grain'].map(id => [`fixtures/recipes/${id}.mixrecipe`, `${id}.mixrecipe`]),
+        ['fixtures/materials/brick-paving/material-recipes.mix', 'brick-paving.mix'],
+        ['fixtures/materials/woven-fabric/material-recipes.mix', 'woven-fabric.mix'],
+      ]) {
+        record.recipeFixtures[to] = hash(await readFile(join(root, from)));
+        await cp(join(root, from), join(staging, 'public/recipes', to));
       }
       execFileSync('cargo', ['run','--locked','--manifest-path',join(root,'examples/native-consumer/Cargo.toml'),'--target-dir',join(root,'target/native-consumer'),'--example','asset-fixtures','--',join(staging,'public/m6b05')], {cwd:root,stdio:'pipe'});
       record.assetFixtures = {};

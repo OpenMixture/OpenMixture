@@ -17,6 +17,7 @@ export default defineConfig({
     ...(process.env.MIXTURE_WEAVE_TESTS === '1' ? [] : ['weave.spec.mjs', 'weave-v2.spec.mjs']),
     ...(process.env.MIXTURE_MORPHOLOGY_TESTS === '1' ? [] : ['morphology.spec.mjs']),
     ...(process.env.MIXTURE_BRICK_TESTS === '1' ? [] : ['brick.spec.mjs']),
+    ...(process.env.MIXTURE_RECIPE_TESTS === '1' ? [] : ['recipes.spec.mjs']),
   ],
   workers: 1,
   retries: 0,
