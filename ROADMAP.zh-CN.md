@@ -30,7 +30,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
 | 当前增量 | 无。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 已与 @1 并存实现，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[记录范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；修订 2 的 combined-high 蝴蝶结限制不再适用。MAT-04 仍为规划，等待维护者启动决定；不发布。 |
-| 当前验收 | [MAT-03](./docs/evidence/mat-03/README.zh-CN.md)：配方修订 2 的五个评审预设已接受，combined-high 不在视觉保证内，数值／软件限制明确保留。[MAT-01](./docs/evidence/mat-01/README.zh-CN.md) 与 [MAT-02](./docs/evidence/mat-02/README.zh-CN.md) 保持各自记录范围。不发布，也不作通用硬件保证。 |
+| 当前验收 | [MAT-03](./docs/evidence/mat-03-r3/README.zh-CN.md)：配方修订 3（weave-pattern@2）的六个评审预设已在记录的 GT 1030 Vulkan/DX12 与 Chrome 适配器上接受，数值／软件限制明确保留；[修订 2 记录](./docs/evidence/mat-03/README.zh-CN.md)及其 combined-high 排除作为历史保留。[MAT-01](./docs/evidence/mat-01/README.zh-CN.md) 与 [MAT-02](./docs/evidence/mat-02/README.zh-CN.md) 保持各自记录范围。不发布，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 
 按选定合同中的任务顺序推进，分别记录设计集成、实现及验收证据。Studio 的升级、部署及产品验收不是引擎规划或发布的前置条件。
@@ -63,7 +63,7 @@ M6-B 由维护者明确决定启动，不由 M6-A 验收自动触发。格式、
 
 ## 材质能力路线图 — 分阶段交付
 
-2026-09-23 的规划决定将材质表达广度选为下一方向。目标是可复用的程序化纹理材质，不是完整 Substance 3D 套件对等。保持一个主要功能增量。MAT-01／MAT-02／MAT-03 已在记录范围内接受。weave-pattern@2 节点实现为当前活动增量，候选 C／目录／版本已批准，材质再验收另行进行，MAT-04 仍为规划，不构成节点或模式的一揽子授权。分别跟踪契约接受、实现、像素验收、集成和发布。本计划不指定包版本或发布日期。
+2026-09-23 的规划决定将材质表达广度选为下一方向。目标是可复用的程序化纹理材质，不是完整 Substance 3D 套件对等。保持一个主要功能增量。MAT-01／MAT-02／MAT-03 已在记录范围内接受；MAT-03 基于配方修订 3 接受，weave-pattern@2 已与 @1 并存实现。MAT-04 仍为规划，不构成节点或模式的一揽子授权。分别跟踪契约接受、实现、像素验收、集成和发布。本计划不指定包版本或发布日期。
 
 规划起点已有十三种节点类型、图像输入、公开参数、八个材质输出通道及可移植资产。MAT-01 增加两个已接受的节点类型用于结构化砖材质；后续阶段仍需补齐下述处理能力。通道插槽不等于通道生成器，可移植归档不等于可复用子图。已有陶瓷／皮革／木材验收继续保持有界且必需。
 
@@ -94,7 +94,7 @@ MAT-02／03／04 遵循相同的契约 → 最小实现切面 → 材质证据 �
 
 ### MAT-03a 进入与停止边界
 
-PR #81 节点及后续 A/B/C 已合并；[阶段 D 记录](./docs/evidence/mat-03/README.zh-CN.md)按维护者最终决定接受配方修订 2 的五个视觉预设，combined-high 及类似蝴蝶结组合明确不在视觉质量保证内。PR #87 已关闭未合并，原范围和所有冻结门槛不变。维护者已启动 [weave-pattern@2 设计](./docs/weave-pattern-v2-design.zh-CN.md)，处理交叉处上层纱线在自身宽度内的可见性。候选 C 及目录／版本已批准；[节点契约／探针](./docs/weave-pattern-v2-acceptance.zh-CN.md)先冻结，节点实现进行中；材质再验收尚未开始。任何冻结门槛失败仍须停止，不放宽，不发布。
+PR #81 节点及后续 A/B/C 已合并；[阶段 D 记录](./docs/evidence/mat-03/README.zh-CN.md)按维护者最终决定接受配方修订 2 的五个视觉预设，combined-high 及类似蝴蝶结组合明确不在视觉质量保证内。PR #87 已关闭未合并，原范围和所有冻结门槛不变。维护者已启动 [weave-pattern@2 设计](./docs/weave-pattern-v2-design.zh-CN.md)，处理交叉处上层纱线在自身宽度内的可见性。候选 C 及目录／版本已批准；[节点契约／探针](./docs/weave-pattern-v2-acceptance.zh-CN.md)先冻结。**2026-10-12 更新：** weave-pattern@2 已集成（PR #91），[修订 3 记录](./docs/evidence/mat-03-r3/README.zh-CN.md)在记录范围内接受基于 @2 的机织物配方（PR #96）；前文保留其当时状态。任何冻结门槛失败仍须停止，不放宽，不发布。
 
 ### 共同材质验收与所有权
 
