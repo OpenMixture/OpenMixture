@@ -2,7 +2,7 @@
 
 [English](./mat-04a-recipe-contract.md) | 简体中文
 
-**状态：** 维护者于 2026-10-12 接受，并与 [ADR 0010](./decisions/0010-reusable-recipes.zh-CN.md) 一起经 PR #99 集成。MAT-04b 实现本契约；实现、验收和发布仍是不同状态。契约 PR 未修改代码、fixture、golden、schema 或版本。本契约在维护者 2026-10-12 的方向内回答 [MAT-04 入口](./mat-04-reusable-recipes.zh-CN.md)中的问题：由调用方单独提供的配方文档、仅松散输入、禁止嵌套。
+**状态：** MAT-04 已在[记录范围](./evidence/mat-04/README.zh-CN.md)内接受（2026-10-13）。本契约于 2026-10-12 接受，并与 [ADR 0010](./decisions/0010-reusable-recipes.zh-CN.md) 一起经 PR #99 集成。MAT-04b 实现本契约；实现、验收和发布仍是不同状态。契约 PR 未修改代码、fixture、golden、schema 或版本。本契约在维护者 2026-10-12 的方向内回答 [MAT-04 入口](./mat-04-reusable-recipes.zh-CN.md)中的问题：由调用方单独提供的配方文档、仅松散输入、禁止嵌套。
 
 ## 概要
 

@@ -2,7 +2,7 @@
 
 [English](./release.md) | 简体中文
 
-**工作候选（MAT-04b）：** Rust 0.11.0／browser 0.11.0-alpha.0 按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)新增 Core 配方 API（`.mixrecipe` v1、`.mix` v2 父文档、`RecipeLimits`、八个诊断代码）。节点目录、kernel、RenderPlan v3 和包 v1 不变，v1 文档编译出相同的计划。CLI／浏览器配方适配及冻结的材质门槛属于 MAT-04c/d；本候选既未验收也未发布。
+**已验收、未发布候选（MAT-04，2026-10-13）：** 干净 main `d34b278` 上的 Rust 0.11.0／browser 0.11.0-alpha.0 在 [MAT-04 记录](./evidence/mat-04/README.zh-CN.md)范围内完成可复用配方验收：两个配方父图在 GT 1030 Vulkan/DX12、固定 SwiftShader 及软件 Chromium 子集上与已验收砖块和机织物图逐字节相同，并保留人工决定。它按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)新增 Core 配方 API（`.mixrecipe` v1、`.mix` v2 父文档、`RecipeLimits`、八个诊断代码）。节点目录、kernel、RenderPlan v3 和包 v1 不变，v1 文档编译出相同的计划。已包含 CLI 和浏览器配方适配；机织物父图更高的 2048² 描述符峰值记为限制。不发布任何包。
 
 **已验收、未发布候选：** Rust 0.10.0／browser 0.10.0-alpha.0 在 @1 之外新增 weave-pattern@2（18 最新类型／20 支持身份／17 kernel），并在[修订 3 验收记录](./evidence/mat-03-r3/README.zh-CN.md)范围内完成机织物配方修订 3 的验收：GT 1030 Vulkan/DX12 阶段 A/B 门槛、Native／Chrome ≤1/255，以及绑定六张评审图的人工决定。下述 0.9 验收作为历史保留；不发布任何包。
 

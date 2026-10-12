@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "decisionDate": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "decisionSource": "Maintainer reply in the current project conversation",
+  "userStatement": "接受，并把峰值上升记为限制",
+  "interpretation": "Accept MAT-04 reusable recipes within the recorded scope and record the woven parent's higher descriptor peak as a known limitation.",
+  "humanApproval": true,
+  "milestoneAccepted": true,
+  "visualReview": "Not repeated: every channel of both recipe parents is byte-identical to the accepted brick (MAT-01) and woven (MAT-03 revision 3) graphs on every recorded adapter, so their existing human visual acceptance carries over unchanged.",
+  "optionsPresented": [
+    "Accept, and record the peak increase as a limitation",
+    "Accept",
+    "Do not accept yet"
+  ],
+  "limitations": [
+    "The woven recipe parent's 2048² descriptor peak is 469,762,640 bytes versus 301,990,480 bytes for the accepted v1 graph (about +55.6%), leaving about 12.5% headroom under the frozen 536,870,912-byte budget. Expanded node IDs change the lexical pass order and therefore texture-slot reuse; pixels are unaffected. Brick peaks are unchanged."
+  ],
+  "binding": "binding.json"
+}

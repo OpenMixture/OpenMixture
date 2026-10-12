@@ -13,4 +13,4 @@
 | [presets/](./presets/) | 每个父图的覆盖映射，每种材质三个，各自复现一个冻结用例 |
 | [acceptance-plan.json](./acceptance-plan.json) | 契约冻结验收一节的机器可读形式：四个配方、两个父图、暴露 ID、预算、门槛和预设 |
 
-父图为 [brick-paving/material-recipes.mix](../materials/brick-paving/material-recipes.mix) 和 [woven-fabric/material-recipes.mix](../materials/woven-fabric/material-recipes.mix)。`cargo test -p mixture-core --test recipes` 覆盖 Core 规则；`--test recipe_materials` 运行 CPU 门槛：对每个冻结用例（及机织物压力用例），展开父图与已验收 v1 图同构，公开 ID 和描述符预算与计划一致，纹理实例保持隔离，预设复现其用例。GPU 适配器上的像素相同属于 MAT-04d。
+父图为 [brick-paving/material-recipes.mix](../materials/brick-paving/material-recipes.mix) 和 [woven-fabric/material-recipes.mix](../materials/woven-fabric/material-recipes.mix)。`cargo test -p mixture-core --test recipes` 覆盖 Core 规则；`--test recipe_materials` 运行 CPU 门槛：对每个冻结用例（及机织物压力用例），展开父图与已验收 v1 图同构，公开 ID 和描述符预算与计划一致，纹理实例保持隔离，预设复现其用例。GPU 像素相同已在 [MAT-04 记录](../../docs/evidence/mat-04/README.zh-CN.md)中接受。

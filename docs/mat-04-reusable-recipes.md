@@ -4,6 +4,8 @@ English | [简体中文](./mat-04-reusable-recipes.zh-CN.md)
 
 **Current status:** see [release status](./release.md) for integrated features, published versions and hardware qualification scope. Earlier dated records describe their original checkpoints.
 
+**MAT-04 accepted (2026-10-13):** see the [acceptance record](./evidence/mat-04/README.md). The entry analysis below is retained as written.
+
 On 2026-10-12 the maintainer started MAT-04 as the single active increment. This entry document records the measured duplication, the first consumer outcome, the questions the MAT-04a contract must answer and the work-item sequence. It selects no format, syntax, node, crate or version and changes no code, fixture, golden or schema. `.mix v1`, `.mixpack v1` and plan/API v3 remain unchanged until an accepted contract and ADR say otherwise.
 
 ## First consumer outcome

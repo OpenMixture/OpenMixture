@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "d34b278b7c7c59395e9d70a8589c545095139199",
+  "sourceClean": true,
+  "sourceDescription": "Clean main after PR #105 (MAT-04d identity tooling), integrating MAT-04a contract (#99), Core recipes (#101), parents and CPU gates (#102), CLI (#103) and browser (#104) adapters.",
+  "milestoneAccepted": true,
+  "humanDecision": "human-decision.json",
+  "runtime": { "rust": "0.11.0", "browser": "0.11.0-alpha.0", "published": false },
+  "contract": { "path": "docs/mat-04a-recipe-contract.md", "sha256": "8a85c6def254b59f3eeb5560156d11b1f73f4500cc89381d96554a03ae6efbd3" },
+  "inputs": {
+    "fixtures/recipes/acceptance-plan.json": "33d3a721b26015dcf987ce5c87c496cf49d6e38c2ee1ac964e95af3ca839a7b7",
+    "fixtures/recipes/masked-layer-surface.mixrecipe": "ed5eb00bb902afbf72ded40b15f30091f492c78620c87a3e394b8725f58943f7",
+    "fixtures/recipes/brick-structure.mixrecipe": "e3ea1c16e7773d8e4c021569494ff014e5164a5f31fed54030f365fe43e0c898",
+    "fixtures/recipes/weave-structure.mixrecipe": "c987daf7ca27c635cd1ae8dfbd2e8755a6247e182bc3d913c4ecb380da01cda5",
+    "fixtures/recipes/directional-grain.mixrecipe": "6f9b1f52d03340448f16b7391d75fd33c9c376b336ff5914a1c5142777a603fb",
+    "fixtures/materials/brick-paving/material-recipes.mix": "7b5fa536541967b2ee284d99f5c74e1106f1f84568ddcacd1f13c13a0bb28bba",
+    "fixtures/materials/woven-fabric/material-recipes.mix": "ff6f2fd7ad9ba333f63da66d4c0450dbd5b8c0e980c9c5cafd395a71ba820f93",
+    "fixtures/materials/brick-paving/material.mix": "168c3ccfd67233a3cf9b8006b4bbd0925be84b643cf8df5fe9c4e358e983d74d",
+    "fixtures/materials/woven-fabric/material.mix": "74a37a26679fcda78e54618164548c8a256012be874dd58abbbaca4a1ea5e086"
+  },
+  "runs": {
+    "machine/native-vulkan.json": { "origin": "local", "command": "MIXTURE_GPU_BACKEND=vulkan MIXTURE_GPU_SOFTWARE=0 cargo xtask test-material recipe-parents", "adapter": "NVIDIA GeForce GT 1030 / Vulkan (NVIDIA 582.66)", "date": "2026-10-12" },
+    "machine/native-dx12.json": { "origin": "local", "command": "MIXTURE_GPU_BACKEND=dx12 MIXTURE_GPU_SOFTWARE=0 cargo xtask test-material recipe-parents", "adapter": "NVIDIA GeForce GT 1030 / DX12 (32.0.15.8266)", "date": "2026-10-12" },
+    "machine/native-swiftshader.json": { "origin": "CI", "workflow": "GPU material acceptance", "runId": 38251877928, "artifact": "swiftshader-material-evidence", "artifactId": 11750360674, "artifactExpires": "2026-11-11T13:21:26Z", "path": "materials/recipe-parents/1791811189394239488-6226/identity.json", "adapter": "SwiftShader Device (LLVM 10.0.0) / Vulkan" },
+    "machine/chromium-swiftshader.json": { "origin": "CI", "workflow": "Browser material qualification", "runId": 38251877596, "job": "Chromium WebGPU partition (core)", "artifact": "chromium-material-matrix-core", "artifactId": 11749233608, "artifactExpires": "2026-11-11T13:12:37Z", "path": "tmp/sdk-candidate/test-results/recipes-recipe-parents-dec-0ebfb-er-like-the-accepted-graphs/recipes-evidence.json", "adapter": "Chromium 153.0.8010.12 / WebGPU on SwiftShader", "candidateQualificationSha256": "21039fe6d4a7a50777150c1e1dceb4d60a4dc3c3c9ef3cde9a06d8df897c8cd1" }
+  },
+  "files": {
+    "machine/native-vulkan.json": "5a47d898b1974af1dfe4cd42a39c67c62e0b742c8ed165591427e8baa19ddd8c",
+    "machine/native-dx12.json": "5d550bf133fcf88f03aef01b85168086917dadcb4afda4b007c2c9e28c423001",
+    "machine/native-swiftshader.json": "3b6b46694161cf2deec73c3ff89c3e6659495f9ff987cbf451048b37643fafc0",
+    "machine/chromium-swiftshader.json": "dcc69479d8e4eda7929d8dc7d81b16d6d6f95b30bc23dfb918b12497f2f6255b"
+  },
+  "retention": "Git keeps the four machine receipts (per-channel SHA-256, plan hashes, peaks, timing). Rendered images are not retained: identity is the gate and the accepted brick and woven images remain in their own records. CI logs and full artifacts expire on the recorded dates."
+}
