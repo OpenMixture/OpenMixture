@@ -104,6 +104,8 @@ jobs:
         run: cargo xtask golden check
       - name: Verify structured brick material matrix and package roundtrips
         run: cargo xtask test-material brick-paving
+      - name: Verify recipe parents render byte-identically to the accepted materials
+        run: cargo xtask test-material recipe-parents
       - name: Measure the largest material case at 2K
         run: cargo xtask trace-2k
       - name: Retain execution, comparison, and environment evidence
@@ -118,4 +120,5 @@ jobs:
             tmp/golden/
             tmp/trace-2k/
             tmp/materials/brick-paving/
+            tmp/materials/recipe-parents/
           if-no-files-found: error
