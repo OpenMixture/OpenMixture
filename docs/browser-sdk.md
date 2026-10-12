@@ -159,3 +159,9 @@ The [Scalar composition record](./eng-04-scalar-blend.md) retains the original 0
 ## M6A-04 image requests
 
 `RenderRequest.resources` accepts `ImageBinding[]`; `resourceLimits` accepts a partial bigint policy. `validate`, `inspect` and `render` share this request type. See [browser resources](./m6a-04-browser-resources.md) for synchronous capture, offset views, errors, ownership, reproduction and version boundaries.
+
+## MAT-04c recipe requests
+
+`RenderRequest.recipes` accepts `Source[]` (strings or ordinary `Uint8Array`s) and `recipeLimits` accepts a partial bigint `RecipeLimits` policy (`recipeCount`, `instanceCount`, `recipeBytes`); `validate`, `inspect` and `render` share them under the [MAT-04a contract](./mat-04a-recipe-contract.md). Without `recipes` the request is the unchanged v1-only path, so a `.mix` v2 parent fails with `MIX_FORMAT_UNSUPPORTED_VERSION`. With `recipes`, each source is copied synchronously like the material source (bounded by `decodedBytes`) before any yield, and Core decodes the parent against exactly those recipes. A v1 source then reports `MIX_RECIPE_UNUSED`. A recipe array longer than `recipeCount` fails with `MIX_LIMIT_RECIPE_COUNT_EXCEEDED` before any entry is read. The runtime never fetches or discovers recipes.
+
+`inspect` (and a successful `validate`) adds `recipes: RecipeIdentity[]` (`id`, `recipeVersion`, `sha256`, bigint `byteLength`) only for a v2 parent. `exposedParameters` lists each public ID once, even when it drives several recipe targets. `inspectPackage` and `renderPackage` reject `recipes` options, and package v1 never carries a v2 parent. The API schema stays 3, and v1 calls send `recipes: []` to the unchanged binding. Candidate qualification runs [recipes.spec.mjs](../examples/browser-consumer/tests/recipes.spec.mjs), which renders both recipe parents and their accepted v1 graphs and requires byte-identical channels.

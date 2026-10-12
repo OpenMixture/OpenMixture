@@ -7,8 +7,9 @@ use std::collections::BTreeMap;
 use js_sys::{Array, Object, Reflect, Uint8Array};
 use mixture_core::registry::{BUILT_INS, ParameterContract, node_contract};
 use mixture_core::{
-    AdapterImageBinding, CompileRequest, Diagnostic, MaterialDocument, PreparedRender, RenderPlan,
-    ResourceLimits, SafetyLimits, ValidatedDocument,
+    AdapterImageBinding, CompileRequest, Diagnostic, MaterialDocument, PreparedRender,
+    RecipeLimits, RecipeSet, RenderPlan, ResourceLimits, SafetyLimits, ValidatedDocument,
+    decode_with_recipes,
 };
 use mixture_wgpu::{GpuContext, GpuContextOptions, PowerPreference, Renderer};
 use serde::{Deserialize, Serialize};
@@ -77,6 +78,11 @@ struct Request {
     limits: SafetyLimits,
     resource_limits: ResourceLimits,
     resources: Vec<ImageRequest>,
+    /// Captured recipe source copies; empty keeps the v1-only path. Packages never send any.
+    #[serde(default = "Array::new", with = "serde_wasm_bindgen::preserve")]
+    recipes: Array,
+    #[serde(default)]
+    recipe_limits: RecipeLimits,
 }
 
 #[derive(Deserialize)]
@@ -158,11 +164,7 @@ fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<SourceInp
         overrides,
         limits: wire.limits,
     };
-    let document = MaterialDocument::decode(source, &request.limits)
-        .and_then(|document| document.into_validated(&request.limits))
-        .map_err(|error| {
-            engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e)
-        })?;
+    let document = decode(source, &wire, &request.limits, operation)?;
     let bindings: Vec<_> = wire
         .resources
         .iter()
@@ -186,6 +188,40 @@ fn prepare(source: &[u8], options: JsValue, operation: &str) -> Result<SourceInp
         request,
         prepared,
     })
+}
+
+/// Without recipes this is the unchanged v1-only path. With recipes, Core decodes
+/// a `.mix` v2 parent against exactly the captured recipe copies.
+fn decode(
+    source: &[u8],
+    wire: &Request,
+    limits: &SafetyLimits,
+    operation: &str,
+) -> Result<ValidatedDocument, JsValue> {
+    let failure = |error: mixture_core::DocumentError| {
+        engine_error(operation, error.report().diagnostics()).unwrap_or_else(|e| e)
+    };
+    if wire.recipes.length() == 0 {
+        return MaterialDocument::decode(source, limits)
+            .and_then(|document| document.into_validated(limits))
+            .map_err(failure);
+    }
+    let mut sources = Vec::new();
+    if u64::from(wire.recipes.length()) > wire.recipe_limits.recipe_count {
+        // Let Core report the count ceiling without copying any recipe.
+        sources.resize(wire.recipes.length() as usize, Vec::new());
+    } else {
+        for value in wire.recipes.iter() {
+            let bytes = value
+                .dyn_into::<Uint8Array>()
+                .map_err(|_| invalid(operation, "Recipe sources must be captured byte arrays"))?;
+            sources.push(bytes.to_vec());
+        }
+    }
+    let slices: Vec<&[u8]> = sources.iter().map(Vec::as_slice).collect();
+    RecipeSet::decode(&slices, limits, &wire.recipe_limits)
+        .and_then(|recipes| decode_with_recipes(source, &recipes, limits, &wire.recipe_limits))
+        .map_err(failure)
 }
 
 // Validated parameter values are u32/finite float/color/enum values. Project their
@@ -233,13 +269,19 @@ fn inspection(
         "materialChannels",
         &project(&document.material_channels())?,
     )?;
+    if !document.recipe_closure().is_empty() {
+        field(&object, "recipes", &project(&document.recipe_closure())?)?;
+    }
     let parameters = Array::new();
     let mut bindings = document
         .document()
         .exposed_parameters
         .iter()
         .collect::<Vec<_>>();
-    bindings.sort_by(|a, b| a.id.cmp(&b.id));
+    bindings.sort();
+    // A public ID bound to a recipe interface parameter repeats once per target
+    // with one shared contract; project it once, using its first target.
+    bindings.dedup_by(|a, b| a.id == b.id);
     for binding in bindings {
         let node = document
             .document()
@@ -325,6 +367,12 @@ pub fn default_limits() -> Result<JsValue, JsValue> {
 #[wasm_bindgen]
 pub fn default_resource_limits() -> Result<JsValue, JsValue> {
     project(&ResourceLimits::default())
+}
+
+/// Authoritative recipe policy, projected as bigint fields.
+#[wasm_bindgen]
+pub fn default_recipe_limits() -> Result<JsValue, JsValue> {
+    project(&RecipeLimits::default())
 }
 
 /// Capture all selected pixels before the public render call returns.

@@ -8,9 +8,12 @@ export interface SafetyLimits {
   outputDimension: bigint; requestedOutputs: bigint; transientBytes: bigint;
 }
 export interface ResourceLimits { resourceCount: bigint; resourcePixels: bigint; resourceBytes: bigint; }
+export interface RecipeLimits { recipeCount: bigint; instanceCount: bigint; recipeBytes: bigint; }
+/** Exact identity and SHA-256 of one supplied recipe document. */
+export interface RecipeIdentity { id: string; recipeVersion: number; sha256: string; byteLength: bigint; }
 export interface PackageLimits { packageBytes: bigint; manifestBytes: bigint; packageBufferBytes: bigint; }
 export interface PackageOptions { limits?: Partial<SafetyLimits>; resourceLimits?: Partial<ResourceLimits>; packageLimits?: Partial<PackageLimits>; }
-export interface PackageRenderRequest extends Omit<RenderRequest, 'resources'> { packageLimits?: Partial<PackageLimits>; }
+export interface PackageRenderRequest extends Omit<RenderRequest, 'resources' | 'recipes' | 'recipeLimits'> { packageLimits?: Partial<PackageLimits>; }
 export interface PackageInspection {
   schemaVersion: 1; packageVersion: 1; packageSha256: string; packageBytes: bigint;
   sourceSha256: string; sourceBytes: bigint;
@@ -24,6 +27,8 @@ export interface RenderRequest {
   size?: [number, number]; channels?: ChannelId[];
   overrides?: Record<string, ParameterValue>; limits?: Partial<SafetyLimits>;
   resources?: ImageBinding[]; resourceLimits?: Partial<ResourceLimits>;
+  /** Explicit recipe sources for a .mix v2 parent; omit for .mix v1. Never looked up. */
+  recipes?: Source[]; recipeLimits?: Partial<RecipeLimits>;
 }
 export interface BuildInfo {
   runtimeVersion: string; apiSchemaVersion: number; engineVersion: string;
@@ -71,6 +76,8 @@ export interface RenderPlan {
 export interface Inspection {
   ok: true; diagnostics: Diagnostic[]; documentVersion: number; plan: RenderPlan;
   exposedParameters: ExposedParameter[]; materialChannels: MaterialChannel[];
+  /** Supplied recipe closure; present only for a .mix v2 parent. */
+  recipes?: RecipeIdentity[];
 }
 export type ValidationResult = Inspection | { ok: false; diagnostics: Diagnostic[] };
 export interface RenderedChannel {

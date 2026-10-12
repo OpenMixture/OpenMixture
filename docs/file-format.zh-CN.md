@@ -145,4 +145,4 @@ fn compile_parent(parent: &[u8], recipes: &[&[u8]]) -> Result<(), Box<dyn std::e
 - 对绑定接口参数的公开 ID 的覆盖会设置每个目标；一个无效值只产生一条诊断。展开节点上的诊断携带 `instanceId` 证据。
 - v1 解码器跳过 `instances` 键，对任何非 1 的版本报告 `MIX_FORMAT_UNSUPPORTED_VERSION`；带 `instances` 的版本 1 文档仍以 `MIX_FORMAT_INVALID_DOCUMENT` 失败。0.11 之前的运行时对含 `instances` 的 v2 父文档报告 `MIX_FORMAT_INVALID_DOCUMENT`。
 
-CLI 接受显式的 `--recipe` 文件（见 [CLI 契约](./cli-contract.zh-CN.md#配方文件mat-04c)）；浏览器适配是单独的 MAT-04c 工作。测试：`cargo test -p mixture-core --test recipes`；fixture：[配方](../fixtures/recipes/README.zh-CN.md)。
+CLI 接受显式的 `--recipe` 文件（见 [CLI 契约](./cli-contract.zh-CN.md#配方文件mat-04c)）；浏览器运行时接受显式的 `recipes` 源（见[浏览器 SDK](./browser-sdk.zh-CN.md#mat-04c-配方请求)）。测试：`cargo test -p mixture-core --test recipes`；fixture：[配方](../fixtures/recipes/README.zh-CN.md)。
