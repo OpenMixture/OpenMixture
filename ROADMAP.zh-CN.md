@@ -29,7 +29,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 | 规划状态 | 当前内容 |
 |---|---|
 | 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
-| 当前增量 | MAT-04 可复用配方，2026-10-12 启动，处于[入口阶段](./docs/mat-04-reusable-recipes.zh-CN.md)：已记录测得的重复和契约问题，[MAT-04a 契约](./docs/mat-04a-recipe-contract.zh-CN.md)及 ADR 0010 已提交审查；实现须等待其被接受。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 已与 @1 并存实现，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[记录范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；修订 2 的 combined-high 蝴蝶结限制不再适用。不发布。 |
+| 当前增量 | MAT-04 可复用配方，2026-10-12 启动，处于[入口阶段](./docs/mat-04-reusable-recipes.zh-CN.md)：已记录测得的重复和契约问题，[MAT-04a 契约](./docs/mat-04a-recipe-contract.zh-CN.md)及 ADR 0010 已于 2026-10-12 接受；下一步是 MAT-04b Core 实现。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 已与 @1 并存实现，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[记录范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；修订 2 的 combined-high 蝴蝶结限制不再适用。不发布。 |
 | 当前验收 | [MAT-03](./docs/evidence/mat-03-r3/README.zh-CN.md)：配方修订 3（weave-pattern@2）的六个评审预设已在记录的 GT 1030 Vulkan/DX12 与 Chrome 适配器上接受，数值／软件限制明确保留；[修订 2 记录](./docs/evidence/mat-03/README.zh-CN.md)及其 combined-high 排除作为历史保留。[MAT-01](./docs/evidence/mat-01/README.zh-CN.md) 与 [MAT-02](./docs/evidence/mat-02/README.zh-CN.md) 保持各自记录范围。不发布，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |
 

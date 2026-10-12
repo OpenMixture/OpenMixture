@@ -2,7 +2,7 @@
 
 [English](./0010-reusable-recipes.md) | 简体中文
 
-状态：2026-10-12 提交 MAT-04a 审查；随 [MAT-04a 契约](../mat-04a-recipe-contract.zh-CN.md)集成时接受。实现与验收仍属 MAT-04b–d。本 ADR 细化 [ADR 0003](./0003-readable-mix-dag.zh-CN.md)；其“一个可读 DAG”的决定对 `.mix v1` 仍然成立。
+状态：已接受，2026-10-12 随 [MAT-04a 契约](../mat-04a-recipe-contract.zh-CN.md)经 PR #99 集成。实现与验收仍属 MAT-04b–d。本 ADR 细化 [ADR 0003](./0003-readable-mix-dag.zh-CN.md)；其“一个可读 DAG”的决定对 `.mix v1` 仍然成立。
 
 ## 背景
 

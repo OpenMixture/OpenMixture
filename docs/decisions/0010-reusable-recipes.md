@@ -2,7 +2,7 @@
 
 English | [简体中文](./0010-reusable-recipes.zh-CN.md)
 
-Status: proposed for MAT-04a review, 2026-10-12. Accepted on integration of the [MAT-04a contract](../mat-04a-recipe-contract.md). Implementation and qualification remain MAT-04b–d. Refines [ADR 0003](./0003-readable-mix-dag.md), whose "one readable DAG" decision stays true for `.mix v1`.
+Status: accepted, integrated with the [MAT-04a contract](../mat-04a-recipe-contract.md) through PR #99 on 2026-10-12. Implementation and qualification remain MAT-04b–d. Refines [ADR 0003](./0003-readable-mix-dag.md), whose "one readable DAG" decision stays true for `.mix v1`.
 
 ## Context
 
