@@ -1,0 +1,93 @@
+{
+  "plan": "mat-04-reusable-recipes",
+  "planVersion": 1,
+  "contract": "docs/mat-04a-recipe-contract.md",
+  "frozen": "2026-10-12",
+  "recipes": [
+    {
+      "id": "masked-layer-surface",
+      "recipeVersion": 1,
+      "nodes": ["constant-color@1", "constant-scalar@1", "blend@1", "scalar-mask-blend@1"],
+      "inputs": {"mask": 2, "overColor": 1, "overRoughness": 1},
+      "outputs": ["baseColor", "roughness"],
+      "parameters": {"underColor": 1, "underRoughness": 1}
+    },
+    {
+      "id": "brick-structure",
+      "recipeVersion": 1,
+      "nodes": ["brick-pattern@1", "brick-pattern@1", "brick-pattern@1"],
+      "fixed": {"mask.variation": 0},
+      "inputs": {},
+      "outputs": ["height", "color", "mask"],
+      "parameters": {
+        "seed": 3, "columns": 3, "rows": 3, "rowOffset": 3, "mortarX": 3, "mortarY": 3, "bevel": 3,
+        "heightVariation": 1, "colorVariation": 1
+      }
+    },
+    {
+      "id": "weave-structure",
+      "recipeVersion": 1,
+      "nodes": ["weave-pattern@2", "weave-pattern@2", "weave-pattern@2"],
+      "fixed": {"warpShare.mode": "warp-share", "coverage.mode": "coverage", "height.mode": "height"},
+      "inputs": {},
+      "outputs": ["warpShare", "coverage", "height"],
+      "parameters": {
+        "warpCount": 3, "weftCount": 3, "warpWidth": 3, "weftWidth": 3, "bevel": 3, "crown": 3, "underRatio": 3
+      }
+    },
+    {
+      "id": "directional-grain",
+      "recipeVersion": 1,
+      "nodes": ["fractal-noise@2", "transform-2d@1", "levels@1", "gradient-map@1"],
+      "inputs": {},
+      "outputs": ["grain", "color"],
+      "parameters": {"seed": 1, "quarterTurns": 1, "darkColor": 1, "color": 1},
+      "required": ["seed"]
+    }
+  ],
+  "parents": [
+    {
+      "material": "brick-paving",
+      "path": "fixtures/materials/brick-paving/material-recipes.mix",
+      "replaces": "fixtures/materials/brick-paving/material.mix",
+      "qualificationPlan": "fixtures/materials/brick-paving/qualification-plan.json",
+      "instances": {"brick-structure": 1, "masked-layer-surface": 1},
+      "exposed": {
+        "v1": 24,
+        "v2": ["seed", "columns", "rows", "rowOffset", "mortarX", "mortarY", "bevel", "heightVariation", "colorVariation", "normalStrength"]
+      },
+      "conceptualControls": {"variation": ["heightVariation", "colorVariation"]},
+      "maxDescriptorPeakBytes": 469762048
+    },
+    {
+      "material": "woven-fabric",
+      "path": "fixtures/materials/woven-fabric/material-recipes.mix",
+      "replaces": "fixtures/materials/woven-fabric/material.mix",
+      "qualificationPlan": "fixtures/materials/woven-fabric/qualification-plan.json",
+      "instances": {"weave-structure": 1, "directional-grain": 2, "masked-layer-surface": 1},
+      "exposed": {
+        "v1": 33,
+        "v2": [
+          "warpSeed", "weftSeed", "warpCount", "weftCount", "warpWidth", "weftWidth", "bevel", "crown", "underRatio",
+          "warpDark", "warpColor", "weftDark", "weftColor", "backingColor", "roughnessMin", "yarnRoughness",
+          "backingRoughness", "relief", "normalStrength"
+        ]
+      },
+      "conceptualControls": {},
+      "maxDescriptorPeakBytes": 536870912
+    }
+  ],
+  "gates": [
+    {"id": "structural-equivalence", "runtime": "cpu", "scope": "defaults and every frozen case of both parents"},
+    {"id": "pixel-identity", "runtime": "gpu", "comparison": "byte-identical", "adapters": ["pinned SwiftShader (CI)", "NVIDIA GeForce GT 1030 Vulkan", "NVIDIA GeForce GT 1030 DX12"], "chrome": ["default", "one varied case per family"]},
+    {"id": "budgets", "rule": "each parent within its material's frozen maxDescriptorPeakBytes and timing budgets; record changes against v1"},
+    {"id": "controls", "rule": "conceptual control requests map onto the v2 public IDs and reproduce pixel-identity"},
+    {"id": "isolation", "rule": "overriding one directional-grain instance leaves the other instance's expanded nodes unchanged"},
+    {"id": "negative-corpus", "rule": "one focused fixture per contract rule"},
+    {"id": "compatibility", "rule": "v1 fixtures, plan-hash snapshots, goldens, receipts and CLI v1 reports unchanged; v1 entry points and package v1 reject v2"}
+  ],
+  "presets": {
+    "brick-paving": ["regular", "staggered", "varied"],
+    "woven-fabric": ["plain", "varied", "combined-low"]
+  }
+}
