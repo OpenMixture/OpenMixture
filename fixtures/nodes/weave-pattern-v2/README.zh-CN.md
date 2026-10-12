@@ -8,6 +8,6 @@
 
 硬件执行 256²、1024²、2048²、257×129；实际 Cpu 对 2048² 明记 notRunOnSoftware。奇数 S/P 为观察，不是通过。MIXTURE_NODE_EVIDENCE_DIR 下记录 weave-pattern-v2-probes.json 与 core-probes；门槛和失败停止规则见冻结计划。公开 Native/browser 检查脚本为 node scripts/browser-runtime/check-weave-v2.mjs <candidate目录> <新输出目录>，差 ≤1/255，重复精确。
 
-这些是节点结构／数值证据，不是织物 PBR／人工接受。@2 材质修订与 A–D 再验收仍待后续 PR；不改 @1 goldens。
+这些是节点结构／数值证据，不是织物 PBR／人工接受；不改 @1 goldens。织物材质此后已作为配方修订 3 迁移到 @2，并完成 A–D 再验收；见[修订 3 验收记录](../../../docs/evidence/mat-03-r3/README.zh-CN.md)。
 
-与保留的 @1 可见性公式不同，@2 归属不依赖 crown 和 underRatio；这两个控制只影响高度。后续 PR 迁移织物配方时需复核材质控制隔离预期，本节点 PR 不执行迁移。
+与保留的 @1 可见性公式不同，@2 归属不依赖 crown 和 underRatio；这两个控制只影响高度。织物配方修订已据此记录带日期的控制隔离修订（crown/underRatio 只改变 height 和 normal）。

@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "3436eef44e757ea8782517ed529e811627cbbb29",
+  "note": "Derived from the clean revision-3 Stage B probe output; raw logs and per-row JSONL remain in ignored tmp/requal/. Odd-size warp-share rows are observation-only (amendment 2026-10-04-odd-share-observation-only), never passes.",
+  "backends": {
+    "vulkan": {
+      "adapter": {
+        "name": "NVIDIA GeForce GT 1030",
+        "backend": "Vulkan",
+        "driver": "NVIDIA",
+        "driverInfo": "582.66"
+      },
+      "libProbes": [
+        "ok",
+        "6",
+        "0"
+      ],
+      "noisePeriodicity": [
+        "ok",
+        "1",
+        "0"
+      ],
+      "crossingsPassed": 640,
+      "controlsPassed": [
+        "warpColor",
+        "weftColor",
+        "backingColor",
+        "yarnRoughness",
+        "backingRoughness",
+        "normalStrength",
+        "relief",
+        "warpSeed",
+        "weftSeed",
+        "warpCount",
+        "weftCount",
+        "warpWidth",
+        "weftWidth",
+        "bevel",
+        "crown",
+        "underRatio"
+      ],
+      "weaveTranslation": {
+        "rows": 720,
+        "gatedComparisons": 672,
+        "gatedAllPassed": true,
+        "observationOnlyRows": 48,
+        "oddShareObservation": {
+          "plain": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "varied": {
+            "maxHalfSteps": 1,
+            "differingComponents": 432,
+            "maxVisibleWeightDifference": 0.00024700164794921875
+          },
+          "no-detail": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "flat": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "warp-seed": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "weft-seed": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "combined-low": {
+            "maxHalfSteps": 1,
+            "differingComponents": 317,
+            "maxVisibleWeightDifference": 0.00006103515625
+          },
+          "combined-high": {
+            "maxHalfSteps": 7,
+            "differingComponents": 2615,
+            "maxVisibleWeightDifference": 0.00048828125
+          },
+          "neutral-normal": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "constant-low": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "constant-high": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "max-normal": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          }
+        }
+      }
+    },
+    "dx12": {
+      "adapter": {
+        "name": "NVIDIA GeForce GT 1030",
+        "backend": "Dx12",
+        "driver": "32.0.15.8266",
+        "driverInfo": ""
+      },
+      "libProbes": [
+        "ok",
+        "6",
+        "0"
+      ],
+      "noisePeriodicity": [
+        "ok",
+        "1",
+        "0"
+      ],
+      "crossingsPassed": 640,
+      "controlsPassed": [
+        "warpColor",
+        "weftColor",
+        "backingColor",
+        "yarnRoughness",
+        "backingRoughness",
+        "normalStrength",
+        "relief",
+        "warpSeed",
+        "weftSeed",
+        "warpCount",
+        "weftCount",
+        "warpWidth",
+        "weftWidth",
+        "bevel",
+        "crown",
+        "underRatio"
+      ],
+      "weaveTranslation": {
+        "rows": 720,
+        "gatedComparisons": 672,
+        "gatedAllPassed": true,
+        "observationOnlyRows": 48,
+        "oddShareObservation": {
+          "plain": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "varied": {
+            "maxHalfSteps": 1,
+            "differingComponents": 432,
+            "maxVisibleWeightDifference": 0.00024700164794921875
+          },
+          "no-detail": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "flat": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "warp-seed": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "weft-seed": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "combined-low": {
+            "maxHalfSteps": 1,
+            "differingComponents": 317,
+            "maxVisibleWeightDifference": 0.00006103515625
+          },
+          "combined-high": {
+            "maxHalfSteps": 7,
+            "differingComponents": 2615,
+            "maxVisibleWeightDifference": 0.00048828125
+          },
+          "neutral-normal": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "constant-low": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "constant-high": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          },
+          "max-normal": {
+            "maxHalfSteps": 1,
+            "differingComponents": 639,
+            "maxVisibleWeightDifference": 0.0004506111145019531
+          }
+        }
+      }
+    }
+  }
+}

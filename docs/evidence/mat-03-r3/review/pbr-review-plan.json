@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen",
+  "stage": "C",
+  "material": "woven-fabric",
+  "recipeRevision": 2,
+  "humanAccepted": false,
+  "materialAccepted": false,
+  "cases": [
+    "plain",
+    "varied",
+    "combined-low",
+    "combined-high",
+    "warp-seed",
+    "weft-seed"
+  ],
+  "size": [
+    1024,
+    1024
+  ],
+  "channels": [
+    "baseColor",
+    "normal",
+    "roughness",
+    "metallic",
+    "height"
+  ],
+  "camera": {
+    "projection": "orthographic",
+    "viewDirection": [
+      0,
+      0,
+      1
+    ],
+    "canvas": [
+      600,
+      600
+    ],
+    "display": [
+      300,
+      300
+    ],
+    "positionScale": 2.5
+  },
+  "views": [
+    {
+      "shape": "plane",
+      "tiling": 1,
+      "zoom": 1
+    },
+    {
+      "shape": "plane",
+      "tiling": 3,
+      "zoom": 1
+    },
+    {
+      "shape": "sphere",
+      "tiling": 1,
+      "zoom": 1
+    },
+    {
+      "shape": "sphere",
+      "tiling": 3,
+      "zoom": 1
+    },
+    {
+      "shape": "plane",
+      "tiling": 1,
+      "zoom": 4
+    },
+    {
+      "shape": "sphere",
+      "tiling": 1,
+      "zoom": 4
+    }
+  ],
+  "lights": {
+    "key": {
+      "direction": [
+        -0.4,
+        0.6,
+        1
+      ],
+      "intensity": 3
+    },
+    "fill": {
+      "direction": [
+        0.8,
+        0.1,
+        0.5
+      ],
+      "intensity": 0.7
+    },
+    "ambientBaseColor": 0.12
+  },
+  "shading": {
+    "model": "MAT-01 dielectric GGX",
+    "f0": 0.04,
+    "metallic": 0,
+    "roughnessClamp": [
+      0.04,
+      1
+    ],
+    "toneMapping": "clamp((hdr*(2.51*hdr+0.03))/(hdr*(2.43*hdr+0.59)+0.14),0,1)",
+    "displayGamma": 2.2,
+    "sampler": "linear repeat, explicit mip level 0",
+    "baseColorTexture": "rgba8unorm-srgb",
+    "dataTextures": "rgba8unorm",
+    "heightDisplacement": false
+  },
+  "sanity": {
+    "roughness": [
+      0,
+      1,
+      0
+    ],
+    "sameSetting": "exact screenshot bytes",
+    "differentSetting": "different screenshot bytes",
+    "includedInMaterialSheets": false
+  },
+  "producer": {
+    "comparison": "successful clean-source check-woven.mjs output",
+    "identities": [
+      "revision",
+      "build",
+      "sourceSha256",
+      "qualificationPlanSha256",
+      "builderSha256",
+      "request manifest",
+      "packageSha256"
+    ],
+    "allChannelsRequired": true
+  },
+  "scope": "consumer visualization of existing maps; no graph execution; separate human decision; Stage D retention/acceptance pending"
+}

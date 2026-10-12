@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "3436eef44e757ea8782517ed529e811627cbbb29",
+  "sourceClean": true,
+  "sourceDescription": "Branch mat-03-weave-v2-requal at the commit that froze recipe revision 3, its two dated Stage B amendments and the version-aware probes; built on PR #91 (weave-pattern@2).",
+  "recipeRevision": 3,
+  "materialAccepted": true,
+  "humanDecision": "human-decision.json",
+  "runtime": {
+    "rust": "0.10.0",
+    "browser": "0.10.0-alpha.0",
+    "buildId": "sha256:d22262433a61cb9ed6b85e3e2d878906ea0b902d4cab2288117402864f33ff7a",
+    "published": false
+  },
+  "adapters": [
+    "NVIDIA GeForce GT 1030 / Vulkan (NVIDIA 582.66)",
+    "NVIDIA GeForce GT 1030 / DX12",
+    "Chrome 155.0.8059.40 (browser candidate)"
+  ],
+  "ci": "PR CI on the integrated revision is recorded in the PR; SwiftShader covers 256², 1024² and 257×129 under amendment 4. Software runs never qualify hardware pixels.",
+  "retention": "Git keeps the six reviewed sheets, preview receipt, every bound 1024² input map and the machine receipts. Full 255-image comparison sets, logs, per-row Stage B JSONL and archives stay in ignored tmp/requal/ and are not durable.",
+  "files": {
+    "machine/browser-qualification.json": "da985215fa0e3e79ed59497d14db27c7ce24b39730c28775e35be8893f76e83f",
+    "machine/comparison.json": "b42b7ba9d3fda1d10201508d90250bc92d0c5ba54052e418209c517ba6c9c090",
+    "machine/native-dx12.json": "b5bf92519a0b03fcc726352e533b7e4315eb0bcf168399b6920f25664742c34c",
+    "machine/native-vulkan-vs-chrome.json": "37cc5b20eb6067629c52ecd47fa6806041964e70ebe6bd7a91c2ba02ead4da3f",
+    "machine/native-vulkan.json": "b11c0f6d74274cde3d5b496f175176750ca9906df7c3232d3fc83c0d05b59ea3",
+    "machine/requests.json": "0bd55a2c0068836d6c8220f27fc1d6bef664eea3c1a4f385fb83f4ff2f1de173",
+    "machine/stage-b-summary.json": "6cda2bdb657651967764216e174132ec4a10f117d5cb62404eff5186896086cb",
+    "machine/woven-browser.json": "feec706973f9e1fa9dac4423c5eea1bb6d5992986ee385e4eb61247909138140"
+  }
+}

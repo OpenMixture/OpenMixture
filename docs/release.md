@@ -2,7 +2,7 @@
 
 English | [简体中文](./release.zh-CN.md)
 
-**Working candidate:** Rust 0.10.0 / browser 0.10.0-alpha.0 implements the weave-pattern@2 node increment in progress: 18 latest types /20 supported identities /17 kernels. Retain @1 and the 0.9 acceptance below. An @2 woven revision and A–D requalification remain later work; nothing published.
+**Qualified, unpublished candidate:** Rust 0.10.0 / browser 0.10.0-alpha.0 adds weave-pattern@2 beside @1 (18 latest types / 20 supported identities / 17 kernels) and is qualified for woven recipe revision 3 within the [revision-3 acceptance record](./evidence/mat-03-r3/README.md): GT 1030 Vulkan/DX12 Stage A/B gates, Native/Chrome ≤1/255 and a human decision bound to the six reviewed sheets. The 0.9 acceptance below stays as history; nothing is published.
 
 **MAT-02 qualified candidate (2026-10-02):** Unpublished Rust 0.8.0 / browser 0.8.0-alpha.0 at main `6b82a8a525937d8e6e4ba72972f696dee3b88d94` is qualified for painted metal and PERF-MAT texture reuse within the [MAT-02 record](./evidence/mat-02/README.md): all six post-merge checks, exact SwiftShader Native/Chromium parity, GT 1030 Vulkan/DX12 versus Chrome within 1/255, frozen budgets and a retained human decision. This records the accepted MAT-02 baseline. Nothing is published; published browser 0.3.0-alpha.0 is unchanged, and the qualified scope covers only the recorded adapters.
 

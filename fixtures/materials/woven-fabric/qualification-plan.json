@@ -4,7 +4,7 @@
   "runtimeImplemented": true,
   "materialAccepted": false,
   "materialId": "woven-fabric",
-  "recipeRevision": 2,
+  "recipeRevision": 3,
   "stage": "A-public-material-matrix",
   "contract": "docs/mat-03-woven-surfaces.md",
   "recipe": "graph-proposal.json",
@@ -748,7 +748,7 @@
       "Stage D"
     ]
   },
-  "previousPlan": "qualification-plan-v1.json",
+  "previousPlan": "qualification-plan-v2.json",
   "structuralProbes": {
     "status": "frozen",
     "stage": "B",
@@ -1419,6 +1419,63 @@
           "assumptions": "582 rows: nine complete 60-row cases plus constant-low 15/15/12 rows at 256/1024/2048. Charge the entire 44m07 interval to that work; add main normal 9-15 minutes. Per-size dispatch/compilation/readback and other probes can differ; CI must verify target below unchanged 45 minutes."
         },
         "unchanged": "All earlier rules/amendments, tolerances, cases, defaults, Stage A size/timing/budget gates, production shaders/runtime/API and workflow timeout remain unchanged"
+      },
+      {
+        "id": "2026-10-10-weave-v2-crossing-oracle",
+        "date": "2026-10-10",
+        "decision": "Recipe revision 3 replaces the three weave-pattern@1 instances with weave-pattern@2 (maintainer-approved candidate C, PR #90/#91). Only the node version changes; topology, parameters, defaults, cases, sizes, thresholds, budgets and every other Stage A/B rule stay identical.",
+        "reason": "The frozen crossing assertion names the four-tap upper-yarn height oracle, which is the weave-pattern@1 height composition (visibility-weighted heights). weave-pattern@2 defines stored height as the continuous stack Zw+Zf-Zw*Zf with Zw=Aw*hw and Zf=Af*hf. Evaluating the @1 oracle against @2 pixels would test the wrong contract, not a tighter one.",
+        "before": "stored H matches four-tap upper oracle within 1/1024 and exceeds every lower tap",
+        "after": {
+          "nodeVersion": 2,
+          "oracle": "four-tap mean of Zw+Zf-Zw*Zf, using the frozen weave-pattern@2 occupancy Aw/Af and heights hw/hf at the same four UVs",
+          "toleranceAbsolute": 0.0009765625,
+          "unchanged": [
+            "stored H exceeds every lower tap",
+            "upper>lower at each center tap",
+            "even i+j: S=1; odd: S=0; C=1",
+            "gap H=C=0,S=0.5",
+            "three identical-geometry instances"
+          ]
+        },
+        "scope": "Applies only when the material declares weave-pattern@2; revision 1/2 receipts and the @1 oracle remain unchanged history."
+      },
+      {
+        "id": "2026-10-10-weave-v2-isolation",
+        "date": "2026-10-10",
+        "discoveredBy": "First revision-3 Stage B run at 85a72e5 on GT 1030 Vulkan and DX12: graph_gpu_woven_control_isolation failed with \"control crown did not change baseColor\". All other Stage B probes passed.",
+        "reason": "The frozen isolation variants list baseColor and roughness as changed by crown and underRatio. That is weave-pattern@1 behaviour: @1 selects visibility by comparing transverse-profile heights, so profile shape leaks into coverage-weighted share and colour. The approved weave-pattern@2 contract (candidate C, PR #90/#91) selects ownership from cell parity and occupancy only; crown and underRatio change hw/hf and therefore only the stored height and the normal derived from it.",
+        "derivedFrom": "the approved weave-pattern@2 formulas, not from observed pixels",
+        "before": {
+          "crown": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ],
+          "underRatio": [
+            "baseColor",
+            "roughness",
+            "height",
+            "normal"
+          ]
+        },
+        "after": {
+          "nodeVersion": 2,
+          "changed": {
+            "crown": [
+              "height",
+              "normal"
+            ],
+            "underRatio": [
+              "height",
+              "normal"
+            ]
+          },
+          "exactlyUnchanged": "baseColor, roughness and metallic channels, plus the coverage and warp-share weave fields, must be byte-identical to the default render",
+          "strictness": "stricter than before: two channels move from \"must change\" to \"must be exactly unchanged\"; no tolerance is introduced"
+        },
+        "scope": "Applies only when the material declares weave-pattern@2; every other isolation variant and the @1 expectations remain unchanged history."
       }
     ]
   }

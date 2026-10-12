@@ -2,6 +2,14 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+## Current status — material recipe revision 3 (weave-pattern@2), accepted 2026-10-10
+
+Material recipe revision 3 is **accepted within the recorded scope**; see the [revision-3 acceptance record](../../../docs/evidence/mat-03-r3/README.md). It replaces the three weave-pattern@1 instances with the approved [weave-pattern@2](../../../docs/weave-pattern-v2-design.md) and changes nothing else: topology, parameters, defaults (underRatio 0.25, crown 0), cases, sizes, thresholds and budgets are those of revision 2, which is retained byte-for-byte as `qualification-plan-v2.json`, `material-v2.mix` and `graph-proposal-v2.json`. This "material recipe revision 3" (the plan's `recipeRevision`) is unrelated to the historical existing-node design rounds titled "revision 3/4" further below.
+
+Two dated Stage B amendments make probe expectations follow the declared weave version, derived from the approved @2 formulas: the crossing height oracle becomes the four-tap @2 stack `Zw+Zf−Zw·Zf` (tolerance unchanged at 1/1024), and crown/underRatio may change only height and normal while baseColor, roughness, metallic, coverage and warp-share stay byte-identical (stricter than @1). On GT 1030 Vulkan and DX12 every Stage A row and Stage B probe passes; Native/Chrome stays within 1/255; odd-size translated warp-share remains observation-only (max 7 half steps at combined-high, 1 elsewhere). The maintainer accepted all six review sheets ("Accept revision 3"); the revision-2 combined-high bow-tie limitation no longer applies. Nothing is published.
+
+The sections below keep their original revision-2 wording as history.
+
 MAT-03 recipe revision 2 is **accepted within the recorded scope**; see the [Stage D evidence and human decision](../../../docs/evidence/mat-03/README.md). The accepted visual presets are plain, varied, warp-seed, weft-seed and combined-low. Combined-high and similar bow-tie combinations are outside the visual quality guarantee. The frozen plan, ranges, node semantics and historical false acceptance flags remain unchanged; materialAccepted=true belongs to the new acceptance record. weave-pattern@2 is the next follow-up (over-yarn visibility across its own crossing width), not started. No package is published.
 
 Stages A public matrix, B bounded structural probes, C maintainer decision on exact images and D retained evidence support that scope, not arbitrary control combinations. Original drafts, revision-1 files, the frozen revision-2 plan and source-bound historical observations below remain unchanged. PR #87 was closed without merging; the material underRatio range remains 0.25..0.75.

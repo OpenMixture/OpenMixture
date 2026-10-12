@@ -2,6 +2,14 @@
 
 [English](./mat-03-woven-surfaces.md) | 简体中文
 
+## 当前状态 — 材质配方修订 3（weave-pattern@2），2026-10-10 验收通过
+
+材质配方修订 3 已在**记录范围内验收通过**；详见[修订 3 验收记录](./evidence/mat-03-r3/README.zh-CN.md)。它把三个 weave-pattern@1 实例换成已批准的 [weave-pattern@2](./weave-pattern-v2-design.zh-CN.md)，其余不变：拓扑、参数、默认值（underRatio 0.25、crown 0）、用例、尺寸、阈值和预算均与修订 2 相同；修订 2 按字节保留为 `qualification-plan-v2.json`、`material-v2.mix` 和 `graph-proposal-v2.json`。这里的“材质配方修订 3”（计划中的 `recipeRevision`）与下文标题为“修订 3/4”的历史既有节点设计轮次无关。
+
+两条带日期的阶段 B 修订让探针预期跟随所声明的 weave 版本，均由已批准的 @2 公式推导：交叉高度参照改为四采样 @2 叠放 `Zw+Zf−Zw·Zf`（容差仍为 1/1024）；crown/underRatio 只能改变 height 和 normal，baseColor、roughness、metallic、coverage 和 warp-share 必须逐字节不变（比 @1 更严格）。在 GT 1030 Vulkan 与 DX12 上，所有阶段 A 行和阶段 B 探针均通过；Native／Chrome 差异不超过 1/255；奇数尺寸平移的 warp-share 仍仅作观察（combined-high 最大 7 个半精度步，其余为 1）。维护者接受了全部六张评审图（"Accept revision 3"）；修订 2 的 combined-high 蝴蝶结限制不再适用。未发布任何包。
+
+下文各节保留其原始的修订 2 措辞，作为历史。
+
 MAT-03 配方修订 2 已在**记录范围内验收通过**；详见[阶段 D 证据及人工决定](./evidence/mat-03/README.zh-CN.md)。视觉接受预设为 plain、varied、warp-seed、weft-seed、combined-low；combined-high 及类似蝴蝶结形组合不在视觉质量保证内。冻结计划、范围、节点语义和历史 false 接受标记均不变；materialAccepted=true 仅写入新的接受记录。weave-pattern@2 的设计与测量已由维护者启动（让上层纱线在交叉处自己的整个宽度上可见）；参见下方独立提案，尚未授权实现。未发布任何包。
 
 当前默认值仍为 underRatio=0.25、crown=0。plain 残余收窄 min=0.875；原阶段 A/B/C 结果及下文待定表述保留其当时身份。2026-10-06（Asia/Shanghai）维护者先提出 "Accept with a narrower range"，随后因 PR #87 测量否定单独收窄 underRatio 的充分性而撤销；最终决定为 "Accept now, fix in @2 later (Recommended)"。原六张评审图在干净 6eb52a6 生成，逐字节保留；新的机器验收绑定干净 main 9dc8c1a。奇数尺寸平移 share 仅作观察（最多 27 half 步、|ΔP|≈0.12 个 8-bit 级）；软件省略 2048²，硬件完整矩阵保留该尺寸。仅验收记录的适配器。
