@@ -25,6 +25,7 @@
 [原生 CLI 报告与退出码](./cli-contract.zh-CN.md)定义 PR-012 JSON 字段存在规则／类型、完整人类可读上下文、独立进程测试及部分写入行为。
 [GPU 失败原因与上下文生命周期](./gpu-failures.zh-CN.md)定义 PR-013 丢失／OOM 分类、首个错误优先规则、受保护清理及独立销毁检查。
 [开发指南](./development.zh-CN.md)说明已实现命令和验证范围。
+[可复用配方](./mat-04-reusable-recipes.zh-CN.md)以已验收材质中测得的重复、MAT-04a 契约须回答的问题及工作项顺序启动 MAT-04；尚未选定格式。
 [可移植资产打包](./m6b-portable-assets.zh-CN.md)定义 M6-B 的实测分发要求及格式/实现/验收顺序，CPU codec、CLI/浏览器适配及有界验收均已实现并集成。
 [浏览器 SDK 契约](./browser-sdk.zh-CN.md)定义单一 npm 运行时、显式初始化、自有输出、失败及独立产品消费。实现指南与 Alpha 收尾区分历史检查点、有界 M5 验收及已完成的首次交付。
 [诊断与安全限制](./diagnostics.zh-CN.md)定义 PR-002 公共 API、JSON 契约和共享 CLI 退出码策略。
