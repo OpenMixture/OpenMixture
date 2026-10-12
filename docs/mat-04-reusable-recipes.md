@@ -42,6 +42,14 @@ The MAT-04a contract and its ADR must answer each item before any implementation
 9. **Package compatibility.** `.mixpack v1` holds exactly one `material.mix`. Decide whether recipe closures travel in packages now (which requires a new package version under ADR 0008's rules) or stay a loose-input feature first. Package v1 bytes keep their meaning either way.
 10. **Ownership.** Core owns decoding, validation, expansion and hashing; `mixture-asset` owns any package change; wgpu is unchanged unless the contract proves otherwise; CLI, WASM and JS stay thin. No new crate without an actual boundary.
 
+## Maintainer direction for MAT-04a (2026-10-12)
+
+The maintainer selected three directions for the contract to specify; they narrow questions 1, 7 and 9 and are not yet a contract:
+
+- **Separate recipe documents.** A recipe is its own document with an explicit identity and version, supplied by the caller as bytes. A parent graph references it from a new document version; `.mix v1` keeps its exact meaning. Inline definitions are not part of the first slice.
+- **Loose input only.** `.mixpack v1` is unchanged and recipe closures do not travel in packages in this increment. A later package version needs its own demonstrated delivery case.
+- **No nesting.** A recipe cannot instantiate another recipe; expansion depth is exactly one. Nesting needs a later measured case.
+
 ## Work items and exit gates
 
 | Item | Deliverable | Required exit evidence |
