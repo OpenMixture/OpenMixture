@@ -83,6 +83,7 @@ pub use document::{
 pub use recipe::{
     Instance, ParameterTarget, ParentDocument, RECIPE_FORMAT_VERSION, RecipeDocument,
     RecipeIdentity, RecipeInput, RecipeLimits, RecipeOutput, RecipeParameter, RecipeSet,
+    decode_with_recipes,
 };
 pub use validation::{InputSource, MaterialChannel, ValidatedDocument};
 

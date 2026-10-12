@@ -4,8 +4,8 @@ use super::{
     png_output::{encode_png, encoding_error},
 };
 use mixture_core::{
-    Diagnostic, DiagnosticReport, InputSource, OutputChannel, compile, plan::PlanHash,
-    registry::PortKind,
+    Diagnostic, DiagnosticReport, InputSource, OutputChannel, RecipeIdentity, compile,
+    plan::PlanHash, registry::PortKind,
 };
 use mixture_wgpu::{
     ContextReport, GpuContext, GpuContextOptions, OutputEncoding, RenderReport, Renderer,
@@ -20,12 +20,12 @@ use std::{
 };
 const HELP:&str="Usage: mixture render <file.mix> --out <directory> [--json]
                       [--size <pixels|widthxheight>] [--output <channel,...>]
-                      [--set <publicId=JSON>]...
+                      [--set <publicId=JSON>]... [--recipe <file.mixrecipe>]...
                       [--backend auto|vulkan|metal|dx12|none]
                       [--power-preference high-performance|low-power] [--software]
 
 Compile the source before acquiring a GPU, then execute its RenderPlan through wgpu.
-Default: 64x64, baseColor only. Compile options match inspect --plan.
+Default: 64x64, baseColor only. Compile and --recipe options match inspect --plan.
 Write <channel>.png for each requested channel in canonical channel order.
 Create the output directory if needed; replace same-named output files.
 Color RGB is sRGB, alpha linear; scalar/normal PNGs are linear (gamma 1.0).
@@ -58,6 +58,9 @@ struct Report {
     input: String,
     output_directory: String,
     plan_hash: Option<PlanHash>,
+    /// Supplied recipe identities; present only for a v2 parent.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    recipes: Vec<RecipeIdentity>,
     context: Option<ContextReport>,
     execution: Option<RenderReport>,
     outputs: Vec<OutputFile>,
@@ -81,6 +84,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         input: options.path.to_string_lossy().into_owned(),
         output_directory: options.out.to_string_lossy().into_owned(),
         plan_hash: None,
+        recipes: Vec::new(),
         context: None,
         execution: None,
         outputs: Vec::new(),
@@ -91,7 +95,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         Ok(()) => 0,
         Err((diagnostics, exit)) => {
             report.diagnostics = DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
-                d.document_path = Some(report.input.clone());
+                d.document_path.get_or_insert_with(|| report.input.clone());
                 d
             }));
             exit
@@ -116,7 +120,9 @@ fn execute(options: Options, report: &mut Report) -> Result<(), (Vec<Diagnostic>
         .compile
         .request_ref()
         .map_err(|e| (e.report().diagnostics().to_vec(), 2))?;
-    let document = super::document_io::load(&options.path, &request.limits)?;
+    let document =
+        super::document_io::load(&options.path, &request.limits, options.compile.recipes())?;
+    report.recipes = document.recipe_closure().to_vec();
     let plan = compile(&document, &request).map_err(|e| (e.report().diagnostics().to_vec(), 2))?;
     execute_plan(options, report, plan, None)
 }
@@ -193,7 +199,7 @@ fn parse(arguments: &[OsString]) -> Result<Options, String> {
         }
         if options && arg.to_str().is_some_and(|s| s.starts_with('-')) {
             let flag = arg.to_str().ok_or("Option names must be UTF-8.")?;
-            if flag != "--set" && !seen.insert(flag) {
+            if !matches!(flag, "--set" | "--recipe") && !seen.insert(flag) {
                 return Err(format!("Duplicate {flag} option."));
             }
             match flag {
@@ -266,6 +272,7 @@ pub(super) fn prepared(
         input: input.to_string_lossy().into_owned(),
         output_directory: out.to_string_lossy().into_owned(),
         plan_hash: None,
+        recipes: Vec::new(),
         context: None,
         execution: None,
         outputs: Vec::new(),

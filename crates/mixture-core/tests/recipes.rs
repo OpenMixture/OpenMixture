@@ -609,3 +609,28 @@ fn acceptance_plan_matches_the_accepted_materials_it_replaces() {
     // The fixture recipe is the contract's example, unchanged.
     assert!(set(&[masked()]).is_ok());
 }
+
+#[test]
+fn decode_with_recipes_dispatches_by_version_and_keeps_closures_exact() {
+    let (limits, recipe_limits) = (SafetyLimits::default(), RecipeLimits::default());
+    let recipes = set(&[masked()]).unwrap();
+    let decode = |source: &Value, recipes: &RecipeSet| {
+        mixture_core::decode_with_recipes(&bytes(source), recipes, &limits, &recipe_limits)
+    };
+    assert_eq!(decode(&parent(), &recipes).unwrap().document().version, 2);
+    let v1 = decode(&flattened(), &recipes).unwrap_err();
+    assert_eq!(codes(&v1), ["MIX_RECIPE_UNUSED"]);
+    assert_eq!(
+        decode(&flattened(), &RecipeSet::default())
+            .unwrap()
+            .document()
+            .version,
+        1
+    );
+    let mut future = parent();
+    future["version"] = json!(3);
+    assert_eq!(
+        codes(&decode(&future, &recipes).unwrap_err()),
+        ["MIX_FORMAT_UNSUPPORTED_VERSION"]
+    );
+}

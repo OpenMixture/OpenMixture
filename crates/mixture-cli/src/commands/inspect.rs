@@ -1,5 +1,5 @@
 //! Thin CPU-only plan compilation and presentation using the public core API.
-use mixture_core::{DiagnosticReport, RenderPlan, compile, plan::PassOrigin};
+use mixture_core::{DiagnosticReport, RecipeIdentity, RenderPlan, compile, plan::PassOrigin};
 use serde::Serialize;
 use std::{
     ffi::OsString,
@@ -10,14 +10,17 @@ use std::{
 
 const HELP: &str = "Usage: mixture inspect <file.mix> --plan [--json]
                        [--size <pixels|widthxheight>] [--output <channel,...>]
-                       [--set <publicId=JSON>]...
+                       [--set <publicId=JSON>]... [--recipe <file.mixrecipe>]...
 
 Compile a deterministic RenderPlan without initializing a GPU or changing the file.
 Defaults: 64x64, baseColor only, no overrides, standard core safety limits.
 Channels: baseColor, normal, roughness, metallic, height, ambientOcclusion, opacity, emissive.
 --output accepts a comma-separated list of unique channels; its order does not matter.
 --set accepts a declared exposed ID and an exact JSON value, e.g. --set 'frequency=16'.
+--recipe supplies one recipe file; repeat it for the exact closure of a .mix v2 parent.
+Without --recipe the source must be .mix v1. Recipe files are never discovered.
 --json writes {schemaVersion, plan, ok, diagnostics}; plan is null on failure.
+A compiled v2 parent adds recipes: [{id, recipeVersion, sha256, byteLength}].
 Exit 0: compiled; 1: file/report I/O failure; 2: invalid invocation, source, or request.
 Use -- before a path starting with '-'. --plan is required.";
 
@@ -31,6 +34,9 @@ struct Options {
 struct Report {
     schema_version: u32,
     plan: Option<RenderPlan>,
+    /// Supplied recipe identities; present only for a v2 parent.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    recipes: Vec<RecipeIdentity>,
     #[serde(flatten)]
     diagnostics: DiagnosticReport,
 }
@@ -48,23 +54,27 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
     };
     let result = options
         .compile
-        .request()
+        .request_ref()
         .map_err(|error| (error.report().diagnostics().to_vec(), 2))
         .and_then(|request| {
-            super::document_io::load(&options.path, &request.limits).and_then(|document| {
-                compile(&document, &request)
-                    .map_err(|error| (error.report().diagnostics().to_vec(), 2))
-            })
+            super::document_io::load(&options.path, &request.limits, options.compile.recipes())
+                .and_then(|document| {
+                    compile(&document, &request)
+                        .map(|plan| (plan, document.recipe_closure().to_vec()))
+                        .map_err(|error| (error.report().diagnostics().to_vec(), 2))
+                })
         });
-    let (plan, diagnostics, exit) = match result {
-        Ok(plan) => (Some(plan), Vec::new(), 0),
-        Err((diagnostics, exit)) => (None, diagnostics, exit),
+    let (plan, recipes, diagnostics, exit) = match result {
+        Ok((plan, recipes)) => (Some(plan), recipes, Vec::new(), 0),
+        Err((diagnostics, exit)) => (None, Vec::new(), diagnostics, exit),
     };
     let report = Report {
         schema_version: 3,
         plan,
+        recipes,
         diagnostics: DiagnosticReport::new(diagnostics.into_iter().map(|mut d| {
-            d.document_path = Some(options.path.to_string_lossy().into_owned());
+            d.document_path
+                .get_or_insert_with(|| options.path.to_string_lossy().into_owned());
             d
         })),
     };
@@ -120,6 +130,13 @@ fn human(out: &mut impl Write, report: &Report) -> io::Result<()> {
             plan.passes().len()
         )?;
         writeln!(out, "Hash: {}", plan.hash())?;
+        for recipe in &report.recipes {
+            writeln!(
+                out,
+                "Recipe: {}@{} sha256:{} ({} bytes)",
+                recipe.id, recipe.recipe_version, recipe.sha256, recipe.byte_length
+            )?;
+        }
         for pass in plan.passes() {
             let origin = match &pass.origin {
                 PassOrigin::Node { node } => node.id.clone(),

@@ -100,6 +100,17 @@ The CLI compiles before acquiring a GPU and completes GPU work before creating/w
 
 The independent test creates a directory at `normal.png`, then requests four channels. `baseColor.png` completes, writing `normal.png` fails with `MIX_ENCODING_FAILED` at `encoding`, and the report retains the completed baseColor entry, full execution evidence and the failed `outputPath`. Roughness/height files are not written. The same case in human mode names the completed file and failure context. No pixel baseline is updated. Consumers needing result freshness or controlled publication will use the generation-specific directories introduced in PR-014.
 
+## Recipe files (MAT-04c)
+
+`validate`, `inspect --plan` and `render` accept repeated `--recipe <file.mixrecipe>` options under the [MAT-04a contract](./mat-04a-recipe-contract.md). Without `--recipe` the commands keep the v1-only path, and their reports and exits are unchanged, including `MIX_FORMAT_UNSUPPORTED_VERSION` for a v2 source. With `--recipe` the CLI reads exactly the named files and Core's `decode_with_recipes` decodes a `.mix` v2 parent against them. A v1 source then fails with `MIX_RECIPE_UNUSED` for every supplied recipe. Recipe files are never discovered next to the source.
+
+- Each recipe file is read up to `decodedBytes` plus one byte. More than 16 files fail with `MIX_LIMIT_RECIPE_COUNT_EXCEEDED` before any file is opened. Reading stops once the total exceeds `recipeBytes`.
+- A recipe read failure is `MIX_IO_READ_FAILED` (exit 1) whose `documentPath` is that recipe file. A recipe validation diagnostic (`recipeIndex` evidence) also names the recipe file; every other diagnostic names the `.mix` source.
+- `inspect --json` and `render --json` add `recipes: [{id, recipeVersion, sha256, byteLength}]` only for a v2 parent; schema versions stay 3. Human `inspect` prints one `Recipe:` line per identity, and `validate` prints `Valid .mix v2 material`.
+- `asset pack` is unchanged: package v1 requires a v1 document, so a v2 parent fails with `MIX_FORMAT_UNSUPPORTED_VERSION`.
+
+`cargo test -p mixture-cli --test recipes` covers these rules. Its ignored GPU test, run by `cargo xtask gpu-smoke`, renders both recipe parents and their accepted v1 graphs at 64² and 257×129, with default and changed controls, and requires byte-identical PNGs. This is a smoke check, not the MAT-04d qualification matrix.
+
 ## Reproduce and acceptance limits
 
 ```bash
