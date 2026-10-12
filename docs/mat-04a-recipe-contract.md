@@ -2,7 +2,7 @@
 
 English | [简体中文](./mat-04a-recipe-contract.zh-CN.md)
 
-**Status:** proposed contract, pending maintainer acceptance. No code, fixture, golden, schema or version changes in this PR. Implementation (MAT-04b) starts only after this contract and [ADR 0010](./decisions/0010-reusable-recipes.md) are accepted. It answers the questions in the [MAT-04 entry](./mat-04-reusable-recipes.md) within the maintainer's 2026-10-12 direction: separate caller-supplied recipe documents, loose input only, no nesting.
+**Status:** accepted by the maintainer on 2026-10-12 and integrated through PR #99 together with [ADR 0010](./decisions/0010-reusable-recipes.md). MAT-04b implements it; implementation, qualification and publication remain separate states. The contract PR changed no code, fixture, golden, schema or version. It answers the questions in the [MAT-04 entry](./mat-04-reusable-recipes.md) within the maintainer's 2026-10-12 direction: separate caller-supplied recipe documents, loose input only, no nesting.
 
 ## Summary
 
