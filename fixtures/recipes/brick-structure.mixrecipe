@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "brick-structure",
+  "recipeVersion": 1,
+  "nodes": [
+    { "id": "height", "type": "brick-pattern", "version": 1, "parameters": { "variation": 0.15 } },
+    { "id": "color", "type": "brick-pattern", "version": 1, "parameters": { "variation": 0.5 } },
+    { "id": "mask", "type": "brick-pattern", "version": 1, "parameters": { "variation": 0 } }
+  ],
+  "edges": [],
+  "outputs": [
+    { "id": "height", "from": { "nodeId": "height", "portId": "value" } },
+    { "id": "color", "from": { "nodeId": "color", "portId": "value" } },
+    { "id": "mask", "from": { "nodeId": "mask", "portId": "value" } }
+  ],
+  "parameters": [
+    { "id": "seed", "targets": [ { "nodeId": "height", "parameterId": "seed" }, { "nodeId": "color", "parameterId": "seed" }, { "nodeId": "mask", "parameterId": "seed" } ] },
+    { "id": "columns", "targets": [ { "nodeId": "height", "parameterId": "columns" }, { "nodeId": "color", "parameterId": "columns" }, { "nodeId": "mask", "parameterId": "columns" } ] },
+    { "id": "rows", "targets": [ { "nodeId": "height", "parameterId": "rows" }, { "nodeId": "color", "parameterId": "rows" }, { "nodeId": "mask", "parameterId": "rows" } ] },
+    { "id": "rowOffset", "targets": [ { "nodeId": "height", "parameterId": "rowOffset" }, { "nodeId": "color", "parameterId": "rowOffset" }, { "nodeId": "mask", "parameterId": "rowOffset" } ] },
+    { "id": "mortarX", "targets": [ { "nodeId": "height", "parameterId": "mortarX" }, { "nodeId": "color", "parameterId": "mortarX" }, { "nodeId": "mask", "parameterId": "mortarX" } ] },
+    { "id": "mortarY", "targets": [ { "nodeId": "height", "parameterId": "mortarY" }, { "nodeId": "color", "parameterId": "mortarY" }, { "nodeId": "mask", "parameterId": "mortarY" } ] },
+    { "id": "bevel", "targets": [ { "nodeId": "height", "parameterId": "bevel" }, { "nodeId": "color", "parameterId": "bevel" }, { "nodeId": "mask", "parameterId": "bevel" } ] },
+    { "id": "heightVariation", "targets": [ { "nodeId": "height", "parameterId": "variation" } ] },
+    { "id": "colorVariation", "targets": [ { "nodeId": "color", "parameterId": "variation" } ] }
+  ]
+}

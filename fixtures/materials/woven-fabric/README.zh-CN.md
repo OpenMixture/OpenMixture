@@ -325,3 +325,7 @@ node --test scripts/woven-material-preview.test.mjs scripts/woven-fabric-request
 生成文件位于忽略目录 `tmp/woven-review/pbr/{plain,varied,combined-low,combined-high,warp-seed,weft-seed}-pbr.png`、`index.html` 和 `preview.json`。比较输入为 `tmp/woven-review/comparison/`，浏览器验证为 `tmp/woven-review/browser/`。预览校验全部 30 对 Native／浏览器输入、精确零 metallic、强制粗糙度 0/1 的不同明暗，以及 0 的精确重复。回执记录生产／构建／渲染器身份、全部图像哈希，两个接受标记均为 false。它们原为阶段 C 临时输出；阶段 D 现保留原评审字节及所选收据，普通日志仍忽略。
 
 代理检查发现视图和缩略图完整；combined-high 存在明显收腰轮廓，种子差异在评审图尺度下较细微。这些只是评审观察，不是人工接受决定或配方修改。后续维护者决定接受五个预设并排除 combined-high；见[阶段 D 记录](../../../docs/evidence/mat-03/README.zh-CN.md)。该决定未重新生成图像或配方。
+
+## MAT-04 配方父图
+
+[material-recipes.mix](./material-recipes.mix) 是用[共享配方](../../recipes/README.zh-CN.md)重建 `material.mix` 的 `.mix` v2 父图。它是独立的源：`material.mix` 及其计划、回执和 golden 不变，仍是已验收材质。对每个冻结用例，展开后的父图与 `material.mix` 同构（CPU 门槛）；记录适配器上的逐字节像素相同是 MAT-04d 的门槛。

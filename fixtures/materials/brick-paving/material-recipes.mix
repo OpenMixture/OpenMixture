@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "nodes": [
+    { "id": "brickColor", "type": "gradient-map", "version": 1, "parameters": { "colorA": [0.09, 0.02, 0.009, 1], "colorB": [0.32, 0.1, 0.045, 1] } },
+    { "id": "brickRoughness", "type": "constant-scalar", "version": 1, "parameters": { "value": 0.6 } },
+    { "id": "normal", "type": "height-to-normal", "version": 1, "parameters": { "strength": 0.035 } },
+    { "id": "out", "type": "material-output", "version": 1 }
+  ],
+  "instances": [
+    { "id": "structure", "recipe": "brick-structure", "recipeVersion": 1, "parameters": { "seed": 1729 } },
+    { "id": "surface", "recipe": "masked-layer-surface", "recipeVersion": 1, "parameters": { "underColor": [0.16, 0.15, 0.13, 1], "underRoughness": 0.9 } }
+  ],
+  "edges": [
+    { "from": { "nodeId": "structure", "portId": "height" }, "to": { "nodeId": "normal", "portId": "in" } },
+    { "from": { "nodeId": "structure", "portId": "height" }, "to": { "nodeId": "out", "portId": "height" } },
+    { "from": { "nodeId": "structure", "portId": "color" }, "to": { "nodeId": "brickColor", "portId": "in" } },
+    { "from": { "nodeId": "structure", "portId": "mask" }, "to": { "nodeId": "surface", "portId": "mask" } },
+    { "from": { "nodeId": "brickColor", "portId": "color" }, "to": { "nodeId": "surface", "portId": "overColor" } },
+    { "from": { "nodeId": "brickRoughness", "portId": "value" }, "to": { "nodeId": "surface", "portId": "overRoughness" } },
+    { "from": { "nodeId": "surface", "portId": "baseColor" }, "to": { "nodeId": "out", "portId": "baseColor" } },
+    { "from": { "nodeId": "surface", "portId": "roughness" }, "to": { "nodeId": "out", "portId": "roughness" } },
+    { "from": { "nodeId": "normal", "portId": "normal" }, "to": { "nodeId": "out", "portId": "normal" } }
+  ],
+  "exposedParameters": [
+    { "id": "seed", "nodeId": "structure", "parameterId": "seed" },
+    { "id": "columns", "nodeId": "structure", "parameterId": "columns" },
+    { "id": "rows", "nodeId": "structure", "parameterId": "rows" },
+    { "id": "rowOffset", "nodeId": "structure", "parameterId": "rowOffset" },
+    { "id": "mortarX", "nodeId": "structure", "parameterId": "mortarX" },
+    { "id": "mortarY", "nodeId": "structure", "parameterId": "mortarY" },
+    { "id": "bevel", "nodeId": "structure", "parameterId": "bevel" },
+    { "id": "heightVariation", "nodeId": "structure", "parameterId": "heightVariation" },
+    { "id": "colorVariation", "nodeId": "structure", "parameterId": "colorVariation" },
+    { "id": "normalStrength", "nodeId": "normal", "parameterId": "strength" }
+  ]
+}

@@ -37,3 +37,7 @@ cargo run --locked -p mixture-cli -- render fixtures/materials/brick-paving/mate
 已测开发主机限制：GT 1030 Vulkan 下，64×64 格／256² 的高度平均降采样误差约 14.13/255，baseColor 红通道约 7.99/255，超过默认 4/255 门槛。这个设置位于默认质量保证之外；保留测量，不重置门槛或自动修改输入。
 
 跨运行时收集器选择唯一的 `brick-browser.json` 回执，仅从该回执所在目录读取完整的冻结图片集合。其他材质测试可以使用相同预设／通道文件名，但不能补充缺失的砖材质图片。重复砖材质回执和缺失图片仍报错。隔离消费者回归覆盖重名、缺图替代和回执歧义。
+
+## MAT-04 配方父图
+
+[material-recipes.mix](./material-recipes.mix) 是用[共享配方](../../recipes/README.zh-CN.md)重建 `material.mix` 的 `.mix` v2 父图。它是独立的源：`material.mix` 及其计划、回执和 golden 不变，仍是已验收材质。对每个冻结用例，展开后的父图与 `material.mix` 同构（CPU 门槛）；记录适配器上的逐字节像素相同是 MAT-04d 的门槛。
