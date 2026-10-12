@@ -1,14 +1,16 @@
 //! Versioned source data, bounded decoding, and canonical serialization.
 
-mod decode;
+pub(crate) mod decode;
 
 use crate::{Diagnostic, DiagnosticCode, DiagnosticReport, SafetyLimits, Stage};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::{collections::BTreeMap, error::Error, fmt};
 
-/// The only supported source document version. Node versions are independent.
+/// The single-graph source document version. Node versions are independent.
 pub const FORMAT_VERSION: u32 = 1;
+/// The recipe-parent source document version, decoded by [`crate::ParentDocument`].
+pub const PARENT_FORMAT_VERSION: u32 = 2;
 
 /// Editable source data. Use `decode` for untrusted bytes and `into_validated`
 /// before consuming graph semantics. This type is deliberately not Deserialize:

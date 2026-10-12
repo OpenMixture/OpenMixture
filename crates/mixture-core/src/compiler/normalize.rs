@@ -33,38 +33,43 @@ pub fn normalize(
             request_report.diagnostics().iter().cloned(),
         ));
     }
-    let source_report = document.document().validate(&request.limits);
+    let source_report = document.revalidate(document.document(), &request.limits);
     if !source_report.is_ok() {
         return Err(as_compile_error(&source_report, document, request));
     }
     let mut source = document.document().clone();
     let mut diagnostics = Vec::new();
     for (public_id, value) in &request.overrides {
-        let Some(binding) = source
+        // A public ID bound to a recipe interface parameter repeats once per
+        // target; every target shares one contract and receives the same value.
+        let bindings: Vec<_> = source
             .exposed_parameters
             .iter()
-            .find(|binding| &binding.id == public_id)
-        else {
+            .filter(|binding| &binding.id == public_id)
+            .cloned()
+            .collect();
+        if bindings.is_empty() {
             diagnostics.push(
                 invalid("Override ID is not exposed by this document.")
                     .with_evidence("publicId", public_id.as_str()),
             );
             continue;
-        };
-        let Some(node) = source
-            .nodes
-            .iter_mut()
-            .find(|node| node.id == binding.node_id)
-        else {
-            return Err(invariant("Validated override target node is missing."));
-        };
-        let Some(parameter) = node_contract_version(&node.type_id, node.version)
-            .and_then(|contract| contract.parameter(&binding.parameter_id))
-        else {
-            return Err(invariant("Validated override target parameter is missing."));
-        };
-        if !parameter.accepts(value) {
-            let mut diagnostic = Diagnostic::error(
+        }
+        for binding in &bindings {
+            let Some(node) = source
+                .nodes
+                .iter_mut()
+                .find(|node| node.id == binding.node_id)
+            else {
+                return Err(invariant("Validated override target node is missing."));
+            };
+            let Some(parameter) = node_contract_version(&node.type_id, node.version)
+                .and_then(|contract| contract.parameter(&binding.parameter_id))
+            else {
+                return Err(invariant("Validated override target parameter is missing."));
+            };
+            if !parameter.accepts(value) {
+                let mut diagnostic = Diagnostic::error(
                 DiagnosticCode::ParameterInvalidValue,
                 Stage::Compile,
                 "Override does not satisfy the target parameter's type, range, or enum contract.",
@@ -75,18 +80,20 @@ pub fn normalize(
             .with_suggestion(
                 "Use the exact JSON type and range declared by the exposed target parameter.",
             );
-            diagnostic.node_id = Some(node.id.clone());
-            diagnostic.parameter_id = Some(binding.parameter_id.clone());
-            diagnostics.push(diagnostic);
-        } else {
-            node.parameters
-                .insert(binding.parameter_id.clone(), value.clone());
+                diagnostic.node_id = Some(node.id.clone());
+                diagnostic.parameter_id = Some(binding.parameter_id.clone());
+                diagnostics.push(document.attribute(diagnostic));
+                break;
+            } else {
+                node.parameters
+                    .insert(binding.parameter_id.clone(), value.clone());
+            }
         }
     }
     if !diagnostics.is_empty() {
         return Err(CompileError::new(diagnostics));
     }
-    let report = source.validate(&request.limits);
+    let report = document.revalidate(&source, &request.limits);
     if !report.is_ok() {
         return Err(as_compile_error(&report, document, request));
     }
@@ -131,8 +138,8 @@ pub fn normalize(
     source.nodes.sort_by(|a, b| a.id.cmp(&b.id));
     source.edges.sort();
     source.exposed_parameters.sort();
-    let inner = source
-        .into_validated(&request.limits)
+    let inner = document
+        .derive(source, &request.limits)
         .map_err(|error| as_compile_error(error.report(), document, request))?;
     Ok(NormalizedDocument { inner })
 }
@@ -161,6 +168,6 @@ fn as_compile_error(
         if !changed.is_empty() {
             diagnostic = diagnostic.with_evidence("publicIds", changed.join(","));
         }
-        diagnostic
+        document.attribute(diagnostic)
     }))
 }

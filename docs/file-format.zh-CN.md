@@ -120,3 +120,29 @@ fn validate_source(source: &[u8]) -> Result<ValidatedDocument, DocumentError> {
 ## PR-010 重采样节点增量扩展
 
 `transform-2d` 和 `warp` 添加两个版本 1 节点类型，不添加字段，也不改变已有 `.mix v1` 含义。必填端口要求精确的 `Scalar` 连接。变换缩放与四分之一圈旋转次数要求有界无符号整数记号；偏移和扭曲强度接受有界有限 JSON 数值。默认值、参数边界、输入要求及显式公开绑定沿用已有目录的验证规则，包括未使用分支。参阅[节点契约](./node-contracts.zh-CN.md)和[公开重采样测试](../crates/mixture-core/tests/resampling.rs)。未引入迁移、源文件修复或隐式转换。
+
+## MAT-04b 配方文档与 `.mix` v2 父文档
+
+语义由 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)及 [ADR 0010](./decisions/0010-reusable-recipes.zh-CN.md) 负责；本节记录已实现的 Core API。`.mix v1` 文档、`MaterialDocument::decode` 和 `into_validated` 不变，仍只支持 v1。
+
+```rust
+use mixture_core::{ParentDocument, RecipeLimits, RecipeSet, SafetyLimits, compile, CompileRequest};
+
+fn compile_parent(parent: &[u8], recipes: &[&[u8]]) -> Result<(), Box<dyn std::error::Error>> {
+    let (limits, recipe_limits) = (SafetyLimits::default(), RecipeLimits::default());
+    let recipes = RecipeSet::decode(recipes, &limits, &recipe_limits)?;
+    let validated = ParentDocument::decode(parent, &limits, &recipe_limits)?
+        .into_validated(&recipes, &limits, &recipe_limits)?;
+    let plan = compile(&validated, &CompileRequest::default())?;
+    assert_eq!(plan.document_version(), 2);
+    Ok(())
+}
+```
+
+- `RecipeDocument::decode` 读取一个严格的 `.mixrecipe` v1 文档。`nodes`、`edges` 和 `outputs` 必需；`inputs` 和 `parameters` 默认 `[]`。接口数组受 `exposedParameters` 约束；`instances` 键按不支持的嵌套失败。
+- `RecipeSet::decode` 在解码任何内容之前检查 `recipeCount` 和 `recipeBytes`，验证每个配方，记录其 SHA-256 和字节长度，并拒绝重复身份。
+- `ParentDocument::decode` 读取严格的 `.mix` v2；`instances` 在第一个超出 `instanceCount` 的条目处停止。`into_validated` 在展开前检查精确闭包和每个实例，展开为 `<实例>--<节点>` ID，并用 v1 图规则验证展开图。它返回现有的 `ValidatedDocument`；`document()` 是展开图（`version` 2），`recipe_closure()` 列出提供的身份。
+- 对绑定接口参数的公开 ID 的覆盖会设置每个目标；一个无效值只产生一条诊断。展开节点上的诊断携带 `instanceId` 证据。
+- v1 解码器跳过 `instances` 键，对任何非 1 的版本报告 `MIX_FORMAT_UNSUPPORTED_VERSION`；带 `instances` 的版本 1 文档仍以 `MIX_FORMAT_INVALID_DOCUMENT` 失败。0.11 之前的运行时对含 `instances` 的 v2 父文档报告 `MIX_FORMAT_INVALID_DOCUMENT`。
+
+CLI 和浏览器适配属于 MAT-04c；在此之前只能通过 Rust API 使用配方。测试：`cargo test -p mixture-core --test recipes`；fixture：[配方](../fixtures/recipes/README.zh-CN.md)。

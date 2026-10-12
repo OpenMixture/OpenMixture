@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 test('weave candidate preserves all structural modes through public WebGPU', async ({ page, browser }, testInfo) => {
   test.setTimeout(240_000);
   const expectedBuild = JSON.parse(await readFile(new URL('../node_modules/@openmixture/runtime/build-info.json', import.meta.url)));
-  expect(expectedBuild.runtimeVersion).toBe('0.10.0-alpha.0');
+  expect(expectedBuild.runtimeVersion).toBe('0.11.0-alpha.0');
   await page.goto('tests/contracts.html');
   await page.waitForFunction(() => Boolean(window.sdk));
   const identity = await page.evaluate(async () => {

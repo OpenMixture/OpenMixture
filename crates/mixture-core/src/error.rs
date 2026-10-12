@@ -149,6 +149,30 @@ pub enum DiagnosticCode {
     /// A typed GPU allocation error reported out-of-memory.
     #[serde(rename = "MIX_GPU_OUT_OF_MEMORY")]
     GpuOutOfMemory,
+    /// An instance references a recipe identity that was not supplied.
+    #[serde(rename = "MIX_RECIPE_MISSING")]
+    RecipeMissing,
+    /// Two supplied recipe documents share one identity.
+    #[serde(rename = "MIX_RECIPE_DUPLICATE")]
+    RecipeDuplicate,
+    /// A supplied recipe is not used by any instance.
+    #[serde(rename = "MIX_RECIPE_UNUSED")]
+    RecipeUnused,
+    /// A recipe interface input, output, or parameter is invalid.
+    #[serde(rename = "MIX_RECIPE_INVALID_INTERFACE")]
+    RecipeInvalidInterface,
+    /// A recipe contains a node type that recipes may not use.
+    #[serde(rename = "MIX_RECIPE_FORBIDDEN_NODE")]
+    RecipeForbiddenNode,
+    /// More recipe documents were supplied than the configured maximum.
+    #[serde(rename = "MIX_LIMIT_RECIPE_COUNT_EXCEEDED")]
+    LimitRecipeCountExceeded,
+    /// A parent document contains more instances than the configured maximum.
+    #[serde(rename = "MIX_LIMIT_INSTANCE_COUNT_EXCEEDED")]
+    LimitInstanceCountExceeded,
+    /// Supplied recipe bytes exceed the configured total.
+    #[serde(rename = "MIX_LIMIT_RECIPE_BYTES_EXCEEDED")]
+    LimitRecipeBytesExceeded,
 }
 
 impl DiagnosticCode {
@@ -202,6 +226,14 @@ impl DiagnosticCode {
             Self::IoReadFailed => "MIX_IO_READ_FAILED",
             Self::GpuDeviceLost => "MIX_GPU_DEVICE_LOST",
             Self::GpuOutOfMemory => "MIX_GPU_OUT_OF_MEMORY",
+            Self::RecipeMissing => "MIX_RECIPE_MISSING",
+            Self::RecipeDuplicate => "MIX_RECIPE_DUPLICATE",
+            Self::RecipeUnused => "MIX_RECIPE_UNUSED",
+            Self::RecipeInvalidInterface => "MIX_RECIPE_INVALID_INTERFACE",
+            Self::RecipeForbiddenNode => "MIX_RECIPE_FORBIDDEN_NODE",
+            Self::LimitRecipeCountExceeded => "MIX_LIMIT_RECIPE_COUNT_EXCEEDED",
+            Self::LimitInstanceCountExceeded => "MIX_LIMIT_INSTANCE_COUNT_EXCEEDED",
+            Self::LimitRecipeBytesExceeded => "MIX_LIMIT_RECIPE_BYTES_EXCEEDED",
         }
     }
 }

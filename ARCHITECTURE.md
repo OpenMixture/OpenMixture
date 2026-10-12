@@ -754,3 +754,7 @@ M6A-05 [qualification](./docs/evidence/m6a-05/README.md) closes the recorded Lin
 ### NUM-01 versioned value-noise arithmetic
 
 [Stable value noise](./docs/stable-noise.md) adds fractal-noise v2 with Q0.24 value evaluation in the existing WGSL kernel. The catalog still has thirteen types/eleven kernels; v1 and cellular behavior remain available. Explicit node version and StableValue lowering distinguish hashes without changing .mix v1 or plan/API schema 2. The unpublished 0.4 candidate and migrated material sources require their own qualification.
+
+### MAT-04b recipe expansion in Core
+
+[ADR 0010](./docs/decisions/0010-reusable-recipes.md) adds caller-supplied `.mixrecipe` documents and `.mix` v2 parents. `mixture-core` owns recipe decoding, the exact closure, instance validation and expansion to `<instance>--<node>` IDs before normalization; the expanded graph passes through the unchanged validation rules, compiler and RenderPlan v3, recording `documentVersion` 2. `mixture-wgpu`, `mixture-asset` (package v1 still requires a v1 document) and the node catalog are unchanged. Section 5 still describes `.mix v1`; see the [format guide](./docs/file-format.md#mat-04b-recipe-documents-and-mix-v2-parents).

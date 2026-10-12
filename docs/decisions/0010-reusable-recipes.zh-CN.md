@@ -27,7 +27,7 @@
 
 ## 后果、兼容性与迁移
 
-现有文档、包、计划、哈希、golden 和回执保持其含义。旧运行时以 `MIX_FORMAT_UNSUPPORTED_VERSION` 拒绝 v2 父图，也不认识 `.mixrecipe` 文档。父图与其替代的 v1 图可能在 pass 顺序、计划哈希和分配估算上不同，但像素相同；冻结预算适用于父图。Core 增加公开配方类型、`RecipeLimits` 和八个诊断代码，因此第一次实现选择 Rust 0.11.0 / browser 0.11.0-alpha.0。不存在自动 v1→v2 转换；作者通过编写 v2 父图主动选用。
+现有文档、包、计划、哈希、golden 和回执保持其含义。0.11 之前的运行时把含 `instances` 的 v2 父图按 `MIX_FORMAT_INVALID_DOCUMENT`（未知 v1 字段）拒绝，把不含它的按 `MIX_FORMAT_UNSUPPORTED_VERSION` 拒绝，也不认识 `.mixrecipe` 文档。从 0.11 起，v1 入口点对两者都报告 `MIX_FORMAT_UNSUPPORTED_VERSION`。父图与其替代的 v1 图可能在 pass 顺序、计划哈希和分配估算上不同，但像素相同；冻结预算适用于父图。Core 增加公开配方类型、`RecipeLimits` 和八个诊断代码，因此第一次实现选择 Rust 0.11.0 / browser 0.11.0-alpha.0。不存在自动 v1→v2 转换；作者通过编写 v2 父图主动选用。
 
 ## 验证
 

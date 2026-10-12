@@ -113,6 +113,18 @@ PR-002 起初仅产生限制错误。PR-003／PR-004 已使用 GPU 代码，PR-0
 
 这些是上限检查基础能力，不是文档或请求验证。尺寸为零的图像可能满足上限，但仍必须在后续请求验证中失败。宽和高应分别检查。调用方必须先安全计算实际计数和估算字节数，再执行检查；PR-006 实现编译器资源估算器并检查其峰值分配。v1 仍不支持内嵌资源，其预算为零；PR-002 不添加资源字段或加载 API。
 
+## 配方上限与代码
+
+MAT-04b 在 `SafetyLimits` 之外新增独立的 `RecipeLimits` 策略，七个安全字段及其线格式保持不变。JSON 解码要求全部三个字段。
+
+| 字段 | 默认上限 | 失败代码与阶段 |
+| --- | ---: | --- |
+| `recipeCount` | 16 个提供的配方 | `MIX_LIMIT_RECIPE_COUNT_EXCEEDED`，parse |
+| `instanceCount` | 每个父图 32 个实例 | `MIX_LIMIT_INSTANCE_COUNT_EXCEEDED`，解码时为 parse，构造文档时为 validation |
+| `recipeBytes` | 2 MiB = 2097152 总字节 | `MIX_LIMIT_RECIPE_BYTES_EXCEEDED`，parse |
+
+其他新增代码属于 validation 阶段：`MIX_RECIPE_MISSING`、`MIX_RECIPE_DUPLICATE`、`MIX_RECIPE_UNUSED`、`MIX_RECIPE_INVALID_INTERFACE` 和 `MIX_RECIPE_FORBIDDEN_NODE`。配方诊断携带 `recipeId` 和 `recipeVersion` 证据（从集合解码时还有 `recipeIndex`）；父图和展开图诊断携带 `instanceId`，接口参数另有 `interfaceId`。展开后的节点和边计数复用 `MIX_LIMIT_NODES_EXCEEDED`／`MIX_LIMIT_EDGES_EXCEEDED`，并带 `expanded: true`。八个代码均已加入词表快照。参见 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)。
+
 ## CLI 退出码策略
 
 下表适用于 PR-006 检查、PR-005 验证、PR-004 doctor／内置渲染及未来运行时命令，不代表全部命令已经实现：

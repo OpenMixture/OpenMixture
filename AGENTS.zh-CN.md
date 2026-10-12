@@ -48,7 +48,7 @@ Mixture 是基于 Rust 的材质图编译器与无界面纹理渲染器，只有
 
 ## 边界要点
 
-- **版本：** `.mix` 与 `.mixpack` 为 v1，`RenderPlan` 与浏览器 API 为 v3。按显式节点类型/版本解析（`fractal-noise@1` 与 `@2` 共存），不得自动迁移文档。节点目录见 `registry.rs` 与[节点契约](./docs/node-contracts.zh-CN.md)，兼容性见[兼容性](./docs/compatibility.zh-CN.md)。
+- **版本：** `.mixpack` 为 v1，只接受 `.mix` v1；`.mix` v2 配方父文档与 `.mixrecipe` v1 只能通过 Core 配方 API 并配合显式闭包解码（[MAT-04a](./docs/mat-04a-recipe-contract.zh-CN.md)）；`RenderPlan` 与浏览器 API 为 v3。按显式节点类型/版本解析（`fractal-noise@1` 与 `@2` 共存），不得自动迁移文档。节点目录见 `registry.rs` 与[节点契约](./docs/node-contracts.zh-CN.md)，兼容性见[兼容性](./docs/compatibility.zh-CN.md)。
 - **外部资源：** 调用方提供紧密排列的 `rgba8-linear` 字节；Core 验证、同步捕获并返回不可变 `PreparedRender`；wgpu 负责上传。禁止隐式路径/URL 查找、PNG 解码或重采样。见[资源契约](./docs/m6a-resource-contract.zh-CN.md)。
 - **可移植资产：** `mixture-asset` 是唯一的 `.mixpack` 编解码器（规范 USTAR，纯 CPU）。裁剪前验证哈希与完整资源闭包；不提取路径；拒绝所有 `resourceRef` 覆盖。上限只能降低。见[格式](./docs/m6b-package-format.zh-CN.md)与[适配层](./docs/m6b-04-adapters.zh-CN.md)。
 - **浏览器：** `mixture-wasm` 与 `packages/runtime` 保持轻量。导入无副作用，加载与 GPU 创建显式执行；让出执行权前快照输入；每个实例一个 busy 槽，并在捕获可能触发调用方 Proxy trap 前预留；超过 `0xFFFFFFFF` 字节的图像视图在 wasm32 收窄前返回 `MIX_BROWSER_INVALID_ARGUMENT`。见[浏览器 SDK 契约](./docs/browser-sdk.zh-CN.md)。
