@@ -6,8 +6,8 @@
 //! so compilation, RenderPlan v3 and pixel execution are unchanged.
 
 use crate::{
-    Diagnostic, DiagnosticCode as Code, DiagnosticReport, LimitKind, SafetyLimits, Stage,
-    ValidatedDocument,
+    Diagnostic, DiagnosticCode as Code, DiagnosticReport, EvidenceValue, LimitKind, SafetyLimits,
+    Stage, ValidatedDocument,
     document::{
         DocumentError, Edge, Endpoint, ExposedParameter, MaterialDocument, Node,
         PARENT_FORMAT_VERSION,
@@ -803,15 +803,7 @@ impl ParentDocument {
         }
         for (key, recipe) in &recipes.recipes {
             if !used.contains(key) {
-                diagnostics.push(
-                    failure(
-                        Code::RecipeUnused,
-                        "A supplied recipe is not used by any instance.",
-                    )
-                    .with_evidence("recipeId", recipe.identity.id.as_str())
-                    .with_evidence("recipeVersion", u64::from(recipe.identity.recipe_version))
-                    .with_suggestion("Supply exactly the recipes this parent instantiates."),
-                );
+                diagnostics.push(unused(&recipe.identity));
             }
         }
 
@@ -1131,6 +1123,62 @@ impl ParentDocument {
         }
         Ok(expanded)
     }
+}
+
+/// Decode either a `.mix` v1 document or a v2 parent against an explicitly
+/// supplied recipe set, for adapters whose caller passed recipes.
+///
+/// A v1 document cannot use recipes, so every supplied recipe fails with
+/// `MIX_RECIPE_UNUSED` (with any v1 validation failures). A document that the
+/// v1 decoder rejects as version 2 is decoded and expanded as a parent. Callers
+/// that supply no recipes keep the v1-only [`MaterialDocument::decode`] path.
+pub fn decode_with_recipes(
+    bytes: &[u8],
+    recipes: &RecipeSet,
+    limits: &SafetyLimits,
+    recipe_limits: &RecipeLimits,
+) -> Result<ValidatedDocument, DocumentError> {
+    match MaterialDocument::decode(bytes, limits) {
+        Ok(document) if recipes.is_empty() => document.into_validated(limits),
+        Ok(document) => {
+            let mut diagnostics: Vec<Diagnostic> = recipes
+                .recipes
+                .values()
+                .map(|recipe| unused(&recipe.identity))
+                .collect();
+            diagnostics.extend(document.validate(limits).diagnostics().iter().cloned());
+            Err(DocumentError::new(diagnostics))
+        }
+        Err(error) if declared_version(&error) == Some(u64::from(PARENT_FORMAT_VERSION)) => {
+            ParentDocument::decode(bytes, limits, recipe_limits)?.into_validated(
+                recipes,
+                limits,
+                recipe_limits,
+            )
+        }
+        Err(error) => Err(error),
+    }
+}
+/// The observed version of a document rejected only for its format version.
+fn declared_version(error: &DocumentError) -> Option<u64> {
+    match error.report().diagnostics() {
+        [only] if only.code == Code::FormatUnsupportedVersion => {
+            match only.evidence.get("observed") {
+                Some(EvidenceValue::Unsigned(version)) => Some(*version),
+                _ => None,
+            }
+        }
+        _ => None,
+    }
+}
+fn unused(identity: &RecipeIdentity) -> Diagnostic {
+    failure(
+        Code::RecipeUnused,
+        "A supplied recipe is not used by any instance.",
+    )
+    .with_evidence("recipeId", identity.id.as_str())
+    .with_evidence("recipeVersion", u64::from(identity.recipe_version))
+    .with_suggestion("Supply exactly the recipes this document instantiates.")
 }
 
 /// Name the instance of a diagnostic raised on an expanded node.

@@ -21,11 +21,12 @@ const HELP: &str = "Mixture — material validation and GPU diagnostics
 Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
                       [--power-preference high-performance|low-power] [--software]
        mixture render-builtin checker [--size <pixels>] --out <file.png> [--json]
-       mixture validate <file.mix> [--json]
+       mixture validate <file.mix> [--json] [--recipe <file.mixrecipe>]...
        mixture inspect <file.mix> --plan [--json] [--size 64] [--output baseColor]
-                       [--set publicId=<JSON>]
+                       [--set publicId=<JSON>] [--recipe <file.mixrecipe>]...
        mixture render <file.mix> --out <directory> [--json] [--size 64]
                       [--output baseColor,...] [--set publicId=<JSON>]
+                      [--recipe <file.mixrecipe>]...
        mixture --help
        mixture asset pack|inspect|render --help
        mixture --version
@@ -33,6 +34,7 @@ Usage: mixture doctor [--json] [--backend auto|vulkan|metal|dx12|none]
 Doctor verifies checker compute/readback; --skip-probe reports unverified.
 Use `mixture doctor --help` for options and exit codes.
 Strict .mix v1 validation and deterministic plan inspection need no GPU.
+A .mix v2 recipe parent needs every recipe file passed explicitly with --recipe.
 Use `mixture inspect --help` for compile options. Use `mixture render --help` for graph rendering and adapter options.";
 
 fn main() -> ExitCode {

@@ -100,6 +100,17 @@ CLI 在获取 GPU 前编译，在创建／写入输出文件前完成 GPU 工作
 
 独立测试预先创建一个名为 `normal.png` 的目录，然后请求四个通道。`baseColor.png` 完成后，写入 `normal.png` 在 `encoding` 阶段以 `MIX_ENCODING_FAILED` 失败；报告保留已完成 baseColor 条目、完整执行证据和失败的 `outputPath`。粗糙度／高度文件不写入。同一人类可读用例标明已完成文件及失败上下文。不更新任何像素基准。需要结果新旧判断或受控发布的消费者，将使用 PR-014 引入的按代次隔离目录。
 
+## 配方文件（MAT-04c）
+
+`validate`、`inspect --plan` 和 `render` 按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)接受可重复的 `--recipe <file.mixrecipe>` 选项。不带 `--recipe` 时，命令仍走只支持 v1 的路径，报告和退出码不变，包括对 v2 源报告 `MIX_FORMAT_UNSUPPORTED_VERSION`。带 `--recipe` 时，CLI 只读取所列文件，由 Core 的 `decode_with_recipes` 针对这些文件解码 `.mix` v2 父文档。此时若源是 v1，则对每个提供的配方报告 `MIX_RECIPE_UNUSED`。CLI 绝不在源文件旁自动发现配方文件。
+
+- 每个配方文件最多读取 `decodedBytes` 加一个字节。超过 16 个文件时，在打开任何文件之前即以 `MIX_LIMIT_RECIPE_COUNT_EXCEEDED` 失败。总字节数超过 `recipeBytes` 后停止读取。
+- 配方读取失败为 `MIX_IO_READ_FAILED`（退出码 1），其 `documentPath` 是该配方文件。配方验证诊断（带 `recipeIndex` 证据）同样指向该配方文件；其余诊断都指向 `.mix` 源。
+- 仅当源是 v2 父文档时，`inspect --json` 和 `render --json` 才增加 `recipes: [{id, recipeVersion, sha256, byteLength}]`；schema 版本仍为 3。人类可读的 `inspect` 每个身份输出一行 `Recipe:`，`validate` 输出 `Valid .mix v2 material`。
+- `asset pack` 不变：包 v1 要求 v1 文档，因此 v2 父文档以 `MIX_FORMAT_UNSUPPORTED_VERSION` 失败。
+
+`cargo test -p mixture-cli --test recipes` 覆盖上述规则。其中被忽略的 GPU 测试由 `cargo xtask gpu-smoke` 运行：它在 64² 和 257×129 下、分别用默认和改动后的控制，渲染两个配方父图及其已验收 v1 图，并要求 PNG 逐字节相同。这只是冒烟检查，不是 MAT-04d 的验收矩阵。
+
 ## 复现与验收边界
 
 ```bash

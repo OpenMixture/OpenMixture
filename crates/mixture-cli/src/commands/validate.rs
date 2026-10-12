@@ -8,9 +8,11 @@ use std::{
     process::ExitCode,
 };
 
-const HELP: &str = "Usage: mixture validate <file.mix> [--json]
+const HELP: &str = "Usage: mixture validate <file.mix> [--json] [--recipe <file.mixrecipe>]...
 
 Validate strict .mix v1 JSON, node contracts, ports, graph structure, and budgets.
+--recipe supplies one recipe file; repeat it for the exact closure of a .mix v2 parent,
+which is then validated and expanded. Recipe files are never discovered.
 No GPU is initialized. Input is read up to the 2 MiB limit plus one detection byte.
 --json writes one {ok, diagnostics} report to stdout.
 Exit 0: valid document; 1: file/report I/O failure; 2: invalid invocation or input.
@@ -21,7 +23,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         println!("{HELP}");
         return ExitCode::SUCCESS;
     }
-    let (path, json) = match parse(arguments) {
+    let (path, json, recipes) = match parse(arguments) {
         Ok(args) => args,
         Err(message) => {
             eprintln!("{message}\n\n{HELP}");
@@ -29,12 +31,18 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
         }
     };
     let limits = SafetyLimits::default();
-    let (diagnostics, exit) = match super::document_io::load(&path, &limits) {
-        Ok(_) => (Vec::new(), 0),
+    let mut version = 1;
+    let (diagnostics, exit) = match super::document_io::load(&path, &limits, &recipes) {
+        Ok(document) => {
+            version = document.document().version;
+            (Vec::new(), 0)
+        }
         Err(failure) => failure,
     };
     let report = DiagnosticReport::new(diagnostics.into_iter().map(|mut diagnostic| {
-        diagnostic.document_path = Some(path.to_string_lossy().into_owned());
+        diagnostic
+            .document_path
+            .get_or_insert_with(|| path.to_string_lossy().into_owned());
         diagnostic
     }));
     let mut stdout = io::stdout().lock();
@@ -43,7 +51,7 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
             .map_err(io::Error::other)
             .and_then(|()| writeln!(stdout))
     } else {
-        write_human(&mut stdout, &path, &report)
+        write_human(&mut stdout, &path, version, &report)
     };
     if let Err(error) = written.and_then(|()| stdout.flush()) {
         eprintln!("Could not write validation report: {error}");
@@ -51,10 +59,18 @@ pub(crate) fn run(arguments: &[OsString]) -> ExitCode {
     }
     ExitCode::from(exit)
 }
-fn parse(arguments: &[OsString]) -> Result<(PathBuf, bool), String> {
+fn parse(arguments: &[OsString]) -> Result<(PathBuf, bool, Vec<PathBuf>), String> {
     let (mut path, mut json, mut options) = (None, false, true);
-    for argument in arguments {
-        if options && argument == "--json" {
+    let mut recipes = Vec::new();
+    let mut arguments = arguments.iter();
+    while let Some(argument) = arguments.next() {
+        if options && argument == "--recipe" {
+            let recipe = arguments
+                .next()
+                .filter(|v| !v.is_empty())
+                .ok_or("Missing --recipe file path.")?;
+            recipes.push(PathBuf::from(recipe));
+        } else if options && argument == "--json" {
             if json {
                 return Err("Duplicate --json option.".into());
             }
@@ -72,11 +88,16 @@ fn parse(arguments: &[OsString]) -> Result<(PathBuf, bool), String> {
             return Err("Expected exactly one nonempty input path.".into());
         }
     }
-    Ok((path.ok_or("Missing input path.")?, json))
+    Ok((path.ok_or("Missing input path.")?, json, recipes))
 }
-fn write_human(out: &mut impl Write, path: &Path, report: &DiagnosticReport) -> io::Result<()> {
+fn write_human(
+    out: &mut impl Write,
+    path: &Path,
+    version: u32,
+    report: &DiagnosticReport,
+) -> io::Result<()> {
     if report.is_ok() {
-        return writeln!(out, "Valid .mix v1 material: {}", path.display());
+        return writeln!(out, "Valid .mix v{version} material: {}", path.display());
     }
     writeln!(out, "Invalid material: {}", path.display())?;
     super::human_diagnostics::write(out, report)?;

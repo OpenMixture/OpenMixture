@@ -1,21 +1,34 @@
 //! Shared CLI syntax for the core compile request; semantics stay in mixture-core.
 use mixture_core::{CompileError, CompileRequest, OutputChannel};
-use std::{collections::BTreeMap, ffi::OsString, slice::Iter};
+use std::{collections::BTreeMap, ffi::OsString, path::PathBuf, slice::Iter};
 #[derive(Clone, Default)]
 pub(super) struct CompileOptions {
     size: Option<[u32; 2]>,
     outputs: Option<String>,
     overrides: BTreeMap<String, serde_json::Value>,
+    recipes: Vec<PathBuf>,
 }
 impl CompileOptions {
     pub fn request_ref(&self) -> Result<CompileRequest, CompileError> {
         self.clone().request()
+    }
+    /// Explicit recipe files in command-line order; never discovered from the source path.
+    pub fn recipes(&self) -> &[PathBuf] {
+        &self.recipes
     }
     pub fn parse_option(
         &mut self,
         flag: &str,
         args: &mut Iter<'_, OsString>,
     ) -> Result<bool, String> {
+        if flag == "--recipe" {
+            let path = args
+                .next()
+                .filter(|v| !v.is_empty())
+                .ok_or("Missing --recipe file path.")?;
+            self.recipes.push(PathBuf::from(path));
+            return Ok(true);
+        }
         if !matches!(flag, "--size" | "--output" | "--set") {
             return Ok(false);
         }
