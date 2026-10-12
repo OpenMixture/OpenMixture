@@ -22,6 +22,7 @@ The root documents are the active project contract:
 - [M5 browser runtime and Player plan](../M5_PRS.md)
 
 [Development](./development.md) describes implemented commands and verification limits.
+[Reusable recipes](./mat-04-reusable-recipes.md) starts MAT-04 with measured duplication across accepted materials, the questions the MAT-04a contract must answer and the work-item sequence; no format is selected yet.
 [Portable asset packaging](./m6b-portable-assets.md) starts M6-B with measured delivery requirements and the format/implementation/qualification sequence; the CPU codec, CLI/browser adapters and bounded qualification are implemented and integrated.
 [Browser SDK contract](./browser-sdk.md) defines the intended single npm runtime, explicit initialization, owned outputs, failures and independent product consumption. Its implementation guide and Alpha closeout distinguish historical checkpoints, bounded M5 acceptance and the completed first delivery.
 [Public native Rust consumption](./native-sdk.md) defines PR-011 API ownership, dependency exposure, the independent application, and release measurements.
