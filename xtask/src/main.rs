@@ -9,6 +9,7 @@ mod gpu_smoke;
 mod gpu_tier;
 mod links;
 mod package;
+mod recipe_parents;
 mod test_output;
 
 use std::{
@@ -34,6 +35,7 @@ Available repository commands:
   package-check Verify local Cargo archives and isolated Rust/CLI consumption (CPU; CI runs it after check)
   test-node <id> Validate focused fixtures and run that node on an explicit GPU
   test-material <id> Render material cases and check pixels, structure, and causality
+                    (recipe-parents: MAT-04d byte identity of the recipe parents)
   golden check Render and compare all material goldens (never updates baselines)
   golden update <id> --accept Accept a previously rendered software candidate; refuses CI
   browser-material-measure <native> <browser> Measure a supplied browser matrix; no acceptance
