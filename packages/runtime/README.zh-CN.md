@@ -2,9 +2,9 @@
 
 [English](./README.md) | 简体中文
 
-**M6B-04（2026-09-22）：** [CLI/浏览器资产适配](../../docs/m6b-04-adapters.zh-CN.md)已实现显式文件流程和有界 `inspectPackage` / `renderPackage` 公共 API；源码版本未发布，完整验收属 M6B-05。下方较早状态保留为历史。
+**0.11.0-alpha.0：** 本 Alpha 在记录的软件及 GT 1030 范围内完成验收；准确归档身份、实测环境及限制由[发布状态](https://github.com/OpenMixture/OpenMixture/blob/main/docs/release.zh-CN.md)及其发布记录负责。使用 `npm install --save-exact @openmixture/runtime@0.11.0-alpha.0` 安装。上一个 Alpha 0.3.0-alpha.0 保留其自身的[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha)。
 
-这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。已发布 Alpha 为 `@openmixture/runtime@0.3.0-alpha.0`；准确归档身份、实测环境及限制见[发布记录](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha)。使用 `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0` 安装。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
+这是由 `mixture-core` 和唯一像素执行器 `mixture-wgpu` 构建的浏览器 ESM 运行时。没有 TypeScript 渲染器、隐藏设备、worker 或降级执行器。
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';
@@ -47,8 +47,14 @@ node scripts/browser-runtime/build.mjs
 
 需要时设置 `WASM_BINDGEN` 为明确 CLI 路径。构建使用仓库固定 Rust、Cargo.lock 和 wasm-bindgen 0.2.128，产出真实 `target/browser-runtime/openmixture-runtime-<version>.tgz`（`<version>` 取自 `package.json`）、SHA-256 文件以及包含精确工具版本和源码构建身份的回执。`engineRevision` 标识 HEAD，`engineDirty` 记录是否存在源码修改；构建 ID 还覆盖源码、仓库编译设置、实际编译器/绑定版本和显式 target/profile flags。源码目录不是分发包：生成的 JS/WASM/构建元数据仅存在于暂存归档。消费者执行 `npm install ./vendor/openmixture-runtime-<version>.tgz`，不需要 Rust、引擎源码、编译安装钩子或网络 CDN 依赖。保留消费者 package lock。
 
-Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、资源打包、取消和零拷贝纹理仍不支持。
+Node 测试仅通过 fake 底层绑定验证公开请求和生命周期。构建成功或这些测试不证明真实 WebGPU 渲染、原生/浏览器像素等价、PNG 导出保真、设备丢失通知或全浏览器支持；这些需要独立产品的生产服务测试及保留证据。Node GPU/SSR 渲染、编辑器、取消和零拷贝纹理仍不支持。
 
-当前已发布版本为 0.3.0-alpha.0／API schema 2／计划 v2，包含 image-input Core 合同；M6A-04 已让 `validate`、`inspect`、`render` 接受资源数组及显式资源限制。注册表安装仍使用上方精确已发布版本。
+0.11.0-alpha.0 使用 API schema 3 和计划 v3。0.3.0-alpha.0（schema 2、计划 v2）的使用方必须使已保存的计划和哈希失效，并处理新增的报告和估算字段；`.mix` v1 文档含义不变。相对 0.3 新增：
+- 稳定值噪声（`fractal-noise@2`）、`brick-pattern`、`scalar-mask-blend`、`scalar-morphology`、`scalar-subtract`，以及 `weave-pattern@1`／`@2`，共 18 种节点类型、20 个支持身份；
+- 单次渲染内的纹理复用；
+- 通过 `inspectPackage`／`renderPackage` 使用 `.mixpack` 资产；
+- 通过 `recipes` 请求字段为 `.mix` v2 配方父图提供显式 `.mixrecipe` 闭包。
+
+注册表安装使用上方的精确版本。
 
 0.3.0-alpha.0 实现浏览器资源请求和同步 Core 快照；见[浏览器资源接口](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.zh-CN.md)。Rust `prepare_from`／`AdapterImageBinding`／`ImageData` 仅扩展同步字节适配，验证、预算和摘要仍由 Core 负责。
