@@ -2,9 +2,9 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-**M6B-04 (2026-09-22):** [CLI/browser asset adapters](../../docs/m6b-04-adapters.md) implement explicit file workflows and bounded public `inspectPackage` / `renderPackage` APIs. Source versions remain unpublished; combined qualification belongs to M6B-05. Earlier status statements below are historical.
+**0.11.0-alpha.0:** this Alpha is qualified within the recorded software and GT 1030 scope; [release status](https://github.com/OpenMixture/OpenMixture/blob/main/docs/release.md) and its publication record own the exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.11.0-alpha.0`. The previous Alpha, 0.3.0-alpha.0, keeps its own [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha).
 
-A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. The published Alpha is `@openmixture/runtime@0.3.0-alpha.0`; see the [release record](https://github.com/OpenMixture/OpenMixture/tree/main/docs/evidence/npm-030-alpha) for exact archive identity, tested environments and limitations. Install with `npm install --save-exact @openmixture/runtime@0.3.0-alpha.0`. It adds no TypeScript renderer, hidden device, worker or fallback.
+A browser ESM runtime built from `mixture-core` and the sole `mixture-wgpu` executor. It adds no TypeScript renderer, hidden device, worker or fallback.
 
 ```ts
 import { loadRuntime } from '@openmixture/runtime';
@@ -47,8 +47,14 @@ node scripts/browser-runtime/build.mjs
 
 Set `WASM_BINDGEN` to an explicit CLI path when needed. The build requires the repository-pinned Rust, Cargo.lock and wasm-bindgen 0.2.128. It emits a real `target/browser-runtime/openmixture-runtime-<version>.tgz` (`<version>` from `package.json`), SHA-256 sidecar and receipt with exact tool versions and source build identity. `engineRevision` identifies HEAD and `engineDirty` records whether source changes were present; the build ID additionally covers source, repository compilation settings, the actual compiler/binding versions and explicit target/profile flags. The source tree package is not the distributable: generated JS/WASM/build metadata exist only in the staged archive. Consumer installation uses `npm install ./vendor/openmixture-runtime-<version>.tgz` with no Rust, engine source, compilation hook or network CDN dependency. Keep the consumer's package lock.
 
-The Node tests use a fake low-level binding solely for public request/lifecycle checks. A successful build or these tests do not demonstrate real WebGPU rendering, native/browser pixel equivalence, PNG export fidelity, device-loss delivery or all-browser support. Those require the independent product's served production tests and retained evidence. Node GPU/SSR rendering, an editor, resource packaging, cancellation and zero-copy textures remain unsupported.
+The Node tests use a fake low-level binding solely for public request/lifecycle checks. A successful build or these tests do not demonstrate real WebGPU rendering, native/browser pixel equivalence, PNG export fidelity, device-loss delivery or all-browser support. Those require the independent product's served production tests and retained evidence. Node GPU/SSR rendering, an editor, cancellation and zero-copy textures remain unsupported.
 
-The published release is 0.3.0-alpha.0/API schema 2/plan v2, including the image-input Core contract. `validate`, `inspect` and `render` accept resource arrays and explicit resource limits through M6A-04. Registry installation still uses the exact published version above.
+0.11.0-alpha.0 uses API schema 3 and plan v3. Consumers of 0.3.0-alpha.0 (schema 2, plan v2) must invalidate stored plans and hashes and handle the newer report and estimate fields; `.mix` v1 documents keep their meaning. Since 0.3 it adds:
+- stable value noise (`fractal-noise@2`), `brick-pattern`, `scalar-mask-blend`, `scalar-morphology`, `scalar-subtract`, and `weave-pattern@1`/`@2`, giving 18 node types and 20 supported identities;
+- per-render texture reuse;
+- `.mixpack` assets through `inspectPackage`/`renderPackage`;
+- explicit `.mixrecipe` closures for `.mix` v2 recipe parents through the `recipes` request field.
+
+Registry installation uses the exact version above.
 
 M6A-04 implements browser resource requests and synchronous Core snapshots in 0.3.0-alpha.0; see [browser resources](https://github.com/OpenMixture/OpenMixture/blob/main/docs/m6a-04-browser-resources.md). Rust `prepare_from`/`AdapterImageBinding`/`ImageData` add only synchronous byte adaptation; Core still owns validation, budgets and hashes.
