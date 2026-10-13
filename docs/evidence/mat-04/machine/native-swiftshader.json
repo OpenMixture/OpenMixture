@@ -1,0 +1,2622 @@
+{
+  "adapter": {
+    "backend": "Vulkan",
+    "device": 49374,
+    "deviceType": "Cpu",
+    "driver": "SwiftShader driver",
+    "driverInfo": "",
+    "name": "SwiftShader Device (LLVM 10.0.0)",
+    "supportedFeatures": [
+      "ADDRESS_MODE_CLAMP_TO_BORDER",
+      "ADDRESS_MODE_CLAMP_TO_ZERO",
+      "BGRA8UNORM_STORAGE",
+      "BUFFER_BINDING_ARRAY",
+      "CLEAR_TEXTURE",
+      "CLIP_DISTANCES",
+      "DEPTH32FLOAT_STENCIL8",
+      "DEPTH_CLIP_CONTROL",
+      "FLOAT32_BLENDABLE",
+      "FLOAT32_FILTERABLE",
+      "IMMEDIATES",
+      "INDIRECT_FIRST_INSTANCE",
+      "MAPPABLE_PRIMARY_BUFFERS",
+      "MEMORY_DECORATION_COHERENT",
+      "MEMORY_DECORATION_VOLATILE",
+      "MULTISAMPLE_ARRAY",
+      "MULTIVIEW",
+      "PARTIALLY_BOUND_BINDING_ARRAY",
+      "PASSTHROUGH_SHADERS",
+      "PIPELINE_CACHE",
+      "POLYGON_MODE_LINE",
+      "POLYGON_MODE_POINT",
+      "RG11B10UFLOAT_RENDERABLE",
+      "SAMPLED_TEXTURE_AND_STORAGE_BUFFER_ARRAY_NON_UNIFORM_INDEXING",
+      "SELECTIVE_MULTIVIEW",
+      "SHADER_EARLY_DEPTH_TEST",
+      "STORAGE_RESOURCE_BINDING_ARRAY",
+      "STORAGE_TEXTURE_ARRAY_NON_UNIFORM_INDEXING",
+      "SUBGROUP",
+      "SUBGROUP_BARRIER",
+      "SUBGROUP_VERTEX",
+      "TEXTURE_ADAPTER_SPECIFIC_FORMAT_FEATURES",
+      "TEXTURE_ATOMIC",
+      "TEXTURE_BINDING_ARRAY",
+      "TEXTURE_COMPRESSION_ASTC",
+      "TEXTURE_COMPRESSION_ASTC_SLICED_3D",
+      "TEXTURE_COMPRESSION_BC",
+      "TEXTURE_COMPRESSION_BC_SLICED_3D",
+      "TEXTURE_COMPRESSION_ETC2",
+      "TEXTURE_FORMAT_16BIT_NORM",
+      "TEXTURE_FORMAT_NV12",
+      "TEXTURE_FORMAT_P010",
+      "TIMESTAMP_QUERY",
+      "TIMESTAMP_QUERY_INSIDE_ENCODERS",
+      "TIMESTAMP_QUERY_INSIDE_PASSES",
+      "VERTEX_WRITABLE_STORAGE",
+      "VULKAN_EXTERNAL_MEMORY_FD"
+    ],
+    "supportedLimits": {
+      "maxAccelerationStructuresPerShaderStage": 0,
+      "maxBindGroups": 4,
+      "maxBindGroupsPlusVertexBuffers": 24,
+      "maxBindingArrayAccelerationStructureElementsPerShaderStage": 0,
+      "maxBindingArrayElementsPerShaderStage": 500000,
+      "maxBindingArraySamplerElementsPerShaderStage": 500000,
+      "maxBindingsPerBindGroup": 1024,
+      "maxBlasGeometryCount": 0,
+      "maxBlasPrimitiveCount": 0,
+      "maxBufferSize": 1073741824,
+      "maxBuffersAndAccelerationStructuresPerShaderStage": 4294967295,
+      "maxColorAttachmentBytesPerSample": 128,
+      "maxColorAttachments": 8,
+      "maxComputeInvocationsPerWorkgroup": 256,
+      "maxComputeWorkgroupSizeX": 256,
+      "maxComputeWorkgroupSizeY": 256,
+      "maxComputeWorkgroupSizeZ": 64,
+      "maxComputeWorkgroupStorageSize": 32768,
+      "maxComputeWorkgroupsPerDimension": 65535,
+      "maxDynamicStorageBuffersPerPipelineLayout": 4,
+      "maxDynamicUniformBuffersPerPipelineLayout": 8,
+      "maxImmediateSize": 128,
+      "maxInterStageShaderVariables": 31,
+      "maxMeshInvocationsPerDimension": 0,
+      "maxMeshInvocationsPerWorkgroup": 0,
+      "maxMeshMultiviewViewCount": 0,
+      "maxMeshOutputLayers": 0,
+      "maxMeshOutputPrimitives": 0,
+      "maxMeshOutputVertices": 0,
+      "maxMeshWorkgroupTotalCount": 0,
+      "maxMeshWorkgroupsPerDimension": 0,
+      "maxMultiviewViewCount": 6,
+      "maxNonSamplerBindings": 4294967295,
+      "maxRayDispatchCount": 0,
+      "maxRayRecursionDepth": 0,
+      "maxSampledTexturesPerShaderStage": 157,
+      "maxSamplersPerShaderStage": 64,
+      "maxStorageBufferBindingSize": 1073741824,
+      "maxStorageBuffersPerShaderStage": 10,
+      "maxStorageTexturesPerShaderStage": 10,
+      "maxTaskInvocationsPerDimension": 0,
+      "maxTaskInvocationsPerWorkgroup": 0,
+      "maxTaskPayloadSize": 0,
+      "maxTaskWorkgroupTotalCount": 0,
+      "maxTaskWorkgroupsPerDimension": 0,
+      "maxTextureArrayLayers": 2048,
+      "maxTextureDimension1D": 16384,
+      "maxTextureDimension2D": 8192,
+      "maxTextureDimension3D": 2048,
+      "maxTlasInstanceCount": 0,
+      "maxUniformBufferBindingSize": 65536,
+      "maxUniformBuffersPerShaderStage": 15,
+      "maxVertexAttributes": 16,
+      "maxVertexBufferArrayStride": 2048,
+      "maxVertexBuffers": 16,
+      "minStorageBufferOffsetAlignment": 256,
+      "minUniformBufferOffsetAlignment": 256
+    },
+    "vendor": 6880
+  },
+  "backend": "vulkan",
+  "completed": true,
+  "gates": {
+    "budgets": true,
+    "pixelIdentity": true
+  },
+  "kind": "mat04d-recipe-parent-identity",
+  "ok": true,
+  "renderedRows": 59,
+  "rows": [
+    {
+      "acceptedPeakBytes": 5243152,
+      "acceptedPlanHash": "sha256:52896b05d95852d3a9532a8b56e847cea85f36b7cff92a573e1c6a9d1afec697",
+      "case": "default",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "2db3bdde793660e33e15a1f88ccf5eb776b5201e383dcc87af9587a7ace5cffe"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "28d3aa20e1a78dee8cafa112ae884a4bf20ddf5ac65857c04beba2abf2f36c75"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8263f385986f1a7a74dbf19ced67754d0a37837e21cff751ffacac87f5086a5f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "b25087e7b5c5d747c413fd9c4001e39f4714bd1e5c0ba15fd658cbe15b0cacee"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 5243152,
+      "parentPlanHash": "sha256:876d9661b212ce9be9b7ab00471110f88c828e769ac17a5d1325bcb424ea8f08",
+      "passes": 10,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 83886352,
+      "acceptedPlanHash": "sha256:d0c94f62859369b78540a0dc3dc0bc3e2ed5f1ce77f80222a324c627cacea0db",
+      "case": "default",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "052b29dd84453c5723806488838c69ada3bc09d09a4830ab048b7716fe305aa7"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "cce4bedef964241bfd0a36ff9e36a8ac47af2c7829c79a503c4995846146e21e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "2cd24a9f9b60302328ca74f815e7fd1611325c604b209ea01e2965f023e15d83"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "e6bdd6724a2698abbd3f55558853092861d171002b108c5872d8c64ef7ad179e"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 83886352,
+      "parentPlanHash": "sha256:44061570e84c0694cedc2af22dc65d0f10ec752e30e6ad90998d0a144025ca64",
+      "passes": 10,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 335544592,
+      "acceptedPlanHash": "sha256:9518548c2a4fbb1ad25772739241de484a35c8451d854e78c4f6f9d898180243",
+      "case": "default",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "58c07899afadfeaaa21a4eb5be0742c4b6e2b00d375fa5627f531237a5446927"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "87ebb257ec7d0e776a9ab49845fca4895d20522e3ce20a25e258e47c236f74fb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "e89c1c9a2633bdc574547fc5dd01185a573cc050b48770f773c1bdff941addde"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "82568bb5461c6bbae6e219bd1b14c8898b5248588aba26a719c3dfcb19b30773"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 335544592,
+      "parentPlanHash": "sha256:0e0ef8bf2656f9635f3777f9caca70a1981ac069d1f10206846789e854688980",
+      "passes": 10,
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2684504,
+      "acceptedPlanHash": "sha256:c6d5bf1552c516de0408e1bc99f64c6f85b1078063bb46f2e4c577468b74f967",
+      "case": "default",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "aaffbdb66547949f19c26fe0facf29449cb9dc5e57b4c30ae8b7c9ea7965a2dc"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "42b856789b1c3ed683b677a5b38f577902224e510a3ed490e0881dcba7690ded"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "f040f82acc9543a30f25b0fb3bfbd3f7e15c8154a9e88ee5fad6e5c589e5fb8f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "fee1151ace3b6970bde418886a9ed7d10eeba1b0ce4dfb779689fa2c7250f53c"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 2684504,
+      "parentPlanHash": "sha256:e2ecfd367e3da0527ec236d0583182df7b9b88443ca251d58af1b47b8721c904",
+      "passes": 10,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 5243152,
+      "acceptedPlanHash": "sha256:82b00f8585fb7d9fd705f7bf5c5f20861f25a42ecd31cae3521028d5f6338cfd",
+      "case": "regular",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "4282e63d822be556f6a3def766bfbeb95b691973b0bf4b90fe63c8be9d6d3d54"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "44efa96723c8437de43c0f8302b98a81914bb43971efd9439ec97ccc3ef51fc0"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "3a40799efd0f2efe16ea0f1e4280ee8b584734c8669e498c04327672354862f4"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "fb5123f1c154af444236b48a6161ca34904abdb7eeb1618072d510d49d4b5816"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 5243152,
+      "parentPlanHash": "sha256:deb8222736af7a1799bc4a34438d8d939d7834331b88b38e22a68b521e3bcc55",
+      "passes": 10,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 83886352,
+      "acceptedPlanHash": "sha256:e789b4fffe722c704ac0203aa82c791163892a931c8f0ca663a9323b9dee6a54",
+      "case": "regular",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "d1734c07d3f09b8560d3ddb1028db4666730cb2384dc36be3f001948c561f194"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "adabed3d24a86d4d43016fb27b30a60307b8f98bc24fb0a53000d4dcfe508663"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "b598df94d4b02264014314bd23669d9753b428d482a45cde04f911276a881254"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "aec7b0c7568ff544a643ec2c642362da4838363939e11cc7e8b985420311c609"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 83886352,
+      "parentPlanHash": "sha256:46554dfc048d270423cc73d18e0f6918296a40df9403484f9f375650b2fd8ea8",
+      "passes": 10,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 335544592,
+      "acceptedPlanHash": "sha256:e64469bc951739f4fbac3d261bbea45eb0165f37877c07c2b18c51b7c4462309",
+      "case": "regular",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "e7bdc5a251e3623a0262e648f847aee420ba5ee0b3cf5718acdf8579f3a77664"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "08009b8ddf190884aeba43c050f75feae024f5095190c1933ac94347bebb01ce"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "bbeaf45a0eac1a2295a18b8ddd7723d7b1eb374648c7ab5499975cccdb72e7d2"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "521b4f4da64875b4e936de49b90557a9374e93534dc0635ba417b9b365b5a305"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 335544592,
+      "parentPlanHash": "sha256:2363d5d611f822ffe77de4340ed17cd93bcd754bec62bf453f28c4fd4a10cfd5",
+      "passes": 10,
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2684504,
+      "acceptedPlanHash": "sha256:1abd52eb3a8350fd0c1e958261e42fd68c7337de755e4c1537bf307cba5ab806",
+      "case": "regular",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "cd1e65926b8bc157a7d7dd31bfe998bfff16dcbda1ece6ebf83d6295c52521e9"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "25efb95e37285799e73ee877e874471432b30617bd75edf4cbb2965cfb4a1a6b"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "9b3cdfadbf6b9da6cf7e57ee535fc221627910c3d5f071623fd2d60cf3c161f2"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "0b3a5f22b8800fb8c88d31fd6351e78457f366f294dced3c25509461c23e3a81"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 2684504,
+      "parentPlanHash": "sha256:090699995609a848efec63397a3f29629889bf1524c7fbef884a93baa6c51370",
+      "passes": 10,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 5243152,
+      "acceptedPlanHash": "sha256:36ce113454730733bebce13ad3e64f286d93fc47ca9e12445059eb4a0c6f1dde",
+      "case": "staggered",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "cdff87ed6d015df621865d7fb4c6d58464d20d3bb47d0b3c5909b175b308eca7"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "422c65e117f7789efc81a747aec301dc31483880c06c0efb4106e33633caf7c8"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "621a7affe249e3d970e4b625954222f143fdeb2ca01afd70e1bc4ea0682af7ff"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "6ea92ad99ef658c44edb542b163d1285f2161d4f9933564c9b3491fb97ac6528"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 5243152,
+      "parentPlanHash": "sha256:7a2721c8c19c7b0c781157fd7eba5779e85941a834c8928555e55d9fd1dcc68d",
+      "passes": 10,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 83886352,
+      "acceptedPlanHash": "sha256:fd87930fa6abb5cc6028187481af17281c23b3b0019d7bbc3003b6c153d64f57",
+      "case": "staggered",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "f378e4886edd772b413d91a93719a441489dd7e5444ea330b3faaf9cf795bc0e"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "d22c9f86ea4c71ae10ab38e1faf43521b39ccc0b1f567413cf4cf77d8781ea68"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "59783263cc35c1c9ac025806be41425823ab8ae7d37b5fe6c511eb90896b754f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "dfdd32224b606cb34956a1c17c88278283806a92934cb767b16373118aa458d1"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 83886352,
+      "parentPlanHash": "sha256:62c53a89833186e92f0d81ae07920679e98dea6608db7eb3d76c8854ce33ca3d",
+      "passes": 10,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 335544592,
+      "acceptedPlanHash": "sha256:c5fe1974ae53a68667f6a7a47c794a573a0b11323721faeebad226adfd7eab55",
+      "case": "staggered",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b92c5032852b87c713dc675ad0c55ace109e1091d2353ac64f6f189587744e37"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "615519e3ecf4b38d5b9dea2b76870c28208b7e7c21dc33605ba5114312099445"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "2a0e2dc3c07d4de662641f23c3648afcbcd16dfcba46226fb4c9df61ee75df9f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "2229232475c1ada0442e161d1dca048ba513880399aac69f73ba92c20f0a7e2d"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 335544592,
+      "parentPlanHash": "sha256:8e0270f70cc3a0b2857cabd6d3a19f0f1da051e386d5a1e528cac00e66ac136e",
+      "passes": 10,
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2684504,
+      "acceptedPlanHash": "sha256:50436e708cf521b543bcb3861b73ea38fbfd9cf0592eb4b349026d3ec361349d",
+      "case": "staggered",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "ee9d46d32146ea7bf1cbe76858400addc991a9d6bd03c4bddf411a811ff27c62"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "19c9222462d6577221bbb5aa004ad1aa3d716d09381368e021bfc04e64f8d5bb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "0afa2408819c7dc59e378995e6afc3adc6e174c783de1f4063f4ba2c99a133e9"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "2f17b3b5d466ebdcc575fc1021ba0815944e6071df65a6e869cc35b781842842"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 2684504,
+      "parentPlanHash": "sha256:1b1845bff4c546bf5658a214bae024ba631c5db6b7b72009fc82a4ba110a884b",
+      "passes": 10,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 5243152,
+      "acceptedPlanHash": "sha256:51150bfe8a24649a99a5568e68c4fb7353d03b9c8f65dfa7984b4a6bd1100fb2",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "8c32ca1c9eca093972807099018e37dfe8327eda08c8d17fb126fa25a49586e6"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a9d421fe0d1b7c8df49d305fb12769bb2e8d7e83d8e111bc724390f244f9f84c"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "fe90ab65064f757802e7bd62e297e411df635dcbec0e20998b980c1b452b1ea6"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "32adf3301a2b163828556978dce79d92d462a83a09a757ceb6ec75bd8042a043"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 5243152,
+      "parentPlanHash": "sha256:26a4d42ff0f4aa63ff851113211a8965271b0f3dedc50377b6b0dd766fcf0a48",
+      "passes": 10,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 83886352,
+      "acceptedPlanHash": "sha256:596e1e7afd2a71b740b27f583a1dd366225f6a2152c25cad988365f6ec2d20b5",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "8aeeadd1d15582cca105ada2630fd47538288692b6ea1d05e00aad268aa289ac"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "bbdd6736d3b96928dcbbe6fa43e7ebef7daa1d63de0d5b0a60d5bb1a3048f2dc"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "41fdb5fe3fcad643c6eb791b1991bc73a0476046b4424ef1707b213120398212"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "ace9b3c9493cb519ecac7a0d29e56ae94a5a2952b3ae2fac2cb29a363362550b"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 83886352,
+      "parentPlanHash": "sha256:fb489e9c47106f61fb4690c72b18ad905f139c63dae83dca1d0c0bfc4661a830",
+      "passes": 10,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 335544592,
+      "acceptedPlanHash": "sha256:d9ee03f1873acb7a7becdef0e4dc43ca6bf8bb7189a08a9cfa1f7d54154d76f0",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "a9d81982551b217c564f3d72dbbfe3655886f609a87c78e1a13f3e6058a33c8a"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "57b4b7d64d380db29cc85b6ddeaea4f034800bba16a246317bc0ea6aa064d648"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "77898c0af5938a4613f00971594ce9b7b5d6c7e73f16b210219277cff65a1450"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "83842f41554647cf6558ac873b82776cb8b022ab3d1ec63591544f7ca39b6064"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 335544592,
+      "parentPlanHash": "sha256:008a839dd2d1d9004bf299e2561330b0a4e2608b41c32168a7a8a0b8fb8245bc",
+      "passes": 10,
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2684504,
+      "acceptedPlanHash": "sha256:605f2a992edea9cc84becb374c8028b8b60cbb089f719d899c1639dd8fbcfea4",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "04614b40eeb54daa61d10d743aef3954332d52e1cb05666645b627aa69d1b429"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "d9a70c484caa27c0c7d381ca65a8ae9d2f9ffa1a545a6563aecd61c7d02eba28"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "cd3e5e708dc4fb69e0ef5a40bb5e4f8d93e9cc179f78d98b8d76a9c56b586a0e"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "7a121cf65a972ce6e54f1eff1dd5cd9bc0907c40191517a9b6ebda58065eee22"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 2684504,
+      "parentPlanHash": "sha256:32cd0d6c6c52a00bb722cb3ac07578c6796fa16515322c75833bcc94ba9b5ac4",
+      "passes": 10,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 5243152,
+      "acceptedPlanHash": "sha256:89aec16f9d99fdba283117f06e2dce2dc716f854aa7fdf7f4e4af8d06658b965",
+      "case": "second-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "fa646f31b7e42eff114c1d2115abf1e7a43ff3d27980cb648a970791d031e898"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "113b6faad16dbe3a6c091b129f567812f221a562b427f2e9910b00c5334e9bdd"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8263f385986f1a7a74dbf19ced67754d0a37837e21cff751ffacac87f5086a5f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "68e15bb3cc7bf574445391eb81221679ab72c0af4eaa1100b3315a6c6a415d61"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 5243152,
+      "parentPlanHash": "sha256:32bea8480536ced8f2183cc3f22f127c8653cd0d51bf318ce026a44ed038e1c6",
+      "passes": 10,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 83886352,
+      "acceptedPlanHash": "sha256:d3170cff1741242d1a12c17c973bde8dc3fe7f807dfd6175d8c98394284c0c76",
+      "case": "second-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "0adc2218378148cdaf85a2722db0e8b49c4ed530754b4eb0eb6f1028d2494a71"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "402bc17d9a016f8424a83be72f4294f343cba30f386720d6eb39900dc7c205c5"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "2cd24a9f9b60302328ca74f815e7fd1611325c604b209ea01e2965f023e15d83"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "d3d83509cc29667425e2800cbfa767b5157265dac6dda246840bab08ee461157"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 83886352,
+      "parentPlanHash": "sha256:d526b147276547f10b0610e8f86797e344eff7571af6baa36fe6a452493b3878",
+      "passes": 10,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 335544592,
+      "acceptedPlanHash": "sha256:c19b30e590835677c38ba1cad2dd6ede5650f58b59f76cb6e3f19c7360a8d88a",
+      "case": "second-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "bf2a3afe0a551815bddf99469c9e3842e717535e23ff6ea3046e65045c9ac7d7"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "3ab420dafc88528bff7f6e9b88a1e56737bde1be3c2a3d7d093c384082bcfb2d"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "e89c1c9a2633bdc574547fc5dd01185a573cc050b48770f773c1bdff941addde"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "f275e5de500797785026059bf04d29cb7ab2be201d13e45e84140f0066dc6052"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 335544592,
+      "parentPlanHash": "sha256:527e04b65620c9f00ada1f37a63fe46de114c07295eecceb2d059c6c5aaa22f0",
+      "passes": 10,
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2684504,
+      "acceptedPlanHash": "sha256:109a4a117f44383f2fa68e7f4bbd3299ec371a0812ef39ee549ee1aab675f87d",
+      "case": "second-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "4a99d2748718141a959b9fe1d899d787a2d89dd7b7bd14c6656b21cf5d965af1"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "adb48f46324e816c6ad8b9c8994d11c5a8643e21a515471a622b8c337de8d3c4"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "f040f82acc9543a30f25b0fb3bfbd3f7e15c8154a9e88ee5fad6e5c589e5fb8f"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "4cfb8b56e4a1675c17c8e8cf7583626b148953cdd38fee3514d788d9c2850898"
+        }
+      ],
+      "material": "brick-paving",
+      "parentPeakBytes": 2684504,
+      "parentPlanHash": "sha256:3564b6ed8b49601253db85c46800fda9b8780610492fdab3101c2850f7ce155f",
+      "passes": 10,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:e2ce968b0da9f6b19cd7db5ea68e42fb0619d327f008b097a7bb9a3a1b6f002b",
+      "case": "plain",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "72f8502611ec2d69a4cc220fe3001193180fdc1bb02e43855dc5b3a277369b31"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8982710a5fa64055941c0f8e4e7fdc4c2ea89d36c2e7dfc13361534004825fcf"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:2f731a199d8fc165a34c066c8f047c6747c7042ec66efe704cf08d8d2a65f75e",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:043c73cded56e5fa32595502d4b1bd0ee73fea5bc83d8652b37622d86f975416",
+      "case": "plain",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "28f3861b9bb9008ff24241b45b101806589c70b2fc421b2a9dbc3f68fb188175"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "fd795601ddcf56ceb5075c48d12f134a3aedf285bb96ff71925fd4262e7273f0"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:dcbf96aaf4eca284cb824dcb8689e7f04999de2af0ea9d82411ed4f3db937445",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "plain",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:e6b49665d6ebd0f1d28d48e64c49f7c35d38e055fb898dd094a518ecac8c0196",
+      "case": "plain",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b7ce167f9468f8e4285a23aa441acb68bd5b5df0b97a294919c24eb6cd032501"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "dd23d932a0763165ecc43de8d9a075578354c174a5a03068b2a0f3803eddbd3a"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:721142084234dce65faac30a66bde05129b053d63ed1026a374317ca86eee765",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:e50c5d3fe8e60be3df8683eaa2d4d8de22f68634d5554247cccc184d20bb9589",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "81118ec68750430b55c05969898bcecfff4b7bdfc74236bff417623a3f592d50"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "75f2eb475f529ce0f83c6b101a71b89f47d57efb3e83ce18f5fec35e834340bf"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "d616d150907f1f15c3c5ebe24d9294e82a16d8f34159c5f82512a6998bad8d0e"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "56b9aa7f8faafef31ebc60f2e360863a9572688a4a7a4c7ef453a40a950ec64b"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:5af608b1dd19efbe5d03874f32c62cdfadae46c64e22c43ac66f040235f3be58",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:f7dd8fdfaf5b5da370a96aa9cd1adc760bbfa831fde6bd6662f34b77eb3feb9b",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "d1d31b0fac3cb799644c7761cdbed432a4a29a76d6cafc46913a890822333741"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "3eeeb09f903470a77687f2d778595613a1a2f15f2a2745fb6fb5d7ddc4a83660"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "a61c22d8624aa02b79095d0d321216e4669f7324ece4fb949b1f50926698439c"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "b98cfa55fa397e5263704ddac3dfa22bd1a36792b99f41344c12e13b21125145"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:7727facfc65bec48123724d59768209f7f33dd71bb05e16507914b73bb3b6bc4",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "varied",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:99f418a6a8e7fb1360427e2239e8875c38456c218e228e38c4c9195c7c8a1962",
+      "case": "varied",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "e91e45aff5a854781c1818ebbb72084cf6cb603ab9dadf2b538cf4adb2a93aea"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "0e8f98fe73d5733d3173240d79bc814ea6f0f0dce6d0053f79e7ed9bcd559a3a"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "39593f0cf5ad92ab83cd1792f1323ec472cb375ce02b3a0fe533e11dffb217f9"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "ebb3509344871e168b4ddaf132a8a10d6316593111f0f78761b2511fec091cc8"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:a3c231ff372d99a953fed85ef904c7c05a03f45bc4966e45a3118f47241378cb",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:26d9d9a88fc58ba6a5b1827f128482be8a3cbdc3ad1f76edaa0f52b1a55378f6",
+      "case": "no-detail",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "255c0e297861031e2bc1746a17211e5de7b7c1f5248a2009ef9df1fbec3f6013"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "d2614819a9355ffad96cac71dbc9adfd217522cf6053982454574dae6e0ca4f6"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:a86a8854f49c75fecca34349f055761286eabd2da507f50896db779352b4c82a",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:32208beaa4348839e1d831ee942586c9688aa1ebaa91ac3c06cdbae78dabf4f9",
+      "case": "no-detail",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "07bcf97c506161432ce626cb10e5fe2c72dbe4062fd83613a583d40fc6e11f8a"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "b160c1405e3f74440a6fb78a0ad8f545d51a217012aae682e59f34f4db472870"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:1bb2689424a080ea2fc9c90a4506a6f3106109ac6189b06936d49c70c4f9e383",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "no-detail",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:a1cd62d17d486679c5fea5e2f9bb27989069bc9fc2d7a7a7a4740aedf9780810",
+      "case": "no-detail",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "0b3bde353f15635fda877c686bfc4f1805de097a6a63de3fc775c9ef98f715b9"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "01b7c050f13b56c3361271248c456cf68cc9cce0b2ba5a327b4d9a036ba15a6d"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:125835d7129826daefb9d8ca6937c2a5a2e0ea513571a5326e2428c4b4593d45",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:502c42bca423cd39553befbe02b8a7fcab579eea28381861c51e2e8b645bd42b",
+      "case": "flat",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "72f8502611ec2d69a4cc220fe3001193180fdc1bb02e43855dc5b3a277369b31"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "2c887542dffec8d71834ce0b2c011291a6fd421f2f1f09cf691e795ad856627b"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8982710a5fa64055941c0f8e4e7fdc4c2ea89d36c2e7dfc13361534004825fcf"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:e6a0b30a24a974d6cf126a36fb90cc8bc3e8756677c59bee12aa875c0be31b33",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:17ad9401e7ac17359cc750179fcbcac747f68e50c83071a8455aa87191773231",
+      "case": "flat",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "28f3861b9bb9008ff24241b45b101806589c70b2fc421b2a9dbc3f68fb188175"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "4b481c39235fb42bdbba97fd3c829736dbcadfc2338167c1c69ff5dac6c9224d"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "fd795601ddcf56ceb5075c48d12f134a3aedf285bb96ff71925fd4262e7273f0"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:f4ee0c250217e255002cb2261e107121d50ab670c2c98bce2a8e1e6727b17960",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "flat",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:bec8e0ea5dacef40c74d296c4ab80de10cdcec09feafda1445ab5cd0b06aa638",
+      "case": "flat",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b7ce167f9468f8e4285a23aa441acb68bd5b5df0b97a294919c24eb6cd032501"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "82b45d0c026b11efd3fbaf203f562c3529c543b06fd2704473daf6bf982c9250"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "dd23d932a0763165ecc43de8d9a075578354c174a5a03068b2a0f3803eddbd3a"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:cdfc37799a541bfda6667dd291f25116b019f7d72f62d97ae66c41bec1b75af1",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:24b5386bd208bbf72c277165596236f29b89c55f7d570c7fc5200a741e434f2b",
+      "case": "warp-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "479e04d66fb6eaada4091888a993ef07b2c0780ba0e27e8f5f52b68d07a461ae"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "10e7e93b9de74288cf88c3a91d71a8b5dacb7a2234cd581809e092fc70f984f3"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:befbbd30197a18b6d974836713be015eab3db614ae6270b0336946c01bbb8d5a",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:dac0b2dbf03e5f28372788f9e920adcbcd0e2e0fe7dfd29cbab5e6b82157f156",
+      "case": "warp-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "7e761100020a43e90e22572dc6b8ac9ecdee9238f02acfc5cb018e19423d3dfd"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "54af94a14fa47e3b3aa339030aa3c5bc9f8203c802ad7baba5901edf68b3596e"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:1c8dbdfa2f3616f42061f9001f6624aae5d838f42bee7854b314b550b5881a98",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "warp-seed",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:43b81ecc17b109bafe701bcdc648f2016df1e8385f11696d0c216d6cf214d207",
+      "case": "warp-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "adfd22c048eeb4060fcc9af6c65e76be6a888a0f3ce726a943c32e9efabe10bd"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "1a47af719f38dcd6dc0fcf8ebd31f6d094109d6a37623c1778d49bc67958f2dd"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:9c16d42f0161a31fccbc049d5ceb560117c9b88c03130af0760165649ec8df8f",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:8984c4e7fce4f80fc5304a9b37c41c0af771315ae76079eda0b8f53ce641c2c8",
+      "case": "weft-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b5aeca0753c28eb2bdf99bbc788202b7382ff794a8b8ffed75a6a0713dafa087"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "2ca558d721ce9be4c752b396c93bcf3f70bb820ff17898165b306195dab0693b"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:6af3ce64f8c2f4090847cb4758431e8198c14b427785b867dfe8ad650bde3c02",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:8132c9590a1bc651ee12cc546d9baef7b3ce6f2580828e7d9466533bb271c2c1",
+      "case": "weft-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "3f443ecf61736cc8f42a8ae5f2f521cd82ebc40fd8067a3fd0ea694ab5d45d8d"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "0f8dd3bf4531f955f9baef0de278220a89e4f1402428731dd047a8ed6bbfa2d3"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:06b7c3430a23ae74d3bf3a96c72b3ba01ceffd91c0f1a1179dab8c2821edc208",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "weft-seed",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:b44979ba400516741db893dcc0de169f50e81cf79347095a40613e8ad9edc166",
+      "case": "weft-seed",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "e23315118d07ca156278e7cbf7f716daaa1481e01ccd1ed0a2d79b9144ae338d"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "c3953ea46bc80fbd2164ab4bafb9cd16442756752907c7ea97f58528c703a2d5"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:168f34794d6aa198195fc46f4dbea0d36cc31d922d9c44091e1d6fa6817ac2cd",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:74ee4a5248d1b4a0779032d3ed272e4ff41b857be72011e65b1d117d43a57e87",
+      "case": "combined-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "73e16605e191d572ccd5efd2a24fcf5e84ab8408fcaba501e9295169803a32aa"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "038134c26e4f15011336208359f6a62455616ae96d92f9687747dfcf1a0c7517"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "315c05002d32593ee8525e357e58e2888d169d039083559801d72cc53fc35bd2"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "01431674ed498ec17d7a3efd59bfe209a9ed7bc8c6460ca7d14b1862892dc9ba"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:95bd778054af1004e0cbe92e42338c97b38529f0bc419b7faba14c6dfe0e1982",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:9f4ecd7bdcbae0b7633551051a18b8170603da3479c33d95e7e0449730ab35f2",
+      "case": "combined-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "4f0006c8aa73c4932d3993aaea841ee11fc63e575116411795fc76b110c384de"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "0cfd41d656e5f55724e8da1e5d5a4f12c59f975fc51ffe2c4f3bb6e7022ab97a"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "963a6f464bb116502c9209091dd9e9b1c5c7c952b593e75560a7948fe51e7789"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "2d8e501fc1c299264b5c5f9886e87ba592dee987075563c2be3e1d1a43c307a3"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:2fde1ce21d520e1f9260f73ccfea6225a3c4d8ed8858ebf5f397f08c3a657be2",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "combined-low",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:c950f829f050db844c24e335a33ed3224447b507210276326c7d13a83af42622",
+      "case": "combined-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "bd767d81bf225bb571f866d1afa743d46f962d3b4563e6590eadb81e569159b3"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "5bf94dbcc3ae9a26a86b771c3042302ee0d10b2dcb8f7356f709d4fdd5f7b446"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "ccf3d8bf584e4d059f448477cca0628a10b95bfbb55f81b668e36d80430e0eaf"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "b69ff059e49d2327eb459ad69adf9f19ca38e48ab5602ff488bc5fc448832ef6"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:dfcb8917acadb86fcb4dbc7c958bdf4663e450c2d5a33f13d45a438f56285fc6",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:9f9dc1c177ea3908af45c49dcbe41e9fcc21743828de144aa646057790166809",
+      "case": "combined-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "9f2d30d5afb425192662a6fa1fc44ce776378b2d24a1aa246eaf4b85a5d66cff"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "e58c6450bf0beb7214efd8a046b6bf5d928be40c3cb14c123be637db33a766f4"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "54629aff24dad0de06b7575719d7771a013f99edd3fcca781556aa523dad2e77"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "f69393021615ed7f563c28920dd9c1aa761257e1d46626d691edb5a64279b3c9"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:3889f997186c77d627c1ebf6e1e606a1f9f708b30cf3a2c4de88de8a4e81d8be",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:c771ace48f8a240a94e300100a21a0129a4ab70d7a975911c5c261f293317997",
+      "case": "combined-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "caeb88a09008e4c8d8e254823881390a44c1b13bc69d4aa51f4b59a7ce2d10ef"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "1cc821f73c81e5aad74f28c2578703670811dc935c9abd3c3b0202240010b02c"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "05625a1672ac6136bf512e03d86644fd9b9af9cd37bee6882444b3f2242a92ce"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "50535e9b1fa9c164cb726970fa566b99ecebca3c897dbedc93eeebca941b9da0"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:c3a2b2dc3e034132514931afc87a36b533759bc7d21f2177f377f78cbb347ae7",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "combined-high",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:afe7bbbdd3904341239d274aa5d3b4e2d448ae8f1b6130e359f0bdf05471a639",
+      "case": "combined-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "5c46c3814b563176d3c2a5620ea05f19418cd566e9e1708c7230ed2d4e756a30"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a07b48dbc82f9bc25b14b6ccde0adac1d6d10d4ff3efd28823261ad6c6987105"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "e944d76c1a58fd7c5567b5846c94b1dd9326f16ee0287824b4f733f347fea3cb"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "ab6f08894510b04e828947e832d08f1762ad7284fd5b8340f28bd5a116be300d"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:d7643a993b3e8b8536de45e8442b5c23a40a0ec31f30b5a65bb52b773fd7fd0f",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:d7bd2f2f6ec18aa7242104a03a80f4ec3bec1360d3d4c3e13e45b2ff04f12402",
+      "case": "neutral-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "72f8502611ec2d69a4cc220fe3001193180fdc1bb02e43855dc5b3a277369b31"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "2c887542dffec8d71834ce0b2c011291a6fd421f2f1f09cf691e795ad856627b"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8982710a5fa64055941c0f8e4e7fdc4c2ea89d36c2e7dfc13361534004825fcf"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:40217814201bd01e17b43d97a36cd2f20525871d10012d864589c0e5e9371cc9",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:dc6fa73d01262c783cb95c9fcd6a64b265c08c3dcb760e021c2ab97189f48449",
+      "case": "neutral-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "28f3861b9bb9008ff24241b45b101806589c70b2fc421b2a9dbc3f68fb188175"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "4b481c39235fb42bdbba97fd3c829736dbcadfc2338167c1c69ff5dac6c9224d"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "fd795601ddcf56ceb5075c48d12f134a3aedf285bb96ff71925fd4262e7273f0"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:2be0c6f2a7d101bf6160d205bc5ebaa478f62d2add383322770f195cfefd5372",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "neutral-normal",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:e94fe6604345b187a0dd2d36c5ba4904ecdcd0e1035e39993d14968a908391f5",
+      "case": "neutral-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b7ce167f9468f8e4285a23aa441acb68bd5b5df0b97a294919c24eb6cd032501"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "82b45d0c026b11efd3fbaf203f562c3529c543b06fd2704473daf6bf982c9250"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "dd23d932a0763165ecc43de8d9a075578354c174a5a03068b2a0f3803eddbd3a"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:97adcd7d28878317b72ab366e7cf6e190ab51c11c0231bd4ff9ee531b349b221",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:8d696baa88ed7808350bce4f03fc986b6dfe593ce5c548e5b1c78b06a9fa15ff",
+      "case": "constant-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:94a99a14f3e5daf3ce6bce5853912eb04cd391292818db6a4aa6a1a4cbca4359",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:7242e804fb58e3c3d8cae4920dcf20183718d13ab5a701a7770a138cba1fb9da",
+      "case": "constant-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:4a8190efa05ace0009333acb221f75ec172b8dafebd37e16eed0cc0171194a79",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "constant-low",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:8791a236e244dfbde7e174e35aac4325204f9e7e907812813bde092f6bb9a70d",
+      "case": "constant-low",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:e0031e2ea200db64c7442790cf112d22b8d49b9ec69464024c4201da2b94964a",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:9214a19d60bf532e5510f2e4eae97631d7f64fd281478d5119a0b8b090c2aa6f",
+      "case": "constant-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "41cbabfb3374c3691d92c1c8cb2826fb4edb74b72382afcd6a35377d9a2ca0eb"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:7d846a344504da57ee3a6610c9d35dc2eb906045a46d2112c3f84a071bb7d0ec",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:c52fc4d0011682ae3043f5a28c5f858c9955ee832934d9ebc5cfff85de94c4c3",
+      "case": "constant-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "cd3517473707d59c3d915b52a3e16213cadce80d9ffb2b4371958fb7acb51a08"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "a7194a69bebbd030f6bd29184c77e90e0f444d39375f62957389319f42e07582"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "cd3517473707d59c3d915b52a3e16213cadce80d9ffb2b4371958fb7acb51a08"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:46066713592c42ee7d4028dc07c517ea864ddb009f0f6ade86213d92fe8732b1",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "constant-high",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:36a03b278d97b51a315c575494d061f098b3e8df20cb07c402882467dfd55685",
+      "case": "constant-high",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "47f64f7e701505c36809a1ad185247457ab72e808aac9b3f0d08460ed47190df"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "69ddea29079a4b09692b952b3ceed152c24d49b68ab6cb8063e04e2a6086b73e"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "47f64f7e701505c36809a1ad185247457ab72e808aac9b3f0d08460ed47190df"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:05390f5569084e4692246f2292dcc13fcc3efa00abb2d1c671dd57d1e06a3e9d",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:0df0f73489c3c7c5c69e5ea7a21ce30aa45f9f7603bf3877d7fd5d8d844fe46c",
+      "case": "max-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "72f8502611ec2d69a4cc220fe3001193180fdc1bb02e43855dc5b3a277369b31"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "6dfd409bba45560ccec1cb1e64f68f54fa2fa7ee9206ad1da707455fe96d81d4"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8982710a5fa64055941c0f8e4e7fdc4c2ea89d36c2e7dfc13361534004825fcf"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "181f106a0bd68c37f37204938af2899d93b5ef215a3e800351ee59519159b03f"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:2b93b659bdbb1d283b2c27b1cee7a7a8b43d4eea300710e1f5b77d05b75c980b",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:fab0812bc4aef111b4a39f0cdf5f8717672a04cfd1e33ccf6375a756137573a4",
+      "case": "max-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "28f3861b9bb9008ff24241b45b101806589c70b2fc421b2a9dbc3f68fb188175"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "60da5cbbc9316df2173f82f4e9286d83df61af2f4b0650a9e5b4e12e9e1f798f"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "fd795601ddcf56ceb5075c48d12f134a3aedf285bb96ff71925fd4262e7273f0"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "1e8ac3e9595280d6dc4c7c2de23e4bf1dff6641a217e53139e41a2ea08a78b4c"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:1fb278b7c88c918a0c9aa3879d761740fe387124c293422db1be879f8af03c53",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "case": "max-normal",
+      "material": "woven-fabric",
+      "size": [
+        2048,
+        2048
+      ],
+      "status": "notRunOnSoftware"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:1507ae63cfc89404d40567c427bcf77813918ccc50a52e1e04ebf7f2f40e1dfa",
+      "case": "max-normal",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "b7ce167f9468f8e4285a23aa441acb68bd5b5df0b97a294919c24eb6cd032501"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "17981809ae7bf3044f6312c0dc2bc9d2631882798ed228b3b7be76bec79db6b0"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "dd23d932a0763165ecc43de8d9a075578354c174a5a03068b2a0f3803eddbd3a"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "5c15e374e2d092548192904f37ae9f6f3d01814811a56aa1a86e47a81eea7b97"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:e028d14f2a3d3f4b0a03ca013013d152d9fa33233fa1ac4dc8a605c950d0a52c",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 4719184,
+      "acceptedPlanHash": "sha256:b9c1203ee852ef31de2194ae9fb730dfb6b9e7b1936732e66c11386067db2c38",
+      "case": "stress-dense-thin",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "630596129ebd1b6552c015c7cbf100f290712e6be4a93a5e401b714234a76a42"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "6777b738b4000678ddf0d1da52700514b3e77ab50aa8085c4a5d2c435b9a7be1"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "8373c79e92a0172f4f1919fd65ef0b9b22b8198e116916923e5a15ccf15d7481"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "b7997c60612a8f60f104b19583162aaac7dde1f1ab2e8ef7c9b935550e2b0aa8"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "463f392df01a5acae3d90c1f329db89026189f6cfdad9d9f605079c3798d3816"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 7340624,
+      "parentPlanHash": "sha256:22656197b16a5c2ed633060e47d5c5d338ebd1667a40f2445fef7fb47158b478",
+      "passes": 21,
+      "size": [
+        256,
+        256
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 75498064,
+      "acceptedPlanHash": "sha256:7f2fffedc6e6ada74fbcb0c65b633f009418bb5824be6d1a242a66d764713e77",
+      "case": "stress-dense-thin",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "97f43bbe2f9059220dfa7d0d401ec4bbe984becb3ba58c44ae1371897af1fb38"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "bfc74c557a351601002d563a0a538a6ee1717d31310892e6381583c8584710ad"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "e0c5f034186bac097ef17ca96c9753d7d205812b54f2db598e3c3d8714d2dde0"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "4571a45562870efcbcbaacbe46976b780a3be00a4b3651d8a0a3329e6f38ac3b"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "597e9ed9aa6265daf9c8b2e6ab7c186696b82a78c565f4b3edf5cc1c657df2db"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 117441104,
+      "parentPlanHash": "sha256:8cf74e70a0059b290212842c9aceff7673f4800146590ffb408c3da37c9d9d48",
+      "passes": 21,
+      "size": [
+        1024,
+        1024
+      ],
+      "status": "rendered"
+    },
+    {
+      "acceptedPeakBytes": 2419600,
+      "acceptedPlanHash": "sha256:c1c2a40707a6298aaaa1855177faae40e371e4dd358480af15ab8a05abc73f06",
+      "case": "stress-dense-thin",
+      "channels": [
+        {
+          "channel": "baseColor",
+          "identical": true,
+          "sha256": "959be0489194413f945550c553413af40290865b9e04027cffaac6ffa92bbad3"
+        },
+        {
+          "channel": "normal",
+          "identical": true,
+          "sha256": "02dc9fabdf8ecb7143f2cd5e4c747242b1edcb7ccb8f4155ef24116df8edb7c2"
+        },
+        {
+          "channel": "roughness",
+          "identical": true,
+          "sha256": "1cc046f9526ed46c8eb4a737f827c5562406afdd221cd3ae47bb0e87cd9448f8"
+        },
+        {
+          "channel": "metallic",
+          "identical": true,
+          "sha256": "d4ef3196698de98c07dc8108bd2b49defe1f83733bc6945bc740adc3bf5d6b64"
+        },
+        {
+          "channel": "height",
+          "identical": true,
+          "sha256": "e7685649c411e12be642bf38a1e16fcd4d6ce8c2fcdaa131688fe6150f8fa218"
+        }
+      ],
+      "material": "woven-fabric",
+      "parentPeakBytes": 3745720,
+      "parentPlanHash": "sha256:f338c683e9ccffca50f9599ce0fced246ffd8a340b0e0742ce3eabd489ed7c69",
+      "passes": 21,
+      "size": [
+        257,
+        129
+      ],
+      "status": "rendered"
+    }
+  ],
+  "softwareAdapter": true,
+  "sourceRevision": "d34b278b7c7c59395e9d70a8589c545095139199",
+  "timing": [
+    {
+      "adapter": "SwiftShader Device (LLVM 10.0.0)",
+      "budgetPassed": true,
+      "budgetPolicy": "software",
+      "coldMs": 477.870617,
+      "matchedAdapter": true,
+      "material": "brick-paving",
+      "size": [
+        1024,
+        1024
+      ],
+      "warmMedianMs": 279.884148,
+      "warmMs": [
+        278.503468,
+        279.884148,
+        280.681431,
+        281.143597,
+        277.620858
+      ]
+    },
+    {
+      "adapter": "SwiftShader Device (LLVM 10.0.0)",
+      "budgetPassed": true,
+      "budgetPolicy": "software",
+      "coldMs": 1346.951824,
+      "matchedAdapter": true,
+      "material": "brick-paving",
+      "size": [
+        2048,
+        2048
+      ],
+      "warmMedianMs": 1146.907538,
+      "warmMs": [
+        1149.89832,
+        1145.2266419999999,
+        1140.465205,
+        1146.907538,
+        1148.619199
+      ]
+    },
+    {
+      "adapter": "SwiftShader Device (LLVM 10.0.0)",
+      "budgetPassed": true,
+      "budgetPolicy": "software",
+      "coldMs": 1323.540358,
+      "matchedAdapter": true,
+      "material": "woven-fabric",
+      "size": [
+        1024,
+        1024
+      ],
+      "warmMedianMs": 701.729638,
+      "warmMs": [
+        701.729638,
+        704.559588,
+        701.2819139999999,
+        707.8853349999999,
+        699.753465
+      ]
+    }
+  ],
+  "workingTreeClean": true
+}

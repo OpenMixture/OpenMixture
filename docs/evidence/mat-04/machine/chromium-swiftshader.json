@@ -1,0 +1,177 @@
+{
+  "build": {
+    "runtimeVersion": "0.11.0-alpha.0",
+    "apiSchemaVersion": 3,
+    "engineVersion": "0.11.0",
+    "engineRevision": "d34b278b7c7c59395e9d70a8589c545095139199",
+    "engineDirty": false,
+    "buildId": "sha256:371822e567333f23df2bd4e9c3efcacbdc44bb82108fb26bdfe6b7a7e898c9ac"
+  },
+  "checks": {
+    "brick-paving": {
+      "closure": [
+        {
+          "id": "brick-structure",
+          "recipeVersion": 1,
+          "sha256": "e3ea1c16e7773d8e4c021569494ff014e5164a5f31fed54030f365fe43e0c898"
+        },
+        {
+          "id": "masked-layer-surface",
+          "recipeVersion": 1,
+          "sha256": "ed5eb00bb902afbf72ded40b15f30091f492c78620c87a3e394b8725f58943f7"
+        }
+      ],
+      "exposed": [
+        "bevel",
+        "colorVariation",
+        "columns",
+        "heightVariation",
+        "mortarX",
+        "mortarY",
+        "normalStrength",
+        "rowOffset",
+        "rows",
+        "seed"
+      ]
+    },
+    "woven-fabric": {
+      "closure": [
+        {
+          "id": "directional-grain",
+          "recipeVersion": 1,
+          "sha256": "6f9b1f52d03340448f16b7391d75fd33c9c376b336ff5914a1c5142777a603fb"
+        },
+        {
+          "id": "masked-layer-surface",
+          "recipeVersion": 1,
+          "sha256": "ed5eb00bb902afbf72ded40b15f30091f492c78620c87a3e394b8725f58943f7"
+        },
+        {
+          "id": "weave-structure",
+          "recipeVersion": 1,
+          "sha256": "c987daf7ca27c635cd1ae8dfbd2e8755a6247e182bc3d913c4ecb380da01cda5"
+        }
+      ],
+      "exposed": [
+        "backingColor",
+        "backingRoughness",
+        "bevel",
+        "crown",
+        "normalStrength",
+        "relief",
+        "roughnessMin",
+        "underRatio",
+        "warpColor",
+        "warpCount",
+        "warpDark",
+        "warpSeed",
+        "warpWidth",
+        "weftColor",
+        "weftCount",
+        "weftDark",
+        "weftSeed",
+        "weftWidth",
+        "yarnRoughness"
+      ]
+    }
+  },
+  "rows": [
+    {
+      "material": "brick-paving",
+      "size": [
+        64,
+        64
+      ],
+      "case": "default",
+      "channels": 4,
+      "parentPlanHash": "sha256:895ae8d43369285351d50fbfadd4c1d7b010ce11cb943c793f527087a557eb75",
+      "acceptedPlanHash": "sha256:7d8ea16151dfbbc482b0d203dbe889b61d584edb635442283eac717c608bc96b",
+      "identical": true
+    },
+    {
+      "material": "brick-paving",
+      "size": [
+        64,
+        64
+      ],
+      "case": "varied",
+      "channels": 4,
+      "parentPlanHash": "sha256:a6f5d0ffca4063db8a457d6983b59f11d7474b6ab5efd3a21e866d8b11460975",
+      "acceptedPlanHash": "sha256:774fbb04a7eeeb0cbd6bac10aefceb7e3c580f02425792d00c4194dcd50d3eee",
+      "identical": true
+    },
+    {
+      "material": "brick-paving",
+      "size": [
+        257,
+        129
+      ],
+      "case": "default",
+      "channels": 4,
+      "parentPlanHash": "sha256:e2ecfd367e3da0527ec236d0583182df7b9b88443ca251d58af1b47b8721c904",
+      "acceptedPlanHash": "sha256:c6d5bf1552c516de0408e1bc99f64c6f85b1078063bb46f2e4c577468b74f967",
+      "identical": true
+    },
+    {
+      "material": "brick-paving",
+      "size": [
+        257,
+        129
+      ],
+      "case": "varied",
+      "channels": 4,
+      "parentPlanHash": "sha256:5eecb447c272c056276ba616a72b1da9028149212e214e8e4b6a095fed711e89",
+      "acceptedPlanHash": "sha256:668bbba6784abf779463bf737b9d3b404594d1d001a0828f2905ef9b12243ee0",
+      "identical": true
+    },
+    {
+      "material": "woven-fabric",
+      "size": [
+        64,
+        64
+      ],
+      "case": "default",
+      "channels": 5,
+      "parentPlanHash": "sha256:71d879b958b5cf72126d9fb752ba993b2177874811137ffd74e8c613e7907a2a",
+      "acceptedPlanHash": "sha256:96bc3129279ad79a9b554659df7662b134dd69c6ed7759920e82922c7afe1fc3",
+      "identical": true
+    },
+    {
+      "material": "woven-fabric",
+      "size": [
+        64,
+        64
+      ],
+      "case": "varied",
+      "channels": 5,
+      "parentPlanHash": "sha256:9763f5b9541dcad002259a948db0a711b7a7b0447391c3bcd835543de5919d07",
+      "acceptedPlanHash": "sha256:829b26d7fbe0b4e009b44c2fca3d6dab7ef7a5a493036a28828b805cd7de1646",
+      "identical": true
+    },
+    {
+      "material": "woven-fabric",
+      "size": [
+        257,
+        129
+      ],
+      "case": "default",
+      "channels": 5,
+      "parentPlanHash": "sha256:721142084234dce65faac30a66bde05129b053d63ed1026a374317ca86eee765",
+      "acceptedPlanHash": "sha256:e6b49665d6ebd0f1d28d48e64c49f7c35d38e055fb898dd094a518ecac8c0196",
+      "identical": true
+    },
+    {
+      "material": "woven-fabric",
+      "size": [
+        257,
+        129
+      ],
+      "case": "varied",
+      "channels": 5,
+      "parentPlanHash": "sha256:f09cc3a88d89fc7bb068a17debaabe1ecfca97325a736b38c473b680df19f493",
+      "acceptedPlanHash": "sha256:83f620da58cf55ccd70eeb50dd0c28c708fc7eeed860eafb982ff3bc9933b7ac",
+      "identical": true
+    }
+  ],
+  "browser": "153.0.8010.12"
+}
