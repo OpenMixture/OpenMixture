@@ -28,6 +28,20 @@
 
 **M4 已完成本地及远端验收，2026-09-12；软件包仍未发布。** PR-011–015 及 CI 工具修复通过已记录验收矩阵。此前暂缓的干净检出 CPU 及 Linux SwiftShader 门槛现已关闭，见[远端 CI 证据](./evidence/remote-ci/README.zh-CN.md)。全部产品包仍为 pre-alpha `0.1.0`，禁用发布。记录的 CI 修复已推送实现及修正，当时不包含合并或发布 tag。后续默认分支、PR 及检查点工作遵循 [M4.1 仓库治理](./governance.zh-CN.md)，不发布软件包、安装器或二进制分发。[PR-015 证据](./evidence/pr-015/README.zh-CN.md)保留此前本地评估。
 
+## 通过 GitHub Actions 发布 npm
+
+正式 npm 发布入口为 [npm-release.yml](../.github/workflows/npm-release.yml)，从 `main` 手动触发，只发布 `@openmixture/runtime`；Rust 仍禁止发布。合并不自动发布，不修改版本、不创建发布标签，也不扩展硬件验收范围。上方带日期的发布记录保持历史原意。
+
+在 npm 包 Settings → Trusted Publisher 设置：**GitHub Actions**、所有者 **OpenMixture**、仓库 **OpenMixture**、工作流 **npm-release.yml**、环境 **npm**，启用 **Allow npm publish**。创建 GitHub 环境 **npm**，将部署分支限制为 **main**；发布审批人可选。外部设置必须保存并回读后才能宣称启用。GitHub 托管任务使用 Node 24.20.0／npm 11.19.0 和 `id-token: write`，不配置 npm token secret 或 token 回退。参见 [npm OIDC 要求](https://docs.npmjs.com/trusted-publishers/)。
+
+1. 通过 PR 合并，等待所得 `main` 提交的六项必需检查通过。审阅发布版本、支持范围、发布说明和材质人工验收。
+2. 从该提交成功的 **Browser material qualification** push 运行下载 `chromium-material-matrix-core`，审阅 `target/browser-runtime/receipt.json`、tarball 及 SHA-256。使用这个已验收归档的摘要，不使用独立 browser-package 构建的归档。
+3. 在同一 `main` 修订上手动触发 **Publish npm runtime**，填写 `version`、`sha256`、`dist_tag`（`alpha`、`next` 或 `latest`）。预发布版本不得使用 `latest`。若 `main` 前进，应审阅新修订的验收归档；输入不允许选择任意旧源码。
+4. 工作流要求四个 CI 工作流的 main-push 运行成功、六个必需任务和三个 Chromium 分区均实际通过。下载已有 core 产物，验证干净源码、版本、摘要及包内身份，以 OIDC/provenance 发布原始字节。产物缺失／过期、任务跳过／失败均阻断；产物过期时重新运行原 main-push 验收。
+5. 注册表验证下载刚发布的精确版本，核对 SHA-256、provenance 元数据和所选 dist-tag。`npm-release-receipts` 保留身份 30 天，按证据策略保存已接受回执。发布后仍可能验证失败：先查 npm，切勿盲目重建或重复发布。精确版本的浏览器注册表消费仍是独立验收。
+
+分别报告工作流集成、外部信任启用及发布成功。首次 OIDC 发布成功且检查旧凭据的其他用途后可撤销旧 npm 凭据；本工作流不撤销共享凭据。
+
 ## M4 退出条件评估
 
 | 退出条件 | 本地证据与结果 |

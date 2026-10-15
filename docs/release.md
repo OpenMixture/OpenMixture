@@ -28,6 +28,20 @@ The dated checkpoints below retain their status at the time; they are not the cu
 
 **M4 accepted locally and remotely, 2026-09-12; packages remain unpublished.** PR-011–015 and the CI tooling fixes pass the documented acceptance matrix. The previously deferred clean-checkout CPU and Linux SwiftShader gates are now closed; see [remote CI evidence](./evidence/remote-ci/README.md). All product packages remain pre-alpha `0.1.0` with publication disabled. The recorded CI repair pushed the implementation and fixes without a merge or release tag. Subsequent default-branch, PR, and checkpoint work follows [M4.1 repository governance](./governance.md); it does not publish packages, installers, or binary distributions. [PR-015 evidence](./evidence/pr-015/README.md) retains the earlier local assessment.
 
+## npm release through GitHub Actions
+
+The formal npm entry point is [npm-release.yml](../.github/workflows/npm-release.yml), manually dispatched from `main`. It publishes only `@openmixture/runtime`; Rust publication remains disabled. It does not automatically publish on merge, change versions, create release tags, or expand qualified hardware scope. The dated publication records above remain historical.
+
+Configure npm package Settings → Trusted Publisher: **GitHub Actions**, owner **OpenMixture**, repository **OpenMixture**, workflow **npm-release.yml**, environment **npm**, with **Allow npm publish** enabled. Create the GitHub environment **npm**, restricted to branch **main**; a release reviewer is optional. These external settings must be saved and read back before claiming activation. The GitHub-hosted job uses Node 24.20.0 / npm 11.19.0 and `id-token: write`, with no npm token secret or token fallback. See [npm's OIDC requirements](https://docs.npmjs.com/trusted-publishers/).
+
+1. Merge through a PR and wait for all six required checks on the resulting `main` commit. Review the intended version, support scope, release notes and human material acceptance.
+2. From that commit's successful **Browser material qualification** push run, download `chromium-material-matrix-core` and review `target/browser-runtime/receipt.json`, the tarball and its SHA-256. Use this qualified archive's digest, not the independently built browser-package archive.
+3. Dispatch **Publish npm runtime** from that same `main` revision with `version`, `sha256` and `dist_tag` (`alpha`, `next`, or `latest`). Prereleases cannot use `latest`. If `main` advances, review the newly qualified archive; inputs do not select arbitrary old source.
+4. The workflow requires successful main-push runs for all four CI workflows, all six required jobs and three executed Chromium partitions. It retrieves the existing core artifact, verifies clean source, version, digest and embedded identity, and publishes those exact bytes with OIDC/provenance. Missing/expired artifacts and skipped/failed gates stop release; rerun the original main-push qualification if artifacts expire.
+5. Registry verification downloads the exact published version and checks SHA-256, provenance metadata and the selected dist-tag. `npm-release-receipts` retains identities for 30 days; preserve accepted receipts under the evidence policy. A verification failure can occur after publication: inspect npm first, never rebuild or republish blindly. Exact-version browser registry consumption remains separate qualification.
+
+Report workflow integration, external trust activation and successful publication separately. Existing npm credentials may be revoked after the first successful OIDC release and review of their other uses; this workflow does not revoke shared credentials.
+
 ## M4 exit assessment
 
 | Exit criterion | Local evidence and result |
