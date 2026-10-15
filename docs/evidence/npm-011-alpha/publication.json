@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "status": "published and exact registry consumption passed",
+  "publishedAt": "2026-10-15T17:26:31.644Z",
+  "verifiedAt": "2026-10-15T17:28:20Z",
+  "package": "@openmixture/runtime",
+  "version": "0.11.0-alpha.0",
+  "publisher": "krapnik",
+  "command": "npm publish .\tmp\release-0.11\openmixture-runtime-0.11.0-alpha.0.tgz --access public --tag alpha --ignore-scripts --registry=https://registry.npmjs.org/",
+  "authorization": "User explicitly requested publication of 0.11.0-alpha.0 and ran npm publish with their own npm authentication; the agent prepared and verified the frozen archive only.",
+  "source": "ffb10f71ab68689eb472b21fdb89cafb0b941322",
+  "buildId": "sha256:3b0fb8f74959c4b5a4eae7900c82c3443e4aa1f0f3a0facd58b1be892d123843",
+  "archiveSha256": "5265cda8931bd9eee7788c8d3cbb58f1449ab053f40dee17586d449540842dfc",
+  "archiveBytes": 510006,
+  "registry": {
+    "tarball": "https://registry.npmjs.org/@openmixture/runtime/-/runtime-0.11.0-alpha.0.tgz",
+    "shasum": "2c0fe46ded44d428e2f9d33d2f54f8b95c307ffd",
+    "integrity": "sha512-p86QvOy9wG4Q9Aq6aXeutBTPjKZaDOswX/h3nPyBAT1CnsODfDemQAqoZgWfbp35jrBwiN1iL2B1UJTkxYnP5Q==",
+    "fileCount": 17,
+    "unpackedSize": 2053582,
+    "downloadedBytesIdentical": true
+  },
+  "distTags": {
+    "before": { "latest": "0.1.0-alpha.0", "alpha": "0.3.0-alpha.0" },
+    "after": { "latest": "0.1.0-alpha.0", "alpha": "0.11.0-alpha.0" }
+  },
+  "ciArtifact": { "runId": 38345148032, "artifactId": 11788986576, "name": "chromium-material-matrix-core", "path": "target/browser-runtime/openmixture-runtime-0.11.0-alpha.0.tgz", "expires": "2026-11-12T04:32:25Z" },
+  "registryQualification": { "receipt": "registry.json", "consumerRevision": "ea3a4e1183f5a447984956461c9e5df6fa3119af", "browser": "local Chrome (MIXTURE_BROWSER_CHANNEL=chrome), Windows, NVIDIA GeForce GT 1030", "tests": { "expected": 13, "passed": 13, "skipped": 0, "flaky": 0 } }
+}

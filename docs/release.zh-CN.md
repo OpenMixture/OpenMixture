@@ -2,7 +2,9 @@
 
 [English](./release.md) | 简体中文
 
-**已验收、未发布候选（MAT-04，2026-10-13）：** 干净 main `d34b278` 上的 Rust 0.11.0／browser 0.11.0-alpha.0 在 [MAT-04 记录](./evidence/mat-04/README.zh-CN.md)范围内完成可复用配方验收：两个配方父图在 GT 1030 Vulkan/DX12、固定 SwiftShader 及软件 Chromium 子集上与已验收砖块和机织物图逐字节相同，并保留人工决定。它按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)新增 Core 配方 API（`.mixrecipe` v1、`.mix` v2 父文档、`RecipeLimits`、八个诊断代码）。节点目录、kernel、RenderPlan v3 和包 v1 不变，v1 文档编译出相同的计划。已包含 CLI 和浏览器配方适配；机织物父图更高的 2048² 描述符峰值记为限制。不发布任何包。
+**当前发布（2026-10-15）：** [浏览器 0.11.0-alpha.0](./evidence/npm-011-alpha/README.zh-CN.md) 已以 `alpha` 标签发布，归档取自干净 main `ffb10f7` 的冻结产物，该提交的检查全部通过；`latest` 未变。注册表上的包与该归档逐字节相同，精确注册表消费在 GT 1030 上的 Chrome 中 13/13 通过。API schema 3／计划 v3；Rust crate 尚未发布。
+
+**已验收候选（MAT-04，2026-10-13），已按上述方式发布：** 干净 main `d34b278` 上的 Rust 0.11.0／browser 0.11.0-alpha.0 在 [MAT-04 记录](./evidence/mat-04/README.zh-CN.md)范围内完成可复用配方验收：两个配方父图在 GT 1030 Vulkan/DX12、固定 SwiftShader 及软件 Chromium 子集上与已验收砖块和机织物图逐字节相同，并保留人工决定。它按 [MAT-04a 契约](./mat-04a-recipe-contract.zh-CN.md)新增 Core 配方 API（`.mixrecipe` v1、`.mix` v2 父文档、`RecipeLimits`、八个诊断代码）。节点目录、kernel、RenderPlan v3 和包 v1 不变，v1 文档编译出相同的计划。已包含 CLI 和浏览器配方适配；机织物父图更高的 2048² 描述符峰值记为限制。发布归档在 `ffb10f7` 重新构建，该提交与 `d34b278` 仅在文档和证据文件上不同（MAT-04 记录及包 README），没有代码、fixture 输入或构建配置变化。
 
 **已验收、未发布候选：** Rust 0.10.0／browser 0.10.0-alpha.0 在 @1 之外新增 weave-pattern@2（18 最新类型／20 支持身份／17 kernel），并在[修订 3 验收记录](./evidence/mat-03-r3/README.zh-CN.md)范围内完成机织物配方修订 3 的验收：GT 1030 Vulkan/DX12 阶段 A/B 门槛、Native／Chrome ≤1/255，以及绑定六张评审图的人工决定。下述 0.9 验收作为历史保留；不发布任何包。
 
@@ -16,7 +18,7 @@
 
 **Windows 验收范围：** [旧 v1 资源/资产输入](./evidence/m6b-05/README.zh-CN.md)仍保留法线最大差 8/255 的失败记录（门槛 ≤1/255）。显式迁移为 `fractal-noise@2` 的 **value** 输入已通过记录的 GT 1030 Vulkan/DX12 对 Chrome 资源及 Scalar 验收，高度/法线最大差为 **0**，见[NUM-01 证据](./evidence/stable-noise/README.zh-CN.md)。两者测试不同节点版本，不是相互矛盾的结果。可移植资产回归仍使用冻结 v1 输入；现有文档不自动迁移。软件 CI 通过不认证任意 Windows 材质图、显卡、cellular 或 warp。早期 0.4 候选证据保留其原始构建身份。
 
-**当前发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。该已发布版本的 v1 Windows 硬件资源法线一致性仍未通过；上文 v2 修复尚未发布。
+**上一次发布（2026-09-22）：** [浏览器 0.3.0-alpha.0](./evidence/npm-030-alpha/README.zh-CN.md)已从通过六项检查的 main 归档发布。API schema 2 / 计划 v2；Rust crate 尚未发布。该已发布版本的 v1 Windows 硬件资源法线一致性仍未通过；上文 v2 修复尚未发布。
 
 **M6A-05 验收，2026-09-21：** [留存验收](./evidence/m6a-05/README.zh-CN.md)关闭记录的 Linux 软件矩阵内综合验收：八组资源通道逐字节一致，Scalar、三材质回归和六项必需检查通过。Windows 硬件一致性仍失败，不属于已验收范围；≤1 门槛不变。0.3.0 Rust 源码 / 0.3.0-alpha.0、API schema 2 浏览器候选均未发布。实现 PR 集成和发布仍是独立动作。
 

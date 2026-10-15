@@ -17,7 +17,7 @@ npm run build
 npm run preview
 ```
 
-Open the printed local address at `/consumer/`. Click **Render material**; the page loads `public/input.mix` and initializes WASM/GPU explicitly for that invocation. The committed lock installs exactly `@openmixture/runtime@0.3.0-alpha.0` from the registry, not `latest` or a source checkout. Use a secure context (localhost or HTTPS) and a WebGPU-capable browser. GPU acquisition failure is displayed with the SDK's structured diagnostics; there is no automatic fallback.
+Open the printed local address at `/consumer/`. Click **Render material**; the page loads `public/input.mix` and initializes WASM/GPU explicitly for that invocation. The committed lock installs exactly `@openmixture/runtime@0.11.0-alpha.0` from the registry, not `latest` or a source checkout. Use a secure context (localhost or HTTPS) and a WebGPU-capable browser. GPU acquisition failure is displayed with the SDK's structured diagnostics; there is no automatic fallback.
 
 The fixture exposes `frequency` and `roughness`. The example intentionally uses these known exposed IDs; it does not duplicate the node catalog or build a general editor. `src/consumer.ts` is the short public-SDK workflow. The report shows package build identity, plan hash, effective exposed values and selected adapter. Its bigint-to-string formatting is host-owned display logic, not a replacement Mixture report schema. Scalar canvas display is a simple byte preview; it does not claim a color-managed material preview or PNG export.
 
