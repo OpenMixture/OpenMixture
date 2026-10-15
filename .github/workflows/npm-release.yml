@@ -1,0 +1,72 @@
+name: Publish npm runtime
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact qualified runtime version
+        required: true
+        type: string
+      sha256:
+        description: Accepted core material archive SHA-256 (receipt.json)
+        required: true
+        type: string
+      dist_tag:
+        description: npm distribution channel (prereleases cannot use latest)
+        required: true
+        type: choice
+        default: alpha
+        options: [alpha, next, latest]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-runtime-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'OpenMixture/OpenMixture' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: npm
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_SHA256: ${{ inputs.sha256 }}
+      RELEASE_TAG: ${{ inputs.dist_tag }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.20.0
+      - run: npm install --global npm@11.19.0
+      - name: Verify all main gates and retrieve the qualified archive
+        id: candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/release/verify.mjs
+      - name: Publish exact archive using npm OIDC
+        env:
+          ARCHIVE: ${{ steps.candidate.outputs.archive }}
+        run: npm publish "$ARCHIVE" --access public --tag "$RELEASE_TAG" --provenance --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Verify registry bytes
+        env:
+          ARCHIVE: ${{ steps.candidate.outputs.archive }}
+        run: node scripts/release/registry.mjs
+      - name: Retain release identity and registry receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: npm-release-receipts
+          path: |
+            tmp/npm-release/verification.json
+            tmp/npm-release/registry.json
+          retention-days: 30
+          if-no-files-found: warn
