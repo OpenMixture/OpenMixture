@@ -2,7 +2,7 @@
 
 [English](./ROADMAP.md) | 简体中文
 
-**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；当前 MAT-03 为在记录范围内验收、未发布的 0.9.0／0.9.0-alpha.0 候选；已发布浏览器版本为 0.3.0-alpha.0。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
+**当前集成状态：** M6-B 与 NUM-01 及其前置 PR #39–45 已合入 main，组合后的六项检查全部通过。未发布的 0.6 候选已在[记录范围](./docs/evidence/mat-01/README.zh-CN.md)内通过 MAT-01 验收。MAT-01 节点与验收工具已通过 PR #50–52 集成（[集成记录](./docs/evidence/mat-01/integration/README.zh-CN.md)）；人工视觉接受与合并后检查均已完成，已接受源码清单为 0.6.0 / 0.6.0-alpha.0；当前 MAT-03 为在记录范围内验收、未发布的 0.9.0／0.9.0-alpha.0 候选；已发布浏览器版本为 0.11.0-alpha.0（[发布记录](./docs/evidence/npm-011-alpha/README.zh-CN.md)）。详见[发布状态与硬件范围](./docs/release.zh-CN.md)。
 
 **历史检查点（2026-09-21）：** M0–M5 与 M4.1 已在记录的验收范围内完成，ENG-01–04 已实现。[浏览器 Alpha 0.2.0 发布及精确注册表消费](./docs/evidence/npm-020-alpha/README.zh-CN.md)交付 Scalar 组合。Rust crate 仍未发布。历史验收不认证新源码、新包或未测环境。
 
@@ -28,7 +28,7 @@ OpenMixture 自行决定范围、优先级、验收及发布节奏。工作可�
 
 | 规划状态 | 当前内容 |
 |---|---|
-| 当前可用基线 | 已发布 `@openmixture/runtime@0.3.0-alpha.0`：外部图像资源、API schema 2、计划 v2，`.mix v1` 不变。已验收 Rust 0.6.0 源码可消费；MAT-01 已在记录范围内验收，crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
+| 当前可用基线 | 已发布 `@openmixture/runtime@0.11.0-alpha.0`（2026-10-15）：API schema 3、计划 v3、18 种节点类型／20 个身份、`.mixpack` 资产及 `.mixrecipe` 配方闭包；`.mix v1` 不变。Rust crate 尚未发布。[精确归档与注册表验收](./docs/evidence/npm-011-alpha/README.zh-CN.md)；上一个 Alpha 保留其 [0.3 记录](./docs/evidence/npm-030-alpha/README.zh-CN.md)。 |
 | 当前增量 | 无。MAT-04 可复用配方已在[记录范围](./docs/evidence/mat-04/README.zh-CN.md)内接受（2026-10-13）：[MAT-04a 契约](./docs/mat-04a-recipe-contract.zh-CN.md)及 ADR 0010 已在未发布的 0.11 候选中实现，砖块与机织物配方父图在 GT 1030 Vulkan/DX12、SwiftShader 及软件 Chromium 子集上与已验收图逐字节相同。机织物父图更高的 2048² 描述符峰值记为限制。下一个增量等待维护者决定。[weave-pattern@2](./docs/weave-pattern-v2-acceptance.zh-CN.md) 已与 @1 并存实现，MAT-03 已基于机织物配方修订 3（weave-pattern@2）在[记录范围](./docs/evidence/mat-03-r3/README.zh-CN.md)内验收通过；修订 2 的 combined-high 蝴蝶结限制不再适用。不发布。 |
 | 当前验收 | [MAT-03](./docs/evidence/mat-03-r3/README.zh-CN.md)：配方修订 3（weave-pattern@2）的六个评审预设已在记录的 GT 1030 Vulkan/DX12 与 Chrome 适配器上接受，数值／软件限制明确保留；[修订 2 记录](./docs/evidence/mat-03/README.zh-CN.md)及其 combined-high 排除作为历史保留。[MAT-01](./docs/evidence/mat-01/README.zh-CN.md) 与 [MAT-02](./docs/evidence/mat-02/README.zh-CN.md) 保持各自记录范围。不发布，也不作通用硬件保证。 |
 | 规划顺序 | MAT-01 结构 → MAT-02 分层风化 → MAT-03 编织表面 → MAT-04 图复用。每阶段须先完成有界契约及目录／版本审查再进入实现。PERF-MAT 是测量触发的配套工作，不是前置工程。 |

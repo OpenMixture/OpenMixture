@@ -17,7 +17,7 @@ npm run build
 npm run preview
 ```
 
-打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.3.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
+打开输出的本地地址下 `/consumer/`。点击 **Render material**，页面加载 `public/input.mix` 并为本次调用显式初始化 WASM／GPU。提交的锁文件从注册表安装精确 `@openmixture/runtime@0.11.0-alpha.0`，不使用 `latest` 或源码检出。需要安全上下文（localhost 或 HTTPS）及支持 WebGPU 的浏览器。GPU 获取失败时显示 SDK 结构化诊断，不自动回退。
 
 夹具暴露 `frequency` 和 `roughness`。示例有意使用这些已知公开 ID，不复制节点目录或构建通用编辑器。`src/consumer.ts` 是简短的公开 SDK 流程。报告显示包构建身份、计划哈希、公开参数有效值和所选适配器。bigint 转字符串属于宿主显示逻辑，不是新的 Mixture 报告结构。Scalar 画布只是字节预览，不声称提供颜色管理材质预览或 PNG 导出。
 
