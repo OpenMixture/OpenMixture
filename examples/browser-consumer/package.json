@@ -11,7 +11,7 @@
     "test:browser": "vite build --mode qualification && playwright test"
   },
   "dependencies": {
-    "@openmixture/runtime": "0.3.0-alpha.0"
+    "@openmixture/runtime": "0.11.0-alpha.0"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
