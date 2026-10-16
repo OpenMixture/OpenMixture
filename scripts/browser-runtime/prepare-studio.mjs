@@ -5,21 +5,24 @@ import { resolve, join } from 'node:path';
 import { createHash } from 'node:crypto';
 const root = resolve(import.meta.dirname, '../..');
 const [destination, runtimeRevision, authoredDirectory] = process.argv.slice(2);
-if (!authoredDirectory || !destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-materials.mjs <new-directory> <runtime-engine-revision> <detached-studio-downloads>');
+if (!authoredDirectory || !destination || !/^[a-f0-9]{40}$/.test(runtimeRevision ?? '')) throw new Error('Usage: node scripts/browser-runtime/prepare-studio.mjs <new-directory> <runtime-engine-revision> <detached-studio-downloads>');
 const out = resolve(destination);
 if (existsSync(out)) throw new Error('Reference directory already exists; select a fresh run directory');
 const git = (...args) => execFileSync('git', args, {cwd:root,encoding:'utf8'}).trim();
+// Same profile selection as prepare-materials.mjs; the manifest records it.
+const profile = process.env.MIXTURE_NATIVE_PROFILE ?? 'debug';
+if (!['debug', 'release'].includes(profile)) throw new Error('MIXTURE_NATIVE_PROFILE must be debug or release');
 // A plan hash alone cannot certify an implementation. Require matching runtime inputs.
 git('diff','--exit-code',runtimeRevision,'--','crates','Cargo.lock','Cargo.toml');
-execFileSync('cargo',['build','--locked','-p','mixture-cli'],{cwd:root,stdio:'inherit'});
+execFileSync('cargo',['build','--locked',...(profile === 'release' ? ['--release'] : []),'-p','mixture-cli'],{cwd:root,stdio:'inherit'});
 mkdirSync(out,{recursive:true});
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const cli=join(root,'target/debug',process.platform==='win32'?'mixture.exe':'mixture');
+const cli=join(root,'target',profile,process.platform==='win32'?'mixture.exe':'mixture');
 const backend=process.env.MIXTURE_GPU_BACKEND;
 if(!['metal','vulkan','dx12'].includes(backend))throw new Error('Set MIXTURE_GPU_BACKEND explicitly');
 const policy=['--backend',backend,...(process.env.MIXTURE_GPU_SOFTWARE==='1'?['--software']:[])];
 const manifest={schemaVersion:1,kind:"studio",engineRevision:git('rev-parse','HEAD'),engineDirty:Boolean(git('status','--porcelain')),runtimeRevision,
- startedAt:new Date().toISOString(),nativeBinarySha256:sha(readFileSync(cli)),cases:[]};
+ startedAt:new Date().toISOString(),nativeProfile:profile,nativeBinarySha256:sha(readFileSync(cli)),cases:[]};
 const criteriaPath=join(root,'scripts/browser-runtime/studio-criteria.json');
 const criteria=JSON.parse(readFileSync(criteriaPath));
 const authored=JSON.parse(readFileSync(join(authoredDirectory,'authored.json')));

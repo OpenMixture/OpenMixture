@@ -18,7 +18,7 @@ Plan／hash v3、浏览器 API schema 3 和图 CLI 报告 schema 3 显式表达�
 
 [Core 调度测试](../crates/mixture-core/tests/allocation.rs)包含链／菱形／重复输入／别名／默认／裁剪的显式预期，及冻结 2K 材质十四槽映射、等于上限通过和低一字节拒绝。GPU 探针覆盖多尺寸、较早结果固定、输出别名、重复计费、销毁后像素所有权，以及故障注入的同 pass 重叠清理／重试。既有上传／读回失败测试仍为必需。
 
-十一份原始材质哈希使用有限、精确的 [v2→v3 分配记录](./plan-v3-migration.json)，连接不变的 v1→v2 记录。`node scripts/verify-plan-v3.mjs` 验证类型化 v3 哈希，仅移除 allocation 元数据并恢复保留全部资源的估算，重建精确旧 v2 哈希；内核、pass、输出与数值 token 不得改变。若新构建 CLI 不在 `target/debug`，设置 `MIXTURE_CLI`。历史 v2 验证器继续配合其原始 v2 运行时使用。旧计划快照保留，新增 v3 快照显式更新当前测试预期，不重置像素 golden。
+十一份原始材质哈希使用有限、精确的 [v2→v3 分配记录](./plan-v3-migration.json)，连接不变的 v1→v2 记录。`node scripts/verify-plan-v3.mjs` 验证类型化 v3 哈希，仅移除 allocation 元数据并恢复保留全部资源的估算，重建精确旧 v2 哈希；内核、pass、输出与数值 token 不得改变。默认二进制为 `target/<profile>/mixture`，`MIXTURE_NATIVE_PROFILE` 与 `prepare-materials.mjs` 一样选择 `debug`（默认）或 `release`；要使用其他新构建的 CLI，设置 `MIXTURE_CLI`。历史 v2 验证器继续配合其原始 v2 运行时使用。旧计划快照保留，新增 v3 快照显式更新当前测试预期，不重置像素 golden。
 
 候选[公开浏览器测试](../examples/browser-consumer/tests/reuse.spec.mjs)执行四组涂漆金属请求（带种子的奇数尺寸、完整涂层端点、默认 1K 和默认 2K），检查重复／裁剪输出、类型化 v3 分配元数据及销毁后的像素。候选消费现要求二十项测试；精确已发布注册表消费仍要求十三项。干净候选构建／消费后运行 `node scripts/browser-runtime/check-reuse.mjs <candidate-qualification> <fresh-output>`。它以 release 模式运行[独立 Rust 测试](../examples/native-consumer/tests/texture_reuse.rs)，按冻结 ≤1/255 门槛检查二十组通道对照、一致的计划／分配元数据、包往返、物理计数，以及冻结 MAT-02 计划中匹配适配器的冷启动／五次热样本时间预算。Native 与浏览器均保留 PNG 和报告。既有上传／包验收继续必需。Chromium 任务加入此检查，不移除已有门槛。
 

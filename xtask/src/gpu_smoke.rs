@@ -1,4 +1,10 @@
 //! Explicit real-GPU compute/readback checks; ordinary check/test never run them.
+//!
+//! Every GPU path here builds optimized (`--release`) binaries. Readback, PNG
+//! encoding and pixel comparison run on the CPU and dominate dev-profile wall
+//! time by roughly eight times on both SwiftShader and measured hardware, while
+//! the rendered bytes are identical in both profiles; the native-consumer
+//! material tests already require release. Test scheduling is unchanged.
 
 use crate::{TaskResult, cargo, run_cargo};
 use serde_json::{Value, json};
@@ -175,6 +181,7 @@ pub(super) fn run(root: &Path) -> TaskResult {
     let tests = cargo(root)
         .args([
             "test",
+            "--release",
             "--locked",
             "--all-features",
             "-p",
@@ -255,10 +262,12 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
         return Err(format!("unknown node test: {node}").into());
     }
     let (backend, software) = policy()?;
+    // Same optimized build as `gpu-smoke`, so local node evidence reproduces CI.
     run_cargo(
         root,
         &[
             "test",
+            "--release",
             "--locked",
             "--all-features",
             "-p",
@@ -275,6 +284,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
         cargo(root)
             .args([
                 "test",
+                "--release",
                 "--locked",
                 "--all-features",
                 "-p",
@@ -308,6 +318,7 @@ pub(super) fn run_node(root: &Path, node: &str) -> TaskResult {
         let mut command = cargo(root);
         command.args([
             "test",
+            "--release",
             "--locked",
             "--all-features",
             "-p",
@@ -343,6 +354,7 @@ pub(super) fn command_report(
     command
         .args([
             "run",
+            "--release",
             "--locked",
             "--all-features",
             "-p",
