@@ -13,7 +13,7 @@
 
 ## 可用命令
 
-`cargo xtask` 别名将启动程序构建到 `target/xtask-runner`。内部工作区命令仍使用正常的 target 目录，因此测试可以重新构建集成测试所需的可执行文件，而不会在 Windows 上替换正在运行的 `xtask.exe`。运行仓库检查时请使用此别名。
+`cargo xtask` 别名将启动程序以优化配置（`--release`）构建到 `target/xtask-runner`：启动程序自身解码、比较并摘要材质 PNG，dev 配置会使这部分比它所检查的渲染慢数倍。内部工作区命令仍使用正常的 target 目录和配置，因此测试可以重新构建集成测试所需的可执行文件，而不会在 Windows 上替换正在运行的 `xtask.exe`。运行仓库检查时请使用此别名。
 
 ```bash
 cargo xtask check
@@ -51,7 +51,7 @@ cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out chec
 cargo xtask gpu-smoke
 ```
 
-[Cargo 别名](../.cargo/config.toml)使用 `--locked` 启动 xtask。构建／测试／文档命令及生产方依赖解析均使用 `--locked`。唯一包暂存例外是一次离线元数据解析，用于规范化一次性锁；其外部版本／来源／校验和对照已提交固定项检查，然后所有验证均使用 `--offline --locked`。检查器从不重写已提交锁。格式化不解析依赖。首次运行下载已锁定的工具依赖，后续验证可以使用 Cargo 缓存。
+[Cargo 别名](../.cargo/config.toml)使用 `--locked` 和 `--release` 启动 xtask。构建／测试／文档命令及生产方依赖解析均使用 `--locked`。唯一包暂存例外是一次离线元数据解析，用于规范化一次性锁；其外部版本／来源／校验和对照已提交固定项检查，然后所有验证均使用 `--offline --locked`。检查器从不重写已提交锁。格式化不解析依赖。首次运行下载已锁定的工具依赖，后续验证可以使用 Cargo 缓存。
 
 `check` 按顺序运行：
 
@@ -106,6 +106,8 @@ M5 浏览器启动阶段产品／工具工作区唯一允许的直接依赖关�
 `gpu-smoke` 分两个档位。默认 `standard` 档位跳过忽略原因以 `full-qualification:` 开头的 GPU 测试；`MIXTURE_GPU_TIER=full` 运行全部忽略的 GPU 测试。较慢的材质验收探针应标记为 `#[ignore = "full-qualification: …"]`，使其仅在完整档位运行；xtask 从源码中识别该标记，并拒绝会误跳过其他忽略测试的名称。`test-node` 仍显式运行其指定测试。
 
 GPU smoke 使用 `--test-threads=1` 串行运行独立 Rust GPU 测试。此前 Linux SwiftShader 的并发测试进程曾因 SIGSEGV 退出，因此将节点渲染与无关的主动设备销毁测试分开执行。全部测试仍会运行，包括单个测试内部的独立上下文检查。此测试调度策略不认证任意并发设备销毁，也不代表已确定驱动崩溃的原因。
+
+像素路径均构建优化二进制。`gpu-smoke` 以 `cargo test --release` 运行被忽略的 `mixture-wgpu`／`mixture-cli` GPU 测试；`test-node`、`golden check`、`trace-2k` 及 GPU 消费者 CLI 契约通过 `cargo run --release -p mixture-cli` 渲染；浏览器材质工作流设置 `MIXTURE_NATIVE_PROFILE=release`，使 `prepare-materials.mjs` 与 `verify-plan-v3.mjs` 构建并解析 `target/release/mixture`。回读、PNG 编码和像素比较都是 CPU 工作，dev 配置在 SwiftShader 和实测硬件上都会使其慢约一个数量级，而两种配置产生的字节完全相同；原生消费者材质测试本就拒绝 debug 构建。CPU 检查（`check`、`test-consumer`、`package-check`）和普通工作区测试仍以 dev 配置构建并测试各 crate；只有 xtask 启动程序本身是优化构建。构建配置不是验收证据：仍由各任务记录的适配器、修订与像素比较决定。
 
 Linux GPU 工作流以精确键缓存固定 SwiftShader 源码及构建，键覆盖操作系统、架构、编译器／CMake／Ninja／libc 版本及工作流／包含源码固定版本的准备脚本。命中缓存后仍验证源码版本、配置／构建并选择显式 ICD；smoke、包、材质和 2K 检查始终执行。驱动构建成功后即保存缓存，避免测试失败导致再次耗费 16–29 分钟重编驱动。不使用部分键缓存回退。
 

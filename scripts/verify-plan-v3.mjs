@@ -7,7 +7,10 @@ import assert from 'node:assert/strict';
 
 const hash = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
 const compact = text => text.replace(/("(?:\\.|[^"\\])*")|\s+/g, (match, string) => string ?? '');
-const cli = resolve(process.env.MIXTURE_CLI ?? `target/debug/mixture${process.platform === 'win32' ? '.exe' : ''}`);
+// The default binary follows the same profile selection as prepare-materials.mjs.
+const profile = process.env.MIXTURE_NATIVE_PROFILE ?? 'debug';
+if (!['debug', 'release'].includes(profile)) throw new Error('MIXTURE_NATIVE_PROFILE must be debug or release');
+const cli = resolve(process.env.MIXTURE_CLI ?? `target/${profile}/mixture${process.platform === 'win32' ? '.exe' : ''}`);
 const before = JSON.parse(readFileSync('docs/plan-v2-migration.json'));
 const migrations = [];
 for (const material of ['glazed-ceramic', 'leather', 'wood']) {

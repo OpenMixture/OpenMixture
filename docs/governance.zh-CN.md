@@ -29,7 +29,7 @@ M4.1 在原生 M4 验收后建立长期使用的集成分支、真实 GitHub PR�
 | `Check (windows-latest)` | Windows 上相同的 CPU 检查 |
 | `Pinned SwiftShader Vulkan materials and packaged consumption` | Linux 固定软件 GPU smoke、源码及打包消费者、全部三种 1K 材质及最大案例的 2K 跟踪 |
 | `WASM and npm package` | 锁定依赖的 WASM 构建、JavaScript／包契约及准确 npm 归档生成 |
-| `Chromium WebGPU material matrix` | 汇总并行的 core／woven／painted 分区。完整档位（带标签的 PR、`main`、手动运行）：独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
+| `Chromium WebGPU material matrix` | 汇总并行的 core／product／woven／painted 分区及 registry 任务。完整档位（带标签的 PR、`main`、手动运行）：独立 SDK 候选消费（准确注册表消费仅在 `main` 与手动运行中执行），以及固定 Studio 的准确归档安装、构建身份、浏览器契约、v2 材质、生命周期及生产部署 |
 
 保持检查名称稳定。任务改名或检查来源变化时，必须协调验证规则；不得通过删除必需检查合并失败的变更。不要添加可能导致必需检查不报告结果的工作流路径过滤。规则修改本身也应经过审查，并在应用后记录实时结果。
 
@@ -39,7 +39,7 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 同一标签也选择 GPU 任务的完整档位：未加标签时，PR 上的 `cargo xtask gpu-smoke` 跳过以 `full-qualification:` 标记的忽略测试（目前为 MAT-03 woven 结构探针），`main`、手动运行及带标签的 PR 则运行它们。非纯文档 PR 始终运行 GPU 检查本身。两个范围任务只读取变更路径名，因此使用无 blob 的稀疏检出。
 
-浏览器材质矩阵在同一工作流中以三个并行 `partitions` 任务（`core`、`woven`、`painted`）运行，最后由 `required` 任务报告名称不变的 `Chromium WebGPU material matrix` 检查：范围任务延后矩阵或全部分区通过时成功，否则失败。`core` 运行除 `woven.spec.mjs`、`painted.spec.mjs` 以外的全部候选 spec，以及其他 Native 对比、注册表消费和固定 Studio 门槛；`woven` 与 `painted` 各运行一个冻结材质 spec 及其 Native 对比。消费者按实际 spec 文件校验 `MIXTURE_CONSUMER_ONLY_SPECS`／`MIXTURE_CONSUMER_SKIP_SPECS`，因此新 spec 默认在 `core` 运行，除非有意移出。每个分区上传 `chromium-material-matrix-<partition>`。
+浏览器材质矩阵在同一工作流中以四个并行 `partitions` 任务（`core`、`product`、`woven`、`painted`）运行，推送到 `main` 及手动运行时再加一个 `registry` 任务，最后由 `required` 任务报告名称不变的 `Chromium WebGPU material matrix` 检查：范围任务延后矩阵时成功；全部分区通过且 registry 任务通过（推送与手动运行）或被跳过（PR）时成功；否则失败。`core` 运行除 `woven.spec.mjs`、`painted.spec.mjs` 以外的全部候选 spec，以及其他 Native 对比；`product` 构建同一候选归档但从不运行 SDK 消费者，而是验证质量控制、准备分离的原生输入、证明 plan v3 迁移，并运行固定 Studio 门槛（安装、契约、材质、部署）及 noise-v2 重复验证；`woven` 与 `painted` 各运行一个冻结材质 spec 及其 Native 对比；`registry` 在相同的软件 WebGPU 浏览器中消费准确的已发布版本，不需要任何原生工具链。消费者按实际 spec 文件校验 `MIXTURE_CONSUMER_ONLY_SPECS`／`MIXTURE_CONSUMER_SKIP_SPECS`，因此新 spec 默认在 `core` 运行，除非有意移出。每个分区上传 `chromium-material-matrix-<partition>`，registry 任务上传 `chromium-material-matrix-registry`。
 
 ## CI 触发与保留
 
@@ -47,7 +47,7 @@ GPU 与浏览器材质工作流均先运行 `Qualification scope` 任务（[qual
 
 GPU 任务保留串行测试及固定 SwiftShader 构建缓存。恢复的检出若已处于固定版本且跟踪文件无改动，则直接复用而不再抓取；其他任何状态都重新抓取并检出固定版本。无论哪条路径，脚本都验证源码版本并配置／构建驱动，任务仍执行每项验收。缓存 key 覆盖工具链指纹与固定版本及编译参数的 `setup-swiftshader.sh`，不包含 workflow 文件；同一工具链下的前缀匹配可作为增量构建的起点。缓存状态不是测试通过的证据。
 
-每个工作流在安装仓库工具链后恢复固定版本的 `Swatinem/rust-cache` Cargo 构建缓存。仅 `main` 保存缓存，PR 只恢复。它只加速编译：每一步仍以 `--locked` 构建并执行其检查；缓存的 `~/.cargo/bin` 使准确版本的 `wasm-bindgen-cli` 安装得以复用。
+每个工作流在安装仓库工具链后恢复固定版本的 `Swatinem/rust-cache` Cargo 构建缓存。仅 `main` 保存缓存，PR 只恢复。它只加速编译：每一步仍以 `--locked` 构建并执行其检查；缓存的 `~/.cargo/bin` 使准确版本的 `wasm-bindgen-cli` 安装得以复用。浏览器材质各分区编译的目标集合不同，而同一个 key 只会由最先完成的分区保存，因此每个分区使用自己的缓存 key（`key: <partition>`），代价是每个分区各占一个缓存条目。
 
 新上传的 CPU／GPU／浏览器证据附件请求保留 30 天。接受运行时记录服务实际报告的到期时间；仓库或服务限制可能缩短可用期。此设置不追溯改变已有附件。普通运行输出留在 CI 附件或忽略的本地目录；已接受的视觉内容、关键失败证据和摘要遵循[证据保留规则](./evidence-policy.zh-CN.md)，不得仅靠会到期的附件保存长期验收记录。
 

@@ -13,7 +13,7 @@ Rust 1.98.1, edition 2024, rustfmt, and Clippy are pinned in [rust-toolchain.tom
 
 ## Available commands
 
-The `cargo xtask` alias builds its launcher under `target/xtask-runner`. Nested workspace commands keep their normal target directory, so tests can rebuild the integration-test executable without replacing a running `xtask.exe` on Windows. Use the alias when running repository checks.
+The `cargo xtask` alias builds its launcher optimized (`--release`) under `target/xtask-runner`: the launcher decodes, compares and digests material PNGs itself, and the dev profile makes that several times slower than the renders it checks. Nested workspace commands keep their normal target directory and profile, so tests can rebuild the integration-test executable without replacing a running `xtask.exe` on Windows. Use the alias when running repository checks.
 
 ```bash
 cargo xtask check
@@ -51,7 +51,7 @@ cargo run --locked -p mixture-cli -- render-builtin checker --size 64 --out chec
 cargo xtask gpu-smoke
 ```
 
-The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked`. Build/test/doc commands and producer dependency resolution use `--locked`. The sole package-staging exception is an offline metadata pass to normalize a disposable lock; external versions/sources/checksums are checked against the committed pins before all subsequent `--offline --locked` verification. Committed locks are never rewritten by the checker. Formatting does not resolve dependencies. The first run downloads the locked tooling dependencies; subsequent verification can use the Cargo cache.
+The [Cargo alias](../.cargo/config.toml) launches xtask with `--locked` and `--release`. Build/test/doc commands and producer dependency resolution use `--locked`. The sole package-staging exception is an offline metadata pass to normalize a disposable lock; external versions/sources/checksums are checked against the committed pins before all subsequent `--offline --locked` verification. Committed locks are never rewritten by the checker. Formatting does not resolve dependencies. The first run downloads the locked tooling dependencies; subsequent verification can use the Cargo cache.
 
 `check` runs, in order:
 
@@ -106,6 +106,8 @@ The executable is named `mixture`. Help/version return `0`. `doctor` verifies ac
 `gpu-smoke` has two tiers. The default `standard` tier skips GPU tests whose ignore reason starts with `full-qualification:`; `MIXTURE_GPU_TIER=full` runs every ignored GPU test. Mark slow material-qualification probes with `#[ignore = "full-qualification: …"]` so they run only in the full tier; xtask discovers the marker in source and rejects a name that would also skip another ignored test. `test-node` still runs its named tests explicitly.
 
 GPU smoke runs independent Rust GPU tests with `--test-threads=1`. This keeps node rendering separate from unrelated deliberate device-destruction tests after a concurrent Linux SwiftShader test process terminated with SIGSEGV. Every test still runs, including independent-context checks inside individual tests. This harness policy does not certify arbitrary concurrent device destruction or diagnose the driver's crash cause.
+
+Pixel paths build optimized binaries. `gpu-smoke` runs the ignored `mixture-wgpu`/`mixture-cli` GPU tests with `cargo test --release`; `test-node`, `golden check`, `trace-2k` and the GPU consumer CLI contract render through `cargo run --release -p mixture-cli`; the browser material workflow sets `MIXTURE_NATIVE_PROFILE=release` so that `prepare-materials.mjs` and `verify-plan-v3.mjs` build and resolve `target/release/mixture`. Readback, PNG encoding and pixel comparison are CPU work that the dev profile slows by roughly an order of magnitude on SwiftShader and on measured hardware alike, while both profiles produce identical bytes, and the native-consumer material tests already refuse debug builds. CPU checks (`check`, `test-consumer`, `package-check`) and ordinary workspace tests keep building and testing the crates in the dev profile; only the xtask launcher itself is optimized. A build profile is not qualification evidence: the adapter, revision and pixel comparisons each task records still decide.
 
 The Linux GPU workflow caches the pinned SwiftShader source/build with an exact key covering OS, architecture, compiler/CMake/Ninja/libc versions and the workflow/setup script (which contains the source revision). Cache hits still verify the revision, configure/build and select the explicit ICD; smoke, package, material and 2K checks always execute. Successful driver builds are saved before testing, so a test failure does not force another 16–29 minute driver rebuild. No partial-key cache fallback is used.
 
