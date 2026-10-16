@@ -33,18 +33,22 @@ jobs:
           QUALIFICATION_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: bash .github/scripts/qualification-scope.sh "$GITHUB_EVENT_NAME" >> "$GITHUB_OUTPUT"
   partitions:
-    # Partitions run in parallel; their union is every candidate spec file, and the
-    # `required` job below reports the unchanged required check.
-    # A fixed name: GitHub appends `(core)` etc. after expansion, and a run cancelled
-    # before expansion still shows a readable name.
+    # Partitions run in parallel; their union is every candidate spec file and every
+    # pinned-product gate, and the `required` job below reports the unchanged required
+    # check. A fixed name: GitHub appends `(core)` etc. after expansion, and a run
+    # cancelled before expansion still shows a readable name.
     name: Chromium WebGPU partition
     needs: scope
     strategy:
       fail-fast: false
       matrix:
-        # core skips the two slow frozen material matrices, so new specs land in core;
-        # woven and painted each run only `<partition>.spec.mjs`.
-        partition: [core, woven, painted]
+        # core: the SDK consumer with every candidate spec except the two slow frozen
+        # material matrices, plus the Native comparisons; new specs land in core.
+        # product: the same archive installed in the pinned Studio product, with the
+        # detached native inputs, the plan v3 migration proof and the noise-v2 repeat;
+        # it never runs the SDK consumer.
+        # woven and painted each run only `<partition>.spec.mjs` and its comparison.
+        partition: [core, product, woven, painted]
     # Run unless the scope job succeeded and explicitly deferred the matrix
     # (unlabeled or documentation-only PR); `required` then reports success.
     if: ${{ !cancelled() && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
@@ -102,12 +106,15 @@ jobs:
       - name: Restore Rust build cache
         # Speeds up rebuilds only; later steps still build and verify with --locked.
         # Only main saves, so pull requests cannot replace the shared cache.
+        # The partitions compile different target sets (core: native-consumer debug and
+        # release tests; product: the debug CLI and xtask; woven/painted: one release
+        # test each), and one key is saved by whichever job finishes first, so each
+        # partition keys its own cache instead of sharing one that misses part of every
+        # build. Trade-off: one cache entry per partition instead of one for the job.
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
+          key: ${{ matrix.partition }}
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - name: Verify independent browser quality controls before material execution
-        if: matrix.partition == 'core'
-        run: cargo xtask browser-quality-calibrate tmp/browser-quality-controls
       - name: Install Node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
@@ -126,8 +133,10 @@ jobs:
           fi
           node scripts/browser-runtime/build.mjs
       - name: Qualify the candidate in the independent SDK consumer
+        # product consumes the same archive through the pinned Studio product instead.
+        if: matrix.partition != 'product'
         env:
-          MIXTURE_CONSUMER_ONLY_SPECS: ${{ matrix.partition != 'core' && format('{0}.spec.mjs', matrix.partition) || '' }}
+          MIXTURE_CONSUMER_ONLY_SPECS: ${{ (matrix.partition == 'woven' || matrix.partition == 'painted') && format('{0}.spec.mjs', matrix.partition) || '' }}
           MIXTURE_CONSUMER_SKIP_SPECS: ${{ matrix.partition == 'core' && 'woven.spec.mjs,painted.spec.mjs' || '' }}
         run: node scripts/browser-runtime/consumer.mjs candidate target/browser-runtime tmp/sdk-candidate
       - name: Compare scalar subtraction across native and browser execution
@@ -171,20 +180,19 @@ jobs:
       - name: Compare public weave node modes against Native
         if: matrix.partition == 'core'
         run: node scripts/browser-runtime/check-weave.mjs tmp/sdk-candidate tmp/sdk-weave-comparison
-      - name: Qualify the exact published version separately
-        # Network-dependent registry evidence runs on main and manual runs, not in pull-request gates.
-        if: github.event_name != 'pull_request' && matrix.partition == 'core'
-        run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
+      - name: Verify independent browser quality controls before material execution
+        if: matrix.partition == 'product'
+        run: cargo xtask browser-quality-calibrate tmp/browser-quality-controls
       - name: Prepare detached native material inputs
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native "$(git rev-parse HEAD)"
       - name: Verify exact v2 to v3 material allocation migration without resetting goldens
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: |
           cargo build --release --locked -p mixture-cli
           node scripts/verify-plan-v3.mjs
       - name: Check out pinned independent product
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: OpenMixture/Studio
@@ -192,59 +200,59 @@ jobs:
           path: tmp/browser-product
           persist-credentials: false
       - name: Substitute only the candidate archive and its locked identity
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: >-
           node scripts/browser-runtime/candidate.mjs stage
           target/browser-runtime tmp/browser-product tmp/browser-candidate
           "$(git rev-parse HEAD)" 56c510ab57daa1b68ef660525a648a582730a37e
       - name: Install the exact product and browser
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         working-directory: tmp/browser-product
         run: |
           npm ci
           npx playwright install --with-deps chromium
       - name: Verify installed bytes and public types, then run browser contracts
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: |
           node scripts/browser-runtime/candidate.mjs installed tmp/browser-product tmp/browser-candidate
           cd tmp/browser-product
           npm run check
           env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:browser
       - name: Assert actual candidate identity and reject historical WASM
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         working-directory: tmp/browser-product
         run: >-
           env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES
           node "$GITHUB_WORKSPACE/scripts/browser-runtime/candidate.mjs" probe
           "$GITHUB_WORKSPACE/tmp/browser-product" "$GITHUB_WORKSPACE/tmp/browser-candidate"
       - name: Execute installed runtime against static production assets
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native ../browser-output
       - name: Check frozen browser quality and differences
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: cargo xtask browser-material-check tmp/browser-native tmp/browser-output
       - name: Verify normal production deployment
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:deployment
       - name: Bind all acceptance gates to this candidate
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: >-
           node scripts/browser-runtime/candidate.mjs verify
           tmp/browser-product tmp/browser-candidate tmp/browser-native tmp/browser-output
       - name: Prepare explicit noise-v2 material migration
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: node scripts/browser-runtime/prepare-materials.mjs tmp/browser-native-v2 "$(git rev-parse HEAD)" --noise-v2
       - name: Requalify migrated materials through the same installed public runtime
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         working-directory: tmp/browser-product
         run: env -u VK_ICD_FILENAMES -u VK_DRIVER_FILES npm run test:materials -- ../browser-native-v2 ../browser-output-v2
       - name: Check unchanged quality gates for migrated materials
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: cargo xtask browser-material-check tmp/browser-native-v2 tmp/browser-output-v2
       - name: Bind migrated material acceptance to the exact candidate
-        if: matrix.partition == 'core'
+        if: matrix.partition == 'product'
         run: node scripts/browser-runtime/candidate.mjs verify-noise-v2 tmp/browser-product tmp/browser-candidate tmp/browser-native-v2 tmp/browser-output-v2
       - name: Retain material qualification evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -276,15 +284,48 @@ jobs:
             tmp/sdk-woven-comparison
             tmp/sdk-painted-comparison/
             tmp/painted-metal-stages/
-            tmp/sdk-registry/
           retention-days: 30
           # Each partition produces only its own subset of these paths.
           if-no-files-found: warn
+  registry:
+    # Network-dependent registry evidence runs on main and manual runs, not in
+    # pull-request gates; `required` expects it skipped there and passed elsewhere.
+    # The consumer installs its own Chromium and never builds native code, so this
+    # job needs neither the software adapter nor the Rust toolchain.
+    name: Chromium WebGPU registry consumption
+    needs: scope
+    if: ${{ !cancelled() && github.event_name != 'pull_request' && (needs.scope.result != 'success' || needs.scope.outputs.run != 'false') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      # The published package runs in the same software WebGPU browser as the partitions.
+      MIXTURE_BROWSER_ARGS: '["--use-angle=swiftshader","--use-webgpu-adapter=swiftshader"]'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Install Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.20.0
+      - run: npm install --global npm@11.19.0
+      - name: Qualify the exact published version separately
+        run: node scripts/browser-runtime/consumer.mjs registry - tmp/sdk-registry
+      - name: Retain registry qualification evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: chromium-material-matrix-registry
+          path: tmp/sdk-registry/
+          retention-days: 30
+          if-no-files-found: warn
   required:
     # Required check. Passes when the scope job deferred the matrix (unlabeled or
-    # documentation-only PR) or when every partition passed; fails otherwise.
+    # documentation-only PR), or when every partition passed and the registry job
+    # passed (pushes and manual runs) or was skipped (pull requests); fails otherwise.
     name: Chromium WebGPU material matrix
-    needs: [scope, partitions]
+    needs: [scope, partitions, registry]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -294,10 +335,16 @@ jobs:
           SCOPE_RESULT: ${{ needs.scope.result }}
           SCOPE_RUN: ${{ needs.scope.outputs.run }}
           PARTITIONS: ${{ needs.partitions.result }}
+          REGISTRY: ${{ needs.registry.result }}
         run: |
-          echo "scope=$SCOPE_RESULT run=$SCOPE_RUN partitions=$PARTITIONS"
+          echo "scope=$SCOPE_RESULT run=$SCOPE_RUN partitions=$PARTITIONS registry=$REGISTRY event=$GITHUB_EVENT_NAME"
           if [ "$SCOPE_RESULT" = success ] && [ "$SCOPE_RUN" = false ]; then
             echo "Deferred by the qualification scope; not qualification evidence."
             exit 0
           fi
           test "$PARTITIONS" = success
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+            test "$REGISTRY" = skipped
+          else
+            test "$REGISTRY" = success
+          fi
