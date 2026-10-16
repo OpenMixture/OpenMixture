@@ -60,7 +60,7 @@ cargo run --locked --all-features \
 
 [cli_contract.rs](./tests/cli_contract.rs)是单独的测试可执行程序，启动调用方提供的已构建 `mixture` 二进制。它不导入 Mixture Rust API 或 CLI 私有模块，将自有嵌入[输入](./input.mix)及[缺失 warp 夹具](./tests/inputs/missing-warp.mix)写入新工作目录，再检查 stdout／stderr、退出码、报告字段、覆盖、请求通道、实际 PNG 和部分写入失败。仅开发时使用的 `png` 依赖负责解码完成文件；应用仍无 PNG 编码器或替代像素执行器。新增测试依赖及其锁定闭包与生产方已有版本一致。
 
-通常使用 `cargo xtask test-consumer` 运行 32 次 CPU 调用，使用 `cargo xtask gpu-smoke` 运行 GPU 测试组的 10 次调用。每轮在新的 `cli-<pid>-<time>/` 目录保留原始子进程 stdout／stderr、准确参数／退出码、自有输入／输出文件及 `status.json`。外层消费者状态的 `cliEvidence` 指向当前运行。即使测试命令成功但匹配到零个测试，也不能在缺少完成记录时通过。失败运行保留文件及未完成状态。
+通常使用 `cargo xtask test-consumer` 运行 32 次 CPU 调用，使用 `cargo xtask gpu-smoke` 运行 GPU 测试组的 10 次调用。`test-consumer` 提供 `target/debug` 的 dev 配置 CLI；`gpu-smoke` 提供其其余 GPU 步骤已构建的 `target/release` 优化 CLI。每轮在新的 `cli-<pid>-<time>/` 目录保留原始子进程 stdout／stderr、准确参数／退出码、自有输入／输出文件及 `status.json`。外层消费者状态的 `cliEvidence` 指向当前运行。即使测试命令成功但匹配到零个测试，也不能在缺少完成记录时通过。失败运行保留文件及未完成状态。
 
 从仓库根目录单独运行 CPU 测试时，选择尚不存在的捕获路径：
 

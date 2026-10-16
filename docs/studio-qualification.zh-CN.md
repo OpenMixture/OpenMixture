@@ -23,4 +23,4 @@ npm run test:studio -- /absolute/new-native /absolute/new-player
 cargo xtask studio-material-check /absolute/new-native /absolute/new-player
 ```
 
-准备阶段验证运行时实现身份、唯一用例和保存字节摘要。比较采用失败关闭策略，检查清单与 PNG 来源，比较全通道及单通道 Player 计划，复用现有 Rust 结构、关系和因果检查。原生 golden 保持不变。流程不代表验收结果；需为每个实测环境保留绑定源码的结果。
+准备阶段验证运行时实现身份、唯一用例和保存字节摘要，并记录原生构建配置（`MIXTURE_NATIVE_PROFILE`，与 `prepare-materials.mjs` 一样默认 `debug`，可设为 `release`）。比较采用失败关闭策略，检查清单与 PNG 来源，比较全通道及单通道 Player 计划，复用现有 Rust 结构、关系和因果检查。原生 golden 保持不变。流程不代表验收结果；需为每个实测环境保留绑定源码的结果。

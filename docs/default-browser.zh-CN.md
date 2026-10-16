@@ -48,7 +48,7 @@ node scripts/browser-runtime/default-browser.mjs production /absolute/product /a
 
 启动 Firefox 时传入 `-Family firefox -BrowserPath <firefox.exe>`，只增加新配置目录、回环 BiDi 端口和空白页。验证器将版本、非 headless 状态、配置目录及实际子进程 PID／命令行与启动记录绑定。`run` 支持 Firefox；`production` 的实际下载检查目前仅支持 Chromium，不能据此声称 Firefox Player 下载已验收。
 
-成功获取 GPU 并渲染，但逐像素比较失败，不等于设备不支持 WebGPU。原生参照还依赖构建模式及实际着色器编译器。`prepare-materials.mjs` 默认保留 `debug`；可显式设置 `MIXTURE_NATIVE_PROFILE=release`。Windows DX12 可用 `MIXTURE_DX12_COMPILER_DIRECTORY` 指定包含 `dxcompiler.dll` 的目录，仅前置到原生子进程 PATH。清单记录构建模式、DLL 请求路径／摘要、脚本及可执行文件摘要；另需记录实际加载的模块，不能把 PATH 配置本身当作加载证明。这些是开发验收参照工具设置，浏览器用户无需配置 Rust 或 DXC。
+成功获取 GPU 并渲染，但逐像素比较失败，不等于设备不支持 WebGPU。原生参照还依赖构建模式及实际着色器编译器。`prepare-materials.mjs` 默认保留 `debug`；可显式设置 `MIXTURE_NATIVE_PROFILE=release`（浏览器材质工作流即如此设置）。Windows DX12 可用 `MIXTURE_DX12_COMPILER_DIRECTORY` 指定包含 `dxcompiler.dll` 的目录，仅前置到原生子进程 PATH。清单记录构建模式、DLL 请求路径／摘要、脚本及可执行文件摘要；另需记录实际加载的模块，不能把 PATH 配置本身当作加载证明。这些是开发验收参照工具设置，浏览器用户无需配置 Rust 或 DXC。
 
 ```powershell
 $env:MIXTURE_NATIVE_PROFILE = 'release'

@@ -3,7 +3,7 @@ use crate::{TaskResult, cargo, gpu_smoke};
 use serde_json::{Value, json};
 use std::{
     env, fs,
-    path::Path,
+    path::{Path, PathBuf},
     process::Command,
     time::{SystemTime, UNIX_EPOCH},
 };
@@ -51,6 +51,19 @@ fn binary(root: &Path) -> Command {
     // The application must not depend on running from the producing repository.
     command.current_dir(env::temp_dir());
     command
+}
+
+/// GPU smoke reuses the optimized CLI its other steps build; the CPU
+/// `test-consumer` keeps sharing the ordinary dev build with `check`.
+fn cli_profile(gpu: bool) -> &'static str {
+    if gpu { "release" } else { "debug" }
+}
+
+fn cli_binary(root: &Path, profile: &str) -> PathBuf {
+    root.join(format!(
+        "target/{profile}/mixture{}",
+        env::consts::EXE_SUFFIX
+    ))
 }
 
 pub(super) fn check(root: &Path) -> TaskResult {
@@ -213,10 +226,7 @@ fn latest_contract(
             "--nocapture",
         ])
         .env("MIXTURE_CONSUMER_LATEST_DIR", directory.join(&name))
-        .env(
-            "MIXTURE_CONSUMER_CLI",
-            root.join(format!("target/debug/mixture{}", env::consts::EXE_SUFFIX)),
-        )
+        .env("MIXTURE_CONSUMER_CLI", cli_binary(root, cli_profile(true)))
         .env("MIXTURE_GPU_BACKEND", backend)
         .env("MIXTURE_GPU_SOFTWARE", if software { "1" } else { "0" });
     if let Some(expected) = expected {
@@ -375,14 +385,14 @@ fn cli_contract(
     directory: &Path,
     gpu: Option<(&str, bool, Option<&str>)>,
 ) -> TaskResult<String> {
-    captured(
-        cargo(root)
-            .args(["build", "--locked", "--all-features", "-p", "mixture-cli"])
-            .arg("--target-dir")
-            .arg(root.join("target")),
-        directory,
-        "cli-build",
-    )?;
+    let profile = cli_profile(gpu.is_some());
+    let mut build = cargo(root);
+    build.args(["build", "--locked", "--all-features", "-p", "mixture-cli"]);
+    if profile == "release" {
+        build.arg("--release");
+    }
+    build.arg("--target-dir").arg(root.join("target"));
+    captured(&mut build, directory, "cli-build")?;
     let name = format!(
         "cli-{}-{}",
         std::process::id(),
@@ -404,10 +414,7 @@ fn cli_contract(
             "--exact",
             "--nocapture",
         ])
-        .env(
-            "MIXTURE_CONSUMER_CLI",
-            root.join(format!("target/debug/mixture{}", env::consts::EXE_SUFFIX)),
-        )
+        .env("MIXTURE_CONSUMER_CLI", cli_binary(root, profile))
         .env("MIXTURE_CONSUMER_EVIDENCE_DIR", &evidence);
     if let Some((backend, software, expected)) = gpu {
         command

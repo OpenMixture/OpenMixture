@@ -110,9 +110,11 @@ fn trace(
             let mut args = arguments("inspect", &acceptance.material, &overrides);
             args.push("--plan".to_owned());
             let name = format!("inspect-{}-{}", acceptance.material, case.id);
+            // The same optimized CLI that `command_report` renders with below.
             let command = cargo(root)
                 .args([
                     "run",
+                    "--release",
                     "--locked",
                     "--all-features",
                     "-p",

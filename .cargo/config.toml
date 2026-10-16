@@ -1,2 +1,4 @@
 [alias]
-xtask = "run --locked --package xtask --target-dir target/xtask-runner --"
+# The launcher decodes, compares and digests material PNGs itself; the dev profile
+# makes that several times slower than the renders it checks, so build it optimized.
+xtask = "run --locked --release --package xtask --target-dir target/xtask-runner --"

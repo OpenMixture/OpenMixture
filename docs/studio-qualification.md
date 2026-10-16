@@ -23,4 +23,4 @@ npm run test:studio -- /absolute/new-native /absolute/new-player
 cargo xtask studio-material-check /absolute/new-native /absolute/new-player
 ```
 
-Preparation verifies runtime implementation identity, unique cases and saved-byte digests. Comparison fails closed, checks manifest and PNG provenance, compares all-channel and individual Player plans, and reuses existing Rust structure, relationship and causality checks. Native goldens remain unchanged. A workflow is not an acceptance result; retain source-bound results for each tested environment.
+Preparation verifies runtime implementation identity, unique cases and saved-byte digests, and records the native build profile (`MIXTURE_NATIVE_PROFILE`, `debug` unless set to `release`, as in `prepare-materials.mjs`). Comparison fails closed, checks manifest and PNG provenance, compares all-channel and individual Player plans, and reuses existing Rust structure, relationship and causality checks. Native goldens remain unchanged. A workflow is not an acceptance result; retain source-bound results for each tested environment.
