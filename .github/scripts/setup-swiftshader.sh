@@ -5,14 +5,23 @@ set -euo pipefail
 swiftshader_revision=694585a05946e1ed49b6bd577ca6537cbb57f025
 repository_root=$(git rev-parse --show-toplevel)
 swiftshader_directory="$repository_root/tmp/swiftshader"
-mkdir -p "$swiftshader_directory/source"
-git -C "$swiftshader_directory/source" init
-git -C "$swiftshader_directory/source" fetch --depth 1 \
-  https://swiftshader.googlesource.com/SwiftShader "$swiftshader_revision"
-git -C "$swiftshader_directory/source" checkout --detach FETCH_HEAD
-test "$(git -C "$swiftshader_directory/source" rev-parse HEAD)" = "$swiftshader_revision"
+swiftshader_source="$swiftshader_directory/source"
+mkdir -p "$swiftshader_source"
+# A restored cache may already hold the pinned checkout. Reuse it only when HEAD is exactly
+# the pinned revision and no tracked file differs from it; anything else fetches the pin again.
+if [[ -d "$swiftshader_source/.git" ]] \
+  && [[ "$(git -C "$swiftshader_source" rev-parse --verify HEAD 2>/dev/null || true)" = "$swiftshader_revision" ]] \
+  && git -C "$swiftshader_source" diff --quiet HEAD --; then
+  echo "Reusing cached SwiftShader checkout at $swiftshader_revision; no fetch"
+else
+  git -C "$swiftshader_source" init
+  git -C "$swiftshader_source" fetch --depth 1 \
+    https://swiftshader.googlesource.com/SwiftShader "$swiftshader_revision"
+  git -C "$swiftshader_source" checkout --detach FETCH_HEAD
+fi
+test "$(git -C "$swiftshader_source" rev-parse HEAD)" = "$swiftshader_revision"
 
-cmake -S "$swiftshader_directory/source" -B "$swiftshader_directory/build" -G Ninja \
+cmake -S "$swiftshader_source" -B "$swiftshader_directory/build" -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DSWIFTSHADER_BUILD_TESTS=OFF \
   -DSWIFTSHADER_BUILD_BENCHMARKS=OFF \
